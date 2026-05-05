@@ -5,7 +5,13 @@
     {%- for block in section.blocks -%}
       <div class="pflege-service-bar__item" {{ block.shopify_attributes }}>
         {%- if block.settings.link != blank -%}
-          <a href="{{ block.settings.link }}">
+          <a
+            href="{{ block.settings.link }}"
+            class="pflege-service-bar__link{% if block.settings.link contains 'tel:' %} pflege-service-bar__link--tel{% endif %}"
+            {% if block.settings.link contains 'tel:' %}
+              aria-label="{{ block.settings.text | escape }} — Anrufen"
+            {% endif %}
+          >
             {% render 'pflege-icon', icon: block.settings.icon, width: 18 %}
             <span>{{ block.settings.text | escape }}</span>
           </a>
@@ -55,7 +61,8 @@
         {
           "type": "url",
           "id": "link",
-          "label": "Link optional"
+          "label": "Link optional",
+          "info": "Telefon: z. B. tel:+4983349893330 — dann ist die Zeile antippbar zum Anrufen."
         }
       ]
     }
@@ -89,7 +96,8 @@
           "type": "item",
           "settings": {
             "icon": "headset",
-            "text": "Persönliche Beratung 040 – 123 456 78"
+            "text": "Persönliche Beratung 08334 / 9893330",
+            "link": "tel:+4983349893330"
           }
         }
       ]
