@@ -1,4 +1,4 @@
-/* PflegeShop — Service-Leiste (Höhe: Basis 3rem × 1,1 × 1,05; Text ca. +10 %) */
+/* PflegeShop — Service-Leiste (Logo optional + Hinweise) */
 .pflege-service-bar {
   background: var(--pflege-bg-soft, #eef6ff);
   border-bottom: 1px solid var(--pflege-border, #e5eef8);
@@ -10,16 +10,57 @@
   min-height: calc(3rem * 1.1 * 1.05);
   display: flex;
   align-items: center;
-  justify-content: center;
   flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  justify-content: center;
+}
+
+.pflege-service-bar__brand {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.pflege-service-bar__logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--pflege-navy, #0b2347);
+}
+
+.pflege-service-bar__logo-link:focus-visible {
+  outline: 2px solid var(--pflege-accent, #3f86d9);
+  outline-offset: 2px;
+}
+
+.pflege-service-bar__logo-fallback {
+  font-size: calc(1.2rem * 1.1);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.pflege-service-bar__track {
+  display: flex;
+  flex: 1 1 280px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
   gap: calc(0.75rem * 1.1) calc(1.25rem * 1.1);
+  min-width: 0;
 }
 
 @media screen and (min-width: 990px) {
   .pflege-service-bar__inner {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 1rem 2rem;
+  }
+
+  .pflege-service-bar__track {
+    flex: 1 1 auto;
+    flex-wrap: nowrap;
     justify-content: space-between;
     gap: 1rem 2rem;
-    flex-wrap: nowrap;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
@@ -31,7 +72,7 @@
   flex: 0 0 auto;
 }
 
-/* Zeile: immer Icon + Text/Link — gleiche Typo für alle Blöcke */
+/* Zeile: Icon + Text/Link */
 .pflege-service-bar__body {
   display: inline-flex;
   align-items: center;
@@ -46,7 +87,6 @@
   white-space: nowrap;
 }
 
-/* Nur Textknoten (Span oder Link): gleiche Darstellung */
 .pflege-service-bar__body > .pflege-service-bar__text {
   padding-top: 0.05em;
   margin: 0;
@@ -62,7 +102,6 @@
   cursor: pointer;
 }
 
-/* Globale Link-Styles aus Dawn nicht vergrößern den Tel-Link */
 .pflege-service-bar a.pflege-service-bar__link {
   font-size: inherit !important;
   font-weight: inherit !important;
@@ -88,7 +127,6 @@
   text-decoration-color: currentColor;
 }
 
-/* Icons fest */
 .pflege-service-bar__body .pflege-icon {
   flex-shrink: 0;
   width: 22px;
