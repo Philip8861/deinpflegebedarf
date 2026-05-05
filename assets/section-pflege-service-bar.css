@@ -1,4 +1,4 @@
-/* PflegeShop — Service-Leiste (Baseline wie zuvor, ca. +10 % Höhe & Text/Icons) */
+/* PflegeShop — Service-Leiste (Höhe: Basis 3rem × 1,1 × 1,05; Text ca. +10 %) */
 .pflege-service-bar {
   background: var(--pflege-bg-soft, #eef6ff);
   border-bottom: 1px solid var(--pflege-border, #e5eef8);
@@ -7,7 +7,7 @@
 .pflege-service-bar__inner {
   margin: 0 auto;
   padding: 0 1.5rem;
-  min-height: calc(3rem * 1.1);
+  min-height: calc(3rem * 1.1 * 1.05);
   display: flex;
   align-items: center;
   justify-content: center;
