@@ -1,5 +1,0 @@
-/* PflegeShop — Header-Bereich 25 % breiter als Theme „Seitenbreite“ */
-.pflege-service-bar__inner.page-width,
-.section-header .header.page-width {
-  max-width: calc(var(--page-width) * 1.25);
-}

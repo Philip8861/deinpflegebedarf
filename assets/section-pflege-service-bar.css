@@ -1,13 +1,15 @@
-/* PflegeShop — Service-Leiste */
+/* PflegeShop — Service-Leiste (Inhalte gruppiert, Balken etwas höher) */
 .pflege-service-bar {
   background: var(--pflege-bg-soft, #eef6ff);
   border-bottom: 1px solid var(--pflege-border, #e5eef8);
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
 }
 
 .pflege-service-bar__inner {
   margin: 0 auto;
   padding: 0 1.5rem;
-  min-height: 3rem;
+  min-height: 4rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,8 +19,9 @@
 
 @media screen and (min-width: 990px) {
   .pflege-service-bar__inner {
-    justify-content: space-between;
-    gap: 1rem 2rem;
+    justify-content: center;
+    column-gap: 1.75rem;
+    row-gap: 0.5rem;
     flex-wrap: nowrap;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
