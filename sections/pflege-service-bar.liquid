@@ -12,11 +12,11 @@
               aria-label="{{ block.settings.text | escape }} — Anrufen"
             {% endif %}
           >
-            {% render 'pflege-icon', icon: block.settings.icon, width: 18 %}
+            {% render 'pflege-icon', icon: block.settings.icon, width: 20 %}
             <span>{{ block.settings.text | escape }}</span>
           </a>
         {%- else -%}
-          {% render 'pflege-icon', icon: block.settings.icon, width: 18 %}
+          {% render 'pflege-icon', icon: block.settings.icon, width: 20 %}
           <span>{{ block.settings.text | escape }}</span>
         {%- endif -%}
       </div>
