@@ -1,0 +1,16 @@
+/* PflegeShop — Design-Tokens (Homepage / Pflege-Sections) */
+:root {
+  --pflege-navy: #0b2347;
+  --pflege-accent: #3f86d9;
+  --pflege-bg-soft: #eef6ff;
+  --pflege-bg-softer: #f5faff;
+  --pflege-white: #ffffff;
+  --pflege-border: #e5eef8;
+  --pflege-muted: #6f7f95;
+  --pflege-star: #f5b943;
+  --pflege-radius-lg: 22px;
+  --pflege-radius-card: 14px;
+  --pflege-radius-pill: 999px;
+  --pflege-font-display: Georgia, 'Times New Roman', Times, serif;
+  --pflege-max-copy: 52rem;
+}

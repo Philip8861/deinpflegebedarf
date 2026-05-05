@@ -1,0 +1,161 @@
+{{ 'section-pflege-hero.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign fetch_prio = 'high'
+  assign hero_loading = 'eager'
+  if section.settings.image == blank
+    assign fetch_prio = 'auto'
+  endif
+-%}
+
+<section class="pflege-hero">
+  <div class="pflege-hero__shell">
+    <div class="pflege-hero__panel">
+      <div class="pflege-hero__grid">
+        <div class="pflege-hero__content">
+          {%- if section.settings.badge != blank -%}
+            <p class="pflege-hero__badge">{{ section.settings.badge | escape }}</p>
+          {%- endif -%}
+          <h1 class="pflege-hero__title">
+            {{- section.settings.heading_line1 | escape -}}
+            {%- if section.settings.heading_line2 != blank -%}
+              <br><span>{{ section.settings.heading_line2 | escape }}</span>
+            {%- endif -%}
+          </h1>
+          {%- if section.settings.subheading != blank -%}
+            <p class="pflege-hero__sub">{{ section.settings.subheading | escape }}</p>
+          {%- endif -%}
+          {%- if section.settings.button_label != blank -%}
+            <a class="pflege-hero__cta" href="{{ section.settings.button_link | default: routes.collections_url }}">
+              {{- section.settings.button_label | escape -}}
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          {%- endif -%}
+          {%- if section.blocks.size > 0 -%}
+            <ul class="pflege-hero__usps">
+              {%- for block in section.blocks -%}
+                {%- if block.type == 'usp' -%}
+                  <li class="pflege-hero__usp" {{ block.shopify_attributes }}>
+                    {% render 'pflege-icon', icon: block.settings.icon, width: 18 %}
+                    <span>{{ block.settings.text | escape }}</span>
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </div>
+        <div class="pflege-hero__media">
+          {%- if section.settings.image != blank -%}
+            {%- assign img_alt = section.settings.image.alt | default: section.settings.image_alt | escape -%}
+            {{
+              section.settings.image
+              | image_url: width: 1200
+              | image_tag:
+                widths: '400, 600, 800, 1000, 1200',
+                sizes: '(min-width: 990px) 45vw, 100vw',
+                loading: hero_loading,
+                fetchpriority: fetch_prio,
+                alt: img_alt
+            }}
+          {%- else -%}
+            {{ 'product-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            <span class="pflege-hero__placeholder-note">Platzhalter — Hero-Bild im Theme-Editor wählen</span>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PflegeShop Hero",
+  "tag": "section",
+  "class": "pflege-hero-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge",
+      "default": "VERTRAUEN, QUALITÄT, FÜR MEHR WOHLBEFINDEN."
+    },
+    {
+      "type": "text",
+      "id": "heading_line1",
+      "label": "Überschrift Zeile 1",
+      "default": "Pflegeprodukte"
+    },
+    {
+      "type": "text",
+      "id": "heading_line2",
+      "label": "Überschrift Zeile 2",
+      "default": "für jeden Bedarf"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Unterzeile",
+      "default": "Hochwertige Pflegeprodukte für mehr Lebensqualität – für Sie selbst oder Ihre Liebsten."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button-Text",
+      "default": "Jetzt entdecken"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button-Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero-Bild"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Alt-Text Bild",
+      "default": "Pflegeprodukte Auswahl",
+      "info": "Wird verwendet, wenn das Bild im Medien-Editor keinen Alt-Text hat."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "usp",
+      "name": "Vorteil",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "sparkles", "label": "Qualität" },
+            { "value": "shield", "label": "Schutz" },
+            { "value": "droplet", "label": "Pflege" },
+            { "value": "star", "label": "Stern" }
+          ],
+          "default": "sparkles"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Sanfte Pflege für jeden Tag"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PflegeShop Hero",
+      "blocks": [
+        { "type": "usp", "settings": { "icon": "sparkles", "text": "Sanfte Pflege für jeden Tag" } },
+        { "type": "usp", "settings": { "icon": "shield", "text": "Dermatologisch getestet" } },
+        { "type": "usp", "settings": { "icon": "droplet", "text": "Für empfindliche Haut" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

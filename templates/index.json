@@ -1,210 +1,236 @@
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
+    "pflege_service_bar": {
+      "type": "pflege-service-bar",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "s1": {
+          "type": "item",
           "settings": {
-            "heading": "Image banner",
-            "heading_size": "h0"
+            "icon": "truck",
+            "text": "Kostenloser Versand ab 49 €"
           }
         },
-        "text": {
-          "type": "text",
+        "s2": {
+          "type": "item",
           "settings": {
-            "text": "Give customers details about the banner image(s) or content on the template.",
-            "text_style": "body"
+            "icon": "document",
+            "text": "Kauf auf Rechnung"
           }
         },
-        "button": {
-          "type": "buttons",
+        "s3": {
+          "type": "item",
           "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "icon": "star",
+            "text": "Über 10.000 zufriedene Kunden"
+          }
+        },
+        "s4": {
+          "type": "item",
+          "settings": {
+            "icon": "headset",
+            "text": "Persönliche Beratung 040 – 123 456 78"
           }
         }
       },
-      "block_order": [
-        "heading",
-        "text",
-        "button"
-      ],
-      "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "desktop_content_alignment": "center",
-        "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
-      }
+      "block_order": ["s1", "s2", "s3", "s4"]
     },
-    "rich_text": {
-      "type": "rich-text",
+    "pflege_hero": {
+      "type": "pflege-hero",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "u1": {
+          "type": "usp",
           "settings": {
-            "heading": "Talk about your brand",
-            "heading_size": "h1"
+            "icon": "sparkles",
+            "text": "Sanfte Pflege für jeden Tag"
           }
         },
-        "text": {
-          "type": "text",
+        "u2": {
+          "type": "usp",
           "settings": {
-            "text": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.<\/p>"
+            "icon": "shield",
+            "text": "Dermatologisch getestet"
+          }
+        },
+        "u3": {
+          "type": "usp",
+          "settings": {
+            "icon": "droplet",
+            "text": "Für empfindliche Haut"
           }
         }
       },
-      "block_order": [
-        "heading",
-        "text"
-      ],
+      "block_order": ["u1", "u2", "u3"],
       "settings": {
-        "color_scheme": "scheme-1",
-        "full_width": true,
-        "padding_top": 40,
-        "padding_bottom": 0
+        "badge": "VERTRAUEN, QUALITÄT, FÜR MEHR WOHLBEFINDEN.",
+        "heading_line1": "Pflegeprodukte",
+        "heading_line2": "für jeden Bedarf",
+        "subheading": "Hochwertige Pflegeprodukte für mehr Lebensqualität – für Sie selbst oder Ihre Liebsten.",
+        "button_label": "Jetzt entdecken",
+        "button_link": "shopify://collections/all",
+        "image_alt": "Pflegeprodukte Auswahl"
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
-      "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
-        "collection": "all",
-        "products_to_show": 8,
-        "columns_desktop": 4,
-        "color_scheme": "scheme-1",
-        "show_view_all": false,
-        "swipe_on_mobile": false,
-        "image_ratio": "adapt",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "columns_mobile": "2",
-        "padding_top": 28,
-        "padding_bottom": 36
-      }
-    },
-    "collage": {
-      "type": "collage",
+    "pflege_categories": {
+      "type": "pflege-category-cards",
       "blocks": {
-        "collection-0": {
-          "type": "collection",
+        "c1": {
+          "type": "category",
           "settings": {
-            "collection": ""
+            "title": "Inkontinenz",
+            "description": "Diskreter Schutz und Pflege für den Alltag.",
+            "icon": "shield",
+            "link_label": "Jetzt entdecken",
+            "link": "shopify://collections/all"
           }
         },
-        "product": {
+        "c2": {
+          "type": "category",
+          "settings": {
+            "title": "Hautpflege",
+            "description": "Schonende Reinigung und sensible Pflege.",
+            "icon": "droplet",
+            "link_label": "Jetzt entdecken",
+            "link": "shopify://collections/all"
+          }
+        },
+        "c3": {
+          "type": "category",
+          "settings": {
+            "title": "Hygiene",
+            "description": "Frisch und hygienisch – auch unterwegs.",
+            "icon": "sparkles",
+            "link_label": "Jetzt entdecken",
+            "link": "shopify://collections/all"
+          }
+        },
+        "c4": {
+          "type": "category",
+          "settings": {
+            "title": "Hilfsmittel",
+            "description": "Mehr Sicherheit und Komfort im Alltag.",
+            "icon": "package",
+            "link_label": "Jetzt entdecken",
+            "link": "shopify://collections/all"
+          }
+        }
+      },
+      "block_order": ["c1", "c2", "c3", "c4"]
+    },
+    "pflege_bestseller": {
+      "type": "pflege-bestseller-row",
+      "blocks": {
+        "b1": {
           "type": "product",
           "settings": {
-            "product": "",
-            "second_image": false
+            "manual_title": "Seni Care Feuchttücher Aqua",
+            "manual_subtitle": "48 Stk. | Packung",
+            "manual_price_display": "4,49 €",
+            "manual_review_count": "128",
+            "show_rating": true
           }
         },
-        "collection-1": {
-          "type": "collection",
+        "b2": {
+          "type": "product",
           "settings": {
-            "collection": ""
+            "manual_title": "Seni Care Waschschaum ohne Wasser",
+            "manual_subtitle": "500 ml | Flasche",
+            "manual_price_display": "7,99 €",
+            "manual_review_count": "94",
+            "show_rating": true
+          }
+        },
+        "b3": {
+          "type": "product",
+          "settings": {
+            "manual_title": "Seni San Premium Plus Größe M",
+            "manual_subtitle": "30 Stk. | Packung",
+            "manual_price_display": "16,99 €",
+            "manual_review_count": "210",
+            "show_rating": true
+          }
+        },
+        "b4": {
+          "type": "product",
+          "settings": {
+            "manual_title": "Seni Care Schutzcreme mit Arginin",
+            "manual_subtitle": "100 ml | Tube",
+            "manual_price_display": "6,49 €",
+            "manual_review_count": "76",
+            "show_rating": true
+          }
+        },
+        "b5": {
+          "type": "product",
+          "settings": {
+            "manual_title": "Seni Care Händedesinfektion Gel",
+            "manual_subtitle": "500 ml | Flasche",
+            "manual_price_display": "6,39 €",
+            "manual_review_count": "54",
+            "show_rating": true
+          }
+        },
+        "b6": {
+          "type": "product",
+          "settings": {
+            "manual_title": "Seni Care Einmalwaschlappen Soft Care",
+            "manual_subtitle": "50 Stk. | Packung",
+            "manual_price_display": "3,99 €",
+            "manual_review_count": "61",
+            "show_rating": true
           }
         }
       },
-      "block_order": [
-        "collection-0",
-        "product",
-        "collection-1"
-      ],
+      "block_order": ["b1", "b2", "b3", "b4", "b5", "b6"],
       "settings": {
-        "heading": "Multimedia collage",
-        "heading_size": "h2",
-        "desktop_layout": "left",
-        "mobile_layout": "collage",
-        "color_scheme": "scheme-1",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "title": "Bestseller",
+        "view_all_label": "Alle ansehen →",
+        "view_all_link": "shopify://collections/all"
       }
     },
-    "video": {
-      "type": "video",
-      "settings": {
-        "heading": "",
-        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-        "heading_size": "h1",
-        "description": "",
-        "full_width": false,
-        "color_scheme": "scheme-1",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "multicolumn": {
-      "type": "multicolumn",
+    "pflege_trust": {
+      "type": "pflege-trust-bar",
       "blocks": {
-        "column1": {
-          "type": "column",
+        "t1": {
+          "type": "item",
           "settings": {
-            "title": "Column",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>",
-            "link_label": "",
-            "link": ""
+            "icon": "package",
+            "title": "Schneller Versand",
+            "text": "In 1–2 Werktagen bei Ihnen"
           }
         },
-        "column2": {
-          "type": "column",
+        "t2": {
+          "type": "item",
           "settings": {
-            "title": "Column",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>",
-            "link_label": "",
-            "link": ""
+            "icon": "shield",
+            "title": "Sicher einkaufen",
+            "text": "SSL-verschlüsselt & sicher bezahlen"
           }
         },
-        "column3": {
-          "type": "column",
+        "t3": {
+          "type": "item",
           "settings": {
-            "title": "Column",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>",
-            "link_label": "",
-            "link": ""
+            "icon": "sparkles",
+            "title": "Pflegeleicht bestellen",
+            "text": "Einfach, schnell & bequem"
+          }
+        },
+        "t4": {
+          "type": "item",
+          "settings": {
+            "icon": "headset",
+            "title": "Kompetenter Service",
+            "text": "Wir sind für Sie da"
           }
         }
       },
-      "block_order": [
-        "column1",
-        "column2",
-        "column3"
-      ],
-      "settings": {
-        "title": "",
-        "heading_size": "h1",
-        "image_width": "third",
-        "image_ratio": "adapt",
-        "columns_desktop": 3,
-        "column_alignment": "center",
-        "background_style": "none",
-        "button_label": "",
-        "button_link": "",
-        "swipe_on_mobile": false,
-        "color_scheme": "scheme-1",
-        "columns_mobile": "1",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
+      "block_order": ["t1", "t2", "t3", "t4"]
     }
   },
   "order": [
-    "image_banner",
-    "rich_text",
-    "featured_collection",
-    "collage",
-    "video",
-    "multicolumn"
+    "pflege_service_bar",
+    "pflege_hero",
+    "pflege_categories",
+    "pflege_bestseller",
+    "pflege_trust"
   ]
 }

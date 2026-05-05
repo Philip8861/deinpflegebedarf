@@ -1,0 +1,163 @@
+/* PflegeShop — Bestseller */
+.pflege-bestseller {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.pflege-bestseller__shell {
+  max-width: var(--page-width, 120rem);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.pflege-bestseller__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.pflege-bestseller__title {
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: var(--pflege-navy, #0b2347);
+  margin: 0;
+}
+
+.pflege-bestseller__view-all {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--pflege-accent, #3f86d9);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.pflege-bestseller__view-all:hover {
+  text-decoration: underline;
+}
+
+.pflege-bestseller__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+  gap: 1rem;
+}
+
+@media screen and (min-width: 1200px) {
+  .pflege-bestseller__grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+.pflege-bestseller-card {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: 0.65rem;
+  align-items: stretch;
+  padding: 0.85rem;
+  background: var(--pflege-white, #fff);
+  border: 1px solid var(--pflege-border, #e5eef8);
+  border-radius: 12px;
+  position: relative;
+  min-height: 9rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pflege-bestseller-card:hover {
+  border-color: rgba(63, 134, 217, 0.35);
+  box-shadow: 0 4px 16px rgba(11, 35, 71, 0.05);
+}
+
+.pflege-bestseller-card__media {
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--pflege-bg-softer, #f5faff);
+  align-self: stretch;
+}
+
+.pflege-bestseller-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.pflege-bestseller-card__media .placeholder-svg {
+  width: 100%;
+  height: 100%;
+  padding: 0.5rem;
+}
+
+.pflege-bestseller-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+  padding-right: 2.25rem;
+}
+
+.pflege-bestseller-card__name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--pflege-navy, #0b2347);
+  line-height: 1.25;
+  margin: 0;
+}
+
+.pflege-bestseller-card__name a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.pflege-bestseller-card__name a:hover {
+  color: var(--pflege-accent, #3f86d9);
+}
+
+.pflege-bestseller-card__meta {
+  font-size: 1.05rem;
+  color: var(--pflege-muted, #6f7f95);
+  margin: 0;
+}
+
+.pflege-bestseller-card__rating {
+  font-size: 1.05rem;
+  color: var(--pflege-muted, #6f7f95);
+  margin: 0.15rem 0 0;
+}
+
+.pflege-bestseller-card__stars {
+  color: var(--pflege-star, #f5b943);
+  letter-spacing: 0.05em;
+}
+
+.pflege-bestseller-card__price {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--pflege-navy, #0b2347);
+  margin-top: auto;
+}
+
+.pflege-bestseller-card__cart {
+  position: absolute;
+  right: 0.65rem;
+  bottom: 0.65rem;
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 8px;
+  background: var(--pflege-accent, #3f86d9);
+  color: #fff !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.pflege-bestseller-card__cart:hover {
+  opacity: 0.9;
+}
+
+.pflege-bestseller-card__cart .pflege-icon {
+  color: #fff;
+}

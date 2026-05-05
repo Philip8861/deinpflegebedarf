@@ -1,0 +1,96 @@
+{{ 'section-pflege-service-bar.css' | asset_url | stylesheet_tag }}
+
+<section class="pflege-service-bar" aria-label="Service-Hinweise">
+  <div class="pflege-service-bar__inner page-width">
+    {%- for block in section.blocks -%}
+      <div class="pflege-service-bar__item" {{ block.shopify_attributes }}>
+        {%- if block.settings.link != blank -%}
+          <a href="{{ block.settings.link }}">
+            {% render 'pflege-icon', icon: block.settings.icon, width: 18 %}
+            <span>{{ block.settings.text | escape }}</span>
+          </a>
+        {%- else -%}
+          {% render 'pflege-icon', icon: block.settings.icon, width: 18 %}
+          <span>{{ block.settings.text | escape }}</span>
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PflegeShop Service-Leiste",
+  "tag": "section",
+  "class": "pflege-service-bar-section",
+  "max_blocks": 6,
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Hinweis",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "truck", "label": "Versand" },
+            { "value": "document", "label": "Dokument" },
+            { "value": "star", "label": "Stern" },
+            { "value": "headset", "label": "Support" },
+            { "value": "shield", "label": "Schutz" },
+            { "value": "package", "label": "Paket" }
+          ],
+          "default": "package"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Kostenloser Versand ab 49 €"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link optional"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PflegeShop Service-Leiste",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "icon": "truck",
+            "text": "Kostenloser Versand ab 49 €"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "document",
+            "text": "Kauf auf Rechnung"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "star",
+            "text": "Über 10.000 zufriedene Kunden"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "headset",
+            "text": "Persönliche Beratung 040 – 123 456 78"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

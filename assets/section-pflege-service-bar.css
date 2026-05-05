@@ -1,0 +1,52 @@
+/* PflegeShop — Service-Leiste */
+.pflege-service-bar {
+  background: var(--pflege-bg-soft, #eef6ff);
+  border-bottom: 1px solid var(--pflege-border, #e5eef8);
+}
+
+.pflege-service-bar__inner {
+  max-width: var(--page-width, 120rem);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  min-height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+}
+
+@media screen and (min-width: 990px) {
+  .pflege-service-bar__inner {
+    justify-content: space-between;
+    gap: 1rem 2rem;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+.pflege-service-bar__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 1.2rem;
+  line-height: 1.3;
+  color: var(--pflege-navy, #0b2347);
+  white-space: nowrap;
+}
+
+.pflege-service-bar__item a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.pflege-service-bar__item a:hover {
+  text-decoration: underline;
+  color: var(--pflege-accent, #3f86d9);
+}
+
+.pflege-service-bar__item .pflege-icon {
+  flex-shrink: 0;
+  color: var(--pflege-accent, #3f86d9);
+}

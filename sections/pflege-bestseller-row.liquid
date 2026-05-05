@@ -1,0 +1,262 @@
+{{ 'section-pflege-bestseller-row.css' | asset_url | stylesheet_tag }}
+
+<section class="pflege-bestseller">
+  <div class="pflege-bestseller__shell">
+    <div class="pflege-bestseller__head">
+      <h2 class="pflege-bestseller__title">{{ section.settings.title | escape }}</h2>
+      {%- if section.settings.view_all_label != blank -%}
+        <a class="pflege-bestseller__view-all" href="{{ section.settings.view_all_link | default: routes.all_products_collection_url }}">
+          {{- section.settings.view_all_label | escape -}}
+        </a>
+      {%- endif -%}
+    </div>
+    <div class="pflege-bestseller__grid">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign p = block.settings.product
+          assign show_placeholder = true
+          if p != blank
+            assign show_placeholder = false
+          endif
+        -%}
+        <article class="pflege-bestseller-card" {{ block.shopify_attributes }}>
+          <div class="pflege-bestseller-card__media">
+            {%- unless show_placeholder -%}
+              {%- if p.featured_media -%}
+                {{
+                  p.featured_media
+                  | image_url: width: 280
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '140, 280',
+                    sizes: '96px',
+                    alt: p.featured_media.alt | default: p.title | escape
+                }}
+              {%- else -%}
+                {{ 'product-apparel-2' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+            {%- else -%}
+              {%- if block.settings.placeholder_image != blank -%}
+                {{
+                  block.settings.placeholder_image
+                  | image_url: width: 280
+                  | image_tag: loading: 'lazy', widths: '140, 280', sizes: '96px', alt: ''
+                }}
+              {%- else -%}
+                {{ 'product-apparel-2' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+            {%- endunless -%}
+          </div>
+          <div class="pflege-bestseller-card__body">
+            {%- liquid
+              assign card_title = block.settings.manual_title
+              assign card_sub = block.settings.manual_subtitle
+              assign card_url = block.settings.manual_link | default: routes.all_products_collection_url
+              assign card_reviews = block.settings.manual_review_count
+              unless show_placeholder
+                assign card_title = p.title
+                assign card_url = p.url
+                assign card_price_cents = p.price_min
+                if p.metafields.descriptors.subtitle.value != blank
+                  assign card_sub = p.metafields.descriptors.subtitle.value
+                endif
+              endunless
+            -%}
+            <h3 class="pflege-bestseller-card__name">
+              <a href="{{ card_url }}">{{ card_title | escape }}</a>
+            </h3>
+            {%- if card_sub != blank -%}
+              <p class="pflege-bestseller-card__meta">{{ card_sub | escape }}</p>
+            {%- endif -%}
+            {%- if block.settings.show_rating -%}
+              <p class="pflege-bestseller-card__rating">
+                <span class="pflege-bestseller-card__stars" aria-hidden="true">★★★★★</span>
+                {%- if card_reviews != blank -%}
+                  <span> ({{ card_reviews | escape }})</span>
+                {%- endif -%}
+              </p>
+            {%- endif -%}
+            <div class="pflege-bestseller-card__price">
+              {%- unless show_placeholder -%}
+                {% if settings.currency_code_enabled %}
+                  {{ card_price_cents | money_with_currency }}
+                {% else %}
+                  {{ card_price_cents | money }}
+                {% endif %}
+              {%- else -%}
+                {%- if block.settings.manual_price_display != blank -%}
+                  {{ block.settings.manual_price_display | escape }}
+                {%- elsif block.settings.manual_price_cents != blank -%}
+                  {% assign mc = block.settings.manual_price_cents | times: 1 %}
+                  {% if settings.currency_code_enabled %}
+                    {{ mc | money_with_currency }}
+                  {% else %}
+                    {{ mc | money }}
+                  {% endif %}
+                {%- else -%}
+                  —
+                {%- endif -%}
+              {%- endunless -%}
+            </div>
+          </div>
+          <a
+            href="{{ card_url }}"
+            class="pflege-bestseller-card__cart"
+            aria-label="{{ 'products.product.add_to_cart' | t | escape }} — {{ card_title | escape }}"
+          >
+            {% render 'pflege-icon', icon: 'cart', width: 20 %}
+          </a>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PflegeShop Bestseller",
+  "tag": "section",
+  "class": "pflege-bestseller-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Überschrift",
+      "default": "Bestseller"
+    },
+    {
+      "type": "text",
+      "id": "view_all_label",
+      "label": "Link rechts",
+      "default": "Alle ansehen →"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "Link-Ziel „Alle ansehen“"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Produkt",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Produkt"
+        },
+        {
+          "type": "text",
+          "id": "manual_title",
+          "label": "Demo-Titel (ohne Produkt)",
+          "default": "Seni Care Feuchttücher Aqua"
+        },
+        {
+          "type": "text",
+          "id": "manual_subtitle",
+          "label": "Demo-Unterzeile",
+          "default": "48 Stk. | Packung"
+        },
+        {
+          "type": "text",
+          "id": "manual_price_display",
+          "label": "Demo-Preis als Text",
+          "default": "4,49 €",
+          "info": "Nur wenn kein Produkt gewählt. Sonst Shopify-Preis."
+        },
+        {
+          "type": "number",
+          "id": "manual_price_cents",
+          "label": "Demo-Preis (Cent)",
+          "info": "Optional; sonst Textfeld „Demo-Preis“ nutzen."
+        },
+        {
+          "type": "text",
+          "id": "manual_review_count",
+          "label": "Bewertungsanzahl Text",
+          "default": "128"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_rating",
+          "label": "Sterne anzeigen",
+          "default": true
+        },
+        {
+          "type": "url",
+          "id": "manual_link",
+          "label": "Demo-Link",
+          "info": "Ohne Produkt: wohin soll die Karte führen?"
+        },
+        {
+          "type": "image_picker",
+          "id": "placeholder_image",
+          "label": "Demo-Bild"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PflegeShop Bestseller",
+      "blocks": [
+        {
+          "type": "product",
+          "settings": {
+            "manual_title": "Seni Care Feuchttücher Aqua",
+            "manual_subtitle": "48 Stk. | Packung",
+            "manual_price_display": "4,49 €",
+            "manual_review_count": "128"
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "manual_title": "Seni Care Waschschaum ohne Wasser",
+            "manual_subtitle": "500 ml | Flasche",
+            "manual_price_display": "7,99 €",
+            "manual_review_count": "94"
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "manual_title": "Seni San Premium Plus Größe M",
+            "manual_subtitle": "30 Stk. | Packung",
+            "manual_price_display": "16,99 €",
+            "manual_review_count": "210"
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "manual_title": "Seni Care Schutzcreme mit Arginin",
+            "manual_subtitle": "100 ml | Tube",
+            "manual_price_display": "6,49 €",
+            "manual_review_count": "76"
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "manual_title": "Seni Care Händedesinfektion Gel",
+            "manual_subtitle": "500 ml | Flasche",
+            "manual_price_display": "6,39 €",
+            "manual_review_count": "54"
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "manual_title": "Seni Care Einmalwaschlappen Soft Care",
+            "manual_subtitle": "50 Stk. | Packung",
+            "manual_price_display": "3,99 €",
+            "manual_review_count": "61"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,45 @@
+/* Nur Startseite (via layout/theme.liquid): Header an PflegeShop-Farbwelt anbinden */
+.template-index .header-wrapper {
+  border-bottom: 1px solid var(--pflege-border, #e5eef8);
+}
+
+.template-index .header {
+  padding-top: 1.2rem !important;
+  padding-bottom: 1.2rem !important;
+}
+
+@media screen and (min-width: 990px) {
+  .template-index .header {
+    padding-top: 1.4rem !important;
+    padding-bottom: 1.4rem !important;
+  }
+}
+
+.template-index .header__heading .h2,
+.template-index .header__heading-link {
+  color: var(--pflege-navy, #0b2347);
+}
+
+.template-index .list-menu__item--link {
+  color: var(--pflege-navy, #0b2347);
+  font-size: 1.35rem;
+  letter-spacing: 0.02em;
+}
+
+.template-index .header__icon,
+.template-index .header__icon .svg-wrapper {
+  color: var(--pflege-navy, #0b2347);
+}
+
+.template-index .header__icon--cart .svg-wrapper {
+  color: var(--pflege-accent, #3f86d9);
+}
+
+.template-index .search__input {
+  border-radius: var(--pflege-radius-pill, 999px);
+  border-color: var(--pflege-border, #e5eef8);
+}
+
+.template-index .header-wrapper.gradient {
+  background: var(--pflege-white, #fff);
+}
