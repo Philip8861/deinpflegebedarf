@@ -2,6 +2,40 @@
   "name": "t:sections.header.name",
   "type": "header",
   "sections": {
+    "pflege_service_bar": {
+      "type": "pflege-service-bar",
+      "blocks": {
+        "s1": {
+          "type": "item",
+          "settings": {
+            "icon": "truck",
+            "text": "Kostenloser Versand ab 49 €"
+          }
+        },
+        "s2": {
+          "type": "item",
+          "settings": {
+            "icon": "document",
+            "text": "Kauf auf Rechnung"
+          }
+        },
+        "s3": {
+          "type": "item",
+          "settings": {
+            "icon": "star",
+            "text": "Über 10.000 zufriedene Kunden"
+          }
+        },
+        "s4": {
+          "type": "item",
+          "settings": {
+            "icon": "headset",
+            "text": "Persönliche Beratung 040 – 123 456 78"
+          }
+        }
+      },
+      "block_order": ["s1", "s2", "s3", "s4"]
+    },
     "header": {
       "type": "header",
       "settings": {
@@ -20,5 +54,5 @@
       }
     }
   },
-  "order": ["header"]
+  "order": ["pflege_service_bar", "header"]
 }
