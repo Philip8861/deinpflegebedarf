@@ -31,11 +31,13 @@
   flex: 0 0 auto;
 }
 
-/* Gleiche Schriftgröße und -stärke für alle Einträge */
+/* Zeile: immer Icon + Text/Link — gleiche Typo für alle Blöcke */
 .pflege-service-bar__body {
   display: inline-flex;
   align-items: center;
   gap: calc(0.55rem * 1.1);
+  margin: 0;
+  padding: 0;
   font-size: calc(1.2rem * 1.1);
   font-weight: 500;
   font-synthesis: none;
@@ -44,17 +46,31 @@
   white-space: nowrap;
 }
 
-.pflege-service-bar__text {
+/* Nur Textknoten (Span oder Link): gleiche Darstellung */
+.pflege-service-bar__body > .pflege-service-bar__text {
   padding-top: 0.05em;
+  margin: 0;
   font-size: inherit;
   font-weight: inherit;
+  font-family: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  color: inherit;
 }
 
-.pflege-service-bar__link {
-  color: inherit;
+.pflege-service-bar__body a.pflege-service-bar__text {
+  cursor: pointer;
+}
+
+/* Globale Link-Styles aus Dawn nicht vergrößern den Tel-Link */
+.pflege-service-bar a.pflege-service-bar__link {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  font-family: inherit !important;
+  color: inherit !important;
   text-decoration: none;
-  font-size: inherit;
-  font-weight: inherit;
 }
 
 .pflege-service-bar__link:hover {
@@ -72,7 +88,7 @@
   text-decoration-color: currentColor;
 }
 
-/* SVG optisch mittig zur Schrift */
+/* Icons fest */
 .pflege-service-bar__body .pflege-icon {
   flex-shrink: 0;
   width: 22px;

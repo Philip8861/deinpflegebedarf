@@ -4,23 +4,22 @@
   <div class="pflege-service-bar__inner page-width">
     {%- for block in section.blocks -%}
       <div class="pflege-service-bar__item" {{ block.shopify_attributes }}>
-        {%- if block.settings.link != blank -%}
-          <a
-            href="{{ block.settings.link }}"
-            class="pflege-service-bar__body pflege-service-bar__link{% if block.settings.link contains 'tel:' %} pflege-service-bar__link--tel{% endif %}"
-            {% if block.settings.link contains 'tel:' %}
-              aria-label="{{ block.settings.text | escape }} — Anrufen"
-            {% endif %}
-          >
-            {% render 'pflege-icon', icon: block.settings.icon, width: 20 %}
+        <span class="pflege-service-bar__body">
+          {% render 'pflege-icon', icon: block.settings.icon, width: 20 %}
+          {%- if block.settings.link != blank -%}
+            <a
+              href="{{ block.settings.link }}"
+              class="pflege-service-bar__text pflege-service-bar__link{% if block.settings.link contains 'tel:' %} pflege-service-bar__link--tel{% endif %}"
+              {% if block.settings.link contains 'tel:' %}
+                aria-label="{{ block.settings.text | escape }} — Anrufen"
+              {% endif %}
+            >
+              {{- block.settings.text | escape -}}
+            </a>
+          {%- else -%}
             <span class="pflege-service-bar__text">{{ block.settings.text | escape }}</span>
-          </a>
-        {%- else -%}
-          <span class="pflege-service-bar__body">
-            {% render 'pflege-icon', icon: block.settings.icon, width: 20 %}
-            <span class="pflege-service-bar__text">{{ block.settings.text | escape }}</span>
-          </span>
-        {%- endif -%}
+          {%- endif -%}
+        </span>
       </div>
     {%- endfor -%}
   </div>
