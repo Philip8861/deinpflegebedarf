@@ -5,7 +5,6 @@
 }
 
 .pflege-service-bar__inner {
-  max-width: var(--page-width, 120rem);
   margin: 0 auto;
   padding: 0 1.5rem;
   min-height: 3rem;

@@ -256,6 +256,7 @@
     {% endstyle %}
 
     {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'pflegeshop-header-width.css' | asset_url | stylesheet_tag }}
     {%- if template.name == 'index' -%}
       {{ 'pflegeshop-tokens.css' | asset_url | stylesheet_tag }}
       {{ 'pflegeshop-header-home.css' | asset_url | stylesheet_tag }}
