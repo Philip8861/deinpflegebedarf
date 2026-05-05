@@ -35,11 +35,7 @@
           }
         }
       },
-      "block_order": ["s1", "s2", "s3", "s4"],
-      "settings": {
-        "show_logo": true,
-        "logo_max_height": 34
-      }
+      "block_order": ["s1", "s2", "s3", "s4"]
     },
     "header": {
       "type": "header",

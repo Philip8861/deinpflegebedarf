@@ -1,42 +1,7 @@
 {{ 'section-pflege-service-bar.css' | asset_url | stylesheet_tag }}
 
-{%- style -%}
-  #shopify-section-{{ section.id }} .pflege-service-bar__logo-img {
-    max-height: {{ section.settings.logo_max_height }}px;
-    width: auto;
-    height: auto;
-  }
-{%- endstyle -%}
-
 <section class="pflege-service-bar" aria-label="Service-Hinweise">
   <div class="pflege-service-bar__inner page-width">
-    {%- if section.settings.show_logo -%}
-      <div class="pflege-service-bar__brand">
-        <a href="{{ routes.root_url }}" class="pflege-service-bar__logo-link focus-inset">
-          {%- if settings.logo != blank -%}
-            {%- liquid
-              assign logo_alt = settings.logo.alt | default: shop.name | escape
-              assign logo_h = section.settings.logo_max_height
-              assign logo_w = logo_h | times: settings.logo.aspect_ratio | round
-            -%}
-            {{
-              settings.logo
-              | image_url: width: 600
-              | image_tag:
-                class: 'pflege-service-bar__logo-img',
-                widths: '120, 180, 240, 360, 480, 600',
-                height: logo_h,
-                width: logo_w,
-                alt: logo_alt,
-                loading: 'lazy'
-            }}
-          {%- else -%}
-            <span class="pflege-service-bar__logo-fallback">{{ shop.name }}</span>
-          {%- endif -%}
-        </a>
-      </div>
-    {%- endif -%}
-    <div class="pflege-service-bar__track">
     {%- for block in section.blocks -%}
       <div class="pflege-service-bar__item" {{ block.shopify_attributes }}>
         <span class="pflege-service-bar__body">
@@ -57,7 +22,6 @@
         </span>
       </div>
     {%- endfor -%}
-    </div>
   </div>
 </section>
 
@@ -69,25 +33,6 @@
   "enabled_on": {
     "groups": ["header"]
   },
-  "settings": [
-    {
-      "type": "checkbox",
-      "id": "show_logo",
-      "label": "Logo in dieser Leiste",
-      "default": true,
-      "info": "Nutzt das Bild unter Theme-Einstellungen → Logo (gleiche Datei wie im Hauptheader). Dort oder über „Theme anpassen“ hochladen — nicht zwingend als Datei im Theme-Ordner."
-    },
-    {
-      "type": "range",
-      "id": "logo_max_height",
-      "min": 22,
-      "max": 52,
-      "step": 2,
-      "unit": "px",
-      "label": "Maximale Logo-Höhe",
-      "default": 34
-    }
-  ],
   "max_blocks": 6,
   "blocks": [
     {
@@ -126,10 +71,6 @@
   "presets": [
     {
       "name": "PflegeShop Service-Leiste",
-      "settings": {
-        "show_logo": true,
-        "logo_max_height": 34
-      },
       "blocks": [
         {
           "type": "item",
