@@ -26,26 +26,57 @@
 }
 
 .pflege-service-bar__item {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+/* Gleiche Zeile für Link und Nicht-Link */
+.pflege-service-bar__body {
   display: inline-flex;
   align-items: center;
   gap: calc(0.55rem * 1.1);
   font-size: calc(1.2rem * 1.1);
-  line-height: 1.35;
+  line-height: 1.25;
   color: var(--pflege-navy, #0b2347);
   white-space: nowrap;
 }
 
-.pflege-service-bar__item a {
+.pflege-service-bar__text {
+  padding-top: 0.05em;
+}
+
+.pflege-service-bar__link {
   color: inherit;
   text-decoration: none;
 }
 
-.pflege-service-bar__item a:hover {
+.pflege-service-bar__link:hover {
   text-decoration: underline;
   color: var(--pflege-accent, #3f86d9);
 }
 
-.pflege-service-bar__item .pflege-icon {
+.pflege-service-bar__link--tel {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.15em;
+}
+
+.pflege-service-bar__link--tel:hover {
+  text-decoration-color: currentColor;
+}
+
+/* SVG optisch mittig zur Schrift */
+.pflege-service-bar__body .pflege-icon {
   flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
   color: var(--pflege-accent, #3f86d9);
+}
+
+.pflege-service-bar__body .pflege-icon svg {
+  display: block;
+  vertical-align: middle;
 }
