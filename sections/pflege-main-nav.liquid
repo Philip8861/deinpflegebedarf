@@ -29,31 +29,7 @@
 
     <nav class="pflege-main-nav__nav" aria-label="{{ section.settings.menu_label | escape }}">
       <ul class="pflege-main-nav__menu">
-        {%- for block in section.blocks -%}
-          {%- if block.type == 'nav_link' and block.settings.title != blank -%}
-            {%- liquid
-              assign nav_href = block.settings.link
-              if nav_href == blank
-                assign nav_href = routes.all_products_collection_url
-              endif
-              assign nav_active = false
-              if nav_href != blank and request.path == nav_href
-                assign nav_active = true
-              endif
-            -%}
-            <li {{ block.shopify_attributes }}>
-              <a
-                href="{{ nav_href }}"
-                class="pflege-main-nav__menu-link{% if nav_active %} pflege-main-nav__menu-link--active{% endif %}"
-                {% if nav_active %}
-                  aria-current="page"
-                {% endif %}
-              >
-                {{- block.settings.title | escape -}}
-              </a>
-            </li>
-          {%- endif -%}
-        {%- endfor -%}
+        {% render 'pflege-category-nav', variant: 'desktop' %}
       </ul>
     </nav>
 

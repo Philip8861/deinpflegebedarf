@@ -1,5 +1,5 @@
 {% comment %}
-  Mobil-Menü (flache Links aus Pflege-Hauptleisten-Blöcken „Navigations-Link“).
+  Mobil-Menü — Kategorien wie Desktop (`snippets/pflege-category-nav.liquid`).
 {% endcomment %}
 <header-drawer data-breakpoint="tablet">
   <details id="Details-menu-drawer-container-pflege" class="menu-drawer-container">
@@ -17,31 +17,7 @@
         <div class="menu-drawer__navigation-container">
           <nav class="menu-drawer__navigation">
             <ul class="menu-drawer__menu has-submenu list-menu" role="list">
-              {%- for block in section.blocks -%}
-                {%- if block.type == 'nav_link' -%}
-                  {%- liquid
-                    assign dw_href = block.settings.link
-                    if dw_href == blank
-                      assign dw_href = routes.all_products_collection_url
-                    endif
-                    assign dw_active = false
-                    if dw_href != blank and request.path == dw_href
-                      assign dw_active = true
-                    endif
-                  -%}
-                  <li {{ block.shopify_attributes }}>
-                    <a
-                      href="{{ dw_href }}"
-                      class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if dw_active %} menu-drawer__menu-item--active{% endif %}"
-                      {% if dw_active %}
-                        aria-current="page"
-                      {% endif %}
-                    >
-                      {{- block.settings.title | escape -}}
-                    </a>
-                  </li>
-                {%- endif -%}
-              {%- endfor -%}
+              {% render 'pflege-category-nav', variant: 'drawer' %}
             </ul>
           </nav>
           <div class="menu-drawer__utility-links">

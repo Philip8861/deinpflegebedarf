@@ -1,0 +1,137 @@
+{% comment %}
+  Vier feste Shop-Kategorien (Desktop-Hauptleiste + Mobil-Drawer).
+  Unabhängig von Section-Blöcken, damit Live-Shops nicht mit alten Theme-Daten hängen bleiben.
+  variant: "desktop" | "drawer"
+{% endcomment %}
+{%- liquid
+  assign root = routes.root_url
+  assign v = variant | default: 'desktop'
+
+  if collections.desinfektion != blank
+    assign url_des = collections.desinfektion.url
+  else
+    assign url_des = root | append: 'collections/desinfektion'
+  endif
+  if collections.pflegeartikel != blank
+    assign url_pf = collections.pflegeartikel.url
+  else
+    assign url_pf = root | append: 'collections/pflegeartikel'
+  endif
+  if collections['hauschutz-hautpflege'] != blank
+    assign url_hh = collections['hauschutz-hautpflege'].url
+  else
+    assign url_hh = root | append: 'collections/hauschutz-hautpflege'
+  endif
+  if collections.verbrauchsartikel != blank
+    assign url_ver = collections.verbrauchsartikel.url
+  else
+    assign url_ver = root | append: 'collections/verbrauchsartikel'
+  endif
+
+  assign active_des = false
+  assign active_pf = false
+  assign active_hh = false
+  assign active_ver = false
+  if request.page_type == 'collection'
+    if collection.handle == 'desinfektion'
+      assign active_des = true
+    elsif collection.handle == 'pflegeartikel'
+      assign active_pf = true
+    elsif collection.handle == 'hauschutz-hautpflege'
+      assign active_hh = true
+    elsif collection.handle == 'verbrauchsartikel'
+      assign active_ver = true
+    endif
+  endif
+-%}
+{%- if v == 'drawer' -%}
+  <li>
+    <a
+      href="{{ url_des }}"
+      class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if active_des %} menu-drawer__menu-item--active{% endif %}"
+      {% if active_des %}
+        aria-current="page"
+      {% endif %}
+    >
+      {{- 'Desinfektion' | escape -}}
+    </a>
+  </li>
+  <li>
+    <a
+      href="{{ url_pf }}"
+      class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if active_pf %} menu-drawer__menu-item--active{% endif %}"
+      {% if active_pf %}
+        aria-current="page"
+      {% endif %}
+    >
+      {{- 'Pflegeartikel' | escape -}}
+    </a>
+  </li>
+  <li>
+    <a
+      href="{{ url_hh }}"
+      class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if active_hh %} menu-drawer__menu-item--active{% endif %}"
+      {% if active_hh %}
+        aria-current="page"
+      {% endif %}
+    >
+      {{- 'Hauschutz & Hautpflege' | escape -}}
+    </a>
+  </li>
+  <li>
+    <a
+      href="{{ url_ver }}"
+      class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if active_ver %} menu-drawer__menu-item--active{% endif %}"
+      {% if active_ver %}
+        aria-current="page"
+      {% endif %}
+    >
+      {{- 'Verbrauchsartikel' | escape -}}
+    </a>
+  </li>
+{%- else -%}
+  <li>
+    <a
+      href="{{ url_des }}"
+      class="pflege-main-nav__menu-link{% if active_des %} pflege-main-nav__menu-link--active{% endif %}"
+      {% if active_des %}
+        aria-current="page"
+      {% endif %}
+    >
+      {{- 'Desinfektion' | escape -}}
+    </a>
+  </li>
+  <li>
+    <a
+      href="{{ url_pf }}"
+      class="pflege-main-nav__menu-link{% if active_pf %} pflege-main-nav__menu-link--active{% endif %}"
+      {% if active_pf %}
+        aria-current="page"
+      {% endif %}
+    >
+      {{- 'Pflegeartikel' | escape -}}
+    </a>
+  </li>
+  <li>
+    <a
+      href="{{ url_hh }}"
+      class="pflege-main-nav__menu-link{% if active_hh %} pflege-main-nav__menu-link--active{% endif %}"
+      {% if active_hh %}
+        aria-current="page"
+      {% endif %}
+    >
+      {{- 'Hauschutz & Hautpflege' | escape -}}
+    </a>
+  </li>
+  <li>
+    <a
+      href="{{ url_ver }}"
+      class="pflege-main-nav__menu-link{% if active_ver %} pflege-main-nav__menu-link--active{% endif %}"
+      {% if active_ver %}
+        aria-current="page"
+      {% endif %}
+    >
+      {{- 'Verbrauchsartikel' | escape -}}
+    </a>
+  </li>
+{%- endif -%}
