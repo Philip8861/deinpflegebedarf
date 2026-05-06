@@ -90,6 +90,7 @@
                   <th class="small-hide right caption-with-letter-spacing" scope="col">
                     {{ 'sections.cart.headings.total' | t }}
                   </th>
+                  <th class="small-hide visually-hidden" scope="col">{{ 'sections.cart.remove_title' | t: title: 'Artikel' }}</th>
                 </tr>
               </thead>
 
@@ -102,6 +103,9 @@
                       aria-label="{{- 'products.product.nested_label' | t: title: item.product.title, parent_title: item.parent_relationship.parent.title | escape -}}"
                     {% endif %}
                   >
+                    {%- liquid
+                      assign pflege_can_remove = item.instructions.can_remove | default: true
+                    -%}
                     <td class="cart-item__media">
                       {% if item.image %}
                         {% comment %} Leave empty space due to a:empty CSS display: none rule {% endcomment %}
@@ -121,11 +125,9 @@
 
                     <td class="cart-item__details">
                       <div class="pflege-cart-item__details-shell">
-                        {%- assign pflege_can_remove = item.instructions.can_remove | default: true -%}
                         <cart-remove-button
-                          id="Remove-{{ item.index | plus: 1 }}"
                           data-index="{{ item.index | plus: 1 }}"
-                          class="pflege-cart-item__remove-corner{% if pflege_can_remove == false %} hidden{% endif %}"
+                          class="pflege-cart-item__remove-corner pflege-cart-item__remove--mobile{% if pflege_can_remove == false %} hidden{% endif %}"
                         >
                           <a
                             href="{{ item.url_to_remove }}"
@@ -482,6 +484,23 @@
                         </div>
                         <span class="pflege-cart-price-stack__label">{{ 'sections.cart.pflege.price_line_label' | t }}</span>
                       </div>
+                    </td>
+
+                    <td class="pflege-cart-item__remove-td small-hide">
+                      <cart-remove-button
+                        data-index="{{ item.index | plus: 1 }}"
+                        class="pflege-cart-item__remove-corner pflege-cart-item__remove--desktop{% if pflege_can_remove == false %} hidden{% endif %}"
+                      >
+                        <a
+                          href="{{ item.url_to_remove }}"
+                          class="button button--tertiary pflege-cart-item__remove-btn"
+                          aria-label="{{ 'sections.cart.remove_title' | t: title: item.title | escape }}"
+                        >
+                          <span class="svg-wrapper">
+                            {{- 'icon-remove.svg' | inline_asset_content -}}
+                          </span>
+                        </a>
+                      </cart-remove-button>
                     </td>
                   </tr>
                 {%- endfor -%}

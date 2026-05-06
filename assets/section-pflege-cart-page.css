@@ -390,9 +390,20 @@
   }
 
   .template-cart .pflege-cart-items-table.cart-items .cart-item__totals.small-hide {
-    width: 21.3%;
+    width: 17%;
     vertical-align: middle;
     text-align: center;
+  }
+
+  .template-cart .pflege-cart-items-table.cart-items .pflege-cart-item__remove-td {
+    width: 4.3%;
+    min-width: 3.6rem;
+    max-width: 5rem;
+    vertical-align: top;
+    text-align: right;
+    padding-top: 1.25rem;
+    padding-right: clamp(0.65rem, 1.2vw, 1.35rem);
+    padding-left: 0.35rem;
   }
 
   .template-cart .pflege-cart-items-table.cart-items .cart-item > td + td {
@@ -530,12 +541,12 @@
 /* --- Produktdetails + Entfernen (oben rechts im Infoblock) --- */
 .template-cart .pflege-cart-item__details-shell {
   position: relative;
-  padding-right: 2.85rem;
+  padding-right: 0;
 }
 
-@media screen and (min-width: 750px) {
-  .template-cart .pflege-cart-items-table .pflege-cart-item__details-shell {
-    padding-right: 3rem;
+@media screen and (max-width: 749px) {
+  .template-cart .pflege-cart-item__details-shell {
+    padding-right: 2.85rem;
   }
 }
 
@@ -544,18 +555,46 @@
   margin: 0;
 }
 
-.template-cart cart-remove-button.pflege-cart-item__remove-corner .button.pflege-cart-item__remove-btn {
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 2;
-  margin: 0;
-  min-width: 2.75rem;
-  min-height: 2.75rem;
-  padding: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+/* Desktop: Papierkorb rechts außen in eigener Spalte */
+@media screen and (min-width: 750px) {
+  .template-cart cart-remove-button.pflege-cart-item__remove--mobile {
+    display: none !important;
+  }
+
+  .template-cart cart-remove-button.pflege-cart-item__remove--desktop .button.pflege-cart-item__remove-btn {
+    position: static;
+    top: auto;
+    right: auto;
+    z-index: 2;
+    margin: 0;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Mobil: Papierkorb oben rechts im Detailblock */
+@media screen and (max-width: 749px) {
+  .template-cart cart-remove-button.pflege-cart-item__remove--desktop {
+    display: none !important;
+  }
+
+  .template-cart cart-remove-button.pflege-cart-item__remove--mobile .button.pflege-cart-item__remove-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    margin: 0;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 /* --- Entfernen --- */
@@ -732,7 +771,7 @@
   border: none;
   border-radius: 0;
   border-left: 1px solid rgba(11, 35, 71, 0.08);
-  background: #8fcbfb;
+  background: #f0f5fb;
   color: var(--pflege-cart-navy);
   font-weight: 600;
   font-size: 1.35rem;
@@ -748,7 +787,7 @@
 }
 
 .template-cart .pflege-cart-promo__coupon-btn:not([disabled]):hover {
-  background: #7abfe8;
+  background: #e4ebf6;
 }
 
 .template-cart .pflege-cart-promo__divider {
