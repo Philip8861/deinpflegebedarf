@@ -48,6 +48,33 @@
   line-height: 0;
 }
 
+/* Mobil: kein zoom — vermeidet Versatz/Rendering-Probleme (Safari/Chrome) */
+@media screen and (max-width: 749px) {
+  .pflege-hero__panel--asset-bg {
+    width: 100%;
+    margin-inline: 0;
+    box-sizing: border-box;
+  }
+
+  .pflege-hero__asset-zoom {
+    zoom: 1;
+    width: 100%;
+    max-width: 100%;
+    margin-inline: 0;
+  }
+
+  .pflege-hero__panel--asset-bg .pflege-hero__grid--asset-bg {
+    padding-left: max(1rem, env(safe-area-inset-left, 0px));
+    padding-right: max(1rem, env(safe-area-inset-right, 0px));
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .pflege-hero__panel--asset-bg .pflege-hero__grid--asset-bg .pflege-hero__content {
+    max-width: 100%;
+  }
+}
+
 .pflege-hero__asset-photo {
   display: block;
   width: auto;
