@@ -32,7 +32,7 @@
 @media screen and (min-width: 990px) {
   .template-cart #MainContent:has(cart-items:not(.is-empty)) {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(330px, 380px);
+    grid-template-columns: minmax(0, 1fr) minmax(363px, 418px);
     column-gap: clamp(1.75rem, 2.5vw, 2rem);
     row-gap: 1.5rem;
     align-items: start;
@@ -694,29 +694,33 @@
   margin-top: 0.1rem;
 }
 
-/* --- Bestellübersicht + CTAs in einer Card --- */
+/* --- Bestellübersicht + CTAs in einer Card (~10 % größer + kräftigere Typo) --- */
+.template-cart .pflege-cart-summary.pflege-cart-card {
+  border-radius: 1.48rem;
+}
+
 .template-cart .pflege-cart-summary {
-  padding: 2.25rem 2rem;
+  padding: 2.5rem 2.2rem;
 }
 
 .template-cart .pflege-cart-summary__heading {
-  margin: 0 0 1.5rem;
-  font-size: 1.75rem;
+  margin: 0 0 1.65rem;
+  font-size: 1.92rem;
   font-weight: 800;
   letter-spacing: 0.02em;
   color: var(--pflege-cart-navy);
 }
 
 .template-cart .pflege-cart-summary__shipping-note {
-  max-width: 12rem;
+  max-width: 13.2rem;
   text-align: right;
   line-height: 1.3;
-  font-size: 1.22rem;
+  font-size: 1.34rem;
 }
 
 .template-cart .pflege-cart-summary__cta-band {
-  margin-top: 1.75rem;
-  padding-top: 1.75rem;
+  margin-top: 1.9rem;
+  padding-top: 1.9rem;
   border-top: 1px solid rgba(88, 145, 215, 0.22);
   display: flex;
   flex-direction: column;
@@ -726,7 +730,7 @@
 .template-cart .pflege-cart-summary__rows {
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
+  gap: 0.95rem;
 }
 
 .template-cart .pflege-cart-summary__row {
@@ -734,7 +738,7 @@
   justify-content: space-between;
   align-items: baseline;
   gap: 1rem;
-  font-size: 1.35rem;
+  font-size: 1.48rem;
   color: rgba(11, 35, 71, 0.85);
 }
 
@@ -745,7 +749,7 @@
 
 .template-cart .pflege-cart-summary__muted {
   font-weight: 500;
-  font-size: 1.25rem;
+  font-size: 1.38rem;
   color: rgba(11, 35, 71, 0.55);
 }
 
@@ -757,30 +761,30 @@
 .template-cart .pflege-cart-summary__rule {
   border: none;
   border-top: 1px solid var(--pflege-cart-border);
-  margin: 0.5rem 0;
+  margin: 0.55rem 0;
 }
 
 .template-cart .pflege-cart-summary__row--grand {
   font-weight: 700;
-  font-size: 1.45rem;
+  font-size: 1.6rem;
   color: var(--pflege-cart-navy);
 }
 
 .template-cart .pflege-cart-summary__grand-value {
-  font-size: 2.35rem;
+  font-size: 2.58rem;
   font-weight: 800;
   letter-spacing: 0.02em;
 }
 
 .template-cart .pflege-cart-summary__vat {
-  margin: 0.35rem 0 0;
+  margin: 0.4rem 0 0;
   color: rgba(11, 35, 71, 0.55);
 }
 
 .template-cart .pflege-cart-summary__tax-note {
-  margin-top: 0.65rem;
+  margin-top: 0.72rem;
   color: rgba(11, 35, 71, 0.48);
-  font-size: 1.14rem;
+  font-size: 1.26rem;
   line-height: 1.38;
 }
 
@@ -796,13 +800,13 @@
   max-width: none;
   margin-left: 0;
   margin-right: 0;
-  min-height: 4.5rem;
-  border-radius: 0.65rem;
+  min-height: 4.95rem;
+  border-radius: 0.72rem;
   border: none;
   background: var(--pflege-cart-cta);
   color: #fff;
   font-weight: 700;
-  font-size: 1.35rem;
+  font-size: 1.48rem;
   letter-spacing: 0.02em;
   box-shadow: none;
   display: inline-flex;
@@ -825,19 +829,19 @@
 }
 
 .template-cart .pflege-cart-summary__checkout-arrow {
-  font-size: 1.5rem;
+  font-size: 1.65rem;
   line-height: 1;
 }
 
 .template-cart .pflege-cart-dynamic-pay {
-  margin-top: 0.85rem;
+  margin-top: 0.94rem;
 }
 
 .template-cart .pflege-cart-summary__continue.button--secondary {
   width: 100%;
-  margin-top: 1rem;
-  min-height: 4.4rem;
-  border-radius: 0.65rem;
+  margin-top: 1.1rem;
+  min-height: 4.85rem;
+  border-radius: 0.72rem;
   border: 2px solid rgba(88, 145, 215, 0.65);
   background: rgb(var(--color-background, 255 255 255));
   color: var(--pflege-cart-sky);
@@ -857,23 +861,23 @@
 }
 
 .template-cart .pflege-cart-summary__trust {
-  margin: 1.35rem 0 0;
+  margin: 1.48rem 0 0;
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
+  gap: 0.94rem;
 }
 
 .template-cart .pflege-cart-summary__trust-item {
   display: flex;
-  gap: 0.65rem;
+  gap: 0.72rem;
   align-items: flex-start;
 }
 
 .template-cart .pflege-cart-summary__trust-icon {
   flex-shrink: 0;
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 2.48rem;
+  height: 2.48rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -885,20 +889,20 @@
 .template-cart .pflege-cart-summary__trust-text {
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
-  font-size: 1.2rem;
+  gap: 0.17rem;
+  font-size: 1.32rem;
   line-height: 1.35;
   color: rgba(11, 35, 71, 0.82);
 }
 
 .template-cart .pflege-cart-summary__trust-text strong {
-  font-size: 1.25rem;
+  font-size: 1.38rem;
   color: var(--pflege-cart-navy);
 }
 
 /*
-  Desktop: Bestellübersicht klebt unter der Hauptnavigation und scrollt nicht „weg“.
-  Kompakteres Layout (ähnliche Zeilendichte wie eine Artikelzeile); kein internes Scrollen.
+  Desktop: Bestellübersicht klebt unter der Hauptnavigation (ohne Innenscroll).
+  Typografie und Maße kommen aus den Basisregeln oben (~10 % größer).
 */
 @media screen and (min-width: 990px) {
   .template-cart #main-cart-footer {
@@ -918,97 +922,7 @@
     z-index: 4;
     overflow: visible;
     max-height: none;
-    padding: 1.15rem 1.35rem;
     box-sizing: border-box;
-  }
-
-  .template-cart #main-cart-footer .pflege-cart-summary__heading {
-    font-size: 1.38rem;
-    margin-bottom: 0.55rem;
-    letter-spacing: 0.015em;
-  }
-
-  .template-cart #main-cart-footer .pflege-cart-summary__shipping-note {
-    font-size: 1.08rem;
-    max-width: 10rem;
-  }
-
-  .template-cart #main-cart-footer .pflege-cart-summary__rows {
-    gap: 0.35rem;
-  }
-
-  .template-cart #main-cart-footer .pflege-cart-summary__row {
-    font-size: 1.22rem;
-    gap: 0.65rem;
-  }
-
-  .template-cart #main-cart-footer .pflege-cart-summary__muted {
-    font-size: 1.12rem;
-  }
-
-  .template-cart #main-cart-footer .pflege-cart-summary__rule {
-    margin: 0.35rem 0;
-  }
-
-  .template-cart #main-cart-footer .pflege-cart-summary__row--grand {
-    font-size: 1.28rem;
-  }
-
-  .template-cart #main-cart-footer .pflege-cart-summary__grand-value {
-    font-size: 1.85rem;
-    letter-spacing: 0.01em;
-  }
-
-  .template-cart #main-cart-footer .pflege-cart-summary__vat {
-    margin-top: 0.2rem;
-    font-size: 1.05rem;
-  }
-
-  .template-cart #main-cart-footer .pflege-cart-summary__tax-note {
-    margin-top: 0.35rem;
-    font-size: 1rem;
-    line-height: 1.3;
-  }
-
-  .template-cart #main-cart-footer .pflege-cart-summary__cta-band {
-    margin-top: 0.85rem;
-    padding-top: 0.85rem;
-  }
-
-  .template-cart #main-cart-footer .cart__checkout-button.button,
-  .template-cart #main-cart-footer .pflege-cart-summary__checkout {
-    min-height: 3.85rem;
-    font-size: 1.22rem;
-  }
-
-  .template-cart #main-cart-footer .pflege-cart-summary__continue.button--secondary {
-    min-height: 3.65rem;
-    margin-top: 0.65rem;
-    font-size: 1.18rem;
-  }
-
-  .template-cart #main-cart-footer .pflege-cart-dynamic-pay {
-    margin-top: 0.55rem;
-  }
-
-  .template-cart #main-cart-footer .pflege-cart-summary__trust {
-    margin-top: 0.85rem;
-    gap: 0.45rem;
-  }
-
-  .template-cart #main-cart-footer .pflege-cart-summary__trust-icon {
-    width: 2rem;
-    height: 2rem;
-  }
-
-  .template-cart #main-cart-footer .pflege-cart-summary__trust-text {
-    font-size: 1.08rem;
-    line-height: 1.28;
-    gap: 0.1rem;
-  }
-
-  .template-cart #main-cart-footer .pflege-cart-summary__trust-text strong {
-    font-size: 1.15rem;
   }
 }
 
@@ -1259,8 +1173,8 @@
 
   .template-cart .cart__checkout-button.button,
   .template-cart .pflege-cart-summary__checkout {
-    font-size: 1.45rem;
-    min-height: 4.85rem;
+    font-size: 1.52rem;
+    min-height: 5.05rem;
   }
 
   .template-cart #MainContent:has(cart-items:not(.is-empty)) > .pflege-cart-section--aside {
