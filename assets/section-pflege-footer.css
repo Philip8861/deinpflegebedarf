@@ -582,8 +582,8 @@ a.pflege-footer__contact-line:hover {
   object-fit: contain;
 }
 
-/* PayPal-Badge ist breiter — gleiche optische Höhe, proportionale Breite */
-.pflege-footer__pay-logo-link .pflege-footer__pay-logo {
+/* Breitere Wordmarks (PayPal, Google Pay) — gleiche Höhe wie Kartenlogos */
+.pflege-footer__pay-logo--wide {
   max-width: clamp(5.08rem, 4.3rem + 1.56vw, 6.25rem);
 }
 
