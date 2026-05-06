@@ -43,25 +43,6 @@
             {%- endif -%}
           </div>
 
-          <div class="pflege-product-finder__recommendations">
-            {%- if section.settings.side_heading != blank -%}
-              <h3 class="pflege-product-finder__side-title">{{ section.settings.side_heading | escape }}</h3>
-            {%- endif -%}
-            <div class="pflege-product-finder__features">
-              <div class="pflege-product-finder__feature">
-                <p class="pflege-product-finder__feature-title">{{ section.settings.f1_title | escape }}</p>
-                <p class="pflege-product-finder__feature-text">{{ section.settings.f1_text | escape }}</p>
-              </div>
-              <div class="pflege-product-finder__feature">
-                <p class="pflege-product-finder__feature-title">{{ section.settings.f2_title | escape }}</p>
-                <p class="pflege-product-finder__feature-text">{{ section.settings.f2_text | escape }}</p>
-              </div>
-              <div class="pflege-product-finder__feature">
-                <p class="pflege-product-finder__feature-title">{{ section.settings.f3_title | escape }}</p>
-                <p class="pflege-product-finder__feature-text">{{ section.settings.f3_text | escape }}</p>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -90,48 +71,6 @@
       "id": "intro",
       "label": "Text im Kasten (über dem Button)",
       "default": "Kein langes Suchen: Mit wenigen Klicks finden Sie passende Pflegeprodukte für Ihren individuellen Bedarf. Ob Hautpflege, Inkontinenz, Hygiene, Desinfektion, Schutz oder Pflegehilfen, unser Produktfinder führt Sie einfach durch die wichtigsten Fragen und zeigt Ihnen schnell passende Empfehlungen für Ihre persönliche Pflegesituation."
-    },
-    {
-      "type": "text",
-      "id": "side_heading",
-      "label": "Überschrift unter dem Button",
-      "default": "Passende Empfehlungen für Ihren Pflegealltag"
-    },
-    {
-      "type": "text",
-      "id": "f1_title",
-      "label": "Block 1 — Titel",
-      "default": "Individuell & unkompliziert"
-    },
-    {
-      "type": "textarea",
-      "id": "f1_text",
-      "label": "Block 1 — Text",
-      "default": "Beantworten Sie einfach einige Fragen zu Ihrem Bedarf – wir zeigen Ihnen passende Produkte für Ihre Situation."
-    },
-    {
-      "type": "text",
-      "id": "f2_title",
-      "label": "Block 2 — Titel",
-      "default": "Für jede Pflegesituation"
-    },
-    {
-      "type": "textarea",
-      "id": "f2_text",
-      "label": "Block 2 — Text",
-      "default": "Ob Hautpflege, Inkontinenz oder Desinfektion – der Produktfinder unterstützt Sie in allen wichtigen Bereichen."
-    },
-    {
-      "type": "text",
-      "id": "f3_title",
-      "label": "Block 3 — Titel",
-      "default": "Schnell & verlässlich"
-    },
-    {
-      "type": "textarea",
-      "id": "f3_text",
-      "label": "Block 3 — Text",
-      "default": "Sie erhalten gezielte Produktempfehlungen, auf die Sie sich verlassen können – schnell und verständlich."
     },
     {
       "type": "text",
