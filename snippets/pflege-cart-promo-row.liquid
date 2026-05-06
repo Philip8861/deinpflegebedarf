@@ -8,12 +8,14 @@
 -%}
 
 <div class="pflege-cart-promo pflege-cart-card">
-  <div class="pflege-cart-promo__coupon">
-    <span class="pflege-cart-promo__icon pflege-cart-promo__icon--ticket" aria-hidden="true">
-      {% render 'pflege-icon', icon: 'ticket', width: 22 %}
-    </span>
-    <div class="pflege-cart-promo__coupon-body">
-      <h3 class="pflege-cart-promo__title">{{ 'sections.cart.pflege.coupon_title' | t }}</h3>
+  <div class="pflege-cart-promo__inner">
+    <div class="pflege-cart-promo__coupon">
+      <div class="pflege-cart-promo__coupon-head">
+        <span class="pflege-cart-promo__icon pflege-cart-promo__icon--ticket" aria-hidden="true">
+          {% render 'pflege-icon', icon: 'ticket', width: 18 %}
+        </span>
+        <h3 class="pflege-cart-promo__title pflege-cart-promo__title--coupon">{{ 'sections.cart.pflege.coupon_title' | t }}</h3>
+      </div>
       <form class="pflege-cart-promo__coupon-form" action="{{ request.origin }}/discount" method="post" accept-charset="UTF-8">
         <input type="hidden" name="return_to" value="{{ routes.cart_url }}">
         <label class="visually-hidden" for="PflegeCartDiscount">{{ 'sections.cart.pflege.coupon_placeholder' | t }}</label>
@@ -31,22 +33,24 @@
         </button>
       </form>
     </div>
-  </div>
 
-  <div class="pflege-cart-promo__shipping">
-    <span class="pflege-cart-promo__icon pflege-cart-promo__icon--ship" aria-hidden="true">
-      {% render 'pflege-icon', icon: 'truck', width: 22 %}
-    </span>
-    <div class="pflege-cart-promo__shipping-copy">
-      <h3 class="pflege-cart-promo__title">{{ 'sections.cart.pflege.free_shipping_title' | t }}</h3>
-      {%- if fs_remaining_cents <= 0 -%}
-        <p class="pflege-cart-promo__shipping-text">{{ 'sections.cart.pflege.free_shipping_qualified' | t }}</p>
-      {%- else -%}
-        {%- assign fs_remaining_money = fs_remaining_cents | money -%}
-        <p class="pflege-cart-promo__shipping-text">
-          {{ 'sections.cart.pflege.free_shipping_remaining' | t: amount: fs_remaining_money }}
-        </p>
-      {%- endif -%}
+    <span class="pflege-cart-promo__divider" aria-hidden="true"></span>
+
+    <div class="pflege-cart-promo__shipping">
+      <span class="pflege-cart-promo__icon pflege-cart-promo__icon--ship" aria-hidden="true">
+        {% render 'pflege-icon', icon: 'truck', width: 18 %}
+      </span>
+      <div class="pflege-cart-promo__shipping-copy">
+        <h3 class="pflege-cart-promo__title pflege-cart-promo__title--shipping">{{ 'sections.cart.pflege.free_shipping_title' | t }}</h3>
+        {%- if fs_remaining_cents <= 0 -%}
+          <p class="pflege-cart-promo__shipping-text">{{ 'sections.cart.pflege.free_shipping_qualified' | t }}</p>
+        {%- else -%}
+          {%- assign fs_remaining_money = fs_remaining_cents | money -%}
+          <p class="pflege-cart-promo__shipping-text">
+            {{ 'sections.cart.pflege.free_shipping_remaining' | t: amount: fs_remaining_money }}
+          </p>
+        {%- endif -%}
+      </div>
     </div>
   </div>
 </div>
