@@ -80,36 +80,6 @@
         </button>
       </div>
 
-      <div class="cart-notification__trust" role="presentation">
-        <div class="cart-notification__trust-item">
-          <span class="cart-notification__trust-icon">
-            {%- render 'pflege-icon', icon: 'lock', width: 24 -%}
-          </span>
-          <div class="cart-notification__trust-copy">
-            <span class="cart-notification__trust-title">{{ 'general.cart.trust_pay_title' | t }}</span>
-            <span class="cart-notification__trust-sub">{{ 'general.cart.trust_pay_sub' | t }}</span>
-          </div>
-        </div>
-        <div class="cart-notification__trust-item">
-          <span class="cart-notification__trust-icon">
-            {%- render 'pflege-icon', icon: 'badge-check', width: 24 -%}
-          </span>
-          <div class="cart-notification__trust-copy">
-            <span class="cart-notification__trust-title">{{ 'general.cart.trust_quality_title' | t }}</span>
-            <span class="cart-notification__trust-sub">{{ 'general.cart.trust_quality_sub' | t }}</span>
-          </div>
-        </div>
-        <div class="cart-notification__trust-item">
-          <span class="cart-notification__trust-icon">
-            {%- render 'pflege-icon', icon: 'truck', width: 24 -%}
-          </span>
-          <div class="cart-notification__trust-copy">
-            <span class="cart-notification__trust-title">{{ 'general.cart.trust_ship_title' | t }}</span>
-            <span class="cart-notification__trust-sub">{{ 'general.cart.trust_ship_sub' | t }}</span>
-          </div>
-        </div>
-      </div>
-
       {%- if collections.all.products.size > 0 -%}
         <section class="cart-notification__recos" aria-labelledby="cart-notification-recos-title">
           <h3 id="cart-notification-recos-title" class="cart-notification__recos-heading">
@@ -154,6 +124,36 @@
           </ul>
         </section>
       {%- endif -%}
+
+      <div class="cart-notification__trust" role="presentation">
+        <div class="cart-notification__trust-item">
+          <span class="cart-notification__trust-icon">
+            {%- render 'pflege-icon', icon: 'lock', width: 24 -%}
+          </span>
+          <div class="cart-notification__trust-copy">
+            <span class="cart-notification__trust-title">{{ 'general.cart.trust_pay_title' | t }}</span>
+            <span class="cart-notification__trust-sub">{{ 'general.cart.trust_pay_sub' | t }}</span>
+          </div>
+        </div>
+        <div class="cart-notification__trust-item">
+          <span class="cart-notification__trust-icon">
+            {%- render 'pflege-icon', icon: 'badge-check', width: 24 -%}
+          </span>
+          <div class="cart-notification__trust-copy">
+            <span class="cart-notification__trust-title">{{ 'general.cart.trust_quality_title' | t }}</span>
+            <span class="cart-notification__trust-sub">{{ 'general.cart.trust_quality_sub' | t }}</span>
+          </div>
+        </div>
+        <div class="cart-notification__trust-item">
+          <span class="cart-notification__trust-icon">
+            {%- render 'pflege-icon', icon: 'truck', width: 24 -%}
+          </span>
+          <div class="cart-notification__trust-copy">
+            <span class="cart-notification__trust-title">{{ 'general.cart.trust_ship_title' | t }}</span>
+            <span class="cart-notification__trust-sub">{{ 'general.cart.trust_ship_sub' | t }}</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </cart-notification>

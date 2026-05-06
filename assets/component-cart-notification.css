@@ -56,12 +56,12 @@
 
   position: relative;
   z-index: 1;
-  width: min(100%, 48.75rem);
-  max-width: 50.625rem;
-  max-height: min(94vh, 54.375rem);
+  width: min(100%, 62rem);
+  max-width: 64rem;
+  max-height: min(96vh, 64rem);
   overflow: auto;
   margin: 0;
-  padding: clamp(1.5rem, 4.7vw, 2.45rem) clamp(1.5rem, 4.7vw, 2.8rem) clamp(1.5rem, 3.75vw, 2.1rem);
+  padding: clamp(1.25rem, 3.6vw, 2rem) clamp(1.5rem, 4vw, 2.4rem) clamp(1.25rem, 3vw, 1.85rem);
   background: var(--cn-white);
   border: 1px solid var(--cn-border);
   border-radius: var(--cn-radius);
@@ -142,9 +142,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.55rem;
   padding-inline: 2.0625rem;
-  margin-bottom: 0.6375rem;
+  margin-bottom: 0.5rem;
   text-align: center;
 }
 
@@ -194,7 +194,7 @@
 
 /* Produkt: Bild direkt unter Überschrift/Unterzeile, mittig; Infos optional in Karte */
 .cart-notification-product-host {
-  margin-bottom: 1.1625rem;
+  margin-bottom: 0.85rem;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -225,10 +225,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: clamp(10.125rem, 33.75vw, 13.5rem);
-  height: clamp(10.125rem, 33.75vw, 13.5rem);
+  width: clamp(7rem, 22vw, 9.5rem);
+  height: clamp(7rem, 22vw, 9.5rem);
   margin: 0 auto;
-  padding: 0.7125rem;
+  padding: 0.6rem;
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(212, 230, 251, 0.9);
@@ -308,8 +308,8 @@
 .cart-notification__actions {
   display: flex;
   flex-direction: column;
-  gap: 0.7125rem;
-  margin-bottom: 1.1625rem;
+  gap: 0.55rem;
+  margin-bottom: 0.85rem;
 }
 
 .cart-notification__form-checkout {
@@ -381,12 +381,13 @@
   color: var(--cn-navy);
 }
 
-/* Trust-Leiste */
+/* Trust-Leiste – jetzt unter den Empfehlungen */
 .cart-notification__trust {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0.9375rem;
-  padding-top: 0.9375rem;
+  gap: 0.85rem;
+  margin-top: 1.1rem;
+  padding-top: 1rem;
   border-top: 1px solid var(--pflege-border, #e5eef8);
 }
 
@@ -455,13 +456,12 @@
 
 /* Empfehlungen: "Produkte, die bei keiner Pflege fehlen sollten" */
 .cart-notification__recos {
-  margin-top: 1.4rem;
-  padding-top: 1.25rem;
+  padding-top: 1rem;
   border-top: 1px solid var(--pflege-border, #e5eef8);
 }
 
 .cart-notification__recos-heading {
-  margin: 0 0 0.95rem;
+  margin: 0 0 0.8rem;
   font-family: var(--font-body-family);
   font-size: clamp(1rem, 2.05vw, 1.15rem);
   font-weight: 700;
