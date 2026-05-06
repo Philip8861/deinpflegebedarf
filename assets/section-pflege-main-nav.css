@@ -11,8 +11,8 @@
   --pflege-action-icon-svg: 3.28rem;
   /* Warenkorb füllt die ViewBox stärker als das Konto-Icon → etwas kleiner zeichnen */
   --pflege-cart-svg-scale: 0.9;
-  /* Desktop: Logo leicht anheben, Unterkante Wortmarke ≈ Höhe Kategorie-Links */
-  --pflege-header-logo-offset-y: -0.85rem;
+  /* Desktop: Logo anheben, Wortmarke fluchtet mit Kategorie-Links (Feintuning: --pflege-header-logo-offset-y) */
+  --pflege-header-logo-offset-y: -1.2rem;
   /* RGB für rgba()-Leuchteffekte bei Hover */
   --pflege-hover-glow: 88, 145, 215;
 }
