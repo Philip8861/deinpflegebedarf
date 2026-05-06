@@ -307,23 +307,15 @@
   width: 100%;
 }
 
-/* Tabelle + Promo untereinander: eine Karte, Promo klebt am letzten Artikel (gleicher DOM wie AJAX-Replace) */
-.template-cart .pflege-cart-stack-card.pflege-cart-card {
-  overflow: hidden;
+/* Tabelle + Promo: zwei Karten mit Abstand (gemeinsam in .js-contents für AJAX) */
+.template-cart .pflege-cart-stack-card {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 2.3vw, 1.25rem);
 }
 
-.template-cart .pflege-cart-stack-card > .pflege-cart-items-table.cart-items {
-  border: none;
-  border-radius: 0;
-  box-shadow: none;
-}
-
-.template-cart .pflege-cart-stack-card > .pflege-cart-promo.pflege-cart-card {
+.template-cart .pflege-cart-stack-card > .pflege-cart-promo {
   margin-top: 0;
-  border: none;
-  border-radius: 0;
-  box-shadow: none;
-  border-top: 1px solid rgba(88, 145, 215, 0.22);
 }
 
 .template-cart .pflege-cart-items-table thead {
@@ -569,58 +561,74 @@
   outline-offset: 2px;
 }
 
-/* --- Promo: Gutschein + Versand (schlanke horizontale Card) --- */
+/* --- Promo: Gutschein | Versand — eine Card, zwei gleiche Spalten, Mittellinie (Referenzlayout) --- */
+.template-cart .pflege-cart-promo.pflege-cart-card {
+  border-color: var(--pflege-cart-border);
+  box-shadow: 0 8px 26px rgba(11, 35, 71, 0.055);
+}
+
 .template-cart .pflege-cart-promo {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.25rem;
-  padding: 1.35rem 1.5rem;
-  align-items: center;
+  gap: 0;
+  padding: 1.15rem 1.2rem;
+  align-items: stretch;
   margin-top: 2rem;
 }
 
 @media screen and (min-width: 750px) {
   .template-cart .pflege-cart-promo {
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-    gap: 1.75rem;
-    padding: 1.35rem 1.75rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 1.2rem 1.35rem;
   }
 }
 
-.template-cart .pflege-cart-promo__coupon-row {
+@media screen and (max-width: 749px) {
+  .template-cart .pflege-cart-promo__shipping {
+    border-top: 1px solid var(--pflege-cart-border);
+    margin-top: 1.05rem;
+    padding-top: 1.05rem;
+  }
+}
+
+.template-cart .pflege-cart-promo__coupon {
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
 }
 
 @media screen and (min-width: 750px) {
-  .template-cart .pflege-cart-promo__coupon-row {
-    flex-direction: row;
-    align-items: center;
-    gap: 1.25rem;
+  .template-cart .pflege-cart-promo__coupon {
+    padding-right: 1.25rem;
   }
+}
+
+.template-cart .pflege-cart-promo__coupon-inner {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
 }
 
 .template-cart .pflege-cart-promo__title {
   margin: 0;
-  font-size: 1.32rem;
   font-weight: 700;
   color: var(--pflege-cart-navy);
-  white-space: nowrap;
 }
 
-@media screen and (max-width: 749px) {
-  .template-cart .pflege-cart-promo__title {
-    white-space: normal;
-  }
+.template-cart .pflege-cart-promo__title--coupon {
+  font-size: 1.02rem;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
 }
 
-.template-cart .pflege-cart-promo__coupon-head {
-  display: flex;
-  align-items: center;
-  gap: 0.55rem;
-  margin-bottom: 0;
-  flex-shrink: 0;
+.template-cart .pflege-cart-promo__title--shipping {
+  font-size: 1.08rem;
+  letter-spacing: 0.01em;
+  line-height: 1.25;
 }
 
 .template-cart .pflege-cart-promo__icon {
@@ -630,47 +638,57 @@
 }
 
 .template-cart .pflege-cart-promo__coupon-form {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  gap: 0.65rem;
-  align-items: stretch;
-  flex: 1;
+  margin: 0;
+  width: 100%;
   min-width: 0;
 }
 
-@media screen and (max-width: 749px) {
-  .template-cart .pflege-cart-promo__coupon-form {
-    flex-wrap: wrap;
-  }
+.template-cart .pflege-cart-promo__field-wrap {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--pflege-cart-border);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: rgb(var(--color-background, 255 255 255));
 }
 
 .template-cart .pflege-cart-promo__input {
   flex: 1 1 auto;
   min-width: 0;
-  min-height: 4.6rem;
-  padding: 0 1.1rem;
-  border-radius: 0.65rem;
-  border: 1px solid rgba(88, 145, 215, 0.45);
-  font-size: 1.35rem;
+  min-height: 3rem;
+  padding: 0 0.9rem;
+  border: none;
+  border-radius: 0;
+  font-size: 1rem;
   color: var(--pflege-cart-navy);
-  background: rgb(var(--color-background, 255 255 255));
+  background: transparent;
+}
+
+.template-cart .pflege-cart-promo__input::placeholder {
+  color: rgba(11, 35, 71, 0.42);
 }
 
 .template-cart .pflege-cart-promo__input:focus-visible {
-  outline: 2px solid var(--pflege-cart-sky);
-  outline-offset: 2px;
+  outline: none;
+  box-shadow: inset 0 0 0 2px rgba(88, 145, 215, 0.45);
 }
 
 .template-cart .pflege-cart-promo__coupon-btn {
   flex: 0 0 auto;
-  border-radius: 0.65rem;
-  border: 1px solid rgba(88, 145, 215, 0.55);
-  background: var(--pflege-cart-sky-soft);
+  margin: 0;
+  min-height: 3rem;
+  padding: 0 1.1rem;
+  border: none;
+  border-radius: 0;
+  border-left: 1px solid var(--pflege-cart-border);
+  background: #eef1f5;
   color: var(--pflege-cart-navy);
-  font-weight: 700;
-  padding-inline: 1.5rem;
-  min-height: 4.6rem;
+  font-weight: 600;
+  font-size: 0.97rem;
   white-space: nowrap;
   box-shadow: none;
 }
@@ -681,28 +699,55 @@
 }
 
 .template-cart .pflege-cart-promo__coupon-btn:not([disabled]):hover {
-  background: rgba(88, 145, 215, 0.2);
+  background: #e4e9f0;
+}
+
+.template-cart .pflege-cart-promo__coupon-btn:focus-visible {
+  outline: 2px solid var(--pflege-cart-sky);
+  outline-offset: -2px;
+  position: relative;
+  z-index: 1;
 }
 
 .template-cart .pflege-cart-promo__shipping {
   display: flex;
-  gap: 0.85rem;
-  align-items: flex-start;
-  padding: 1rem 1.15rem;
-  border-radius: 0.85rem;
-  background: rgba(88, 145, 215, 0.05);
-  border: 1px solid rgba(88, 145, 215, 0.15);
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+}
+
+@media screen and (min-width: 750px) {
+  .template-cart .pflege-cart-promo__shipping {
+    border-left: 1px solid var(--pflege-cart-border);
+    padding-left: 1.25rem;
+  }
+}
+
+.template-cart .pflege-cart-promo__shipping-copy {
+  min-width: 0;
 }
 
 .template-cart .pflege-cart-promo__shipping-text {
-  margin: 0.25rem 0 0;
-  font-size: 1.3rem;
+  margin: 0;
+  font-size: 0.93rem;
   line-height: 1.45;
-  color: rgba(11, 35, 71, 0.78);
+  color: rgba(11, 35, 71, 0.55);
 }
 
-.template-cart .pflege-cart-promo__icon--ship {
-  margin-top: 0.1rem;
+@media screen and (min-width: 750px) {
+  .template-cart .pflege-cart-promo__shipping-text {
+    font-size: 0.95rem;
+  }
+}
+
+.template-cart .pflege-cart-promo__shipping-copy .pflege-cart-promo__title + .pflege-cart-promo__shipping-text {
+  margin-top: 0.2rem;
 }
 
 /* --- Bestellübersicht + CTAs in einer Card (~10 % größer + kräftigere Typo) --- */

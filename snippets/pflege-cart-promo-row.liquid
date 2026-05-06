@@ -9,28 +9,28 @@
 
 <div class="pflege-cart-promo pflege-cart-card">
   <div class="pflege-cart-promo__coupon">
-    <div class="pflege-cart-promo__coupon-row">
-      <div class="pflege-cart-promo__coupon-head">
-        <span class="pflege-cart-promo__icon" aria-hidden="true">
-          {% render 'pflege-icon', icon: 'document', width: 22 %}
-        </span>
-        <h3 class="pflege-cart-promo__title">{{ 'sections.cart.pflege.coupon_title' | t }}</h3>
-      </div>
+    <span class="pflege-cart-promo__icon pflege-cart-promo__icon--ticket" aria-hidden="true">
+      {% render 'pflege-icon', icon: 'ticket', width: 22 %}
+    </span>
+    <div class="pflege-cart-promo__coupon-inner">
+      <h3 class="pflege-cart-promo__title pflege-cart-promo__title--coupon">{{ 'sections.cart.pflege.coupon_title' | t }}</h3>
       <form class="pflege-cart-promo__coupon-form" action="{{ request.origin }}/discount" method="post" accept-charset="UTF-8">
         <input type="hidden" name="return_to" value="{{ routes.cart_url }}">
         <label class="visually-hidden" for="PflegeCartDiscount">{{ 'sections.cart.pflege.coupon_placeholder' | t }}</label>
-        <input
-          id="PflegeCartDiscount"
-          class="pflege-cart-promo__input"
-          type="text"
-          name="discount"
-          value=""
-          autocomplete="off"
-          placeholder="{{ 'sections.cart.pflege.coupon_placeholder' | t }}"
-        >
-        <button type="submit" class="pflege-cart-promo__coupon-btn button">
-          {{ 'sections.cart.pflege.coupon_submit' | t }}
-        </button>
+        <div class="pflege-cart-promo__field-wrap">
+          <input
+            id="PflegeCartDiscount"
+            class="pflege-cart-promo__input"
+            type="text"
+            name="discount"
+            value=""
+            autocomplete="off"
+            placeholder="{{ 'sections.cart.pflege.coupon_placeholder' | t }}"
+          >
+          <button type="submit" class="pflege-cart-promo__coupon-btn button">
+            {{ 'sections.cart.pflege.coupon_submit' | t }}
+          </button>
+        </div>
       </form>
     </div>
   </div>
@@ -40,7 +40,7 @@
       {% render 'pflege-icon', icon: 'truck', width: 22 %}
     </span>
     <div class="pflege-cart-promo__shipping-copy">
-      <h3 class="pflege-cart-promo__title">{{ 'sections.cart.pflege.free_shipping_title' | t }}</h3>
+      <h3 class="pflege-cart-promo__title pflege-cart-promo__title--shipping">{{ 'sections.cart.pflege.free_shipping_title' | t }}</h3>
       {%- if fs_remaining_cents <= 0 -%}
         <p class="pflege-cart-promo__shipping-text">{{ 'sections.cart.pflege.free_shipping_qualified' | t }}</p>
       {%- else -%}
