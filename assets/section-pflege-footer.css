@@ -115,7 +115,7 @@
   min-width: 0;
 }
 
-/* Wie .pflege-hero__trust-text (Zeilen unter „Beliebte Pflegeprodukte“) */
+/* Wie .pflege-hero__trust-text (Zeilen unter der Hero-Trust-Überschrift) */
 .pflege-footer__pre-title {
   font-family: var(--font-body-family, inherit);
   font-size: clamp(1.22rem, 1.05rem + 0.35vw, 1.42rem);
@@ -316,7 +316,7 @@ a.pflege-footer__contact-line:hover {
   }
 }
 
-/* Wie .pflege-hero__trust-heading („Beliebte Pflegeprodukte“) */
+/* Wie .pflege-hero__trust-heading */
 .pflege-footer__menu-heading {
   font-family: var(--font-body-family, inherit);
   font-size: clamp(1.45rem, 1.25rem + 0.55vw, 1.75rem);
