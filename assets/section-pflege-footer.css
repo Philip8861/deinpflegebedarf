@@ -10,16 +10,7 @@
   --pflege-ft-accent: var(--pflege-accent, #3f86d9);
   --pflege-ft-radius-card: clamp(16px, 2vw, 22px);
   --pflege-ft-radius-pill: var(--pflege-radius-pill, 999px);
-  /* Volle Viewport-Breite nutzen (nicht auf Hero-Kachel 1426px begrenzen) */
-  --pflege-ft-max: 100%;
-  /*
-    Eigener Footer-Rand: die globalen --pflege-inline-gutter werden auf XL sehr groß (bis 12rem)
-    und „quetschen“ den Inhalt — hier nur moderate Kantenabstände.
-  */
-  --pflege-footer-pad: clamp(1rem, 2.25vw, 2.75rem);
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
+  /* Breite wie Hero-Kasten / Bestseller: Shell + max. Kachelbreite über --pflege-hero-tile-max-width */
   margin-top: var(--pflege-footer-margin-top, 2rem);
   font-family: var(--font-body-family, inherit);
   font-style: var(--font-body-style, normal);
@@ -33,22 +24,29 @@
   padding-bottom: clamp(20px, 4vw, 28px);
 }
 
+/* Außen wie .pflege-bestseller__shell / .pflege-hero__shell */
 .pflege-footer__wrap {
+  max-width: none;
   width: 100%;
-  max-width: var(--pflege-ft-max);
-  margin: 0 auto;
+  margin: 0;
+  padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
+  padding-bottom: 1.5rem;
   box-sizing: border-box;
-  padding: 0 max(var(--pflege-footer-pad), env(safe-area-inset-left, 0px)) 1.5rem;
-  padding-right: max(var(--pflege-footer-pad), env(safe-area-inset-right, 0px));
 }
 
 /* --- Pre-Footer Karte --- */
 .pflege-footer__pre-card {
+  width: 100%;
+  max-width: var(--pflege-hero-tile-max-width, min(100%, 1426px));
+  margin-left: auto;
+  margin-right: auto;
   background: var(--pflege-white, #fff);
   border: 1px solid var(--pflege-ft-border);
   border-radius: var(--pflege-ft-radius-card);
   box-shadow: 0 1px 0 rgba(11, 35, 71, 0.04);
   padding: clamp(1.35rem, 2.8vw, 2.25rem) clamp(1.25rem, 3vw, 2.75rem);
+  box-sizing: border-box;
 }
 
 .pflege-footer__pre-list {
@@ -154,16 +152,20 @@
     rgba(255, 255, 255, 0.97) 55%,
     #fff 100%
   );
+  padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
 }
 
+/* Innen wie .pflege-bestseller__panel — gleiche max. Breite wie Hero-Kachel */
 .pflege-footer__inner {
   width: 100%;
-  max-width: var(--pflege-ft-max);
+  max-width: var(--pflege-hero-tile-max-width, min(100%, 1426px));
   margin-left: auto;
   margin-right: auto;
+  padding-left: 0;
+  padding-right: 0;
   box-sizing: border-box;
-  padding-left: max(var(--pflege-footer-pad), env(safe-area-inset-left, 0px));
-  padding-right: max(var(--pflege-footer-pad), env(safe-area-inset-right, 0px));
 }
 
 .pflege-footer__inner--main {
@@ -493,7 +495,11 @@ a.pflege-footer__contact-line:hover {
 .pflege-footer__trust-strip {
   border-top: 1px solid var(--pflege-ft-border);
   background: #fff;
-  padding: clamp(1.75rem, 3vw, 2.5rem) 0;
+  padding-top: clamp(1.75rem, 3vw, 2.5rem);
+  padding-bottom: clamp(1.75rem, 3vw, 2.5rem);
+  padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
 }
 
 .pflege-footer__inner--trust {
@@ -604,7 +610,11 @@ a.pflege-footer__contact-line:hover {
 .pflege-footer__bottom-bar {
   border-top: 1px solid var(--pflege-ft-border);
   background: rgba(245, 250, 255, 0.65);
-  padding: clamp(1rem, 2vw, 1.35rem) 0;
+  padding-top: clamp(1rem, 2vw, 1.35rem);
+  padding-bottom: clamp(1rem, 2vw, 1.35rem);
+  padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
 }
 
 .pflege-footer__inner--bottom {
@@ -674,7 +684,9 @@ a.pflege-footer__contact-line:hover {
 }
 
 .pflege-footer__app-slot {
-  padding: 1rem max(var(--pflege-footer-pad), env(safe-area-inset-left, 0px));
+  padding: 1rem max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px))
+    1rem max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
 }
 
 @media screen and (max-width: 749px) {
