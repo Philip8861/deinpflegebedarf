@@ -384,6 +384,9 @@
 /* Warenkorb: Bestseller-Empfehlungen — #MainContent / .pflege-cart-page__inner liefern das Gutter */
 .template-cart .pflege-cart-recommendations--page-row .pflege-bestseller {
   margin-top: 0;
+  /* Weniger Luft nach oben: näher an Bestellübersicht, ohne sie zu berühren */
+  padding-top: clamp(0.35rem, 0.9vw, 0.65rem);
+  padding-bottom: clamp(0.85rem, 2vw, 1.25rem);
 }
 
 .template-cart .pflege-cart-recommendations--page-row .pflege-bestseller__shell {

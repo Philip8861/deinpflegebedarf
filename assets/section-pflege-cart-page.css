@@ -88,14 +88,15 @@
     grid-row: 4;
     width: 100%;
     max-width: 100%;
-    margin-top: clamp(2rem, 3.5vw, 3.25rem);
+    /* Knapp unter Bestellübersicht (die sitzt durch align-self:end unten in Zeile 3) */
+    margin-top: clamp(0.45rem, 1vw, 0.85rem);
     box-sizing: border-box;
   }
 
   .template-cart #MainContent:has(cart-items:not(.is-empty)) > .pflege-cart-section--aside {
     grid-column: 2;
     grid-row: 3;
-    align-self: start;
+    align-self: end;
     position: static;
     top: auto;
     z-index: auto;
@@ -386,7 +387,8 @@
 /* --- Mobile Warenkorb: eigenes Raster (Dawn-Tabellen-Grid + thead-Artefakte vermeiden) --- */
 @media screen and (max-width: 749px) {
   .template-cart .pflege-cart-recommendations--page-row {
-    margin-top: clamp(1.35rem, 3vw, 2.15rem);
+    margin-top: clamp(0.65rem, 2vw, 1.1rem);
+    margin-bottom: clamp(0.5rem, 1.5vw, 0.85rem);
   }
 
   .template-cart .pflege-cart-page__title.title--primary {
