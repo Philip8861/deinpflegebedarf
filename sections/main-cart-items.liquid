@@ -533,6 +533,11 @@
                 {%- endfor -%}
               </tbody>
             </table>
+            {%- if cart != empty -%}
+              <div class="pflege-cart-promo--under-table small-hide">
+                {% render 'pflege-cart-promo-row' %}
+              </div>
+            {%- endif -%}
             </div>
           {%- endif -%}
         </div>

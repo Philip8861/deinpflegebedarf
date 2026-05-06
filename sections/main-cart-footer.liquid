@@ -148,7 +148,9 @@
                 </div>
 
                 {%- if cart != empty -%}
-                  {% render 'pflege-cart-promo-row' %}
+                  <div class="pflege-cart-promo--under-summary medium-hide large-up-hide">
+                    {% render 'pflege-cart-promo-row', promo_suffix: '-mobile' %}
+                  </div>
                   {% render 'pflege-bestseller-block',
                     data_source: 'collection',
                     title: 'sections.cart.pflege.recommendations_bestseller_title' | t,

@@ -1,10 +1,12 @@
 {% comment %}
   Gutschein-Eingabe + Versandhinweis (unabhängig vom Cart-Update-Formular).
+  promo_suffix: z. B. "-mobile" für eindeutige IDs, wenn die Zeile zweimal auf der Seite vorkommt.
 {% endcomment %}
 {%- liquid
   assign fs_threshold_cents = 15000
   assign sub_cents = cart.items_subtotal_price
   assign fs_remaining_cents = fs_threshold_cents | minus: sub_cents
+  assign promo_id_suffix = promo_suffix | default: ''
 -%}
 
 <div class="pflege-cart-promo pflege-cart-card">
@@ -18,10 +20,10 @@
       </div>
       <form class="pflege-cart-promo__coupon-form" action="{{ request.origin }}/discount" method="post" accept-charset="UTF-8">
         <input type="hidden" name="return_to" value="{{ routes.cart_url }}">
-        <label class="visually-hidden" for="PflegeCartDiscount">{{ 'sections.cart.pflege.coupon_placeholder' | t }}</label>
+        <label class="visually-hidden" for="PflegeCartDiscount{{ promo_id_suffix }}">{{ 'sections.cart.pflege.coupon_placeholder' | t }}</label>
         <div class="pflege-cart-promo__field-composite">
           <input
-            id="PflegeCartDiscount"
+            id="PflegeCartDiscount{{ promo_id_suffix }}"
             class="pflege-cart-promo__input"
             type="text"
             name="discount"

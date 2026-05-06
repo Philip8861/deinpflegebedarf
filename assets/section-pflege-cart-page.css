@@ -26,8 +26,9 @@
 }
 
 /* ============================================================
-   Desktop: zweispaltig — Gutschein/Promo in #main-cart-footer .js-contents unter der
-   Bestellübersicht (AJAX wie Summary); Artikel links, Sidebar rechts (sticky).
+   Desktop: zweispaltig — Gutschein/Promo unter der Artikeltabelle (linke Spalte, AJAX
+   mit main-cart-items). Mobil: dieselbe Promo zusätzlich unter der Bestellübersicht im Footer.
+   Bestseller bleibt im Footer .js-contents. Artikel links, Sidebar rechts (sticky).
    ============================================================ */
 @media screen and (min-width: 990px) {
   .template-cart #MainContent:has(cart-items:not(.is-empty)) {
@@ -313,8 +314,17 @@
   align-items: stretch;
 }
 
-/* Gutschein-Karte unter Bestellübersicht (Sidebar), gleicher Abstand wie zuvor unter Tabelle */
-.template-cart #main-cart-footer .js-contents > .pflege-cart-promo.pflege-cart-card {
+/* Gutschein-Karte Desktop: unter Artikeltabelle (linke Spalte), wie zuvor */
+.template-cart .pflege-cart-stack-card > .pflege-cart-promo--under-table .pflege-cart-promo.pflege-cart-card {
+  margin-top: 1.35rem;
+  border: 1px solid rgba(88, 145, 215, 0.26);
+  border-radius: 2rem;
+  box-shadow: 0 2px 14px rgba(11, 35, 71, 0.045);
+  background: #f9f9fa;
+}
+
+/* Gutschein Mobil: nur unter Bestellübersicht im Footer */
+.template-cart #main-cart-footer .js-contents > .pflege-cart-promo--under-summary .pflege-cart-promo.pflege-cart-card {
   margin-top: 1.35rem;
   border: 1px solid rgba(88, 145, 215, 0.26);
   border-radius: 2rem;
@@ -629,7 +639,7 @@
     line-height: 1.38;
   }
 
-  .template-cart #main-cart-footer .js-contents > .pflege-cart-promo.pflege-cart-card {
+  .template-cart #main-cart-footer .js-contents > .pflege-cart-promo--under-summary .pflege-cart-promo.pflege-cart-card {
     margin-top: 0.85rem;
     border-radius: 1.35rem;
   }
