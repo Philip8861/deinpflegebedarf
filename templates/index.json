@@ -36,7 +36,9 @@
     },
     "pflege_product_finder": {
       "type": "pflege-product-finder",
-      "settings": {}
+      "settings": {
+        "primary_label": "Jetzt das passende Produkt erhalten"
+      }
     }
   },
   "order": [

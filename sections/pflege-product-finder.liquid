@@ -19,42 +19,33 @@
       style="--pflege-product-finder-bg: url('{{ 'produktfinder.webp' | asset_url }}');"
     >
       <div class="pflege-product-finder__inner">
-        <div class="pflege-product-finder__grid">
-          <div class="pflege-product-finder__col pflege-product-finder__col--main">
+        <div class="pflege-product-finder__stack">
+          <div class="pflege-product-finder__lead">
             {%- if section.settings.intro != blank -%}
               <p class="pflege-product-finder__intro">{{ section.settings.intro | escape }}</p>
             {%- endif -%}
             {%- if section.settings.body_seo != blank -%}
               <p class="pflege-product-finder__body">{{ section.settings.body_seo | escape }}</p>
             {%- endif -%}
-
-            <ul class="pflege-product-finder__chips" aria-label="{{ section.settings.chips_aria | default: 'Themen im Produktfinder' | escape }}">
-              <li class="pflege-product-finder__chip">Hautpflege</li>
-              <li class="pflege-product-finder__chip">Inkontinenz</li>
-              <li class="pflege-product-finder__chip">Hygiene</li>
-              <li class="pflege-product-finder__chip">Desinfektion</li>
-              <li class="pflege-product-finder__chip">Schutz</li>
-              <li class="pflege-product-finder__chip">Pflegehilfen</li>
-            </ul>
-
-            <div class="pflege-product-finder__actions">
-              {%- if section.settings.primary_label != blank -%}
-                <a class="pflege-product-finder__cta" href="{{ primary_href }}">
-                  {{- section.settings.primary_label | escape -}}
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </a>
-              {%- endif -%}
-              {%- if show_secondary -%}
-                <a class="pflege-product-finder__link-secondary" href="{{ secondary_href }}">
-                  {{- section.settings.secondary_label | escape -}}
-                </a>
-              {%- endif -%}
-            </div>
           </div>
 
-          <div class="pflege-product-finder__col pflege-product-finder__col--side">
+          <div class="pflege-product-finder__actions pflege-product-finder__actions--center">
+            {%- if section.settings.primary_label != blank -%}
+              <a class="pflege-product-finder__cta" href="{{ primary_href }}">
+                {{- section.settings.primary_label | escape -}}
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            {%- endif -%}
+            {%- if show_secondary -%}
+              <a class="pflege-product-finder__link-secondary" href="{{ secondary_href }}">
+                {{- section.settings.secondary_label | escape -}}
+              </a>
+            {%- endif -%}
+          </div>
+
+          <div class="pflege-product-finder__recommendations">
             {%- if section.settings.side_heading != blank -%}
               <h3 class="pflege-product-finder__side-title">{{ section.settings.side_heading | escape }}</h3>
             {%- endif -%}
@@ -118,7 +109,7 @@
     {
       "type": "text",
       "id": "side_heading",
-      "label": "Überschrift (rechter Bereich)",
+      "label": "Überschrift unter dem Button",
       "default": "Passende Empfehlungen für Ihren Pflegealltag"
     },
     {
@@ -161,7 +152,7 @@
       "type": "text",
       "id": "primary_label",
       "label": "Primär-Button — Text",
-      "default": "Jetzt Produktfinder starten"
+      "default": "Jetzt das passende Produkt erhalten"
     },
     {
       "type": "url",
@@ -198,13 +189,6 @@
       "id": "step3",
       "label": "Schritt 3",
       "default": "3. Passende Produkte erhalten"
-    },
-    {
-      "type": "text",
-      "id": "chips_aria",
-      "label": "Chips — ARIA-Label (Screenreader)",
-      "default": "Themen im Produktfinder",
-      "info": "Optional. Beschreibt die Keyword-Chips für Hilfstechnologien."
     }
   ],
   "presets": [
