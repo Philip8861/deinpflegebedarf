@@ -9,8 +9,7 @@
           "type": "item",
           "settings": {
             "icon": "truck",
-            "text": "Schneller Versand in 1–2 Tagen",
-            "subtext": "Schnell bei Ihnen"
+            "text": "Schneller Versand in 1–2 Tagen"
           }
         },
         "svc_phone": {
@@ -18,7 +17,6 @@
           "settings": {
             "icon": "headset",
             "text": "Persönliche Beratung 08334 / 9893330",
-            "subtext": "Wir sind gerne für Sie da",
             "link": "tel:+4983349893330"
           }
         },
@@ -26,16 +24,14 @@
           "type": "item",
           "settings": {
             "icon": "document",
-            "text": "Kostenübernahme mit Rezept möglich",
-            "subtext": "Je nach Krankenkasse"
+            "text": "Kostenübernahme mit Rezept möglich"
           }
         },
         "svc_return": {
           "type": "item",
           "settings": {
             "icon": "rotate-ccw",
-            "text": "30 Tage Rückgaberecht",
-            "subtext": "Ohne Risiko bestellen"
+            "text": "30 Tage Rückgaberecht"
           }
         }
       },
