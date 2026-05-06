@@ -82,7 +82,7 @@
   background-attachment: scroll;
   display: flex;
   flex-direction: column;
-  min-height: clamp(18.5rem, 40vw, 32rem);
+  min-height: clamp(19.5rem, 42vw, 34rem);
 }
 
 /* Kein Vollflächen-Weiß — Hintergrundbild bleibt sichtbar; Lesbarkeit über Textschatten */
@@ -155,8 +155,8 @@
 }
 
 .pflege-product-finder__intro {
-  font-size: clamp(1.38rem, 1.18rem + 0.75vw, 1.9rem);
-  line-height: 1.5;
+  font-size: clamp(1.55rem, 1.28rem + 1.05vw, 2.35rem);
+  line-height: 1.46;
   font-weight: 700;
   color: #132535;
   margin: 0;
