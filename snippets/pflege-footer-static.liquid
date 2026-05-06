@@ -28,14 +28,6 @@
   endif
 
   assign url_cookie = root | append: 'pages/cookie-einstellungen'
-
-  assign col_desinfektion = collections.desinfektion
-  assign col_pflegeartikel = collections.pflegeartikel
-  assign col_hautschutz_hautpflege = collections['hautschutz-hautpflege']
-  if col_hautschutz_hautpflege == blank
-    assign col_hautschutz_hautpflege = collections['hauschutz-hautpflege']
-  endif
-  assign col_verbrauchsartikel = collections.verbrauchsartikel
 -%}
 
 <footer id="pflege-footer-root" class="pflege-footer pflege-footer--v2 pflege-footer__section-padding" role="contentinfo">
@@ -111,24 +103,6 @@
               <li><a href="{{ root }}pages/ueber-uns">Über PflegeShop</a></li>
               <li><a href="{{ root }}pages/warum-wir">Warum wir</a></li>
               <li><a href="{{ root }}pages/pflegewissen">Pflegewissen</a></li>
-            </ul>
-          </nav>
-
-          <nav class="pflege-footer__menu-col" aria-labelledby="pflege-ft-kat">
-            <h2 id="pflege-ft-kat" class="pflege-footer__menu-heading">Beliebte Kategorien</h2>
-            <ul class="pflege-footer__menu-list" role="list">
-              <li>
-                <a href="{% if col_desinfektion %}{{ col_desinfektion.url }}{% else %}{{ root }}collections/desinfektion{% endif %}">Desinfektion</a>
-              </li>
-              <li>
-                <a href="{% if col_pflegeartikel %}{{ col_pflegeartikel.url }}{% else %}{{ root }}collections/pflegeartikel{% endif %}">Pflegeartikel</a>
-              </li>
-              <li>
-                <a href="{% if col_hautschutz_hautpflege %}{{ col_hautschutz_hautpflege.url }}{% else %}{{ root }}collections/hautschutz-hautpflege{% endif %}">Hautschutz &amp; Hautpflege</a>
-              </li>
-              <li>
-                <a href="{% if col_verbrauchsartikel %}{{ col_verbrauchsartikel.url }}{% else %}{{ root }}collections/verbrauchsartikel{% endif %}">Verbrauchsartikel</a>
-              </li>
             </ul>
           </nav>
         </div>
