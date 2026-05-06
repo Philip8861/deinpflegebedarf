@@ -359,6 +359,7 @@
         "coupon_placeholder": "Gutscheincode eingeben",
         "coupon_submit": "Einlösen",
         "coupon_hint": "Nach dem Einlösen wird die Seite neu geladen; Rabatte erscheinen in der Bestellübersicht.",
+        "availability_in_stock": "Sofort lieferbar!",
         "price_unit_label": "Stückpreis",
         "price_line_label": "Gesamtpreis",
         "service_strip_label": "Service und Vorteile",

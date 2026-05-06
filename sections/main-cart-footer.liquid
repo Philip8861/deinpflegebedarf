@@ -145,6 +145,10 @@
                     </ul>
                   </div>
                 </div>
+
+                {%- if cart != empty -%}
+                  {% render 'pflege-cart-promo-row' %}
+                {%- endif -%}
               </div>
             {%- when 'buttons' -%}
               <div {{ block.shopify_attributes }}></div>

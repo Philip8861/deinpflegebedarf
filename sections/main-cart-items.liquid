@@ -140,31 +140,42 @@
                           </a>
                         </cart-remove-button>
 
-                      {%- if settings.show_vendor -%}
-                        <p class="caption-with-letter-spacing">{{ item.product.vendor }}</p>
-                      {%- endif -%}
-
-                      <a href="{{ item.url }}" class="cart-item__name h4 break pflege-cart-item__title">{{ item.product.title | escape }}</a>
-
-                      {%- if item.product.description != blank -%}
-                        <p class="pflege-cart-item__desc">{{ item.product.description | strip_html | truncate: 160 }}</p>
-                      {%- endif -%}
-
-                      {%- if item.image -%}
-                        <div class="pflege-cart-item__mobile-media medium-hide large-up-hide" aria-hidden="true">
-                          <div class="cart-item__image-container gradient {% if item.parent_relationship.parent == null %}global-media-settings{% endif %}">
-                            <img
-                              src="{{ item.image | image_url: width: 210 }}"
-                              class="cart-item__image {% if item.parent_relationship.parent != null %}global-media-settings{% endif %}"
-                              alt=""
-                              role="presentation"
-                              loading="lazy"
-                              width="105"
-                              height="{{ 105 | divided_by: item.image.aspect_ratio | ceil }}"
-                            >
+                      <div class="pflege-cart-item__head-row">
+                        {%- if item.image -%}
+                          <div class="pflege-cart-item__mobile-media medium-hide large-up-hide" aria-hidden="true">
+                            <div class="cart-item__image-container gradient {% if item.parent_relationship.parent == null %}global-media-settings{% endif %}">
+                              <img
+                                src="{{ item.image | image_url: width: 210 }}"
+                                class="cart-item__image {% if item.parent_relationship.parent != null %}global-media-settings{% endif %}"
+                                alt=""
+                                role="presentation"
+                                loading="lazy"
+                                width="105"
+                                height="{{ 105 | divided_by: item.image.aspect_ratio | ceil }}"
+                              >
+                            </div>
                           </div>
+                        {%- endif -%}
+
+                        <div class="pflege-cart-item__head-text">
+                          {%- if settings.show_vendor -%}
+                            <p class="caption-with-letter-spacing">{{ item.product.vendor }}</p>
+                          {%- endif -%}
+
+                          <a href="{{ item.url }}" class="cart-item__name h4 break pflege-cart-item__title">{{ item.product.title | escape }}</a>
+
+                          {%- if item.variant.available -%}
+                            <p class="pflege-cart-item__availability caption">
+                              <span class="pflege-cart-item__availability-dot" aria-hidden="true"></span>
+                              <span>{{ 'sections.cart.pflege.availability_in_stock' | t }}</span>
+                            </p>
+                          {%- endif -%}
+
+                          {%- if item.product.description != blank -%}
+                            <p class="pflege-cart-item__desc">{{ item.product.description | strip_html | truncate: 160 }}</p>
+                          {%- endif -%}
                         </div>
-                      {%- endif -%}
+                      </div>
 
                       <div class="pflege-cart-item__unit-mobile medium-hide large-up-hide caption">
                         <div class="pflege-cart-price-stack pflege-cart-price-stack--compact">
@@ -522,7 +533,6 @@
                 {%- endfor -%}
               </tbody>
             </table>
-            {% render 'pflege-cart-promo-row' %}
             </div>
           {%- endif -%}
         </div>
