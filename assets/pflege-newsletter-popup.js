@@ -4,7 +4,7 @@
  * Verhalten:
  *  - Nur auf der Startseite (template-index Body-Klasse).
  *  - Nicht im Theme-Editor (Shopify.designMode).
- *  - Öffnet 20 s nach Page-Load (data-popup-delay).
+ *  - Öffnet 10 s nach Page-Load (data-popup-delay).
  *  - Schließbar via Close-Button, Klick auf Backdrop oder ESC.
  *  - Frequenz-Capping per localStorage:
  *      • Schließen ohne Anmeldung → 30 Tage Pause.
@@ -137,7 +137,7 @@
     if (!shouldShow()) return;
 
     var delay = parseInt(root.getAttribute('data-popup-delay'), 10);
-    if (isNaN(delay) || delay < 0) delay = 20000;
+    if (isNaN(delay) || delay < 0) delay = 10000;
 
     var triggered = false;
     var timer = window.setTimeout(function () {
