@@ -319,7 +319,7 @@
   border: 1px solid rgba(88, 145, 215, 0.26);
   border-radius: 2rem;
   box-shadow: 0 2px 14px rgba(11, 35, 71, 0.045);
-  background: rgb(var(--color-background, 255 255 255));
+  background: #f9f9fa;
 }
 
 .template-cart .pflege-cart-items-table thead {
@@ -565,7 +565,11 @@
   outline-offset: 2px;
 }
 
-/* --- Promo: kompakte Utility-Leiste (Referenz: Icon+Titel eine Zeile, Input+Button inline, Divider) --- */
+/* --- Promo: kompakte Utility-Leiste (Icon+Titel, Codfeld weiß mit Einlösen innen, Kasten #F9F9FA) --- */
+.template-cart .pflege-cart-promo.pflege-cart-card {
+  background: #f9f9fa;
+}
+
 .template-cart .pflege-cart-promo {
   margin-top: 2rem;
   padding: 0;
@@ -648,20 +652,31 @@
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  align-items: center;
-  gap: 0.5rem;
+  align-items: stretch;
+  gap: 0;
   width: 100%;
   min-width: 0;
 }
 
-@media screen and (max-width: 749px) {
-  .template-cart .pflege-cart-promo__coupon-form {
-    flex-wrap: wrap;
-  }
+.template-cart .pflege-cart-promo__field-composite {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+  min-height: 3.6rem;
+  background: #ffffff;
+  border: 1px solid rgba(88, 145, 215, 0.28);
+  border-radius: 1.1rem;
+  overflow: hidden;
+}
 
-  .template-cart .pflege-cart-promo__coupon-btn.button {
-    align-self: flex-start;
-  }
+.template-cart .pflege-cart-promo__field-composite:focus-within {
+  outline: 2px solid rgba(88, 145, 215, 0.42);
+  outline-offset: 1px;
 }
 
 .template-cart .pflege-cart-promo__input {
@@ -669,14 +684,15 @@
   flex: 1 1 auto;
   min-width: 0;
   width: auto;
-  height: 3.6rem;
+  height: auto;
   min-height: 3.6rem;
+  margin: 0;
   padding: 0 0.85rem;
-  border-radius: 1.1rem;
-  border: 1px solid rgba(88, 145, 215, 0.32);
+  border: none;
+  border-radius: 0;
   font-size: 1.35rem;
   color: var(--pflege-cart-navy);
-  background: rgba(252, 253, 255, 1);
+  background: #ffffff;
   box-shadow: none;
 }
 
@@ -684,28 +700,30 @@
   color: rgba(11, 35, 71, 0.38);
 }
 
-@media screen and (max-width: 749px) {
-  .template-cart .pflege-cart-promo__input {
-    flex: 1 1 100%;
-  }
+.template-cart .pflege-cart-promo__input:focus {
+  outline: none;
 }
 
 .template-cart .pflege-cart-promo__input:focus-visible {
-  outline: 2px solid rgba(88, 145, 215, 0.45);
-  outline-offset: 1px;
+  outline: none;
 }
 
 .template-cart .pflege-cart-promo__coupon-btn.button {
   box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   flex: 0 0 auto;
+  align-self: stretch;
   width: auto;
-  height: 3.6rem;
+  height: auto;
   min-height: 3.6rem;
   margin: 0;
-  padding: 0 1.05rem;
-  border-radius: 1.1rem;
-  border: 1px solid rgba(88, 145, 215, 0.22);
-  background: rgba(236, 242, 250, 0.95);
+  padding: 0 1rem;
+  border: none;
+  border-radius: 0;
+  border-left: 1px solid rgba(88, 145, 215, 0.18);
+  background: #ffffff;
   color: var(--pflege-cart-navy);
   font-weight: 600;
   font-size: 1.35rem;
@@ -721,7 +739,7 @@
 }
 
 .template-cart .pflege-cart-promo__coupon-btn:not([disabled]):hover {
-  background: rgba(228, 236, 248, 1);
+  background: rgba(248, 250, 253, 1);
 }
 
 .template-cart .pflege-cart-promo__divider {

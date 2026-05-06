@@ -19,18 +19,20 @@
       <form class="pflege-cart-promo__coupon-form" action="{{ request.origin }}/discount" method="post" accept-charset="UTF-8">
         <input type="hidden" name="return_to" value="{{ routes.cart_url }}">
         <label class="visually-hidden" for="PflegeCartDiscount">{{ 'sections.cart.pflege.coupon_placeholder' | t }}</label>
-        <input
-          id="PflegeCartDiscount"
-          class="pflege-cart-promo__input"
-          type="text"
-          name="discount"
-          value=""
-          autocomplete="off"
-          placeholder="{{ 'sections.cart.pflege.coupon_placeholder' | t }}"
-        >
-        <button type="submit" class="pflege-cart-promo__coupon-btn button">
-          {{ 'sections.cart.pflege.coupon_submit' | t }}
-        </button>
+        <div class="pflege-cart-promo__field-composite">
+          <input
+            id="PflegeCartDiscount"
+            class="pflege-cart-promo__input"
+            type="text"
+            name="discount"
+            value=""
+            autocomplete="off"
+            placeholder="{{ 'sections.cart.pflege.coupon_placeholder' | t }}"
+          >
+          <button type="submit" class="pflege-cart-promo__coupon-btn button">
+            {{ 'sections.cart.pflege.coupon_submit' | t }}
+          </button>
+        </div>
       </form>
     </div>
 
@@ -38,7 +40,7 @@
 
     <div class="pflege-cart-promo__shipping">
       <span class="pflege-cart-promo__icon pflege-cart-promo__icon--ship" aria-hidden="true">
-        {% render 'pflege-icon', icon: 'truck', width: 18 %}
+        {% render 'pflege-icon', icon: 'truck', width: 26 %}
       </span>
       <div class="pflege-cart-promo__shipping-copy">
         <h3 class="pflege-cart-promo__title pflege-cart-promo__title--shipping">{{ 'sections.cart.pflege.free_shipping_title' | t }}</h3>
