@@ -76,8 +76,8 @@
   box-sizing: border-box;
   background-color: var(--pflege-bg-softer, #f5faff);
   background-image: var(--pflege-product-finder-bg, none);
-  /* ~10 % „rausgezoomt“ vs. volles Cover: etwas mehr Bildrand sichtbar */
-  background-size: 90% auto;
+  /* ~20 % „rausgezoomt“ vs. volles Cover: mehr Bildrand sichtbar */
+  background-size: 80% auto;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;
