@@ -4,6 +4,7 @@
 {{ 'component-totals.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
 {{ 'component-discounts.css' | asset_url | stylesheet_tag }}
+{{ 'section-pflege-bestseller-row.css' | asset_url | stylesheet_tag }}
 {{ 'quantity-popover.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
@@ -479,6 +480,26 @@
         {{ 'accessibility.loading' | t }}
       </p>
     </form>
+
+    {%- if cart != empty -%}
+      {%- liquid
+        assign cart_reco_title = 'sections.cart.pflege.recommendations_title' | t
+        assign cart_reco_intro = 'sections.cart.pflege.recommendations_bestseller_intro' | t
+        assign cart_reco_view_all = 'sections.cart.pflege.recommendations_bestseller_view_all' | t
+      -%}
+      <div class="pflege-cart-recommendations--page-row">
+        {% render 'pflege-bestseller-block',
+          data_source: 'collection',
+          title: cart_reco_title,
+          intro: cart_reco_intro,
+          collection: collections.all,
+          products_limit: 4,
+          view_all_label: cart_reco_view_all,
+          view_all_href: routes.all_products_collection_url,
+          show_collection_rating: true
+        %}
+      </div>
+    {%- endif -%}
 
   </div>
 </cart-items>

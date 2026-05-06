@@ -380,3 +380,13 @@
   display: block;
   vertical-align: middle;
 }
+
+/* Warenkorb: Bestseller-Empfehlungen — #MainContent / .pflege-cart-page__inner liefern das Gutter */
+.template-cart .pflege-cart-recommendations--page-row .pflege-bestseller {
+  margin-top: 0;
+}
+
+.template-cart .pflege-cart-recommendations--page-row .pflege-bestseller__shell {
+  padding-left: 0;
+  padding-right: 0;
+}
