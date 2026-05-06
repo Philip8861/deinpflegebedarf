@@ -42,6 +42,8 @@
 
 .pflege-main-nav-section .pflege-main-nav__logo {
   flex: 0 0 auto;
+  /* Etwas nach oben zur optischen Ausrichtung mit Nav/Suche */
+  transform: translateY(-0.32rem);
 }
 
 .pflege-main-nav-section .pflege-main-nav__logo-link {
@@ -53,9 +55,9 @@
 .pflege-main-nav-section .pflege-main-nav__logo-img {
   display: block;
   height: auto;
-  max-height: 5.28rem;
+  max-height: 5.81rem;
   width: auto;
-  max-width: min(24.2rem, 38vw);
+  max-width: min(26.62rem, 41.8vw);
 }
 
 /* Reihenfolge links → rechts: Logo | Nav | Suche | Aktionen */
@@ -610,7 +612,7 @@
   .pflege-main-nav-section .pflege-main-nav__logo {
     flex: 0 1 auto;
     min-width: 0;
-    max-width: min(40vw, 11rem);
+    max-width: min(40vw, 12.1rem);
   }
 
   .pflege-main-nav-section predictive-search.pflege-main-nav__search-host {
@@ -646,7 +648,7 @@
   }
 
   .pflege-main-nav-section .pflege-main-nav__logo-img {
-    max-height: 3.5rem;
+    max-height: 3.85rem;
     max-width: 100%;
   }
 
