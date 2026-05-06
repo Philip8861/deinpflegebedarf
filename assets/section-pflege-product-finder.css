@@ -173,7 +173,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: clamp(0.75rem, 2vw, 1.15rem);
-  margin-top: clamp(1rem, 2.5vw, 1.85rem);
+  margin-top: clamp(1.35rem, 3vw, 2.25rem);
 }
 
 .pflege-product-finder__actions--center {
