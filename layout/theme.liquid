@@ -320,6 +320,13 @@
 
     <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
       {{ content_for_layout }}
+      {%- comment -%}
+        Startseite: „Ihre Vorteile“ fest nach Hero + Bestseller (templates/index.json),
+        damit der Block nicht fehlt, wenn eine Section im Editor/Deploy nicht greift.
+      {%- endcomment -%}
+      {%- if template.name == 'index' -%}
+        {% render 'pflege-hero-trust-inner' %}
+      {%- endif -%}
     </main>
 
     {%- comment -%}

@@ -26,17 +26,10 @@
         "view_all_label": "Zur gesamten Auswahl →",
         "view_all_link": ""
       }
-    },
-    "pflege_hero_trust": {
-      "type": "pflege-hero-trust",
-      "settings": {
-        "trust_heading": "Ihre Vorteile im Überblick"
-      }
     }
   },
   "order": [
     "pflege_hero",
-    "pflege_bestseller",
-    "pflege_hero_trust"
+    "pflege_bestseller"
   ]
 }
