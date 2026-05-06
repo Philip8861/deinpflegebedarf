@@ -49,23 +49,23 @@
       "reset": "Clear search term"
     },
     "cart": {
-      "view": "View cart ({{ count }})",
-      "view_empty_cart": "View cart",
-      "item_added": "Added to cart",
-      "notification_heading": "Added to cart",
-      "notification_subtext": "The item was successfully added to your cart.",
-      "notification_checkout": "Checkout",
-      "notification_continue": "Continue shopping",
+      "view": "Warenkorb anzeigen ({{ count }})",
+      "view_empty_cart": "Warenkorb anzeigen",
+      "item_added": "In den Warenkorb gelegt",
+      "notification_heading": "In den Warenkorb gelegt",
+      "notification_subtext": "Der Artikel wurde erfolgreich in den Warenkorb gelegt.",
+      "notification_checkout": "Zur Kasse",
+      "notification_continue": "Weiter einkaufen",
       "notification_qty": {
-        "one": "{{ count }} item",
-        "other": "{{ count }} items"
+        "one": "{{ count }} Artikel",
+        "other": "{{ count }} Artikel"
       },
-      "trust_pay_title": "Secure payment",
-      "trust_pay_sub": "SSL encrypted",
-      "trust_quality_title": "100% verified quality",
-      "trust_quality_sub": "Carefully selected products",
-      "trust_ship_title": "Fast shipping",
-      "trust_ship_sub": "in 1–2 days"
+      "trust_pay_title": "Sichere Zahlung",
+      "trust_pay_sub": "SSL-verschlüsselt",
+      "trust_quality_title": "100% geprüfte Qualität",
+      "trust_quality_sub": "Sorgfältig ausgewählte Produkte",
+      "trust_ship_title": "Schneller Versand",
+      "trust_ship_sub": "in 1 - 2 Tagen"
     },
     "share": {
       "close": "Close share",

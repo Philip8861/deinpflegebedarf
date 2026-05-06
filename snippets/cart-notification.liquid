@@ -17,7 +17,8 @@
 {% endcomment %}
 
 <cart-notification>
-  <div class="cart-notification-wrapper{% if desktop_menu_type != 'drawer' %} page-width{% endif %}">
+  {%- comment -%} Kein page-width: sonst schmaler Overlay-Bereich, Scrap/Unschärfe am Rand {%- endcomment -%}
+  <div class="cart-notification-wrapper">
     <div
       class="cart-notification__backdrop"
       aria-hidden="true"
