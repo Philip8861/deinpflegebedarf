@@ -32,7 +32,7 @@
 @media screen and (min-width: 990px) {
   .template-cart #MainContent:has(cart-items:not(.is-empty)) {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(363px, 418px);
+    grid-template-columns: minmax(0, 1fr) minmax(399px, 460px);
     column-gap: clamp(1.75rem, 2.5vw, 2rem);
     row-gap: 1.5rem;
     align-items: start;
@@ -901,10 +901,19 @@
 }
 
 /*
-  Desktop: Bestellübersicht klebt unter der Hauptnavigation (ohne Innenscroll).
-  Typografie und Maße kommen aus den Basisregeln oben (~10 % größer).
+  Desktop: Bestellübersicht bündig mit Artikelkarte (kein Section-Padding oben am Footer),
+  Spalte ~10 % breiter, Karte ~30 % niedriger (gestrafft), sticky ohne Innenscroll.
 */
 @media screen and (min-width: 990px) {
+  /* Haupt-Unterschied zur Artikeltabelle: Footer-Section hatte padding-top, cart-items nutzt display:contents → kein gleicher Offset */
+  .template-cart
+    #MainContent:has(cart-items:not(.is-empty))
+    > .pflege-cart-section--aside
+    #main-cart-footer
+    .cart__footer.pflege-cart-aside__footer {
+    padding-top: 0;
+  }
+
   .template-cart #main-cart-footer {
     overflow: visible;
   }
@@ -923,6 +932,111 @@
     overflow: visible;
     max-height: none;
     box-sizing: border-box;
+    border-radius: 1.32rem;
+  }
+
+  /* ~30 % weniger vertikaler Platz: Innenabstände, Abstände, etwas kompaktere Schrift */
+  .template-cart #main-cart-footer .pflege-cart-summary {
+    padding: 1.65rem 2.42rem;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary__heading {
+    margin: 0 0 1.05rem;
+    font-size: 1.72rem;
+    letter-spacing: 0.015em;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary__shipping-note {
+    font-size: 1.22rem;
+    max-width: 12rem;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary__rows {
+    gap: 0.58rem;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary__row {
+    font-size: 1.32rem;
+    gap: 0.65rem;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary__muted {
+    font-size: 1.22rem;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary__rule {
+    margin: 0.35rem 0;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary__row--grand {
+    font-size: 1.42rem;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary__grand-value {
+    font-size: 2.05rem;
+    letter-spacing: 0.015em;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary__vat {
+    margin-top: 0.22rem;
+    font-size: 1.05rem;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary__tax-note {
+    margin-top: 0.48rem;
+    font-size: 1.12rem;
+    line-height: 1.28;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary__cta-band {
+    margin-top: 1.15rem;
+    padding-top: 1.15rem;
+  }
+
+  .template-cart #main-cart-footer .cart__checkout-button.button,
+  .template-cart #main-cart-footer .pflege-cart-summary__checkout {
+    min-height: 4.05rem;
+    font-size: 1.28rem;
+    border-radius: 0.62rem;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary__checkout-arrow {
+    font-size: 1.42rem;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-dynamic-pay {
+    margin-top: 0.58rem;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary__continue.button--secondary {
+    margin-top: 0.65rem;
+    min-height: 3.85rem;
+    border-radius: 0.62rem;
+    font-size: 1.2rem;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary__trust {
+    margin-top: 0.95rem;
+    gap: 0.52rem;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary__trust-item {
+    gap: 0.48rem;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary__trust-icon {
+    width: 2.05rem;
+    height: 2.05rem;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary__trust-text {
+    font-size: 1.15rem;
+    line-height: 1.28;
+    gap: 0.08rem;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary__trust-text strong {
+    font-size: 1.22rem;
   }
 }
 
