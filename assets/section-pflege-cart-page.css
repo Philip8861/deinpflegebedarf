@@ -576,46 +576,6 @@
     white-space: nowrap;
   }
 
-  .template-cart .pflege-cart-items-table .cart-item__totals.medium-hide.large-up-hide {
-    display: flex !important;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-    max-width: 100%;
-    padding: 0.65rem 0.85rem;
-    margin: 0;
-    border-radius: 0.75rem;
-    background: rgba(248, 250, 253, 1);
-    border: 1px solid rgba(88, 145, 215, 0.22);
-    box-sizing: border-box;
-    text-align: left;
-    grid-column: unset !important;
-    grid-row: unset !important;
-  }
-
-  .template-cart .pflege-cart-items-table .cart-item__totals.medium-hide.large-up-hide .pflege-cart-price-stack {
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 100%;
-    gap: 0.75rem;
-    text-align: left;
-  }
-
-  .template-cart .pflege-cart-items-table .cart-item__totals.medium-hide.large-up-hide .pflege-cart-price-stack__amount {
-    margin-left: auto;
-    font-size: 1.42rem;
-    flex-shrink: 0;
-  }
-
-  .template-cart .pflege-cart-items-table .cart-item__totals.medium-hide.large-up-hide .pflege-cart-price-stack__label {
-    font-size: 1.15rem;
-    flex: 1 1 auto;
-    min-width: 0;
-  }
-
   .template-cart .pflege-cart-items-table .cart-item__quantity {
     width: 100%;
     max-width: 100%;
@@ -773,25 +733,19 @@
   }
 
   .template-cart .pflege-cart-items-table.cart-items .cart-item__details {
-    width: 30%;
+    width: 34%;
     min-width: 0;
     max-width: none;
   }
 
   .template-cart .pflege-cart-items-table.cart-items .cart-item__unit-price {
-    width: 20%;
+    width: 22%;
     vertical-align: middle;
     text-align: center;
   }
 
   .template-cart .pflege-cart-items-table.cart-items .cart-item__quantity {
-    width: 21%;
-    vertical-align: middle;
-    text-align: center;
-  }
-
-  .template-cart .pflege-cart-items-table.cart-items .cart-item__totals.small-hide {
-    width: 17%;
+    width: 32%;
     vertical-align: middle;
     text-align: center;
   }
@@ -811,8 +765,7 @@
     padding-left: clamp(0.65rem, 1.35vw, 1.25rem);
   }
 
-  .template-cart .pflege-cart-items-table.cart-items .cart-item__unit-price .pflege-cart-price-stack,
-  .template-cart .pflege-cart-items-table.cart-items .cart-item__totals.small-hide .pflege-cart-price-stack {
+  .template-cart .pflege-cart-items-table.cart-items .cart-item__unit-price .pflege-cart-price-stack {
     align-items: center;
     text-align: center;
   }
