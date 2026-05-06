@@ -1,0 +1,92 @@
+/* PflegeShop — Footer Rechtliches */
+.pflege-footer-legal {
+  border-top: 1px solid var(--pflege-border, #e5eef8);
+  margin-top: 0;
+  padding-top: clamp(1.25rem, 2.5vw, 1.75rem);
+  padding-bottom: clamp(1.35rem, 3vw, 2rem);
+}
+
+.pflege-footer-legal__shell {
+  width: 100%;
+  padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
+}
+
+.pflege-footer-legal__inner {
+  width: 100%;
+  max-width: var(--pflege-hero-tile-max-width, min(100%, 1426px));
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pflege-footer-legal__title {
+  margin: 0 0 0.65rem;
+  font-size: clamp(0.82rem, 0.75rem + 0.25vw, 0.92rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--pflege-navy, #0b2347);
+}
+
+.pflege-footer-legal__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.85rem;
+  margin: 0;
+  padding: 0;
+}
+
+.pflege-footer-legal__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.pflege-footer-legal__item:not(:last-child)::after {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 0.85em;
+  background: rgba(11, 35, 71, 0.15);
+  flex-shrink: 0;
+}
+
+.pflege-footer-legal__link {
+  font-size: clamp(0.95rem, 0.9rem + 0.15vw, 1.05rem);
+  font-weight: 500;
+  color: var(--pflege-muted, #6f7f95);
+  text-decoration: none;
+  text-underline-offset: 0.18em;
+  transition: color 0.2s ease;
+}
+
+.pflege-footer-legal__link:hover {
+  color: var(--pflege-accent, #3f86d9);
+  text-decoration: underline;
+}
+
+.pflege-footer-legal__pending {
+  font-size: clamp(0.95rem, 0.9rem + 0.15vw, 1.05rem);
+  font-weight: 500;
+  color: var(--pflege-muted, #6f7f95);
+  opacity: 0.65;
+  cursor: default;
+}
+
+@media screen and (max-width: 549px) {
+  .pflege-footer-legal__item {
+    flex-basis: 100%;
+  }
+
+  .pflege-footer-legal__item:not(:last-child)::after {
+    display: none;
+  }
+
+  .pflege-footer-legal__list {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}

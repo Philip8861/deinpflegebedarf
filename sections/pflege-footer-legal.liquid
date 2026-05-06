@@ -1,0 +1,189 @@
+{{ 'section-pflege-footer-legal.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign h = section.settings.heading | strip
+  if h == blank
+    assign h = 'footer_pflege.legal_heading' | t
+  endif
+
+  assign label_agb = section.settings.label_agb | strip
+  if label_agb == blank
+    assign label_agb = 'footer_pflege.link_agb' | t
+  endif
+  assign label_impressum = section.settings.label_impressum | strip
+  if label_impressum == blank
+    assign label_impressum = 'footer_pflege.link_impressum' | t
+  endif
+  assign label_widerruf = section.settings.label_widerruf | strip
+  if label_widerruf == blank
+    assign label_widerruf = 'footer_pflege.link_widerruf' | t
+  endif
+  assign label_versand = section.settings.label_versand | strip
+  if label_versand == blank
+    assign label_versand = 'footer_pflege.link_versand' | t
+  endif
+  assign label_datenschutz = section.settings.label_datenschutz | strip
+  if label_datenschutz == blank
+    assign label_datenschutz = 'footer_pflege.link_datenschutz' | t
+  endif
+
+  assign url_agb = section.settings.url_agb
+  if url_agb == blank and shop.terms_of_service != blank and shop.terms_of_service.url != blank
+    assign url_agb = shop.terms_of_service.url
+  endif
+
+  assign url_impressum = section.settings.url_impressum
+
+  assign url_widerruf = section.settings.url_widerruf
+  if url_widerruf == blank and shop.refund_policy != blank and shop.refund_policy.url != blank
+    assign url_widerruf = shop.refund_policy.url
+  endif
+
+  assign url_versand = section.settings.url_versand
+  if url_versand == blank and shop.shipping_policy != blank and shop.shipping_policy.url != blank
+    assign url_versand = shop.shipping_policy.url
+  endif
+
+  assign url_datenschutz = section.settings.url_datenschutz
+  if url_datenschutz == blank and shop.privacy_policy != blank and shop.privacy_policy.url != blank
+    assign url_datenschutz = shop.privacy_policy.url
+  endif
+-%}
+
+<div class="pflege-footer-legal color-{{ section.settings.color_scheme }} gradient">
+  <div class="pflege-footer-legal__shell">
+    <div class="pflege-footer-legal__inner">
+      <p class="pflege-footer-legal__title">{{ h | escape }}</p>
+      <ul class="pflege-footer-legal__list list-unstyled" role="list">
+        <li class="pflege-footer-legal__item">
+          {%- if url_agb != blank -%}
+            <a class="pflege-footer-legal__link" href="{{ url_agb }}">{{ label_agb | escape }}</a>
+          {%- else -%}
+            <span class="pflege-footer-legal__pending">{{ label_agb | escape }}</span>
+          {%- endif -%}
+        </li>
+        <li class="pflege-footer-legal__item">
+          {%- if url_impressum != blank -%}
+            <a class="pflege-footer-legal__link" href="{{ url_impressum }}">{{ label_impressum | escape }}</a>
+          {%- else -%}
+            <span class="pflege-footer-legal__pending">{{ label_impressum | escape }}</span>
+          {%- endif -%}
+        </li>
+        <li class="pflege-footer-legal__item">
+          {%- if url_widerruf != blank -%}
+            <a class="pflege-footer-legal__link" href="{{ url_widerruf }}">{{ label_widerruf | escape }}</a>
+          {%- else -%}
+            <span class="pflege-footer-legal__pending">{{ label_widerruf | escape }}</span>
+          {%- endif -%}
+        </li>
+        <li class="pflege-footer-legal__item">
+          {%- if url_versand != blank -%}
+            <a class="pflege-footer-legal__link" href="{{ url_versand }}">{{ label_versand | escape }}</a>
+          {%- else -%}
+            <span class="pflege-footer-legal__pending">{{ label_versand | escape }}</span>
+          {%- endif -%}
+        </li>
+        <li class="pflege-footer-legal__item">
+          {%- if url_datenschutz != blank -%}
+            <a class="pflege-footer-legal__link" href="{{ url_datenschutz }}">{{ label_datenschutz | escape }}</a>
+          {%- else -%}
+            <span class="pflege-footer-legal__pending">{{ label_datenschutz | escape }}</span>
+          {%- endif -%}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Pflege Footer — Rechtliches",
+  "tag": "section",
+  "class": "pflege-footer-legal-section",
+  "enabled_on": {
+    "groups": ["footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Überschrift",
+      "default": "Rechtliches"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Farbschema",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Beschriftungen (optional überschreiben)"
+    },
+    {
+      "type": "text",
+      "id": "label_agb",
+      "label": "AGB — Text"
+    },
+    {
+      "type": "text",
+      "id": "label_impressum",
+      "label": "Impressum — Text"
+    },
+    {
+      "type": "text",
+      "id": "label_widerruf",
+      "label": "Widerrufsrecht — Text"
+    },
+    {
+      "type": "text",
+      "id": "label_versand",
+      "label": "Versandrichtlinien — Text"
+    },
+    {
+      "type": "text",
+      "id": "label_datenschutz",
+      "label": "Datenschutz — Text"
+    },
+    {
+      "type": "header",
+      "content": "Ziele (leer = Shopify-Richtlinien nutzen, wo möglich)"
+    },
+    {
+      "type": "url",
+      "id": "url_agb",
+      "label": "AGB — Link",
+      "info": "Ohne Eintrag: Nutzungsbedingungen aus den Shop-Einstellungen, falls vorhanden."
+    },
+    {
+      "type": "url",
+      "id": "url_impressum",
+      "label": "Impressum — Link",
+      "info": "Kein automatischer Fallback — Seite im Shop anlegen und hier verknüpfen."
+    },
+    {
+      "type": "url",
+      "id": "url_widerruf",
+      "label": "Widerrufsrecht — Link",
+      "info": "Ohne Eintrag: Rückgaberichtlinie aus den Shop-Einstellungen, falls vorhanden."
+    },
+    {
+      "type": "url",
+      "id": "url_versand",
+      "label": "Versandrichtlinien — Link",
+      "info": "Ohne Eintrag: Versandrichtlinie aus den Shop-Einstellungen, falls vorhanden."
+    },
+    {
+      "type": "url",
+      "id": "url_datenschutz",
+      "label": "Datenschutz — Link",
+      "info": "Ohne Eintrag: Datenschutzerklärung aus den Shop-Einstellungen, falls vorhanden."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pflege Footer — Rechtliches"
+    }
+  ]
+}
+{% endschema %}

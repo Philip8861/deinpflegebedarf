@@ -2,6 +2,13 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
+    "pflege_footer_legal": {
+      "type": "pflege-footer-legal",
+      "settings": {
+        "heading": "Rechtliches",
+        "color_scheme": "scheme-1"
+      }
+    },
     "footer": {
       "type": "footer",
       "blocks": {
@@ -48,6 +55,7 @@
     }
   },
   "order": [
-    "footer"
+    "footer",
+    "pflege_footer_legal"
   ]
 }

@@ -511,6 +511,14 @@
       "expired": "Expired"
     }
   },
+  "footer_pflege": {
+    "legal_heading": "Legal",
+    "link_agb": "Terms of service",
+    "link_impressum": "Imprint",
+    "link_widerruf": "Right of withdrawal",
+    "link_versand": "Shipping policy",
+    "link_datenschutz": "Privacy policy"
+  },
   "recipient": {
     "form": {
       "checkbox": "I want to send this as a gift",

@@ -510,6 +510,14 @@
       "expiration_date": "Gültig bis {{ expires_on }}"
     }
   },
+  "footer_pflege": {
+    "legal_heading": "Rechtliches",
+    "link_agb": "AGB",
+    "link_impressum": "Impressum",
+    "link_widerruf": "Widerrufsrecht",
+    "link_versand": "Versandrichtlinien",
+    "link_datenschutz": "Datenschutzerklärung"
+  },
   "recipient": {
     "form": {
       "checkbox": "Ich möchte dies als Geschenk senden",
