@@ -308,12 +308,7 @@
       {{ 'accessibility.skip_to_text' | t }}
     </a>
 
-    {%- comment -%}
-      Header statisch: section-Tag braucht den Section-Typ = Dateiname sections/*.liquid (ohne Endung), nicht eine freie JSON-ID.
-      Daten: config/settings_data.json → presets.Default.sections → Keys pflege-service-bar, pflege-main-nav .
-    {%- endcomment -%}
-    {% section 'pflege-service-bar' %}
-    {% section 'pflege-main-nav' %}
+    {% sections 'header-group' %}
 
     {%- comment -%}
       Cart-Drawer nach dem Header: JavaScript hängt Klicks an #cart-icon-bubble / #pflege-cart-icon-bubble —

@@ -182,55 +182,6 @@
           "settings": {
             "color_scheme": "scheme-1"
           }
-        },
-        "pflege-service-bar": {
-          "type": "pflege-service-bar",
-          "blocks": {
-            "s1": {
-              "type": "item",
-              "settings": {
-                "icon": "truck",
-                "text": "Kostenloser Versand ab 150 €"
-              }
-            },
-            "s2": {
-              "type": "item",
-              "settings": {
-                "icon": "document",
-                "text": "Kauf auf Rechnung"
-              }
-            },
-            "s3": {
-              "type": "item",
-              "settings": {
-                "icon": "star",
-                "text": "Von Pflegekräften empfohlen"
-              }
-            },
-            "s4": {
-              "type": "item",
-              "settings": {
-                "icon": "headset",
-                "text": "Persönliche Beratung 08334 / 9893330",
-                "link": "tel:+4983349893330"
-              }
-            }
-          },
-          "block_order": ["s1", "s2", "s3", "s4"]
-        },
-        "pflege-main-nav": {
-          "type": "pflege-main-nav",
-          "settings": {
-            "color_scheme": "scheme-1",
-            "menu_color_scheme": "scheme-1",
-            "menu_label": "Produktbereiche",
-            "search_placeholder": "Produkte suchen...",
-            "logo_width": 242,
-            "logo_height": 52,
-            "account_heading": "Mein Konto",
-            "account_sub_guest": "Anmelden",
-            "cart_heading": "Warenkorb"
-          }
         }
       }
     }

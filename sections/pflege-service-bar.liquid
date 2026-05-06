@@ -2,60 +2,26 @@
 
 <section class="pflege-service-bar" aria-label="Service-Hinweise">
   <div class="pflege-service-bar__inner page-width">
-    {%- if section.blocks.size > 0 -%}
-      {%- for block in section.blocks -%}
-        <div class="pflege-service-bar__item" {{ block.shopify_attributes }}>
-          <span class="pflege-service-bar__body">
-            {% render 'pflege-icon', icon: block.settings.icon, width: 20 %}
-            {%- if block.settings.link != blank -%}
-              <a
-                href="{{ block.settings.link }}"
-                class="pflege-service-bar__text pflege-service-bar__link{% if block.settings.link contains 'tel:' %} pflege-service-bar__link--tel{% endif %}"
-                {% if block.settings.link contains 'tel:' %}
-                  aria-label="{{ block.settings.text | escape }} — Anrufen"
-                {% endif %}
-              >
-                {{- block.settings.text | escape -}}
-              </a>
-            {%- else -%}
-              <span class="pflege-service-bar__text">{{ block.settings.text | escape }}</span>
-            {%- endif -%}
-          </span>
-        </div>
-      {%- endfor -%}
-    {%- else -%}
-      {%- comment -%} Live-Theme ohne Blöcke (Editor/Import): feste vier Hinweise wie in header-group.json {%- endcomment -%}
-      <div class="pflege-service-bar__item">
+    {%- for block in section.blocks -%}
+      <div class="pflege-service-bar__item" {{ block.shopify_attributes }}>
         <span class="pflege-service-bar__body">
-          {% render 'pflege-icon', icon: 'truck', width: 20 %}
-          <span class="pflege-service-bar__text">{{ 'Kostenloser Versand ab 150 €' | escape }}</span>
+          {% render 'pflege-icon', icon: block.settings.icon, width: 20 %}
+          {%- if block.settings.link != blank -%}
+            <a
+              href="{{ block.settings.link }}"
+              class="pflege-service-bar__text pflege-service-bar__link{% if block.settings.link contains 'tel:' %} pflege-service-bar__link--tel{% endif %}"
+              {% if block.settings.link contains 'tel:' %}
+                aria-label="{{ block.settings.text | escape }} — Anrufen"
+              {% endif %}
+            >
+              {{- block.settings.text | escape -}}
+            </a>
+          {%- else -%}
+            <span class="pflege-service-bar__text">{{ block.settings.text | escape }}</span>
+          {%- endif -%}
         </span>
       </div>
-      <div class="pflege-service-bar__item">
-        <span class="pflege-service-bar__body">
-          {% render 'pflege-icon', icon: 'document', width: 20 %}
-          <span class="pflege-service-bar__text">{{ 'Kauf auf Rechnung' | escape }}</span>
-        </span>
-      </div>
-      <div class="pflege-service-bar__item">
-        <span class="pflege-service-bar__body">
-          {% render 'pflege-icon', icon: 'star', width: 20 %}
-          <span class="pflege-service-bar__text">{{ 'Von Pflegekräften empfohlen' | escape }}</span>
-        </span>
-      </div>
-      <div class="pflege-service-bar__item">
-        <span class="pflege-service-bar__body">
-          {% render 'pflege-icon', icon: 'headset', width: 20 %}
-          <a
-            href="tel:+4983349893330"
-            class="pflege-service-bar__text pflege-service-bar__link pflege-service-bar__link--tel"
-            aria-label="{{ 'Persönliche Beratung 08334 / 9893330' | escape }} — Anrufen"
-          >
-            {{- 'Persönliche Beratung 08334 / 9893330' | escape -}}
-          </a>
-        </span>
-      </div>
-    {%- endif -%}
+    {%- endfor -%}
   </div>
 </section>
 
@@ -64,6 +30,9 @@
   "name": "PflegeShop Service-Leiste",
   "tag": "section",
   "class": "pflege-service-bar-section",
+  "enabled_on": {
+    "groups": ["header"]
+  },
   "max_blocks": 6,
   "blocks": [
     {
