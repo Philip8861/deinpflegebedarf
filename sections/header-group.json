@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "name": "t:sections.header.name",
   "type": "header",
@@ -9,21 +18,24 @@
           "type": "item",
           "settings": {
             "icon": "truck",
-            "text": "Kostenloser Versand ab 150 €"
+            "text": "Kostenloser Versand ab 150 €",
+            "link": ""
           }
         },
         "s2": {
           "type": "item",
           "settings": {
             "icon": "document",
-            "text": "Kauf auf Rechnung"
+            "text": "Kauf auf Rechnung",
+            "link": ""
           }
         },
         "s3": {
           "type": "item",
           "settings": {
             "icon": "star",
-            "text": "Von Pflegekräften empfohlen"
+            "text": "Von Pflegekräften empfohlen",
+            "link": ""
           }
         },
         "s4": {
@@ -35,53 +47,75 @@
           }
         }
       },
-      "block_order": ["s1", "s2", "s3", "s4"]
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "settings": {}
     },
-    "pflege_header_main_nav": {
+    "pflege_main_nav": {
       "type": "pflege-main-nav",
       "blocks": {
-        "nav_desinfektion": {
+        "nav_koerper": {
           "type": "nav_link",
           "settings": {
-            "title": "Desinfektion",
-            "link": "shopify://collections/desinfektion"
+            "title": "Halllooo",
+            "link": ""
           }
         },
-        "nav_pflegeartikel": {
+        "nav_schutz": {
           "type": "nav_link",
           "settings": {
-            "title": "Pflegeartikel",
-            "link": "shopify://collections/pflegeartikel"
+            "title": "Schutzausrüstung",
+            "link": ""
           }
         },
-        "nav_hautschutz_hautpflege": {
+        "nav_zubehoer": {
           "type": "nav_link",
           "settings": {
-            "title": "Hautschutz & Hautpflege",
-            "link": "shopify://collections/hautschutz-hautpflege"
+            "title": "Zubehör",
+            "link": ""
           }
         },
-        "nav_verbrauchsartikel": {
+        "nav_wund": {
           "type": "nav_link",
           "settings": {
-            "title": "Verbrauchsartikel",
-            "link": "shopify://collections/verbrauchsartikel"
+            "title": "Wundbehandlung",
+            "link": ""
+          }
+        },
+        "nav_hygiene": {
+          "type": "nav_link",
+          "settings": {
+            "title": "Hygiene",
+            "link": ""
           }
         }
       },
-      "block_order": ["nav_desinfektion", "nav_pflegeartikel", "nav_hautschutz_hautpflege", "nav_verbrauchsartikel"],
+      "block_order": [
+        "nav_koerper",
+        "nav_schutz",
+        "nav_zubehoer",
+        "nav_wund",
+        "nav_hygiene"
+      ],
       "settings": {
         "color_scheme": "scheme-1",
         "menu_color_scheme": "scheme-1",
         "menu_label": "Produktbereiche",
         "search_placeholder": "Produkte suchen...",
-        "logo_width": 242,
-        "logo_height": 52,
+        "logo_width": 220,
+        "logo_height": 48,
         "account_heading": "Mein Konto",
         "account_sub_guest": "Anmelden",
         "cart_heading": "Warenkorb"
       }
     }
   },
-  "order": ["pflege_service_bar", "pflege_header_main_nav"]
+  "order": [
+    "pflege_service_bar",
+    "pflege_main_nav"
+  ]
 }

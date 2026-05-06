@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "pflege_hero": {
@@ -14,8 +23,6 @@
     },
     "pflege_bestseller": {
       "type": "pflege-bestseller-row",
-      "blocks": {},
-      "block_order": [],
       "settings": {
         "title": "Beliebte Pflegeprodukte",
         "intro": "Ausgewählte Artikel, die andere Kundinnen und Kunden besonders oft gewählt haben.",
