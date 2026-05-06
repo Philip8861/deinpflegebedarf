@@ -2,8 +2,23 @@
 .pflege-product-finder {
   font-family: var(--font-body-family, inherit);
   font-style: var(--font-body-style, normal);
-  padding-top: clamp(1rem, 2.5vw, 1.5rem);
-  padding-bottom: clamp(1rem, 2.5vw, 1.5rem);
+  padding-top: var(--pflege-home-section-stack, clamp(1.5rem, 3vw, 2rem));
+  padding-bottom: var(--pflege-home-section-stack, clamp(1.5rem, 3vw, 2rem));
+  box-sizing: border-box;
+}
+
+/* Gleiche Überschrift-Typografie wie „Beliebte Pflegeprodukte“ (.pflege-bestseller__title) */
+.pflege-product-finder__section-title {
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1.85rem, 1.45rem + 1.15vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  color: var(--pflege-navy, #0b2347);
+  margin: 0 auto clamp(1.35rem, 3vw, 2rem);
+  text-align: center;
+  max-width: var(--pflege-hero-tile-max-width, min(100%, 1426px));
+  width: 100%;
   box-sizing: border-box;
 }
 
@@ -28,19 +43,12 @@
   overflow: hidden;
   box-sizing: border-box;
   background-color: var(--pflege-bg-softer, #f5faff);
-  /* Bild unten, darüber leichtes Weiß für Lesbarkeit (Aquarell bleibt sichtbar) */
-  background-image: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.62) 0%,
-      rgba(255, 255, 255, 0.48) 42%,
-      rgba(248, 251, 255, 0.55) 100%
-    ),
-    var(--pflege-product-finder-bg, none);
-  background-size: cover, cover;
-  background-position: center, center;
-  background-repeat: no-repeat, no-repeat;
+  /* Nur Hintergrundbild — kein weißes Overlay (Lesbarkeit über Textfarben) */
+  background-image: var(--pflege-product-finder-bg, none);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   background-attachment: scroll;
-  box-shadow: 0 1px 0 rgba(11, 35, 71, 0.04);
 }
 
 .pflege-product-finder__inner {
@@ -60,16 +68,6 @@
     grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
     gap: clamp(2rem, 4vw, 3rem);
   }
-}
-
-.pflege-product-finder__title {
-  font-family: var(--pflege-font-display, Georgia, serif);
-  font-weight: 400;
-  font-size: clamp(1.75rem, 1.25rem + 1.3vw, 2.4rem);
-  line-height: 1.22;
-  letter-spacing: -0.02em;
-  color: var(--pflege-navy, #0b2347);
-  margin: 0 0 clamp(0.85rem, 1.8vw, 1.1rem);
 }
 
 .pflege-product-finder__intro {

@@ -4,8 +4,8 @@
   /* Grundschrift wie Theme-Body; Überschriften/Namen separat mit Display-Serif wie Hero */
   font-family: var(--font-body-family, inherit);
   font-style: var(--font-body-style, normal);
-  padding-top: clamp(1.25rem, 3vw, 2rem);
-  padding-bottom: clamp(1.25rem, 3vw, 2rem);
+  padding-top: var(--pflege-home-section-stack, clamp(1.5rem, 3vw, 2rem));
+  padding-bottom: var(--pflege-home-section-stack, clamp(1.5rem, 3vw, 2rem));
 }
 
 /* Außen wie Hero-Shell (gleiche Innenränder zur Seitenkante) */

@@ -11,6 +11,9 @@
 
 <section class="pflege-product-finder" {{ section.shopify_attributes }}>
   <div class="pflege-product-finder__shell">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="pflege-product-finder__section-title">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
     <div
       class="pflege-product-finder__panel"
       style="--pflege-product-finder-bg: url('{{ 'produktfinder.webp' | asset_url }}');"
@@ -18,9 +21,6 @@
       <div class="pflege-product-finder__inner">
         <div class="pflege-product-finder__grid">
           <div class="pflege-product-finder__col pflege-product-finder__col--main">
-            {%- if section.settings.heading != blank -%}
-              <h2 class="pflege-product-finder__title">{{ section.settings.heading | escape }}</h2>
-            {%- endif -%}
             {%- if section.settings.intro != blank -%}
               <p class="pflege-product-finder__intro">{{ section.settings.intro | escape }}</p>
             {%- endif -%}

@@ -23,6 +23,11 @@
     Schmaler Viewport: min(100%, …) übernimmt die Shell.
   */
   --pflege-hero-tile-max-width: min(100%, 1426px);
+  /*
+    Vertikaler Rhythmus Startseite: gleicher Abstand zwischen Hero ↔ Bestseller ↔ Produktfinder
+    (padding unten/oben der Sections summiert sich jeweils symmetrisch).
+  */
+  --pflege-home-section-stack: clamp(1.5rem, 3vw, 2rem);
 }
 
 @media screen and (min-width: 480px) {
