@@ -7,6 +7,11 @@
   if section.settings.secondary_label != blank and secondary_href != blank
     assign show_secondary = true
   endif
+
+  assign pf_finder_bg_url = 'produktfinder.webp' | asset_url
+  if section.settings.background_image != blank
+    assign pf_finder_bg_url = section.settings.background_image | image_url: width: 2400
+  endif
 -%}
 
 <section class="pflege-product-finder" {{ section.shopify_attributes }}>
@@ -17,7 +22,7 @@
       {%- endif -%}
       <div
         class="pflege-product-finder__panel"
-        style="--pflege-product-finder-bg: url('{{ 'produktfinder.webp' | asset_url }}');"
+        style="--pflege-product-finder-bg: url('{{ pf_finder_bg_url }}');"
       >
         <div class="pflege-product-finder__inner">
         <div class="pflege-product-finder__stack">
@@ -58,7 +63,12 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Hintergrund: assets/produktfinder.webp (cover, center). Breite wie Hero/Bestseller."
+      "content": "Hintergrundbild im Kasten: unten wählen oder leer lassen für Standard (Theme-Asset produktfinder.webp). Empfohlen: breites JPG/WebP (ca. 1900–2400 px), dezente Farben."
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Hintergrundbild Produktfinder-Kasten"
     },
     {
       "type": "text",
