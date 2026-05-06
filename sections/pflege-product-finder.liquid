@@ -9,13 +9,12 @@
   endif
 -%}
 
-<section
-  class="pflege-product-finder"
-  style="--pflege-product-finder-bg: url({{ 'Produktfinder.webp' | asset_url }});"
-  {{ section.shopify_attributes }}
->
+<section class="pflege-product-finder" {{ section.shopify_attributes }}>
   <div class="pflege-product-finder__shell">
-    <div class="pflege-product-finder__panel">
+    <div
+      class="pflege-product-finder__panel"
+      style="--pflege-product-finder-bg: url('{{ 'produktfinder.webp' | asset_url }}');"
+    >
       <div class="pflege-product-finder__inner">
         <div class="pflege-product-finder__grid">
           <div class="pflege-product-finder__col pflege-product-finder__col--main">
@@ -96,7 +95,7 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Hintergrund: Produktfinder-Bild im Theme (Produktfinder.webp). Breite wie Hero/Bestseller."
+      "content": "Hintergrund: assets/produktfinder.webp (cover, center). Breite wie Hero/Bestseller."
     },
     {
       "type": "text",

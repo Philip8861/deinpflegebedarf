@@ -28,16 +28,18 @@
   overflow: hidden;
   box-sizing: border-box;
   background-color: var(--pflege-bg-softer, #f5faff);
+  /* Bild unten, darüber leichtes Weiß für Lesbarkeit (Aquarell bleibt sichtbar) */
   background-image: linear-gradient(
       135deg,
-      rgba(255, 255, 255, 0.92) 0%,
-      rgba(255, 255, 255, 0.78) 45%,
-      rgba(248, 251, 255, 0.82) 100%
+      rgba(255, 255, 255, 0.62) 0%,
+      rgba(255, 255, 255, 0.48) 42%,
+      rgba(248, 251, 255, 0.55) 100%
     ),
     var(--pflege-product-finder-bg, none);
   background-size: cover, cover;
   background-position: center, center;
   background-repeat: no-repeat, no-repeat;
+  background-attachment: scroll;
   box-shadow: 0 1px 0 rgba(11, 35, 71, 0.04);
 }
 
