@@ -323,13 +323,19 @@
   background: #f9f9fa;
 }
 
-/* Gutschein Mobil: nur unter Bestellübersicht im Footer */
-.template-cart #main-cart-footer .js-contents > .pflege-cart-promo--under-summary .pflege-cart-promo.pflege-cart-card {
+/* Gutschein Mobil: unter Bestellübersicht; Empfehlungen im gleichen Stack darunter */
+.template-cart #main-cart-footer .js-contents > .pflege-cart-stack-below-summary > .pflege-cart-promo--under-summary .pflege-cart-promo.pflege-cart-card {
   margin-top: 1.35rem;
   border: 1px solid rgba(88, 145, 215, 0.26);
   border-radius: 2rem;
   box-shadow: 0 2px 14px rgba(11, 35, 71, 0.045);
   background: #f9f9fa;
+}
+
+.template-cart #main-cart-footer .js-contents > .pflege-cart-stack-below-summary {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .template-cart .pflege-cart-items-table thead {
@@ -639,7 +645,7 @@
     line-height: 1.38;
   }
 
-  .template-cart #main-cart-footer .js-contents > .pflege-cart-promo--under-summary .pflege-cart-promo.pflege-cart-card {
+  .template-cart #main-cart-footer .js-contents > .pflege-cart-stack-below-summary > .pflege-cart-promo--under-summary .pflege-cart-promo.pflege-cart-card {
     margin-top: 0.85rem;
     border-radius: 1.35rem;
   }
