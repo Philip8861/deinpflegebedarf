@@ -25,7 +25,23 @@
         {%- if use_collection -%}
           {%- comment -%} Zuverlässig wie Bestseller: Produkte kommen aus der Kollektion (volle Medien){%- endcomment -%}
           {%- for card_product in pflege_col.products limit: 3 -%}
-            {% render 'pflege-pflegeset-card', card_product: card_product, handle_fallback: card_product.handle, badge_label: badge_label %}
+            {%- liquid
+              assign slot_contents = ''
+              case forloop.index
+                when 1
+                  assign slot_contents = section.settings.contents_1
+                when 2
+                  assign slot_contents = section.settings.contents_2
+                when 3
+                  assign slot_contents = section.settings.contents_3
+              endcase
+            -%}
+            {% render 'pflege-pflegeset-card',
+              card_product: card_product,
+              handle_fallback: card_product.handle,
+              badge_label: badge_label,
+              card_contents: slot_contents
+            %}
           {%- endfor -%}
         {%- else -%}
           {%- for handle_raw in pflegeset_handles -%}
@@ -63,7 +79,23 @@
                 endif
               endif
             -%}
-            {% render 'pflege-pflegeset-card', card_product: card_product, handle_fallback: handle, badge_label: badge_label %}
+            {%- liquid
+              assign slot_contents = ''
+              case forloop.index
+                when 1
+                  assign slot_contents = section.settings.contents_1
+                when 2
+                  assign slot_contents = section.settings.contents_2
+                when 3
+                  assign slot_contents = section.settings.contents_3
+              endcase
+            -%}
+            {% render 'pflege-pflegeset-card',
+              card_product: card_product,
+              handle_fallback: handle,
+              badge_label: badge_label,
+              card_contents: slot_contents
+            %}
           {%- endfor -%}
         {%- endif -%}
       </div>
@@ -92,6 +124,27 @@
       "id": "badge_text",
       "label": "Hinweis (oben rechts auf dem Bild)",
       "default": "Sie sparen 10%"
+    },
+    {
+      "type": "textarea",
+      "id": "contents_1",
+      "label": "Enthaltene Artikel — Kachel 1 (unter dem Namen)",
+      "default": "• Tiga Soft Einlagen Gr. S (16 Stück)\n• Sensiderm Barriercreme (75 ml)\n• Mildes Waschgel ohne Parfum (250 ml)\n• Nitril-Einmalhandschuhe (10 Paar)\n• All-in-One Feuchttücher (48 Stück)",
+      "info": "Pro Zeile ein Artikel. Platzhalter — im Editor anpassen."
+    },
+    {
+      "type": "textarea",
+      "id": "contents_2",
+      "label": "Enthaltene Artikel — Kachel 2",
+      "default": "• Comfort Plus Inkontinenzhosen Gr. L (14 Stück)\n• Pflegebad-Öl beruhigend (200 ml)\n• Hautmilch rückfettend (400 ml)\n• Zellstoff-Vliesunterlagen (30 Stück)\n• Mundhygiene-Sticks einzeln verpackt (12 Stück)",
+      "info": "Pro Zeile ein Artikel."
+    },
+    {
+      "type": "textarea",
+      "id": "contents_3",
+      "label": "Enthaltene Artikel — Kachel 3",
+      "default": "• Super-Saugvorlagen Gr. M (18 Stück)\n• Zinkpaste für gereizte Haut (100 g)\n• Desinfektionsreiniger für Oberflächen (500 ml)\n• Betteinlage Frottee waschbar (1 Stück)\n• Körperlotion unparfümiert (300 ml)",
+      "info": "Pro Zeile ein Artikel."
     },
     {
       "type": "collection",

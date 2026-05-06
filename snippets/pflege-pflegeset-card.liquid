@@ -1,6 +1,6 @@
 {%- comment -%}
   Pflegeset-Kachel. Bild wie Bestseller: featured_media → image_url → image_tag
-  Param: card_product (Product, optional), handle_fallback (String), badge_label (String)
+  Param: card_product (Product, optional), handle_fallback (String), badge_label (String), card_contents (String, optional)
 {%- endcomment -%}
 {%- liquid
   if card_product != blank
@@ -67,6 +67,10 @@
 
   <div class="pflege-pflegesets__body">
     <a class="pflege-pflegesets__name-link" href="{{ card_href }}">{{ card_label | escape }}</a>
+
+    {%- if card_contents != blank -%}
+      <div class="pflege-pflegesets__contents">{{ card_contents | escape | newline_to_br }}</div>
+    {%- endif -%}
 
     {%- if card_product != blank -%}
       <div class="pflege-pflegesets__price">

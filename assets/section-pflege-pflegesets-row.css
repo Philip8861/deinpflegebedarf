@@ -135,9 +135,9 @@
   right: 0.5rem;
   z-index: 2;
   max-width: calc(100% - 1rem);
-  padding: 0.35rem 0.55rem;
+  padding: 0.42rem 0.72rem;
   border-radius: var(--pflege-radius-card, 14px);
-  font-size: clamp(0.7rem, 0.62rem + 0.25vw, 0.82rem);
+  font-size: clamp(0.82rem, 0.72rem + 0.38vw, 1rem);
   font-weight: 700;
   line-height: 1.2;
   text-align: center;
@@ -175,6 +175,19 @@
 
 .pflege-pflegesets__name-link:hover {
   color: var(--pflege-accent, #3f86d9);
+}
+
+.pflege-pflegesets__contents {
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(0.76rem, 0.7rem + 0.22vw, 0.88rem);
+  font-weight: 500;
+  line-height: 1.48;
+  color: var(--pflege-muted, #6f7f95);
+  text-align: center;
+  margin: 0.35rem 0 0.45rem;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .pflege-pflegesets__price {
