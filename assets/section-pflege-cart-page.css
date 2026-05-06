@@ -345,6 +345,16 @@
   box-sizing: border-box;
 }
 
+/* Dawn-Section „Verwandte Produkte“ (product-recommendations) auf /cart: oft noch im Editor eingefügt —
+   ausblenden; Empfehlungen nur über Pflege-Bestseller in main-cart-items. */
+.template-cart
+  #MainContent
+  > .shopify-section:not(.pflege-cart-section--main):not(.pflege-cart-section--aside):not(.pflege-cart-section--service):has(
+    product-recommendations
+  ) {
+  display: none !important;
+}
+
 /* Gutschein Mobil: unter Bestellübersicht */
 .template-cart #main-cart-footer .js-contents > .pflege-cart-stack-below-summary > .pflege-cart-promo--under-summary .pflege-cart-promo.pflege-cart-card {
   margin-top: 1.35rem;
