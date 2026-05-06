@@ -395,6 +395,14 @@
       0 0 26px rgba(var(--pflege-hover-glow), 0.14);
   }
 
+  .pflege-main-nav-section .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu-link:hover,
+  .pflege-main-nav-section .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu-link:focus-visible,
+  .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu-link:hover,
+  .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu-link:focus-visible {
+    color: #063057 !important;
+    -webkit-text-fill-color: #063057 !important;
+  }
+
   .pflege-main-nav-section .pflege-main-nav__search:hover,
   .pflege-main-nav-section .pflege-main-nav__search:focus-within {
     border-color: rgba(var(--pflege-hover-glow), 0.38);
@@ -438,7 +446,7 @@
     display: grid;
     grid-template-columns:
       auto
-      minmax(14rem, 1fr)
+      minmax(17rem, 1fr)
       minmax(11rem, min(30rem, 28vw))
       auto;
     grid-template-areas: 'logo nav search actions';
@@ -471,6 +479,9 @@
     align-items: center;
     justify-self: stretch;
     align-self: center;
+    position: relative;
+    z-index: 4;
+    isolation: isolate;
     min-width: 0;
     width: 100%;
     margin: 0;
@@ -478,6 +489,7 @@
     box-sizing: border-box;
     overflow: visible;
     transform: none;
+    color: #0b2347;
   }
 
   .pflege-main-nav-section .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu,
@@ -514,12 +526,25 @@
     padding-inline: clamp(0.06rem, 0.3vw, 0.3rem);
     padding-block: 0.35rem;
     display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    overflow: visible;
+    text-overflow: clip;
     white-space: nowrap;
     font-size: clamp(0.78rem, 0.32rem + 0.95vw, 1.28rem);
     font-weight: 500;
     line-height: 1.2;
+    color: #0b2347 !important;
+    -webkit-text-fill-color: #0b2347 !important;
+    mix-blend-mode: normal;
+    opacity: 1;
+    visibility: visible;
+    text-decoration: none;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu-link--active,
+  .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu-link--active {
+    color: #063057 !important;
+    -webkit-text-fill-color: #063057 !important;
+    font-weight: 600;
   }
 
   .pflege-main-nav-section predictive-search.pflege-main-nav__search-host,
@@ -529,6 +554,7 @@
     justify-self: stretch;
     display: block;
     position: relative;
+    z-index: 1;
     width: 100%;
     max-width: min(30rem, 28vw);
     min-width: 11rem;

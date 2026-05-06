@@ -20,7 +20,7 @@
       display: grid !important;
       grid-template-columns:
         auto
-        minmax(14rem, 1fr)
+        minmax(17rem, 1fr)
         minmax(11rem, min(30rem, 28vw))
         auto !important;
       grid-template-areas: 'logo nav search actions' !important;
@@ -43,6 +43,9 @@
       display: flex !important;
       align-items: center !important;
       justify-self: stretch !important;
+      position: relative !important;
+      z-index: 4 !important;
+      isolation: isolate !important;
       min-width: 0 !important;
       width: 100% !important;
       margin: 0 !important;
@@ -50,6 +53,7 @@
       overflow: visible !important;
       visibility: visible !important;
       opacity: 1 !important;
+      color: #0b2347 !important;
     }
     .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu {
       display: flex !important;
@@ -72,19 +76,24 @@
     .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu-link {
       display: block !important;
       color: #0b2347 !important;
+      -webkit-text-fill-color: #0b2347 !important;
       font-size: clamp(0.78rem, 0.32rem + 0.95vw, 1.28rem) !important;
       font-weight: 500 !important;
       text-decoration: none !important;
       text-align: center !important;
       white-space: nowrap !important;
-      overflow: hidden !important;
-      text-overflow: ellipsis !important;
+      overflow: visible !important;
+      text-overflow: clip !important;
       max-width: 100% !important;
+      mix-blend-mode: normal !important;
+      opacity: 1 !important;
+      visibility: visible !important;
     }
     .header-wrapper.pflege-main-nav predictive-search.pflege-main-nav__search-host {
       grid-area: search !important;
       display: block !important;
       position: relative !important;
+      z-index: 1 !important;
       width: 100% !important;
       max-width: min(30rem, 28vw) !important;
       min-width: 11rem !important;
