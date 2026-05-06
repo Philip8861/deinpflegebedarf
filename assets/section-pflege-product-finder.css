@@ -14,12 +14,14 @@
 */
 .pflege-product-finder__backdrop {
   margin-top: clamp(1.75rem, 5vw, 3.25rem);
-  padding: clamp(2.25rem, 5.5vw, 3.75rem) 0 clamp(0.25rem, 1.5vw, 0.75rem);
+  /* Unten mehr Luft: Streifen läuft unter den Kasten weiter */
+  padding: clamp(2.25rem, 5.5vw, 3.75rem) 0 clamp(2.75rem, 7vw, 5rem);
   background: linear-gradient(
     180deg,
-    #f2f6fa 0%,
-    #edf2f8 52%,
-    #eef4fa 100%
+    #fafcfd 0%,
+    #f8fafc 40%,
+    #f7f9fb 70%,
+    #f6f8fb 100%
   );
   /* Horizontal weit / vertikal moderat = weicher Bogen zur darüberliegenden Fläche */
   border-radius: 50% 50% 0 0 / clamp(2rem, 5.5vw, 4rem) clamp(2rem, 5.5vw, 4rem) 0 0;
