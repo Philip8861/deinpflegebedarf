@@ -13,6 +13,24 @@
   --pflege-radius-pill: 999px;
   --pflege-font-display: Georgia, 'Times New Roman', Times, serif;
   --pflege-max-copy: 52rem;
-  /* Gleiche horizontale Kanten wie Hauptleiste (Logo … Warenkorb) */
-  --pflege-inline-gutter: clamp(3.5rem, 9vw, 12rem);
+  /* Horizontale Kanten: auf schmalen Phones weniger Rand, ab Desktop wie bisher */
+  --pflege-inline-gutter: clamp(1rem, 4.5vw, 2rem);
+}
+
+@media screen and (min-width: 480px) {
+  :root {
+    --pflege-inline-gutter: clamp(1.15rem, 5vw, 3rem);
+  }
+}
+
+@media screen and (min-width: 750px) {
+  :root {
+    --pflege-inline-gutter: clamp(2rem, 7vw, 10rem);
+  }
+}
+
+@media screen and (min-width: 990px) {
+  :root {
+    --pflege-inline-gutter: clamp(3.5rem, 9vw, 12rem);
+  }
 }

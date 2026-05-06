@@ -4,23 +4,29 @@
   background-color: #f0f5fb !important;
   border-bottom: 1px solid var(--pflege-border, #e5eef8);
   --pflege-service-hover-glow: 88, 145, 215;
+  /* Oben im Header-Stack: Abstand zur Statusleiste (iPhone-Notch etc., mit viewport-fit=cover) */
+  padding-top: env(safe-area-inset-top, 0px);
 }
 
-.pflege-service-bar__inner {
+.pflege-service-bar .pflege-service-bar__inner.page-width {
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: max(1rem, env(safe-area-inset-left, 0px));
+  padding-right: max(1rem, env(safe-area-inset-right, 0px));
   min-height: calc(3rem * 1.1 * 1.05);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 0.65rem 2cm;
+  gap: 0.55rem clamp(0.75rem, 3.5vw, 2rem);
+  row-gap: 0.5rem;
 }
 
 @media screen and (min-width: 990px) {
-  .pflege-service-bar__inner {
+  .pflege-service-bar .pflege-service-bar__inner.page-width {
     justify-content: center;
-    gap: 0.65rem 2cm;
+    gap: 0.65rem clamp(1rem, 4vw, 2.5rem);
     flex-wrap: nowrap;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -40,12 +46,21 @@
   gap: 0.4rem;
   margin: 0;
   padding: 0;
-  font-size: calc(1.2rem * 1.1);
+  font-size: clamp(1.16rem, 0.25vw + 1.05rem, calc(1.2rem * 1.1));
   font-weight: 500;
   font-synthesis: none;
   line-height: 1.25;
   color: var(--pflege-navy, #0b2347);
-  white-space: nowrap;
+  white-space: normal;
+  text-align: left;
+  max-width: 100%;
+}
+
+@media screen and (min-width: 480px) {
+  .pflege-service-bar__body {
+    white-space: nowrap;
+    text-align: inherit;
+  }
 }
 
 /* Nur Textknoten (Span oder Link): gleiche Darstellung */

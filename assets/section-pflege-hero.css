@@ -9,8 +9,8 @@
   width: 100%;
   margin-left: 0;
   margin-right: 0;
-  padding-left: var(--pflege-inline-gutter, clamp(3.5rem, 9vw, 12rem));
-  padding-right: var(--pflege-inline-gutter, clamp(3.5rem, 9vw, 12rem));
+  padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
   box-sizing: border-box;
 }
 
@@ -101,7 +101,13 @@
   grid-template-columns: 1fr;
   gap: 1.5rem;
   align-items: center;
-  padding: 2rem 1.75rem;
+  padding: 1.35rem 1.1rem;
+}
+
+@media screen and (min-width: 400px) {
+  .pflege-hero__grid {
+    padding: 1.6rem 1.35rem;
+  }
 }
 
 @media screen and (min-width: 990px) {
@@ -132,7 +138,7 @@
 .pflege-hero__title {
   font-family: var(--pflege-font-display, Georgia, serif);
   font-weight: 400;
-  font-size: clamp(3.4rem, 5vw, 4.75rem);
+  font-size: clamp(2.15rem, 5.5vw + 0.75rem, 4.75rem);
   line-height: 1.12;
   letter-spacing: -0.02em;
   color: var(--pflege-navy, #0b2347);
@@ -140,7 +146,7 @@
 }
 
 .pflege-hero__sub {
-  font-size: 1.45rem;
+  font-size: clamp(1.22rem, 0.35vw + 1.12rem, 1.45rem);
   line-height: 1.55;
   /* Lesbarer als --pflege-muted, aber blasser als die Überschrift (Navy) */
   color: #3d556f;
@@ -151,18 +157,31 @@
 .pflege-hero__cta {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.65rem;
   padding: 1.05rem 1.9rem;
   border-radius: 12px;
   background: #e9711a;
   color: #fff !important;
-  font-size: 1.55rem;
+  font-size: clamp(1.38rem, 0.4vw + 1.2rem, 1.55rem);
   font-weight: 600;
   text-decoration: none;
   border: none;
   cursor: pointer;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
   transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+  max-width: 28rem;
+  box-sizing: border-box;
+  min-height: 3rem;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media screen and (min-width: 480px) {
+  .pflege-hero__cta {
+    width: auto;
+    max-width: none;
+  }
 }
 
 .pflege-hero__cta:hover {

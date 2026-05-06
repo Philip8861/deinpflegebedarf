@@ -22,8 +22,8 @@
   width: 100%;
   margin-left: 0;
   margin-right: 0;
-  padding-left: var(--pflege-inline-gutter, clamp(3.5rem, 9vw, 12rem));
-  padding-right: var(--pflege-inline-gutter, clamp(3.5rem, 9vw, 12rem));
+  padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
   box-sizing: border-box;
 }
 
@@ -369,6 +369,15 @@
   font-size: 0.95rem;
 }
 
+@media screen and (max-width: 989px) {
+  .pflege-main-nav-section .menu-drawer__menu-item {
+    padding-top: 1.05rem;
+    padding-bottom: 1.05rem;
+    font-size: 1.55rem;
+    line-height: 1.25;
+  }
+}
+
 @media (hover: hover) and (pointer: fine) {
   .pflege-main-nav-section .pflege-main-nav__menu-link:hover,
   .pflege-main-nav-section .pflege-main-nav__menu-link:focus-visible {
@@ -424,10 +433,7 @@
       auto;
     gap: clamp(0.85rem, 2vw, 2.35rem);
     align-items: center;
-    /*
-      Vertikaler Ausgleich Nav/Suche/Aktionen vs. Logo (Desktop ≥990px):
-      Inline-<style> in sections/pflege-main-nav.liquid direkt nach dem Stylesheet (translateY).
-    */
+    /* Vertikaler Ausgleich Nav/Suche/Aktionen vs. Logo (Desktop ≥990px); translateY im Stylesheet oben */
     padding-top: 1.05rem;
     padding-bottom: 1.5rem;
   }
@@ -495,15 +501,89 @@
   }
 }
 
-/* Mobil: kompaktes Raster — Hamburger, Logo, Suche, Aktionen; Menü darunter scrollbar */
+/* Drawer + Menü-Hilfsstyles (vormals inline in der Section) */
+.pflege-main-nav-section header-drawer {
+  justify-self: start;
+  margin-left: -0.35rem;
+}
+
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .pflege-main-nav-section header-drawer {
+    margin-left: -1rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .pflege-main-nav-section header-drawer {
+    display: none !important;
+  }
+}
+
+.pflege-main-nav-section .menu-drawer-container {
+  display: flex;
+}
+
+.pflege-main-nav-section .list-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pflege-main-nav-section .list-menu--inline {
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+
+.pflege-main-nav-section summary.list-menu__item {
+  padding-right: 2.7rem;
+}
+
+.pflege-main-nav-section .list-menu__item {
+  display: flex;
+  align-items: center;
+  line-height: calc(1 + 0.3 / var(--font-body-scale));
+}
+
+.pflege-main-nav-section .list-menu__item--link {
+  text-decoration: none;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  line-height: calc(1 + 0.8 / var(--font-body-scale));
+}
+
+@media screen and (min-width: 750px) {
+  .pflege-main-nav-section .list-menu__item--link {
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+  }
+}
+
+/* Desktop: vertikaler Ausgleich Nav / Suche / Aktionen (vormals inline, Theme-abhängig) */
+@media screen and (min-width: 990px) {
+  .pflege-main-nav-section .pflege-main-nav__nav,
+  .pflege-main-nav-section .pflege-main-nav__actions {
+    transform: translateY(8px);
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__search-host {
+    transform: translateY(8px);
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__grid:not(:has(.pflege-main-nav__search-host)) .pflege-main-nav__search {
+    transform: translateY(8px);
+  }
+}
+
+/* Mobil & Tablet: eine Zeile — Kategorien nur im Off-Canvas-Menü (keine doppelte Leiste) */
 @media screen and (max-width: 989px) {
   .pflege-main-nav-section .pflege-main-nav__grid {
     display: grid;
-    grid-template-columns: auto auto minmax(0, 1fr) auto;
-    grid-template-rows: auto auto;
+    grid-template-columns: auto minmax(0, auto) minmax(0, 1fr) auto;
+    grid-template-rows: auto;
     align-items: center;
-    gap: 0.5rem 0.75rem;
-    padding: 0.715rem 0;
+    column-gap: clamp(0.35rem, 2vw, 0.75rem);
+    row-gap: 0;
+    padding: 0.55rem 0 0.65rem;
   }
 
   .pflege-main-nav-section .pflege-main-nav__drawer-slot {
@@ -528,39 +608,16 @@
   .pflege-main-nav-section .pflege-main-nav__actions {
     grid-column: 4;
     grid-row: 1;
-    gap: 0.385rem;
+    gap: 0.25rem;
   }
 
   .pflege-main-nav-section .pflege-main-nav__nav {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    justify-content: flex-start;
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 0.165rem;
-    padding-left: 0;
-    padding-right: 0;
-    scrollbar-width: thin;
-  }
-
-  .pflege-main-nav-section .pflege-main-nav__menu {
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    gap: 0.65rem 0.85rem;
-    padding: 0.165rem 0;
-    transform: none;
-    width: max-content;
-    max-width: none;
-  }
-
-  .pflege-main-nav-section .pflege-main-nav__menu-link {
-    font-size: 1.62rem;
+    display: none;
   }
 
   .pflege-main-nav-section .pflege-main-nav__logo-img {
-    max-height: 4.4rem;
-    max-width: min(19.8rem, 52vw);
+    max-height: 3.85rem;
+    max-width: min(14rem, 42vw);
   }
 
   .pflege-main-nav-section .pflege-main-nav__stack-title {
@@ -581,36 +638,66 @@
   }
 
   .pflege-main-nav-section .pflege-main-nav__cart-icon {
-    min-width: 3.75rem;
-    min-height: 3.15rem;
-    padding: 0.385rem;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0.25rem;
     gap: 0;
+    justify-content: center;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__action--account {
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0.25rem;
+    justify-content: center;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .pflege-main-nav-section .pflege-main-nav__action-icon {
-    width: 3.15rem;
-    height: 3.15rem;
+    width: 2.75rem;
+    height: 2.75rem;
   }
 
   .pflege-main-nav-section .pflege-main-nav__action-icon .svg-wrapper {
-    width: 2.85rem;
-    height: 2.85rem;
+    width: 2.5rem;
+    height: 2.5rem;
   }
 
   .pflege-main-nav-section .pflege-main-nav__cart-graphic {
-    width: 3.15rem;
-    height: 3.15rem;
+    width: 2.75rem;
+    height: 2.75rem;
   }
 
   .pflege-main-nav-section .pflege-main-nav__cart-graphic .svg-wrapper {
-    width: calc(2.85rem * var(--pflege-cart-svg-scale));
-    height: calc(2.85rem * var(--pflege-cart-svg-scale));
+    width: calc(2.5rem * var(--pflege-cart-svg-scale));
+    height: calc(2.5rem * var(--pflege-cart-svg-scale));
   }
 
   .pflege-main-nav-section .pflege-main-nav__cart-graphic .cart-count-bubble {
     right: -0.05rem;
-    bottom: 0.45rem;
-    width: 1.7rem;
-    height: 1.7rem;
+    bottom: 0.35rem;
+    width: 1.55rem;
+    height: 1.55rem;
+    font-size: 0.88rem;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__search {
+    min-height: 2.85rem;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__search-input {
+    font-size: max(1.5rem, 16px);
+    padding-top: 0.55rem;
+    padding-bottom: 0.55rem;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__search-submit {
+    padding: 0.45rem 0.85rem;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__search-submit .svg-wrapper {
+    width: 1.85rem;
+    height: 1.85rem;
   }
 }

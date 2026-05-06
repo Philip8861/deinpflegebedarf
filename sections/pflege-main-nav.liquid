@@ -7,86 +7,9 @@
   <link rel="stylesheet" href="{{ 'component-price.css' | asset_url }}" media="print" onload="this.media='all'">
 {%- endif -%}
 
-<style>
-  .pflege-main-nav-section header-drawer {
-    justify-self: start;
-    margin-left: -1.2rem;
-  }
-
-  @media screen and (min-width: 990px) {
-    .pflege-main-nav-section header-drawer {
-      display: none !important;
-    }
-  }
-
-  .pflege-main-nav-section .menu-drawer-container {
-    display: flex;
-  }
-
-  .pflege-main-nav-section .list-menu {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .pflege-main-nav-section .list-menu--inline {
-    display: inline-flex;
-    flex-wrap: wrap;
-  }
-
-  .pflege-main-nav-section summary.list-menu__item {
-    padding-right: 2.7rem;
-  }
-
-  .pflege-main-nav-section .list-menu__item {
-    display: flex;
-    align-items: center;
-    line-height: calc(1 + 0.3 / var(--font-body-scale));
-  }
-
-  .pflege-main-nav-section .list-menu__item--link {
-    text-decoration: none;
-    padding-bottom: 1rem;
-    padding-top: 1rem;
-    line-height: calc(1 + 0.8 / var(--font-body-scale));
-  }
-
-  @media screen and (min-width: 750px) {
-    .pflege-main-nav-section .list-menu__item--link {
-      padding-bottom: 0.5rem;
-      padding-top: 0.5rem;
-    }
-  }
-</style>
-
 <script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
 
 {{ 'section-pflege-main-nav.css' | asset_url | stylesheet_tag }}
-
-<style>
-  {%- comment -%}
-    Vertikaler Shift nur für Nav + Suche + Konto/Warenkorb (Logo bleibt ohne transform).
-    Nur ≥990px. Werte bewusst in px: kleine %-Schritte sind auf dem Bildschirm kaum sichtbar —
-    Negativ = nach oben, positiv = nach unten (zur Logo-Zeile). Hier in ganzen Pixeln,
-    damit Änderungen sichtbar sind — kleine %-Schritte auf px-Werten sind kaum erkennbar.
-  {%- endcomment -%}
-  @media screen and (min-width: 990px) {
-    .pflege-main-nav-section .pflege-main-nav__nav,
-    .pflege-main-nav-section .pflege-main-nav__actions {
-      transform: translateY(8px);
-    }
-    {%- if settings.predictive_search_enabled -%}
-      /* Nur Host verschieben — Form liegt darin, sonst doppeltes translateY */
-      .pflege-main-nav-section .pflege-main-nav__search-host {
-        transform: translateY(8px);
-      }
-    {%- else -%}
-      .pflege-main-nav-section .pflege-main-nav__search {
-        transform: translateY(8px);
-      }
-    {%- endif -%}
-  }
-</style>
 
 <div class="header-wrapper pflege-main-nav pflege-main-nav--full-bleed color-{{ section.settings.color_scheme }} gradient">
   <div class="pflege-main-nav__grid">
