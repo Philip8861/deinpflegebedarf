@@ -26,9 +26,8 @@
 }
 
 /* ============================================================
-   Desktop: zweispaltig — nutzbare Breite wie Hauptnav (Logo … Warenkorb):
-   volle Viewport-Breite minus --pflege-inline-gutter (keine Hero-/page-width-Kappe).
-   Promo unter Artikeln; Bestellübersicht rechts (sticky).
+   Desktop: zweispaltig — nutzbare Breite wie Hauptnav (Logo … Warenkorb).
+   Promo unter Artikeln; Bestellübersicht rechts, kompakt + sticky (klebt unter Header).
    ============================================================ */
 @media screen and (min-width: 990px) {
   .template-cart #MainContent:has(cart-items:not(.is-empty)) {
@@ -45,6 +44,7 @@
     box-sizing: border-box;
     padding-top: 1rem;
     padding-bottom: 3rem;
+    overflow: visible;
   }
 
   .template-cart #MainContent:has(cart-items:not(.is-empty)) > .pflege-cart-section--main {
@@ -94,9 +94,10 @@
     grid-column: 2;
     grid-row: 3 / span 2;
     align-self: start;
-    position: sticky;
-    top: 1.25rem;
-    z-index: 2;
+    position: static;
+    top: auto;
+    z-index: auto;
+    overflow: visible;
   }
 
   .template-cart #MainContent:has(cart-items:not(.is-empty)) > .pflege-cart-section--aside .pflege-cart-aside__inner.page-width {
@@ -893,6 +894,122 @@
 .template-cart .pflege-cart-summary__trust-text strong {
   font-size: 1.25rem;
   color: var(--pflege-cart-navy);
+}
+
+/*
+  Desktop: Bestellübersicht klebt unter der Hauptnavigation und scrollt nicht „weg“.
+  Kompakteres Layout (ähnliche Zeilendichte wie eine Artikelzeile); kein internes Scrollen.
+*/
+@media screen and (min-width: 990px) {
+  .template-cart #main-cart-footer {
+    overflow: visible;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-aside__inner,
+  .template-cart #main-cart-footer .cart__footer.pflege-cart-aside__footer,
+  .template-cart #main-cart-footer .cart__blocks.pflege-cart-aside__blocks,
+  .template-cart #main-cart-footer .cart__blocks > .js-contents {
+    overflow: visible;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary.pflege-cart-card {
+    position: sticky;
+    top: max(0.65rem, calc(env(safe-area-inset-top, 0px) + var(--header-height, 5.75rem) + 0.35rem));
+    z-index: 4;
+    overflow: visible;
+    max-height: none;
+    padding: 1.15rem 1.35rem;
+    box-sizing: border-box;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary__heading {
+    font-size: 1.38rem;
+    margin-bottom: 0.55rem;
+    letter-spacing: 0.015em;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary__shipping-note {
+    font-size: 1.08rem;
+    max-width: 10rem;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary__rows {
+    gap: 0.35rem;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary__row {
+    font-size: 1.22rem;
+    gap: 0.65rem;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary__muted {
+    font-size: 1.12rem;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary__rule {
+    margin: 0.35rem 0;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary__row--grand {
+    font-size: 1.28rem;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary__grand-value {
+    font-size: 1.85rem;
+    letter-spacing: 0.01em;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary__vat {
+    margin-top: 0.2rem;
+    font-size: 1.05rem;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary__tax-note {
+    margin-top: 0.35rem;
+    font-size: 1rem;
+    line-height: 1.3;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary__cta-band {
+    margin-top: 0.85rem;
+    padding-top: 0.85rem;
+  }
+
+  .template-cart #main-cart-footer .cart__checkout-button.button,
+  .template-cart #main-cart-footer .pflege-cart-summary__checkout {
+    min-height: 3.85rem;
+    font-size: 1.22rem;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary__continue.button--secondary {
+    min-height: 3.65rem;
+    margin-top: 0.65rem;
+    font-size: 1.18rem;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-dynamic-pay {
+    margin-top: 0.55rem;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary__trust {
+    margin-top: 0.85rem;
+    gap: 0.45rem;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary__trust-icon {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary__trust-text {
+    font-size: 1.08rem;
+    line-height: 1.28;
+    gap: 0.1rem;
+  }
+
+  .template-cart #main-cart-footer .pflege-cart-summary__trust-text strong {
+    font-size: 1.15rem;
+  }
 }
 
 /* Cart-Hinweise / Fehler */
