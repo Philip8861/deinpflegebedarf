@@ -50,15 +50,29 @@
   background-attachment: scroll;
 }
 
-/* Lesbare Fläche über dem Hintergrundbild */
+/* Kein Vollflächen-Weiß — Hintergrundbild bleibt sichtbar; Lesbarkeit über Textschatten */
 .pflege-product-finder__inner {
   position: relative;
   z-index: 1;
   padding: clamp(1.35rem, 3.2vw, 2.35rem) clamp(1.15rem, 3vw, 2.5rem);
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: transparent;
   box-sizing: border-box;
+}
+
+/* Sehr dezentes „Breathing“ über dem Bild, ohne es zu überdecken */
+.pflege-product-finder__panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.14) 0%,
+    rgba(255, 255, 255, 0.06) 40%,
+    rgba(255, 255, 255, 0.12) 100%
+  );
 }
 
 .pflege-product-finder__stack {
@@ -70,6 +84,8 @@
   max-width: min(52rem, 100%);
   margin-left: auto;
   margin-right: auto;
+  position: relative;
+  z-index: 1;
 }
 
 .pflege-product-finder__lead {
@@ -86,16 +102,19 @@
   max-width: 48rem;
   margin-left: auto;
   margin-right: auto;
+  text-shadow: 0 0 1.25rem rgba(255, 255, 255, 0.95), 0 0 0.5rem rgba(255, 255, 255, 0.85),
+    0 1px 2px rgba(255, 255, 255, 0.9);
 }
 
 .pflege-product-finder__body {
   font-size: clamp(0.98rem, 0.92rem + 0.18vw, 1.08rem);
   line-height: 1.65;
-  color: #2f4258;
+  color: #1e3045;
   margin: 0;
   max-width: 48rem;
   margin-left: auto;
   margin-right: auto;
+  text-shadow: 0 0 1rem rgba(255, 255, 255, 0.92), 0 1px 3px rgba(255, 255, 255, 0.85);
 }
 
 .pflege-product-finder__actions {
@@ -168,6 +187,7 @@
   color: var(--pflege-navy, #0b2347);
   margin: 0 0 clamp(1rem, 2vw, 1.4rem);
   text-align: center;
+  text-shadow: 0 0 1rem rgba(255, 255, 255, 0.9), 0 1px 2px rgba(255, 255, 255, 0.85);
 }
 
 .pflege-product-finder__features {
@@ -190,19 +210,23 @@
   line-height: 1.35;
   color: var(--pflege-navy, #0b2347);
   margin: 0 0 0.45rem;
+  text-shadow: 0 0 0.85rem rgba(255, 255, 255, 0.88), 0 1px 2px rgba(255, 255, 255, 0.85);
 }
 
 .pflege-product-finder__feature-text {
   font-size: clamp(0.92rem, 0.86rem + 0.14vw, 1.01rem);
   line-height: 1.58;
-  color: #3d4d62;
+  color: #243547;
   margin: 0;
+  text-shadow: 0 0 0.75rem rgba(255, 255, 255, 0.85), 0 1px 2px rgba(255, 255, 255, 0.8);
 }
 
 .pflege-product-finder__steps-wrap {
   margin-top: clamp(1.35rem, 2.8vw, 1.85rem);
   padding-top: clamp(1rem, 2vw, 1.25rem);
-  border-top: 1px solid rgba(11, 35, 71, 0.12);
+  border-top: 1px solid rgba(11, 35, 71, 0.15);
+  position: relative;
+  z-index: 1;
 }
 
 .pflege-product-finder__steps {
@@ -215,8 +239,9 @@
   margin: 0;
   padding: 0;
   font-size: clamp(0.84rem, 0.78rem + 0.18vw, 0.93rem);
-  color: #4a5c72;
+  color: #2a3d52;
   letter-spacing: 0.02em;
+  text-shadow: 0 0 0.65rem rgba(255, 255, 255, 0.88), 0 1px 1px rgba(255, 255, 255, 0.85);
 }
 
 .pflege-product-finder__steps li {
