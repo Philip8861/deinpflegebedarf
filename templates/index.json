@@ -33,10 +33,15 @@
         "view_all_label": "Zur gesamten Auswahl →",
         "view_all_link": ""
       }
+    },
+    "pflege_product_finder": {
+      "type": "pflege-product-finder",
+      "settings": {}
     }
   },
   "order": [
     "pflege_hero",
-    "pflege_bestseller"
+    "pflege_bestseller",
+    "pflege_product_finder"
   ]
 }

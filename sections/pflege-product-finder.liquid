@@ -1,0 +1,217 @@
+{{ 'section-pflege-product-finder.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign primary_href = section.settings.primary_link | default: routes.all_products_collection_url
+  assign secondary_href = section.settings.secondary_link
+  assign show_secondary = false
+  if section.settings.secondary_label != blank and secondary_href != blank
+    assign show_secondary = true
+  endif
+-%}
+
+<section
+  class="pflege-product-finder"
+  style="--pflege-product-finder-bg: url({{ 'Produktfinder.webp' | asset_url }});"
+  {{ section.shopify_attributes }}
+>
+  <div class="pflege-product-finder__shell">
+    <div class="pflege-product-finder__panel">
+      <div class="pflege-product-finder__inner">
+        <div class="pflege-product-finder__grid">
+          <div class="pflege-product-finder__col pflege-product-finder__col--main">
+            {%- if section.settings.heading != blank -%}
+              <h2 class="pflege-product-finder__title">{{ section.settings.heading | escape }}</h2>
+            {%- endif -%}
+            {%- if section.settings.intro != blank -%}
+              <p class="pflege-product-finder__intro">{{ section.settings.intro | escape }}</p>
+            {%- endif -%}
+            {%- if section.settings.body_seo != blank -%}
+              <p class="pflege-product-finder__body">{{ section.settings.body_seo | escape }}</p>
+            {%- endif -%}
+
+            <ul class="pflege-product-finder__chips" aria-label="{{ section.settings.chips_aria | default: 'Themen im Produktfinder' | escape }}">
+              <li class="pflege-product-finder__chip">Hautpflege</li>
+              <li class="pflege-product-finder__chip">Inkontinenz</li>
+              <li class="pflege-product-finder__chip">Hygiene</li>
+              <li class="pflege-product-finder__chip">Desinfektion</li>
+              <li class="pflege-product-finder__chip">Schutz</li>
+              <li class="pflege-product-finder__chip">Pflegehilfen</li>
+            </ul>
+
+            <div class="pflege-product-finder__actions">
+              {%- if section.settings.primary_label != blank -%}
+                <a class="pflege-product-finder__cta" href="{{ primary_href }}">
+                  {{- section.settings.primary_label | escape -}}
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+              {%- endif -%}
+              {%- if show_secondary -%}
+                <a class="pflege-product-finder__link-secondary" href="{{ secondary_href }}">
+                  {{- section.settings.secondary_label | escape -}}
+                </a>
+              {%- endif -%}
+            </div>
+          </div>
+
+          <div class="pflege-product-finder__col pflege-product-finder__col--side">
+            {%- if section.settings.side_heading != blank -%}
+              <h3 class="pflege-product-finder__side-title">{{ section.settings.side_heading | escape }}</h3>
+            {%- endif -%}
+            <div class="pflege-product-finder__features">
+              <div class="pflege-product-finder__feature">
+                <p class="pflege-product-finder__feature-title">{{ section.settings.f1_title | escape }}</p>
+                <p class="pflege-product-finder__feature-text">{{ section.settings.f1_text | escape }}</p>
+              </div>
+              <div class="pflege-product-finder__feature">
+                <p class="pflege-product-finder__feature-title">{{ section.settings.f2_title | escape }}</p>
+                <p class="pflege-product-finder__feature-text">{{ section.settings.f2_text | escape }}</p>
+              </div>
+              <div class="pflege-product-finder__feature">
+                <p class="pflege-product-finder__feature-title">{{ section.settings.f3_title | escape }}</p>
+                <p class="pflege-product-finder__feature-text">{{ section.settings.f3_text | escape }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pflege-product-finder__steps-wrap">
+          <ol class="pflege-product-finder__steps">
+            <li>{{ section.settings.step1 | escape }}</li>
+            <li>{{ section.settings.step2 | escape }}</li>
+            <li>{{ section.settings.step3 | escape }}</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PflegeShop Produktfinder",
+  "tag": "section",
+  "class": "pflege-product-finder-section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Hintergrund: Produktfinder-Bild im Theme (Produktfinder.webp). Breite wie Hero/Bestseller."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Hauptüberschrift",
+      "default": "Nutzen Sie unseren Produktfinder"
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Introtext",
+      "default": "Kein langes Suchen: Mit wenigen Klicks finden Sie passende Produkte für Ihren individuellen Pflegebedarf."
+    },
+    {
+      "type": "textarea",
+      "id": "body_seo",
+      "label": "Beschreibungstext",
+      "default": "Unser Produktfinder berücksichtigt wichtige Themen wie Hautpflege, Inkontinenz, Hygiene, Desinfektion, Schutz und Pflegehilfen und hilft Ihnen dabei, schnell und einfach die passenden Produkte für Ihre persönliche Situation zu entdecken."
+    },
+    {
+      "type": "text",
+      "id": "side_heading",
+      "label": "Überschrift (rechter Bereich)",
+      "default": "Passende Empfehlungen für Ihren Pflegealltag"
+    },
+    {
+      "type": "text",
+      "id": "f1_title",
+      "label": "Block 1 — Titel",
+      "default": "Individuell & unkompliziert"
+    },
+    {
+      "type": "textarea",
+      "id": "f1_text",
+      "label": "Block 1 — Text",
+      "default": "Beantworten Sie einfach einige Fragen zu Ihrem Bedarf – wir zeigen Ihnen passende Produkte für Ihre Situation."
+    },
+    {
+      "type": "text",
+      "id": "f2_title",
+      "label": "Block 2 — Titel",
+      "default": "Für jede Pflegesituation"
+    },
+    {
+      "type": "textarea",
+      "id": "f2_text",
+      "label": "Block 2 — Text",
+      "default": "Ob Hautpflege, Inkontinenz oder Desinfektion – der Produktfinder unterstützt Sie in allen wichtigen Bereichen."
+    },
+    {
+      "type": "text",
+      "id": "f3_title",
+      "label": "Block 3 — Titel",
+      "default": "Schnell & verlässlich"
+    },
+    {
+      "type": "textarea",
+      "id": "f3_text",
+      "label": "Block 3 — Text",
+      "default": "Sie erhalten gezielte Produktempfehlungen, auf die Sie sich verlassen können – schnell und verständlich."
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "Primär-Button — Text",
+      "default": "Jetzt Produktfinder starten"
+    },
+    {
+      "type": "url",
+      "id": "primary_link",
+      "label": "Primär-Button — Link",
+      "info": "Leer = Link zur Gesamt­kollektion."
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Sekundär — Text",
+      "default": "Mehr erfahren"
+    },
+    {
+      "type": "url",
+      "id": "secondary_link",
+      "label": "Sekundär — Link",
+      "info": "Ohne Link ausgefüllt wird der Textlink ausgeblendet."
+    },
+    {
+      "type": "text",
+      "id": "step1",
+      "label": "Schritt 1",
+      "default": "1. Bedarf auswählen"
+    },
+    {
+      "type": "text",
+      "id": "step2",
+      "label": "Schritt 2",
+      "default": "2. Fragen beantworten"
+    },
+    {
+      "type": "text",
+      "id": "step3",
+      "label": "Schritt 3",
+      "default": "3. Passende Produkte erhalten"
+    },
+    {
+      "type": "text",
+      "id": "chips_aria",
+      "label": "Chips — ARIA-Label (Screenreader)",
+      "default": "Themen im Produktfinder",
+      "info": "Optional. Beschreibt die Keyword-Chips für Hilfstechnologien."
+    }
+  ],
+  "presets": [
+    {
+      "name": "PflegeShop Produktfinder"
+    }
+  ]
+}
+{% endschema %}

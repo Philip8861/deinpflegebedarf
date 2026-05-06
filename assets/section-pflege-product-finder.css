@@ -1,0 +1,265 @@
+/* PflegeShop — Produktfinder (Breite wie Hero/Bestseller, Hintergrundbild) */
+.pflege-product-finder {
+  font-family: var(--font-body-family, inherit);
+  font-style: var(--font-body-style, normal);
+  padding-top: clamp(1rem, 2.5vw, 1.5rem);
+  padding-bottom: clamp(1rem, 2.5vw, 1.5rem);
+  box-sizing: border-box;
+}
+
+.pflege-product-finder__shell {
+  max-width: none;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
+}
+
+.pflege-product-finder__panel {
+  position: relative;
+  width: 100%;
+  max-width: var(--pflege-hero-tile-max-width, min(100%, 1426px));
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: var(--pflege-radius-lg, 22px);
+  border: 1px solid var(--pflege-border, #e5eef8);
+  overflow: hidden;
+  box-sizing: border-box;
+  background-color: var(--pflege-bg-softer, #f5faff);
+  background-image: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.92) 0%,
+      rgba(255, 255, 255, 0.78) 45%,
+      rgba(248, 251, 255, 0.82) 100%
+    ),
+    var(--pflege-product-finder-bg, none);
+  background-size: cover, cover;
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
+  box-shadow: 0 1px 0 rgba(11, 35, 71, 0.04);
+}
+
+.pflege-product-finder__inner {
+  position: relative;
+  z-index: 1;
+  padding: clamp(1.35rem, 3.2vw, 2.25rem) clamp(1.15rem, 3vw, 2.5rem);
+}
+
+.pflege-product-finder__grid {
+  display: grid;
+  gap: clamp(1.75rem, 3.5vw, 2.75rem);
+  align-items: start;
+}
+
+@media screen and (min-width: 900px) {
+  .pflege-product-finder__grid {
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    gap: clamp(2rem, 4vw, 3rem);
+  }
+}
+
+.pflege-product-finder__title {
+  font-family: var(--pflege-font-display, Georgia, serif);
+  font-weight: 400;
+  font-size: clamp(1.75rem, 1.25rem + 1.3vw, 2.4rem);
+  line-height: 1.22;
+  letter-spacing: -0.02em;
+  color: var(--pflege-navy, #0b2347);
+  margin: 0 0 clamp(0.85rem, 1.8vw, 1.1rem);
+}
+
+.pflege-product-finder__intro {
+  font-size: clamp(1.05rem, 0.98rem + 0.25vw, 1.2rem);
+  line-height: 1.55;
+  color: #3d556f;
+  margin: 0 0 clamp(0.85rem, 1.5vw, 1rem);
+  max-width: 52ch;
+}
+
+.pflege-product-finder__body {
+  font-size: clamp(0.94rem, 0.88rem + 0.18vw, 1.02rem);
+  line-height: 1.6;
+  color: var(--pflege-muted, #6f7f95);
+  margin: 0 0 clamp(1.1rem, 2vw, 1.45rem);
+  max-width: 56ch;
+}
+
+.pflege-product-finder__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 0.55rem;
+  list-style: none;
+  margin: 0 0 clamp(1.25rem, 2.5vw, 1.65rem);
+  padding: 0;
+}
+
+.pflege-product-finder__chip {
+  display: inline-block;
+  padding: 0.32rem 0.75rem;
+  font-size: clamp(0.8rem, 0.76rem + 0.12vw, 0.88rem);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--pflege-navy, #0b2347);
+  background: rgba(238, 246, 255, 0.95);
+  border: 1px solid rgba(63, 134, 217, 0.35);
+  border-radius: var(--pflege-radius-pill, 999px);
+  line-height: 1.3;
+}
+
+.pflege-product-finder__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 1.15rem);
+}
+
+.pflege-product-finder__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0.88rem 1.5rem;
+  border-radius: 12px;
+  background: var(--pflege-accent, #3f86d9);
+  color: #fff !important;
+  font-size: clamp(1.05rem, 0.95rem + 0.35vw, 1.2rem);
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  transition: background 0.2s ease, transform 0.2s ease;
+  min-height: 2.85rem;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pflege-product-finder__cta:hover {
+  background: #2f73c4;
+}
+
+.pflege-product-finder__cta:focus-visible {
+  outline: 2px solid var(--pflege-accent, #3f86d9);
+  outline-offset: 3px;
+}
+
+.pflege-product-finder__cta svg {
+  flex-shrink: 0;
+}
+
+.pflege-product-finder__link-secondary {
+  font-size: clamp(1rem, 0.95rem + 0.15vw, 1.1rem);
+  font-weight: 500;
+  color: var(--pflege-accent, #3f86d9);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.pflege-product-finder__link-secondary:hover {
+  color: #2f73c4;
+}
+
+.pflege-product-finder__side-title {
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1.2rem, 1.05rem + 0.45vw, 1.4rem);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--pflege-navy, #0b2347);
+  margin: 0 0 clamp(1rem, 2vw, 1.35rem);
+}
+
+.pflege-product-finder__features {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.35rem);
+}
+
+@media screen and (min-width: 600px) and (max-width: 899px) {
+  .pflege-product-finder__features {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(0.85rem, 2vw, 1.1rem);
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .pflege-product-finder__features {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(0.65rem, 1.5vw, 1.1rem);
+  }
+}
+
+.pflege-product-finder__feature-title {
+  font-size: clamp(0.98rem, 0.92rem + 0.2vw, 1.06rem);
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--pflege-navy, #0b2347);
+  margin: 0 0 0.42rem;
+}
+
+.pflege-product-finder__feature-text {
+  font-size: clamp(0.88rem, 0.84rem + 0.14vw, 0.96rem);
+  line-height: 1.55;
+  color: var(--pflege-muted, #6f7f95);
+  margin: 0;
+}
+
+.pflege-product-finder__steps-wrap {
+  margin-top: clamp(1.35rem, 2.8vw, 1.85rem);
+  padding-top: clamp(1rem, 2vw, 1.25rem);
+  border-top: 1px solid rgba(11, 35, 71, 0.1);
+}
+
+.pflege-product-finder__steps {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: clamp(0.84rem, 0.78rem + 0.18vw, 0.93rem);
+  color: var(--pflege-muted, #6f7f95);
+  letter-spacing: 0.02em;
+}
+
+.pflege-product-finder__steps li {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.pflege-product-finder__steps li:not(:last-child)::after {
+  content: '';
+  display: inline-block;
+  width: clamp(1.25rem, 4vw, 2.5rem);
+  height: 1px;
+  background: rgba(111, 127, 149, 0.35);
+  flex-shrink: 0;
+}
+
+@media screen and (max-width: 599px) {
+  .pflege-product-finder__steps {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .pflege-product-finder__steps li {
+    white-space: normal;
+    width: 100%;
+  }
+
+  .pflege-product-finder__steps li:not(:last-child)::after {
+    display: none;
+  }
+
+  .pflege-product-finder__cta {
+    width: 100%;
+    max-width: 28rem;
+  }
+}
