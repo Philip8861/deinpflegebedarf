@@ -323,6 +323,11 @@
     </main>
 
     {% sections 'footer-group' %}
+    {%- comment -%}
+      Rechtliches-Leiste: zusätzlich zum Footer-Group-JSON, damit sie auch bei älteren/
+      überschriebenen Theme-Daten immer erscheint (Git ≠ Shopify-Footer-Konfiguration).
+    {%- endcomment -%}
+    {% section 'pflege-footer-legal' %}
 
     <ul hidden>
       <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
