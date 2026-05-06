@@ -14,7 +14,7 @@
   padding-bottom: 0;
   padding-left: max(1rem, env(safe-area-inset-left, 0px));
   padding-right: max(1rem, env(safe-area-inset-right, 0px));
-  min-height: calc(3rem * 1.1 * 1.05);
+  min-height: calc(3.35rem * 1.1 * 1.05);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,15 +39,14 @@
   flex: 0 0 auto;
 }
 
-/* Zeile: immer Icon + Text/Link — gleiche Typo für alle Blöcke */
+/* Zeile: Icon + zweizeiliger Textblock (Hauptzeile + Unterzeile) */
 .pflege-service-bar__body {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.45rem;
   margin: 0;
   padding: 0;
   font-size: clamp(1.16rem, 0.25vw + 1.05rem, calc(1.2rem * 1.1));
-  font-weight: 500;
   font-synthesis: none;
   line-height: 1.25;
   color: var(--pflege-navy, #0b2347);
@@ -56,26 +55,40 @@
   max-width: 100%;
 }
 
-@media screen and (min-width: 480px) {
-  .pflege-service-bar__body {
-    white-space: nowrap;
-    text-align: inherit;
-  }
-}
-
-/* Nur Textknoten (Span oder Link): gleiche Darstellung */
-.pflege-service-bar__body > .pflege-service-bar__text {
-  padding-top: 0.05em;
+.pflege-service-bar__copy,
+a.pflege-service-bar__copy.pflege-service-bar__link {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.12em;
   margin: 0;
-  font-size: inherit;
-  font-weight: inherit;
+  padding: 0;
   font-family: inherit;
   letter-spacing: inherit;
-  line-height: inherit;
+}
+
+.pflege-service-bar__line {
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+}
+
+.pflege-service-bar__line--main {
+  font-size: inherit;
+  font-weight: 600;
+  line-height: 1.25;
   color: inherit;
 }
 
-.pflege-service-bar__body a.pflege-service-bar__text {
+.pflege-service-bar__line--sub {
+  font-size: 0.88em;
+  font-weight: 400;
+  line-height: 1.3;
+  color: inherit;
+  opacity: 0.78;
+}
+
+.pflege-service-bar__body a.pflege-service-bar__copy {
   cursor: pointer;
 }
 

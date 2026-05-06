@@ -5,19 +5,27 @@
     {%- for block in section.blocks -%}
       <div class="pflege-service-bar__item" {{ block.shopify_attributes }}>
         <span class="pflege-service-bar__body">
-          {% render 'pflege-icon', icon: block.settings.icon, width: 20 %}
+          {% render 'pflege-icon', icon: block.settings.icon, width: 22 %}
           {%- if block.settings.link != blank -%}
             <a
               href="{{ block.settings.link }}"
-              class="pflege-service-bar__text pflege-service-bar__link{% if block.settings.link contains 'tel:' %} pflege-service-bar__link--tel{% endif %}"
+              class="pflege-service-bar__copy pflege-service-bar__link{% if block.settings.link contains 'tel:' %} pflege-service-bar__link--tel{% endif %}"
               {% if block.settings.link contains 'tel:' %}
-                aria-label="{{ block.settings.text | escape }} — Anrufen"
+                aria-label="{{ block.settings.text | escape }}{% if block.settings.subtext != blank %} — {{ block.settings.subtext | escape }}{% endif %} — Anrufen"
               {% endif %}
             >
-              {{- block.settings.text | escape -}}
+              <span class="pflege-service-bar__line pflege-service-bar__line--main">{{ block.settings.text | escape }}</span>
+              {%- if block.settings.subtext != blank -%}
+                <span class="pflege-service-bar__line pflege-service-bar__line--sub">{{ block.settings.subtext | escape }}</span>
+              {%- endif -%}
             </a>
           {%- else -%}
-            <span class="pflege-service-bar__text">{{ block.settings.text | escape }}</span>
+            <span class="pflege-service-bar__copy">
+              <span class="pflege-service-bar__line pflege-service-bar__line--main">{{ block.settings.text | escape }}</span>
+              {%- if block.settings.subtext != blank -%}
+                <span class="pflege-service-bar__line pflege-service-bar__line--sub">{{ block.settings.subtext | escape }}</span>
+              {%- endif -%}
+            </span>
           {%- endif -%}
         </span>
       </div>
@@ -46,6 +54,7 @@
           "options": [
             { "value": "truck", "label": "Versand" },
             { "value": "document", "label": "Dokument" },
+            { "value": "rotate-ccw", "label": "Rückgabe (Pfeil)" },
             { "value": "star", "label": "Stern" },
             { "value": "headset", "label": "Support" },
             { "value": "shield", "label": "Schutz" },
@@ -58,6 +67,12 @@
           "id": "text",
           "label": "Text",
           "default": "Kostenloser Versand ab 150 €"
+        },
+        {
+          "type": "text",
+          "id": "subtext",
+          "label": "Unterzeile optional",
+          "info": "Kleinere zweite Zeile unter dem Haupttext (z. B. „Schnell bei Ihnen“)."
         },
         {
           "type": "url",
@@ -76,14 +91,8 @@
           "type": "item",
           "settings": {
             "icon": "truck",
-            "text": "Kostenloser Versand ab 150 €"
-          }
-        },
-        {
-          "type": "item",
-          "settings": {
-            "icon": "star",
-            "text": "Von Pflegekräften empfohlen"
+            "text": "Schneller Versand in 1–2 Tagen",
+            "subtext": "Schnell bei Ihnen"
           }
         },
         {
@@ -91,7 +100,24 @@
           "settings": {
             "icon": "headset",
             "text": "Persönliche Beratung 08334 / 9893330",
+            "subtext": "Wir sind gerne für Sie da",
             "link": "tel:+4983349893330"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "document",
+            "text": "Kauf auf Rechnung",
+            "subtext": "Einfach und sicher"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "rotate-ccw",
+            "text": "30 Tage Rückgaberecht",
+            "subtext": "Ohne Risiko bestellen"
           }
         }
       ]

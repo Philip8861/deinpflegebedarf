@@ -2,6 +2,45 @@
   "name": "t:sections.header.name",
   "type": "header",
   "sections": {
+    "pflege_service_bar": {
+      "type": "pflege-service-bar",
+      "blocks": {
+        "svc_ship": {
+          "type": "item",
+          "settings": {
+            "icon": "truck",
+            "text": "Schneller Versand in 1–2 Tagen",
+            "subtext": "Schnell bei Ihnen"
+          }
+        },
+        "svc_phone": {
+          "type": "item",
+          "settings": {
+            "icon": "headset",
+            "text": "Persönliche Beratung 08334 / 9893330",
+            "subtext": "Wir sind gerne für Sie da",
+            "link": "tel:+4983349893330"
+          }
+        },
+        "svc_invoice": {
+          "type": "item",
+          "settings": {
+            "icon": "document",
+            "text": "Kauf auf Rechnung",
+            "subtext": "Einfach und sicher"
+          }
+        },
+        "svc_return": {
+          "type": "item",
+          "settings": {
+            "icon": "rotate-ccw",
+            "text": "30 Tage Rückgaberecht",
+            "subtext": "Ohne Risiko bestellen"
+          }
+        }
+      },
+      "block_order": ["svc_ship", "svc_phone", "svc_invoice", "svc_return"]
+    },
     "pflege_hauptleiste": {
       "type": "pflege-main-nav",
       "settings": {
@@ -17,5 +56,5 @@
       }
     }
   },
-  "order": ["pflege_hauptleiste"]
+  "order": ["pflege_service_bar", "pflege_hauptleiste"]
 }
