@@ -429,9 +429,10 @@
 @media screen and (min-width: 990px) {
   .pflege-main-nav-section .pflege-main-nav__grid {
     display: grid;
+    /* minmax(0,1fr) kann die Kategorie-Spalte auf 0 schrumpfen lassen → „fehlende“ Nav */
     grid-template-columns:
       auto
-      minmax(0, 1fr)
+      minmax(14rem, 1fr)
       minmax(12rem, min(34rem, 30vw))
       auto;
     gap: clamp(0.65rem, 1.5vw, 1.45rem);
@@ -589,7 +590,7 @@
   }
 }
 
-/* Mobil & Tablet: eine Zeile — Flex statt Grid (vermeidet Versatz/Overflow); Kategorien nur im Drawer */
+/* Mobil & schmales Tablet: eine Zeile — Flex; Kategorien nur im Drawer (<750px). */
 @media screen and (max-width: 989px) {
   .pflege-main-nav-section .pflege-main-nav__grid {
     display: flex;
@@ -655,10 +656,6 @@
     gap: 0.2rem;
     margin-left: 0;
     align-self: center;
-  }
-
-  .pflege-main-nav-section .pflege-main-nav__nav {
-    display: none !important;
   }
 
   .pflege-main-nav-section .pflege-main-nav__logo-img {
@@ -748,5 +745,77 @@
   .pflege-main-nav-section .pflege-main-nav__search-submit .svg-wrapper {
     width: 1.75rem;
     height: 1.75rem;
+  }
+}
+
+/* Telefon: horizontale Kategorien aus — nur Drawer */
+@media screen and (max-width: 749px) {
+  .pflege-main-nav-section .pflege-main-nav__nav {
+    display: none !important;
+  }
+}
+
+/* Tablet: Kategoriezeile unter Logo/Suche (750–989px) */
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .pflege-main-nav-section .pflege-main-nav__grid {
+    flex-wrap: wrap;
+    row-gap: 0.55rem;
+    column-gap: 0.55rem;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__drawer-slot {
+    order: 0;
+    flex: 0 0 auto;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__logo {
+    order: 1;
+    flex: 0 1 auto;
+  }
+
+  .pflege-main-nav-section predictive-search.pflege-main-nav__search-host {
+    order: 2;
+    flex: 1 1 12rem;
+    min-width: 8rem;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__grid > form.pflege-main-nav__search {
+    order: 2;
+    flex: 1 1 12rem;
+    min-width: 8rem;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__actions {
+    order: 3;
+    flex: 0 0 auto;
+    margin-left: auto;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__nav {
+    order: 10;
+    display: flex !important;
+    flex: 1 1 100%;
+    width: 100%;
+    min-width: 0;
+    justify-content: center;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-top: 0.35rem;
+    margin-top: 0.1rem;
+    border-top: 1px solid rgba(11, 35, 71, 0.08);
+    box-sizing: border-box;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__menu {
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 0.45rem clamp(0.35rem, 2vw, 1rem);
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__menu-link {
+    white-space: nowrap;
+    font-size: clamp(0.95rem, 0.35rem + 1.5vw, 1.35rem);
   }
 }
