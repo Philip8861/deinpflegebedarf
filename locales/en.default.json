@@ -52,8 +52,9 @@
       "view": "Warenkorb anzeigen ({{ count }})",
       "view_empty_cart": "Warenkorb anzeigen",
       "item_added": "In den Warenkorb gelegt",
-      "notification_heading": "Prima, der Artikel wartet jetzt im Warenkorb auf dich",
+      "notification_heading": "Prima, der Artikel wartet jetzt im Warenkorb auf dich!",
       "notification_subtext": "",
+      "notification_recos_heading": "Oft zusammen gekauft: hilfreiche Produkte für die häusliche Pflege",
       "notification_checkout": "Zur Kasse",
       "notification_continue": "Weiter einkaufen",
       "notification_qty": {

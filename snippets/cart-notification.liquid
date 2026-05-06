@@ -42,9 +42,6 @@
       </button>
 
       <div class="cart-notification__title-row">
-        <span class="cart-notification__check" aria-hidden="true">
-          {{- 'icon-checkmark.svg' | inline_asset_content -}}
-        </span>
         <div class="cart-notification__titles">
           <h2 id="cart-notification-title" class="cart-notification__headline">
             {{ 'general.cart.notification_heading' | t }}
@@ -91,7 +88,7 @@
         <section class="cart-notification__recos" aria-labelledby="cart-notification-recos-title">
           <div class="cart-notification__recos-heading-wrap">
             <h3 id="cart-notification-recos-title" class="cart-notification__recos-heading">
-              Produkte, die in keiner guten Pflege fehlen sollten
+              {{ 'general.cart.notification_recos_heading' | t }}
             </h3>
           </div>
           <ul class="cart-notification__recos-grid list-unstyled" role="list">
