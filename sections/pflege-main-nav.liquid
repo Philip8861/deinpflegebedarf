@@ -11,115 +11,146 @@
 
 {{ 'section-pflege-main-nav.css' | asset_url | stylesheet_tag }}
 
+{%- liquid
+  assign root = routes.root_url
+
+  if collections.desinfektion != blank
+    assign url_des = collections.desinfektion.url
+  else
+    assign url_des = root | append: 'collections/desinfektion'
+  endif
+  if collections.pflegeartikel != blank
+    assign url_pf = collections.pflegeartikel.url
+  else
+    assign url_pf = root | append: 'collections/pflegeartikel'
+  endif
+  if collections['hautschutz-hautpflege'] != blank
+    assign url_hh = collections['hautschutz-hautpflege'].url
+  elsif collections['hauschutz-hautpflege'] != blank
+    assign url_hh = collections['hauschutz-hautpflege'].url
+  else
+    assign url_hh = root | append: 'collections/hautschutz-hautpflege'
+  endif
+  if collections.verbrauchsartikel != blank
+    assign url_ver = collections.verbrauchsartikel.url
+  else
+    assign url_ver = root | append: 'collections/verbrauchsartikel'
+  endif
+
+  assign active_des = false
+  assign active_pf = false
+  assign active_hh = false
+  assign active_ver = false
+  if request.page_type == 'collection'
+    if collection.handle == 'desinfektion'
+      assign active_des = true
+    elsif collection.handle == 'pflegeartikel'
+      assign active_pf = true
+    elsif collection.handle == 'hautschutz-hautpflege'
+      assign active_hh = true
+    elsif collection.handle == 'hauschutz-hautpflege'
+      assign active_hh = true
+    elsif collection.handle == 'verbrauchsartikel'
+      assign active_ver = true
+    endif
+  endif
+-%}
+
 {%- comment -%}
-  Kritisches CSS: Desktop = Grid-Spalte »nav« mit minmax(), damit die 4 Kategorien zwischen Logo und Suche nie auf 0px kollabieren.
+  Robustes Critical-CSS direkt in der Section: garantiert vor section-pflege-main-nav.css aktiv,
+  damit der „Kategorien“-Bereich nie leer ist und die Grid-Spalten nie kollabieren.
 {%- endcomment -%}
 <style id="pflege-main-nav-critical-{{ section.id }}">
+  .pflege-main-nav-section .pflege-main-nav__grid {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .pflege-main-nav-section .pflege-main-nav__categories {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .pflege-main-nav-section .pflege-main-nav__category-link {
+    color: #0b2347;
+    -webkit-text-fill-color: #0b2347;
+    text-decoration: none;
+    font-weight: 500;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
   @media screen and (min-width: 750px) {
-    .header-wrapper.pflege-main-nav .pflege-main-nav__grid {
+    .pflege-main-nav-section .pflege-main-nav__grid {
       display: grid !important;
       grid-template-columns:
         auto
-        minmax(min(22rem, 34vw), 1fr)
+        minmax(min(22rem, 36vw), 1fr)
         minmax(11rem, min(30rem, 28vw))
         auto !important;
       grid-template-areas: 'logo nav search actions' !important;
       align-items: center !important;
-      column-gap: clamp(0.55rem, 1.6vw, 1.35rem) !important;
+      column-gap: clamp(0.6rem, 1.6vw, 1.4rem) !important;
       row-gap: 0 !important;
-      width: 100% !important;
-      box-sizing: border-box !important;
     }
-    .header-wrapper.pflege-main-nav .pflege-main-nav__drawer-slot--phones-only {
+    .pflege-main-nav-section .pflege-main-nav__drawer-slot {
       display: none !important;
     }
-    .header-wrapper.pflege-main-nav .pflege-main-nav__logo {
+    .pflege-main-nav-section .pflege-main-nav__logo {
       grid-area: logo !important;
       justify-self: start !important;
-      max-width: none !important;
     }
-    .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline {
+    .pflege-main-nav-section .pflege-main-nav__nav {
       grid-area: nav !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-self: stretch !important;
-      position: relative !important;
-      z-index: 4 !important;
-      isolation: isolate !important;
-      min-width: min-content !important;
-      width: 100% !important;
-      max-width: none !important;
-      margin: 0 !important;
-      padding: 0 clamp(0.1rem, 0.45vw, 0.45rem) !important;
-      overflow: visible !important;
+      display: block !important;
       visibility: visible !important;
       opacity: 1 !important;
-      color: #0b2347 !important;
+      width: 100% !important;
+      min-width: 0 !important;
+      margin: 0 !important;
+      padding: 0 clamp(0.1rem, 0.45vw, 0.4rem) !important;
     }
-    .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu {
+    .pflege-main-nav-section .pflege-main-nav__categories {
       display: flex !important;
       flex-direction: row !important;
       flex-wrap: nowrap !important;
       align-items: center !important;
       justify-content: space-evenly !important;
-      gap: clamp(0.35rem, 1.2vw, 1rem) !important;
+      gap: clamp(0.4rem, 1.2vw, 1rem) !important;
       width: 100% !important;
-      min-width: min-content !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      list-style: none !important;
     }
-    .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu > li {
-      flex: 1 1 auto !important;
-      flex-shrink: 1 !important;
+    .pflege-main-nav-section .pflege-main-nav__categories > li {
+      flex: 0 1 auto !important;
       min-width: max-content !important;
       display: flex !important;
+      align-items: center !important;
       justify-content: center !important;
     }
-    .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu-link {
-      display: block !important;
-      color: #0b2347 !important;
-      -webkit-text-fill-color: #0b2347 !important;
-      font-size: clamp(0.78rem, 0.32rem + 0.95vw, 1.28rem) !important;
-      font-weight: 500 !important;
-      text-decoration: none !important;
-      text-align: center !important;
-      white-space: nowrap !important;
-      overflow: visible !important;
-      text-overflow: clip !important;
-      max-width: 100% !important;
-      min-width: min-content !important;
-      mix-blend-mode: normal !important;
-      opacity: 1 !important;
-      visibility: visible !important;
+    .pflege-main-nav-section .pflege-main-nav__category-link {
+      display: inline-block !important;
+      font-size: clamp(0.85rem, 0.35rem + 0.95vw, 1.32rem) !important;
+      padding: 0.35rem 0.25rem !important;
     }
-    .header-wrapper.pflege-main-nav predictive-search.pflege-main-nav__search-host {
+    .pflege-main-nav-section predictive-search.pflege-main-nav__search-host {
       grid-area: search !important;
       display: block !important;
-      position: relative !important;
-      z-index: 1 !important;
       width: 100% !important;
       max-width: min(30rem, 28vw) !important;
       min-width: 11rem !important;
       justify-self: stretch !important;
-      box-sizing: border-box !important;
     }
-    .header-wrapper.pflege-main-nav .pflege-main-nav__grid > form.pflege-main-nav__search {
+    .pflege-main-nav-section .pflege-main-nav__grid > form.pflege-main-nav__search {
       grid-area: search !important;
-      display: flex !important;
       width: 100% !important;
       max-width: min(30rem, 28vw) !important;
       min-width: 11rem !important;
       justify-self: stretch !important;
-      box-sizing: border-box !important;
     }
-    .header-wrapper.pflege-main-nav .pflege-main-nav__actions {
+    .pflege-main-nav-section .pflege-main-nav__actions {
       grid-area: actions !important;
       justify-self: end !important;
     }
   }
   @media screen and (max-width: 749px) {
-    .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline {
+    .pflege-main-nav-section .pflege-main-nav__nav {
       display: none !important;
     }
   }
@@ -127,7 +158,7 @@
 
 <div class="header-wrapper pflege-main-nav pflege-main-nav--full-bleed color-{{ section.settings.color_scheme }} gradient">
   <div class="pflege-main-nav__grid">
-    <div class="pflege-main-nav__drawer-slot pflege-main-nav__drawer-slot--phones-only">
+    <div class="pflege-main-nav__drawer-slot">
       {% render 'pflege-flat-drawer' %}
     </div>
 
@@ -142,11 +173,39 @@
     </div>
 
     <nav
-      class="pflege-main-nav__nav pflege-main-nav__nav--desktop-inline"
+      class="pflege-main-nav__nav"
       aria-label="{{ section.settings.menu_label | escape }}"
+      data-pflege-nav="inline-fixed-v2"
     >
-      <ul class="pflege-main-nav__menu" data-pflege-nav-categories="inline-desktop-grid-v1">
-        {% render 'pflege-shop-kategorien', variant: 'desktop' %}
+      <ul class="pflege-main-nav__categories">
+        <li>
+          <a
+            href="{{ url_des }}"
+            class="pflege-main-nav__category-link{% if active_des %} is-active{% endif %}"
+            {% if active_des %}aria-current="page"{% endif %}
+          >Desinfektion</a>
+        </li>
+        <li>
+          <a
+            href="{{ url_pf }}"
+            class="pflege-main-nav__category-link{% if active_pf %} is-active{% endif %}"
+            {% if active_pf %}aria-current="page"{% endif %}
+          >Pflegeartikel</a>
+        </li>
+        <li>
+          <a
+            href="{{ url_hh }}"
+            class="pflege-main-nav__category-link{% if active_hh %} is-active{% endif %}"
+            {% if active_hh %}aria-current="page"{% endif %}
+          >Hautschutz &amp; Hautpflege</a>
+        </li>
+        <li>
+          <a
+            href="{{ url_ver }}"
+            class="pflege-main-nav__category-link{% if active_ver %} is-active{% endif %}"
+            {% if active_ver %}aria-current="page"{% endif %}
+          >Verbrauchsartikel</a>
+        </li>
       </ul>
     </nav>
 

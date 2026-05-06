@@ -1,6 +1,48 @@
 {% comment %}
-  Mobil-Menü — Kategorien wie Desktop (`snippets/pflege-shop-kategorien.liquid`).
+  Mobil-Menü — Kategorien identisch mit Desktop, fest verdrahtet (kein externes Snippet).
 {% endcomment %}
+{%- liquid
+  assign root = routes.root_url
+
+  if collections.desinfektion != blank
+    assign url_des = collections.desinfektion.url
+  else
+    assign url_des = root | append: 'collections/desinfektion'
+  endif
+  if collections.pflegeartikel != blank
+    assign url_pf = collections.pflegeartikel.url
+  else
+    assign url_pf = root | append: 'collections/pflegeartikel'
+  endif
+  if collections['hautschutz-hautpflege'] != blank
+    assign url_hh = collections['hautschutz-hautpflege'].url
+  elsif collections['hauschutz-hautpflege'] != blank
+    assign url_hh = collections['hauschutz-hautpflege'].url
+  else
+    assign url_hh = root | append: 'collections/hautschutz-hautpflege'
+  endif
+  if collections.verbrauchsartikel != blank
+    assign url_ver = collections.verbrauchsartikel.url
+  else
+    assign url_ver = root | append: 'collections/verbrauchsartikel'
+  endif
+
+  assign active_des = false
+  assign active_pf = false
+  assign active_hh = false
+  assign active_ver = false
+  if request.page_type == 'collection'
+    if collection.handle == 'desinfektion'
+      assign active_des = true
+    elsif collection.handle == 'pflegeartikel'
+      assign active_pf = true
+    elsif collection.handle == 'hautschutz-hautpflege' or collection.handle == 'hauschutz-hautpflege'
+      assign active_hh = true
+    elsif collection.handle == 'verbrauchsartikel'
+      assign active_ver = true
+    endif
+  endif
+-%}
 <header-drawer data-breakpoint="tablet">
   <details id="Details-menu-drawer-container-pflege" class="menu-drawer-container">
     <summary
@@ -17,7 +59,34 @@
         <div class="menu-drawer__navigation-container">
           <nav class="menu-drawer__navigation">
             <ul class="menu-drawer__menu has-submenu list-menu" role="list">
-              {% render 'pflege-shop-kategorien', variant: 'drawer' %}
+              <li>
+                <a
+                  href="{{ url_des }}"
+                  class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if active_des %} menu-drawer__menu-item--active{% endif %}"
+                  {% if active_des %}aria-current="page"{% endif %}
+                >Desinfektion</a>
+              </li>
+              <li>
+                <a
+                  href="{{ url_pf }}"
+                  class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if active_pf %} menu-drawer__menu-item--active{% endif %}"
+                  {% if active_pf %}aria-current="page"{% endif %}
+                >Pflegeartikel</a>
+              </li>
+              <li>
+                <a
+                  href="{{ url_hh }}"
+                  class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if active_hh %} menu-drawer__menu-item--active{% endif %}"
+                  {% if active_hh %}aria-current="page"{% endif %}
+                >Hautschutz &amp; Hautpflege</a>
+              </li>
+              <li>
+                <a
+                  href="{{ url_ver }}"
+                  class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if active_ver %} menu-drawer__menu-item--active{% endif %}"
+                  {% if active_ver %}aria-current="page"{% endif %}
+                >Verbrauchsartikel</a>
+              </li>
             </ul>
           </nav>
           <div class="menu-drawer__utility-links">

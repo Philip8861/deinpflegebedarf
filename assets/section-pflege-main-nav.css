@@ -40,13 +40,6 @@
   align-items: center;
 }
 
-/* Hamburger nur Handys — ab 750px Grid: Logo | Kategorien | Suche | Aktionen */
-@media screen and (min-width: 750px) {
-  .pflege-main-nav-section .pflege-main-nav__drawer-slot--phones-only {
-    display: none !important;
-  }
-}
-
 .pflege-main-nav-section .pflege-main-nav__logo {
   flex: 0 0 auto;
   /* Etwas nach oben zur optischen Ausrichtung mit Nav/Suche */
@@ -67,43 +60,48 @@
   max-width: min(26.62rem, 41.8vw);
 }
 
-/* Desktop-Kategorien zwischen Logo & Suche; Mobil ausgeblendet (Drawer) */
-.pflege-main-nav-section .pflege-main-nav__nav--desktop-inline {
-  display: none;
+/* Kategorien-Leiste zwischen Logo und Suche (Desktop) */
+.pflege-main-nav-section .pflege-main-nav__nav {
+  display: block;
 }
 
-.pflege-main-nav-section .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu {
+.pflege-main-nav-section .pflege-main-nav__categories {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-evenly;
   flex-wrap: nowrap;
-  gap: 0.35rem 0.8rem;
+  gap: clamp(0.4rem, 1.2vw, 1rem);
   list-style: none;
   padding: 0;
   margin: 0;
+  width: 100%;
 }
 
-.pflege-main-nav-section .pflege-main-nav__menu-link {
-  /* Skaliert mit Viewport, damit lange Kategorien zwischen Logo und Suche bleiben */
-  font-size: clamp(1.12rem, 0.68rem + 0.85vw, 1.68rem);
-  font-weight: 400;
+.pflege-main-nav-section .pflege-main-nav__category-link {
+  display: inline-block;
+  font-size: clamp(0.85rem, 0.35rem + 0.95vw, 1.32rem);
+  font-weight: 500;
   letter-spacing: 0.02em;
-  color: var(--pflege-main-nav-text, #3d4f68);
+  color: var(--pflege-navy, #0b2347);
+  -webkit-text-fill-color: var(--pflege-navy, #0b2347);
   text-decoration: none;
   white-space: nowrap;
-  padding: 0.385rem 0;
+  padding: 0.35rem 0.25rem;
   line-height: 1.2;
   border-radius: 0.45rem;
-  transition: color 0.22s ease, text-shadow 0.28s ease, box-shadow 0.28s ease;
+  transition: color 0.22s ease, text-shadow 0.28s ease;
 }
 
-.pflege-main-nav-section .pflege-main-nav__menu-link:hover {
-  color: var(--pflege-main-nav-text-hover, #0b2347);
+.pflege-main-nav-section .pflege-main-nav__category-link:hover,
+.pflege-main-nav-section .pflege-main-nav__category-link:focus-visible {
+  color: #063057;
+  -webkit-text-fill-color: #063057;
 }
 
-.pflege-main-nav-section .pflege-main-nav__menu-link--active {
+.pflege-main-nav-section .pflege-main-nav__category-link.is-active {
   font-weight: 600;
-  color: var(--pflege-main-nav-text-hover, #0b2347);
+  color: #063057;
+  -webkit-text-fill-color: #063057;
 }
 
 /* Predictive Search: Anker für Dropdown (wie Dawn .header predictive-search) */
@@ -388,19 +386,11 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .pflege-main-nav-section .pflege-main-nav__menu-link:hover,
-  .pflege-main-nav-section .pflege-main-nav__menu-link:focus-visible {
+  .pflege-main-nav-section .pflege-main-nav__category-link:hover,
+  .pflege-main-nav-section .pflege-main-nav__category-link:focus-visible {
     text-shadow:
       0 0 12px rgba(var(--pflege-hover-glow), 0.38),
       0 0 26px rgba(var(--pflege-hover-glow), 0.14);
-  }
-
-  .pflege-main-nav-section .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu-link:hover,
-  .pflege-main-nav-section .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu-link:focus-visible,
-  .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu-link:hover,
-  .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu-link:focus-visible {
-    color: #063057 !important;
-    -webkit-text-fill-color: #063057 !important;
   }
 
   .pflege-main-nav-section .pflege-main-nav__search:hover,
@@ -439,19 +429,22 @@
   }
 }
 
-/* Tablet/Desktop ab 750px: CSS Grid — Nav-Spalte mit minmax(), damit sie nicht kollabiert */
+/* Tablet/Desktop ab 750px: CSS Grid mit fixer Spalte für Kategorien-Leiste */
 @media screen and (min-width: 750px) {
-  .pflege-main-nav-section .pflege-main-nav__grid,
-  .header-wrapper.pflege-main-nav .pflege-main-nav__grid {
+  .pflege-main-nav-section .pflege-main-nav__drawer-slot {
+    display: none !important;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__grid {
     display: grid;
     grid-template-columns:
       auto
-      minmax(min(22rem, 34vw), 1fr)
+      minmax(min(22rem, 36vw), 1fr)
       minmax(11rem, min(30rem, 28vw))
       auto;
     grid-template-areas: 'logo nav search actions';
     align-items: center;
-    column-gap: clamp(0.55rem, 1.6vw, 1.35rem);
+    column-gap: clamp(0.6rem, 1.6vw, 1.4rem);
     row-gap: 0;
     width: 100%;
     box-sizing: border-box;
@@ -459,99 +452,31 @@
     padding-bottom: 1.35rem;
   }
 
-  .pflege-main-nav-section .pflege-main-nav__logo,
-  .header-wrapper.pflege-main-nav .pflege-main-nav__logo {
+  .pflege-main-nav-section .pflege-main-nav__logo {
     grid-area: logo;
     justify-self: start;
     align-self: center;
     transform: none;
   }
 
-  .pflege-main-nav-section .pflege-main-nav__logo-link,
-  .header-wrapper.pflege-main-nav .pflege-main-nav__logo-link {
+  .pflege-main-nav-section .pflege-main-nav__logo-link {
     align-items: center;
   }
 
-  .pflege-main-nav-section .pflege-main-nav__nav--desktop-inline,
-  .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline {
+  .pflege-main-nav-section .pflege-main-nav__nav {
     grid-area: nav;
-    display: flex;
-    align-items: center;
-    justify-self: stretch;
-    align-self: center;
-    position: relative;
-    z-index: 4;
-    isolation: isolate;
-    min-width: min-content;
-    width: 100%;
-    max-width: none;
-    margin: 0;
-    padding-inline: clamp(0.1rem, 0.45vw, 0.45rem);
-    box-sizing: border-box;
-    overflow: visible;
-    transform: none;
-    color: #0b2347;
-  }
-
-  .pflege-main-nav-section .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu,
-  .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: space-evenly;
-    gap: clamp(0.35rem, 1.2vw, 1rem);
-    width: 100%;
-    max-width: 100%;
-    min-width: min-content;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .pflege-main-nav-section .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu > li,
-  .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu > li {
-    flex: 1 1 auto;
-    flex-shrink: 1;
-    min-width: max-content;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .pflege-main-nav-section .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu-link,
-  .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu-link {
-    width: 100%;
-    max-width: 100%;
-    min-width: min-content;
-    text-align: center;
-    letter-spacing: 0.02em;
-    padding-inline: clamp(0.06rem, 0.3vw, 0.3rem);
-    padding-block: 0.35rem;
     display: block;
-    overflow: visible;
-    text-overflow: clip;
-    white-space: nowrap;
-    font-size: clamp(0.78rem, 0.32rem + 0.95vw, 1.28rem);
-    font-weight: 500;
-    line-height: 1.2;
-    color: #0b2347 !important;
-    -webkit-text-fill-color: #0b2347 !important;
-    mix-blend-mode: normal;
-    opacity: 1;
+    align-self: center;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding-inline: clamp(0.1rem, 0.45vw, 0.4rem);
+    box-sizing: border-box;
     visibility: visible;
-    text-decoration: none;
+    opacity: 1;
   }
 
-  .pflege-main-nav-section .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu-link--active,
-  .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu-link--active {
-    color: #063057 !important;
-    -webkit-text-fill-color: #063057 !important;
-    font-weight: 600;
-  }
-
-  .pflege-main-nav-section predictive-search.pflege-main-nav__search-host,
-  .header-wrapper.pflege-main-nav predictive-search.pflege-main-nav__search-host {
+  .pflege-main-nav-section predictive-search.pflege-main-nav__search-host {
     grid-area: search;
     align-self: center;
     justify-self: stretch;
@@ -562,52 +487,31 @@
     max-width: min(30rem, 28vw);
     min-width: 11rem;
     box-sizing: border-box;
-    transform: none;
   }
 
-  .pflege-main-nav-section .pflege-main-nav__grid > form.pflege-main-nav__search,
-  .header-wrapper.pflege-main-nav .pflege-main-nav__grid > form.pflege-main-nav__search {
+  .pflege-main-nav-section .pflege-main-nav__grid > form.pflege-main-nav__search {
     grid-area: search;
     align-self: center;
     justify-self: stretch;
-    transform: none;
   }
 
-  .pflege-main-nav-section .pflege-main-nav__actions,
-  .header-wrapper.pflege-main-nav .pflege-main-nav__actions {
+  .pflege-main-nav-section .pflege-main-nav__actions {
     grid-area: actions;
     justify-self: end;
     align-self: center;
     flex-shrink: 0;
     align-items: center;
-    transform: none;
   }
 
   .pflege-main-nav-section .pflege-main-nav__search,
-  .pflege-main-nav-section .pflege-main-nav__search-host,
-  .header-wrapper.pflege-main-nav .pflege-main-nav__search,
-  .header-wrapper.pflege-main-nav .pflege-main-nav__search-host {
+  .pflege-main-nav-section .pflege-main-nav__search-host {
     width: 100%;
     max-width: min(30rem, 28vw);
     min-width: 11rem;
   }
 
-  .pflege-main-nav-section .pflege-main-nav__grid:not(:has(.pflege-main-nav__search-host)) .pflege-main-nav__search,
-  .header-wrapper.pflege-main-nav .pflege-main-nav__grid:not(:has(.pflege-main-nav__search-host)) .pflege-main-nav__search {
-    transform: none;
-  }
-
-  .pflege-main-nav-section .pflege-main-nav__action,
-  .header-wrapper.pflege-main-nav .pflege-main-nav__action {
+  .pflege-main-nav-section .pflege-main-nav__action {
     align-items: center;
-  }
-}
-
-@media screen and (min-width: 750px) and (max-width: 989px) {
-  .pflege-main-nav-section .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu-link,
-  .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu-link {
-    font-size: clamp(0.68rem, 0.32rem + 0.75vw, 1rem);
-    padding-inline: clamp(0.03rem, 0.2vw, 0.2rem);
   }
 }
 
@@ -661,10 +565,9 @@
   }
 }
 
-/* Schmale Handys: Flex-Zeile; Desktop-Kategorien-Zeile aus; Kategorien im Drawer */
+/* Schmale Handys: Flex-Zeile; Kategorien-Nav aus; Kategorien im Drawer */
 @media screen and (max-width: 749px) {
-  .pflege-main-nav-section .pflege-main-nav__nav--desktop-inline,
-  .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline {
+  .pflege-main-nav-section .pflege-main-nav__nav {
     display: none !important;
   }
 
@@ -698,6 +601,7 @@
   .pflege-main-nav-section .pflege-main-nav__drawer-slot {
     flex: 0 0 auto;
     align-self: center;
+    display: flex;
   }
 
   .pflege-main-nav-section .pflege-main-nav__logo {
