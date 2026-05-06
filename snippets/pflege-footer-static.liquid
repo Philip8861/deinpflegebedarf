@@ -230,8 +230,28 @@
       <div class="pflege-footer__trust-col pflege-footer__trust-col--pay">
         <p class="pflege-footer__trust-heading">Sicher bezahlen</p>
         <ul class="pflege-footer__pay-badges" role="list">
-          <li><span class="pflege-footer__pay-pill">VISA</span></li>
-          <li><span class="pflege-footer__pay-pill">Mastercard</span></li>
+          <li class="pflege-footer__pay-badge pflege-footer__pay-badge--logo">
+            <img
+              src="{{ 'Visa_logo.webp' | asset_url }}"
+              alt="Visa"
+              class="pflege-footer__pay-logo"
+              width="52"
+              height="32"
+              loading="lazy"
+              decoding="async"
+            >
+          </li>
+          <li class="pflege-footer__pay-badge pflege-footer__pay-badge--logo">
+            <img
+              src="{{ 'Mastercard.webp' | asset_url }}"
+              alt="Mastercard"
+              class="pflege-footer__pay-logo"
+              width="52"
+              height="32"
+              loading="lazy"
+              decoding="async"
+            >
+          </li>
           <li><span class="pflege-footer__pay-pill">PayPal</span></li>
           <li><span class="pflege-footer__pay-pill">Klarna</span></li>
           <li><span class="pflege-footer__pay-pill">RECHNUNG</span></li>

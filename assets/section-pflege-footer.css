@@ -545,7 +545,27 @@ a.pflege-footer__contact-line:hover {
   padding: 0;
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 0.45rem;
+}
+
+.pflege-footer__pay-badge--logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.35rem;
+  background: var(--pflege-bg-softer, #f5faff);
+  border: 1px solid var(--pflege-ft-border);
+  border-radius: 10px;
+  line-height: 0;
+}
+
+.pflege-footer__pay-logo {
+  display: block;
+  height: clamp(1.35rem, 1.1rem + 0.45vw, 1.75rem);
+  width: auto;
+  max-width: clamp(3.25rem, 2.75rem + 1vw, 4rem);
+  object-fit: contain;
 }
 
 .pflege-footer__pay-pill {
