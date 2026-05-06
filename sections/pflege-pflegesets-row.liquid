@@ -6,6 +6,7 @@
   assign hc = section.settings.handle_3 | default: 'pflegeset-grosse-m' | strip
   assign handle_joined = ha | append: '|||' | append: hb | append: '|||' | append: hc
   assign pflegeset_handles = handle_joined | split: '|||'
+  assign badge_label = section.settings.badge_text | default: 'Sie sparen 10%' | strip
 -%}
 
 <section class="pflege-pflegesets" {{ section.shopify_attributes }}>
@@ -22,29 +23,76 @@
           {%- if card_product != blank -%}
             {%- assign card_href = card_product.url -%}
             {%- assign card_label = card_product.title -%}
+            {%- assign card_variant = card_product.selected_or_first_available_variant -%}
           {%- else -%}
             {%- assign card_href = '/products/' | append: handle -%}
             {%- assign card_label = handle | replace: '-', ' ' -%}
+            {%- assign card_variant = nil -%}
           {%- endif -%}
-          <a class="pflege-pflegesets__card" href="{{ card_href }}">
-            <span class="pflege-pflegesets__media" aria-hidden="true">
-              {%- if card_product != blank and card_product.featured_image -%}
-                {{
-                  card_product.featured_image
-                  | image_url: width: 800
-                  | image_tag:
-                    loading: 'lazy',
-                    widths: '400, 600, 800',
-                    sizes: '(min-width: 990px) 28vw, (min-width: 750px) 33vw, 100vw',
-                    alt: '',
-                    class: 'pflege-pflegesets__img'
-                }}
+          <article class="pflege-pflegesets__card">
+            <a class="pflege-pflegesets__media-link" href="{{ card_href }}">
+              <span class="pflege-pflegesets__media">
+                {%- if badge_label != blank -%}
+                  <span class="pflege-pflegesets__badge">{{ badge_label | escape }}</span>
+                {%- endif -%}
+                {%- if card_product != blank and card_product.featured_image -%}
+                  {{
+                    card_product.featured_image
+                    | image_url: width: 800
+                    | image_tag:
+                      loading: 'lazy',
+                      widths: '400, 600, 800',
+                      sizes: '(min-width: 990px) 20vw, (min-width: 750px) 23vw, 70vw',
+                      alt: card_label,
+                      class: 'pflege-pflegesets__img'
+                  }}
+                {%- else -%}
+                  {{ 'product-apparel-2' | placeholder_svg_tag: 'pflege-pflegesets__placeholder' }}
+                {%- endif -%}
+              </span>
+            </a>
+
+            <div class="pflege-pflegesets__body">
+              <a class="pflege-pflegesets__name-link" href="{{ card_href }}">{{ card_label | escape }}</a>
+
+              {%- if card_product != blank -%}
+                <div class="pflege-pflegesets__price">
+                  {% if settings.currency_code_enabled %}
+                    {{ card_product.price_min | money_with_currency }}
+                  {% else %}
+                    {{ card_product.price_min | money }}
+                  {% endif %}
+                </div>
+                <p class="pflege-pflegesets__rating">
+                  <span class="pflege-pflegesets__stars" aria-hidden="true">★★★★★</span>
+                </p>
               {%- else -%}
-                {{ 'product-apparel-2' | placeholder_svg_tag: 'pflege-pflegesets__placeholder' }}
+                <div class="pflege-pflegesets__price">—</div>
+                <p class="pflege-pflegesets__rating">
+                  <span class="pflege-pflegesets__stars" aria-hidden="true">★★★★★</span>
+                </p>
               {%- endif -%}
-            </span>
-            <span class="pflege-pflegesets__caption">{{ card_label | escape }}</span>
-          </a>
+            </div>
+
+            {%- if card_variant != nil and card_variant.available -%}
+              <button
+                type="button"
+                class="pflege-pflegesets__cart"
+                data-variant-id="{{ card_variant.id }}"
+                aria-label="{{ 'products.product.add_to_cart' | t }} — {{ card_label | escape }}"
+              >
+                {% render 'pflege-icon', icon: 'cart', width: 20 %}
+              </button>
+            {%- elsif card_href != blank -%}
+              <a
+                href="{{ card_href }}"
+                class="pflege-pflegesets__cart pflege-pflegesets__cart--fallback"
+                aria-label="{{ 'products.product.view_full_details' | t }} — {{ card_label | escape }}"
+              >
+                {% render 'pflege-icon', icon: 'cart', width: 20 %}
+              </a>
+            {%- endif -%}
+          </article>
         {%- endfor -%}
       </div>
     </div>
@@ -62,6 +110,12 @@
       "id": "heading",
       "label": "Überschrift",
       "default": "Jetzt Sparen mit unseren Pflegesets"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Hinweis (oben rechts auf dem Bild)",
+      "default": "Sie sparen 10%"
     },
     {
       "type": "text",
