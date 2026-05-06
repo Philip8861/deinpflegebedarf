@@ -381,83 +381,57 @@
   vertical-align: middle;
 }
 
-/* Warenkorb: Empfehlungen direkt unter Gutschein, gleiche Breite wie Promo-Karte */
-.template-cart .pflege-cart-stack-card > .pflege-cart-recommendations-slot,
-.template-cart .pflege-cart-stack-below-summary .pflege-cart-recommendations-slot {
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-.template-cart .pflege-cart-stack-card > .pflege-cart-recommendations-slot {
-  margin-top: 0.85rem;
-}
-
-.template-cart .pflege-cart-stack-below-summary .pflege-cart-recommendations-slot {
-  margin-top: 0.85rem;
-}
-
-.template-cart .pflege-cart-stack-card > .pflege-cart-recommendations-slot .pflege-bestseller.pflege-bestseller--cart-under-promo,
-.template-cart .pflege-cart-stack-below-summary .pflege-cart-recommendations-slot .pflege-bestseller.pflege-bestseller--cart-under-promo {
+/* Warenkorb: Empfehlungen unter Bestellübersicht, volle Nav-Breite (Wrapper in section-pflege-cart-page.css) */
+.template-cart #main-cart-footer .pflege-cart-recommendations--fullbleed .pflege-bestseller.pflege-bestseller--cart-fullbleed {
   margin-top: 0;
 }
 
-.template-cart .pflege-cart-stack-card > .pflege-cart-recommendations-slot .pflege-bestseller--cart-under-promo.pflege-bestseller,
-.template-cart .pflege-cart-stack-below-summary .pflege-cart-recommendations-slot .pflege-bestseller--cart-under-promo.pflege-bestseller {
+.template-cart #main-cart-footer .pflege-cart-recommendations--fullbleed .pflege-bestseller--cart-fullbleed.pflege-bestseller {
   padding-top: clamp(1rem, 2.5vw, 1.35rem);
   padding-bottom: clamp(1rem, 2.5vw, 1.35rem);
 }
 
-.template-cart .pflege-cart-stack-card > .pflege-cart-recommendations-slot .pflege-bestseller--cart-under-promo .pflege-bestseller__shell,
-.template-cart .pflege-cart-stack-below-summary .pflege-cart-recommendations-slot .pflege-bestseller--cart-under-promo .pflege-bestseller__shell {
+.template-cart #main-cart-footer .pflege-cart-recommendations--fullbleed .pflege-bestseller--cart-fullbleed .pflege-bestseller__shell {
   padding-left: 0;
   padding-right: 0;
 }
 
-.template-cart .pflege-cart-stack-card > .pflege-cart-recommendations-slot .pflege-bestseller--cart-under-promo .pflege-bestseller__panel,
-.template-cart .pflege-cart-stack-below-summary .pflege-cart-recommendations-slot .pflege-bestseller--cart-under-promo .pflege-bestseller__panel {
-  max-width: 100%;
+.template-cart #main-cart-footer .pflege-cart-recommendations--fullbleed .pflege-bestseller--cart-fullbleed .pflege-bestseller__panel {
+  max-width: var(--pflege-hero-tile-max-width, min(100%, 1426px));
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.template-cart .pflege-cart-stack-card > .pflege-cart-recommendations-slot .pflege-bestseller--cart-under-promo .pflege-bestseller__head,
-.template-cart .pflege-cart-stack-below-summary .pflege-cart-recommendations-slot .pflege-bestseller--cart-under-promo .pflege-bestseller__head {
+.template-cart #main-cart-footer .pflege-cart-recommendations--fullbleed .pflege-bestseller--cart-fullbleed .pflege-bestseller__head {
   margin-bottom: clamp(0.85rem, 2vw, 1.25rem);
 }
 
-.template-cart .pflege-cart-stack-card > .pflege-cart-recommendations-slot .pflege-bestseller--cart-under-promo .pflege-bestseller__grid,
-.template-cart .pflege-cart-stack-below-summary .pflege-cart-recommendations-slot .pflege-bestseller--cart-under-promo .pflege-bestseller__grid {
+.template-cart #main-cart-footer .pflege-cart-recommendations--fullbleed .pflege-bestseller--cart-fullbleed .pflege-bestseller__grid {
   grid-template-columns: 1fr;
   gap: 0.55rem;
 }
 
 @media screen and (min-width: 400px) {
-  .template-cart .pflege-cart-stack-card > .pflege-cart-recommendations-slot .pflege-bestseller--cart-under-promo .pflege-bestseller__grid,
-  .template-cart .pflege-cart-stack-below-summary .pflege-cart-recommendations-slot .pflege-bestseller--cart-under-promo .pflege-bestseller__grid {
+  .template-cart #main-cart-footer .pflege-cart-recommendations--fullbleed .pflege-bestseller--cart-fullbleed .pflege-bestseller__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media screen and (min-width: 750px) {
-  .template-cart .pflege-cart-stack-card > .pflege-cart-recommendations-slot .pflege-bestseller--cart-under-promo .pflege-bestseller__grid {
+  .template-cart #main-cart-footer .pflege-cart-recommendations--fullbleed .pflege-bestseller--cart-fullbleed .pflege-bestseller__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.65rem 0.75rem;
   }
 }
 
 @media screen and (min-width: 990px) {
-  .template-cart .pflege-cart-stack-card > .pflege-cart-recommendations-slot .pflege-bestseller--cart-under-promo .pflege-bestseller__grid {
+  .template-cart #main-cart-footer .pflege-cart-recommendations--fullbleed .pflege-bestseller--cart-fullbleed .pflege-bestseller__grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 0.75rem 0.85rem;
   }
-
-  .template-cart .pflege-cart-stack-below-summary .pflege-cart-recommendations-slot .pflege-bestseller--cart-under-promo .pflege-bestseller__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.6rem 0.65rem;
-  }
 }
 
-.template-cart .pflege-cart-stack-card > .pflege-cart-recommendations-slot .pflege-bestseller--cart-under-promo .pflege-bestseller-card,
-.template-cart .pflege-cart-stack-below-summary .pflege-cart-recommendations-slot .pflege-bestseller--cart-under-promo .pflege-bestseller-card {
+.template-cart #main-cart-footer .pflege-cart-recommendations--fullbleed .pflege-bestseller--cart-fullbleed .pflege-bestseller-card {
   min-height: 0;
   grid-template-columns: clamp(5.25rem, 34%, 7.25rem) minmax(0, 1fr);
   padding: 0.5rem 0.6rem 0.6rem;
@@ -465,29 +439,26 @@
 }
 
 @media screen and (min-width: 990px) {
-  .template-cart .pflege-cart-stack-card > .pflege-cart-recommendations-slot .pflege-bestseller--cart-under-promo .pflege-bestseller-card {
-    grid-template-columns: clamp(6.5rem, 32%, 9.5rem) minmax(0, 1fr);
+  .template-cart #main-cart-footer .pflege-cart-recommendations--fullbleed .pflege-bestseller--cart-fullbleed .pflege-bestseller-card {
+    grid-template-columns: clamp(6.5rem, 30%, 9.5rem) minmax(0, 1fr);
     padding: 0.65rem 0.75rem 0.8rem;
   }
 }
 
-.template-cart .pflege-cart-stack-card > .pflege-cart-recommendations-slot .pflege-bestseller--cart-under-promo .pflege-bestseller-card__media,
-.template-cart .pflege-cart-stack-below-summary .pflege-cart-recommendations-slot .pflege-bestseller--cart-under-promo .pflege-bestseller-card__media {
+.template-cart #main-cart-footer .pflege-cart-recommendations--fullbleed .pflege-bestseller--cart-fullbleed .pflege-bestseller-card__media {
   max-height: 6.75rem;
 }
 
 @media screen and (min-width: 990px) {
-  .template-cart .pflege-cart-stack-card > .pflege-cart-recommendations-slot .pflege-bestseller--cart-under-promo .pflege-bestseller-card__media {
+  .template-cart #main-cart-footer .pflege-cart-recommendations--fullbleed .pflege-bestseller--cart-fullbleed .pflege-bestseller-card__media {
     max-height: 8.5rem;
   }
 }
 
-.template-cart .pflege-cart-stack-card > .pflege-cart-recommendations-slot .pflege-bestseller--cart-under-promo .pflege-bestseller__title,
-.template-cart .pflege-cart-stack-below-summary .pflege-cart-recommendations-slot .pflege-bestseller--cart-under-promo .pflege-bestseller__title {
+.template-cart #main-cart-footer .pflege-cart-recommendations--fullbleed .pflege-bestseller--cart-fullbleed .pflege-bestseller__title {
   font-size: clamp(1.42rem, 1.05rem + 1.2vw, 1.82rem);
 }
 
-.template-cart .pflege-cart-stack-card > .pflege-cart-recommendations-slot .pflege-bestseller--cart-under-promo .pflege-bestseller__intro,
-.template-cart .pflege-cart-stack-below-summary .pflege-cart-recommendations-slot .pflege-bestseller--cart-under-promo .pflege-bestseller__intro {
+.template-cart #main-cart-footer .pflege-cart-recommendations--fullbleed .pflege-bestseller--cart-fullbleed .pflege-bestseller__intro {
   font-size: clamp(1.02rem, 0.95rem + 0.35vw, 1.18rem);
 }

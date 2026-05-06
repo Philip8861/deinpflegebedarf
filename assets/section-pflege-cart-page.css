@@ -26,9 +26,9 @@
 }
 
 /* ============================================================
-   Desktop: zweispaltig — Gutschein/Promo unter der Artikeltabelle (linke Spalte, AJAX
-   mit main-cart-items). Mobil: dieselbe Promo zusätzlich unter der Bestellübersicht im Footer.
-   Bestseller bleibt im Footer .js-contents. Artikel links, Sidebar rechts (sticky).
+   Desktop: zweispaltig — Gutschein unter Artikeltabelle (links, AJAX main-cart-items).
+   Empfehlungen unter Bestellübersicht, volle Nav-Breite (Footer .js-contents).
+   Mobil: Gutschein unter Empfehlungen im Footer. Artikel links, Sidebar rechts (sticky).
    ============================================================ */
 @media screen and (min-width: 990px) {
   .template-cart #MainContent:has(cart-items:not(.is-empty)) {
@@ -323,7 +323,23 @@
   background: #f9f9fa;
 }
 
-/* Gutschein Mobil: unter Bestellübersicht; Empfehlungen im gleichen Stack darunter */
+/* Empfehlungen: volle Breite wie Hauptnav (Logo bis Warenkorb), direkt unter Bestellübersicht */
+.template-cart #main-cart-footer .js-contents > .pflege-cart-recommendations--fullbleed {
+  position: relative;
+  left: 50%;
+  width: 100vw;
+  max-width: none;
+  margin-top: clamp(0.9rem, 2vw, 1.35rem);
+  margin-right: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  transform: translateX(-50%);
+  padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
+}
+
+/* Gutschein Mobil: unter Empfehlungen / Bestellübersicht-Block */
 .template-cart #main-cart-footer .js-contents > .pflege-cart-stack-below-summary > .pflege-cart-promo--under-summary .pflege-cart-promo.pflege-cart-card {
   margin-top: 1.35rem;
   border: 1px solid rgba(88, 145, 215, 0.26);
