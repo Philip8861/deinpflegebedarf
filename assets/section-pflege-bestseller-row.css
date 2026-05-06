@@ -163,12 +163,15 @@
 .pflege-bestseller-card__top {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
+  text-align: left;
   gap: 0.35rem;
   flex: 0 1 auto;
   min-height: 0;
   width: 100%;
+  box-sizing: border-box;
+  padding-left: 0.35rem;
+  padding-right: 0.35rem;
   /* Titel etwas tiefer im Textblock */
   padding-top: clamp(0.45rem, 1.1vw, 0.75rem);
 }
@@ -180,7 +183,7 @@
   line-height: 1.25;
   margin: 0;
   width: 100%;
-  text-align: center;
+  text-align: left;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
@@ -201,7 +204,7 @@
   color: var(--pflege-muted, #6f7f95);
   margin: 0;
   width: 100%;
-  text-align: center;
+  text-align: left;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
@@ -212,7 +215,7 @@
 .pflege-bestseller-card__rating {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
   gap: 0.2rem;
   font-size: clamp(1.1rem, 1rem + 0.22vw, 1.275rem);
@@ -220,7 +223,7 @@
   margin: 0;
   line-height: 1.15;
   width: 100%;
-  text-align: center;
+  text-align: left;
 }
 
 .pflege-bestseller-card__stars {
@@ -239,7 +242,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   margin-top: auto;
   padding-top: 0.5rem;
   padding-right: 3.35rem;
@@ -247,14 +250,14 @@
   flex-shrink: 0;
 }
 
-/* Linie nur über dem Preis (zentriert), läuft nicht bis zur Foto-Kante */
+/* Linie nur über dem Preis; links bündig mit Produktname */
 .pflege-bestseller-card__price {
   font-size: clamp(1.15rem, 1.02rem + 0.38vw, 1.38rem);
   font-weight: 700;
   color: var(--pflege-navy, #0b2347);
   margin: 0;
   line-height: 1.25;
-  text-align: center;
+  text-align: left;
   letter-spacing: 0.02em;
   width: auto;
   max-width: 100%;
