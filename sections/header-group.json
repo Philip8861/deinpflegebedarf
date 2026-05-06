@@ -2,37 +2,6 @@
   "name": "t:sections.header.name",
   "type": "header",
   "sections": {
-    "pflege_service_bar": {
-      "type": "pflege-service-bar",
-      "blocks": {
-        "s1": {
-          "type": "item",
-          "settings": {
-            "icon": "truck",
-            "text": "Kostenloser Versand ab 150 €",
-            "link": ""
-          }
-        },
-        "s3": {
-          "type": "item",
-          "settings": {
-            "icon": "star",
-            "text": "Von Pflegekräften empfohlen",
-            "link": ""
-          }
-        },
-        "s4": {
-          "type": "item",
-          "settings": {
-            "icon": "headset",
-            "text": "Persönliche Beratung 08334 / 9893330",
-            "link": "tel:+4983349893330"
-          }
-        }
-      },
-      "block_order": ["s1", "s3", "s4"],
-      "settings": {}
-    },
     "pflege_hauptleiste": {
       "type": "pflege-main-nav",
       "settings": {
@@ -48,5 +17,5 @@
       }
     }
   },
-  "order": ["pflege_service_bar", "pflege_hauptleiste"]
+  "order": ["pflege_hauptleiste"]
 }
