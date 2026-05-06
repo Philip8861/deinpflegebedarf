@@ -12,46 +12,52 @@
 {{ 'section-pflege-main-nav.css' | asset_url | stylesheet_tag }}
 
 {%- comment -%}
-  Kritisches CSS: Desktop = Grid-Spalte »nav« mit minmax(), damit die 4 Kategorien zwischen Logo und Suche nie auf 0px kollabieren.
+  Kritisches CSS: Logo | Kategorien | Suche liegen in einem Flex »center-cluster«; außen nur Grid cluster | actions.
 {%- endcomment -%}
 <style id="pflege-main-nav-critical-{{ section.id }}">
   @media screen and (min-width: 750px) {
     .header-wrapper.pflege-main-nav .pflege-main-nav__grid {
       display: grid !important;
-      grid-template-columns:
-        auto
-        minmax(min(22rem, 34vw), 1fr)
-        minmax(11rem, min(30rem, 28vw))
-        auto !important;
-      grid-template-areas: 'logo nav search actions' !important;
+      grid-template-columns: minmax(0, 1fr) auto !important;
+      grid-template-areas: 'cluster actions' !important;
       align-items: center !important;
-      column-gap: clamp(0.55rem, 1.6vw, 1.35rem) !important;
-      row-gap: 0 !important;
+      column-gap: clamp(0.75rem, 2vw, 1.75rem) !important;
       width: 100% !important;
       box-sizing: border-box !important;
     }
     .header-wrapper.pflege-main-nav .pflege-main-nav__drawer-slot--phones-only {
       display: none !important;
     }
-    .header-wrapper.pflege-main-nav .pflege-main-nav__logo {
-      grid-area: logo !important;
-      justify-self: start !important;
+    .header-wrapper.pflege-main-nav .pflege-main-nav__center-cluster {
+      grid-area: cluster !important;
+      display: flex !important;
+      flex-direction: row !important;
+      flex-wrap: nowrap !important;
+      align-items: center !important;
+      justify-content: flex-start !important;
+      gap: clamp(0.55rem, 1.8vw, 1.35rem) !important;
+      min-width: 0 !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .header-wrapper.pflege-main-nav .pflege-main-nav__center-cluster .pflege-main-nav__logo {
+      flex: 0 0 auto !important;
+      transform: none !important;
       max-width: none !important;
     }
     .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline {
-      grid-area: nav !important;
+      flex: 1 1 auto !important;
       display: flex !important;
       align-items: center !important;
-      justify-self: stretch !important;
-      position: relative !important;
-      z-index: 4 !important;
-      isolation: isolate !important;
-      min-width: min-content !important;
-      width: 100% !important;
+      min-width: 12rem !important;
       max-width: none !important;
       margin: 0 !important;
       padding: 0 clamp(0.1rem, 0.45vw, 0.45rem) !important;
       overflow: visible !important;
+      position: relative !important;
+      z-index: 4 !important;
+      isolation: isolate !important;
       visibility: visible !important;
       opacity: 1 !important;
       color: #0b2347 !important;
@@ -71,7 +77,7 @@
     }
     .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu > li {
       flex: 1 1 auto !important;
-      flex-shrink: 1 !important;
+      flex-shrink: 0 !important;
       min-width: max-content !important;
       display: flex !important;
       justify-content: center !important;
@@ -93,24 +99,24 @@
       opacity: 1 !important;
       visibility: visible !important;
     }
-    .header-wrapper.pflege-main-nav predictive-search.pflege-main-nav__search-host {
-      grid-area: search !important;
+    .header-wrapper.pflege-main-nav .pflege-main-nav__center-cluster predictive-search.pflege-main-nav__search-host {
+      flex: 0 1 min(30rem, 28vw) !important;
+      flex-shrink: 1 !important;
       display: block !important;
       position: relative !important;
       z-index: 1 !important;
       width: 100% !important;
       max-width: min(30rem, 28vw) !important;
       min-width: 11rem !important;
-      justify-self: stretch !important;
       box-sizing: border-box !important;
     }
-    .header-wrapper.pflege-main-nav .pflege-main-nav__grid > form.pflege-main-nav__search {
-      grid-area: search !important;
+    .header-wrapper.pflege-main-nav .pflege-main-nav__center-cluster > form.pflege-main-nav__search {
+      flex: 0 1 min(30rem, 28vw) !important;
+      flex-shrink: 1 !important;
       display: flex !important;
       width: 100% !important;
       max-width: min(30rem, 28vw) !important;
       min-width: 11rem !important;
-      justify-self: stretch !important;
       box-sizing: border-box !important;
     }
     .header-wrapper.pflege-main-nav .pflege-main-nav__actions {
@@ -122,6 +128,36 @@
     .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline {
       display: none !important;
     }
+    .header-wrapper.pflege-main-nav .pflege-main-nav__center-cluster {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      flex: 1 1 0 !important;
+      min-width: 0 !important;
+      gap: 0.45rem !important;
+    }
+    .header-wrapper.pflege-main-nav .pflege-main-nav__center-cluster .pflege-main-nav__logo {
+      flex: 0 1 auto !important;
+      min-width: 0 !important;
+      max-width: min(40vw, 12.1rem) !important;
+    }
+    .header-wrapper.pflege-main-nav .pflege-main-nav__center-cluster predictive-search.pflege-main-nav__search-host {
+      flex: 1 1 0 !important;
+      min-width: 0 !important;
+      width: auto !important;
+      max-width: none !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: center !important;
+    }
+    .header-wrapper.pflege-main-nav .pflege-main-nav__center-cluster predictive-search.pflege-main-nav__search-host .pflege-main-nav__search {
+      width: 100% !important;
+      min-width: 0 !important;
+    }
+    .header-wrapper.pflege-main-nav .pflege-main-nav__center-cluster > form.pflege-main-nav__search {
+      flex: 1 1 0 !important;
+      min-width: 0 !important;
+    }
   }
 </style>
 
@@ -131,29 +167,30 @@
       {% render 'pflege-flat-drawer' %}
     </div>
 
-    <div class="pflege-main-nav__logo">
-      <a href="{{ routes.root_url }}" class="pflege-main-nav__logo-link">
-        {% render 'pflege-logo-webp',
-          img_class: 'pflege-main-nav__logo-img',
-          logo_width: section.settings.logo_width,
-          logo_height: section.settings.logo_height
-        %}
-      </a>
-    </div>
+    <div class="pflege-main-nav__center-cluster">
+      <div class="pflege-main-nav__logo">
+        <a href="{{ routes.root_url }}" class="pflege-main-nav__logo-link">
+          {% render 'pflege-logo-webp',
+            img_class: 'pflege-main-nav__logo-img',
+            logo_width: section.settings.logo_width,
+            logo_height: section.settings.logo_height
+          %}
+        </a>
+      </div>
 
-    <nav
-      class="pflege-main-nav__nav pflege-main-nav__nav--desktop-inline"
-      aria-label="{{ section.settings.menu_label | escape }}"
-    >
-      <ul class="pflege-main-nav__menu" data-pflege-nav-categories="inline-desktop-grid-v1">
-        {% render 'pflege-shop-kategorien', variant: 'desktop' %}
-      </ul>
-    </nav>
+      <nav
+        class="pflege-main-nav__nav pflege-main-nav__nav--desktop-inline"
+        aria-label="{{ section.settings.menu_label | escape }}"
+      >
+        <ul class="pflege-main-nav__menu" data-pflege-nav-categories="inline-center-cluster-v1">
+          {% render 'pflege-shop-kategorien', variant: 'desktop' %}
+        </ul>
+      </nav>
 
-    {%- if settings.predictive_search_enabled -%}
-      <predictive-search class="pflege-main-nav__search-host" data-loading-text="{{ 'accessibility.loading' | t }}">
-    {%- endif -%}
-    <form class="pflege-main-nav__search" action="{{ routes.search_url }}" method="get" role="search">
+      {%- if settings.predictive_search_enabled -%}
+        <predictive-search class="pflege-main-nav__search-host" data-loading-text="{{ 'accessibility.loading' | t }}">
+      {%- endif -%}
+      <form class="pflege-main-nav__search" action="{{ routes.search_url }}" method="get" role="search">
       <input type="hidden" name="options[prefix]" value="last">
       <label class="visually-hidden" for="PflegeMainNavSearch-{{ section.id }}">
         {{- section.settings.search_placeholder | escape -}}
@@ -201,7 +238,8 @@
       </div>
       <span class="predictive-search-status visually-hidden" role="status" aria-hidden="true"></span>
       </predictive-search>
-    {%- endif -%}
+      {%- endif -%}
+    </div>
 
     <div class="pflege-main-nav__actions">
       {%- if shop.customer_accounts_enabled -%}

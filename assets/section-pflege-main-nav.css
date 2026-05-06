@@ -40,7 +40,7 @@
   align-items: center;
 }
 
-/* Hamburger nur Handys — ab 750px Grid: Logo | Kategorien | Suche | Aktionen */
+/* Hamburger nur Handys — ab 750px: Grid »cluster | actions« (Logo–Nav–Suche im Cluster) */
 @media screen and (min-width: 750px) {
   .pflege-main-nav-section .pflege-main-nav__drawer-slot--phones-only {
     display: none !important;
@@ -439,30 +439,39 @@
   }
 }
 
-/* Tablet/Desktop ab 750px: CSS Grid — Nav-Spalte mit minmax(), damit sie nicht kollabiert */
+/* Tablet/Desktop ab 750px: außen Grid »cluster | actions«; innen Flex Logo–Kategorien–Suche */
 @media screen and (min-width: 750px) {
   .pflege-main-nav-section .pflege-main-nav__grid,
   .header-wrapper.pflege-main-nav .pflege-main-nav__grid {
     display: grid;
-    grid-template-columns:
-      auto
-      minmax(min(22rem, 34vw), 1fr)
-      minmax(11rem, min(30rem, 28vw))
-      auto;
-    grid-template-areas: 'logo nav search actions';
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: 'cluster actions';
     align-items: center;
-    column-gap: clamp(0.55rem, 1.6vw, 1.35rem);
-    row-gap: 0;
+    column-gap: clamp(0.75rem, 2vw, 1.75rem);
     width: 100%;
     box-sizing: border-box;
     padding-top: 1.05rem;
     padding-bottom: 1.35rem;
   }
 
-  .pflege-main-nav-section .pflege-main-nav__logo,
-  .header-wrapper.pflege-main-nav .pflege-main-nav__logo {
-    grid-area: logo;
-    justify-self: start;
+  .pflege-main-nav-section .pflege-main-nav__center-cluster,
+  .header-wrapper.pflege-main-nav .pflege-main-nav__center-cluster {
+    grid-area: cluster;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: clamp(0.55rem, 1.8vw, 1.35rem);
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__center-cluster .pflege-main-nav__logo,
+  .header-wrapper.pflege-main-nav .pflege-main-nav__center-cluster .pflege-main-nav__logo {
+    flex: 0 0 auto;
     align-self: center;
     transform: none;
   }
@@ -474,16 +483,14 @@
 
   .pflege-main-nav-section .pflege-main-nav__nav--desktop-inline,
   .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline {
-    grid-area: nav;
+    flex: 1 1 auto;
     display: flex;
     align-items: center;
-    justify-self: stretch;
     align-self: center;
     position: relative;
     z-index: 4;
     isolation: isolate;
-    min-width: min-content;
-    width: 100%;
+    min-width: 12rem;
     max-width: none;
     margin: 0;
     padding-inline: clamp(0.1rem, 0.45vw, 0.45rem);
@@ -512,7 +519,7 @@
   .pflege-main-nav-section .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu > li,
   .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu > li {
     flex: 1 1 auto;
-    flex-shrink: 1;
+    flex-shrink: 0;
     min-width: max-content;
     display: flex;
     align-items: center;
@@ -550,11 +557,11 @@
     font-weight: 600;
   }
 
-  .pflege-main-nav-section predictive-search.pflege-main-nav__search-host,
-  .header-wrapper.pflege-main-nav predictive-search.pflege-main-nav__search-host {
-    grid-area: search;
+  .pflege-main-nav-section .pflege-main-nav__center-cluster predictive-search.pflege-main-nav__search-host,
+  .header-wrapper.pflege-main-nav .pflege-main-nav__center-cluster predictive-search.pflege-main-nav__search-host {
+    flex: 0 1 min(30rem, 28vw);
+    flex-shrink: 1;
     align-self: center;
-    justify-self: stretch;
     display: block;
     position: relative;
     z-index: 1;
@@ -565,11 +572,11 @@
     transform: none;
   }
 
-  .pflege-main-nav-section .pflege-main-nav__grid > form.pflege-main-nav__search,
-  .header-wrapper.pflege-main-nav .pflege-main-nav__grid > form.pflege-main-nav__search {
-    grid-area: search;
+  .pflege-main-nav-section .pflege-main-nav__center-cluster > form.pflege-main-nav__search,
+  .header-wrapper.pflege-main-nav .pflege-main-nav__center-cluster > form.pflege-main-nav__search {
+    flex: 0 1 min(30rem, 28vw);
+    flex-shrink: 1;
     align-self: center;
-    justify-self: stretch;
     transform: none;
   }
 
@@ -592,8 +599,8 @@
     min-width: 11rem;
   }
 
-  .pflege-main-nav-section .pflege-main-nav__grid:not(:has(.pflege-main-nav__search-host)) .pflege-main-nav__search,
-  .header-wrapper.pflege-main-nav .pflege-main-nav__grid:not(:has(.pflege-main-nav__search-host)) .pflege-main-nav__search {
+  .pflege-main-nav-section .pflege-main-nav__center-cluster:not(:has(.pflege-main-nav__search-host)) .pflege-main-nav__search,
+  .header-wrapper.pflege-main-nav .pflege-main-nav__center-cluster:not(:has(.pflege-main-nav__search-host)) .pflege-main-nav__search {
     transform: none;
   }
 
@@ -683,9 +690,7 @@
   }
 
   .pflege-main-nav-section .pflege-main-nav__drawer-slot,
-  .pflege-main-nav-section .pflege-main-nav__logo,
-  .pflege-main-nav-section .pflege-main-nav__search,
-  .pflege-main-nav-section predictive-search.pflege-main-nav__search-host,
+  .pflege-main-nav-section .pflege-main-nav__center-cluster,
   .pflege-main-nav-section .pflege-main-nav__actions {
     grid-column: unset;
     grid-row: unset;
@@ -700,13 +705,23 @@
     align-self: center;
   }
 
-  .pflege-main-nav-section .pflege-main-nav__logo {
+  .pflege-main-nav-section .pflege-main-nav__center-cluster {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__center-cluster .pflege-main-nav__logo {
     flex: 0 1 auto;
     min-width: 0;
     max-width: min(40vw, 12.1rem);
   }
 
-  .pflege-main-nav-section predictive-search.pflege-main-nav__search-host {
+  .pflege-main-nav-section .pflege-main-nav__center-cluster predictive-search.pflege-main-nav__search-host {
     flex: 1 1 0;
     min-width: 0;
     width: auto;
@@ -717,12 +732,12 @@
     justify-content: center;
   }
 
-  .pflege-main-nav-section predictive-search.pflege-main-nav__search-host .pflege-main-nav__search {
+  .pflege-main-nav-section .pflege-main-nav__center-cluster predictive-search.pflege-main-nav__search-host .pflege-main-nav__search {
     width: 100%;
     min-width: 0;
   }
 
-  .pflege-main-nav-section .pflege-main-nav__grid > form.pflege-main-nav__search {
+  .pflege-main-nav-section .pflege-main-nav__center-cluster > form.pflege-main-nav__search {
     flex: 1 1 0;
     min-width: 0;
   }
