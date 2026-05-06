@@ -553,7 +553,7 @@ a.pflege-footer__contact-line:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.25rem 0.35rem;
+  padding: 0.31rem 0.44rem;
   background: var(--pflege-bg-softer, #f5faff);
   border: 1px solid var(--pflege-ft-border);
   border-radius: 10px;
@@ -562,9 +562,9 @@ a.pflege-footer__contact-line:hover {
 
 .pflege-footer__pay-logo {
   display: block;
-  height: clamp(1.35rem, 1.1rem + 0.45vw, 1.75rem);
+  height: clamp(1.69rem, 1.375rem + 0.5625vw, 2.19rem);
   width: auto;
-  max-width: clamp(3.25rem, 2.75rem + 1vw, 4rem);
+  max-width: clamp(4.06rem, 3.4375rem + 1.25vw, 5rem);
   object-fit: contain;
 }
 
