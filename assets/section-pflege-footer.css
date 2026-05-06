@@ -18,6 +18,12 @@
   background: var(--pflege-white, #fefefe);
 }
 
+/* Padding früher nur per Section-Inlinestyle — jetzt fest im Stylesheet (Snippet-Footer) */
+.pflege-footer__section-padding {
+  padding-top: clamp(28px, 5vw, 40px);
+  padding-bottom: clamp(20px, 4vw, 28px);
+}
+
 .pflege-footer__wrap {
   width: 100%;
   max-width: var(--pflege-ft-max);
