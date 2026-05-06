@@ -26,8 +26,8 @@
 }
 
 /* ============================================================
-   Desktop: zweispaltig — nutzbare Breite wie Hauptnav (Logo … Warenkorb).
-   Promo unter Artikeln; Bestellübersicht rechts, kompakt + sticky (klebt unter Header).
+   Desktop: zweispaltig — Promo sitzt direkt unter der Artikeltabelle (in .js-contents)
+   und wird mit AJAX mitaktualisiert; Bestellübersicht rechts (sticky).
    ============================================================ */
 @media screen and (min-width: 990px) {
   .template-cart #MainContent:has(cart-items:not(.is-empty)) {
@@ -82,17 +82,9 @@
     margin: 0;
   }
 
-  .template-cart #MainContent:has(cart-items:not(.is-empty)) .pflege-cart-promo {
-    grid-column: 1;
-    grid-row: 4;
-    margin: 0;
-    margin-top: 2rem;
-    margin-bottom: 0;
-  }
-
   .template-cart #MainContent:has(cart-items:not(.is-empty)) > .pflege-cart-section--aside {
     grid-column: 2;
-    grid-row: 3 / span 2;
+    grid-row: 3;
     align-self: start;
     position: static;
     top: auto;
@@ -109,13 +101,13 @@
   .template-cart #MainContent:has(cart-items:not(.is-empty))
     > .shopify-section:not(.pflege-cart-section--main):not(.pflege-cart-section--aside):not(.pflege-cart-section--service) {
     grid-column: 1 / -1;
-    grid-row: 5;
+    grid-row: 4;
     margin-top: 1.5rem;
   }
 
   .template-cart #MainContent:has(cart-items:not(.is-empty)) > .pflege-cart-section--service {
     grid-column: 1 / -1;
-    grid-row: 6;
+    grid-row: 5;
     margin-top: 0.5rem;
   }
 
@@ -313,6 +305,25 @@
   background: rgb(var(--color-background, 255 255 255));
   box-shadow: 0 12px 40px rgba(11, 35, 71, 0.06);
   width: 100%;
+}
+
+/* Tabelle + Promo untereinander: eine Karte, Promo klebt am letzten Artikel (gleicher DOM wie AJAX-Replace) */
+.template-cart .pflege-cart-stack-card.pflege-cart-card {
+  overflow: hidden;
+}
+
+.template-cart .pflege-cart-stack-card > .pflege-cart-items-table.cart-items {
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.template-cart .pflege-cart-stack-card > .pflege-cart-promo.pflege-cart-card {
+  margin-top: 0;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  border-top: 1px solid rgba(88, 145, 215, 0.22);
 }
 
 .template-cart .pflege-cart-items-table thead {

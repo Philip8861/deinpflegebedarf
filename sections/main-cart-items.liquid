@@ -68,6 +68,7 @@
       <div class="cart__items" id="main-cart-items" data-id="{{ section.id }}">
         <div class="js-contents">
           {%- if cart != empty -%}
+            <div class="pflege-cart-stack-card pflege-cart-card">
             <table class="cart-items pflege-cart-items-table">
               <caption class="visually-hidden">
                 {{ 'sections.cart.title' | t }}
@@ -486,6 +487,8 @@
                 {%- endfor -%}
               </tbody>
             </table>
+            {% render 'pflege-cart-promo-row' %}
+            </div>
           {%- endif -%}
         </div>
       </div>
@@ -502,9 +505,6 @@
       </p>
     </form>
 
-    {%- if cart != empty -%}
-      {% render 'pflege-cart-promo-row' %}
-    {%- endif -%}
   </div>
 </cart-items>
 
