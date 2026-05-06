@@ -39,6 +39,7 @@
 {%- endstyle -%}
 
 {%- liquid
+  assign more_in_collection = false
   assign products_to_display = section.settings.collection.all_products_count
 
   if section.settings.collection.all_products_count > section.settings.products_to_show
@@ -68,16 +69,27 @@
   class="color-{{ section.settings.color_scheme }} isolate gradient"
 >
   <div
-    class="collection{% if section.settings.quick_add == 'bulk' %} collection-quick-add-bulk{% endif %} section-{{ section.id }}-padding{% if section.settings.full_width %} collection--full-width{% endif %}"
+    class="collection{% if section.settings.quick_add == 'bulk' %} collection-quick-add-bulk{% endif %}{% if section.settings.quick_add_icon_only %} pflege-cart-recommendations{% endif %} section-{{ section.id }}-padding{% if section.settings.full_width %} collection--full-width{% endif %}"
     id="collection-{{ section.id }}"
     data-id="{{ section.id }}"
   >
     <div class="collection__title title-wrapper title-wrapper--no-top-margin page-width{% if show_mobile_slider %} title-wrapper--self-padded-tablet-down{% endif %}{% if show_desktop_slider %} collection__title--desktop-slider{% endif %}">
-      {%- if section.settings.title != blank -%}
-        <h2 class="title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-          {{ section.settings.title }}
-        </h2>
-      {%- endif -%}
+      <div class="{% if section.settings.view_all_in_title and section.settings.show_view_all and section.settings.collection != blank and more_in_collection %}pflege-collection-heading-row{% endif %}">
+        {%- if section.settings.title != blank -%}
+          <h2 class="title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+            {{ section.settings.title }}
+          </h2>
+        {%- endif -%}
+        {%- if section.settings.view_all_in_title and section.settings.show_view_all and section.settings.collection != blank and more_in_collection -%}
+          <a
+            href="{{ section.settings.collection.url }}"
+            class="link pflege-collection-heading-row__all"
+            aria-label="{{ 'sections.featured_collection.view_all_label' | t: collection_name: section.settings.collection.title | escape }}"
+          >
+            {{- 'sections.cart.pflege.recommendations_view_all' | t -}}
+          </a>
+        {%- endif -%}
+      </div>
       {%- if section.settings.description != blank
         or section.settings.show_description
         and section.settings.collection.description != empty
@@ -127,7 +139,8 @@
                   show_rating: section.settings.show_rating,
                   skip_styles: skip_card_product_styles,
                   section_id: section.id,
-                  quick_add: section.settings.quick_add
+                  quick_add: section.settings.quick_add,
+                  quick_add_icon_only: section.settings.quick_add_icon_only
                 %}
               </li>
               {%- assign skip_card_product_styles = true -%}
@@ -197,7 +210,7 @@
       {%- endif -%}
     </slider-component>
 
-    {%- if section.settings.show_view_all and more_in_collection -%}
+    {%- if section.settings.show_view_all and more_in_collection and section.settings.view_all_in_title == false -%}
       <div class="center collection__view-all{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
         <a
           href="{{ section.settings.collection.url }}"
@@ -467,6 +480,19 @@
           "label": "t:sections.main-collection-product-grid.settings.quick_add.options.option_3"
         }
       ]
+    },
+    {
+      "type": "checkbox",
+      "id": "quick_add_icon_only",
+      "default": false,
+      "label": "Nur Warenkorb-Icon (Schnellkauf)",
+      "info": "Nur wirksam, wenn Schnellkauf auf „Standard“ steht."
+    },
+    {
+      "type": "checkbox",
+      "id": "view_all_in_title",
+      "default": false,
+      "label": "„Alle ansehen“ neben der Überschrift"
     },
     {
       "type": "header",

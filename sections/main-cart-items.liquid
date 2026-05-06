@@ -26,20 +26,35 @@
 
 <script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
 
-<cart-items class="gradient color-{{ section.settings.color_scheme }} isolate{% if cart == empty %} is-empty{% else %} section-{{ section.id }}-padding{% endif %}">
-  <div class="page-width">
-    <div class="title-wrapper-with-link">
-      <h1 class="title title--primary">{{ 'sections.cart.title' | t }}</h1>
-      <a href="{{ routes.all_products_collection_url }}" class="underlined-link">
-        {{- 'general.continue_shopping' | t -}}
-      </a>
-    </div>
+<cart-items class="pflege-cart-page gradient color-{{ section.settings.color_scheme }} isolate{% if cart == empty %} is-empty{% else %} section-{{ section.id }}-padding{% endif %}">
+  <div class="page-width pflege-cart-page__inner">
+    <nav class="pflege-cart-breadcrumb caption" aria-label="{{ 'sections.cart.pflege.breadcrumb_nav' | t }}">
+      <ol class="pflege-cart-breadcrumb__list list-unstyled">
+        <li class="pflege-cart-breadcrumb__item">
+          <a href="{{ routes.root_url }}">{{ 'sections.cart.pflege.breadcrumb_home' | t }}</a>
+        </li>
+        <li class="pflege-cart-breadcrumb__sep" aria-hidden="true">&gt;</li>
+        <li class="pflege-cart-breadcrumb__item pflege-cart-breadcrumb__item--current" aria-current="page">
+          {{- 'sections.cart.pflege.breadcrumb_cart' | t -}}
+        </li>
+      </ol>
+    </nav>
+
+    {%- if cart != empty -%}
+      <h1 class="pflege-cart-page__title title title--primary">{{ 'sections.cart.title' | t }}</h1>
+    {%- endif -%}
 
     <div class="cart__warnings">
-      <h1 class="cart__empty-text">{{ 'sections.cart.empty' | t }}</h1>
-      <a href="{{ routes.all_products_collection_url }}" class="button">
-        {{ 'general.continue_shopping' | t }}
-      </a>
+      <div class="pflege-cart-empty-card">
+        <span class="pflege-cart-empty-card__icon svg-wrapper" aria-hidden="true">
+          {{- 'icon-cart-empty.svg' | inline_asset_content -}}
+        </span>
+        <h2 class="cart__empty-text pflege-cart-empty-card__title">{{ 'sections.cart.pflege.empty_title' | t }}</h2>
+        <p class="pflege-cart-empty-card__text">{{ 'sections.cart.pflege.empty_text' | t }}</p>
+        <a href="{{ routes.all_products_collection_url }}" class="button pflege-cart-empty-card__cta">
+          {{- 'sections.cart.pflege.empty_cta' | t -}}
+        </a>
+      </div>
 
       {%- if shop.customer_accounts_enabled and customer == null -%}
         <h2 class="cart__login-title">{{ 'sections.cart.login.title' | t }}</h2>
@@ -59,20 +74,19 @@
               </caption>
               <thead>
                 <tr>
-                  <th class="caption-with-letter-spacing" colspan="2" scope="col">
+                  <th class="caption-with-letter-spacing" colspan="2" scope="colgroup">
                     {{ 'sections.cart.headings.product' | t }}
                   </th>
-                  <th class="medium-hide large-up-hide right caption-with-letter-spacing" colspan="1" scope="col">
+                  <th class="caption-with-letter-spacing cart-items__heading--unit small-hide right" scope="col">
+                    {{ 'sections.cart.headings.unit_price' | t }}
+                  </th>
+                  <th class="medium-hide large-up-hide right caption-with-letter-spacing" scope="col">
                     {{ 'sections.cart.headings.total' | t }}
                   </th>
-                  <th
-                    class="cart-items__heading--wide cart-items__heading--quantity small-hide caption-with-letter-spacing"
-                    colspan="1"
-                    scope="col"
-                  >
+                  <th class="cart-items__heading--wide cart-items__heading--quantity small-hide caption-with-letter-spacing" scope="col">
                     {{ 'sections.cart.headings.quantity' | t }}
                   </th>
-                  <th class="small-hide right caption-with-letter-spacing" colspan="1" scope="col">
+                  <th class="small-hide right caption-with-letter-spacing" scope="col">
                     {{ 'sections.cart.headings.total' | t }}
                   </th>
                 </tr>
@@ -111,26 +125,30 @@
 
                       <a href="{{ item.url }}" class="cart-item__name h4 break">{{ item.product.title | escape }}</a>
 
-                      {%- if item.original_price != item.final_price -%}
-                        <div class="cart-item__discounted-prices">
-                          <span class="visually-hidden">
-                            {{ 'products.product.price.regular_price' | t }}
-                          </span>
-                          <s class="cart-item__old-price product-option">
-                            {{- item.original_price | money -}}
-                          </s>
-                          <span class="visually-hidden">
-                            {{ 'products.product.price.sale_price' | t }}
-                          </span>
-                          <strong class="cart-item__final-price product-option">
-                            {{ item.final_price | money }}
-                          </strong>
-                        </div>
-                      {%- else -%}
-                        <div class="product-option">
-                          {{ item.original_price | money }}
-                        </div>
+                      {%- if item.product.description != blank -%}
+                        <p class="pflege-cart-item__desc">{{ item.product.description | strip_html | truncate: 160 }}</p>
                       {%- endif -%}
+
+                      <div class="pflege-cart-item__unit-mobile medium-hide large-up-hide caption">
+                        {%- if item.original_price != item.final_price -%}
+                          <div class="cart-item__discounted-prices">
+                            <span class="visually-hidden">
+                              {{ 'products.product.price.regular_price' | t }}
+                            </span>
+                            <s class="cart-item__old-price product-option">
+                              {{- item.original_price | money -}}
+                            </s>
+                            <span class="visually-hidden">
+                              {{ 'products.product.price.sale_price' | t }}
+                            </span>
+                            <strong class="cart-item__final-price product-option">
+                              {{ item.final_price | money }}
+                            </strong>
+                          </div>
+                        {%- else -%}
+                          <div class="product-option">{{ item.original_price | money }}</div>
+                        {%- endif -%}
+                      </div>
 
                       {%- if item.product.has_only_default_variant == false
                         or item.properties.size != 0
@@ -176,6 +194,17 @@
                           </li>
                         {%- endfor -%}
                       </ul>
+                    </td>
+
+                    <td class="cart-item__unit-price right small-hide" data-label="{{ 'sections.cart.headings.unit_price' | t }}">
+                      {%- if item.original_price != item.final_price -%}
+                        <span class="visually-hidden">{{ 'products.product.price.regular_price' | t }}</span>
+                        <s class="cart-item__old-price">{{ item.original_price | money }}</s>
+                        <span class="visually-hidden">{{ 'products.product.price.sale_price' | t }}</span>
+                        <span class="cart-item__final-price">{{ item.final_price | money }}</span>
+                      {%- else -%}
+                        {{ item.original_price | money }}
+                      {%- endif -%}
                     </td>
 
                     <td class="cart-item__totals right medium-hide large-up-hide">
@@ -455,12 +484,17 @@
         {{ 'accessibility.loading' | t }}
       </p>
     </form>
+
+    {%- if cart != empty -%}
+      {% render 'pflege-cart-promo-row' %}
+    {%- endif -%}
   </div>
 </cart-items>
 
 {% schema %}
 {
   "name": "t:sections.main-cart-items.name",
+  "class": "pflege-cart-section pflege-cart-section--main",
   "settings": [
     {
       "type": "color_scheme",

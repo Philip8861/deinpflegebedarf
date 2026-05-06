@@ -309,20 +309,21 @@
       }
     },
     "cart": {
-      "title": "Dein Warenkorb",
+      "title": "Warenkorb",
       "caption": "Artikel im Warenkorb",
-      "remove_title": "{{ title }} entfernen",
+      "remove_title": "{{ title }} aus Warenkorb entfernen",
       "note": "Spezielle Bestellanweisungen",
-      "checkout": "Auschecken",
+      "checkout": "Zur Kasse",
       "empty": "Dein Warenkorb ist leer",
       "cart_error": "Beim Aktualisieren deines Warenkorbs ist ein Fehler aufgetreten. Bitte versuche es erneut.",
       "cart_quantity_error_html": "Du kannst deinem Warenkorb nur {{ quantity }} Stück dieses Artikels hinzufügen.",
       "headings": {
         "product": "Produkt",
         "price": "Preis",
-        "total": "Gesamtsumme",
+        "total": "Gesamt",
         "quantity": "Anzahl",
-        "image": "Produktbild"
+        "image": "Produktbild",
+        "unit_price": "Einzelpreis"
       },
       "update": "Aktualisieren",
       "login": {
@@ -338,7 +339,38 @@
       "duties_included_taxes_at_checkout_shipping_at_checkout_with_policy_html": "Inkl. Zollgebühren. Steuern, Rabatte und <a href=\"{{ link }}\">Versand</a> werden beim Checkout berechnet.",
       "duties_included_taxes_at_checkout_shipping_at_checkout_without_policy": "Inkl. Zollgebühren. Steuern, Rabatte und Versand werden beim Checkout berechnet.",
       "taxes_at_checkout_shipping_at_checkout_with_policy_html": "Steuern, Rabatte und <a href=\"{{ link }}\">Versand</a> werden beim Checkout berechnet.",
-      "taxes_at_checkout_shipping_at_checkout_without_policy": "Steuern, Rabatte und Versand werden beim Checkout berechnet."
+      "taxes_at_checkout_shipping_at_checkout_without_policy": "Steuern, Rabatte und Versand werden beim Checkout berechnet.",
+      "pflege": {
+        "breadcrumb_nav": "Brotkrume",
+        "breadcrumb_home": "Startseite",
+        "breadcrumb_cart": "Warenkorb",
+        "empty_title": "Ihr Warenkorb ist leer",
+        "empty_text": "Entdecken Sie unsere Pflegeprodukte und finden Sie passende Artikel für Ihren Pflegealltag.",
+        "empty_cta": "Jetzt Produkte entdecken",
+        "summary_title": "Bestellübersicht",
+        "subtotal": "Zwischensumme",
+        "shipping": "Versand",
+        "shipping_note": "wird im Checkout berechnet",
+        "discount_with_code": "Rabatt ({{ code }})",
+        "grand_total": "Gesamtsumme",
+        "vat_included": "inkl. MwSt.",
+        "continue_shopping": "Weiter einkaufen",
+        "coupon_title": "Gutschein einlösen",
+        "coupon_placeholder": "Gutscheincode eingeben",
+        "coupon_submit": "Einlösen",
+        "coupon_hint": "Nach dem Einlösen wird die Seite neu geladen; Rabatte erscheinen in der Bestellübersicht.",
+        "free_shipping_title": "Kostenloser Versand ab 150 €",
+        "free_shipping_remaining": "Noch {{ amount }} bis zum kostenlosen Versand.",
+        "free_shipping_qualified": "Sie erhalten kostenlosen Versand.",
+        "trust_pay_title": "Sicher bezahlen",
+        "trust_pay_sub": "SSL-verschlüsselt",
+        "trust_buyer_title": "Käuferschutz",
+        "trust_buyer_sub": "Viele sichere Zahlungsmethoden",
+        "trust_quality_title": "100% geprüfte Qualität",
+        "trust_quality_sub": "Sorgfältig ausgewählte Produkte",
+        "recommendations_title": "Das könnte Ihnen auch gefallen",
+        "recommendations_view_all": "Alle ansehen →"
+      }
     },
     "footer": {
       "payment": "Zahlungsmethoden"
