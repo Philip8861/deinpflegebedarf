@@ -116,12 +116,12 @@
 }
 
 .pflege-product-finder__intro {
-  font-size: clamp(1.03rem, 0.96rem + 0.22vw, 1.14rem);
-  line-height: 1.65;
+  font-size: clamp(1.18rem, 1.02rem + 0.55vw, 1.42rem);
+  line-height: 1.62;
   font-weight: 600;
   color: #132535;
   margin: 0 0 clamp(0.85rem, 1.6vw, 1.1rem);
-  max-width: min(52rem, 100%);
+  max-width: min(54rem, 100%);
   margin-left: auto;
   margin-right: auto;
   text-shadow: 0 0 1rem rgba(255, 255, 255, 0.92), 0 1px 3px rgba(255, 255, 255, 0.85);
