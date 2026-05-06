@@ -80,8 +80,12 @@
       "block_order": ["b1", "b2", "b3", "b4", "b5", "b6"],
       "settings": {
         "title": "Bestseller",
+        "data_source": "collection",
+        "collection": "all",
+        "products_to_show": 6,
+        "show_collection_rating": true,
         "view_all_label": "Alle ansehen →",
-        "view_all_link": "shopify://collections/all"
+        "view_all_link": ""
       }
     },
     "pflege_trust": {

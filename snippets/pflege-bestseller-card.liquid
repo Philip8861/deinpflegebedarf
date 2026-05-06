@@ -1,0 +1,143 @@
+{%- if card_context == 'collection' -%}
+  {%- assign p = card_product -%}
+  <article class="pflege-bestseller-card">
+    <div class="pflege-bestseller-card__media">
+      {%- if p.featured_media -%}
+        {{
+          p.featured_media
+          | image_url: width: 280
+          | image_tag:
+            loading: 'lazy',
+            widths: '140, 280',
+            sizes: '96px',
+            alt: p.featured_media.alt | default: p.title | escape
+        }}
+      {%- else -%}
+        {{ 'product-apparel-2' | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- endif -%}
+    </div>
+    <div class="pflege-bestseller-card__body">
+      <h3 class="pflege-bestseller-card__name">
+        <a href="{{ p.url }}">{{ p.title | escape }}</a>
+      </h3>
+      {%- if p.metafields.descriptors.subtitle.value != blank -%}
+        <p class="pflege-bestseller-card__meta">{{ p.metafields.descriptors.subtitle.value | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.show_collection_rating -%}
+        <p class="pflege-bestseller-card__rating">
+          <span class="pflege-bestseller-card__stars" aria-hidden="true">★★★★★</span>
+        </p>
+      {%- endif -%}
+      <div class="pflege-bestseller-card__price">
+        {% if settings.currency_code_enabled %}
+          {{ p.price_min | money_with_currency }}
+        {% else %}
+          {{ p.price_min | money }}
+        {% endif %}
+      </div>
+    </div>
+    <a
+      href="{{ p.url }}"
+      class="pflege-bestseller-card__cart"
+      aria-label="{{ 'products.product.view_full_details' | t }} — {{ p.title | escape }}"
+    >
+      {% render 'pflege-icon', icon: 'cart', width: 20 %}
+    </a>
+  </article>
+{%- else -%}
+  {%- liquid
+    assign p = block.settings.product
+    assign show_placeholder = true
+    if p != blank
+      assign show_placeholder = false
+    endif
+  -%}
+  <article class="pflege-bestseller-card" {{ block.shopify_attributes }}>
+    <div class="pflege-bestseller-card__media">
+      {%- unless show_placeholder -%}
+        {%- if p.featured_media -%}
+          {{
+            p.featured_media
+            | image_url: width: 280
+            | image_tag:
+              loading: 'lazy',
+              widths: '140, 280',
+              sizes: '96px',
+              alt: p.featured_media.alt | default: p.title | escape
+          }}
+        {%- else -%}
+          {{ 'product-apparel-2' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      {%- else -%}
+        {%- if block.settings.placeholder_image != blank -%}
+          {{
+            block.settings.placeholder_image
+            | image_url: width: 280
+            | image_tag: loading: 'lazy', widths: '140, 280', sizes: '96px', alt: ''
+          }}
+        {%- else -%}
+          {{ 'product-apparel-2' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      {%- endunless -%}
+    </div>
+    <div class="pflege-bestseller-card__body">
+      {%- liquid
+        assign card_title = block.settings.manual_title
+        assign card_sub = block.settings.manual_subtitle
+        assign card_url = block.settings.manual_link | default: routes.all_products_collection_url
+        assign card_reviews = block.settings.manual_review_count
+        unless show_placeholder
+          assign card_title = p.title
+          assign card_url = p.url
+          assign card_price_cents = p.price_min
+          if p.metafields.descriptors.subtitle.value != blank
+            assign card_sub = p.metafields.descriptors.subtitle.value
+          endif
+        endunless
+      -%}
+      <h3 class="pflege-bestseller-card__name">
+        <a href="{{ card_url }}">{{ card_title | escape }}</a>
+      </h3>
+      {%- if card_sub != blank -%}
+        <p class="pflege-bestseller-card__meta">{{ card_sub | escape }}</p>
+      {%- endif -%}
+      {%- if block.settings.show_rating -%}
+        <p class="pflege-bestseller-card__rating">
+          <span class="pflege-bestseller-card__stars" aria-hidden="true">★★★★★</span>
+          {%- if card_reviews != blank -%}
+            <span> ({{ card_reviews | escape }})</span>
+          {%- endif -%}
+        </p>
+      {%- endif -%}
+      <div class="pflege-bestseller-card__price">
+        {%- unless show_placeholder -%}
+          {% if settings.currency_code_enabled %}
+            {{ card_price_cents | money_with_currency }}
+          {% else %}
+            {{ card_price_cents | money }}
+          {% endif %}
+        {%- else -%}
+          {%- if block.settings.manual_price_display != blank -%}
+            {{ block.settings.manual_price_display | escape }}
+          {%- elsif block.settings.manual_price_cents != blank -%}
+            {% assign mc = block.settings.manual_price_cents | times: 1 %}
+            {% if settings.currency_code_enabled %}
+              {{ mc | money_with_currency }}
+            {% else %}
+              {{ mc | money }}
+            {% endif %}
+          {%- else -%}
+            —
+          {%- endif -%}
+        {%- endunless -%}
+      </div>
+    </div>
+    <a
+      href="{{ card_url }}"
+      class="pflege-bestseller-card__cart"
+      aria-label="{{ 'products.product.view_full_details' | t }} — {{ card_title | escape }}"
+    >
+      {% render 'pflege-icon', icon: 'cart', width: 20 %}
+    </a>
+  </article>
+{%- endif -%}
