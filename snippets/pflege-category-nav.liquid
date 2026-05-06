@@ -17,10 +17,12 @@
   else
     assign url_pf = root | append: 'collections/pflegeartikel'
   endif
-  if collections['hauschutz-hautpflege'] != blank
+  if collections['hautschutz-hautpflege'] != blank
+    assign url_hh = collections['hautschutz-hautpflege'].url
+  elsif collections['hauschutz-hautpflege'] != blank
     assign url_hh = collections['hauschutz-hautpflege'].url
   else
-    assign url_hh = root | append: 'collections/hauschutz-hautpflege'
+    assign url_hh = root | append: 'collections/hautschutz-hautpflege'
   endif
   if collections.verbrauchsartikel != blank
     assign url_ver = collections.verbrauchsartikel.url
@@ -37,7 +39,7 @@
       assign active_des = true
     elsif collection.handle == 'pflegeartikel'
       assign active_pf = true
-    elsif collection.handle == 'hauschutz-hautpflege'
+    elsif collection.handle == 'hautschutz-hautpflege' or collection.handle == 'hauschutz-hautpflege'
       assign active_hh = true
     elsif collection.handle == 'verbrauchsartikel'
       assign active_ver = true
@@ -75,7 +77,7 @@
         aria-current="page"
       {% endif %}
     >
-      {{- 'Hauschutz & Hautpflege' | escape -}}
+      {{- 'Hautschutz & Hautpflege' | escape -}}
     </a>
   </li>
   <li>
@@ -120,7 +122,7 @@
         aria-current="page"
       {% endif %}
     >
-      {{- 'Hauschutz & Hautpflege' | escape -}}
+      {{- 'Hautschutz & Hautpflege' | escape -}}
     </a>
   </li>
   <li>

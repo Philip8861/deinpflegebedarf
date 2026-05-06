@@ -200,11 +200,11 @@
                 "link": "shopify://collections/pflegeartikel"
               }
             },
-            "nav_hauschutz_hautpflege": {
+            "nav_hautschutz_hautpflege": {
               "type": "nav_link",
               "settings": {
-                "title": "Hauschutz & Hautpflege",
-                "link": "shopify://collections/hauschutz-hautpflege"
+                "title": "Hautschutz & Hautpflege",
+                "link": "shopify://collections/hautschutz-hautpflege"
               }
             },
             "nav_verbrauchsartikel": {
@@ -218,7 +218,7 @@
           "block_order": [
             "nav_desinfektion",
             "nav_pflegeartikel",
-            "nav_hauschutz_hautpflege",
+            "nav_hautschutz_hautpflege",
             "nav_verbrauchsartikel"
           ],
           "settings": {

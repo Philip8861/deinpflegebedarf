@@ -31,7 +31,10 @@
 
   assign col_desinfektion = collections.desinfektion
   assign col_pflegeartikel = collections.pflegeartikel
-  assign col_hauschutz_hautpflege = collections['hauschutz-hautpflege']
+  assign col_hautschutz_hautpflege = collections['hautschutz-hautpflege']
+  if col_hautschutz_hautpflege == blank
+    assign col_hautschutz_hautpflege = collections['hauschutz-hautpflege']
+  endif
   assign col_verbrauchsartikel = collections.verbrauchsartikel
 -%}
 
@@ -166,7 +169,7 @@
                 <a href="{% if col_pflegeartikel %}{{ col_pflegeartikel.url }}{% else %}{{ root }}collections/pflegeartikel{% endif %}">Pflegeartikel</a>
               </li>
               <li>
-                <a href="{% if col_hauschutz_hautpflege %}{{ col_hauschutz_hautpflege.url }}{% else %}{{ root }}collections/hauschutz-hautpflege{% endif %}">Hauschutz &amp; Hautpflege</a>
+                <a href="{% if col_hautschutz_hautpflege %}{{ col_hautschutz_hautpflege.url }}{% else %}{{ root }}collections/hautschutz-hautpflege{% endif %}">Hautschutz &amp; Hautpflege</a>
               </li>
               <li>
                 <a href="{% if col_verbrauchsartikel %}{{ col_verbrauchsartikel.url }}{% else %}{{ root }}collections/verbrauchsartikel{% endif %}">Verbrauchsartikel</a>
