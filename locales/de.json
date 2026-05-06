@@ -50,8 +50,22 @@
     },
     "cart": {
       "view": "Warenkorb ansehen ({{ count }})",
-      "item_added": "Artikel wurde in den Warenkorb gelegt",
-      "view_empty_cart": "Warenkorb ansehen"
+      "item_added": "Zum Warenkorb hinzugefügt",
+      "view_empty_cart": "Warenkorb ansehen",
+      "notification_heading": "Zum Warenkorb hinzugefügt",
+      "notification_subtext": "Der Artikel wurde erfolgreich in Ihren Warenkorb gelegt.",
+      "notification_checkout": "Zur Kasse",
+      "notification_continue": "Weiter einkaufen",
+      "notification_qty": {
+        "one": "{{ count }} Stück",
+        "other": "{{ count }} Stück"
+      },
+      "trust_pay_title": "Sicher bezahlen",
+      "trust_pay_sub": "SSL-verschlüsselt",
+      "trust_quality_title": "100% geprüfte Qualität",
+      "trust_quality_sub": "Sorgfältig ausgewählte Produkte",
+      "trust_ship_title": "Schneller Versand",
+      "trust_ship_sub": "in 1–2 Tagen"
     },
     "share": {
       "copy_to_clipboard": "Link kopieren",

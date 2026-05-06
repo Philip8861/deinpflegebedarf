@@ -8,6 +8,9 @@
   --pflege-border: #e5eef8;
   --pflege-muted: #6f7f95;
   --pflege-star: #f5b943;
+  /* Primär-CTA (Warenkorb-Modal, Footer) */
+  --pflege-cta: #e67e22;
+  --pflege-cta-hover: #cf711f;
   --pflege-radius-lg: 22px;
   --pflege-radius-card: 14px;
   --pflege-radius-pill: 999px;

@@ -3,6 +3,8 @@ class CartNotification extends HTMLElement {
     super();
 
     this.notification = document.getElementById('cart-notification');
+    this.wrapper = this.querySelector('.cart-notification-wrapper');
+    this.backdrop = this.querySelector('.cart-notification__backdrop');
     this.header = document.querySelector('sticky-header');
     this.onBodyClick = this.handleBodyClick.bind(this);
 
@@ -10,9 +12,11 @@ class CartNotification extends HTMLElement {
     this.querySelectorAll('button[type="button"]').forEach((closeButton) =>
       closeButton.addEventListener('click', this.close.bind(this))
     );
+    this.backdrop?.addEventListener('click', this.close.bind(this));
   }
 
   open() {
+    this.wrapper?.classList.add('is-active');
     this.notification.classList.add('animate', 'active');
 
     this.notification.addEventListener(
@@ -28,6 +32,7 @@ class CartNotification extends HTMLElement {
   }
 
   close() {
+    this.wrapper?.classList.remove('is-active');
     this.notification.classList.remove('active');
     document.body.removeEventListener('click', this.onBodyClick);
 

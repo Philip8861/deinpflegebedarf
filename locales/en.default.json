@@ -51,7 +51,21 @@
     "cart": {
       "view": "View cart ({{ count }})",
       "view_empty_cart": "View cart",
-      "item_added": "Item added to your cart"
+      "item_added": "Added to cart",
+      "notification_heading": "Added to cart",
+      "notification_subtext": "The item was successfully added to your cart.",
+      "notification_checkout": "Checkout",
+      "notification_continue": "Continue shopping",
+      "notification_qty": {
+        "one": "{{ count }} item",
+        "other": "{{ count }} items"
+      },
+      "trust_pay_title": "Secure payment",
+      "trust_pay_sub": "SSL encrypted",
+      "trust_quality_title": "100% verified quality",
+      "trust_quality_sub": "Carefully selected products",
+      "trust_ship_title": "Fast shipping",
+      "trust_ship_sub": "in 1–2 days"
     },
     "share": {
       "close": "Close share",
