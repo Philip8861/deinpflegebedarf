@@ -441,6 +441,14 @@
     padding-bottom: 1.5rem;
   }
 
+  /*
+   * Mobil-Drawer-Slot aus dem Raster nehmen: Mit display:none nimmt er keine Grid-Zelle ein.
+   * Sonst 5 Kinder bei 4 Spalten → falsche Zuordnung, oft wirkt der Zwischenraum „leer“.
+   */
+  .pflege-main-nav-section .pflege-main-nav__drawer-slot {
+    display: none !important;
+  }
+
   /* Eine Zeile mit Logo, Nav, Suche — ohne vertikalen Versatz */
   .pflege-main-nav-section .pflege-main-nav__logo {
     justify-self: start;
