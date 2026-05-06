@@ -9,29 +9,30 @@
 
 <div class="pflege-cart-promo pflege-cart-card">
   <div class="pflege-cart-promo__coupon">
-    <div class="pflege-cart-promo__coupon-head">
-      <span class="pflege-cart-promo__icon" aria-hidden="true">
-        {% render 'pflege-icon', icon: 'document', width: 22 %}
-      </span>
-      <h3 class="pflege-cart-promo__title">{{ 'sections.cart.pflege.coupon_title' | t }}</h3>
+    <div class="pflege-cart-promo__coupon-row">
+      <div class="pflege-cart-promo__coupon-head">
+        <span class="pflege-cart-promo__icon" aria-hidden="true">
+          {% render 'pflege-icon', icon: 'document', width: 22 %}
+        </span>
+        <h3 class="pflege-cart-promo__title">{{ 'sections.cart.pflege.coupon_title' | t }}</h3>
+      </div>
+      <form class="pflege-cart-promo__coupon-form" action="{{ request.origin }}/discount" method="post" accept-charset="UTF-8">
+        <input type="hidden" name="return_to" value="{{ routes.cart_url }}">
+        <label class="visually-hidden" for="PflegeCartDiscount">{{ 'sections.cart.pflege.coupon_placeholder' | t }}</label>
+        <input
+          id="PflegeCartDiscount"
+          class="pflege-cart-promo__input"
+          type="text"
+          name="discount"
+          value=""
+          autocomplete="off"
+          placeholder="{{ 'sections.cart.pflege.coupon_placeholder' | t }}"
+        >
+        <button type="submit" class="pflege-cart-promo__coupon-btn button">
+          {{ 'sections.cart.pflege.coupon_submit' | t }}
+        </button>
+      </form>
     </div>
-    <form class="pflege-cart-promo__coupon-form" action="{{ request.origin }}/discount" method="post" accept-charset="UTF-8">
-      <input type="hidden" name="return_to" value="{{ routes.cart_url }}">
-      <label class="visually-hidden" for="PflegeCartDiscount">{{ 'sections.cart.pflege.coupon_placeholder' | t }}</label>
-      <input
-        id="PflegeCartDiscount"
-        class="pflege-cart-promo__input"
-        type="text"
-        name="discount"
-        value=""
-        autocomplete="off"
-        placeholder="{{ 'sections.cart.pflege.coupon_placeholder' | t }}"
-      >
-      <button type="submit" class="pflege-cart-promo__coupon-btn button">
-        {{ 'sections.cart.pflege.coupon_submit' | t }}
-      </button>
-    </form>
-    <p class="pflege-cart-promo__hint caption">{{ 'sections.cart.pflege.coupon_hint' | t }}</p>
   </div>
 
   <div class="pflege-cart-promo__shipping">

@@ -56,7 +56,7 @@
 
                     <div class="pflege-cart-summary__row">
                       <span>{{ 'sections.cart.pflege.shipping' | t }}</span>
-                      <span class="pflege-cart-summary__value pflege-cart-summary__muted">
+                      <span class="pflege-cart-summary__value pflege-cart-summary__muted pflege-cart-summary__shipping-note">
                         {{- 'sections.cart.pflege.shipping_note' | t -}}
                       </span>
                     </div>
@@ -78,7 +78,7 @@
 
                     <div class="pflege-cart-summary__row pflege-cart-summary__row--grand">
                       <span>{{ 'sections.cart.pflege.grand_total' | t }}</span>
-                      <span class="pflege-cart-summary__grand-value">{{ cart.total_price | money_with_currency }}</span>
+                      <span class="pflege-cart-summary__grand-value">{{ cart.total_price | money }}</span>
                     </div>
 
                     <p class="pflege-cart-summary__vat caption">{{ 'sections.cart.pflege.vat_included' | t }}</p>
@@ -123,69 +123,71 @@
                       {%- endif -%}
                     </small>
                   </div>
-                </div>
-              </div>
-            {%- else -%}
-              <div class="pflege-cart-aside__ctas" {{ block.shopify_attributes }}>
-                <div class="cart__ctas">
-                  <button
-                    type="submit"
-                    id="checkout"
-                    class="cart__checkout-button button pflege-cart-summary__checkout"
-                    name="checkout"
-                    {% if cart == empty %}
-                      disabled
-                    {% endif %}
-                    form="cart"
-                  >
-                    <span>{{ 'sections.cart.checkout' | t }}</span>
-                    <span class="pflege-cart-summary__checkout-arrow" aria-hidden="true">→</span>
-                  </button>
-                </div>
 
-                {%- if additional_checkout_buttons -%}
-                  <div class="cart__dynamic-checkout-buttons additional-checkout-buttons pflege-cart-dynamic-pay">
-                    {{ content_for_additional_checkout_buttons }}
+                  <div class="pflege-cart-summary__cta-band">
+                    <div class="cart__ctas">
+                      <button
+                        type="submit"
+                        id="checkout"
+                        class="cart__checkout-button button pflege-cart-summary__checkout"
+                        name="checkout"
+                        {% if cart == empty %}
+                          disabled
+                        {% endif %}
+                        form="cart"
+                      >
+                        <span>{{ 'sections.cart.checkout' | t }}</span>
+                        <span class="pflege-cart-summary__checkout-arrow" aria-hidden="true">→</span>
+                      </button>
+                    </div>
+
+                    {%- if additional_checkout_buttons -%}
+                      <div class="cart__dynamic-checkout-buttons additional-checkout-buttons pflege-cart-dynamic-pay">
+                        {{ content_for_additional_checkout_buttons }}
+                      </div>
+                    {%- endif -%}
+
+                    <a
+                      href="{{ routes.all_products_collection_url }}"
+                      class="button button--secondary pflege-cart-summary__continue"
+                    >
+                      {{- 'sections.cart.pflege.continue_shopping' | t -}}
+                    </a>
+
+                    <ul class="pflege-cart-summary__trust list-unstyled" role="list">
+                      <li class="pflege-cart-summary__trust-item">
+                        <span class="pflege-cart-summary__trust-icon" aria-hidden="true">
+                          {% render 'pflege-icon', icon: 'lock', width: 20 %}
+                        </span>
+                        <span class="pflege-cart-summary__trust-text">
+                          <strong>{{ 'sections.cart.pflege.trust_pay_title' | t }}</strong>
+                          <span class="caption">{{ 'sections.cart.pflege.trust_pay_sub' | t }}</span>
+                        </span>
+                      </li>
+                      <li class="pflege-cart-summary__trust-item">
+                        <span class="pflege-cart-summary__trust-icon" aria-hidden="true">
+                          {% render 'pflege-icon', icon: 'shield', width: 20 %}
+                        </span>
+                        <span class="pflege-cart-summary__trust-text">
+                          <strong>{{ 'sections.cart.pflege.trust_buyer_title' | t }}</strong>
+                          <span class="caption">{{ 'sections.cart.pflege.trust_buyer_sub' | t }}</span>
+                        </span>
+                      </li>
+                      <li class="pflege-cart-summary__trust-item">
+                        <span class="pflege-cart-summary__trust-icon" aria-hidden="true">
+                          {% render 'pflege-icon', icon: 'badge-check', width: 20 %}
+                        </span>
+                        <span class="pflege-cart-summary__trust-text">
+                          <strong>{{ 'sections.cart.pflege.trust_quality_title' | t }}</strong>
+                          <span class="caption">{{ 'sections.cart.pflege.trust_quality_sub' | t }}</span>
+                        </span>
+                      </li>
+                    </ul>
                   </div>
-                {%- endif -%}
-
-                <ul class="pflege-cart-summary__trust list-unstyled" role="list">
-                  <li class="pflege-cart-summary__trust-item">
-                    <span class="pflege-cart-summary__trust-icon" aria-hidden="true">
-                      {% render 'pflege-icon', icon: 'lock', width: 20 %}
-                    </span>
-                    <span class="pflege-cart-summary__trust-text">
-                      <strong>{{ 'sections.cart.pflege.trust_pay_title' | t }}</strong>
-                      <span class="caption">{{ 'sections.cart.pflege.trust_pay_sub' | t }}</span>
-                    </span>
-                  </li>
-                  <li class="pflege-cart-summary__trust-item">
-                    <span class="pflege-cart-summary__trust-icon" aria-hidden="true">
-                      {% render 'pflege-icon', icon: 'shield', width: 20 %}
-                    </span>
-                    <span class="pflege-cart-summary__trust-text">
-                      <strong>{{ 'sections.cart.pflege.trust_buyer_title' | t }}</strong>
-                      <span class="caption">{{ 'sections.cart.pflege.trust_buyer_sub' | t }}</span>
-                    </span>
-                  </li>
-                  <li class="pflege-cart-summary__trust-item">
-                    <span class="pflege-cart-summary__trust-icon" aria-hidden="true">
-                      {% render 'pflege-icon', icon: 'badge-check', width: 20 %}
-                    </span>
-                    <span class="pflege-cart-summary__trust-text">
-                      <strong>{{ 'sections.cart.pflege.trust_quality_title' | t }}</strong>
-                      <span class="caption">{{ 'sections.cart.pflege.trust_quality_sub' | t }}</span>
-                    </span>
-                  </li>
-                </ul>
-
-                <a
-                  href="{{ routes.all_products_collection_url }}"
-                  class="button button--secondary pflege-cart-summary__continue"
-                >
-                  {{- 'sections.cart.pflege.continue_shopping' | t -}}
-                </a>
+                </div>
               </div>
+            {%- when 'buttons' -%}
+              <div {{ block.shopify_attributes }}></div>
           {%- endcase -%}
         {% endfor %}
 
