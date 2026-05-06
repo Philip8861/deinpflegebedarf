@@ -7,6 +7,11 @@
   assign handle_joined = ha | append: '|||' | append: hb | append: '|||' | append: hc
   assign pflegeset_handles = handle_joined | split: '|||'
   assign badge_label = section.settings.badge_text | default: 'Sie sparen 10%' | strip
+  assign pflege_col = section.settings.pflegesets_collection
+  assign use_collection = false
+  if pflege_col != blank and pflege_col.all_products_count > 0
+    assign use_collection = true
+  endif
 -%}
 
 <section class="pflege-pflegesets" {{ section.shopify_attributes }}>
@@ -17,137 +22,50 @@
       {%- endif -%}
 
       <div class="pflege-pflegesets__grid">
-        {%- for handle_raw in pflegeset_handles -%}
-          {%- assign handle = handle_raw | strip -%}
-          {%- liquid
-            assign card_product = nil
-            case forloop.index
-              when 1
-                if section.settings.product_1 != blank
-                  assign card_product = section.settings.product_1
-                endif
-              when 2
-                if section.settings.product_2 != blank
-                  assign card_product = section.settings.product_2
-                endif
-              when 3
-                if section.settings.product_3 != blank
-                  assign card_product = section.settings.product_3
-                endif
-            endcase
-            if card_product == blank
-              assign card_product = all_products[handle]
-            endif
-          -%}
-          {%- if card_product != blank -%}
-            {%- assign card_href = card_product.url -%}
-            {%- assign card_label = card_product.title -%}
-            {%- assign card_variant = card_product.selected_or_first_available_variant -%}
-          {%- else -%}
-            {%- assign card_href = '/products/' | append: handle -%}
-            {%- assign card_label = handle | replace: '-', ' ' -%}
-            {%- assign card_variant = nil -%}
-          {%- endif -%}
-          <article class="pflege-pflegesets__card">
-            <a class="pflege-pflegesets__media-link" href="{{ card_href }}">
-              <span class="pflege-pflegesets__media">
-                {%- if badge_label != blank -%}
-                  <span class="pflege-pflegesets__badge">{{ badge_label | escape }}</span>
-                {%- endif -%}
-                {%- liquid
-                  assign pflegesets_img = nil
-                  assign pflegesets_img_alt = card_label
-                  if card_product != blank
-                    assign fm = card_product.featured_media
-                    if fm != blank
-                      if fm.media_type == 'image'
-                        assign pflegesets_img = fm
-                      elsif fm.preview_image != blank
-                        assign pflegesets_img = fm.preview_image
-                      endif
-                    endif
-                    if pflegesets_img == blank and card_product.featured_image != blank
-                      assign pflegesets_img = card_product.featured_image
-                    endif
-                    if pflegesets_img == blank and card_product.images.size > 0
-                      assign pflegesets_img = card_product.images.first
-                    endif
-                    if pflegesets_img == blank and card_product.media.size > 0
-                      for m in card_product.media
-                        if m.media_type == 'image'
-                          assign pflegesets_img = m
-                          break
-                        elsif m.preview_image != blank
-                          assign pflegesets_img = m.preview_image
-                          break
-                        endif
-                      endfor
-                    endif
-                    if pflegesets_img == blank and card_product.selected_or_first_available_variant.image != blank
-                      assign pflegesets_img = card_product.selected_or_first_available_variant.image
-                    endif
+        {%- if use_collection -%}
+          {%- comment -%} Zuverlässig wie Bestseller: Produkte kommen aus der Kollektion (volle Medien){%- endcomment -%}
+          {%- for card_product in pflege_col.products limit: 3 -%}
+            {% render 'pflege-pflegeset-card', card_product: card_product, handle_fallback: card_product.handle, badge_label: badge_label %}
+          {%- endfor -%}
+        {%- else -%}
+          {%- for handle_raw in pflegeset_handles -%}
+            {%- assign handle = handle_raw | strip -%}
+            {%- liquid
+              assign card_product = nil
+              case forloop.index
+                when 1
+                  if section.settings.product_1 != blank
+                    assign card_product = section.settings.product_1
                   endif
-                -%}
-                {%- if pflegesets_img != blank -%}
-                  <img
-                    class="pflege-pflegesets__img"
-                    src="{{ pflegesets_img | image_url: width: 800 }}"
-                    srcset="{{ pflegesets_img | image_url: width: 400 }} 400w, {{ pflegesets_img | image_url: width: 600 }} 600w, {{ pflegesets_img | image_url: width: 800 }} 800w"
-                    sizes="(min-width: 990px) 22vw, (min-width: 750px) 28vw, min(100vw, 24rem)"
-                    width="800"
-                    height="800"
-                    loading="lazy"
-                    decoding="async"
-                    alt="{{ pflegesets_img_alt | escape }}"
-                  >
-                {%- else -%}
-                  {{ 'product-apparel-2' | placeholder_svg_tag: 'pflege-pflegesets__placeholder' }}
-                {%- endif -%}
-              </span>
-            </a>
+                when 2
+                  if section.settings.product_2 != blank
+                    assign card_product = section.settings.product_2
+                  endif
+                when 3
+                  if section.settings.product_3 != blank
+                    assign card_product = section.settings.product_3
+                  endif
+              endcase
 
-            <div class="pflege-pflegesets__body">
-              <a class="pflege-pflegesets__name-link" href="{{ card_href }}">{{ card_label | escape }}</a>
-
-              {%- if card_product != blank -%}
-                <div class="pflege-pflegesets__price">
-                  {% if settings.currency_code_enabled %}
-                    {{ card_product.price_min | money_with_currency }}
-                  {% else %}
-                    {{ card_product.price_min | money }}
-                  {% endif %}
-                </div>
-                <p class="pflege-pflegesets__rating">
-                  <span class="pflege-pflegesets__stars" aria-hidden="true">★★★★★</span>
-                </p>
-              {%- else -%}
-                <div class="pflege-pflegesets__price">—</div>
-                <p class="pflege-pflegesets__rating">
-                  <span class="pflege-pflegesets__stars" aria-hidden="true">★★★★★</span>
-                </p>
-              {%- endif -%}
-            </div>
-
-            {%- if card_variant != nil and card_variant.available -%}
-              <button
-                type="button"
-                class="pflege-pflegesets__cart"
-                data-variant-id="{{ card_variant.id }}"
-                aria-label="{{ 'products.product.add_to_cart' | t }} — {{ card_label | escape }}"
-              >
-                {% render 'pflege-icon', icon: 'cart', width: 20 %}
-              </button>
-            {%- elsif card_href != blank -%}
-              <a
-                href="{{ card_href }}"
-                class="pflege-pflegesets__cart pflege-pflegesets__cart--fallback"
-                aria-label="{{ 'products.product.view_full_details' | t }} — {{ card_label | escape }}"
-              >
-                {% render 'pflege-icon', icon: 'cart', width: 20 %}
-              </a>
-            {%- endif -%}
-          </article>
-        {%- endfor -%}
+              if card_product == blank
+                assign card_product = all_products[handle]
+              endif
+              if card_product == blank
+                assign alt_h = handle | replace: 'grosse', 'groesse'
+                if alt_h != handle
+                  assign card_product = all_products[alt_h]
+                endif
+              endif
+              if card_product == blank
+                assign alt_h = handle | replace: 'groesse', 'grosse'
+                if alt_h != handle
+                  assign card_product = all_products[alt_h]
+                endif
+              endif
+            -%}
+            {% render 'pflege-pflegeset-card', card_product: card_product, handle_fallback: handle, badge_label: badge_label %}
+          {%- endfor -%}
+        {%- endif -%}
       </div>
     </div>
   </div>
@@ -159,6 +77,10 @@
   "tag": "section",
   "class": "pflege-pflegesets-section",
   "settings": [
+    {
+      "type": "paragraph",
+      "content": "Wenn keine Bilder erscheinen: Produkt fehlt im Onlineshop, falscher Handle (z. B. groesse/grosse) oder kein Produktbild. Am zuverlässigsten: eine Kollektion nur mit S/M/L wählen oder die drei Produkte unten anbinden."
+    },
     {
       "type": "text",
       "id": "heading",
@@ -172,43 +94,49 @@
       "default": "Sie sparen 10%"
     },
     {
+      "type": "collection",
+      "id": "pflegesets_collection",
+      "label": "Kollektion mit den Pflegesets (empfohlen)",
+      "info": "Zeigt die ersten drei Artikel dieser Kollektion — umgeht all_products/Handle-Probleme. Leer = Handles / Produktauswahl unten."
+    },
+    {
       "type": "product",
       "id": "product_1",
       "label": "Produkt Kachel 1",
-      "info": "Empfohlen: Produkt hier auswählen — Bilder und Links funktionieren dann sicher. Leer = Handle unten."
+      "info": "Wenn keine Kollektion: Produkt wählen oder Handle unten."
     },
     {
       "type": "product",
       "id": "product_2",
       "label": "Produkt Kachel 2",
-      "info": "Empfohlen: Produkt hier auswählen. Leer = Handle unten."
+      "info": "Wenn keine Kollektion: Produkt wählen oder Handle unten."
     },
     {
       "type": "product",
       "id": "product_3",
       "label": "Produkt Kachel 3",
-      "info": "Empfohlen: Produkt hier auswählen. Leer = Handle unten."
+      "info": "Wenn keine Kollektion: Produkt wählen oder Handle unten."
     },
     {
       "type": "text",
       "id": "handle_1",
-      "label": "Produkt-Handle (Kachel 1)",
+      "label": "Handle Kachel 1 (ohne Kollektion/Produkt)",
       "default": "pflegeset-grosse-s",
-      "info": "Technischer Name aus der Produkt-URL, z. B. pflegeset-grosse-s"
+      "info": "Exakt wie in der Produkt-URL (z. B. pflegeset-grosse-s)."
     },
     {
       "type": "text",
       "id": "handle_2",
-      "label": "Produkt-Handle (Kachel 2)",
+      "label": "Handle Kachel 2",
       "default": "pflegeset-grosse-l",
-      "info": "Technischer Name aus der Produkt-URL, z. B. pflegeset-grosse-l"
+      "info": "Exakt wie in der Produkt-URL."
     },
     {
       "type": "text",
       "id": "handle_3",
-      "label": "Produkt-Handle (Kachel 3)",
+      "label": "Handle Kachel 3",
       "default": "pflegeset-grosse-m",
-      "info": "Technischer Name aus der Produkt-URL, z. B. pflegeset-grosse-m"
+      "info": "Exakt wie in der Produkt-URL."
     }
   ],
   "presets": [
