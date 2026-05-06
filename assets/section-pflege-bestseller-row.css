@@ -84,17 +84,20 @@
 }
 
 .pflege-bestseller-card {
+  position: relative;
   display: grid;
+  /* Produktfoto: weitere +25 % zur vorherigen Größe */
   grid-template-columns:
-    clamp(6.5rem, 28%, 10.25rem)
+    clamp(8.125rem, 28%, 12.8rem)
     minmax(0, 1fr);
   gap: clamp(0.65rem, 1.6vw, 1rem);
   align-items: stretch;
   padding: clamp(0.75rem, 1.8vw, 1rem);
+  padding-bottom: clamp(0.85rem, 2vw, 1.1rem);
   background: var(--pflege-white, #fff);
   border: 1px solid var(--pflege-border, #e5eef8);
   border-radius: 12px;
-  min-height: clamp(9.5rem, 12vw, 12rem);
+  min-height: clamp(10.5rem, 13vw, 13.5rem);
   min-width: 0;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -102,10 +105,11 @@
 @media screen and (min-width: 990px) {
   .pflege-bestseller-card {
     grid-template-columns:
-      clamp(7rem, 32%, 11.5rem)
+      clamp(8.75rem, 32%, 14.4rem)
       minmax(0, 1fr);
     padding: 0.85rem 1rem;
-    min-height: clamp(10.5rem, 11vw, 13rem);
+    padding-bottom: 1.05rem;
+    min-height: clamp(11.5rem, 12vw, 14.5rem);
     border-radius: 14px;
   }
 }
@@ -115,7 +119,7 @@
   box-shadow: 0 4px 16px rgba(11, 35, 71, 0.05);
 }
 
-/* Medien: +25 % Grundfläche (max-height × 1,25) */
+/* Medienfläche (nochmals × 1,25) */
 .pflege-bestseller-card__media {
   border-radius: 10px;
   overflow: hidden;
@@ -123,13 +127,13 @@
   align-self: stretch;
   min-height: 0;
   aspect-ratio: 1;
-  max-height: 10.625rem;
+  max-height: 13.28rem;
 }
 
 @media screen and (min-width: 990px) {
   .pflege-bestseller-card__media {
     border-radius: 11px;
-    max-height: 11.5625rem;
+    max-height: 14.45rem;
   }
 }
 
@@ -158,9 +162,12 @@
 .pflege-bestseller-card__top {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  align-items: center;
+  text-align: center;
+  gap: 0.35rem;
   flex: 0 1 auto;
   min-height: 0;
+  width: 100%;
 }
 
 .pflege-bestseller-card__name {
@@ -169,6 +176,8 @@
   color: var(--pflege-navy, #0b2347);
   line-height: 1.25;
   margin: 0;
+  width: 100%;
+  text-align: center;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
@@ -188,6 +197,8 @@
   font-size: clamp(0.95rem, 0.88rem + 0.22vw, 1.08rem);
   color: var(--pflege-muted, #6f7f95);
   margin: 0;
+  width: 100%;
+  text-align: center;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
@@ -196,10 +207,17 @@
 }
 
 .pflege-bestseller-card__rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.2rem;
   font-size: clamp(1.1rem, 1rem + 0.22vw, 1.275rem);
   color: var(--pflege-muted, #6f7f95);
-  margin: 0.15rem 0 0;
+  margin: 0;
   line-height: 1.15;
+  width: 100%;
+  text-align: center;
 }
 
 .pflege-bestseller-card__stars {
@@ -213,16 +231,16 @@
   color: var(--pflege-muted, #6f7f95);
 }
 
-/* Untere Zeile: Preis + Warenkorb nebeneinander, optisch eine Einheit */
+/* Preiszeile — Platz unten rechts für absolut positionierten Warenkorb */
 .pflege-bestseller-card__footer {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 0.55rem 0.85rem;
   margin-top: auto;
-  padding-top: 0.65rem;
+  padding-top: 0.55rem;
+  padding-right: 3.35rem;
+  padding-left: 0.35rem;
   border-top: 1px solid rgba(229, 238, 248, 0.95);
   flex-shrink: 0;
 }
@@ -235,20 +253,27 @@
   line-height: 1.25;
   text-align: center;
   letter-spacing: 0.02em;
+  width: 100%;
 }
 
-/* Warenkorb: unten neben dem Preis, Icon #5891d7 */
+/* Warenkorb: unten rechts im Karten-Kasten; Icon sauber im Kreis (#5891d7) */
 .pflege-bestseller-card__cart {
-  flex-shrink: 0;
-  width: 2.75rem;
-  height: 2.75rem;
-  padding: 0;
-  border-radius: 999px;
-  background: linear-gradient(180deg, #f8fbff 0%, #eef6ff 100%);
-  border: 1px solid rgba(88, 145, 215, 0.42);
-  box-shadow: 0 1px 2px rgba(11, 35, 71, 0.06);
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  z-index: 2;
+  box-sizing: border-box;
+  width: 3rem;
+  height: 3rem;
+  padding: 0.55rem;
+  margin: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #f5faff;
+  border: 1px solid rgba(88, 145, 215, 0.45);
+  box-shadow: 0 1px 4px rgba(11, 35, 71, 0.07);
   color: var(--pflege-bestseller-cart-blue, #5891d7);
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
@@ -261,9 +286,9 @@
 }
 
 .pflege-bestseller-card__cart:hover {
-  background: #e8f2fc;
-  border-color: rgba(88, 145, 215, 0.58);
-  box-shadow: 0 2px 10px rgba(88, 145, 215, 0.2);
+  background: #eef6ff;
+  border-color: rgba(88, 145, 215, 0.65);
+  box-shadow: 0 2px 10px rgba(88, 145, 215, 0.22);
   transform: translateY(-1px);
 }
 
@@ -284,9 +309,13 @@
   color: var(--pflege-bestseller-cart-blue, #5891d7);
 }
 
+/* SVG kleiner als Kreis — Wagen ragt nicht mehr aus dem Rand */
 .pflege-bestseller-card__cart .pflege-icon svg {
-  width: 24px;
-  height: 24px;
+  width: 1.125rem;
+  height: 1.125rem;
+  max-width: 100%;
+  max-height: 100%;
   flex-shrink: 0;
   display: block;
+  vertical-align: middle;
 }

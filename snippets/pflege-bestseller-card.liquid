@@ -5,11 +5,11 @@
       {%- if p.featured_media -%}
         {{
           p.featured_media
-          | image_url: width: 500
+          | image_url: width: 640
           | image_tag:
             loading: 'lazy',
-            widths: '250, 350, 500',
-            sizes: '(min-width: 990px) 188px, (min-width: 600px) 38vw, 48vw',
+            widths: '320, 480, 640',
+            sizes: '(min-width: 990px) 235px, (min-width: 600px) 42vw, 52vw',
             alt: p.featured_media.alt | default: p.title | escape
         }}
       {%- else -%}
@@ -21,13 +21,13 @@
         <h3 class="pflege-bestseller-card__name">
           <a href="{{ p.url }}">{{ p.title | escape }}</a>
         </h3>
-        {%- if p.metafields.descriptors.subtitle.value != blank -%}
-          <p class="pflege-bestseller-card__meta">{{ p.metafields.descriptors.subtitle.value | escape }}</p>
-        {%- endif -%}
         {%- if section.settings.show_collection_rating -%}
           <p class="pflege-bestseller-card__rating">
             <span class="pflege-bestseller-card__stars" aria-hidden="true">★★★★★</span>
           </p>
+        {%- endif -%}
+        {%- if p.metafields.descriptors.subtitle.value != blank -%}
+          <p class="pflege-bestseller-card__meta">{{ p.metafields.descriptors.subtitle.value | escape }}</p>
         {%- endif -%}
       </div>
       <div class="pflege-bestseller-card__footer">
@@ -38,15 +38,15 @@
             {{ p.price_min | money }}
           {% endif %}
         </div>
-        <a
-          href="{{ p.url }}"
-          class="pflege-bestseller-card__cart"
-          aria-label="{{ 'products.product.view_full_details' | t }} — {{ p.title | escape }}"
-        >
-          {% render 'pflege-icon', icon: 'cart', width: 24 %}
-        </a>
       </div>
     </div>
+    <a
+      href="{{ p.url }}"
+      class="pflege-bestseller-card__cart"
+      aria-label="{{ 'products.product.view_full_details' | t }} — {{ p.title | escape }}"
+    >
+      {% render 'pflege-icon', icon: 'cart', width: 20 %}
+    </a>
   </article>
 {%- else -%}
   {%- liquid
@@ -62,11 +62,11 @@
         {%- if p.featured_media -%}
           {{
             p.featured_media
-            | image_url: width: 500
+            | image_url: width: 640
             | image_tag:
               loading: 'lazy',
-              widths: '250, 350, 500',
-              sizes: '(min-width: 990px) 188px, (min-width: 600px) 38vw, 48vw',
+              widths: '320, 480, 640',
+              sizes: '(min-width: 990px) 235px, (min-width: 600px) 42vw, 52vw',
               alt: p.featured_media.alt | default: p.title | escape
           }}
         {%- else -%}
@@ -76,11 +76,11 @@
         {%- if block.settings.placeholder_image != blank -%}
           {{
             block.settings.placeholder_image
-            | image_url: width: 500
+            | image_url: width: 640
             | image_tag:
               loading: 'lazy',
-              widths: '250, 350, 500',
-              sizes: '(min-width: 990px) 188px, (min-width: 600px) 38vw, 48vw',
+              widths: '320, 480, 640',
+              sizes: '(min-width: 990px) 235px, (min-width: 600px) 42vw, 52vw',
               alt: ''
           }}
         {%- else -%}
@@ -107,9 +107,6 @@
         <h3 class="pflege-bestseller-card__name">
           <a href="{{ card_url }}">{{ card_title | escape }}</a>
         </h3>
-        {%- if card_sub != blank -%}
-          <p class="pflege-bestseller-card__meta">{{ card_sub | escape }}</p>
-        {%- endif -%}
         {%- if block.settings.show_rating -%}
           <p class="pflege-bestseller-card__rating">
             <span class="pflege-bestseller-card__stars" aria-hidden="true">★★★★★</span>
@@ -117,6 +114,9 @@
               <span class="pflege-bestseller-card__review-count">({{ card_reviews | escape }})</span>
             {%- endif -%}
           </p>
+        {%- endif -%}
+        {%- if card_sub != blank -%}
+          <p class="pflege-bestseller-card__meta">{{ card_sub | escape }}</p>
         {%- endif -%}
       </div>
       <div class="pflege-bestseller-card__footer">
@@ -142,14 +142,14 @@
             {%- endif -%}
           {%- endunless -%}
         </div>
-        <a
-          href="{{ card_url }}"
-          class="pflege-bestseller-card__cart"
-          aria-label="{{ 'products.product.view_full_details' | t }} — {{ card_title | escape }}"
-        >
-          {% render 'pflege-icon', icon: 'cart', width: 24 %}
-        </a>
       </div>
     </div>
+    <a
+      href="{{ card_url }}"
+      class="pflege-bestseller-card__cart"
+      aria-label="{{ 'products.product.view_full_details' | t }} — {{ card_title | escape }}"
+    >
+      {% render 'pflege-icon', icon: 'cart', width: 20 %}
+    </a>
   </article>
 {%- endif -%}
