@@ -67,8 +67,8 @@
           <span class="cart-notification__btn-arrow" aria-hidden="true">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -93,9 +93,6 @@
             <h3 id="cart-notification-recos-title" class="cart-notification__recos-heading">
               Produkte, die in keiner guten Pflege fehlen sollten
             </h3>
-            <p class="cart-notification__recos-subtitle">
-              Beliebte Helfer, die unsere Kunden besonders gern dazu bestellen.
-            </p>
           </div>
           <ul class="cart-notification__recos-grid list-unstyled" role="list">
             {%- for reco_product in collections.all.products limit: 4 -%}
@@ -108,12 +105,12 @@
                   <span class="cart-notification__reco-media">
                     {%- if reco_product.featured_image -%}
                       <img
-                        src="{{ reco_product.featured_image | image_url: width: 280 }}"
-                        srcset="{{ reco_product.featured_image | image_url: width: 200 }} 200w, {{ reco_product.featured_image | image_url: width: 320 }} 320w"
-                        sizes="(min-width: 750px) 8rem, 40vw"
+                        src="{{ reco_product.featured_image | image_url: width: 360 }}"
+                        srcset="{{ reco_product.featured_image | image_url: width: 240 }} 240w, {{ reco_product.featured_image | image_url: width: 360 }} 360w, {{ reco_product.featured_image | image_url: width: 480 }} 480w"
+                        sizes="(min-width: 990px) 18vw, (min-width: 750px) 22vw, 42vw"
                         alt="{{ reco_product.featured_image.alt | default: reco_product.title | escape }}"
-                        width="140"
-                        height="140"
+                        width="180"
+                        height="180"
                         loading="lazy"
                       >
                     {%- else -%}
@@ -136,36 +133,6 @@
           </ul>
         </section>
       {%- endif -%}
-
-      <div class="cart-notification__trust" role="presentation">
-        <div class="cart-notification__trust-item">
-          <span class="cart-notification__trust-icon">
-            {%- render 'pflege-icon', icon: 'lock', width: 24 -%}
-          </span>
-          <div class="cart-notification__trust-copy">
-            <span class="cart-notification__trust-title">{{ 'general.cart.trust_pay_title' | t }}</span>
-            <span class="cart-notification__trust-sub">{{ 'general.cart.trust_pay_sub' | t }}</span>
-          </div>
-        </div>
-        <div class="cart-notification__trust-item">
-          <span class="cart-notification__trust-icon">
-            {%- render 'pflege-icon', icon: 'badge-check', width: 24 -%}
-          </span>
-          <div class="cart-notification__trust-copy">
-            <span class="cart-notification__trust-title">{{ 'general.cart.trust_quality_title' | t }}</span>
-            <span class="cart-notification__trust-sub">{{ 'general.cart.trust_quality_sub' | t }}</span>
-          </div>
-        </div>
-        <div class="cart-notification__trust-item">
-          <span class="cart-notification__trust-icon">
-            {%- render 'pflege-icon', icon: 'truck', width: 24 -%}
-          </span>
-          <div class="cart-notification__trust-copy">
-            <span class="cart-notification__trust-title">{{ 'general.cart.trust_ship_title' | t }}</span>
-            <span class="cart-notification__trust-sub">{{ 'general.cart.trust_ship_sub' | t }}</span>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </cart-notification>
