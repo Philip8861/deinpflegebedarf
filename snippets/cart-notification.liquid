@@ -109,6 +109,51 @@
           </div>
         </div>
       </div>
+
+      {%- if collections.all.products.size > 0 -%}
+        <section class="cart-notification__recos" aria-labelledby="cart-notification-recos-title">
+          <h3 id="cart-notification-recos-title" class="cart-notification__recos-heading">
+            Produkte, die bei keiner Pflege fehlen sollten
+          </h3>
+          <ul class="cart-notification__recos-grid list-unstyled" role="list">
+            {%- for reco_product in collections.all.products limit: 4 -%}
+              <li class="cart-notification__reco">
+                <a
+                  href="{{ reco_product.url }}"
+                  class="cart-notification__reco-link"
+                  aria-label="{{ reco_product.title | escape }} – Produktseite öffnen"
+                >
+                  <span class="cart-notification__reco-media">
+                    {%- if reco_product.featured_image -%}
+                      <img
+                        src="{{ reco_product.featured_image | image_url: width: 280 }}"
+                        srcset="{{ reco_product.featured_image | image_url: width: 200 }} 200w, {{ reco_product.featured_image | image_url: width: 320 }} 320w"
+                        sizes="(min-width: 750px) 8rem, 40vw"
+                        alt="{{ reco_product.featured_image.alt | default: reco_product.title | escape }}"
+                        width="140"
+                        height="140"
+                        loading="lazy"
+                      >
+                    {%- else -%}
+                      <span class="cart-notification__reco-placeholder" aria-hidden="true">
+                        {{- 'product-1' | placeholder_svg_tag: 'placeholder-svg' -}}
+                      </span>
+                    {%- endif -%}
+                  </span>
+                  <span class="cart-notification__reco-name">{{ reco_product.title | escape }}</span>
+                  <span class="cart-notification__reco-price">
+                    {%- if reco_product.price_varies -%}
+                      ab {{ reco_product.price_min | money }}
+                    {%- else -%}
+                      {{ reco_product.price | money }}
+                    {%- endif -%}
+                  </span>
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </section>
+      {%- endif -%}
     </div>
   </div>
 </cart-notification>
