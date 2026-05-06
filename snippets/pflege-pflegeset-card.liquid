@@ -14,6 +14,32 @@
     assign card_variant = nil
     assign img_alt = card_label
   endif
+
+  assign pflegesets_render_img = nil
+  if card_product != blank
+    for m in card_product.media
+      if m.media_type == 'image'
+        assign pflegesets_render_img = m
+        break
+      endif
+      if m.preview_image != blank
+        assign pflegesets_render_img = m.preview_image
+        break
+      endif
+    endfor
+    if pflegesets_render_img == blank and card_product.featured_media != blank
+      assign pflegesets_render_img = card_product.featured_media
+    endif
+    if pflegesets_render_img == blank and card_product.featured_image != blank
+      assign pflegesets_render_img = card_product.featured_image
+    endif
+    if pflegesets_render_img == blank and card_product.selected_or_first_available_variant.image != blank
+      assign pflegesets_render_img = card_product.selected_or_first_available_variant.image
+    endif
+    if pflegesets_render_img == blank and card_product.images.size > 0
+      assign pflegesets_render_img = card_product.images.first
+    endif
+  endif
 -%}
 
 <article class="pflege-pflegesets__card">
@@ -22,42 +48,9 @@
       {%- if badge_label != blank -%}
         <span class="pflege-pflegesets__badge">{{ badge_label | escape }}</span>
       {%- endif -%}
-      {%- if card_product != blank and card_product.featured_media != blank -%}
+      {%- if pflegesets_render_img != blank -%}
         {{
-          card_product.featured_media
-          | image_url: width: 800
-          | image_tag:
-            loading: 'lazy',
-            widths: '400, 600, 800',
-            sizes: '(min-width: 990px) 22vw, (min-width: 750px) 28vw, min(100vw, 24rem)',
-            alt: img_alt,
-            class: 'pflege-pflegesets__img'
-        }}
-      {%- elsif card_product != blank and card_product.featured_image != blank -%}
-        {{
-          card_product.featured_image
-          | image_url: width: 800
-          | image_tag:
-            loading: 'lazy',
-            widths: '400, 600, 800',
-            sizes: '(min-width: 990px) 22vw, (min-width: 750px) 28vw, min(100vw, 24rem)',
-            alt: img_alt,
-            class: 'pflege-pflegesets__img'
-        }}
-      {%- elsif card_product != blank and card_product.selected_or_first_available_variant.image != blank -%}
-        {{
-          card_product.selected_or_first_available_variant.image
-          | image_url: width: 800
-          | image_tag:
-            loading: 'lazy',
-            widths: '400, 600, 800',
-            sizes: '(min-width: 990px) 22vw, (min-width: 750px) 28vw, min(100vw, 24rem)',
-            alt: img_alt,
-            class: 'pflege-pflegesets__img'
-        }}
-      {%- elsif card_product != blank and card_product.images.size > 0 -%}
-        {{
-          card_product.images.first
+          pflegesets_render_img
           | image_url: width: 800
           | image_tag:
             loading: 'lazy',

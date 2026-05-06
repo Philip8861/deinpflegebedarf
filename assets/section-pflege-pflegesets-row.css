@@ -85,12 +85,48 @@
 .pflege-pflegesets__media {
   position: relative;
   width: 100%;
-  min-height: 10rem;
-  aspect-ratio: 1 / 1;
+  display: block;
   overflow: hidden;
   flex-shrink: 0;
   background: var(--pflege-white, #fefefe);
   border-radius: var(--pflege-radius-lg, 22px) var(--pflege-radius-lg, 22px) 0 0;
+  line-height: 0;
+}
+
+/*
+  Bild sichtbar machen: kein position:absolute nötig (Theme-img-Regeln + Customizer).
+  Quadrat über aspect-ratio direkt am Bild; Badge bleibt absolute über dem Stack.
+*/
+.pflege-pflegesets__media picture {
+  display: block;
+  width: 100%;
+  line-height: 0;
+}
+
+.pflege-pflegesets__media .pflege-pflegesets__img,
+.pflege-pflegesets__media > img,
+.pflege-pflegesets__media picture img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  position: relative;
+  z-index: 1;
+  opacity: 1;
+  visibility: visible;
+}
+
+.pflege-pflegesets__placeholder {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  z-index: 1;
 }
 
 .pflege-pflegesets__badge {
@@ -109,29 +145,6 @@
   background: var(--pflege-cta, #e67e22);
   box-shadow: 0 2px 8px rgba(11, 35, 71, 0.18);
   box-sizing: border-box;
-}
-
-.pflege-pflegesets__img {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-  max-width: none;
-  object-fit: cover;
-  object-position: center;
-  display: block;
-  opacity: 1;
-  visibility: visible;
-}
-
-.pflege-pflegesets__placeholder {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 .pflege-pflegesets__body {
