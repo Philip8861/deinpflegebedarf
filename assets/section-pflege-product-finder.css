@@ -1,12 +1,30 @@
-/* PflegeShop — Produktfinder (Breite wie Hero/Bestseller, Hintergrundbild) */
-/* Extra Abstand nach „Beliebte Pflegeprodukte“ — Überschrift + Kasten gemeinsam nach unten */
+/* Section: Abstand nach unten zum nächsten Block; oberen Abstand trägt der Bogen-Hintergrund */
 .pflege-product-finder {
   font-family: var(--font-body-family, inherit);
   font-style: var(--font-body-style, normal);
-  padding-top: clamp(2.75rem, 6vw, 4.25rem);
+  padding-top: 0;
   padding-bottom: var(--pflege-home-section-stack, clamp(1.5rem, 3vw, 2rem));
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
+}
+
+/*
+  Sehr heller Streifen (etwas kräftiger als Seiten-Hintergrund ~#fefefe).
+  Oben elliptischer Bogen statt gerader Kante — Überschrift + Kasten liegen in der Fläche.
+*/
+.pflege-product-finder__backdrop {
+  margin-top: clamp(1.75rem, 5vw, 3.25rem);
+  padding: clamp(2.25rem, 5.5vw, 3.75rem) 0 clamp(0.25rem, 1.5vw, 0.75rem);
+  background: linear-gradient(
+    180deg,
+    #f2f6fa 0%,
+    #edf2f8 52%,
+    #eef4fa 100%
+  );
+  /* Horizontal weit / vertikal moderat = weicher Bogen zur darüberliegenden Fläche */
+  border-radius: 50% 50% 0 0 / clamp(2rem, 5.5vw, 4rem) clamp(2rem, 5.5vw, 4rem) 0 0;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 /* Gleiche Überschrift-Typografie wie „Beliebte Pflegeprodukte“ */

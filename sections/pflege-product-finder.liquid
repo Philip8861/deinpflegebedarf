@@ -10,15 +10,16 @@
 -%}
 
 <section class="pflege-product-finder" {{ section.shopify_attributes }}>
-  <div class="pflege-product-finder__shell">
-    {%- if section.settings.heading != blank -%}
-      <h2 class="pflege-product-finder__section-title">{{ section.settings.heading | escape }}</h2>
-    {%- endif -%}
-    <div
-      class="pflege-product-finder__panel"
-      style="--pflege-product-finder-bg: url('{{ 'produktfinder.webp' | asset_url }}');"
-    >
-      <div class="pflege-product-finder__inner">
+  <div class="pflege-product-finder__backdrop">
+    <div class="pflege-product-finder__shell">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="pflege-product-finder__section-title">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+      <div
+        class="pflege-product-finder__panel"
+        style="--pflege-product-finder-bg: url('{{ 'produktfinder.webp' | asset_url }}');"
+      >
+        <div class="pflege-product-finder__inner">
         <div class="pflege-product-finder__stack">
           <div class="pflege-product-finder__lead">
             {%- if section.settings.intro != blank -%}
@@ -66,6 +67,7 @@
           </div>
         </div>
       </div>
+    </div>
     </div>
   </div>
 </section>
