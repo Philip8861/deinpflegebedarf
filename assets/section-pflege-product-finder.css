@@ -86,9 +86,16 @@
 .pflege-product-finder__inner {
   position: relative;
   z-index: 1;
-  padding: clamp(1.35rem, 3.2vw, 2.35rem) clamp(1.15rem, 3vw, 2.5rem);
+  padding: clamp(1.35rem, 3.2vw, 2.35rem) clamp(1rem, 2.4vw, 2rem);
   background: transparent;
   box-sizing: border-box;
+}
+
+@media screen and (min-width: 750px) {
+  .pflege-product-finder__inner {
+    padding-left: clamp(1.5rem, 3vw, 3rem);
+    padding-right: clamp(1.5rem, 3vw, 3rem);
+  }
 }
 
 /* Sehr dezentes „Breathing“ über dem Bild, ohne es zu überdecken */
@@ -112,12 +119,19 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: clamp(1.25rem, 2.8vw, 1.85rem);
-  max-width: min(52rem, 100%);
+  gap: clamp(1.35rem, 2.9vw, 2rem);
+  max-width: min(72rem, 100%);
   margin-left: auto;
   margin-right: auto;
   position: relative;
   z-index: 1;
+}
+
+@media screen and (min-width: 750px) {
+  .pflege-product-finder__stack {
+    align-items: stretch;
+    max-width: min(76rem, 100%);
+  }
 }
 
 .pflege-product-finder__lead {
@@ -125,16 +139,29 @@
   text-align: center;
 }
 
+@media screen and (min-width: 750px) {
+  .pflege-product-finder__lead {
+    text-align: left;
+  }
+}
+
 .pflege-product-finder__intro {
-  font-size: clamp(1.18rem, 1.02rem + 0.55vw, 1.42rem);
-  line-height: 1.62;
-  font-weight: 600;
+  font-size: clamp(1.2rem, 1.05rem + 0.55vw, 1.52rem);
+  line-height: 1.58;
+  font-weight: 700;
   color: #132535;
   margin: 0 0 clamp(0.85rem, 1.6vw, 1.1rem);
-  max-width: min(54rem, 100%);
+  max-width: 100%;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
   text-shadow: 0 0 1rem rgba(255, 255, 255, 0.92), 0 1px 3px rgba(255, 255, 255, 0.85);
+}
+
+@media screen and (min-width: 750px) {
+  .pflege-product-finder__intro {
+    text-align: left;
+  }
 }
 
 .pflege-product-finder__actions {
@@ -148,23 +175,29 @@
   justify-content: center;
 }
 
+@media screen and (min-width: 750px) {
+  .pflege-product-finder__actions--center {
+    justify-content: flex-start;
+  }
+}
+
 /* Orange wie Theme-CTA (Hero / Footer) */
 .pflege-product-finder__cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.55rem;
-  padding: 0.92rem 1.65rem;
-  border-radius: 12px;
+  gap: 0.65rem;
+  padding: 1.08rem 2rem;
+  border-radius: 14px;
   background: var(--pflege-cta, #e67e22);
   color: #fff !important;
-  font-size: clamp(1.05rem, 0.95rem + 0.35vw, 1.2rem);
+  font-size: clamp(1.12rem, 1rem + 0.4vw, 1.32rem);
   font-weight: 700;
   text-decoration: none;
   border: none;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   transition: background 0.2s ease, transform 0.2s ease;
-  min-height: 2.9rem;
+  min-height: 3.35rem;
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
 }
@@ -180,6 +213,8 @@
 
 .pflege-product-finder__cta svg {
   flex-shrink: 0;
+  width: 1.35rem;
+  height: 1.35rem;
 }
 
 .pflege-product-finder__link-secondary {
@@ -197,6 +232,6 @@
 @media screen and (max-width: 599px) {
   .pflege-product-finder__cta {
     width: 100%;
-    max-width: 28rem;
+    max-width: 34rem;
   }
 }
