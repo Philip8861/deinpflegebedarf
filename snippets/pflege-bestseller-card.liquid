@@ -1,5 +1,6 @@
 {%- if card_context == 'collection' -%}
   {%- assign p = card_product -%}
+  {%- assign card_variant = p.selected_or_first_available_variant -%}
   <article class="pflege-bestseller-card">
     <div class="pflege-bestseller-card__media">
       {%- if p.featured_media -%}
@@ -40,13 +41,24 @@
         </div>
       </div>
     </div>
-    <a
-      href="{{ p.url }}"
-      class="pflege-bestseller-card__cart"
-      aria-label="{{ 'products.product.view_full_details' | t }} — {{ p.title | escape }}"
-    >
-      {% render 'pflege-icon', icon: 'cart', width: 20 %}
-    </a>
+    {%- if card_variant.available -%}
+      <button
+        type="button"
+        class="pflege-bestseller-card__cart"
+        data-variant-id="{{ card_variant.id }}"
+        aria-label="{{ 'products.product.add_to_cart' | t }} — {{ p.title | escape }}"
+      >
+        {% render 'pflege-icon', icon: 'cart', width: 20 %}
+      </button>
+    {%- else -%}
+      <a
+        href="{{ p.url }}"
+        class="pflege-bestseller-card__cart pflege-bestseller-card__cart--fallback"
+        aria-label="{{ 'products.product.view_full_details' | t }} — {{ p.title | escape }}"
+      >
+        {% render 'pflege-icon', icon: 'cart', width: 20 %}
+      </a>
+    {%- endif -%}
   </article>
 {%- else -%}
   {%- liquid
@@ -94,10 +106,12 @@
         assign card_sub = block.settings.manual_subtitle
         assign card_url = block.settings.manual_link | default: routes.all_products_collection_url
         assign card_reviews = block.settings.manual_review_count
+        assign card_variant = nil
         unless show_placeholder
           assign card_title = p.title
           assign card_url = p.url
           assign card_price_cents = p.price_min
+          assign card_variant = p.selected_or_first_available_variant
           if p.metafields.descriptors.subtitle.value != blank
             assign card_sub = p.metafields.descriptors.subtitle.value
           endif
@@ -144,12 +158,23 @@
         </div>
       </div>
     </div>
-    <a
-      href="{{ card_url }}"
-      class="pflege-bestseller-card__cart"
-      aria-label="{{ 'products.product.view_full_details' | t }} — {{ card_title | escape }}"
-    >
-      {% render 'pflege-icon', icon: 'cart', width: 20 %}
-    </a>
+    {%- if card_variant != nil and card_variant.available -%}
+      <button
+        type="button"
+        class="pflege-bestseller-card__cart"
+        data-variant-id="{{ card_variant.id }}"
+        aria-label="{{ 'products.product.add_to_cart' | t }} — {{ card_title | escape }}"
+      >
+        {% render 'pflege-icon', icon: 'cart', width: 20 %}
+      </button>
+    {%- else -%}
+      <a
+        href="{{ card_url }}"
+        class="pflege-bestseller-card__cart pflege-bestseller-card__cart--fallback"
+        aria-label="{{ 'products.product.view_full_details' | t }} — {{ card_title | escape }}"
+      >
+        {% render 'pflege-icon', icon: 'cart', width: 20 %}
+      </a>
+    {%- endif -%}
   </article>
 {%- endif -%}

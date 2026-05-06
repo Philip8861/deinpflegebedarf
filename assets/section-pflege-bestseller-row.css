@@ -264,7 +264,7 @@
   box-sizing: border-box;
 }
 
-/* Warenkorb: unten rechts im Karten-Kasten; Icon sauber im Kreis (#5891d7) */
+/* Warenkorb: unten rechts; Kreis #5891D7, Icon weiß */
 .pflege-bestseller-card__cart {
   position: absolute;
   right: 0.5rem;
@@ -277,32 +277,41 @@
   margin: 0;
   border-radius: 50%;
   overflow: hidden;
-  background: #f5faff;
-  border: 1px solid rgba(88, 145, 215, 0.45);
-  box-shadow: 0 1px 4px rgba(11, 35, 71, 0.07);
-  color: var(--pflege-bestseller-cart-blue, #5891d7);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 2px 8px rgba(11, 35, 71, 0.12);
+  background: #5891d7;
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
   cursor: pointer;
+  font: inherit;
+  appearance: none;
+  -webkit-appearance: none;
   transition:
     background 0.2s ease,
     border-color 0.2s ease,
     box-shadow 0.2s ease,
-    transform 0.15s ease;
+    transform 0.15s ease,
+    opacity 0.2s ease;
 }
 
 .pflege-bestseller-card__cart:hover {
-  background: #eef6ff;
-  border-color: rgba(88, 145, 215, 0.65);
-  box-shadow: 0 2px 10px rgba(88, 145, 215, 0.22);
+  background: #4a82c9;
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 3px 12px rgba(88, 145, 215, 0.35);
   transform: translateY(-1px);
 }
 
 .pflege-bestseller-card__cart:focus-visible {
-  outline: 2px solid var(--pflege-bestseller-cart-blue, #5891d7);
+  outline: 2px solid #fff;
   outline-offset: 2px;
+}
+
+.pflege-bestseller-card__cart.loading {
+  opacity: 0.82;
+  pointer-events: none;
 }
 
 .pflege-bestseller-card__cart .pflege-icon {
@@ -314,7 +323,7 @@
   margin: 0;
   padding: 0;
   line-height: 0;
-  color: var(--pflege-bestseller-cart-blue, #5891d7);
+  color: #fff;
 }
 
 /* SVG kleiner als Kreis — Wagen ragt nicht mehr aus dem Rand */
