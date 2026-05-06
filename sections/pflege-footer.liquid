@@ -1,9 +1,5 @@
-{% comment %} PflegeShop — eigener Footer (ersetzt Dawn footer) {% endcomment %}
+{% comment %} PflegeShop — Footer (Design: Pre-Footer, Hauptbereich, Trust, Copyright) {% endcomment %}
 {{ 'section-pflege-footer.css' | asset_url | stylesheet_tag }}
-{{ 'component-newsletter.css' | asset_url | stylesheet_tag }}
-{{ 'component-list-payment.css' | asset_url | stylesheet_tag }}
-{{ 'component-list-social.css' | asset_url | stylesheet_tag }}
-{{ 'component-localization-form.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
   #shopify-section-{{ section.id }} .pflege-footer {
@@ -25,281 +21,360 @@
 {%- endstyle -%}
 
 {%- liquid
-  assign has_social_icons = true
-  if settings.social_facebook_link == blank and settings.social_instagram_link == blank and settings.social_youtube_link == blank and settings.social_tiktok_link == blank and settings.social_twitter_link == blank and settings.social_pinterest_link == blank and settings.social_snapchat_link == blank and settings.social_tumblr_link == blank and settings.social_vimeo_link == blank
-    assign has_social_icons = false
-  endif
-
-  assign show_main = false
-  if section.blocks.size > 0
-    assign show_main = true
-  elsif section.settings.newsletter_enable
-    assign show_main = true
-  elsif section.settings.show_social and has_social_icons
-    assign show_main = true
-  elsif section.settings.enable_follow_on_shop
-    assign show_main = true
-  endif
-
-  assign lh = section.settings.legal_heading | strip
-  if lh == blank
-    assign lh = 'footer_pflege.legal_heading' | t
-  endif
-
   assign url_agb = section.settings.legal_url_agb
   if url_agb == blank and shop.terms_of_service != blank and shop.terms_of_service.url != blank
     assign url_agb = shop.terms_of_service.url
   endif
+
   assign url_impressum = section.settings.legal_url_impressum
+
   assign url_widerruf = section.settings.legal_url_widerruf
   if url_widerruf == blank and shop.refund_policy != blank and shop.refund_policy.url != blank
     assign url_widerruf = shop.refund_policy.url
   endif
-  assign url_versand = section.settings.legal_url_versand
-  if url_versand == blank and shop.shipping_policy != blank and shop.shipping_policy.url != blank
-    assign url_versand = shop.shipping_policy.url
-  endif
+
   assign url_datenschutz = section.settings.legal_url_datenschutz
   if url_datenschutz == blank and shop.privacy_policy != blank and shop.privacy_policy.url != blank
     assign url_datenschutz = shop.privacy_policy.url
   endif
+
+  assign url_cookie = section.settings.legal_url_cookie
+  if url_cookie == blank
+    assign url_cookie = routes.root_url | append: 'pages/cookie-einstellungen'
+  endif
+
+  assign col_koerper = collections.koerperpflege
+  assign col_schutz = collections.schutzausruestung
+  assign col_zub = collections.zubehoer
+  assign col_wund = collections.wundbehandlung
+  assign col_hygiene = collections.hygiene
+
+  assign root = routes.root_url
 -%}
 
-<footer
-  class="pflege-footer color-{{ section.settings.color_scheme }} gradient pflege-footer__section-padding"
-  role="contentinfo"
->
-  <div class="pflege-footer__shell">
-    {%- if show_main -%}
-      <div class="pflege-footer__inner">
-        {%- if section.blocks.size > 0 -%}
-          <div class="pflege-footer__main pflege-footer__main--blocks">
-            {%- for block in section.blocks -%}
-              <div class="pflege-footer__block" {{ block.shopify_attributes }}>
-                {%- case block.type -%}
-                  {%- when '@app' -%}
-                    {% render block %}
-                  {%- when 'link_list' -%}
-                    {%- if block.settings.heading != blank -%}
-                      <h2 class="pflege-footer__column-heading">{{ block.settings.heading | escape }}</h2>
-                    {%- endif -%}
-                    {%- if block.settings.menu != blank -%}
-                      <ul class="pflege-footer__menu">
-                        {%- for link in block.settings.menu.links -%}
-                          <li>
-                            <a href="{{ link.url }}">{{ link.title | escape }}</a>
-                          </li>
-                        {%- endfor -%}
-                      </ul>
-                    {%- endif -%}
-                  {%- when 'text' -%}
-                    {%- if block.settings.heading != blank -%}
-                      <h2 class="pflege-footer__column-heading">{{ block.settings.heading | escape }}</h2>
-                    {%- endif -%}
-                    {%- if block.settings.subtext != blank -%}
-                      <div class="pflege-footer__rte rte">{{ block.settings.subtext }}</div>
-                    {%- endif -%}
-                {%- endcase -%}
-              </div>
-            {%- endfor -%}
-          </div>
-        {%- endif -%}
-
-        {%- if section.settings.newsletter_enable or section.settings.show_social and has_social_icons -%}
-          <div class="pflege-footer__newsletter-social">
-            {%- if section.settings.newsletter_enable -%}
-              <div class="pflege-footer__newsletter">
-                {%- if section.settings.newsletter_heading != blank -%}
-                  <h2 class="pflege-footer__column-heading">{{ section.settings.newsletter_heading }}</h2>
-                {%- endif -%}
-                {%- assign newsletter_form_id = 'ContactPflegeFooter-' | append: section.id -%}
-                {%- form 'customer', id: newsletter_form_id, class: 'footer__newsletter newsletter-form' -%}
-                  <input type="hidden" name="contact[tags]" value="newsletter">
-                  <div class="newsletter-form__field-wrapper">
-                    <div class="field">
-                      <input
-                        id="NewsletterPflege-{{ section.id }}"
-                        type="email"
-                        name="contact[email]"
-                        class="field__input"
-                        value="{{ form.email }}"
-                        aria-required="true"
-                        autocorrect="off"
-                        autocapitalize="off"
-                        autocomplete="email"
-                        {% if form.errors %}
-                          autofocus
-                          aria-invalid="true"
-                          aria-describedby="PflegeFooter-error"
-                        {% elsif form.posted_successfully? %}
-                          aria-describedby="PflegeFooter-success"
-                        {% endif %}
-                        placeholder="{{ 'newsletter.label' | t }}"
-                        required
-                      >
-                      <label class="field__label" for="NewsletterPflege-{{ section.id }}">
-                        {{ 'newsletter.label' | t }}
-                      </label>
-                      <button
-                        type="submit"
-                        class="newsletter-form__button field__button"
-                        name="commit"
-                        aria-label="{{ 'newsletter.button_label' | t }}"
-                      >
-                        <span class="svg-wrapper">
-                          {{- 'icon-arrow.svg' | inline_asset_content -}}
-                        </span>
-                      </button>
-                    </div>
-                    {%- if form.errors -%}
-                      <small class="newsletter-form__message form__message" id="PflegeFooter-error">
-                        <span class="svg-wrapper">{{ 'icon-error.svg' | inline_asset_content }}</span>
-                        {{- form.errors.translated_fields.email | capitalize }}
-                        {{ form.errors.messages.email -}}
-                      </small>
-                    {%- endif -%}
-                  </div>
-                  {%- if form.posted_successfully? -%}
-                    <h3
-                      class="newsletter-form__message newsletter-form__message--success form__message"
-                      id="PflegeFooter-success"
-                      tabindex="-1"
-                      autofocus
-                    >
-                      <span class="svg-wrapper">{{ 'icon-success.svg' | inline_asset_content }}</span>
-                      {{- 'newsletter.success' | t }}
-                    </h3>
-                  {%- endif -%}
-                {%- endform -%}
-              </div>
-            {%- endif -%}
-
-            {%- if shop.features.follow_on_shop? and section.settings.enable_follow_on_shop -%}
-              <div class="footer__follow-on-shop">
-                {{ shop | login_button: action: 'follow' }}
-              </div>
-            {%- endif -%}
-
-            {%- if section.settings.show_social and has_social_icons -%}
-              <div class="pflege-footer__social">
-                {%- render 'social-icons', class: 'footer__list-social' -%}
-              </div>
-            {%- endif -%}
-          </div>
-        {%- endif -%}
-      </div>
-    {%- endif -%}
-
-    <div class="pflege-footer__inner">
-      <div class="pflege-footer__bottom">
-        <div class="pflege-footer__localization isolate">
-          {%- if section.settings.enable_country_selector and localization.available_countries.size > 1 -%}
-            <localization-form>
-              {%- form 'localization', id: 'PflegeFooterCountryForm', class: 'localization-form' -%}
-                <div>
-                  <h2 class="caption-large text-body" id="PflegeFooterCountryLabel">
-                    {{ 'localization.country_label' | t }}
-                  </h2>
-                  {%- render 'country-localization', localPosition: 'PflegeFooterCountry' -%}
-                </div>
-              {%- endform -%}
-            </localization-form>
-          {%- endif -%}
-          {%- if section.settings.enable_language_selector and localization.available_languages.size > 1 -%}
-            <localization-form>
-              {%- form 'localization', id: 'PflegeFooterLanguageForm', class: 'localization-form' -%}
-                <div>
-                  <h2 class="caption-large text-body" id="PflegeFooterLanguageLabel">
-                    {{ 'localization.language_label' | t }}
-                  </h2>
-                  {%- render 'language-localization', localPosition: 'PflegeFooterLanguage' -%}
-                </div>
-              {%- endform -%}
-            </localization-form>
-          {%- endif -%}
-        </div>
-        {%- if section.settings.payment_enable -%}
-          <div class="footer__payment">
-            <span class="visually-hidden">{{ 'sections.footer.payment' | t }}</span>
-            <ul class="list list-payment" role="list">
-              {%- for type in shop.enabled_payment_types -%}
-                <li class="list-payment__item">
-                  {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
-                </li>
-              {%- endfor -%}
-            </ul>
-          </div>
-        {%- endif -%}
-      </div>
-
-      <div class="pflege-footer__copyright-wrap">
-        <div class="pflege-footer__copyright caption">
-          <small class="copyright__content"
-            >&copy; {{ 'now' | date: '%Y' }}, {{ shop.name | link_to: routes.root_url -}}
-          </small>
-          <small class="copyright__content">{{ powered_by_link }}</small>
-          {%- if section.settings.show_policy -%}
-            <ul class="policies list-unstyled" style="margin-top: 0.5rem;">
-              {%- for policy in shop.policies -%}
-                {%- if policy != blank -%}
-                  <li>
-                    <small class="copyright__content">
-                      <a href="{{ policy.url }}">{{ policy.title | escape }}</a>
-                    </small>
-                  </li>
-                {%- endif -%}
-              {%- endfor -%}
-            </ul>
-          {%- endif -%}
-        </div>
+<footer class="pflege-footer pflege-footer--v2 pflege-footer__section-padding" role="contentinfo">
+  {%- if section.settings.show_service_bar -%}
+    <div class="pflege-footer__wrap">
+      <div class="pflege-footer__pre-card" role="region" aria-label="Service-Vorteile">
+        <ul class="pflege-footer__pre-list">
+          <li class="pflege-footer__pre-item">
+            <span class="pflege-footer__pre-icon" aria-hidden="true">
+              {% render 'pflege-icon', icon: 'truck', width: 22 %}
+            </span>
+            <span class="pflege-footer__pre-text">
+              <span class="pflege-footer__pre-title">Schneller Versand in 1–2 Tagen</span>
+              <span class="pflege-footer__pre-sub">Schnell bei Ihnen</span>
+            </span>
+          </li>
+          <li class="pflege-footer__pre-item">
+            <span class="pflege-footer__pre-icon" aria-hidden="true">
+              {% render 'pflege-icon', icon: 'headset', width: 22 %}
+            </span>
+            <span class="pflege-footer__pre-text">
+              <a class="pflege-footer__pre-title pflege-footer__pre-title--link" href="tel:+4983349893330">
+                Persönliche Beratung 08334 / 9893330
+              </a>
+              <span class="pflege-footer__pre-sub">Wir sind gerne für Sie da</span>
+            </span>
+          </li>
+          <li class="pflege-footer__pre-item">
+            <span class="pflege-footer__pre-icon" aria-hidden="true">
+              {% render 'pflege-icon', icon: 'document', width: 22 %}
+            </span>
+            <span class="pflege-footer__pre-text">
+              <span class="pflege-footer__pre-title">Kauf auf Rechnung</span>
+              <span class="pflege-footer__pre-sub">Einfach und sicher</span>
+            </span>
+          </li>
+          <li class="pflege-footer__pre-item">
+            <span class="pflege-footer__pre-icon" aria-hidden="true">
+              {% render 'pflege-icon', icon: 'rotate-ccw', width: 22 %}
+            </span>
+            <span class="pflege-footer__pre-text">
+              <span class="pflege-footer__pre-title">30 Tage Rückgaberecht</span>
+              <span class="pflege-footer__pre-sub">Ohne Risiko bestellen</span>
+            </span>
+          </li>
+        </ul>
       </div>
     </div>
+  {%- endif -%}
 
-    {%- if section.settings.legal_show -%}
-      <div class="pflege-footer__legal color-{{ section.settings.legal_color_scheme }} gradient">
-        <div class="pflege-footer__inner pflege-footer-legal__inner">
-          <p class="pflege-footer-legal__title">{{ lh | escape }}</p>
-          <ul class="pflege-footer-legal__list list-unstyled" role="list">
-            <li class="pflege-footer-legal__item">
-              {%- if url_agb != blank -%}
-                <a class="pflege-footer-legal__link" href="{{ url_agb }}">{{ 'footer_pflege.link_agb' | t | escape }}</a>
-              {%- else -%}
-                <span class="pflege-footer-legal__pending">{{ 'footer_pflege.link_agb' | t | escape }}</span>
-              {%- endif -%}
+  <div class="pflege-footer__surface">
+    <div class="pflege-footer__inner pflege-footer__inner--main">
+      <div class="pflege-footer__grid-primary">
+        <div class="pflege-footer__brand">
+          <a href="{{ routes.root_url }}" class="pflege-footer__brand-logo-link">
+            {% render 'pflege-logo-webp', img_class: 'pflege-footer__brand-logo', logo_width: 200, loading: 'lazy' %}
+          </a>
+          <div class="pflege-footer__brand-copy rte">
+            {{ section.settings.brand_intro }}
+          </div>
+          <ul class="pflege-footer__contact" role="list">
+            <li class="pflege-footer__contact-row">
+              <span class="pflege-footer__contact-ic" aria-hidden="true">
+                {% render 'pflege-icon', icon: 'phone', width: 18 %}
+              </span>
+              <span class="pflege-footer__contact-body">
+                <a class="pflege-footer__contact-line" href="tel:+4983349893330">{{ section.settings.contact_phone | escape }}</a>
+                <span class="pflege-footer__contact-sub">{{ section.settings.contact_hours | escape }}</span>
+              </span>
             </li>
-            <li class="pflege-footer-legal__item">
-              {%- if url_impressum != blank -%}
-                <a class="pflege-footer-legal__link" href="{{ url_impressum }}">{{ 'footer_pflege.link_impressum' | t | escape }}</a>
-              {%- else -%}
-                <span class="pflege-footer-legal__pending">{{ 'footer_pflege.link_impressum' | t | escape }}</span>
-              {%- endif -%}
+            <li class="pflege-footer__contact-row">
+              <span class="pflege-footer__contact-ic" aria-hidden="true">
+                {% render 'pflege-icon', icon: 'mail', width: 18 %}
+              </span>
+              <span class="pflege-footer__contact-body">
+                <a class="pflege-footer__contact-line" href="mailto:{{ section.settings.contact_email | escape }}">
+                  {{- section.settings.contact_email | escape -}}
+                </a>
+              </span>
             </li>
-            <li class="pflege-footer-legal__item">
-              {%- if url_widerruf != blank -%}
-                <a class="pflege-footer-legal__link" href="{{ url_widerruf }}">{{ 'footer_pflege.link_widerruf' | t | escape }}</a>
-              {%- else -%}
-                <span class="pflege-footer-legal__pending">{{ 'footer_pflege.link_widerruf' | t | escape }}</span>
-              {%- endif -%}
-            </li>
-            <li class="pflege-footer-legal__item">
-              {%- if url_versand != blank -%}
-                <a class="pflege-footer-legal__link" href="{{ url_versand }}">{{ 'footer_pflege.link_versand' | t | escape }}</a>
-              {%- else -%}
-                <span class="pflege-footer-legal__pending">{{ 'footer_pflege.link_versand' | t | escape }}</span>
-              {%- endif -%}
-            </li>
-            <li class="pflege-footer-legal__item">
-              {%- if url_datenschutz != blank -%}
-                <a class="pflege-footer-legal__link" href="{{ url_datenschutz }}">{{ 'footer_pflege.link_datenschutz' | t | escape }}</a>
-              {%- else -%}
-                <span class="pflege-footer-legal__pending">{{ 'footer_pflege.link_datenschutz' | t | escape }}</span>
-              {%- endif -%}
+            <li class="pflege-footer__contact-row">
+              <span class="pflege-footer__contact-ic" aria-hidden="true">
+                {% render 'pflege-icon', icon: 'clock', width: 18 %}
+              </span>
+              <span class="pflege-footer__contact-body">
+                <span class="pflege-footer__contact-line">{{ section.settings.contact_hours | escape }}</span>
+              </span>
             </li>
           </ul>
         </div>
+
+        <div class="pflege-footer__menus">
+          <nav class="pflege-footer__menu-col" aria-labelledby="pflege-ft-ks">
+            <h2 id="pflege-ft-ks" class="pflege-footer__menu-heading">Kundenservice</h2>
+            <ul class="pflege-footer__menu-list" role="list">
+              <li><a href="{{ root }}pages/kontakt">Kontakt</a></li>
+              <li><a href="{{ root }}pages/faq">FAQ</a></li>
+              <li><a href="{{ root }}pages/versand-zahlung">Versand &amp; Zahlung</a></li>
+              <li><a href="{{ root }}pages/bestellstatus">Bestellstatus</a></li>
+              <li><a href="{{ root }}pages/retouren">Retouren</a></li>
+            </ul>
+          </nav>
+
+          <nav class="pflege-footer__menu-col" aria-labelledby="pflege-ft-r">
+            <h2 id="pflege-ft-r" class="pflege-footer__menu-heading">Rechtliches</h2>
+            <ul class="pflege-footer__menu-list" role="list">
+              <li>
+                {%- if url_agb != blank -%}
+                  <a href="{{ url_agb }}">AGB</a>
+                {%- else -%}
+                  <a href="{{ root }}pages/agb">AGB</a>
+                {%- endif -%}
+              </li>
+              <li>
+                {%- if url_impressum != blank -%}
+                  <a href="{{ url_impressum }}">Impressum</a>
+                {%- else -%}
+                  <a href="{{ root }}pages/impressum">Impressum</a>
+                {%- endif -%}
+              </li>
+              <li>
+                {%- if url_widerruf != blank -%}
+                  <a href="{{ url_widerruf }}">Widerrufsrecht</a>
+                {%- else -%}
+                  <a href="{{ root }}pages/widerrufsrecht">Widerrufsrecht</a>
+                {%- endif -%}
+              </li>
+              <li>
+                {%- if url_datenschutz != blank -%}
+                  <a href="{{ url_datenschutz }}">Datenschutzerklärung</a>
+                {%- else -%}
+                  <a href="{{ root }}pages/datenschutz">Datenschutzerklärung</a>
+                {%- endif -%}
+              </li>
+              <li><a href="{{ url_cookie }}">Cookie-Einstellungen</a></li>
+            </ul>
+          </nav>
+
+          <nav class="pflege-footer__menu-col" aria-labelledby="pflege-ft-u">
+            <h2 id="pflege-ft-u" class="pflege-footer__menu-heading">Über uns</h2>
+            <ul class="pflege-footer__menu-list" role="list">
+              <li><a href="{{ root }}pages/unsere-mission">Unsere Mission</a></li>
+              <li><a href="{{ root }}pages/ueber-uns">Über PflegeShop</a></li>
+              <li><a href="{{ root }}pages/warum-wir">Warum wir</a></li>
+              <li><a href="{{ root }}pages/pflegewissen">Pflegewissen</a></li>
+            </ul>
+          </nav>
+
+          <nav class="pflege-footer__menu-col" aria-labelledby="pflege-ft-kat">
+            <h2 id="pflege-ft-kat" class="pflege-footer__menu-heading">Beliebte Kategorien</h2>
+            <ul class="pflege-footer__menu-list" role="list">
+              <li>
+                <a href="{% if col_koerper %}{{ col_koerper.url }}{% else %}{{ root }}collections/koerperpflege{% endif %}">Körperpflege</a>
+              </li>
+              <li>
+                <a href="{% if col_schutz %}{{ col_schutz.url }}{% else %}{{ root }}collections/schutzausruestung{% endif %}">Schutzausrüstung</a>
+              </li>
+              <li>
+                <a href="{% if col_zub %}{{ col_zub.url }}{% else %}{{ root }}collections/zubehoer{% endif %}">Zubehör</a>
+              </li>
+              <li>
+                <a href="{% if col_wund %}{{ col_wund.url }}{% else %}{{ root }}collections/wundbehandlung{% endif %}">Wundbehandlung</a>
+              </li>
+              <li>
+                <a href="{% if col_hygiene %}{{ col_hygiene.url }}{% else %}{{ root }}collections/hygiene{% endif %}">Hygiene</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+        {%- if section.settings.newsletter_enable -%}
+          <div class="pflege-footer__newsletter-card">
+            <h2 class="pflege-footer__newsletter-heading">{{ section.settings.newsletter_heading | escape }}</h2>
+            <p class="pflege-footer__newsletter-lead">{{ section.settings.newsletter_text | escape }}</p>
+            {%- assign newsletter_form_id = 'PflegeFooterNews-' | append: section.id -%}
+            {%- form 'customer', id: newsletter_form_id, class: 'pflege-footer__news-form' -%}
+              <input type="hidden" name="contact[tags]" value="newsletter">
+              <div class="pflege-footer__news-field">
+                <label class="visually-hidden" for="PflegeFooterEmail-{{ section.id }}">E-Mail für Newsletter</label>
+                <input
+                  id="PflegeFooterEmail-{{ section.id }}"
+                  type="email"
+                  name="contact[email]"
+                  class="pflege-footer__news-input"
+                  value="{{ form.email }}"
+                  autocomplete="email"
+                  autocapitalize="off"
+                  autocorrect="off"
+                  placeholder="{{ section.settings.newsletter_placeholder | escape }}"
+                  required
+                  {% if form.errors %}
+                    aria-invalid="true"
+                    aria-describedby="PflegeFooterErr-{{ section.id }}"
+                  {% endif %}
+                >
+              </div>
+              <button type="submit" class="pflege-footer__news-submit" name="commit">
+                {{ section.settings.newsletter_button_label | escape }}
+              </button>
+              {%- if form.errors -%}
+                <p class="pflege-footer__news-error" id="PflegeFooterErr-{{ section.id }}" role="alert">
+                  {{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}
+                </p>
+              {%- endif -%}
+              {%- if form.posted_successfully? -%}
+                <p class="pflege-footer__news-success" role="status">{{ 'newsletter.success' | t }}</p>
+              {%- endif -%}
+            {%- endform -%}
+            <p class="pflege-footer__news-note">
+              <span class="pflege-footer__news-check" aria-hidden="true">
+                {% render 'pflege-icon', icon: 'badge-check', width: 16 %}
+              </span>
+              {{ section.settings.newsletter_disclaimer | escape }}
+            </p>
+            <p class="pflege-footer__news-privacy">
+              Weitere Informationen in unserer
+              {%- if url_datenschutz != blank -%}
+                <a href="{{ url_datenschutz }}">Datenschutzerklärung</a>.
+              {%- else -%}
+                <a href="{{ root }}pages/datenschutz">Datenschutzerklärung</a>.
+              {%- endif -%}
+            </p>
+          </div>
+        {%- endif -%}
       </div>
-    {%- endif -%}
+    </div>
   </div>
+
+  {%- if section.settings.show_trust_strip -%}
+    <div class="pflege-footer__trust-strip">
+      <div
+        class="pflege-footer__inner pflege-footer__inner--trust{% unless section.settings.show_payment_badges %} pflege-footer__inner--trust-three{% endunless %}"
+      >
+        {%- if section.settings.show_payment_badges -%}
+          <div class="pflege-footer__trust-col pflege-footer__trust-col--pay">
+            <p class="pflege-footer__trust-heading">Sicher bezahlen</p>
+            <ul class="pflege-footer__pay-badges" role="list">
+              <li><span class="pflege-footer__pay-pill">VISA</span></li>
+              <li><span class="pflege-footer__pay-pill">Mastercard</span></li>
+              <li><span class="pflege-footer__pay-pill">PayPal</span></li>
+              <li><span class="pflege-footer__pay-pill">Klarna</span></li>
+              <li><span class="pflege-footer__pay-pill">RECHNUNG</span></li>
+            </ul>
+          </div>
+        {%- endif -%}
+
+        <div class="pflege-footer__trust-col pflege-footer__trust-col--block">
+          <span class="pflege-footer__trust-ic" aria-hidden="true">
+            {% render 'pflege-icon', icon: 'shield', width: 24 %}
+          </span>
+          <div>
+            <p class="pflege-footer__trust-title">Käuferschutz</p>
+            <p class="pflege-footer__trust-text">Sicher einkaufen mit unserem Käuferschutz.</p>
+          </div>
+        </div>
+
+        <div class="pflege-footer__trust-col pflege-footer__trust-col--block">
+          <span class="pflege-footer__trust-ic" aria-hidden="true">
+            {% render 'pflege-icon', icon: 'badge-check', width: 24 %}
+          </span>
+          <div>
+            <p class="pflege-footer__trust-title">Trusted Shops</p>
+            <p class="pflege-footer__trust-text">Zertifizierter Shop mit Käuferschutz.</p>
+          </div>
+        </div>
+
+        <div class="pflege-footer__trust-col pflege-footer__trust-col--block">
+          <span class="pflege-footer__trust-ic" aria-hidden="true">
+            {% render 'pflege-icon', icon: 'lock', width: 24 %}
+          </span>
+          <div>
+            <p class="pflege-footer__trust-title">Ihre Daten sind sicher</p>
+            <p class="pflege-footer__trust-text">SSL-Verschlüsselung für einen sicheren Einkauf.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+
+  <div class="pflege-footer__bottom-bar">
+    <div class="pflege-footer__inner pflege-footer__inner--bottom">
+      <p class="pflege-footer__copy">
+        © {{ 'now' | date: '%Y' }}
+        {{ shop.name | escape }}. Alle Rechte vorbehalten.
+      </p>
+      <nav class="pflege-footer__bottom-nav" aria-label="Rechtliche Kurzlinks">
+        <ul class="pflege-footer__bottom-list" role="list">
+          <li>
+            {%- if url_agb != blank -%}
+              <a href="{{ url_agb }}">AGB</a>
+            {%- else -%}
+              <a href="{{ root }}pages/agb">AGB</a>
+            {%- endif -%}
+          </li>
+          <li>
+            {%- if url_impressum != blank -%}
+              <a href="{{ url_impressum }}">Impressum</a>
+            {%- else -%}
+              <a href="{{ root }}pages/impressum">Impressum</a>
+            {%- endif -%}
+          </li>
+          <li>
+            {%- if url_datenschutz != blank -%}
+              <a href="{{ url_datenschutz }}">Datenschutz</a>
+            {%- else -%}
+              <a href="{{ root }}pages/datenschutz">Datenschutz</a>
+            {%- endif -%}
+          </li>
+          <li><a href="{{ url_cookie }}">Cookie-Einstellungen</a></li>
+        </ul>
+      </nav>
+      {%- if section.settings.show_powered_by -%}
+        <p class="pflege-footer__powered">{{ powered_by_link }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- for block in section.blocks -%}
+    {%- case block.type -%}
+      {%- when '@app' -%}
+        <div class="pflege-footer__app-slot page-width" {{ block.shopify_attributes }}>
+          {% render block %}
+        </div>
+    {%- endcase -%}
+  {%- endfor -%}
 </footer>
 
 {% schema %}
@@ -307,12 +382,6 @@
   "name": "Pflege Footer",
   "class": "pflege-footer-section",
   "settings": [
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:sections.all.colors.label",
-      "default": "scheme-1"
-    },
     {
       "type": "range",
       "id": "margin_top",
@@ -331,7 +400,7 @@
       "step": 4,
       "unit": "px",
       "label": "t:sections.footer.settings.padding_top.label",
-      "default": 36
+      "default": 40
     },
     {
       "type": "range",
@@ -341,95 +410,119 @@
       "step": 4,
       "unit": "px",
       "label": "t:sections.footer.settings.padding_bottom.label",
-      "default": 36
+      "default": 28
     },
     {
       "type": "header",
-      "content": "Newsletter & Social"
+      "content": "Service-Leiste (Pre-Footer)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_service_bar",
+      "label": "Service-Karte anzeigen",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Marke & Kontakt"
+    },
+    {
+      "type": "richtext",
+      "id": "brand_intro",
+      "label": "Einleitungstext",
+      "default": "<p>Pflegeprodukte, die den Pflegealltag erleichtern. Vertrauensvoll, persönlich und mit Herz – für Sie und Ihre Liebsten.</p>"
+    },
+    {
+      "type": "text",
+      "id": "contact_phone",
+      "label": "Telefon (Anzeige)",
+      "default": "08334 / 9893330"
+    },
+    {
+      "type": "text",
+      "id": "contact_email",
+      "label": "E-Mail",
+      "default": "service@pflegeshop.de"
+    },
+    {
+      "type": "text",
+      "id": "contact_hours",
+      "label": "Erreichbarkeit",
+      "default": "Mo.–Fr. 8:00 – 17:00 Uhr"
+    },
+    {
+      "type": "header",
+      "content": "Newsletter"
     },
     {
       "type": "checkbox",
       "id": "newsletter_enable",
-      "default": true,
-      "label": "t:sections.footer.settings.newsletter_enable.label"
-    },
-    {
-      "type": "inline_richtext",
-      "id": "newsletter_heading",
-      "default": "t:sections.footer.settings.newsletter_heading.default",
-      "label": "t:sections.footer.settings.newsletter_heading.label"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_social",
-      "default": true,
-      "label": "t:sections.footer.settings.show_social.label",
-      "info": "t:sections.footer.settings.show_social.info"
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_follow_on_shop",
-      "default": false,
-      "label": "t:sections.footer.settings.enable_follow_on_shop.label"
-    },
-    {
-      "type": "header",
-      "content": "t:sections.footer.settings.header__2.content"
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_country_selector",
-      "default": false,
-      "label": "t:sections.footer.settings.enable_country_selector.label"
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_language_selector",
-      "default": false,
-      "label": "t:sections.footer.settings.enable_language_selector.label"
-    },
-    {
-      "type": "checkbox",
-      "id": "payment_enable",
-      "default": true,
-      "label": "t:sections.footer.settings.payment_enable.label"
-    },
-    {
-      "type": "header",
-      "content": "Copyright"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_policy",
-      "default": false,
-      "label": "t:sections.footer.settings.show_policy.label",
-      "info": "t:sections.footer.settings.show_policy.info"
-    },
-    {
-      "type": "header",
-      "content": "Rechtliches"
-    },
-    {
-      "type": "checkbox",
-      "id": "legal_show",
-      "default": true,
-      "label": "Rechtliches-Leiste anzeigen"
+      "label": "Newsletter-Karte anzeigen",
+      "default": true
     },
     {
       "type": "text",
-      "id": "legal_heading",
+      "id": "newsletter_heading",
       "label": "Überschrift",
-      "default": "Rechtliches"
+      "default": "Newsletter abonnieren"
     },
     {
-      "type": "color_scheme",
-      "id": "legal_color_scheme",
-      "label": "Farbschema Rechtliches",
-      "default": "scheme-1"
+      "type": "textarea",
+      "id": "newsletter_text",
+      "label": "Text",
+      "default": "Exklusive Angebote, neue Produkte und Pflegetipps direkt in Ihr Postfach."
+    },
+    {
+      "type": "text",
+      "id": "newsletter_placeholder",
+      "label": "Platzhalter E-Mail",
+      "default": "E-Mail-Adresse eingeben"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_button_label",
+      "label": "Button",
+      "default": "Jetzt anmelden"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_disclaimer",
+      "label": "Hinweis unter dem Button",
+      "default": "Jederzeit abbestellbar."
+    },
+    {
+      "type": "header",
+      "content": "Trust & Zahlung"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_strip",
+      "label": "Zahlungs- / Trust-Bereich anzeigen",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_badges",
+      "label": "Zahlungs-Badges (Text)",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Sonstiges"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_powered_by",
+      "label": "„Powered by Shopify“ anzeigen",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "URLs — Rechtliches (optional, sonst Richtlinien / Seiten)"
     },
     {
       "type": "paragraph",
-      "content": "Leere Felder: Shopify-Richtlinien nutzen (wo im Admin hinterlegt). Impressum: eigene Seite verknüpfen."
+      "content": "Leere Felder: bei AGB, Widerruf und Datenschutz werden Shopify-Richtlinien genutzt, sofern im Admin hinterlegt. Sonst Fallback auf /pages/…"
     },
     {
       "type": "url",
@@ -448,111 +541,22 @@
     },
     {
       "type": "url",
-      "id": "legal_url_versand",
-      "label": "Versandrichtlinien"
+      "id": "legal_url_datenschutz",
+      "label": "Datenschutz"
     },
     {
       "type": "url",
-      "id": "legal_url_datenschutz",
-      "label": "Datenschutzerklärung"
+      "id": "legal_url_cookie",
+      "label": "Cookie-Einstellungen (eigene Seite)"
     }
   ],
-  "blocks": [
-    {
-      "type": "@app"
-    },
-    {
-      "type": "link_list",
-      "name": "t:sections.footer.blocks.link_list.name",
-      "settings": [
-        {
-          "type": "inline_richtext",
-          "id": "heading",
-          "default": "t:sections.footer.blocks.link_list.settings.heading.default",
-          "label": "t:sections.footer.blocks.link_list.settings.heading.label"
-        },
-        {
-          "type": "link_list",
-          "id": "menu",
-          "default": "footer",
-          "label": "t:sections.footer.blocks.link_list.settings.menu.label"
-        }
-      ]
-    },
-    {
-      "type": "text",
-      "name": "t:sections.footer.blocks.text.name",
-      "settings": [
-        {
-          "type": "inline_richtext",
-          "id": "heading",
-          "default": "t:sections.footer.blocks.text.settings.heading.default",
-          "label": "t:sections.footer.blocks.text.settings.heading.label"
-        },
-        {
-          "type": "richtext",
-          "id": "subtext",
-          "default": "<p></p>",
-          "label": "t:sections.footer.blocks.text.settings.subtext.label"
-        }
-      ]
-    }
-  ],
+  "blocks": [{ "type": "@app" }],
   "default": {
     "settings": {
-      "newsletter_heading": "Newsletter abonnieren"
-    },
-    "blocks": [
-      {
-        "type": "link_list",
-        "settings": {
-          "heading": "Schnellzugriff",
-          "menu": "footer"
-        }
-      },
-      {
-        "type": "link_list",
-        "settings": {
-          "heading": "Informationen",
-          "menu": "footer"
-        }
-      },
-      {
-        "type": "text",
-        "settings": {
-          "heading": "Über uns",
-          "subtext": "<p>Hier können Sie Kontakt, Versand und Service rund um Ihren Pflegebedarf beschreiben.</p>"
-        }
-      }
-    ]
-  },
-  "presets": [
-    {
-      "name": "Pflege Footer",
-      "blocks": [
-        {
-          "type": "link_list",
-          "settings": {
-            "heading": "Schnellzugriff",
-            "menu": "footer"
-          }
-        },
-        {
-          "type": "link_list",
-          "settings": {
-            "heading": "Informationen",
-            "menu": "footer"
-          }
-        },
-        {
-          "type": "text",
-          "settings": {
-            "heading": "Über uns",
-            "subtext": "<p>Hier können Sie Kontakt, Versand und Service rund um Ihren Pflegebedarf beschreiben.</p>"
-          }
-        }
-      ]
+      "newsletter_heading": "Newsletter abonnieren",
+      "newsletter_text": "Exklusive Angebote, neue Produkte und Pflegetipps direkt in Ihr Postfach."
     }
-  ]
+  },
+  "presets": [{ "name": "Pflege Footer" }]
 }
 {% endschema %}
