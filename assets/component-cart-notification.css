@@ -144,7 +144,7 @@
   align-items: center;
   gap: 0.55rem;
   padding-inline: 2.0625rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.85rem;
   text-align: center;
 }
 
@@ -156,9 +156,9 @@
   width: 2.5875rem;
   height: 2.5875rem;
   border-radius: 999px;
-  background: var(--cn-bg-soft);
-  border: 1px solid rgba(63, 134, 217, 0.35);
-  color: var(--cn-accent);
+  background: #e6f4ea;
+  border: 1px solid rgba(34, 139, 58, 0.45);
+  color: #1b7f36;
 }
 
 .cart-notification__check .icon-checkmark,
@@ -192,19 +192,24 @@
   text-align: center;
 }
 
-/* Produkt: Bild direkt unter Überschrift/Unterzeile, mittig; Infos optional in Karte */
+/* Produkt-Host: per AJAX gefüllt; bei --empty kein sichtbarer Inhalt */
 .cart-notification-product-host {
-  margin-bottom: 0.85rem;
+  margin-bottom: 0;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 0;
 }
 
 .cart-notification-product-host .cart-notification-product {
   margin: 0;
   width: 100%;
   max-width: 27rem;
+}
+
+.cart-notification-product--empty {
+  display: none;
 }
 
 .cart-notification-product {

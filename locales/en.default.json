@@ -52,8 +52,8 @@
       "view": "Warenkorb anzeigen ({{ count }})",
       "view_empty_cart": "Warenkorb anzeigen",
       "item_added": "In den Warenkorb gelegt",
-      "notification_heading": "In den Warenkorb gelegt",
-      "notification_subtext": "Der Artikel wurde erfolgreich in den Warenkorb gelegt.",
+      "notification_heading": "Great — your item is waiting in your cart",
+      "notification_subtext": "",
       "notification_checkout": "Zur Kasse",
       "notification_continue": "Weiter einkaufen",
       "notification_qty": {

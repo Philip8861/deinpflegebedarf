@@ -52,8 +52,8 @@
       "view": "Warenkorb anzeigen ({{ count }})",
       "item_added": "In den Warenkorb gelegt",
       "view_empty_cart": "Warenkorb anzeigen",
-      "notification_heading": "In den Warenkorb gelegt",
-      "notification_subtext": "Der Artikel wurde erfolgreich in den Warenkorb gelegt.",
+      "notification_heading": "Prima, der Artikel wartet jetzt im Warenkorb auf dich",
+      "notification_subtext": "",
       "notification_checkout": "Zur Kasse",
       "notification_continue": "Weiter einkaufen",
       "notification_qty": {

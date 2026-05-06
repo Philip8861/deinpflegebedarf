@@ -49,9 +49,10 @@
           <h2 id="cart-notification-title" class="cart-notification__headline">
             {{ 'general.cart.notification_heading' | t }}
           </h2>
-          <p class="cart-notification__subtext">
-            {{ 'general.cart.notification_subtext' | t }}
-          </p>
+          {%- assign cart_notification_sub = 'general.cart.notification_subtext' | t -%}
+          {%- if cart_notification_sub != blank -%}
+            <p class="cart-notification__subtext">{{ cart_notification_sub }}</p>
+          {%- endif -%}
         </div>
       </div>
 
