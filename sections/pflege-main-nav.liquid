@@ -17,66 +17,92 @@
   !important überstimmt ältere/zweite Stylesheets.
 {%- endcomment -%}
 <style id="pflege-main-nav-critical-{{ section.id }}">
+  /* Flex-Zeile statt Grid: Reihenfolge im DOM = Logo → Kategorien → Suche → Aktionen */
   @media screen and (min-width: 750px) {
     .header-wrapper.pflege-main-nav .pflege-main-nav__grid {
-      display: grid !important;
-      grid-template-columns: auto minmax(14rem, 1fr) minmax(11rem, min(30rem, 26vw)) auto !important;
-      grid-template-areas: 'logo nav search actions' !important;
-      align-items: center;
-      column-gap: clamp(0.85rem, 2.2vw, 1.85rem);
-      width: 100%;
+      display: flex !important;
+      flex-direction: row !important;
+      flex-wrap: nowrap !important;
+      align-items: center !important;
+      justify-content: flex-start !important;
+      gap: clamp(0.75rem, 2vw, 1.75rem) !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
     }
     .header-wrapper.pflege-main-nav .pflege-main-nav__drawer-slot--phones-only {
       display: none !important;
     }
     .header-wrapper.pflege-main-nav .pflege-main-nav__logo {
-      grid-area: logo !important;
+      flex: 0 0 auto !important;
+      max-width: none !important;
     }
     .header-wrapper.pflege-main-nav .pflege-main-nav__nav {
-      grid-area: nav !important;
+      flex: 1 1 auto !important;
       display: flex !important;
+      align-items: center !important;
       visibility: visible !important;
       opacity: 1 !important;
       position: relative !important;
       z-index: 2 !important;
-      min-width: 12rem !important;
-      width: 100% !important;
-      max-width: 100% !important;
+      min-width: 0 !important;
+      width: auto !important;
+      max-width: none !important;
       height: auto !important;
       margin: 0 !important;
       padding: 0 clamp(0.15rem, 0.5vw, 0.5rem) !important;
       overflow: visible !important;
     }
-    .header-wrapper.pflege-main-nav predictive-search.pflege-main-nav__search-host,
-    .header-wrapper.pflege-main-nav .pflege-main-nav__grid > form.pflege-main-nav__search {
-      grid-area: search !important;
+    .header-wrapper.pflege-main-nav predictive-search.pflege-main-nav__search-host {
+      flex: 0 1 min(30rem, 28vw) !important;
       display: block !important;
       position: relative !important;
-      min-width: 12rem !important;
-      width: 100% !important;
-      max-width: min(30rem, 26vw) !important;
+      min-width: 11rem !important;
+      max-width: min(30rem, 28vw) !important;
+      box-sizing: border-box !important;
+    }
+    .header-wrapper.pflege-main-nav .pflege-main-nav__grid > form.pflege-main-nav__search {
+      flex: 0 1 min(30rem, 28vw) !important;
+      display: flex !important;
+      position: relative !important;
+      min-width: 11rem !important;
+      max-width: min(30rem, 28vw) !important;
+      box-sizing: border-box !important;
     }
     .header-wrapper.pflege-main-nav .pflege-main-nav__actions {
-      grid-area: actions !important;
+      flex: 0 0 auto !important;
+      margin-left: 0 !important;
     }
     .header-wrapper.pflege-main-nav .pflege-main-nav__menu {
-      display: grid !important;
-      grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+      display: flex !important;
+      flex-direction: row !important;
+      flex-wrap: nowrap !important;
+      align-items: center !important;
+      justify-content: space-evenly !important;
       width: 100% !important;
       max-width: 100% !important;
       margin: 0 !important;
       padding: 0 !important;
       list-style: none !important;
-      gap: 0 clamp(0.35rem, 1.1vw, 1rem);
+      gap: clamp(0.25rem, 1vw, 0.85rem) !important;
+    }
+    .header-wrapper.pflege-main-nav .pflege-main-nav__menu > li {
+      flex: 1 1 0 !important;
+      min-width: 0 !important;
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
     }
     .header-wrapper.pflege-main-nav .pflege-main-nav__menu-link {
       display: block !important;
       color: #3d4f68 !important;
-      font-size: clamp(0.8rem, 0.38rem + 0.7vw, 1.25rem) !important;
+      font-size: clamp(0.78rem, 0.35rem + 0.85vw, 1.22rem) !important;
       font-weight: 400 !important;
       text-decoration: none !important;
       text-align: center !important;
       white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      max-width: 100% !important;
     }
   }
   @media screen and (max-width: 749px) {

@@ -432,43 +432,44 @@
   }
 }
 
-/* Tablet/Desktop ab 750px: Logo | vier Kategorien | Suche | Aktionen (Drawer nur <750px) */
+/* Tablet/Desktop ab 750px: eine Flex-Zeile Logo | Kategorien | Suche | Aktionen (robuster als Grid) */
 @media screen and (min-width: 750px) {
-  .pflege-main-nav-section .pflege-main-nav__grid {
-    display: grid;
-    grid-template-columns:
-      auto
-      minmax(14rem, 1fr)
-      minmax(11rem, min(30rem, 26vw))
-      auto;
-    grid-template-areas: 'logo nav search actions';
-    column-gap: clamp(0.85rem, 2.2vw, 1.85rem);
+  .pflege-main-nav-section .pflege-main-nav__grid,
+  .header-wrapper.pflege-main-nav .pflege-main-nav__grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
     align-items: center;
+    justify-content: flex-start;
+    gap: clamp(0.75rem, 2vw, 1.75rem);
+    width: 100%;
+    box-sizing: border-box;
     padding-top: 1.05rem;
     padding-bottom: 1.5rem;
   }
 
-  /* Feste Bereiche: verhindert, dass die Nav bei predictive-search aus dem Raster rutscht */
-  .pflege-main-nav-section .pflege-main-nav__logo {
-    grid-area: logo;
-    justify-self: start;
+  .pflege-main-nav-section .pflege-main-nav__logo,
+  .header-wrapper.pflege-main-nav .pflege-main-nav__logo {
+    flex: 0 0 auto;
     align-self: center;
     transform: none;
   }
 
-  .pflege-main-nav-section .pflege-main-nav__logo-link {
+  .pflege-main-nav-section .pflege-main-nav__logo-link,
+  .header-wrapper.pflege-main-nav .pflege-main-nav__logo-link {
     align-items: center;
   }
 
-  .pflege-main-nav-section .pflege-main-nav__nav {
-    grid-area: nav;
+  .pflege-main-nav-section .pflege-main-nav__nav,
+  .header-wrapper.pflege-main-nav .pflege-main-nav__nav {
+    flex: 1 1 auto;
     display: flex !important;
     visibility: visible !important;
-    justify-self: stretch;
+    align-items: center;
     align-self: center;
-    width: 100%;
-    min-width: min(100%, 12rem);
-    max-width: 100%;
+    min-width: 0;
+    width: auto;
+    max-width: none;
     overflow: visible;
     padding: 0;
     padding-inline: clamp(0.15rem, 0.5vw, 0.5rem);
@@ -477,15 +478,27 @@
   }
 
   .pflege-main-nav-section predictive-search.pflege-main-nav__search-host,
-  .pflege-main-nav-section .pflege-main-nav__grid > form.pflege-main-nav__search {
-    grid-area: search;
+  .header-wrapper.pflege-main-nav predictive-search.pflege-main-nav__search-host {
+    flex: 0 1 min(30rem, 28vw);
+    align-self: center;
+    display: block;
+    position: relative;
+    min-width: 11rem;
+    max-width: min(30rem, 28vw);
+    box-sizing: border-box;
+    transform: none;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__grid > form.pflege-main-nav__search,
+  .header-wrapper.pflege-main-nav .pflege-main-nav__grid > form.pflege-main-nav__search {
+    flex: 0 1 min(30rem, 28vw);
     align-self: center;
     transform: none;
   }
 
-  .pflege-main-nav-section .pflege-main-nav__actions {
-    grid-area: actions;
-    justify-self: end;
+  .pflege-main-nav-section .pflege-main-nav__actions,
+  .header-wrapper.pflege-main-nav .pflege-main-nav__actions {
+    flex: 0 0 auto;
     align-self: center;
     flex-shrink: 0;
     align-items: center;
@@ -493,40 +506,46 @@
   }
 
   .pflege-main-nav-section .pflege-main-nav__search,
-  .pflege-main-nav-section .pflege-main-nav__search-host {
+  .pflege-main-nav-section .pflege-main-nav__search-host,
+  .header-wrapper.pflege-main-nav .pflege-main-nav__search,
+  .header-wrapper.pflege-main-nav .pflege-main-nav__search-host {
     width: 100%;
-    max-width: min(30rem, 26vw);
-    min-width: 12rem;
-    justify-self: stretch;
+    max-width: min(30rem, 28vw);
+    min-width: 11rem;
   }
 
-  .pflege-main-nav-section .pflege-main-nav__grid:not(:has(.pflege-main-nav__search-host)) .pflege-main-nav__search {
+  .pflege-main-nav-section .pflege-main-nav__grid:not(:has(.pflege-main-nav__search-host)) .pflege-main-nav__search,
+  .header-wrapper.pflege-main-nav .pflege-main-nav__grid:not(:has(.pflege-main-nav__search-host)) .pflege-main-nav__search {
     transform: none;
   }
 
-  /* Vier Kategorien gleich breit im Zwischenraum Logo–Suche */
-  .pflege-main-nav-section .pflege-main-nav__menu {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    column-gap: clamp(0.35rem, 1.1vw, 1rem);
-    row-gap: 0;
+  /* Vier Kategorien nebeneinander im flexiblen Mittelteil */
+  .pflege-main-nav-section .pflege-main-nav__menu,
+  .header-wrapper.pflege-main-nav .pflege-main-nav__menu {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: clamp(0.25rem, 1vw, 0.85rem);
     width: 100%;
     max-width: 100%;
-    align-items: center;
-    justify-items: stretch;
     list-style: none;
     margin: 0;
     padding: 0;
   }
 
-  .pflege-main-nav-section .pflege-main-nav__menu > li {
+  .pflege-main-nav-section .pflege-main-nav__menu > li,
+  .header-wrapper.pflege-main-nav .pflege-main-nav__menu > li {
+    flex: 1 1 0;
     min-width: 0;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  .pflege-main-nav-section .pflege-main-nav__menu-link {
+  .pflege-main-nav-section .pflege-main-nav__menu-link,
+  .header-wrapper.pflege-main-nav .pflege-main-nav__menu-link {
     width: 100%;
     max-width: 100%;
     min-width: 0;
@@ -538,18 +557,20 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: clamp(0.92rem, 0.42rem + 0.72vw, 1.38rem);
+    font-size: clamp(0.78rem, 0.35rem + 0.85vw, 1.22rem);
     line-height: 1.2;
   }
 
-  .pflege-main-nav-section .pflege-main-nav__action {
+  .pflege-main-nav-section .pflege-main-nav__action,
+  .header-wrapper.pflege-main-nav .pflege-main-nav__action {
     align-items: center;
   }
 }
 
 @media screen and (min-width: 750px) and (max-width: 989px) {
-  .pflege-main-nav-section .pflege-main-nav__menu-link {
-    font-size: clamp(0.78rem, 0.42rem + 0.75vw, 1.12rem);
+  .pflege-main-nav-section .pflege-main-nav__menu-link,
+  .header-wrapper.pflege-main-nav .pflege-main-nav__menu-link {
+    font-size: clamp(0.72rem, 0.38rem + 0.7vw, 1.05rem);
     padding-inline: clamp(0.05rem, 0.25vw, 0.25rem);
   }
 }
