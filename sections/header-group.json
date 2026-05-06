@@ -2,7 +2,7 @@
   "name": "t:sections.header.name",
   "type": "header",
   "sections": {
-    "pflege_service_bar": {
+    "pflege_header_service_bar": {
       "type": "pflege-service-bar",
       "blocks": {
         "s1": {
@@ -37,7 +37,7 @@
       },
       "block_order": ["s1", "s2", "s3", "s4"]
     },
-    "pflege_main_nav": {
+    "pflege_header_main_nav": {
       "type": "pflege-main-nav",
       "settings": {
         "color_scheme": "scheme-1",
@@ -52,5 +52,5 @@
       }
     }
   },
-  "order": ["pflege_service_bar", "pflege_main_nav"]
+  "order": ["pflege_header_service_bar", "pflege_header_main_nav"]
 }

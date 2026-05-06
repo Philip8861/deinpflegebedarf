@@ -308,6 +308,11 @@
       {{ 'accessibility.skip_to_text' | t }}
     </a>
 
+    {%- comment -%}
+      Header nur im Repo: «sections/header-group.json» (Service-Leiste + Hauptleiste).
+      Keine parallelen Header-Section-Einträge in «config/settings_data.json».
+      Änderungen mit CLI/Zip/GitHub deployen; im Theme-Editor am Header nichts anpassen (reproduzierbarer Stand).
+    {%- endcomment -%}
     {% sections 'header-group' %}
 
     {%- comment -%}
