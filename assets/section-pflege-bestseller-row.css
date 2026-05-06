@@ -86,9 +86,9 @@
 .pflege-bestseller-card {
   position: relative;
   display: grid;
-  /* Produktfoto: weitere +25 % zur vorherigen Größe */
+  /* Produktfoto: nochmals +25 % */
   grid-template-columns:
-    clamp(8.125rem, 28%, 12.8rem)
+    clamp(10.15rem, 30%, 16rem)
     minmax(0, 1fr);
   gap: clamp(0.65rem, 1.6vw, 1rem);
   align-items: stretch;
@@ -97,7 +97,7 @@
   background: var(--pflege-white, #fff);
   border: 1px solid var(--pflege-border, #e5eef8);
   border-radius: 12px;
-  min-height: clamp(10.5rem, 13vw, 13.5rem);
+  min-height: clamp(13.15rem, 16.25vw, 16.85rem);
   min-width: 0;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -105,11 +105,11 @@
 @media screen and (min-width: 990px) {
   .pflege-bestseller-card {
     grid-template-columns:
-      clamp(8.75rem, 32%, 14.4rem)
+      clamp(10.95rem, 34%, 18rem)
       minmax(0, 1fr);
     padding: 0.85rem 1rem;
     padding-bottom: 1.05rem;
-    min-height: clamp(11.5rem, 12vw, 14.5rem);
+    min-height: clamp(14.4rem, 15vw, 18.15rem);
     border-radius: 14px;
   }
 }
@@ -124,16 +124,16 @@
   border-radius: 10px;
   overflow: hidden;
   background: var(--pflege-bg-softer, #f5faff);
-  align-self: stretch;
+  align-self: start;
   min-height: 0;
   aspect-ratio: 1;
-  max-height: 13.28rem;
+  max-height: 16.6rem;
 }
 
 @media screen and (min-width: 990px) {
   .pflege-bestseller-card__media {
     border-radius: 11px;
-    max-height: 14.45rem;
+    max-height: 18.05rem;
   }
 }
 
@@ -168,6 +168,8 @@
   flex: 0 1 auto;
   min-height: 0;
   width: 100%;
+  /* Titel etwas tiefer im Textblock */
+  padding-top: clamp(0.45rem, 1.1vw, 0.75rem);
 }
 
 .pflege-bestseller-card__name {
@@ -238,13 +240,13 @@
   align-items: center;
   justify-content: center;
   margin-top: auto;
-  padding-top: 0.55rem;
+  padding-top: 0.5rem;
   padding-right: 3.35rem;
   padding-left: 0.35rem;
-  border-top: 1px solid rgba(229, 238, 248, 0.95);
   flex-shrink: 0;
 }
 
+/* Linie nur über dem Preis (zentriert), läuft nicht bis zur Foto-Kante */
 .pflege-bestseller-card__price {
   font-size: clamp(1.15rem, 1.02rem + 0.38vw, 1.38rem);
   font-weight: 700;
@@ -253,7 +255,12 @@
   line-height: 1.25;
   text-align: center;
   letter-spacing: 0.02em;
-  width: 100%;
+  width: auto;
+  max-width: 100%;
+  display: inline-block;
+  padding-top: 0.65rem;
+  border-top: 1px solid rgba(229, 238, 248, 0.95);
+  box-sizing: border-box;
 }
 
 /* Warenkorb: unten rechts im Karten-Kasten; Icon sauber im Kreis (#5891d7) */
