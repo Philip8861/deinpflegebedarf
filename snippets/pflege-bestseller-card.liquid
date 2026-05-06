@@ -5,11 +5,11 @@
       {%- if p.featured_media -%}
         {{
           p.featured_media
-          | image_url: width: 400
+          | image_url: width: 500
           | image_tag:
             loading: 'lazy',
-            widths: '200, 280, 400',
-            sizes: '(min-width: 990px) 150px, (min-width: 600px) 32vw, 42vw',
+            widths: '250, 350, 500',
+            sizes: '(min-width: 990px) 188px, (min-width: 600px) 38vw, 48vw',
             alt: p.featured_media.alt | default: p.title | escape
         }}
       {%- else -%}
@@ -41,7 +41,7 @@
       class="pflege-bestseller-card__cart"
       aria-label="{{ 'products.product.view_full_details' | t }} — {{ p.title | escape }}"
     >
-      {% render 'pflege-icon', icon: 'cart', width: 20 %}
+      {% render 'pflege-icon', icon: 'cart', width: 25 %}
     </a>
   </article>
 {%- else -%}
@@ -58,11 +58,11 @@
         {%- if p.featured_media -%}
           {{
             p.featured_media
-            | image_url: width: 400
+            | image_url: width: 500
             | image_tag:
               loading: 'lazy',
-              widths: '200, 280, 400',
-              sizes: '(min-width: 990px) 150px, (min-width: 600px) 32vw, 42vw',
+              widths: '250, 350, 500',
+              sizes: '(min-width: 990px) 188px, (min-width: 600px) 38vw, 48vw',
               alt: p.featured_media.alt | default: p.title | escape
           }}
         {%- else -%}
@@ -72,11 +72,11 @@
         {%- if block.settings.placeholder_image != blank -%}
           {{
             block.settings.placeholder_image
-            | image_url: width: 400
+            | image_url: width: 500
             | image_tag:
               loading: 'lazy',
-              widths: '200, 280, 400',
-              sizes: '(min-width: 990px) 150px, (min-width: 600px) 32vw, 42vw',
+              widths: '250, 350, 500',
+              sizes: '(min-width: 990px) 188px, (min-width: 600px) 38vw, 48vw',
               alt: ''
           }}
         {%- else -%}
@@ -141,7 +141,7 @@
       class="pflege-bestseller-card__cart"
       aria-label="{{ 'products.product.view_full_details' | t }} — {{ card_title | escape }}"
     >
-      {% render 'pflege-icon', icon: 'cart', width: 20 %}
+      {% render 'pflege-icon', icon: 'cart', width: 25 %}
     </a>
   </article>
 {%- endif -%}
