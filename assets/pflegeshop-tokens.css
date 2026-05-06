@@ -30,7 +30,9 @@
   --pflege-home-section-stack: clamp(1.5rem, 3vw, 2rem);
   /*
     Gemeinsam: Produktfinder-Backdrop & Footer (heller Verlauf, elliptischer Bogen nach oben).
+    Vertikaler Ellipsen-Radius auch für Produktfinder-Bogen unten (symmetrisch zum oberen Bogen).
   */
+  --pflege-backdrop-ell-v: clamp(2rem, 5.5vw, 4rem);
   --pflege-backdrop-band-gradient: linear-gradient(
     180deg,
     #fafcfd 0%,
@@ -38,7 +40,9 @@
     #f7f9fb 70%,
     #f6f8fb 100%
   );
-  --pflege-backdrop-band-radius-top: 50% 50% 0 0 / clamp(2rem, 5.5vw, 4rem) clamp(2rem, 5.5vw, 4rem) 0 0;
+  --pflege-backdrop-band-radius-top: 50% 50% 0 0 / var(--pflege-backdrop-ell-v) var(--pflege-backdrop-ell-v) 0 0;
+  /* Produktfinder: zusätzlich Bogen nach unten — alle vier Ecken gleiche elliptische Radien */
+  --pflege-backdrop-band-radius-vertical-both: 50% 50% 50% 50% / var(--pflege-backdrop-ell-v) var(--pflege-backdrop-ell-v) var(--pflege-backdrop-ell-v) var(--pflege-backdrop-ell-v);
 }
 
 @media screen and (min-width: 480px) {
