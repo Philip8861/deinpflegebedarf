@@ -88,8 +88,10 @@
     grid-row: 4;
     width: 100%;
     max-width: 100%;
-    /* Knapp unter Bestellübersicht (die sitzt durch align-self:end unten in Zeile 3) */
-    margin-top: clamp(0.45rem, 1vw, 0.85rem);
+    /* Nach oben in die Zeile der Warenkorb-Tabelle rutschen; Überschrift darf höher stehen (s. Bestseller-CSS) */
+    margin-top: clamp(-6.5rem, -14vw, -3.25rem);
+    position: relative;
+    z-index: 0;
     box-sizing: border-box;
   }
 
@@ -99,7 +101,7 @@
     align-self: end;
     position: static;
     top: auto;
-    z-index: auto;
+    z-index: 2;
     overflow: visible;
   }
 
