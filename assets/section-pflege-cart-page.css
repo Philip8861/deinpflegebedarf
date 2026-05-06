@@ -8,6 +8,8 @@
   --pflege-cart-cta: var(--pflege-cta-orange, #ff791f);
   --pflege-cart-cta-hover: #e86915;
   --pflege-cart-green: #1e8f5a;
+  /* Artikelkarte etwas schmaler als die volle Grid-Spalte (zentriert) */
+  --pflege-cart-items-max-width: min(100%, 64rem);
 }
 
 /* --- Seitenhintergrund --- */
@@ -85,8 +87,10 @@
   .template-cart #MainContent:has(cart-items:not(.is-empty)) .pflege-cart-promo {
     grid-column: 1;
     grid-row: 4;
-    margin: 0;
-    margin-top: 0;
+    margin-inline: auto;
+    margin-bottom: 0;
+    margin-top: 2rem;
+    max-width: var(--pflege-cart-items-max-width);
   }
 
   .template-cart #MainContent:has(cart-items:not(.is-empty)) > .pflege-cart-section--aside {
@@ -297,6 +301,8 @@
   background: rgb(var(--color-background, 255 255 255));
   box-shadow: 0 12px 40px rgba(11, 35, 71, 0.06);
   width: 100%;
+  max-width: var(--pflege-cart-items-max-width);
+  margin-inline: auto;
 }
 
 .template-cart .pflege-cart-items-table thead {
@@ -409,7 +415,7 @@
   color: rgba(11, 35, 71, 0.62);
   font-size: 1.38rem;
   line-height: 1.5;
-  max-width: 46rem !important;
+  max-width: 38rem !important;
 }
 
 .template-cart .pflege-cart-item__options {
@@ -495,6 +501,37 @@
   outline-offset: 2px;
 }
 
+/* --- Produktdetails + Entfernen (oben rechts im Infoblock) --- */
+.template-cart .pflege-cart-item__details-shell {
+  position: relative;
+  padding-right: 3rem;
+}
+
+@media screen and (min-width: 750px) {
+  .template-cart .pflege-cart-items-table .pflege-cart-item__details-shell {
+    padding-right: 3.35rem;
+  }
+}
+
+.template-cart cart-remove-button.pflege-cart-item__remove-corner {
+  display: block;
+  margin: 0;
+}
+
+.template-cart cart-remove-button.pflege-cart-item__remove-corner .button.pflege-cart-item__remove-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  margin: 0;
+  min-width: 3rem;
+  min-height: 3rem;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* --- Entfernen --- */
 .template-cart cart-remove-button .button {
   color: rgba(11, 35, 71, 0.55);
@@ -518,6 +555,9 @@
   gap: 1.25rem;
   padding: 1.35rem 1.5rem;
   align-items: center;
+  margin-top: 2rem;
+  margin-inline: auto;
+  max-width: var(--pflege-cart-items-max-width);
 }
 
 @media screen and (min-width: 750px) {
