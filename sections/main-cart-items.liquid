@@ -145,13 +145,13 @@
                           <div class="pflege-cart-item__mobile-media medium-hide large-up-hide" aria-hidden="true">
                             <div class="cart-item__image-container gradient {% if item.parent_relationship.parent == null %}global-media-settings{% endif %}">
                               <img
-                                src="{{ item.image | image_url: width: 210 }}"
+                                src="{{ item.image | image_url: width: 280 }}"
                                 class="cart-item__image {% if item.parent_relationship.parent != null %}global-media-settings{% endif %}"
                                 alt=""
                                 role="presentation"
                                 loading="lazy"
-                                width="105"
-                                height="{{ 105 | divided_by: item.image.aspect_ratio | ceil }}"
+                                width="137"
+                                height="{{ 137 | divided_by: item.image.aspect_ratio | ceil }}"
                               >
                             </div>
                           </div>
@@ -167,7 +167,7 @@
                           {%- if item.variant.available -%}
                             <p class="pflege-cart-item__availability caption">
                               <span class="pflege-cart-item__availability-dot" aria-hidden="true"></span>
-                              <span>{{ 'sections.cart.pflege.availability_in_stock' | t }}</span>
+                              <span>Sofort lieferbar!</span>
                             </p>
                           {%- endif -%}
 
