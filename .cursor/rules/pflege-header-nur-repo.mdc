@@ -5,7 +5,7 @@ alwaysApply: true
 
 # Pflege-Theme: Header
 
-- **Rendering:** `layout/theme.liquid` — `{% section 'pflege_header_service_bar' %}` und `{% section 'pflege_header_main_nav' %}` (kein `{% sections 'header-group' %}`).
-- **Daten:** `config/settings_data.json` → `presets.Default.sections` — dieselben Keys und Inhalte wie in `sections/header-group.json` (Referenz/Kopie halten).
+- **Rendering:** `layout/theme.liquid` — `{% section 'pflege-service-bar' %}` und `{% section 'pflege-main-nav' %}` (Argument = Section-Dateiname, kein `{% sections 'header-group' %}`).
+- **Daten:** `config/settings_data.json` → `presets.Default.sections` — Keys **`pflege-service-bar`** und **`pflege-main-nav`** (müssen zu den `{% section %}`-Namen passen).
 - **Sections:** `sections/pflege-service-bar.liquid`, `sections/pflege-main-nav.liquid` ändern.
 - Nach Änderungen Theme deployen (CLI/ZIP/GitHub).

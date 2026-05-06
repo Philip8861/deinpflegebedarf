@@ -183,7 +183,7 @@
             "color_scheme": "scheme-1"
           }
         },
-        "pflege_header_service_bar": {
+        "pflege-service-bar": {
           "type": "pflege-service-bar",
           "blocks": {
             "s1": {
@@ -218,7 +218,7 @@
           },
           "block_order": ["s1", "s2", "s3", "s4"]
         },
-        "pflege_header_main_nav": {
+        "pflege-main-nav": {
           "type": "pflege-main-nav",
           "settings": {
             "color_scheme": "scheme-1",

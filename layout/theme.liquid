@@ -309,12 +309,11 @@
     </a>
 
     {%- comment -%}
-      Header statisch aus layout/theme.liquid — keine Section-Gruppe (umgeht Editor-/Gruppen-Probleme).
-      Daten: «config/settings_data.json» → presets.Default.sections → pflege_header_* .
-      Spiegel: «sections/header-group.json» (Referenz, wird hier nicht gerendert).
+      Header statisch: section-Tag braucht den Section-Typ = Dateiname sections/*.liquid (ohne Endung), nicht eine freie JSON-ID.
+      Daten: config/settings_data.json → presets.Default.sections → Keys pflege-service-bar, pflege-main-nav .
     {%- endcomment -%}
-    {% section 'pflege_header_service_bar' %}
-    {% section 'pflege_header_main_nav' %}
+    {% section 'pflege-service-bar' %}
+    {% section 'pflege-main-nav' %}
 
     {%- comment -%}
       Cart-Drawer nach dem Header: JavaScript hängt Klicks an #cart-icon-bubble / #pflege-cart-icon-bubble —
