@@ -5,6 +5,7 @@
   --pflege-ft-panel: var(--pflege-bg-soft, #eef6ff);
   --pflege-ft-icon-bg: rgba(63, 134, 217, 0.12);
   --pflege-ft-border: var(--pflege-border, #e5eef8);
+  --pflege-ft-divider: rgba(11, 35, 71, 0.12);
   --pflege-ft-navy: var(--pflege-navy, #0b2347);
   --pflege-ft-muted: var(--pflege-muted, #6f7f95);
   --pflege-ft-accent: var(--pflege-accent, #3f86d9);
@@ -493,7 +494,7 @@ a.pflege-footer__contact-line:hover {
 
 /* Trust-Zeile */
 .pflege-footer__trust-strip {
-  border-top: 1px solid var(--pflege-ft-border);
+  border-top: 1px solid rgba(11, 35, 71, 0.08);
   background: #fff;
   padding-top: clamp(1.75rem, 3vw, 2.5rem);
   padding-bottom: clamp(1.75rem, 3vw, 2.5rem);
@@ -511,16 +512,39 @@ a.pflege-footer__contact-line:hover {
   .pflege-footer__inner--trust {
     grid-template-columns: minmax(12rem, 1.15fr) repeat(3, minmax(0, 1fr));
     gap: 2rem clamp(1.5rem, 2.5vw, 2.75rem);
-    align-items: start;
+    align-items: stretch;
   }
 
   .pflege-footer__inner--trust-three {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  /*
+   * Trennlinien zwischen den Spalten: nicht volle Höhe, leicht eingezogen + weiches Ende
+   * (wirkt ruhiger als durchgehendes border-left).
+   */
   .pflege-footer__trust-col + .pflege-footer__trust-col {
-    border-left: 1px solid var(--pflege-ft-border);
+    border-left: none;
     padding-left: clamp(1.5rem, 2.5vw, 2.75rem);
+    position: relative;
+  }
+
+  .pflege-footer__trust-col + .pflege-footer__trust-col::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8%;
+    bottom: 8%;
+    width: 1px;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      var(--pflege-ft-divider) 14%,
+      var(--pflege-ft-divider) 86%,
+      transparent 100%
+    );
+    pointer-events: none;
+    border-radius: 1px;
   }
 
   .pflege-footer__trust-col--pay {
