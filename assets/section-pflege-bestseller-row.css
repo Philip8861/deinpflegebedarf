@@ -380,14 +380,3 @@
   display: block;
   vertical-align: middle;
 }
-
-/* Warenkorb: „Das könnte Ihnen auch gefallen“ — gleiche Karten-/Rastergrößen wie Startseiten-Bestseller.
-   Seiten-Gutter kommt von #MainContent bzw. .pflege-cart-page__inner; Shell nicht nochmal einziehen. */
-.template-cart .pflege-cart-recommendations--page-row .pflege-bestseller {
-  margin-top: 0;
-}
-
-.template-cart .pflege-cart-recommendations--page-row .pflege-bestseller__shell {
-  padding-left: 0;
-  padding-right: 0;
-}

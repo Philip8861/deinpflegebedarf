@@ -27,8 +27,7 @@
 
 /* ============================================================
    Desktop: zweispaltig — Gutschein unter Artikeltabelle (links).
-   Empfehlungen: eigene Zeile unter Artikel+Gutschein, volle Breite #MainContent (Logo–Warenkorb),
-   nicht in der Bestellübersicht-Spalte. Mobil: Gutschein unter Bestellübersicht im Footer.
+   Mobil: Gutschein unter Bestellübersicht im Footer.
    ============================================================ */
 @media screen and (min-width: 990px) {
   .template-cart #MainContent:has(cart-items:not(.is-empty)) {
@@ -83,16 +82,6 @@
     margin: 0;
   }
 
-  .template-cart #MainContent:has(cart-items:not(.is-empty)) .pflege-cart-recommendations--page-row {
-    grid-column: 1 / -1;
-    grid-row: 4;
-    width: 100%;
-    max-width: 100%;
-    /* Klarer Abstand zur Bestellübersicht / oberer Doppelspalte */
-    margin-top: clamp(2rem, 3.5vw, 3.25rem);
-    box-sizing: border-box;
-  }
-
   .template-cart #MainContent:has(cart-items:not(.is-empty)) > .pflege-cart-section--aside {
     grid-column: 2;
     grid-row: 3;
@@ -112,13 +101,13 @@
   .template-cart #MainContent:has(cart-items:not(.is-empty))
     > .shopify-section:not(.pflege-cart-section--main):not(.pflege-cart-section--aside):not(.pflege-cart-section--service) {
     grid-column: 1 / -1;
-    grid-row: 5;
+    grid-row: 4;
     margin-top: 1.5rem;
   }
 
   .template-cart #MainContent:has(cart-items:not(.is-empty)) > .pflege-cart-section--service {
     grid-column: 1 / -1;
-    grid-row: 6;
+    grid-row: 5;
     margin-top: 0.5rem;
   }
 
@@ -333,17 +322,6 @@
   background: #f9f9fa;
 }
 
-/* Empfehlungen: unter Artikelblock; bei leerem Warenkorb per JS-Klasse ausblenden */
-.template-cart cart-items.is-empty .pflege-cart-recommendations--page-row {
-  display: none !important;
-}
-
-.template-cart .pflege-cart-recommendations--page-row {
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
 /* Gutschein Mobil: unter Bestellübersicht */
 .template-cart #main-cart-footer .js-contents > .pflege-cart-stack-below-summary > .pflege-cart-promo--under-summary .pflege-cart-promo.pflege-cart-card {
   margin-top: 1.35rem;
@@ -387,10 +365,6 @@
 
 /* --- Mobile Warenkorb: eigenes Raster (Dawn-Tabellen-Grid + thead-Artefakte vermeiden) --- */
 @media screen and (max-width: 749px) {
-  .template-cart .pflege-cart-recommendations--page-row {
-    margin-top: clamp(1.35rem, 3vw, 2.15rem);
-  }
-
   .template-cart .pflege-cart-page__title.title--primary {
     font-size: clamp(2.05rem, 5.8vw, 2.75rem);
     margin-top: 0.35rem;
