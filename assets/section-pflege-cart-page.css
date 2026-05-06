@@ -15,9 +15,20 @@
   background: rgb(var(--color-background, 253 253 252));
 }
 
+/* Volle nutzbare Breite wie Hauptnav (.pflege-main-nav--full-bleed): nur Pflege-Gutter */
+.template-cart #MainContent cart-items.is-empty .pflege-cart-page__inner.page-width {
+  max-width: none;
+  width: 100%;
+  margin-inline: auto;
+  padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
+}
+
 /* ============================================================
-   Desktop: zweispaltig — Hero-Breite (wie Pflege-Hero); Promo unter Artikeln;
-   Bestellübersicht rechts (sticky). Keine erzwungene Gleichhöhe der Spalten.
+   Desktop: zweispaltig — nutzbare Breite wie Hauptnav (Logo … Warenkorb):
+   volle Viewport-Breite minus --pflege-inline-gutter (keine Hero-/page-width-Kappe).
+   Promo unter Artikeln; Bestellübersicht rechts (sticky).
    ============================================================ */
 @media screen and (min-width: 990px) {
   .template-cart #MainContent:has(cart-items:not(.is-empty)) {
@@ -27,7 +38,7 @@
     row-gap: 1.5rem;
     align-items: start;
     width: 100%;
-    max-width: var(--pflege-hero-tile-max-width, min(100%, 1426px));
+    max-width: none;
     margin-inline: auto;
     padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
     padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
@@ -105,6 +116,20 @@
     grid-row: 6;
     margin-top: 0.5rem;
   }
+
+  /* #MainContent hat bereits Pflege-Gutter — Dawn-.page-width nicht nochmal einziehen */
+  .template-cart #MainContent:has(cart-items:not(.is-empty))
+    > .shopify-section:not(.pflege-cart-section--main):not(.pflege-cart-section--aside)
+    .page-width,
+  .template-cart #MainContent:has(cart-items:not(.is-empty))
+    > .shopify-section:not(.pflege-cart-section--main):not(.pflege-cart-section--aside)
+    .page-width-desktop {
+    max-width: none;
+    width: 100%;
+    margin-inline: 0;
+    padding-inline: 0;
+    box-sizing: border-box;
+  }
 }
 
 /* Mobile / Tablet: klassisches Section-Layout wiederherstellen */
@@ -130,7 +155,7 @@
   }
 
   .template-cart #MainContent:has(cart-items:not(.is-empty)) .pflege-cart-page__inner.page-width {
-    max-width: var(--pflege-hero-tile-max-width, min(100%, 1426px));
+    max-width: none;
     width: 100%;
     margin-inline: auto;
     padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
@@ -139,7 +164,21 @@
   }
 
   .template-cart #MainContent:has(cart-items:not(.is-empty)) .pflege-cart-aside__inner.page-width {
-    max-width: var(--pflege-hero-tile-max-width, min(100%, 1426px));
+    max-width: none;
+    width: 100%;
+    margin-inline: auto;
+    padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
+    padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
+    box-sizing: border-box;
+  }
+
+  .template-cart #MainContent:has(cart-items:not(.is-empty))
+    > .shopify-section:not(.pflege-cart-section--main):not(.pflege-cart-section--aside)
+    .page-width,
+  .template-cart #MainContent:has(cart-items:not(.is-empty))
+    > .shopify-section:not(.pflege-cart-section--main):not(.pflege-cart-section--aside)
+    .page-width-desktop {
+    max-width: none;
     width: 100%;
     margin-inline: auto;
     padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
