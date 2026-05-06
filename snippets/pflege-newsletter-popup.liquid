@@ -56,6 +56,13 @@
           <p class="pflege-newsletter-popup__success" role="status" data-pnp-success>
             Vielen Dank für Ihre Anmeldung! Den 10 %-Gutscheincode erhalten Sie in Kürze per E-Mail.
           </p>
+          <a
+            href="{{ routes.all_products_collection_url }}"
+            class="pflege-newsletter-popup__submit pflege-newsletter-popup__continue"
+          >
+            <span>Jetzt weiter shoppen</span>
+            <span class="pflege-newsletter-popup__submit-arrow" aria-hidden="true">→</span>
+          </a>
         {%- else -%}
           <label class="visually-hidden" for="PflegeNewsletterPopupEmail">E-Mail-Adresse</label>
           <input

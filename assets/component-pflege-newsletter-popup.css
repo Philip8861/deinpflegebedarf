@@ -183,6 +183,7 @@
 
 .pflege-newsletter-popup__submit {
   appearance: none;
+  -webkit-appearance: none;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -193,13 +194,25 @@
   font-family: inherit;
   font-size: 1.35rem;
   font-weight: 700;
+  line-height: 1.2;
   letter-spacing: 0.01em;
   color: #fff;
   background: var(--pnp-cta);
   border: 1px solid rgba(11, 35, 71, 0.06);
   border-radius: 14px;
   box-shadow: 0 6px 16px rgba(255, 121, 31, 0.28);
+  text-decoration: none;
+  text-align: center;
   transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+a.pflege-newsletter-popup__submit {
+  text-decoration: none;
+}
+
+.pflege-newsletter-popup__continue {
+  margin: 1.1rem auto 0;
+  max-width: 22rem;
 }
 
 .pflege-newsletter-popup__submit:hover {
