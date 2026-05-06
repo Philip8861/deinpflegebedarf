@@ -11,6 +11,81 @@
 
 {{ 'section-pflege-main-nav.css' | asset_url | stylesheet_tag }}
 
+{%- comment -%}
+  Synchrones »Critical CSS«: Kategorien zwischen Logo und Suche hängen am .header-wrapper,
+  nicht an .pflege-main-nav-section (letztere kann im Theme-Editor fehlen/wegfallen).
+  !important überstimmt ältere/zweite Stylesheets.
+{%- endcomment -%}
+<style id="pflege-main-nav-critical-{{ section.id }}">
+  @media screen and (min-width: 750px) {
+    .header-wrapper.pflege-main-nav .pflege-main-nav__grid {
+      display: grid !important;
+      grid-template-columns: auto minmax(14rem, 1fr) minmax(11rem, min(30rem, 26vw)) auto !important;
+      grid-template-areas: 'logo nav search actions' !important;
+      align-items: center;
+      column-gap: clamp(0.85rem, 2.2vw, 1.85rem);
+      width: 100%;
+    }
+    .header-wrapper.pflege-main-nav .pflege-main-nav__drawer-slot--phones-only {
+      display: none !important;
+    }
+    .header-wrapper.pflege-main-nav .pflege-main-nav__logo {
+      grid-area: logo !important;
+    }
+    .header-wrapper.pflege-main-nav .pflege-main-nav__nav {
+      grid-area: nav !important;
+      display: flex !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      position: relative !important;
+      z-index: 2 !important;
+      min-width: 12rem !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      height: auto !important;
+      margin: 0 !important;
+      padding: 0 clamp(0.15rem, 0.5vw, 0.5rem) !important;
+      overflow: visible !important;
+    }
+    .header-wrapper.pflege-main-nav predictive-search.pflege-main-nav__search-host,
+    .header-wrapper.pflege-main-nav .pflege-main-nav__grid > form.pflege-main-nav__search {
+      grid-area: search !important;
+      display: block !important;
+      position: relative !important;
+      min-width: 12rem !important;
+      width: 100% !important;
+      max-width: min(30rem, 26vw) !important;
+    }
+    .header-wrapper.pflege-main-nav .pflege-main-nav__actions {
+      grid-area: actions !important;
+    }
+    .header-wrapper.pflege-main-nav .pflege-main-nav__menu {
+      display: grid !important;
+      grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      list-style: none !important;
+      gap: 0 clamp(0.35rem, 1.1vw, 1rem);
+    }
+    .header-wrapper.pflege-main-nav .pflege-main-nav__menu-link {
+      display: block !important;
+      color: #3d4f68 !important;
+      font-size: clamp(0.8rem, 0.38rem + 0.7vw, 1.25rem) !important;
+      font-weight: 400 !important;
+      text-decoration: none !important;
+      text-align: center !important;
+      white-space: nowrap !important;
+    }
+  }
+  @media screen and (max-width: 749px) {
+    .header-wrapper.pflege-main-nav .pflege-main-nav__nav {
+      display: none !important;
+    }
+  }
+</style>
+
 <div class="header-wrapper pflege-main-nav pflege-main-nav--full-bleed color-{{ section.settings.color_scheme }} gradient">
   <div class="pflege-main-nav__grid">
     <div class="pflege-main-nav__drawer-slot pflege-main-nav__drawer-slot--phones-only">
