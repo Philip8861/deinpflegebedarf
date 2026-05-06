@@ -54,7 +54,12 @@
   endif
 -%}
 
-<div class="header-wrapper pflege-main-nav pflege-main-nav--full-bleed color-{{ section.settings.color_scheme }} gradient">
+{%- comment -%}
+  Schema-Klasse am Shopify-Section-Wrapper fehlt manchmal bei statischem Section-Aufruf aus dem Layout —
+  dann greift kein CSS unter .pflege-main-nav-section. Eigener Wrapper hält Layout/Sticky sicher.
+{%- endcomment -%}
+<div class="pflege-main-nav-section section-header">
+<div class="header-wrapper pflege-main-nav pflege-main-nav--full-bleed color-{{ section.settings.color_scheme | default: 'scheme-1' }} gradient">
   <div class="pflege-main-nav__grid">
     <div class="pflege-main-nav__drawer-slot large-up-hide">
       {% render 'pflege-flat-drawer' %}
@@ -70,7 +75,7 @@
       </a>
     </div>
 
-    <nav class="pflege-main-nav__nav" aria-label="{{ section.settings.menu_label | escape }}">
+    <nav class="pflege-main-nav__nav" aria-label="{{ section.settings.menu_label | default: 'Produktbereiche' | escape }}">
       {%- comment -%} Desktop: Kategorien fest in dieser Section (kein render, keine Nav-Blöcke) {%- endcomment -%}
       <ul class="pflege-main-nav__menu" data-pflege-nav-inline="v7-desinf-pflege-haut-verb">
         <li>
@@ -126,7 +131,7 @@
     <form class="pflege-main-nav__search" action="{{ routes.search_url }}" method="get" role="search">
       <input type="hidden" name="options[prefix]" value="last">
       <label class="visually-hidden" for="PflegeMainNavSearch-{{ section.id }}">
-        {{- section.settings.search_placeholder | escape -}}
+        {{- section.settings.search_placeholder | default: 'Produkte suchen...' | escape -}}
       </label>
       <input
         id="PflegeMainNavSearch-{{ section.id }}"
@@ -134,7 +139,7 @@
         type="search"
         name="q"
         value="{{ search.terms | escape }}"
-        placeholder="{{ section.settings.search_placeholder | escape }}"
+        placeholder="{{ section.settings.search_placeholder | default: 'Produkte suchen...' | escape }}"
         autocomplete="off"
         {%- if settings.predictive_search_enabled -%}
           role="combobox"
@@ -184,13 +189,13 @@
             <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
           </span>
           <span class="pflege-main-nav__stack">
-            <strong class="pflege-main-nav__stack-title">{{ section.settings.account_heading | escape }}</strong>
+            <strong class="pflege-main-nav__stack-title">{{ section.settings.account_heading | default: 'Mein Konto' | escape }}</strong>
             <span class="pflege-main-nav__stack-sub">
               {%- liquid
                 if customer
                   echo 'customer.account_fallback' | t
                 else
-                  echo section.settings.account_sub_guest | escape
+                  echo section.settings.account_sub_guest | default: 'Anmelden' | escape
                 endif
               -%}
             </span>
@@ -208,7 +213,7 @@
             {% render 'pflege-cart-icon-inner' %}
           </span>
           <div class="pflege-main-nav__stack">
-            <strong class="pflege-main-nav__stack-title">{{ section.settings.cart_heading | escape }}</strong>
+            <strong class="pflege-main-nav__stack-title">{{ section.settings.cart_heading | default: 'Warenkorb' | escape }}</strong>
             <span class="pflege-main-nav__cart-total" data-pflege-cart-total>{{ cart.total_price | money }}</span>
           </div>
         </a>
@@ -216,9 +221,10 @@
     </div>
   </div>
 </div>
+</div>
 
 {%- if settings.cart_type == 'notification' -%}
-  {%- render 'cart-notification', color_scheme: section.settings.color_scheme, desktop_menu_type: 'dropdown' -%}
+  {%- render 'cart-notification', color_scheme: section.settings.color_scheme | default: 'scheme-1', desktop_menu_type: 'dropdown' -%}
 {%- endif -%}
 
 <div class="visually-hidden" aria-hidden="true">
