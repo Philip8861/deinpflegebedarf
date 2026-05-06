@@ -309,11 +309,12 @@
     </a>
 
     {%- comment -%}
-      Header nur im Repo: «sections/header-group.json» (Service-Leiste + Hauptleiste).
-      Keine parallelen Header-Section-Einträge in «config/settings_data.json».
-      Änderungen mit CLI/Zip/GitHub deployen; im Theme-Editor am Header nichts anpassen (reproduzierbarer Stand).
+      Header statisch aus layout/theme.liquid — keine Section-Gruppe (umgeht Editor-/Gruppen-Probleme).
+      Daten: «config/settings_data.json» → presets.Default.sections → pflege_header_* .
+      Spiegel: «sections/header-group.json» (Referenz, wird hier nicht gerendert).
     {%- endcomment -%}
-    {% sections 'header-group' %}
+    {% section 'pflege_header_service_bar' %}
+    {% section 'pflege_header_main_nav' %}
 
     {%- comment -%}
       Cart-Drawer nach dem Header: JavaScript hängt Klicks an #cart-icon-bubble / #pflege-cart-icon-bubble —

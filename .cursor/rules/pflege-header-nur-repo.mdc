@@ -1,10 +1,11 @@
 ---
-description: Header & globale Section-Gruppen nur im Theme-Code pflegen, nicht im Theme-Editor
+description: Header nur im Repo; statische Sections in theme.liquid + settings_data
 alwaysApply: true
 ---
 
-# Pflege-Theme: Konfiguration im Repository
+# Pflege-Theme: Header
 
-- **Header** ausschließlich in `sections/header-group.json` (Instanzen `pflege_header_service_bar`, `pflege_header_main_nav`) und in den zugehörigen Section-Dateien `pflege-service-bar.liquid` / `pflege-main-nav.liquid` ändern.
-- **Keine** doppelten Section-Instanzen derselben Logik in `config/settings_data.json` anlegen; dort nur was `layout/password.liquid` per `{% section '…' %}` braucht (`main-password-header`, `main-password-footer`).
-- Nach Änderungen **Theme deployen** (Shopify CLI, Zip, GitHub-Anbindung). Theme-Editor am Header umgehen — lokale JSON ist die Quelle der Wahrheit.
+- **Rendering:** `layout/theme.liquid` — `{% section 'pflege_header_service_bar' %}` und `{% section 'pflege_header_main_nav' %}` (kein `{% sections 'header-group' %}`).
+- **Daten:** `config/settings_data.json` → `presets.Default.sections` — dieselben Keys und Inhalte wie in `sections/header-group.json` (Referenz/Kopie halten).
+- **Sections:** `sections/pflege-service-bar.liquid`, `sections/pflege-main-nav.liquid` ändern.
+- Nach Änderungen Theme deployen (CLI/ZIP/GitHub).
