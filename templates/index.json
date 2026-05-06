@@ -18,12 +18,13 @@
       "blocks": {},
       "block_order": [],
       "settings": {
-        "title": "Bestseller",
+        "title": "Beliebte Pflegeprodukte",
+        "intro": "Ausgewählte Artikel, die andere Kundinnen und Kunden besonders oft gewählt haben.",
         "data_source": "collection",
         "collection": "all",
         "products_to_show": 4,
         "show_collection_rating": true,
-        "view_all_label": "Alle ansehen →",
+        "view_all_label": "Zur gesamten Auswahl →",
         "view_all_link": ""
       }
     },

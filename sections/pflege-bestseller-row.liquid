@@ -30,7 +30,12 @@
     <div class="pflege-bestseller__shell">
       <div class="pflege-bestseller__panel">
         <div class="pflege-bestseller__head">
-          <h2 class="pflege-bestseller__title">{{ section.settings.title | escape }}</h2>
+          <div class="pflege-bestseller__head-text">
+            <h2 class="pflege-bestseller__title">{{ section.settings.title | escape }}</h2>
+            {%- if section.settings.intro != blank -%}
+              <p class="pflege-bestseller__intro">{{ section.settings.intro | escape | newline_to_br }}</p>
+            {%- endif -%}
+          </div>
           {%- if section.settings.view_all_label != blank -%}
             <a class="pflege-bestseller__view-all" href="{{ view_all_href }}">
               {{- section.settings.view_all_label | escape -}}
@@ -65,7 +70,15 @@
       "type": "text",
       "id": "title",
       "label": "Überschrift",
-      "default": "Bestseller"
+      "default": "Beliebte Pflegeprodukte",
+      "info": "Gleiche Schrift wie „Ihre Vorteile im Überblick“ im Hero."
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Einleitung unter der Überschrift",
+      "info": "Optional. Typografie wie die Textzeilen unter „Vorteile“ / Trust-Bar.",
+      "default": "Ausgewählte Artikel, die andere Kundinnen und Kunden besonders oft gewählt haben."
     },
     {
       "type": "select",
@@ -109,7 +122,7 @@
       "type": "text",
       "id": "view_all_label",
       "label": "Link rechts",
-      "default": "Alle ansehen →"
+      "default": "Zur gesamten Auswahl →"
     },
     {
       "type": "url",
@@ -183,9 +196,12 @@
     {
       "name": "PflegeShop Bestseller",
       "settings": {
+        "title": "Beliebte Pflegeprodukte",
+        "intro": "Ausgewählte Artikel, die andere Kundinnen und Kunden besonders oft gewählt haben.",
         "data_source": "collection",
         "products_to_show": 4,
-        "show_collection_rating": true
+        "show_collection_rating": true,
+        "view_all_label": "Zur gesamten Auswahl →"
       }
     }
   ]

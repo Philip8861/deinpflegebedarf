@@ -30,29 +30,70 @@
 
 .pflege-bestseller__head {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: clamp(1rem, 2.5vw, 1.35rem);
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem;
+  margin-bottom: clamp(1.15rem, 2.5vw, 1.5rem);
 }
 
+@media screen and (min-width: 600px) {
+  .pflege-bestseller__head {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
+
+.pflege-bestseller__head-text {
+  min-width: 0;
+  max-width: 40rem;
+}
+
+@media screen and (min-width: 600px) {
+  .pflege-bestseller__head-text {
+    text-align: left;
+  }
+}
+
+/* Wie .pflege-hero__trust-heading („Ihre Vorteile im Überblick“) */
 .pflege-bestseller__title {
-  font-family: var(--pflege-font-display, Georgia, 'Times New Roman', serif);
-  font-size: clamp(1.45rem, 1rem + 1.2vw, 1.85rem);
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1.45rem, 1.25rem + 0.55vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
   color: var(--pflege-navy, #0b2347);
   margin: 0;
 }
 
+/* Wie .pflege-trust__text (Trust-Bar Unterzeile) */
+.pflege-bestseller__intro {
+  font-family: var(--font-body-family, inherit);
+  font-size: 1.15rem;
+  line-height: 1.45;
+  color: var(--pflege-muted, #6f7f95);
+  margin: 0.5rem 0 0;
+  max-width: 40rem;
+}
+
 .pflege-bestseller__view-all {
   font-family: var(--font-body-family, inherit);
-  font-size: clamp(1.05rem, 0.95rem + 0.35vw, 1.25rem);
-  font-weight: 600;
+  font-size: clamp(1.1rem, 1.02rem + 0.2vw, 1.25rem);
+  font-weight: 500;
   color: var(--pflege-accent, #3f86d9);
   text-decoration: none;
   white-space: nowrap;
   flex-shrink: 0;
+  align-self: center;
+}
+
+@media screen and (min-width: 600px) {
+  .pflege-bestseller__view-all {
+    align-self: flex-start;
+    margin-top: 0.2rem;
+  }
 }
 
 .pflege-bestseller__view-all:hover {
@@ -182,13 +223,14 @@
   padding-top: clamp(0.45rem, 1.1vw, 0.75rem);
 }
 
+/* Wie .pflege-hero__trust-text (Zeilen unter „Vorteile“) */
 .pflege-bestseller-card__name {
-  font-family: var(--pflege-font-display, Georgia, 'Times New Roman', serif);
-  font-size: clamp(1.16rem, 1.02rem + 0.42vw, 1.42rem);
-  font-weight: 600;
-  letter-spacing: -0.015em;
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1.22rem, 1.05rem + 0.35vw, 1.42rem);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
   color: var(--pflege-navy, #0b2347);
-  line-height: 1.28;
   margin: 0;
   width: 100%;
   text-align: left;
@@ -207,9 +249,11 @@
   color: var(--pflege-accent, #3f86d9);
 }
 
+/* Wie .pflege-trust__text */
 .pflege-bestseller-card__meta {
   font-family: var(--font-body-family, inherit);
-  font-size: clamp(0.92rem, 0.86rem + 0.18vw, 1.04rem);
+  font-size: 1.15rem;
+  line-height: 1.45;
   color: var(--pflege-muted, #6f7f95);
   margin: 0;
   width: 100%;
@@ -218,7 +262,6 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   overflow: hidden;
-  line-height: 1.35;
 }
 
 .pflege-bestseller-card__rating {
@@ -228,7 +271,7 @@
   justify-content: flex-start;
   flex-wrap: wrap;
   gap: 0.2rem;
-  font-size: clamp(1rem, 0.94rem + 0.18vw, 1.15rem);
+  font-size: 1.05rem;
   color: var(--pflege-muted, #6f7f95);
   margin: 0;
   line-height: 1.15;
@@ -261,14 +304,15 @@
 }
 
 /* Linie nur über dem Preis; links bündig mit Produktname */
+/* Betonung wie .pflege-trust__title */
 .pflege-bestseller-card__price {
   font-family: var(--font-body-family, inherit);
-  font-size: clamp(1.08rem, 1rem + 0.28vw, 1.32rem);
+  font-size: 1.25rem;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   color: var(--pflege-navy, #0b2347);
   margin: 0;
-  line-height: 1.25;
+  line-height: 1.35;
   text-align: left;
   letter-spacing: 0.01em;
   width: auto;
