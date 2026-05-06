@@ -425,16 +425,16 @@
   }
 }
 
-/* Desktop: Raster über volle Breite — mittlere Spalte für Kategorien, Suche fest begrenzt */
+/* Desktop: Raster — Nav-Spalte darf nicht unter die Suche laufen; Suche schmaler max. */
 @media screen and (min-width: 990px) {
   .pflege-main-nav-section .pflege-main-nav__grid {
     display: grid;
     grid-template-columns:
       auto
       minmax(0, 1fr)
-      minmax(18rem, min(48rem, 52vw))
+      minmax(12rem, min(34rem, 30vw))
       auto;
-    gap: clamp(0.85rem, 2vw, 2.35rem);
+    gap: clamp(0.65rem, 1.5vw, 1.45rem);
     align-items: center;
     /* Vertikaler Ausgleich Nav/Suche/Aktionen vs. Logo (Desktop ≥990px); translateY im Stylesheet oben */
     padding-top: 1.05rem;
@@ -461,39 +461,48 @@
     justify-self: stretch;
     width: 100%;
     min-width: 0;
-    overflow: visible;
+    overflow: hidden;
     padding: 0;
+    padding-inline-end: clamp(0.25rem, 0.8vw, 0.65rem);
     box-sizing: border-box;
   }
 
   .pflege-main-nav-section .pflege-main-nav__menu {
     width: 100%;
     max-width: none;
-    justify-content: space-between;
-    gap: clamp(0.35rem, 1.1vw, 1.25rem);
+    justify-content: flex-start;
+    gap: clamp(0.25rem, 0.9vw, 0.85rem);
     flex-wrap: nowrap;
     transform: none;
     align-items: center;
   }
 
+  .pflege-main-nav-section .pflege-main-nav__menu > li {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 100%;
+  }
+
   .pflege-main-nav-section .pflege-main-nav__menu-link {
     flex: 0 1 auto;
     min-width: 0;
+    width: 100%;
     text-align: center;
-    letter-spacing: 0.025em;
-    padding-inline: clamp(0.02rem, 0.25vw, 0.35rem);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    letter-spacing: 0.02em;
+    padding-inline: clamp(0.02rem, 0.2vw, 0.28rem);
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     max-width: 100%;
-    font-size: clamp(1.18rem, 0.55rem + 1.05vw, 1.72rem);
+    font-size: clamp(1rem, 0.48rem + 0.82vw, 1.52rem);
   }
 
   .pflege-main-nav-section .pflege-main-nav__search,
   .pflege-main-nav-section .pflege-main-nav__search-host {
     width: 100%;
-    max-width: min(48rem, 52vw);
-    min-width: 18rem;
+    max-width: min(34rem, 30vw);
+    min-width: 12rem;
     justify-self: stretch;
   }
 

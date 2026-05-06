@@ -28,7 +28,8 @@
     </div>
 
     <nav class="pflege-main-nav__nav" aria-label="{{ section.settings.menu_label | escape }}">
-      <ul class="pflege-main-nav__menu">
+      {%- comment -%} Feste vier Kategorien (Snippet) — nicht über Theme-Blöcke {%- endcomment -%}
+      <ul class="pflege-main-nav__menu" data-pflege-nav-categories="v4">
         {% render 'pflege-category-nav', variant: 'desktop' %}
       </ul>
     </nav>
