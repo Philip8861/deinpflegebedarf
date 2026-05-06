@@ -57,7 +57,7 @@
   }
 }
 
-/* Wie .pflege-hero__trust-heading („Ihre Vorteile im Überblick“) */
+/* Wie .pflege-hero__trust-heading („Beliebte Pflegeprodukte“) */
 .pflege-bestseller__title {
   font-family: var(--font-body-family, inherit);
   font-size: clamp(1.45rem, 1.25rem + 0.55vw, 1.75rem);
