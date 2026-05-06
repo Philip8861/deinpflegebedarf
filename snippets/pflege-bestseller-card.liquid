@@ -5,11 +5,11 @@
       {%- if p.featured_media -%}
         {{
           p.featured_media
-          | image_url: width: 360
+          | image_url: width: 400
           | image_tag:
             loading: 'lazy',
-            widths: '180, 280, 360',
-            sizes: '(min-width: 990px) 112px, (min-width: 600px) 28vw, 42vw',
+            widths: '200, 280, 400',
+            sizes: '(min-width: 990px) 150px, (min-width: 600px) 32vw, 42vw',
             alt: p.featured_media.alt | default: p.title | escape
         }}
       {%- else -%}
@@ -58,11 +58,11 @@
         {%- if p.featured_media -%}
           {{
             p.featured_media
-            | image_url: width: 360
+            | image_url: width: 400
             | image_tag:
               loading: 'lazy',
-              widths: '180, 280, 360',
-              sizes: '(min-width: 990px) 112px, (min-width: 600px) 28vw, 42vw',
+              widths: '200, 280, 400',
+              sizes: '(min-width: 990px) 150px, (min-width: 600px) 32vw, 42vw',
               alt: p.featured_media.alt | default: p.title | escape
           }}
         {%- else -%}
@@ -72,11 +72,11 @@
         {%- if block.settings.placeholder_image != blank -%}
           {{
             block.settings.placeholder_image
-            | image_url: width: 360
+            | image_url: width: 400
             | image_tag:
               loading: 'lazy',
-              widths: '180, 280, 360',
-              sizes: '(min-width: 990px) 112px, (min-width: 600px) 28vw, 42vw',
+              widths: '200, 280, 400',
+              sizes: '(min-width: 990px) 150px, (min-width: 600px) 32vw, 42vw',
               alt: ''
           }}
         {%- else -%}

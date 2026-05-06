@@ -1,7 +1,7 @@
 {{ 'section-pflege-bestseller-row.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
-  assign limit_products = section.settings.products_to_show | default: 6
+  assign limit_products = section.settings.products_to_show | default: 4
   assign show_section = false
 
   if section.settings.data_source == 'collection'
@@ -93,11 +93,11 @@
       "type": "range",
       "id": "products_to_show",
       "min": 2,
-      "max": 12,
+      "max": 8,
       "step": 1,
-      "default": 6,
+      "default": 4,
       "label": "Anzahl Produkte",
-      "info": "Nur bei „Aus Kollektion“."
+      "info": "Nur bei „Aus Kollektion“. Standard: 4 Karten in einer Reihe (Desktop)."
     },
     {
       "type": "checkbox",
@@ -118,6 +118,7 @@
       "info": "Leer = bei Kollektion die Kollektions-URL, sonst Alle Produkte."
     }
   ],
+  "max_blocks": 4,
   "blocks": [
     {
       "type": "product",
@@ -183,7 +184,7 @@
       "name": "PflegeShop Bestseller",
       "settings": {
         "data_source": "collection",
-        "products_to_show": 6,
+        "products_to_show": 4,
         "show_collection_rating": true
       }
     }

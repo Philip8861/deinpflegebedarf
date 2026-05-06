@@ -21,7 +21,7 @@
         "title": "Bestseller",
         "data_source": "collection",
         "collection": "all",
-        "products_to_show": 6,
+        "products_to_show": 4,
         "show_collection_rating": true,
         "view_all_label": "Alle ansehen →",
         "view_all_link": ""
