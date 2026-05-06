@@ -40,6 +40,13 @@
   align-items: center;
 }
 
+/* Hamburger nur schmale Handys — ab 750px wie Desktop mit Kategorien zwischen Logo und Suche */
+@media screen and (min-width: 750px) {
+  .pflege-main-nav-section .pflege-main-nav__drawer-slot--phones-only {
+    display: none !important;
+  }
+}
+
 .pflege-main-nav-section .pflege-main-nav__logo {
   flex: 0 0 auto;
   /* Etwas nach oben zur optischen Ausrichtung mit Nav/Suche */
@@ -425,28 +432,20 @@
   }
 }
 
-/* Desktop: Logo | vier Kategorien (gleichmäßig) | Suche | Aktionen */
-@media screen and (min-width: 990px) {
+/* Tablet/Desktop ab 750px: Logo | vier Kategorien | Suche | Aktionen (Drawer nur <750px) */
+@media screen and (min-width: 750px) {
   .pflege-main-nav-section .pflege-main-nav__grid {
     display: grid;
     /* Logo (auto) · Nav wächst zwischen Logo und Suche · Suche mit Obergrenze · Aktionen */
     grid-template-columns:
       auto
-      minmax(20rem, 1fr)
-      minmax(13rem, min(30rem, 26vw))
+      minmax(14rem, 1fr)
+      minmax(11rem, min(30rem, 26vw))
       auto;
     column-gap: clamp(0.85rem, 2.2vw, 1.85rem);
     align-items: center;
     padding-top: 1.05rem;
     padding-bottom: 1.5rem;
-  }
-
-  /*
-   * Mobil-Drawer-Slot aus dem Raster nehmen: Mit display:none nimmt er keine Grid-Zelle ein.
-   * Sonst 5 Kinder bei 4 Spalten → falsche Zuordnung, oft wirkt der Zwischenraum „leer“.
-   */
-  .pflege-main-nav-section .pflege-main-nav__drawer-slot {
-    display: none !important;
   }
 
   /* Eine Zeile mit Logo, Nav, Suche — ohne vertikalen Versatz */
@@ -540,18 +539,19 @@
   }
 }
 
-/* Drawer + Menü-Hilfsstyles (Desktop-Raster: Hamburger optisch am Rand) */
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .pflege-main-nav-section .pflege-main-nav__menu-link {
+    font-size: clamp(0.78rem, 0.42rem + 0.75vw, 1.12rem);
+    padding-inline: clamp(0.05rem, 0.25vw, 0.25rem);
+  }
+}
+
+/* Drawer + Menü-Hilfsstyles */
 .pflege-main-nav-section header-drawer {
   justify-self: start;
 }
 
-@media screen and (min-width: 990px) {
-  .pflege-main-nav-section header-drawer {
-    margin-left: -0.85rem;
-  }
-}
-
-@media screen and (min-width: 990px) {
+@media screen and (min-width: 750px) {
   .pflege-main-nav-section header-drawer {
     display: none !important;
   }
@@ -596,8 +596,8 @@
   }
 }
 
-/* Mobil & Tablet: eine Zeile — Flex statt Grid (vermeidet Versatz/Overflow); Kategorien nur im Drawer */
-@media screen and (max-width: 989px) {
+/* Schmale Handys: Flex-Zeile; Kategorien nur im Drawer (<750px) */
+@media screen and (max-width: 749px) {
   .pflege-main-nav-section .pflege-main-nav__grid {
     display: flex;
     flex-direction: row;
