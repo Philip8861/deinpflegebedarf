@@ -12,12 +12,9 @@
 {{ 'section-pflege-main-nav.css' | asset_url | stylesheet_tag }}
 
 {%- comment -%}
-  Synchrones »Critical CSS«: Kategorien zwischen Logo und Suche hängen am .header-wrapper,
-  nicht an .pflege-main-nav-section (letztere kann im Theme-Editor fehlen/wegfallen).
-  !important überstimmt ältere/zweite Stylesheets.
+  Kritisches CSS: Kategorie-Leiste liegt als eigene Zeile unter Logo/Suche (nicht mehr im Flex-Zwischenraum).
 {%- endcomment -%}
 <style id="pflege-main-nav-critical-{{ section.id }}">
-  /* Flex-Zeile statt Grid: Reihenfolge im DOM = Logo → Kategorien → Suche → Aktionen */
   @media screen and (min-width: 750px) {
     .header-wrapper.pflege-main-nav .pflege-main-nav__grid {
       display: flex !important;
@@ -32,25 +29,17 @@
     .header-wrapper.pflege-main-nav .pflege-main-nav__drawer-slot--phones-only {
       display: none !important;
     }
+    .header-wrapper.pflege-main-nav .pflege-main-nav__top-spacer {
+      display: block !important;
+      flex: 1 1 auto !important;
+      min-width: 1.5rem !important;
+      height: 1px !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
     .header-wrapper.pflege-main-nav .pflege-main-nav__logo {
       flex: 0 0 auto !important;
       max-width: none !important;
-    }
-    .header-wrapper.pflege-main-nav .pflege-main-nav__nav {
-      flex: 1 1 auto !important;
-      display: flex !important;
-      align-items: center !important;
-      visibility: visible !important;
-      opacity: 1 !important;
-      position: relative !important;
-      z-index: 2 !important;
-      min-width: 0 !important;
-      width: auto !important;
-      max-width: none !important;
-      height: auto !important;
-      margin: 0 !important;
-      padding: 0 clamp(0.15rem, 0.5vw, 0.5rem) !important;
-      overflow: visible !important;
     }
     .header-wrapper.pflege-main-nav predictive-search.pflege-main-nav__search-host {
       flex: 0 1 min(30rem, 28vw) !important;
@@ -72,31 +61,45 @@
       flex: 0 0 auto !important;
       margin-left: 0 !important;
     }
-    .header-wrapper.pflege-main-nav .pflege-main-nav__menu {
+    /* Volle Breite unter der Hauptzeile — kann nicht auf Breite 0 schrumpfen */
+    .header-wrapper.pflege-main-nav .pflege-main-nav__nav--categories-band {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+      padding: 0.35rem 0 0.85rem !important;
+      margin: 0 !important;
+      border-top: 1px solid rgba(61, 79, 104, 0.12) !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+    .header-wrapper.pflege-main-nav .pflege-main-nav__nav--categories-band .pflege-main-nav__menu {
       display: flex !important;
       flex-direction: row !important;
       flex-wrap: nowrap !important;
       align-items: center !important;
-      justify-content: space-evenly !important;
+      justify-content: space-between !important;
       width: 100% !important;
-      max-width: 100% !important;
-      margin: 0 !important;
+      max-width: min(72rem, 100%) !important;
+      margin: 0 auto !important;
       padding: 0 !important;
       list-style: none !important;
-      gap: clamp(0.25rem, 1vw, 0.85rem) !important;
+      gap: clamp(0.35rem, 1.5vw, 1.25rem) !important;
     }
-    .header-wrapper.pflege-main-nav .pflege-main-nav__menu > li {
+    .header-wrapper.pflege-main-nav .pflege-main-nav__nav--categories-band .pflege-main-nav__menu > li {
       flex: 1 1 0 !important;
       min-width: 0 !important;
       display: flex !important;
       justify-content: center !important;
       align-items: center !important;
     }
-    .header-wrapper.pflege-main-nav .pflege-main-nav__menu-link {
+    .header-wrapper.pflege-main-nav .pflege-main-nav__nav--categories-band .pflege-main-nav__menu-link {
       display: block !important;
-      color: #3d4f68 !important;
-      font-size: clamp(0.78rem, 0.35rem + 0.85vw, 1.22rem) !important;
-      font-weight: 400 !important;
+      color: #0b2347 !important;
+      font-size: clamp(0.85rem, 0.4rem + 0.9vw, 1.35rem) !important;
+      font-weight: 500 !important;
       text-decoration: none !important;
       text-align: center !important;
       white-space: nowrap !important;
@@ -106,7 +109,10 @@
     }
   }
   @media screen and (max-width: 749px) {
-    .header-wrapper.pflege-main-nav .pflege-main-nav__nav {
+    .header-wrapper.pflege-main-nav .pflege-main-nav__top-spacer {
+      display: none !important;
+    }
+    .header-wrapper.pflege-main-nav .pflege-main-nav__nav--categories-band {
       display: none !important;
     }
   }
@@ -128,12 +134,7 @@
       </a>
     </div>
 
-    <nav class="pflege-main-nav__nav" aria-label="{{ section.settings.menu_label | escape }}">
-      {%- comment -%} Feste vier Kategorien (Snippet) — nicht über Theme-Blöcke {%- endcomment -%}
-      <ul class="pflege-main-nav__menu" data-pflege-nav-categories="v8-pflege-shop-kategorien-snippet">
-        {% render 'pflege-shop-kategorien', variant: 'desktop' %}
-      </ul>
-    </nav>
+    <div class="pflege-main-nav__top-spacer" aria-hidden="true"></div>
 
     {%- if settings.predictive_search_enabled -%}
       <predictive-search class="pflege-main-nav__search-host" data-loading-text="{{ 'accessibility.loading' | t }}">
@@ -230,6 +231,15 @@
       </div>
     </div>
   </div>
+
+  <nav
+    class="pflege-main-nav__nav pflege-main-nav__nav--categories-band"
+    aria-label="{{ section.settings.menu_label | escape }}"
+  >
+    <ul class="pflege-main-nav__menu" data-pflege-nav-categories="band-desktop-v1">
+      {% render 'pflege-shop-kategorien', variant: 'desktop' %}
+    </ul>
+  </nav>
 </div>
 
 {%- if settings.cart_type == 'notification' -%}
