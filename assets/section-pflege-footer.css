@@ -19,10 +19,11 @@
   background: var(--pflege-white, #fefefe);
 }
 
-/* Padding früher nur per Section-Inlinestyle — jetzt fest im Stylesheet (Snippet-Footer) */
+/* Oberes Footer-Padding; unten bewusst kein padding — sonst doppelter Abstand
+   unter der Bottom-Bar (.pflege-footer__bottom-bar hat eigenes Padding + Safe Area). */
 .pflege-footer__section-padding {
   padding-top: clamp(28px, 5vw, 40px);
-  padding-bottom: clamp(20px, 4vw, 28px);
+  padding-bottom: 0;
 }
 
 /* --- Hauptfläche --- */
@@ -681,7 +682,7 @@ a.pflege-footer__contact-line:hover {
   border-top: 1px solid var(--pflege-ft-border);
   background: rgba(245, 250, 255, 0.65);
   padding-top: clamp(1rem, 2vw, 1.35rem);
-  padding-bottom: clamp(1rem, 2vw, 1.35rem);
+  padding-bottom: max(clamp(1rem, 2vw, 1.35rem), env(safe-area-inset-bottom, 0px));
   padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
   padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
   box-sizing: border-box;
