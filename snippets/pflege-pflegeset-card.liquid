@@ -72,7 +72,50 @@
       <div class="pflege-pflegesets__contents">{{ card_contents | escape | newline_to_br }}</div>
     {%- endif -%}
 
-    {%- if card_product != blank -%}
+    {%- if card_product != blank and card_variant != nil -%}
+      {%- if card_variant.compare_at_price > card_variant.price -%}
+        {%- liquid
+          assign save_cents = card_variant.compare_at_price | minus: card_variant.price
+        -%}
+        <div class="pflege-pflegesets__price pflege-pflegesets__price--sale">
+          <div class="pflege-pflegesets__price-main">
+            <s class="pflege-pflegesets__compare">
+              {% if settings.currency_code_enabled %}
+                {{ card_variant.compare_at_price | money_with_currency }}
+              {% else %}
+                {{ card_variant.compare_at_price | money }}
+              {% endif %}
+            </s>
+            <span class="pflege-pflegesets__current">
+              {% if settings.currency_code_enabled %}
+                {{ card_variant.price | money_with_currency }}
+              {% else %}
+                {{ card_variant.price | money }}
+              {% endif %}
+            </span>
+          </div>
+          <span class="pflege-pflegesets__save">
+            Sie sparen
+            {% if settings.currency_code_enabled %}
+              {{ save_cents | money_with_currency }}
+            {% else %}
+              {{ save_cents | money }}
+            {% endif %}
+          </span>
+        </div>
+      {%- else -%}
+        <div class="pflege-pflegesets__price">
+          {% if settings.currency_code_enabled %}
+            {{ card_variant.price | money_with_currency }}
+          {% else %}
+            {{ card_variant.price | money }}
+          {% endif %}
+        </div>
+      {%- endif -%}
+      <p class="pflege-pflegesets__rating">
+        <span class="pflege-pflegesets__stars" aria-hidden="true">★★★★★</span>
+      </p>
+    {%- elsif card_product != blank -%}
       <div class="pflege-pflegesets__price">
         {% if settings.currency_code_enabled %}
           {{ card_product.price_min | money_with_currency }}
