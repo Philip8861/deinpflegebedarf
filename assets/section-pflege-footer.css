@@ -10,7 +10,16 @@
   --pflege-ft-accent: var(--pflege-accent, #3f86d9);
   --pflege-ft-radius-card: clamp(16px, 2vw, 22px);
   --pflege-ft-radius-pill: var(--pflege-radius-pill, 999px);
-  --pflege-ft-max: var(--pflege-hero-tile-max-width, min(100%, 1426px));
+  /* Volle Viewport-Breite nutzen (nicht auf Hero-Kachel 1426px begrenzen) */
+  --pflege-ft-max: 100%;
+  /*
+    Eigener Footer-Rand: die globalen --pflege-inline-gutter werden auf XL sehr groß (bis 12rem)
+    und „quetschen“ den Inhalt — hier nur moderate Kantenabstände.
+  */
+  --pflege-footer-pad: clamp(1rem, 2.25vw, 2.75rem);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   margin-top: var(--pflege-footer-margin-top, 2rem);
   font-family: var(--font-body-family, inherit);
   font-style: var(--font-body-style, normal);
@@ -28,8 +37,9 @@
   width: 100%;
   max-width: var(--pflege-ft-max);
   margin: 0 auto;
-  padding: 0 max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px)) 1.25rem;
-  padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
+  padding: 0 max(var(--pflege-footer-pad), env(safe-area-inset-left, 0px)) 1.5rem;
+  padding-right: max(var(--pflege-footer-pad), env(safe-area-inset-right, 0px));
 }
 
 /* --- Pre-Footer Karte --- */
@@ -38,7 +48,7 @@
   border: 1px solid var(--pflege-ft-border);
   border-radius: var(--pflege-ft-radius-card);
   box-shadow: 0 1px 0 rgba(11, 35, 71, 0.04);
-  padding: clamp(1.25rem, 2.5vw, 2rem) clamp(1rem, 2vw, 1.75rem);
+  padding: clamp(1.35rem, 2.8vw, 2.25rem) clamp(1.25rem, 3vw, 2.75rem);
 }
 
 .pflege-footer__pre-list {
@@ -64,7 +74,7 @@
   }
 
   .pflege-footer__pre-item {
-    padding: 0 clamp(1rem, 1.5vw, 1.75rem);
+    padding: 0 clamp(1.25rem, 2.5vw, 2.5rem);
     border-right: 1px solid var(--pflege-ft-border);
   }
 
@@ -151,8 +161,9 @@
   max-width: var(--pflege-ft-max);
   margin-left: auto;
   margin-right: auto;
-  padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
-  padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
+  padding-left: max(var(--pflege-footer-pad), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--pflege-footer-pad), env(safe-area-inset-right, 0px));
 }
 
 .pflege-footer__inner--main {
@@ -162,29 +173,37 @@
 
 .pflege-footer__grid-primary {
   display: grid;
-  gap: clamp(2rem, 4vw, 3rem);
+  gap: clamp(2rem, 4vw, 3.5rem);
 }
 
 @media screen and (min-width: 990px) {
   .pflege-footer__grid-primary {
-    grid-template-columns: minmax(220px, 300px) minmax(0, 1fr) minmax(260px, 320px);
-    gap: clamp(1.75rem, 3vw, 2.75rem);
+    /* Mitte (Link-Spalten) bewusst breit — Brand + Newsletter proportional */
+    grid-template-columns: minmax(15rem, 1.1fr) minmax(0, 2.85fr) minmax(18rem, 1.15fr);
+    gap: clamp(2rem, 4vw, 4rem);
     align-items: start;
   }
 
   .pflege-footer__brand {
-    padding-right: clamp(1.25rem, 2vw, 2rem);
+    padding-right: clamp(1.5rem, 2.5vw, 2.5rem);
     border-right: 1px solid rgba(11, 35, 71, 0.12);
   }
 
   .pflege-footer__menus {
-    padding-right: clamp(0.5rem, 1vw, 1rem);
+    padding-right: clamp(0.75rem, 1.5vw, 1.5rem);
   }
 }
 
 @media screen and (min-width: 1200px) {
   .pflege-footer__grid-primary {
-    grid-template-columns: minmax(240px, 320px) minmax(0, 1fr) minmax(280px, 340px);
+    grid-template-columns: minmax(16rem, 1fr) minmax(0, 3fr) minmax(19rem, 1.1fr);
+    gap: clamp(2.25rem, 4.5vw, 4.5rem);
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .pflege-footer__grid-primary {
+    gap: clamp(2.5rem, 5vw, 5.5rem);
   }
 }
 
@@ -272,7 +291,7 @@ a.pflege-footer__contact-line:hover {
 .pflege-footer__menus {
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(1.5rem, 3vw, 2rem);
+  gap: clamp(1.75rem, 3.5vw, 2.5rem);
 }
 
 @media screen and (min-width: 600px) {
@@ -284,14 +303,14 @@ a.pflege-footer__contact-line:hover {
 @media screen and (min-width: 990px) {
   .pflege-footer__menus {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.5rem 2rem;
+    gap: 2rem 2.5rem;
   }
 }
 
 @media screen and (min-width: 1200px) {
   .pflege-footer__menus {
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1.25rem 1.5rem;
+    gap: 1.5rem clamp(1.5rem, 2.5vw, 2.5rem);
   }
 }
 
@@ -340,7 +359,7 @@ a.pflege-footer__contact-line:hover {
   border: 1px solid var(--pflege-ft-border);
   border-radius: var(--pflege-ft-radius-card);
   box-shadow: 0 8px 28px rgba(11, 35, 71, 0.07);
-  padding: clamp(1.35rem, 2.5vw, 1.75rem);
+  padding: clamp(1.5rem, 2.8vw, 2rem);
 }
 
 @media screen and (min-width: 990px) {
@@ -479,13 +498,13 @@ a.pflege-footer__contact-line:hover {
 
 .pflege-footer__inner--trust {
   display: grid;
-  gap: clamp(1.5rem, 3vw, 2rem);
+  gap: clamp(1.75rem, 3.5vw, 2.5rem);
 }
 
 @media screen and (min-width: 990px) {
   .pflege-footer__inner--trust {
-    grid-template-columns: minmax(180px, 1.1fr) repeat(3, minmax(0, 1fr));
-    gap: 1.5rem 2rem;
+    grid-template-columns: minmax(12rem, 1.15fr) repeat(3, minmax(0, 1fr));
+    gap: 2rem clamp(1.5rem, 2.5vw, 2.75rem);
     align-items: start;
   }
 
@@ -495,7 +514,7 @@ a.pflege-footer__contact-line:hover {
 
   .pflege-footer__trust-col + .pflege-footer__trust-col {
     border-left: 1px solid var(--pflege-ft-border);
-    padding-left: clamp(1.25rem, 2vw, 2rem);
+    padding-left: clamp(1.5rem, 2.5vw, 2.75rem);
   }
 
   .pflege-footer__trust-col--pay {
@@ -655,7 +674,7 @@ a.pflege-footer__contact-line:hover {
 }
 
 .pflege-footer__app-slot {
-  padding: 1rem max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
+  padding: 1rem max(var(--pflege-footer-pad), env(safe-area-inset-left, 0px));
 }
 
 @media screen and (max-width: 749px) {
