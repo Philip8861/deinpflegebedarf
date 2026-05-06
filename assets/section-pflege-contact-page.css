@@ -1,0 +1,317 @@
+/* PflegeShop — Kontaktseite */
+.pflege-contact-page {
+  --pfc-navy: var(--pflege-navy, #0b2347);
+  --pfc-accent: var(--pflege-accent, #3f86d9);
+  --pfc-border: var(--pflege-border, #e5eef8);
+  --pfc-muted: var(--pflege-muted, #6f7f95);
+  --pfc-panel: var(--pflege-bg-soft, #eef6ff);
+  --pfc-cta: var(--pflege-cta, #e67e22);
+  --pfc-cta-hover: var(--pflege-cta-hover, #cf711f);
+  --pfc-radius: var(--pflege-radius-lg, 22px);
+  background: linear-gradient(
+    180deg,
+    var(--pfc-panel) 0%,
+    rgba(255, 255, 255, 0.97) 45%,
+    var(--pflege-white, #fefefe) 100%
+  );
+  border-top: 1px solid var(--pfc-border);
+}
+
+.pflege-contact-page__shell {
+  width: 100%;
+  max-width: var(--pflege-hero-tile-max-width, min(100%, 1426px));
+  margin: 0 auto;
+  padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
+}
+
+.pflege-contact-page__header {
+  max-width: var(--pflege-max-copy, 52rem);
+  margin: 0 auto 2.25rem;
+  text-align: center;
+}
+
+.pflege-contact-page__title {
+  margin: 0 0 1rem;
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1.85rem, 1.45rem + 1.2vw, 2.35rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  color: var(--pfc-navy);
+}
+
+.pflege-contact-page__intro {
+  margin: 0;
+  font-size: clamp(1.05rem, 0.98rem + 0.2vw, 1.15rem);
+  line-height: 1.55;
+  color: var(--pfc-muted);
+}
+
+.pflege-contact-page__intro p:first-child {
+  margin-top: 0;
+}
+
+.pflege-contact-page__intro p:last-child {
+  margin-bottom: 0;
+}
+
+.pflege-contact-page__grid {
+  display: grid;
+  gap: clamp(1.75rem, 3vw, 2.5rem);
+  align-items: start;
+}
+
+@media screen and (min-width: 990px) {
+  .pflege-contact-page__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    gap: clamp(2rem, 4vw, 3.5rem);
+  }
+}
+
+/* Kontakt-Karten links */
+.pflege-contact-page__aside {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.pflege-contact-page__card {
+  background: var(--pflege-white, #fff);
+  border: 1px solid var(--pfc-border);
+  border-radius: var(--pfc-radius);
+  padding: clamp(1.25rem, 2.5vw, 1.65rem) clamp(1.35rem, 2.6vw, 1.85rem);
+  box-shadow: 0 8px 28px rgba(11, 35, 71, 0.06);
+}
+
+.pflege-contact-page__card-title {
+  margin: 0 0 0.75rem;
+  font-size: clamp(1.12rem, 1rem + 0.3vw, 1.25rem);
+  font-weight: 600;
+  color: var(--pfc-navy);
+}
+
+.pflege-contact-page__card-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  margin: 0 0 0.65rem;
+  font-size: clamp(1.05rem, 0.98rem + 0.15vw, 1.12rem);
+  line-height: 1.45;
+  color: var(--pfc-muted);
+}
+
+.pflege-contact-page__card-line:last-child {
+  margin-bottom: 0;
+}
+
+.pflege-contact-page__card-line .pflege-icon {
+  flex-shrink: 0;
+  margin-top: 0.12rem;
+  color: var(--pfc-accent);
+}
+
+.pflege-contact-page__card-line a {
+  color: var(--pfc-navy);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.pflege-contact-page__card-line a:hover {
+  color: var(--pfc-accent);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.pflege-contact-page__hint {
+  margin: 0;
+  font-size: clamp(0.88rem, 0.84rem + 0.08vw, 0.95rem);
+  line-height: 1.45;
+  color: var(--pfc-muted);
+}
+
+/* Formular */
+.pflege-contact-page__form-card {
+  background: var(--pflege-white, #fff);
+  border: 1px solid var(--pfc-border);
+  border-radius: var(--pfc-radius);
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  box-shadow: 0 10px 36px rgba(11, 35, 71, 0.08);
+}
+
+.pflege-contact-page__form-title {
+  margin: 0 0 0.35rem;
+  font-size: clamp(1.2rem, 1.05rem + 0.4vw, 1.4rem);
+  font-weight: 600;
+  color: var(--pfc-navy);
+}
+
+.pflege-contact-page__form-lead {
+  margin: 0 0 1.35rem;
+  font-size: 0.98rem;
+  line-height: 1.5;
+  color: var(--pfc-muted);
+}
+
+.pflege-contact-page__form {
+  margin: 0;
+}
+
+.pflege-contact-page__alert {
+  padding: 1rem 1.15rem;
+  border-radius: 12px;
+  margin-bottom: 1.25rem;
+  font-size: 0.98rem;
+  line-height: 1.45;
+}
+
+.pflege-contact-page__alert--success {
+  background: rgba(63, 134, 217, 0.1);
+  border: 1px solid rgba(63, 134, 217, 0.35);
+  color: var(--pfc-navy);
+}
+
+.pflege-contact-page__alert--error {
+  background: rgba(180, 35, 24, 0.08);
+  border: 1px solid rgba(180, 35, 24, 0.25);
+  color: #5c201a;
+}
+
+.pflege-contact-page__alert--error a {
+  color: #7a2a22;
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+}
+
+.pflege-contact-page__card-ic {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+  display: grid;
+  gap: 1rem;
+}
+
+@media screen and (min-width: 750px) {
+  .pflege-contact-page__fields--split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+}
+
+.pflege-contact-page__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.pflege-contact-page__label {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--pfc-navy);
+}
+
+.pflege-contact-page__label-hint {
+  font-weight: 400;
+  color: var(--pfc-muted);
+  font-size: 0.88rem;
+}
+
+.pflege-contact-page__input,
+.pflege-contact-page__textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.9rem 1.1rem;
+  border-radius: var(--pflege-radius-pill, 999px);
+  border: 1px solid var(--pfc-border);
+  background: var(--pflege-bg-softer, #f5faff);
+  font-size: 1rem;
+  font-family: inherit;
+  color: var(--pfc-navy);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pflege-contact-page__textarea {
+  border-radius: 14px;
+  min-height: 11rem;
+  resize: vertical;
+  line-height: 1.45;
+}
+
+.pflege-contact-page__input::placeholder,
+.pflege-contact-page__textarea::placeholder {
+  color: rgba(111, 127, 149, 0.75);
+}
+
+.pflege-contact-page__input:focus,
+.pflege-contact-page__textarea:focus {
+  outline: none;
+  border-color: var(--pfc-accent);
+  box-shadow: 0 0 0 3px rgba(63, 134, 217, 0.22);
+}
+
+.pflege-contact-page__input[aria-invalid='true'],
+.pflege-contact-page__textarea[aria-invalid='true'] {
+  border-color: #b42318;
+}
+
+.pflege-contact-page__field-error {
+  font-size: 0.85rem;
+  color: #b42318;
+  margin: 0;
+}
+
+.pflege-contact-page__submit-wrap {
+  margin-top: 1.35rem;
+}
+
+.pflege-contact-page__submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 22rem;
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: var(--pflege-radius-pill, 999px);
+  background: var(--pfc-cta);
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.12s ease;
+}
+
+.pflege-contact-page__submit:hover {
+  background: var(--pfc-cta-hover);
+}
+
+.pflege-contact-page__submit:focus-visible {
+  outline: 2px solid var(--pfc-accent);
+  outline-offset: 3px;
+}
+
+.pflege-contact-page__privacy-note {
+  margin: 1rem 0 0;
+  font-size: clamp(0.82rem, 0.78rem + 0.06vw, 0.88rem);
+  line-height: 1.45;
+  color: var(--pfc-muted);
+}
+
+.pflege-contact-page__privacy-note a {
+  color: var(--pfc-accent);
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pflege-contact-page__submit {
+    transition: none;
+  }
+}
