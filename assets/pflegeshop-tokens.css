@@ -28,6 +28,17 @@
     (padding unten/oben der Sections summiert sich jeweils symmetrisch).
   */
   --pflege-home-section-stack: clamp(1.5rem, 3vw, 2rem);
+  /*
+    Gemeinsam: Produktfinder-Backdrop & Footer (heller Verlauf, elliptischer Bogen nach oben).
+  */
+  --pflege-backdrop-band-gradient: linear-gradient(
+    180deg,
+    #fafcfd 0%,
+    #f8fafc 40%,
+    #f7f9fb 70%,
+    #f6f8fb 100%
+  );
+  --pflege-backdrop-band-radius-top: 50% 50% 0 0 / clamp(2rem, 5.5vw, 4rem) clamp(2rem, 5.5vw, 4rem) 0 0;
 }
 
 @media screen and (min-width: 480px) {

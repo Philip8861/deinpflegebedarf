@@ -16,7 +16,22 @@
   font-family: var(--font-body-family, inherit);
   font-style: var(--font-body-style, normal);
   color: var(--pflege-ft-navy);
-  background: var(--pflege-white, #fefefe);
+  /* Fläche + Bogen: .pflege-footer__band */
+  background: transparent;
+}
+
+/* Wie Produktfinder-Backdrop: gleicher Verlauf + elliptischer Bogen nach oben */
+.pflege-footer__band {
+  background: var(
+    --pflege-backdrop-band-gradient,
+    linear-gradient(180deg, #fafcfd 0%, #f8fafc 40%, #f7f9fb 70%, #f6f8fb 100%)
+  );
+  border-radius: var(
+    --pflege-backdrop-band-radius-top,
+    50% 50% 0 0 / clamp(2rem, 5.5vw, 4rem) clamp(2rem, 5.5vw, 4rem) 0 0
+  );
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 /* Oberes Footer-Padding; unten bewusst kein padding — sonst doppelter Abstand
@@ -28,13 +43,8 @@
 
 /* --- Hauptfläche --- */
 .pflege-footer__surface {
-  border-top: 1px solid var(--pflege-ft-border);
-  background: linear-gradient(
-    180deg,
-    var(--pflege-ft-panel) 0%,
-    rgba(255, 255, 255, 0.97) 55%,
-    #fff 100%
-  );
+  border-top: none;
+  background: transparent;
   padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
   padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
   box-sizing: border-box;
@@ -479,7 +489,7 @@ a.pflege-footer__contact-line:hover {
 /* Trust-Zeile */
 .pflege-footer__trust-strip {
   border-top: 1px solid rgba(11, 35, 71, 0.08);
-  background: #fff;
+  background: transparent;
   padding-top: clamp(1.75rem, 3vw, 2.5rem);
   padding-bottom: clamp(1.75rem, 3vw, 2.5rem);
   padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
@@ -680,7 +690,7 @@ a.pflege-footer__contact-line:hover {
 /* Bottom Bar */
 .pflege-footer__bottom-bar {
   border-top: 1px solid var(--pflege-ft-border);
-  background: rgba(245, 250, 255, 0.65);
+  background: transparent;
   padding-top: clamp(1rem, 2vw, 1.35rem);
   padding-bottom: max(clamp(1rem, 2vw, 1.35rem), env(safe-area-inset-bottom, 0px));
   padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));

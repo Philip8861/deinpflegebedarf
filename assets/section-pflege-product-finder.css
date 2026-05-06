@@ -16,15 +16,15 @@
   margin-top: clamp(1.75rem, 5vw, 3.25rem);
   /* Unten mehr Luft: Streifen läuft unter den Kasten weiter */
   padding: clamp(2.25rem, 5.5vw, 3.75rem) 0 clamp(2.75rem, 7vw, 5rem);
-  background: linear-gradient(
-    180deg,
-    #fafcfd 0%,
-    #f8fafc 40%,
-    #f7f9fb 70%,
-    #f6f8fb 100%
+  background: var(
+    --pflege-backdrop-band-gradient,
+    linear-gradient(180deg, #fafcfd 0%, #f8fafc 40%, #f7f9fb 70%, #f6f8fb 100%)
   );
   /* Horizontal weit / vertikal moderat = weicher Bogen zur darüberliegenden Fläche */
-  border-radius: 50% 50% 0 0 / clamp(2rem, 5.5vw, 4rem) clamp(2rem, 5.5vw, 4rem) 0 0;
+  border-radius: var(
+    --pflege-backdrop-band-radius-top,
+    50% 50% 0 0 / clamp(2rem, 5.5vw, 4rem) clamp(2rem, 5.5vw, 4rem) 0 0
+  );
   overflow: hidden;
   box-sizing: border-box;
 }
