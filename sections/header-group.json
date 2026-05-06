@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "name": "t:sections.header.name",
   "type": "header",
@@ -47,60 +38,11 @@
           }
         }
       },
-      "block_order": [
-        "s1",
-        "s2",
-        "s3",
-        "s4"
-      ],
+      "block_order": ["s1", "s2", "s3", "s4"],
       "settings": {}
     },
-    "pflege_main_nav": {
+    "pflege_hauptleiste": {
       "type": "pflege-main-nav",
-      "blocks": {
-        "nav_koerper": {
-          "type": "nav_link",
-          "settings": {
-            "title": "Halllooo",
-            "link": ""
-          }
-        },
-        "nav_schutz": {
-          "type": "nav_link",
-          "settings": {
-            "title": "Schutzausrüstung",
-            "link": ""
-          }
-        },
-        "nav_zubehoer": {
-          "type": "nav_link",
-          "settings": {
-            "title": "Zubehör",
-            "link": ""
-          }
-        },
-        "nav_wund": {
-          "type": "nav_link",
-          "settings": {
-            "title": "Wundbehandlung",
-            "link": ""
-          }
-        },
-        "nav_hygiene": {
-          "type": "nav_link",
-          "settings": {
-            "title": "Hygiene",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "nav_koerper",
-        "nav_schutz",
-        "nav_zubehoer",
-        "nav_wund",
-        "nav_hygiene"
-      ],
       "settings": {
         "color_scheme": "scheme-1",
         "menu_color_scheme": "scheme-1",
@@ -114,8 +56,5 @@
       }
     }
   },
-  "order": [
-    "pflege_service_bar",
-    "pflege_main_nav"
-  ]
+  "order": ["pflege_service_bar", "pflege_hauptleiste"]
 }

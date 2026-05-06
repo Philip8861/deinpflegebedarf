@@ -29,8 +29,8 @@
 
     <nav class="pflege-main-nav__nav" aria-label="{{ section.settings.menu_label | escape }}">
       {%- comment -%} Feste vier Kategorien (Snippet) — nicht über Theme-Blöcke {%- endcomment -%}
-      <ul class="pflege-main-nav__menu" data-pflege-nav-categories="v6-header-main-nav-id">
-        {% render 'pflege-category-nav', variant: 'desktop' %}
+      <ul class="pflege-main-nav__menu" data-pflege-nav-categories="v8-pflege-shop-kategorien-snippet">
+        {% render 'pflege-shop-kategorien', variant: 'desktop' %}
       </ul>
     </nav>
 
@@ -211,60 +211,10 @@
       "default": "Warenkorb"
     }
   ],
-  "blocks": [
-    {
-      "type": "nav_link",
-      "name": "Navigations-Link",
-      "settings": [
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Bezeichnung",
-          "default": "Kategorie"
-        },
-        {
-          "type": "url",
-          "id": "link",
-          "label": "Link",
-          "info": "Leer lassen für „Alle Produkte“."
-        }
-      ]
-    }
-  ],
-  "max_blocks": 12,
+  "blocks": [],
   "presets": [
     {
-      "name": "PflegeShop Hauptleiste",
-      "blocks": [
-        {
-          "type": "nav_link",
-          "settings": {
-            "title": "Desinfektion",
-            "link": "shopify://collections/desinfektion"
-          }
-        },
-        {
-          "type": "nav_link",
-          "settings": {
-            "title": "Pflegeartikel",
-            "link": "shopify://collections/pflegeartikel"
-          }
-        },
-        {
-          "type": "nav_link",
-          "settings": {
-            "title": "Hautschutz & Hautpflege",
-            "link": "shopify://collections/hautschutz-hautpflege"
-          }
-        },
-        {
-          "type": "nav_link",
-          "settings": {
-            "title": "Verbrauchsartikel",
-            "link": "shopify://collections/verbrauchsartikel"
-          }
-        }
-      ]
+      "name": "PflegeShop Hauptleiste"
     }
   ]
 }
