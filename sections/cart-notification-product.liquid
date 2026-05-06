@@ -4,10 +4,10 @@
       {%- if item.image -%}
         <div class="cart-notification-product__image global-media-settings">
           <img
-            src="{{ item.image | image_url: width: 480 }}"
+            src="{{ item.image | image_url: width: 720 }}"
             alt="{{ item.image.alt | escape }}"
-            width="175"
-            height="{{ 175 | divided_by: item.image.aspect_ratio | ceil }}"
+            width="263"
+            height="{{ 263 | divided_by: item.image.aspect_ratio | ceil }}"
             loading="lazy"
           >
         </div>
@@ -52,9 +52,6 @@
             {{ 'general.cart.notification_qty' | t: count: item.quantity }}
           </span>
         </div>
-      </div>
-      <div class="cart-notification-product__price">
-        {{- item.final_line_price | money -}}
       </div>
     </div>
   {%- endfor -%}
