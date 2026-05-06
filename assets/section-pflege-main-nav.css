@@ -436,20 +436,21 @@
 @media screen and (min-width: 750px) {
   .pflege-main-nav-section .pflege-main-nav__grid {
     display: grid;
-    /* Logo (auto) · Nav wächst zwischen Logo und Suche · Suche mit Obergrenze · Aktionen */
     grid-template-columns:
       auto
       minmax(14rem, 1fr)
       minmax(11rem, min(30rem, 26vw))
       auto;
+    grid-template-areas: 'logo nav search actions';
     column-gap: clamp(0.85rem, 2.2vw, 1.85rem);
     align-items: center;
     padding-top: 1.05rem;
     padding-bottom: 1.5rem;
   }
 
-  /* Eine Zeile mit Logo, Nav, Suche — ohne vertikalen Versatz */
+  /* Feste Bereiche: verhindert, dass die Nav bei predictive-search aus dem Raster rutscht */
   .pflege-main-nav-section .pflege-main-nav__logo {
+    grid-area: logo;
     justify-self: start;
     align-self: center;
     transform: none;
@@ -459,27 +460,48 @@
     align-items: center;
   }
 
-  .pflege-main-nav-section .pflege-main-nav__nav,
-  .pflege-main-nav-section .pflege-main-nav__search,
-  .pflege-main-nav-section .pflege-main-nav__search-host,
-  .pflege-main-nav-section .pflege-main-nav__actions {
-    align-self: center;
-    transform: none;
-  }
-
-  .pflege-main-nav-section .pflege-main-nav__grid:not(:has(.pflege-main-nav__search-host)) .pflege-main-nav__search {
-    transform: none;
-  }
-
   .pflege-main-nav-section .pflege-main-nav__nav {
+    grid-area: nav;
+    display: flex !important;
+    visibility: visible !important;
     justify-self: stretch;
+    align-self: center;
     width: 100%;
-    min-width: 0;
+    min-width: min(100%, 12rem);
     max-width: 100%;
     overflow: visible;
     padding: 0;
     padding-inline: clamp(0.15rem, 0.5vw, 0.5rem);
     box-sizing: border-box;
+    transform: none;
+  }
+
+  .pflege-main-nav-section predictive-search.pflege-main-nav__search-host,
+  .pflege-main-nav-section .pflege-main-nav__grid > form.pflege-main-nav__search {
+    grid-area: search;
+    align-self: center;
+    transform: none;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__actions {
+    grid-area: actions;
+    justify-self: end;
+    align-self: center;
+    flex-shrink: 0;
+    align-items: center;
+    transform: none;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__search,
+  .pflege-main-nav-section .pflege-main-nav__search-host {
+    width: 100%;
+    max-width: min(30rem, 26vw);
+    min-width: 12rem;
+    justify-self: stretch;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__grid:not(:has(.pflege-main-nav__search-host)) .pflege-main-nav__search {
+    transform: none;
   }
 
   /* Vier Kategorien gleich breit im Zwischenraum Logo–Suche */
@@ -518,20 +540,6 @@
     white-space: nowrap;
     font-size: clamp(0.92rem, 0.42rem + 0.72vw, 1.38rem);
     line-height: 1.2;
-  }
-
-  .pflege-main-nav-section .pflege-main-nav__search,
-  .pflege-main-nav-section .pflege-main-nav__search-host {
-    width: 100%;
-    max-width: min(30rem, 26vw);
-    min-width: 12rem;
-    justify-self: stretch;
-  }
-
-  .pflege-main-nav-section .pflege-main-nav__actions {
-    justify-self: end;
-    flex-shrink: 0;
-    align-items: center;
   }
 
   .pflege-main-nav-section .pflege-main-nav__action {
