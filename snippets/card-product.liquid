@@ -15,7 +15,7 @@
   - section_id: {String} The ID of the section that contains this card.
   - horizontal_class: {Boolean} Add a card--horizontal class if set to true. Default: false (optional)
   - horizontal_quick_add: {Boolean} Changes the quick add button styles when set to true. Default: false (optional)
-  - placeholder_image: {String} The placeholder image to use when no product exists. Default: 'product-apparel-2' (optional)
+  - quick_add_icon_only: {Boolean} Icon-only quick-add button (optional)
 
   Usage:
   {% render 'card-product', show_vendor: section.settings.show_vendor %}
@@ -39,6 +39,7 @@
     if ratio == 0 or ratio == null
       assign ratio = 1
     endif
+    assign qa_icon_only = quick_add_icon_only | default: false
   -%}
   <div class="card-wrapper product-card-wrapper underline-links-hover">
     <div
@@ -303,13 +304,16 @@
                   id="{{ product_form_id }}-submit"
                   type="submit"
                   name="add"
-                  class="quick-add__submit button button--full-width button--secondary{% if horizontal_quick_add %} card--horizontal__quick-add animate-arrow{% endif %}"
+                  class="quick-add__submit button button--full-width button--secondary{% if horizontal_quick_add %} card--horizontal__quick-add{% unless qa_icon_only %} animate-arrow{% endunless %}{% endif %}{% if qa_icon_only %} quick-add__submit--icon-only{% endif %}"
                   aria-haspopup="dialog"
                   aria-labelledby="{{ product_form_id }}-submit title-{{ section_id }}-{{ card_product.id }}"
                   data-product-url="{{ card_product.url }}"
                 >
-                  {{ 'products.product.choose_options' | t }}
-                  {%- if horizontal_quick_add -%}
+                  <span class="{% if qa_icon_only %}visually-hidden{% endif %}">{{ 'products.product.choose_options' | t }}</span>
+                  {% if qa_icon_only %}
+                    {% render 'pflege-icon', icon: 'cart', width: 22 %}
+                  {% endif %}
+                  {%- if horizontal_quick_add and qa_icon_only == false -%}
                     <span class="icon-wrap">
                       {{- 'icon-arrow.svg' | inline_asset_content -}}
                     </span>
@@ -358,7 +362,7 @@
                     id="{{ product_form_id }}-submit"
                     type="submit"
                     name="add"
-                    class="quick-add__submit button button--full-width button--secondary{% if horizontal_quick_add %} card--horizontal__quick-add{% endif %}"
+                    class="quick-add__submit button button--full-width button--secondary{% if horizontal_quick_add %} card--horizontal__quick-add{% endif %}{% if qa_icon_only %} quick-add__submit--icon-only{% endif %}"
                     aria-haspopup="dialog"
                     aria-labelledby="{{ product_form_id }}-submit title-{{ section_id }}-{{ card_product.id }}"
                     aria-live="polite"
@@ -367,17 +371,20 @@
                       disabled
                     {% endif %}
                   >
-                    <span>
+                    <span class="{% if qa_icon_only %}visually-hidden{% endif %}">
                       {%- if card_product.selected_or_first_available_variant.available -%}
                         {{ 'products.product.add_to_cart' | t }}
                       {%- else -%}
                         {{ 'products.product.sold_out' | t }}
                       {%- endif -%}
                     </span>
+                    {% if qa_icon_only %}
+                      {% render 'pflege-icon', icon: 'cart', width: 22 %}
+                    {% endif %}
                     <span class="sold-out-message hidden">
                       {{ 'products.product.sold_out' | t }}
                     </span>
-                    {%- if horizontal_quick_add -%}
+                    {%- if horizontal_quick_add and qa_icon_only == false -%}
                       <span class="icon-wrap">
                         {{- 'icon-plus.svg' | inline_asset_content -}}
                       </span>

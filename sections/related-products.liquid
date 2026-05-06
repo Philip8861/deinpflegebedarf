@@ -2,6 +2,19 @@
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
 {{ 'section-related-products.css' | asset_url | stylesheet_tag }}
 
+{%- liquid
+  assign related_quick_add = 'none'
+  assign related_icon_only = false
+  if section.settings.enable_mini_cart_icon
+    assign related_quick_add = 'standard'
+    assign related_icon_only = true
+  endif
+-%}
+
+{%- if section.settings.enable_mini_cart_icon -%}
+  {{ 'section-pflege-cart-ui.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+
 {% if section.settings.image_shape == 'blob' %}
   {{ 'mask-blobs.css' | asset_url | stylesheet_tag }}
 {%- endif -%}
@@ -22,7 +35,7 @@
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
   <product-recommendations
-    class="related-products page-width section-{{ section.id }}-padding isolate{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+    class="related-products page-width section-{{ section.id }}-padding isolate{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}{% if section.settings.enable_mini_cart_icon %} pflege-related--mini-cart-icon{% endif %}"
     data-url="{{ routes.product_recommendations_url }}?limit={{ section.settings.products_to_show }}"
     data-section-id="{{ section.id }}"
     data-product-id="{{ product.id }}"
@@ -40,12 +53,15 @@
           <li class="grid__item">
             {% render 'card-product',
               card_product: recommendation,
+              section_id: section.id,
               media_aspect_ratio: section.settings.image_ratio,
               image_shape: section.settings.image_shape,
               show_secondary_image: section.settings.show_secondary_image,
               show_vendor: section.settings.show_vendor,
               show_rating: section.settings.show_rating,
-              skip_styles: skip_card_product_styles
+              skip_styles: skip_card_product_styles,
+              quick_add: related_quick_add,
+              quick_add_icon_only: related_icon_only
             %}
           </li>
           {%- assign skip_card_product_styles = true -%}
@@ -67,6 +83,12 @@
     {
       "type": "paragraph",
       "content": "t:sections.related-products.settings.paragraph__1.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_mini_cart_icon",
+      "label": "Mini-Warenkorb-Kachel (blaues Icon)",
+      "default": true
     },
     {
       "type": "inline_richtext",

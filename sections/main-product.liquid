@@ -1,6 +1,6 @@
 <product-info
   id="MainProduct-{{ section.id }}"
-  class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}"
+  class="pflege-product-page section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}"
   data-section="{{ section.id }}"
   data-product-id="{{ product.id }}"
   data-update-url="true"
@@ -10,6 +10,7 @@
   {% endif %}
 >
   {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+  {{ 'section-pflege-cart-ui.css' | asset_url | stylesheet_tag }}
   {{ 'component-accordion.css' | asset_url | stylesheet_tag }}
   {{ 'component-price.css' | asset_url | stylesheet_tag }}
   {{ 'component-slider.css' | asset_url | stylesheet_tag }}
@@ -86,6 +87,19 @@
           {%- assign product_form_id = 'product-form-' | append: section.id -%}
 
           {%- for block in section.blocks -%}
+            {%- liquid
+              assign pf_prev_type = ''
+              assign pf_next_type = ''
+              if forloop.index0 > 0
+                assign pf_prev_block = section.blocks[forloop.index0 | minus: 1]
+                assign pf_prev_type = pf_prev_block.type
+              endif
+              assign pf_next_idx = forloop.index0 | plus: 1
+              if pf_next_idx < section.blocks.size
+                assign pf_next_block = section.blocks[pf_next_idx]
+                assign pf_next_type = pf_next_block.type
+              endif
+            -%}
             {%- case block.type -%}
               {%- when '@app' -%}
                 {% render block %}
@@ -141,56 +155,67 @@
                   {%- endform -%}
                 </div>
               {%- when 'inventory' -%}
-                <p
-                  class="product__inventory{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}{% if product.selected_or_first_available_variant.inventory_management != 'shopify' %} visibility-hidden{% endif %}"
+                <div
+                  class="pflege-product__availability-wrap product__inventory{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}{% if product.selected_or_first_available_variant.inventory_management != 'shopify' %} visibility-hidden{% endif %}"
                   {{ block.shopify_attributes }}
                   id="Inventory-{{ section.id }}"
                   role="status"
                 >
                   {%- if product.selected_or_first_available_variant.inventory_management == 'shopify' -%}
-                    {%- if product.selected_or_first_available_variant.inventory_quantity > 0 -%}
-                      {%- if product.selected_or_first_available_variant.inventory_quantity
-                          <= block.settings.inventory_threshold
-                      -%}
-                        <span class="svg-wrapper" style="color: rgb(238, 148, 65)">
-                          {{- 'icon-inventory-status.svg' | inline_asset_content -}}
-                        </span>
-                        {%- if block.settings.show_inventory_quantity -%}
-                          {{-
-                            'products.product.inventory_low_stock_show_count'
-                            | t: quantity: product.selected_or_first_available_variant.inventory_quantity
-                          -}}
+                    <div class="pflege-product__availability-inner">
+                      {%- if product.selected_or_first_available_variant.inventory_quantity > 0 -%}
+                        {%- if product.selected_or_first_available_variant.inventory_quantity
+                            <= block.settings.inventory_threshold
+                        -%}
+                          <span class="pflege-product__avail-dot pflege-product__avail-dot--low" aria-hidden="true"></span>
+                          <p class="pflege-product__availability-status">
+                            {%- if block.settings.show_inventory_quantity -%}
+                              {{-
+                                'products.product.inventory_low_stock_show_count'
+                                | t: quantity: product.selected_or_first_available_variant.inventory_quantity
+                              -}}
+                            {%- else -%}
+                              {{- 'products.product.inventory_low_stock' | t -}}
+                            {%- endif -%}
+                          </p>
+                          <p class="pflege-product__availability-meta">
+                            {{- 'products.product.pflege_cart.delivery_eta' | t -}}
+                          </p>
                         {%- else -%}
-                          {{- 'products.product.inventory_low_stock' | t -}}
+                          <span class="pflege-product__avail-dot pflege-product__avail-dot--ok" aria-hidden="true"></span>
+                          <p class="pflege-product__availability-status">
+                            {%- if block.settings.show_inventory_quantity -%}
+                              {{-
+                                'products.product.inventory_in_stock_show_count'
+                                | t: quantity: product.selected_or_first_available_variant.inventory_quantity
+                              -}}
+                            {%- else -%}
+                              {{- 'products.product.inventory_in_stock' | t -}}
+                            {%- endif -%}
+                          </p>
+                          <p class="pflege-product__availability-meta">
+                            {{- 'products.product.pflege_cart.delivery_eta' | t -}}
+                          </p>
                         {%- endif -%}
                       {%- else -%}
-                        <span class="svg-wrapper" style="color: rgb(62, 214, 96)">
-                          {{- 'icon-inventory-status.svg' | inline_asset_content -}}
-                        </span>
-                        {%- if block.settings.show_inventory_quantity -%}
-                          {{-
-                            'products.product.inventory_in_stock_show_count'
-                            | t: quantity: product.selected_or_first_available_variant.inventory_quantity
-                          -}}
+                        {%- if product.selected_or_first_available_variant.inventory_policy == 'continue' -%}
+                          <span class="pflege-product__avail-dot pflege-product__avail-dot--ok" aria-hidden="true"></span>
+                          <p class="pflege-product__availability-status">
+                            {{- 'products.product.inventory_out_of_stock_continue_selling' | t -}}
+                          </p>
+                          <p class="pflege-product__availability-meta">
+                            {{- 'products.product.pflege_cart.delivery_eta' | t -}}
+                          </p>
                         {%- else -%}
-                          {{- 'products.product.inventory_in_stock' | t -}}
+                          <span class="pflege-product__avail-dot pflege-product__avail-dot--bad" aria-hidden="true"></span>
+                          <p class="pflege-product__availability-status">
+                            {{- 'products.product.inventory_out_of_stock' | t -}}
+                          </p>
                         {%- endif -%}
                       {%- endif -%}
-                    {%- else -%}
-                      {%- if product.selected_or_first_available_variant.inventory_policy == 'continue' -%}
-                        <span class="svg-wrapper" style="color: rgb(62, 214, 96)">
-                          {{- 'icon-inventory-status.svg' | inline_asset_content -}}
-                        </span>
-                        {{- 'products.product.inventory_out_of_stock_continue_selling' | t -}}
-                      {%- else -%}
-                        <span class="svg-wrapper" style="color: rgb(200, 200, 200)">
-                          {{- 'icon-inventory-status.svg' | inline_asset_content -}}
-                        </span>
-                        {{- 'products.product.inventory_out_of_stock' | t -}}
-                      {%- endif -%}
-                    {%- endif -%}
+                    </div>
                   {%- endif -%}
-                </p>
+                </div>
               {%- when 'description' -%}
                 {%- if product.description != blank -%}
                   <div class="product__description rte quick-add-hidden" {{ block.shopify_attributes }}>
@@ -228,6 +253,9 @@
                   </details>
                 </div>
               {%- when 'quantity_selector' -%}
+                {%- if pf_next_type == 'buy_buttons' -%}
+                  <div class="pflege-product__purchase-row">
+                {%- endif -%}
                 <div
                   id="Quantity-Form-{{ section.id }}"
                   class="product-form__input product-form__quantity{% if settings.inputs_shadow_vertical_offset != 0 and settings.inputs_shadow_vertical_offset < 0 %} product-form__quantity-top{% endif %}"
@@ -485,6 +513,10 @@
                   section_id: section.id,
                   show_pickup_availability: true
                 -%}
+                {%- if pf_prev_type == 'quantity_selector' -%}
+                  </div>
+                {%- endif -%}
+                {% render 'pflege-product-cart-extras' %}
               {%- when 'rating' -%}
                 {%- if product.metafields.reviews.rating.value != blank -%}
                   <div class="rating-wrapper">

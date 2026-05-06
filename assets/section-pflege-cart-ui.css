@@ -1,0 +1,296 @@
+/* PflegeShop — Warenkorb-UX Produktseite (Referenz-Layout) */
+.pflege-product-page .pflege-product__availability-wrap.product__inventory {
+  margin: 0 0 1rem;
+}
+
+.pflege-product__availability-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem 0.65rem;
+}
+
+.pflege-product__avail-dot {
+  flex-shrink: 0;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 999px;
+  background: #adb8ca;
+}
+
+.pflege-product__avail-dot--ok {
+  background: #21a366;
+}
+
+.pflege-product__avail-dot--low {
+  background: #ee9441;
+}
+
+.pflege-product__avail-dot--bad {
+  background: #c5cdd9;
+}
+
+.pflege-product__availability-status {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--pflege-navy, #0b2347);
+}
+
+.pflege-product__availability-meta {
+  margin: 0;
+  flex-basis: 100%;
+  font-size: 1.22rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--pflege-main-muted, #6f7f95);
+}
+
+/* Menge + „In den Warenkorb“ in einer Zeile */
+.pflege-product__purchase-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.85rem;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 0.85rem;
+}
+
+.pflege-product__purchase-row .product-form__quantity {
+  flex: 0 0 auto;
+  margin-bottom: 0;
+  max-width: 100%;
+}
+
+.pflege-product__purchase-row .product-form__quantity .form__label {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  border: 0 !important;
+}
+
+.pflege-product__purchase-row .product-form__quantity .quantity__rules-cart {
+  display: none;
+}
+
+.pflege-product__purchase-row .product-form {
+  flex: 1 1 14rem;
+  margin-top: 0;
+  min-width: min(100%, 14rem);
+}
+
+.pflege-product__purchase-row .product-form > .form {
+  margin: 0;
+}
+
+.pflege-product__purchase-row .product-form__buttons {
+  max-width: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.pflege-product__purchase-row quantity-input.quantity {
+  border-radius: 0.65rem;
+  border: 1px solid #d5dce8;
+  background: #fff;
+  min-height: 4.45rem;
+}
+
+.pflege-product__purchase-row .quantity__button {
+  color: var(--pflege-navy, #0b2347);
+}
+
+.pflege-product__purchase-row .quantity__input {
+  font-size: 1.45rem;
+  font-weight: 600;
+}
+
+/* Oranger Haupt-CTA */
+.pflege-product__add-btn.button {
+  --pflege-cta-orange: #ff791f;
+  width: 100%;
+  min-height: 4.45rem;
+  padding: 0 1.5rem;
+  border-radius: 0.65rem;
+  border: none;
+  background: var(--pflege-cta-orange);
+  color: #fff;
+  font-size: 1.38rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  box-shadow: none;
+}
+
+.pflege-product__add-btn.button::after,
+.pflege-product__add-btn.button::before {
+  display: none;
+}
+
+.pflege-product__add-btn.button:not([disabled]):hover {
+  background: #e86915;
+  color: #fff;
+}
+
+.pflege-product__add-btn.button[disabled],
+.pflege-product__add-btn.button[aria-disabled='true'] {
+  opacity: 0.55;
+}
+
+.pflege-product__add-btn-inner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+}
+
+.pflege-product__add-arrow {
+  font-size: 1.45rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+/* Merkzettel */
+.pflege-product__cart-extras {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1.25rem;
+}
+
+.pflege-product__wishlist {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  width: 100%;
+  min-height: 4.1rem;
+  padding: 0 1rem;
+  border-radius: 0.65rem;
+  border: 1px solid #5891d7;
+  background: #fff;
+  color: #5891d7;
+  font-size: 1.32rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  box-sizing: border-box;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.pflege-product__wishlist:hover {
+  background: rgba(88, 145, 215, 0.06);
+  color: #4078bd;
+}
+
+.pflege-product__wishlist:focus-visible {
+  outline: 2px solid #5891d7;
+  outline-offset: 2px;
+}
+
+.pflege-product__wishlist .pflege-icon {
+  display: inline-flex;
+  color: inherit;
+}
+
+/* Trust-Zeile unter Merkzettel */
+.pflege-product__trust-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem 1rem;
+  padding-top: 0.25rem;
+}
+
+@media screen and (max-width: 749px) {
+  .pflege-product__trust-strip {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pflege-product__trust-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  min-width: 0;
+}
+
+.pflege-product__trust-item .pflege-icon {
+  flex-shrink: 0;
+  margin-top: 0.12rem;
+  color: #5891d7;
+}
+
+.pflege-product__trust-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+  min-width: 0;
+}
+
+.pflege-product__trust-title {
+  margin: 0;
+  font-size: 1.18rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--pflege-navy, #0b2347);
+  line-height: 1.25;
+}
+
+.pflege-product__trust-sub {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--pflege-main-muted, #6f7f95);
+  line-height: 1.3;
+}
+
+/* Verwandte Produkte: quadratischer Mini-Warenkorb */
+.related-products.pflege-related--mini-cart-icon .quick-add {
+  margin-top: 0.65rem;
+}
+
+.related-products.pflege-related--mini-cart-icon .quick-add__submit.quick-add__submit--icon-only {
+  width: 3.35rem;
+  min-width: 0;
+  height: 3.35rem;
+  min-height: 0;
+  padding: 0;
+  margin-left: auto;
+  margin-right: 0;
+  border-radius: 0.45rem;
+  border: none;
+  background: #2266c3;
+  color: #fff;
+  box-shadow: none;
+}
+
+.related-products.pflege-related--mini-cart-icon .quick-add__submit.quick-add__submit--icon-only::after,
+.related-products.pflege-related--mini-cart-icon .quick-add__submit.quick-add__submit--icon-only::before {
+  display: none;
+}
+
+.related-products.pflege-related--mini-cart-icon .quick-add__submit.quick-add__submit--icon-only:not([disabled]):hover {
+  background: #1b559f;
+  color: #fff;
+}
+
+.related-products.pflege-related--mini-cart-icon .quick-add__submit.quick-add__submit--icon-only .pflege-icon {
+  color: #fff;
+}
+
+.related-products.pflege-related--mini-cart-icon .quick-add__submit.quick-add__submit--icon-only .loading__spinner {
+  width: 1.65rem;
+  height: 1.65rem;
+}

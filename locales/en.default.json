@@ -139,6 +139,16 @@
       "inventory_low_stock_show_count": "Low stock: {{ quantity }} left",
       "inventory_out_of_stock": "Out of stock",
       "inventory_out_of_stock_continue_selling": "In stock",
+      "pflege_cart": {
+        "wishlist": "Save to wishlist",
+        "delivery_eta": "Delivery in 1–2 business days",
+        "trust_ship_title": "Shipping in 1–2 days",
+        "trust_ship_sub": "Fast delivery to your door",
+        "trust_invoice_title": "Buy on invoice",
+        "trust_invoice_sub": "Simple and secure",
+        "trust_care_title": "Recommended by caregivers",
+        "trust_care_sub": "Trust that matters"
+      },
       "sku": "SKU",
       "on_sale": "Sale",
       "product_variants": "Product variants",

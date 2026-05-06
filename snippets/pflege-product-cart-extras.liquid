@@ -1,0 +1,40 @@
+{% comment %}
+  Merkzettel-Zeile + Trust-Leiste unterhalb der Kaufzeile (PflegeShop-Referenz).
+{% endcomment %}
+{%- liquid
+  assign merkzettel_url = routes.root_url | append: 'pages/merkzettel'
+  if pages['merkzettel'] != blank
+    assign merkzettel_url = pages['merkzettel'].url
+  endif
+-%}
+
+<div class="pflege-product__cart-extras">
+  <a class="pflege-product__wishlist" href="{{ merkzettel_url }}">
+    {% render 'pflege-icon', icon: 'heart', width: 20 %}
+    <span>{{ 'products.product.pflege_cart.wishlist' | t }}</span>
+  </a>
+
+  <div class="pflege-product__trust-strip" role="presentation">
+    <div class="pflege-product__trust-item">
+      {% render 'pflege-icon', icon: 'truck', width: 22 %}
+      <div class="pflege-product__trust-copy">
+        <p class="pflege-product__trust-title">{{ 'products.product.pflege_cart.trust_ship_title' | t }}</p>
+        <p class="pflege-product__trust-sub">{{ 'products.product.pflege_cart.trust_ship_sub' | t }}</p>
+      </div>
+    </div>
+    <div class="pflege-product__trust-item">
+      {% render 'pflege-icon', icon: 'document', width: 22 %}
+      <div class="pflege-product__trust-copy">
+        <p class="pflege-product__trust-title">{{ 'products.product.pflege_cart.trust_invoice_title' | t }}</p>
+        <p class="pflege-product__trust-sub">{{ 'products.product.pflege_cart.trust_invoice_sub' | t }}</p>
+      </div>
+    </div>
+    <div class="pflege-product__trust-item">
+      {% render 'pflege-icon', icon: 'star', width: 22 %}
+      <div class="pflege-product__trust-copy">
+        <p class="pflege-product__trust-title">{{ 'products.product.pflege_cart.trust_care_title' | t }}</p>
+        <p class="pflege-product__trust-sub">{{ 'products.product.pflege_cart.trust_care_sub' | t }}</p>
+      </div>
+    </div>
+  </div>
+</div>

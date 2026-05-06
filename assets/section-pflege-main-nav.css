@@ -287,22 +287,32 @@
   display: block;
 }
 
-/* Konto + Warenkorb: eine gemeinsame Icon-Farbe (kein Abweichen durch SVG-Defaults / leerer Wagen) */
-.pflege-main-nav-section .pflege-main-nav__action-icon .svg-wrapper,
+/* Warenkorb-Icon: Marine (#5891d7 nur für Konto) */
 .pflege-main-nav-section .pflege-main-nav__cart-graphic .svg-wrapper {
-  color: #5891d7;
+  color: var(--pflege-navy, #0b2347);
 }
 
-.pflege-main-nav-section .pflege-main-nav__action-icon svg,
-.pflege-main-nav-section .pflege-main-nav__cart-graphic svg {
+.pflege-main-nav-section .pflege-main-nav__action-icon svg {
   color: #5891d7;
   stroke: currentColor;
   fill: none;
   stroke-opacity: 1;
 }
 
+.pflege-main-nav-section .pflege-main-nav__cart-graphic svg {
+  color: var(--pflege-navy, #0b2347);
+  stroke: currentColor;
+  fill: none;
+  stroke-opacity: 1;
+}
+
 .pflege-main-nav-section .pflege-main-nav__action-icon svg circle,
-.pflege-main-nav-section .pflege-main-nav__action-icon svg path,
+.pflege-main-nav-section .pflege-main-nav__action-icon svg path {
+  fill: none;
+  stroke: currentColor;
+  stroke-opacity: 1;
+}
+
 .pflege-main-nav-section .pflege-main-nav__cart-graphic svg circle,
 .pflege-main-nav-section .pflege-main-nav__cart-graphic svg path {
   fill: none;
@@ -356,7 +366,7 @@
   flex-shrink: 0;
   width: var(--pflege-action-icon-box);
   height: var(--pflege-action-icon-box);
-  color: #5891d7;
+  color: var(--pflege-navy, #0b2347);
 }
 
 .pflege-main-nav-section .pflege-main-nav__cart-graphic .svg-wrapper {
@@ -371,14 +381,20 @@
   height: 100%;
 }
 
-/* Badge: Dawn-Standard ist auf kleinerem Icon kalibriert */
+/* Mengen-Badge: schwarzer Kreis, weiße Zahl, links vom Wagen (Referenz-PDP) */
 .pflege-main-nav-section .pflege-main-nav__cart-graphic .cart-count-bubble {
-  left: auto;
-  right: -0.1rem;
-  bottom: 0.55rem;
+  left: -0.2rem;
+  right: auto;
+  bottom: auto;
+  top: 50%;
+  transform: translateY(-50%);
   width: 1.85rem;
   height: 1.85rem;
   font-size: 0.95rem;
+  font-weight: 700;
+  background-color: #121212;
+  color: #fff;
+  border: none;
 }
 
 @media screen and (max-width: 989px) {
@@ -703,11 +719,16 @@
   }
 
   .pflege-main-nav-section .pflege-main-nav__cart-graphic .cart-count-bubble {
-    right: -0.05rem;
-    bottom: 0.35rem;
+    left: -0.08rem;
+    right: auto;
+    bottom: auto;
+    top: 50%;
+    transform: translateY(-50%);
     width: 1.55rem;
     height: 1.55rem;
     font-size: 0.88rem;
+    background-color: #121212;
+    color: #fff;
   }
 
   .pflege-main-nav-section .pflege-main-nav__search {
