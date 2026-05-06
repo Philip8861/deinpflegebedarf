@@ -7,6 +7,7 @@
   color: var(--pflege-navy, #0b2347);
   /* Mit 4-Spalten-Nav zwischen Logo und Suche: skalieren statt fester 1.78rem */
   font-size: clamp(0.95rem, 0.45rem + 0.85vw, 1.48rem);
+  font-weight: 600;
   letter-spacing: 0.02em;
 }
 
