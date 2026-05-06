@@ -1,0 +1,66 @@
+{{ 'section-pflege-hero.css' | asset_url | stylesheet_tag }}
+
+<section class="pflege-hero pflege-hero--trust-only">
+  <div class="pflege-hero__shell">
+    <div class="pflege-hero__trust-wrap">
+      <h2 class="pflege-hero__trust-heading">
+        {{- section.settings.trust_heading | default: 'Ihre Vorteile im Überblick' | escape -}}
+      </h2>
+      <ul class="pflege-hero__trust" role="list">
+        <li class="pflege-hero__trust-item">
+          <span class="pflege-hero__trust-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+          </span>
+          <span class="pflege-hero__trust-text">Persönlich ausgewählte Pflegeprodukte</span>
+        </li>
+        <li class="pflege-hero__trust-item">
+          <span class="pflege-hero__trust-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="5" y="11" width="14" height="10" rx="2"/>
+              <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+            </svg>
+          </span>
+          <span class="pflege-hero__trust-text">Sicher bezahlen mit Käuferschutz</span>
+        </li>
+        <li class="pflege-hero__trust-item">
+          <span class="pflege-hero__trust-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/>
+              <path d="M15 18H9"/>
+              <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/>
+              <circle cx="17" cy="18" r="2"/>
+              <circle cx="7" cy="18" r="2"/>
+            </svg>
+          </span>
+          <span class="pflege-hero__trust-text">Schneller Versand in 1–2 Tagen</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PflegeShop Vorteile (unter Hero)",
+  "tag": "section",
+  "class": "pflege-hero-trust-section section-pflege-hero-trust",
+  "enabled_on": {
+    "templates": ["index"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "trust_heading",
+      "label": "Überschrift",
+      "default": "Ihre Vorteile im Überblick"
+    }
+  ],
+  "presets": [
+    {
+      "name": "PflegeShop Vorteile (unter Hero)"
+    }
+  ]
+}
+{% endschema %}

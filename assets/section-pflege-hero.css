@@ -3,6 +3,16 @@
   padding-bottom: clamp(2rem, 4vw, 2.75rem);
 }
 
+/* Nur Trust-Bereich (eigene Section unter Bestseller): gleiche Shell, etwas kompakteres OberPadding */
+.pflege-hero--trust-only {
+  padding-top: clamp(0.5rem, 1.5vw, 1rem);
+  padding-bottom: clamp(2rem, 4vw, 2.75rem);
+}
+
+.pflege-hero--trust-only .pflege-hero__trust-wrap {
+  margin-top: 0;
+}
+
 /* Volle Zeilenbreite wie Pflege-Hauptleiste (Logo … Warenkorb), gleiche Innenabstände */
 .pflege-hero__shell {
   max-width: none;
