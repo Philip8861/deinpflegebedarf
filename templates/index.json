@@ -27,49 +27,10 @@
         "view_all_label": "Zur gesamten Auswahl →",
         "view_all_link": ""
       }
-    },
-    "pflege_trust": {
-      "type": "pflege-trust-bar",
-      "blocks": {
-        "t1": {
-          "type": "item",
-          "settings": {
-            "icon": "package",
-            "title": "Schneller Versand",
-            "text": "In 1–2 Werktagen bei Ihnen"
-          }
-        },
-        "t2": {
-          "type": "item",
-          "settings": {
-            "icon": "shield",
-            "title": "Sicher einkaufen",
-            "text": "SSL-verschlüsselt & sicher bezahlen"
-          }
-        },
-        "t3": {
-          "type": "item",
-          "settings": {
-            "icon": "sparkles",
-            "title": "Pflegeleicht bestellen",
-            "text": "Einfach, schnell & bequem"
-          }
-        },
-        "t4": {
-          "type": "item",
-          "settings": {
-            "icon": "headset",
-            "title": "Kompetenter Service",
-            "text": "Wir sind für Sie da"
-          }
-        }
-      },
-      "block_order": ["t1", "t2", "t3", "t4"]
     }
   },
   "order": [
     "pflege_hero",
-    "pflege_bestseller",
-    "pflege_trust"
+    "pflege_bestseller"
   ]
 }
