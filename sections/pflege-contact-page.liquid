@@ -1,5 +1,10 @@
 {{ 'section-pflege-contact-page.css' | asset_url | stylesheet_tag }}
 
+{% comment %}
+  Öffentliche URL: /pages/kontakt — im Shop eine „Seite“ mit Handle kontakt anlegen und die Vorlage „kontakt“
+  (templates/page.kontakt.json) zuweisen. Inhalt und Formular kommen aus der Vorlage, kein Theme-Editor nötig.
+{% endcomment %}
+
 {%- liquid
   assign url_privacy = routes.root_url | append: 'pages/datenschutz'
   if shop.privacy_policy != blank and shop.privacy_policy.url != blank
@@ -230,6 +235,10 @@
   },
   "settings": [
     {
+      "type": "paragraph",
+      "content": "Für die Adresse /pages/kontakt: Im Admin unter Onlineshop → Seiten eine Seite anlegen, SEO-URL „kontakt“ (Handle), als Vorlage „kontakt“ wählen. Texte können auch nur über die Theme-Datei templates/page.kontakt.json kommen."
+    },
+    {
       "type": "color_scheme",
       "id": "color_scheme",
       "label": "Farbschema",
@@ -249,8 +258,8 @@
       "type": "checkbox",
       "id": "show_page_intro",
       "label": "Einleitung aus Seiteninhalt anzeigen",
-      "default": true,
-      "info": "Text aus der Seitenbearbeitung (Admin), wenn vorhanden."
+      "default": false,
+      "info": "Wenn aus: Einleitung aus Theme (page.kontakt.json) oder Feld unten. Wenn an: zuerst Text aus der Seitenbearbeitung."
     },
     {
       "type": "richtext",
