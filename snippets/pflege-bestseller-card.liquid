@@ -5,11 +5,11 @@
       {%- if p.featured_media -%}
         {{
           p.featured_media
-          | image_url: width: 280
+          | image_url: width: 360
           | image_tag:
             loading: 'lazy',
-            widths: '140, 280',
-            sizes: '96px',
+            widths: '180, 280, 360',
+            sizes: '(min-width: 990px) 112px, (min-width: 600px) 28vw, 42vw',
             alt: p.featured_media.alt | default: p.title | escape
         }}
       {%- else -%}
@@ -58,11 +58,11 @@
         {%- if p.featured_media -%}
           {{
             p.featured_media
-            | image_url: width: 280
+            | image_url: width: 360
             | image_tag:
               loading: 'lazy',
-              widths: '140, 280',
-              sizes: '96px',
+              widths: '180, 280, 360',
+              sizes: '(min-width: 990px) 112px, (min-width: 600px) 28vw, 42vw',
               alt: p.featured_media.alt | default: p.title | escape
           }}
         {%- else -%}
@@ -72,8 +72,12 @@
         {%- if block.settings.placeholder_image != blank -%}
           {{
             block.settings.placeholder_image
-            | image_url: width: 280
-            | image_tag: loading: 'lazy', widths: '140, 280', sizes: '96px', alt: ''
+            | image_url: width: 360
+            | image_tag:
+              loading: 'lazy',
+              widths: '180, 280, 360',
+              sizes: '(min-width: 990px) 112px, (min-width: 600px) 28vw, 42vw',
+              alt: ''
           }}
         {%- else -%}
           {{ 'product-apparel-2' | placeholder_svg_tag: 'placeholder-svg' }}
