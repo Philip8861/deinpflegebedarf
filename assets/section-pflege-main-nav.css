@@ -446,7 +446,7 @@
     display: grid;
     grid-template-columns:
       auto
-      minmax(17rem, 1fr)
+      minmax(min(22rem, 34vw), 1fr)
       minmax(11rem, min(30rem, 28vw))
       auto;
     grid-template-areas: 'logo nav search actions';
@@ -482,8 +482,9 @@
     position: relative;
     z-index: 4;
     isolation: isolate;
-    min-width: 0;
+    min-width: min-content;
     width: 100%;
+    max-width: none;
     margin: 0;
     padding-inline: clamp(0.1rem, 0.45vw, 0.45rem);
     box-sizing: border-box;
@@ -499,9 +500,10 @@
     flex-wrap: nowrap;
     align-items: center;
     justify-content: space-evenly;
-    gap: clamp(0.2rem, 1vw, 0.75rem);
+    gap: clamp(0.35rem, 1.2vw, 1rem);
     width: 100%;
     max-width: 100%;
+    min-width: min-content;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -509,8 +511,9 @@
 
   .pflege-main-nav-section .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu > li,
   .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu > li {
-    flex: 1 1 0;
-    min-width: 0;
+    flex: 1 1 auto;
+    flex-shrink: 1;
+    min-width: max-content;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -520,7 +523,7 @@
   .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu-link {
     width: 100%;
     max-width: 100%;
-    min-width: 0;
+    min-width: min-content;
     text-align: center;
     letter-spacing: 0.02em;
     padding-inline: clamp(0.06rem, 0.3vw, 0.3rem);
