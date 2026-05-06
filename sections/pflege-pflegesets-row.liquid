@@ -19,7 +19,26 @@
       <div class="pflege-pflegesets__grid">
         {%- for handle_raw in pflegeset_handles -%}
           {%- assign handle = handle_raw | strip -%}
-          {%- assign card_product = all_products[handle] -%}
+          {%- liquid
+            assign card_product = nil
+            case forloop.index
+              when 1
+                if section.settings.product_1 != blank
+                  assign card_product = section.settings.product_1
+                endif
+              when 2
+                if section.settings.product_2 != blank
+                  assign card_product = section.settings.product_2
+                endif
+              when 3
+                if section.settings.product_3 != blank
+                  assign card_product = section.settings.product_3
+                endif
+            endcase
+            if card_product == blank
+              assign card_product = all_products[handle]
+            endif
+          -%}
           {%- if card_product != blank -%}
             {%- assign card_href = card_product.url -%}
             {%- assign card_label = card_product.title -%}
@@ -39,26 +58,48 @@
                   assign pflegesets_img = nil
                   assign pflegesets_img_alt = card_label
                   if card_product != blank
-                    if card_product.featured_media != blank
-                      assign pflegesets_img = card_product.featured_media
-                    elsif card_product.featured_image != blank
+                    assign fm = card_product.featured_media
+                    if fm != blank
+                      if fm.media_type == 'image'
+                        assign pflegesets_img = fm
+                      elsif fm.preview_image != blank
+                        assign pflegesets_img = fm.preview_image
+                      endif
+                    endif
+                    if pflegesets_img == blank and card_product.featured_image != blank
                       assign pflegesets_img = card_product.featured_image
-                    elsif card_product.selected_or_first_available_variant.image != blank
+                    endif
+                    if pflegesets_img == blank and card_product.images.size > 0
+                      assign pflegesets_img = card_product.images.first
+                    endif
+                    if pflegesets_img == blank and card_product.media.size > 0
+                      for m in card_product.media
+                        if m.media_type == 'image'
+                          assign pflegesets_img = m
+                          break
+                        elsif m.preview_image != blank
+                          assign pflegesets_img = m.preview_image
+                          break
+                        endif
+                      endfor
+                    endif
+                    if pflegesets_img == blank and card_product.selected_or_first_available_variant.image != blank
                       assign pflegesets_img = card_product.selected_or_first_available_variant.image
                     endif
                   endif
                 -%}
                 {%- if pflegesets_img != blank -%}
-                  {{
-                    pflegesets_img
-                    | image_url: width: 800
-                    | image_tag:
-                      loading: 'lazy',
-                      widths: '400, 600, 800',
-                      sizes: '(min-width: 990px) 20vw, (min-width: 750px) 23vw, 70vw',
-                      alt: pflegesets_img_alt,
-                      class: 'pflege-pflegesets__img'
-                  }}
+                  <img
+                    class="pflege-pflegesets__img"
+                    src="{{ pflegesets_img | image_url: width: 800 }}"
+                    srcset="{{ pflegesets_img | image_url: width: 400 }} 400w, {{ pflegesets_img | image_url: width: 600 }} 600w, {{ pflegesets_img | image_url: width: 800 }} 800w"
+                    sizes="(min-width: 990px) 22vw, (min-width: 750px) 28vw, min(100vw, 24rem)"
+                    width="800"
+                    height="800"
+                    loading="lazy"
+                    decoding="async"
+                    alt="{{ pflegesets_img_alt | escape }}"
+                  >
                 {%- else -%}
                   {{ 'product-apparel-2' | placeholder_svg_tag: 'pflege-pflegesets__placeholder' }}
                 {%- endif -%}
@@ -129,6 +170,24 @@
       "id": "badge_text",
       "label": "Hinweis (oben rechts auf dem Bild)",
       "default": "Sie sparen 10%"
+    },
+    {
+      "type": "product",
+      "id": "product_1",
+      "label": "Produkt Kachel 1",
+      "info": "Empfohlen: Produkt hier auswählen — Bilder und Links funktionieren dann sicher. Leer = Handle unten."
+    },
+    {
+      "type": "product",
+      "id": "product_2",
+      "label": "Produkt Kachel 2",
+      "info": "Empfohlen: Produkt hier auswählen. Leer = Handle unten."
+    },
+    {
+      "type": "product",
+      "id": "product_3",
+      "label": "Produkt Kachel 3",
+      "info": "Empfohlen: Produkt hier auswählen. Leer = Handle unten."
     },
     {
       "type": "text",
