@@ -88,7 +88,7 @@
   display: grid;
   /* Produktfoto größer: nur über grid-Spalte + max-height der Medienfläche (kein Mindest-Höhe-Aufblasen) */
   grid-template-columns:
-    clamp(10.15rem, 30%, 16rem)
+    clamp(12.7rem, 32%, 20rem)
     minmax(0, 1fr);
   gap: clamp(0.65rem, 1.6vw, 1rem);
   align-items: stretch;
@@ -106,7 +106,7 @@
 @media screen and (min-width: 990px) {
   .pflege-bestseller-card {
     grid-template-columns:
-      clamp(10.95rem, 34%, 18rem)
+      clamp(13.7rem, 38%, 22.5rem)
       minmax(0, 1fr);
     padding: 0.85rem 1rem;
     padding-bottom: 1.05rem;
@@ -128,13 +128,13 @@
   align-self: start;
   min-height: 0;
   aspect-ratio: 1;
-  max-height: 16.6rem;
+  max-height: 20.75rem;
 }
 
 @media screen and (min-width: 990px) {
   .pflege-bestseller-card__media {
     border-radius: 11px;
-    max-height: 18.05rem;
+    max-height: 22.55rem;
   }
 }
 

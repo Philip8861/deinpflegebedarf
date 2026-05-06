@@ -5,11 +5,11 @@
       {%- if p.featured_media -%}
         {{
           p.featured_media
-          | image_url: width: 640
+          | image_url: width: 800
           | image_tag:
             loading: 'lazy',
-            widths: '320, 480, 640',
-            sizes: '(min-width: 990px) 294px, (min-width: 600px) 44vw, 54vw',
+            widths: '320, 480, 640, 800',
+            sizes: '(min-width: 990px) 368px, (min-width: 600px) 55vw, 68vw',
             alt: p.featured_media.alt | default: p.title | escape
         }}
       {%- else -%}
@@ -62,11 +62,11 @@
         {%- if p.featured_media -%}
           {{
             p.featured_media
-            | image_url: width: 640
+            | image_url: width: 800
             | image_tag:
               loading: 'lazy',
-              widths: '320, 480, 640',
-              sizes: '(min-width: 990px) 294px, (min-width: 600px) 44vw, 54vw',
+              widths: '320, 480, 640, 800',
+              sizes: '(min-width: 990px) 368px, (min-width: 600px) 55vw, 68vw',
               alt: p.featured_media.alt | default: p.title | escape
           }}
         {%- else -%}
@@ -76,11 +76,11 @@
         {%- if block.settings.placeholder_image != blank -%}
           {{
             block.settings.placeholder_image
-            | image_url: width: 640
+            | image_url: width: 800
             | image_tag:
               loading: 'lazy',
-              widths: '320, 480, 640',
-              sizes: '(min-width: 990px) 294px, (min-width: 600px) 44vw, 54vw',
+              widths: '320, 480, 640, 800',
+              sizes: '(min-width: 990px) 368px, (min-width: 600px) 55vw, 68vw',
               alt: ''
           }}
         {%- else -%}
