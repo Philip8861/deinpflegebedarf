@@ -40,43 +40,36 @@
     "pflege_main_nav": {
       "type": "pflege-main-nav",
       "blocks": {
-        "nav_koerper": {
+        "nav_desinfektion": {
           "type": "nav_link",
           "settings": {
-            "title": "Körperpflege",
+            "title": "Desinfektion",
             "link": ""
           }
         },
-        "nav_schutz": {
+        "nav_pflegeartikel": {
           "type": "nav_link",
           "settings": {
-            "title": "Schutzausrüstung",
+            "title": "Pflegeartikel",
             "link": ""
           }
         },
-        "nav_zubehoer": {
+        "nav_hauschutz_hautpflege": {
           "type": "nav_link",
           "settings": {
-            "title": "Zubehör",
+            "title": "Hauschutz & Hautpflege",
             "link": ""
           }
         },
-        "nav_wund": {
+        "nav_verbrauchsartikel": {
           "type": "nav_link",
           "settings": {
-            "title": "Wundbehandlung",
-            "link": ""
-          }
-        },
-        "nav_hygiene": {
-          "type": "nav_link",
-          "settings": {
-            "title": "Hygiene",
+            "title": "Verbrauchsartikel",
             "link": ""
           }
         }
       },
-      "block_order": ["nav_koerper", "nav_schutz", "nav_zubehoer", "nav_wund", "nav_hygiene"],
+      "block_order": ["nav_desinfektion", "nav_pflegeartikel", "nav_hauschutz_hautpflege", "nav_verbrauchsartikel"],
       "settings": {
         "color_scheme": "scheme-1",
         "menu_color_scheme": "scheme-1",
