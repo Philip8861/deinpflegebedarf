@@ -37,6 +37,7 @@
     "pflege_product_finder": {
       "type": "pflege-product-finder",
       "settings": {
+        "intro": "Kein langes Suchen: Mit wenigen Klicks finden Sie passende Pflegeprodukte für Ihren individuellen Bedarf. Ob Hautpflege, Inkontinenz, Hygiene, Desinfektion, Schutz oder Pflegehilfen, unser Produktfinder führt Sie einfach durch die wichtigsten Fragen und zeigt Ihnen schnell passende Empfehlungen für Ihre persönliche Pflegesituation.",
         "primary_label": "Jetzt das passende Produkt erhalten"
       }
     }

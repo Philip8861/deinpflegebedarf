@@ -25,9 +25,6 @@
             {%- if section.settings.intro != blank -%}
               <p class="pflege-product-finder__intro">{{ section.settings.intro | escape }}</p>
             {%- endif -%}
-            {%- if section.settings.body_seo != blank -%}
-              <p class="pflege-product-finder__body">{{ section.settings.body_seo | escape }}</p>
-            {%- endif -%}
           </div>
 
           <div class="pflege-product-finder__actions pflege-product-finder__actions--center">
@@ -91,14 +88,8 @@
     {
       "type": "textarea",
       "id": "intro",
-      "label": "Introtext",
-      "default": "Kein langes Suchen: Mit wenigen Klicks finden Sie passende Produkte für Ihren individuellen Pflegebedarf."
-    },
-    {
-      "type": "textarea",
-      "id": "body_seo",
-      "label": "Beschreibungstext",
-      "default": "Unser Produktfinder berücksichtigt wichtige Themen wie Hautpflege, Inkontinenz, Hygiene, Desinfektion, Schutz und Pflegehilfen und hilft Ihnen dabei, schnell und einfach die passenden Produkte für Ihre persönliche Situation zu entdecken."
+      "label": "Text im Kasten (über dem Button)",
+      "default": "Kein langes Suchen: Mit wenigen Klicks finden Sie passende Pflegeprodukte für Ihren individuellen Bedarf. Ob Hautpflege, Inkontinenz, Hygiene, Desinfektion, Schutz oder Pflegehilfen, unser Produktfinder führt Sie einfach durch die wichtigsten Fragen und zeigt Ihnen schnell passende Empfehlungen für Ihre persönliche Pflegesituation."
     },
     {
       "type": "text",
