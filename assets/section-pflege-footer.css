@@ -107,10 +107,13 @@
   min-width: 0;
 }
 
+/* Wie .pflege-hero__trust-text (Zeilen unter „Ihre Vorteile im Überblick“) */
 .pflege-footer__pre-title {
-  font-weight: 700;
-  font-size: clamp(0.95rem, 0.88rem + 0.2vw, 1.05rem);
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1.22rem, 1.05rem + 0.35vw, 1.42rem);
+  font-weight: 500;
   line-height: 1.35;
+  letter-spacing: 0.01em;
   color: var(--pflege-ft-navy);
 }
 
@@ -199,8 +202,11 @@
 }
 
 .pflege-footer__brand-copy {
-  font-size: clamp(0.92rem, 0.88rem + 0.12vw, 1rem);
-  line-height: 1.65;
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1.22rem, 1.05rem + 0.35vw, 1.42rem);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
   color: var(--pflege-ft-muted);
   margin-bottom: 1.35rem;
 }
@@ -241,8 +247,11 @@
 }
 
 .pflege-footer__contact-line {
-  font-size: clamp(0.95rem, 0.9rem + 0.1vw, 1.02rem);
-  font-weight: 600;
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1.22rem, 1.05rem + 0.35vw, 1.42rem);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
   color: var(--pflege-ft-navy);
   text-decoration: none;
   transition: color 0.2s ease;
@@ -286,11 +295,13 @@ a.pflege-footer__contact-line:hover {
   }
 }
 
+/* Wie .pflege-hero__trust-heading („Ihre Vorteile im Überblick“) */
 .pflege-footer__menu-heading {
-  font-family: var(--pflege-font-display, Georgia, serif);
-  font-size: clamp(1rem, 0.95rem + 0.15vw, 1.12rem);
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1.45rem, 1.25rem + 0.55vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
   color: var(--pflege-ft-navy);
   margin: 0 0 0.85rem;
 }
@@ -305,8 +316,13 @@ a.pflege-footer__contact-line:hover {
   margin: 0 0 0.55rem;
 }
 
+/* Lesetext wie Hero-Trust-Zeilen, Farbe gedämpft für Links */
 .pflege-footer__menu-list a {
-  font-size: clamp(0.92rem, 0.88rem + 0.08vw, 0.98rem);
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1.22rem, 1.05rem + 0.35vw, 1.42rem);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
   color: var(--pflege-ft-muted);
   text-decoration: none;
   transition: color 0.2s ease, text-decoration 0.2s ease;
@@ -334,16 +350,21 @@ a.pflege-footer__contact-line:hover {
 }
 
 .pflege-footer__newsletter-heading {
-  font-family: var(--pflege-font-display, Georgia, serif);
-  font-size: clamp(1.08rem, 1rem + 0.25vw, 1.22rem);
-  font-weight: 700;
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1.45rem, 1.25rem + 0.55vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
   color: var(--pflege-ft-navy);
   margin: 0 0 0.65rem;
 }
 
 .pflege-footer__newsletter-lead {
-  font-size: clamp(0.88rem, 0.85rem + 0.08vw, 0.95rem);
-  line-height: 1.55;
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1.22rem, 1.05rem + 0.35vw, 1.42rem);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
   color: var(--pflege-ft-muted);
   margin: 0 0 1.15rem;
 }
@@ -484,8 +505,11 @@ a.pflege-footer__contact-line:hover {
 }
 
 .pflege-footer__trust-heading {
-  font-weight: 700;
-  font-size: clamp(0.95rem, 0.9rem + 0.1vw, 1.02rem);
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1.45rem, 1.25rem + 0.55vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
   color: var(--pflege-ft-navy);
   margin: 0 0 0.75rem;
 }
@@ -538,16 +562,22 @@ a.pflege-footer__contact-line:hover {
 }
 
 .pflege-footer__trust-title {
-  font-weight: 700;
-  font-size: clamp(0.92rem, 0.88rem + 0.08vw, 0.98rem);
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1.22rem, 1.05rem + 0.35vw, 1.42rem);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
   color: var(--pflege-ft-navy);
   margin: 0 0 0.35rem;
 }
 
 .pflege-footer__trust-text {
+  font-family: var(--font-body-family, inherit);
   margin: 0;
-  font-size: clamp(0.82rem, 0.78rem + 0.08vw, 0.88rem);
-  line-height: 1.5;
+  font-size: clamp(1.22rem, 1.05rem + 0.35vw, 1.42rem);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
   color: var(--pflege-ft-muted);
 }
 
@@ -567,6 +597,7 @@ a.pflege-footer__contact-line:hover {
 }
 
 .pflege-footer__copy {
+  font-family: var(--font-body-family, inherit);
   margin: 0;
   font-size: clamp(0.8rem, 0.78rem + 0.06vw, 0.86rem);
   color: var(--pflege-ft-muted);
@@ -602,6 +633,7 @@ a.pflege-footer__contact-line:hover {
 }
 
 .pflege-footer__bottom-list a {
+  font-family: var(--font-body-family, inherit);
   font-size: clamp(0.8rem, 0.78rem + 0.05vw, 0.86rem);
   color: var(--pflege-ft-muted);
   text-decoration: none;
