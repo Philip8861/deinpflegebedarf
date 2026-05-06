@@ -85,17 +85,15 @@
 
 .pflege-bestseller-card {
   display: grid;
-  /* Produktbild: ca. +25 % zur vorherigen Spalte */
   grid-template-columns:
     clamp(6.5rem, 28%, 10.25rem)
     minmax(0, 1fr);
-  gap: clamp(0.55rem, 1.5vw, 0.95rem);
+  gap: clamp(0.65rem, 1.6vw, 1rem);
   align-items: stretch;
   padding: clamp(0.75rem, 1.8vw, 1rem);
   background: var(--pflege-white, #fff);
   border: 1px solid var(--pflege-border, #e5eef8);
   border-radius: 12px;
-  position: relative;
   min-height: clamp(9.5rem, 12vw, 12rem);
   min-width: 0;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
@@ -147,24 +145,29 @@
   padding: 0.4rem;
 }
 
+/* Textblock: oben kompakt, unten eigene Zeile für Preis + Warenkorb */
 .pflege-bestseller-card__body {
   display: flex;
   flex-direction: column;
   flex: 1;
-  gap: 0.28rem;
   min-width: 0;
   min-height: 0;
-  /* Platz neben dem Warenkorb-Button (oben rechts) */
-  padding-right: 2.75rem;
-  padding-top: 0.15rem;
+  justify-content: space-between;
 }
 
-/* Überschrift: +25 % */
+.pflege-bestseller-card__top {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  flex: 0 1 auto;
+  min-height: 0;
+}
+
 .pflege-bestseller-card__name {
   font-size: clamp(1.31rem, 1.15rem + 0.55vw, 1.6rem);
   font-weight: 700;
   color: var(--pflege-navy, #0b2347);
-  line-height: 1.2;
+  line-height: 1.25;
   margin: 0;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -189,47 +192,61 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   overflow: hidden;
+  line-height: 1.35;
 }
 
-/* Sterne: +25 % */
 .pflege-bestseller-card__rating {
   font-size: clamp(1.1rem, 1rem + 0.22vw, 1.275rem);
   color: var(--pflege-muted, #6f7f95);
-  margin: 0.12rem 0 0;
-  line-height: 1.2;
+  margin: 0.15rem 0 0;
+  line-height: 1.15;
 }
 
 .pflege-bestseller-card__stars {
   color: var(--pflege-star, #f5b943);
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
 }
 
-/* Preis: unten, mittig */
+.pflege-bestseller-card__review-count {
+  font-size: 0.92em;
+  font-weight: 500;
+  color: var(--pflege-muted, #6f7f95);
+}
+
+/* Untere Zeile: Preis + Warenkorb nebeneinander, optisch eine Einheit */
+.pflege-bestseller-card__footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.55rem 0.85rem;
+  margin-top: auto;
+  padding-top: 0.65rem;
+  border-top: 1px solid rgba(229, 238, 248, 0.95);
+  flex-shrink: 0;
+}
+
 .pflege-bestseller-card__price {
-  font-size: clamp(1.18rem, 1.05rem + 0.4vw, 1.42rem);
+  font-size: clamp(1.15rem, 1.02rem + 0.38vw, 1.38rem);
   font-weight: 700;
   color: var(--pflege-navy, #0b2347);
-  margin-top: auto;
-  padding-top: 0.45rem;
-  padding-bottom: 0.15rem;
-  line-height: 1.2;
-  width: 100%;
+  margin: 0;
+  line-height: 1.25;
   text-align: center;
+  letter-spacing: 0.02em;
 }
 
-/* Warenkorb-Zum-Produkt: oben rechts, Icon-Farbe #5891d7 (nicht mehr „zerschossenes“ Weiß auf Blau) */
+/* Warenkorb: unten neben dem Preis, Icon #5891d7 */
 .pflege-bestseller-card__cart {
-  position: absolute;
-  top: clamp(0.5rem, 1.5vw, 0.75rem);
-  right: clamp(0.5rem, 1.5vw, 0.75rem);
-  bottom: auto;
-  width: 3rem;
-  height: 3rem;
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
   padding: 0;
-  border-radius: 10px;
-  background: rgba(245, 250, 255, 0.98);
-  border: 1px solid rgba(88, 145, 215, 0.38);
-  box-shadow: 0 1px 3px rgba(11, 35, 71, 0.07);
+  border-radius: 999px;
+  background: linear-gradient(180deg, #f8fbff 0%, #eef6ff 100%);
+  border: 1px solid rgba(88, 145, 215, 0.42);
+  box-shadow: 0 1px 2px rgba(11, 35, 71, 0.06);
   color: var(--pflege-bestseller-cart-blue, #5891d7);
   display: inline-flex;
   align-items: center;
@@ -239,13 +256,15 @@
   transition:
     background 0.2s ease,
     border-color 0.2s ease,
-    box-shadow 0.2s ease;
+    box-shadow 0.2s ease,
+    transform 0.15s ease;
 }
 
 .pflege-bestseller-card__cart:hover {
-  background: #eef6ff;
-  border-color: rgba(88, 145, 215, 0.55);
-  box-shadow: 0 2px 8px rgba(88, 145, 215, 0.18);
+  background: #e8f2fc;
+  border-color: rgba(88, 145, 215, 0.58);
+  box-shadow: 0 2px 10px rgba(88, 145, 215, 0.2);
+  transform: translateY(-1px);
 }
 
 .pflege-bestseller-card__cart:focus-visible {
@@ -266,9 +285,8 @@
 }
 
 .pflege-bestseller-card__cart .pflege-icon svg {
-  width: 25px;
-  height: 25px;
+  width: 24px;
+  height: 24px;
   flex-shrink: 0;
   display: block;
-  vertical-align: middle;
 }

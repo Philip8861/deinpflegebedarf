@@ -17,32 +17,36 @@
       {%- endif -%}
     </div>
     <div class="pflege-bestseller-card__body">
-      <h3 class="pflege-bestseller-card__name">
-        <a href="{{ p.url }}">{{ p.title | escape }}</a>
-      </h3>
-      {%- if p.metafields.descriptors.subtitle.value != blank -%}
-        <p class="pflege-bestseller-card__meta">{{ p.metafields.descriptors.subtitle.value | escape }}</p>
-      {%- endif -%}
-      {%- if section.settings.show_collection_rating -%}
-        <p class="pflege-bestseller-card__rating">
-          <span class="pflege-bestseller-card__stars" aria-hidden="true">★★★★★</span>
-        </p>
-      {%- endif -%}
-      <div class="pflege-bestseller-card__price">
-        {% if settings.currency_code_enabled %}
-          {{ p.price_min | money_with_currency }}
-        {% else %}
-          {{ p.price_min | money }}
-        {% endif %}
+      <div class="pflege-bestseller-card__top">
+        <h3 class="pflege-bestseller-card__name">
+          <a href="{{ p.url }}">{{ p.title | escape }}</a>
+        </h3>
+        {%- if p.metafields.descriptors.subtitle.value != blank -%}
+          <p class="pflege-bestseller-card__meta">{{ p.metafields.descriptors.subtitle.value | escape }}</p>
+        {%- endif -%}
+        {%- if section.settings.show_collection_rating -%}
+          <p class="pflege-bestseller-card__rating">
+            <span class="pflege-bestseller-card__stars" aria-hidden="true">★★★★★</span>
+          </p>
+        {%- endif -%}
+      </div>
+      <div class="pflege-bestseller-card__footer">
+        <div class="pflege-bestseller-card__price">
+          {% if settings.currency_code_enabled %}
+            {{ p.price_min | money_with_currency }}
+          {% else %}
+            {{ p.price_min | money }}
+          {% endif %}
+        </div>
+        <a
+          href="{{ p.url }}"
+          class="pflege-bestseller-card__cart"
+          aria-label="{{ 'products.product.view_full_details' | t }} — {{ p.title | escape }}"
+        >
+          {% render 'pflege-icon', icon: 'cart', width: 24 %}
+        </a>
       </div>
     </div>
-    <a
-      href="{{ p.url }}"
-      class="pflege-bestseller-card__cart"
-      aria-label="{{ 'products.product.view_full_details' | t }} — {{ p.title | escape }}"
-    >
-      {% render 'pflege-icon', icon: 'cart', width: 25 %}
-    </a>
   </article>
 {%- else -%}
   {%- liquid
@@ -99,49 +103,53 @@
           endif
         endunless
       -%}
-      <h3 class="pflege-bestseller-card__name">
-        <a href="{{ card_url }}">{{ card_title | escape }}</a>
-      </h3>
-      {%- if card_sub != blank -%}
-        <p class="pflege-bestseller-card__meta">{{ card_sub | escape }}</p>
-      {%- endif -%}
-      {%- if block.settings.show_rating -%}
-        <p class="pflege-bestseller-card__rating">
-          <span class="pflege-bestseller-card__stars" aria-hidden="true">★★★★★</span>
-          {%- if card_reviews != blank -%}
-            <span> ({{ card_reviews | escape }})</span>
-          {%- endif -%}
-        </p>
-      {%- endif -%}
-      <div class="pflege-bestseller-card__price">
-        {%- unless show_placeholder -%}
-          {% if settings.currency_code_enabled %}
-            {{ card_price_cents | money_with_currency }}
-          {% else %}
-            {{ card_price_cents | money }}
-          {% endif %}
-        {%- else -%}
-          {%- if block.settings.manual_price_display != blank -%}
-            {{ block.settings.manual_price_display | escape }}
-          {%- elsif block.settings.manual_price_cents != blank -%}
-            {% assign mc = block.settings.manual_price_cents | times: 1 %}
+      <div class="pflege-bestseller-card__top">
+        <h3 class="pflege-bestseller-card__name">
+          <a href="{{ card_url }}">{{ card_title | escape }}</a>
+        </h3>
+        {%- if card_sub != blank -%}
+          <p class="pflege-bestseller-card__meta">{{ card_sub | escape }}</p>
+        {%- endif -%}
+        {%- if block.settings.show_rating -%}
+          <p class="pflege-bestseller-card__rating">
+            <span class="pflege-bestseller-card__stars" aria-hidden="true">★★★★★</span>
+            {%- if card_reviews != blank -%}
+              <span class="pflege-bestseller-card__review-count">({{ card_reviews | escape }})</span>
+            {%- endif -%}
+          </p>
+        {%- endif -%}
+      </div>
+      <div class="pflege-bestseller-card__footer">
+        <div class="pflege-bestseller-card__price">
+          {%- unless show_placeholder -%}
             {% if settings.currency_code_enabled %}
-              {{ mc | money_with_currency }}
+              {{ card_price_cents | money_with_currency }}
             {% else %}
-              {{ mc | money }}
+              {{ card_price_cents | money }}
             {% endif %}
           {%- else -%}
-            —
-          {%- endif -%}
-        {%- endunless -%}
+            {%- if block.settings.manual_price_display != blank -%}
+              {{ block.settings.manual_price_display | escape }}
+            {%- elsif block.settings.manual_price_cents != blank -%}
+              {% assign mc = block.settings.manual_price_cents | times: 1 %}
+              {% if settings.currency_code_enabled %}
+                {{ mc | money_with_currency }}
+              {% else %}
+                {{ mc | money }}
+              {% endif %}
+            {%- else -%}
+              —
+            {%- endif -%}
+          {%- endunless -%}
+        </div>
+        <a
+          href="{{ card_url }}"
+          class="pflege-bestseller-card__cart"
+          aria-label="{{ 'products.product.view_full_details' | t }} — {{ card_title | escape }}"
+        >
+          {% render 'pflege-icon', icon: 'cart', width: 24 %}
+        </a>
       </div>
     </div>
-    <a
-      href="{{ card_url }}"
-      class="pflege-bestseller-card__cart"
-      aria-label="{{ 'products.product.view_full_details' | t }} — {{ card_title | escape }}"
-    >
-      {% render 'pflege-icon', icon: 'cart', width: 25 %}
-    </a>
   </article>
 {%- endif -%}
