@@ -381,7 +381,7 @@
   vertical-align: middle;
 }
 
-/* Warenkorb: Empfehlungen unter Bestellübersicht, volle Nav-Breite (Wrapper in section-pflege-cart-page.css) */
+/* Warenkorb: Empfehlungen — Breite wie Hero-Kachel (volle nutzbare Zeile, Panel max. wie Startseite) */
 .template-cart .pflege-cart-recommendations--page-row .pflege-bestseller.pflege-bestseller--cart-fullbleed {
   margin-top: 0;
 }
@@ -397,6 +397,7 @@
 }
 
 .template-cart .pflege-cart-recommendations--page-row .pflege-bestseller--cart-fullbleed .pflege-bestseller__panel {
+  width: 100%;
   max-width: var(--pflege-hero-tile-max-width, min(100%, 1426px));
   margin-left: auto;
   margin-right: auto;
