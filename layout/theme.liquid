@@ -322,7 +322,12 @@
       {{ content_for_layout }}
     </main>
 
-    {% sections 'footer-group' %}
+    {%- comment -%}
+      Pflege-Footer direkt aus dem Layout — erscheint immer, auch wenn im Shop noch eine alte
+      Footer-Group (Dawn „footer“) in den Theme-Daten gespeichert ist. Ohne deploy/Theme-Wechsel
+      würde allein „footer-group.json“ im Code oft ignoriert.
+    {%- endcomment -%}
+    {% section 'pflege-footer' %}
 
     <ul hidden>
       <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>

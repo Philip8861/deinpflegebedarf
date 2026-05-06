@@ -306,9 +306,6 @@
 {
   "name": "Pflege Footer",
   "class": "pflege-footer-section",
-  "enabled_on": {
-    "groups": ["footer"]
-  },
   "settings": [
     {
       "type": "color_scheme",
@@ -501,6 +498,34 @@
       ]
     }
   ],
+  "default": {
+    "settings": {
+      "newsletter_heading": "Newsletter abonnieren"
+    },
+    "blocks": [
+      {
+        "type": "link_list",
+        "settings": {
+          "heading": "Schnellzugriff",
+          "menu": "footer"
+        }
+      },
+      {
+        "type": "link_list",
+        "settings": {
+          "heading": "Informationen",
+          "menu": "footer"
+        }
+      },
+      {
+        "type": "text",
+        "settings": {
+          "heading": "Über uns",
+          "subtext": "<p>Hier können Sie Kontakt, Versand und Service rund um Ihren Pflegebedarf beschreiben.</p>"
+        }
+      }
+    ]
+  },
   "presets": [
     {
       "name": "Pflege Footer",
@@ -508,22 +533,22 @@
         {
           "type": "link_list",
           "settings": {
-            "heading": "Quick links",
+            "heading": "Schnellzugriff",
             "menu": "footer"
           }
         },
         {
           "type": "link_list",
           "settings": {
-            "heading": "Info",
+            "heading": "Informationen",
             "menu": "footer"
           }
         },
         {
           "type": "text",
           "settings": {
-            "heading": "Our mission",
-            "subtext": "<p>Share contact information, store details, and brand content with your customers.</p>"
+            "heading": "Über uns",
+            "subtext": "<p>Hier können Sie Kontakt, Versand und Service rund um Ihren Pflegebedarf beschreiben.</p>"
           }
         }
       ]
