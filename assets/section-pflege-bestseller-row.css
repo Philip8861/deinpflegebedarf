@@ -380,3 +380,63 @@
   display: block;
   vertical-align: middle;
 }
+
+/* Warenkorb: gleiche Optik wie Startseite, aber in der schmalen Spalte unter Bestellübersicht */
+.template-cart #main-cart-footer .js-contents > .pflege-bestseller.pflege-bestseller--cart-sidebar {
+  margin-top: 0.85rem;
+}
+
+.template-cart #main-cart-footer .pflege-bestseller--cart-sidebar.pflege-bestseller {
+  padding-top: clamp(1rem, 2.5vw, 1.35rem);
+  padding-bottom: clamp(1rem, 2.5vw, 1.35rem);
+}
+
+.template-cart #main-cart-footer .pflege-bestseller--cart-sidebar .pflege-bestseller__shell {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.template-cart #main-cart-footer .pflege-bestseller--cart-sidebar .pflege-bestseller__panel {
+  max-width: 100%;
+}
+
+.template-cart #main-cart-footer .pflege-bestseller--cart-sidebar .pflege-bestseller__head {
+  margin-bottom: clamp(0.85rem, 2vw, 1.25rem);
+}
+
+.template-cart #main-cart-footer .pflege-bestseller--cart-sidebar .pflege-bestseller__grid {
+  grid-template-columns: 1fr;
+  gap: 0.55rem;
+}
+
+@media screen and (min-width: 400px) {
+  .template-cart #main-cart-footer .pflege-bestseller--cart-sidebar .pflege-bestseller__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .template-cart #main-cart-footer .pflege-bestseller--cart-sidebar .pflege-bestseller__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem 0.65rem;
+  }
+}
+
+.template-cart #main-cart-footer .pflege-bestseller--cart-sidebar .pflege-bestseller-card {
+  min-height: 0;
+  grid-template-columns: clamp(5.25rem, 34%, 7.25rem) minmax(0, 1fr);
+  padding: 0.5rem 0.6rem 0.6rem;
+  gap: 0.45rem;
+}
+
+.template-cart #main-cart-footer .pflege-bestseller--cart-sidebar .pflege-bestseller-card__media {
+  max-height: 6.75rem;
+}
+
+.template-cart #main-cart-footer .pflege-bestseller--cart-sidebar .pflege-bestseller__title {
+  font-size: clamp(1.42rem, 1.05rem + 1.2vw, 1.82rem);
+}
+
+.template-cart #main-cart-footer .pflege-bestseller--cart-sidebar .pflege-bestseller__intro {
+  font-size: clamp(1.02rem, 0.95rem + 0.35vw, 1.18rem);
+}

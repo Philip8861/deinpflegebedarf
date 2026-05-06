@@ -1,0 +1,76 @@
+{% comment %}
+  Wiederverwendbarer Bestseller-Block (gleiche Optik wie Startseite).
+  Parameter: data_source, title, intro, collection, products_limit, view_all_label, view_all_href,
+  show_collection_rating, blocks (nur manual), layout_mod (z. B. cart-sidebar).
+{% endcomment %}
+{%- liquid
+  assign _ds = data_source | default: 'collection'
+  assign _limit = products_limit | default: 4
+  assign _show = false
+
+  if _ds == 'collection'
+    if collection != blank and collection.all_products_count > 0
+      assign _show = true
+    endif
+  else
+    if blocks != blank
+      for block in blocks
+        if block.settings.product != blank
+          assign _show = true
+        endif
+      endfor
+    endif
+  endif
+
+  assign _href = view_all_href
+  if _href == blank and collection != blank
+    assign _href = collection.url
+  endif
+  if _href == blank
+    assign _href = routes.all_products_collection_url
+  endif
+
+  assign _show_stars = show_collection_rating
+  if _show_stars == nil
+    assign _show_stars = true
+  endif
+-%}
+
+{%- if _show -%}
+  <section class="pflege-bestseller{% if layout_mod != blank %} pflege-bestseller--{{ layout_mod }}{% endif %}">
+    <div class="pflege-bestseller__shell">
+      <div class="pflege-bestseller__panel">
+        <div class="pflege-bestseller__head">
+          <div class="pflege-bestseller__head-text">
+            <h2 class="pflege-bestseller__title">{{ title | escape }}</h2>
+            {%- if intro != blank -%}
+              <p class="pflege-bestseller__intro">{{ intro | escape | newline_to_br }}</p>
+            {%- endif -%}
+          </div>
+          {%- if view_all_label != blank -%}
+            <a class="pflege-bestseller__view-all" href="{{ _href }}">
+              {{- view_all_label | escape -}}
+            </a>
+          {%- endif -%}
+        </div>
+        <div class="pflege-bestseller__grid">
+          {%- if _ds == 'collection' -%}
+            {%- for card_product in collection.products limit: _limit -%}
+              {% render 'pflege-bestseller-card',
+                card_context: 'collection',
+                card_product: card_product,
+                show_collection_rating: _show_stars
+              %}
+            {%- endfor -%}
+          {%- else -%}
+            {%- for block in blocks -%}
+              {%- if block.settings.product != blank -%}
+                {% render 'pflege-bestseller-card', card_context: 'manual_block', block: block %}
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </section>
+{%- endif -%}

@@ -26,38 +26,17 @@
 -%}
 
 {%- if show_section -%}
-  <section class="pflege-bestseller">
-    <div class="pflege-bestseller__shell">
-      <div class="pflege-bestseller__panel">
-        <div class="pflege-bestseller__head">
-          <div class="pflege-bestseller__head-text">
-            <h2 class="pflege-bestseller__title">{{ section.settings.title | escape }}</h2>
-            {%- if section.settings.intro != blank -%}
-              <p class="pflege-bestseller__intro">{{ section.settings.intro | escape | newline_to_br }}</p>
-            {%- endif -%}
-          </div>
-          {%- if section.settings.view_all_label != blank -%}
-            <a class="pflege-bestseller__view-all" href="{{ view_all_href }}">
-              {{- section.settings.view_all_label | escape -}}
-            </a>
-          {%- endif -%}
-        </div>
-        <div class="pflege-bestseller__grid">
-          {%- if section.settings.data_source == 'collection' -%}
-            {%- for card_product in section.settings.collection.products limit: limit_products -%}
-              {% render 'pflege-bestseller-card', card_context: 'collection', card_product: card_product %}
-            {%- endfor -%}
-          {%- else -%}
-            {%- for block in section.blocks -%}
-              {%- if block.settings.product != blank -%}
-                {% render 'pflege-bestseller-card', card_context: 'manual_block', block: block %}
-              {%- endif -%}
-            {%- endfor -%}
-          {%- endif -%}
-        </div>
-      </div>
-    </div>
-  </section>
+  {% render 'pflege-bestseller-block',
+    data_source: section.settings.data_source,
+    title: section.settings.title,
+    intro: section.settings.intro,
+    collection: section.settings.collection,
+    products_limit: limit_products,
+    view_all_label: section.settings.view_all_label,
+    view_all_href: view_all_href,
+    show_collection_rating: section.settings.show_collection_rating,
+    blocks: section.blocks
+  %}
 {%- endif -%}
 
 {% schema %}

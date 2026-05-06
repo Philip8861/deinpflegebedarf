@@ -26,29 +26,6 @@
         "buttons"
       ]
     },
-    "featured-collection": {
-      "type": "featured-collection",
-      "settings": {
-        "title": "Das könnte Ihnen auch gefallen",
-        "heading_size": "h2",
-        "collection": "all",
-        "products_to_show": 4,
-        "columns_desktop": 4,
-        "color_scheme": "scheme-1",
-        "show_view_all": true,
-        "view_all_in_title": true,
-        "swipe_on_mobile": false,
-        "image_ratio": "square",
-        "show_secondary_image": false,
-        "show_vendor": false,
-        "show_rating": true,
-        "columns_mobile": "2",
-        "quick_add": "standard",
-        "quick_add_icon_only": true,
-        "padding_top": 48,
-        "padding_bottom": 56
-      }
-    },
     "cart-service-strip": {
       "type": "pflege-cart-service-strip",
       "settings": {
@@ -61,7 +38,6 @@
   "order": [
     "cart-items",
     "cart-footer",
-    "featured-collection",
     "cart-service-strip"
   ]
 }

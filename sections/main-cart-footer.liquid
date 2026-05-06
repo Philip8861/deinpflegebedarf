@@ -3,6 +3,7 @@
 {{ 'component-totals.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
 {{ 'component-discounts.css' | asset_url | stylesheet_tag }}
+{{ 'section-pflege-bestseller-row.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -148,6 +149,17 @@
 
                 {%- if cart != empty -%}
                   {% render 'pflege-cart-promo-row' %}
+                  {% render 'pflege-bestseller-block',
+                    data_source: 'collection',
+                    title: 'sections.cart.pflege.recommendations_bestseller_title' | t,
+                    intro: 'sections.cart.pflege.recommendations_bestseller_intro' | t,
+                    collection: collections.all,
+                    products_limit: 4,
+                    view_all_label: 'sections.cart.pflege.recommendations_bestseller_view_all' | t,
+                    view_all_href: routes.all_products_collection_url,
+                    show_collection_rating: true,
+                    layout_mod: 'cart-sidebar'
+                  %}
                 {%- endif -%}
               </div>
             {%- when 'buttons' -%}

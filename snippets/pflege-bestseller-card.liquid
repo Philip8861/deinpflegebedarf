@@ -22,7 +22,8 @@
         <h3 class="pflege-bestseller-card__name">
           <a href="{{ p.url }}">{{ p.title | escape }}</a>
         </h3>
-        {%- if section.settings.show_collection_rating -%}
+        {%- assign bs_show_stars = show_collection_rating | default: section.settings.show_collection_rating | default: true -%}
+        {%- if bs_show_stars -%}
           <p class="pflege-bestseller-card__rating">
             <span class="pflege-bestseller-card__stars" aria-hidden="true">★★★★★</span>
           </p>

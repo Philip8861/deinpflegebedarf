@@ -377,7 +377,10 @@
         "trust_quality_title": "100% geprüfte Qualität",
         "trust_quality_sub": "Sorgfältig ausgewählte Produkte",
         "recommendations_title": "Das könnte Ihnen auch gefallen",
-        "recommendations_view_all": "Alle ansehen →"
+        "recommendations_view_all": "Alle ansehen →",
+        "recommendations_bestseller_title": "Beliebte Pflegeprodukte",
+        "recommendations_bestseller_intro": "Ausgewählte Artikel, die andere Kundinnen und Kunden besonders oft gewählt haben.",
+        "recommendations_bestseller_view_all": "Zur gesamten Auswahl →"
       }
     },
     "footer": {
