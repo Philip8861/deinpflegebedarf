@@ -86,7 +86,7 @@
 .pflege-bestseller-card {
   position: relative;
   display: grid;
-  /* Produktfoto: nochmals +25 % */
+  /* Produktfoto größer: nur über grid-Spalte + max-height der Medienfläche (kein Mindest-Höhe-Aufblasen) */
   grid-template-columns:
     clamp(10.15rem, 30%, 16rem)
     minmax(0, 1fr);
@@ -97,7 +97,8 @@
   background: var(--pflege-white, #fff);
   border: 1px solid var(--pflege-border, #e5eef8);
   border-radius: 12px;
-  min-height: clamp(13.15rem, 16.25vw, 16.85rem);
+  /* Nur harmonische Untergrenze — keine extra Höhe „wegen großem Foto“ */
+  min-height: clamp(10.5rem, 13vw, 13.5rem);
   min-width: 0;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -109,7 +110,7 @@
       minmax(0, 1fr);
     padding: 0.85rem 1rem;
     padding-bottom: 1.05rem;
-    min-height: clamp(14.4rem, 15vw, 18.15rem);
+    min-height: clamp(11.5rem, 12vw, 14.5rem);
     border-radius: 14px;
   }
 }
@@ -119,7 +120,7 @@
   box-shadow: 0 4px 16px rgba(11, 35, 71, 0.05);
 }
 
-/* Medienfläche (nochmals × 1,25) */
+/* Medienfläche: großes Produktfoto (Höhe über max-height, nicht über Karten-min-height) */
 .pflege-bestseller-card__media {
   border-radius: 10px;
   overflow: hidden;
