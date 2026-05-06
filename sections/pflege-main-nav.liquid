@@ -11,6 +11,49 @@
 
 {{ 'section-pflege-main-nav.css' | asset_url | stylesheet_tag }}
 
+{%- liquid
+  assign pflege_cat_root = routes.root_url
+  if collections.desinfektion != blank
+    assign pflege_cat_url_des = collections.desinfektion.url
+  else
+    assign pflege_cat_url_des = pflege_cat_root | append: 'collections/desinfektion'
+  endif
+  if collections.pflegeartikel != blank
+    assign pflege_cat_url_pf = collections.pflegeartikel.url
+  else
+    assign pflege_cat_url_pf = pflege_cat_root | append: 'collections/pflegeartikel'
+  endif
+  if collections['hautschutz-hautpflege'] != blank
+    assign pflege_cat_url_hh = collections['hautschutz-hautpflege'].url
+  elsif collections['hauschutz-hautpflege'] != blank
+    assign pflege_cat_url_hh = collections['hauschutz-hautpflege'].url
+  else
+    assign pflege_cat_url_hh = pflege_cat_root | append: 'collections/hautschutz-hautpflege'
+  endif
+  if collections.verbrauchsartikel != blank
+    assign pflege_cat_url_ver = collections.verbrauchsartikel.url
+  else
+    assign pflege_cat_url_ver = pflege_cat_root | append: 'collections/verbrauchsartikel'
+  endif
+  assign pflege_cat_a_des = false
+  assign pflege_cat_a_pf = false
+  assign pflege_cat_a_hh = false
+  assign pflege_cat_a_ver = false
+  if request.page_type == 'collection'
+    if collection.handle == 'desinfektion'
+      assign pflege_cat_a_des = true
+    elsif collection.handle == 'pflegeartikel'
+      assign pflege_cat_a_pf = true
+    elsif collection.handle == 'hautschutz-hautpflege'
+      assign pflege_cat_a_hh = true
+    elsif collection.handle == 'hauschutz-hautpflege'
+      assign pflege_cat_a_hh = true
+    elsif collection.handle == 'verbrauchsartikel'
+      assign pflege_cat_a_ver = true
+    endif
+  endif
+-%}
+
 <div class="header-wrapper pflege-main-nav pflege-main-nav--full-bleed color-{{ section.settings.color_scheme }} gradient">
   <div class="pflege-main-nav__grid">
     <div class="pflege-main-nav__drawer-slot large-up-hide">
@@ -28,9 +71,52 @@
     </div>
 
     <nav class="pflege-main-nav__nav" aria-label="{{ section.settings.menu_label | escape }}">
-      {%- comment -%} Feste vier Kategorien (Snippet) — nicht über Theme-Blöcke {%- endcomment -%}
-      <ul class="pflege-main-nav__menu" data-pflege-nav-categories="v5-hautschutz">
-        {% render 'pflege-category-nav', variant: 'desktop' %}
+      {%- comment -%} Desktop: Kategorien fest in dieser Section (kein render, keine Nav-Blöcke) {%- endcomment -%}
+      <ul class="pflege-main-nav__menu" data-pflege-nav-inline="v7-desinf-pflege-haut-verb">
+        <li>
+          <a
+            href="{{ pflege_cat_url_des }}"
+            class="pflege-main-nav__menu-link{% if pflege_cat_a_des %} pflege-main-nav__menu-link--active{% endif %}"
+            {% if pflege_cat_a_des %}
+              aria-current="page"
+            {% endif %}
+          >
+            {{- 'Desinfektion' | escape -}}
+          </a>
+        </li>
+        <li>
+          <a
+            href="{{ pflege_cat_url_pf }}"
+            class="pflege-main-nav__menu-link{% if pflege_cat_a_pf %} pflege-main-nav__menu-link--active{% endif %}"
+            {% if pflege_cat_a_pf %}
+              aria-current="page"
+            {% endif %}
+          >
+            {{- 'Pflegeartikel' | escape -}}
+          </a>
+        </li>
+        <li>
+          <a
+            href="{{ pflege_cat_url_hh }}"
+            class="pflege-main-nav__menu-link{% if pflege_cat_a_hh %} pflege-main-nav__menu-link--active{% endif %}"
+            {% if pflege_cat_a_hh %}
+              aria-current="page"
+            {% endif %}
+          >
+            {{- 'Hautschutz & Hautpflege' | escape -}}
+          </a>
+        </li>
+        <li>
+          <a
+            href="{{ pflege_cat_url_ver }}"
+            class="pflege-main-nav__menu-link{% if pflege_cat_a_ver %} pflege-main-nav__menu-link--active{% endif %}"
+            {% if pflege_cat_a_ver %}
+              aria-current="page"
+            {% endif %}
+          >
+            {{- 'Verbrauchsartikel' | escape -}}
+          </a>
+        </li>
       </ul>
     </nav>
 
@@ -226,7 +312,7 @@
           "type": "url",
           "id": "link",
           "label": "Link",
-          "info": "Leer lassen für „Alle Produkte“."
+          "info": "Wird im Theme nicht mehr für die Hauptnavigation verwendet (fest verdrahtete Kategorien)."
         }
       ]
     }
@@ -234,37 +320,7 @@
   "max_blocks": 12,
   "presets": [
     {
-      "name": "PflegeShop Hauptleiste",
-      "blocks": [
-        {
-          "type": "nav_link",
-          "settings": {
-            "title": "Desinfektion",
-            "link": "shopify://collections/desinfektion"
-          }
-        },
-        {
-          "type": "nav_link",
-          "settings": {
-            "title": "Pflegeartikel",
-            "link": "shopify://collections/pflegeartikel"
-          }
-        },
-        {
-          "type": "nav_link",
-          "settings": {
-            "title": "Hautschutz & Hautpflege",
-            "link": "shopify://collections/hautschutz-hautpflege"
-          }
-        },
-        {
-          "type": "nav_link",
-          "settings": {
-            "title": "Verbrauchsartikel",
-            "link": "shopify://collections/verbrauchsartikel"
-          }
-        }
-      ]
+      "name": "PflegeShop Hauptleiste"
     }
   ]
 }
