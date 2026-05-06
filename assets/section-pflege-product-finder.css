@@ -1,17 +1,19 @@
 /* PflegeShop — Produktfinder (Breite wie Hero/Bestseller, Hintergrundbild) */
+/* Extra Abstand nach „Beliebte Pflegeprodukte“ — Überschrift + Kasten gemeinsam nach unten */
 .pflege-product-finder {
   font-family: var(--font-body-family, inherit);
   font-style: var(--font-body-style, normal);
-  padding-top: var(--pflege-home-section-stack, clamp(1.5rem, 3vw, 2rem));
+  padding-top: clamp(2.75rem, 6vw, 4.25rem);
   padding-bottom: var(--pflege-home-section-stack, clamp(1.5rem, 3vw, 2rem));
   box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* Gleiche Überschrift-Typografie wie „Beliebte Pflegeprodukte“ */
 .pflege-product-finder__section-title {
   font-family: var(--font-body-family, inherit);
   font-size: clamp(1.85rem, 1.45rem + 1.15vw, 2.5rem);
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.25;
   letter-spacing: 0.02em;
   color: var(--pflege-navy, #0b2347);
@@ -94,9 +96,9 @@
 }
 
 .pflege-product-finder__intro {
-  font-size: clamp(1.12rem, 1rem + 0.35vw, 1.3rem);
+  font-size: clamp(1.14rem, 1.02rem + 0.38vw, 1.32rem);
   line-height: 1.55;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--pflege-navy, #0b2347);
   margin: 0 0 clamp(0.75rem, 1.5vw, 1rem);
   max-width: 48rem;
@@ -107,9 +109,10 @@
 }
 
 .pflege-product-finder__body {
-  font-size: clamp(0.98rem, 0.92rem + 0.18vw, 1.08rem);
+  font-size: clamp(1.02rem, 0.94rem + 0.22vw, 1.12rem);
   line-height: 1.65;
-  color: #1e3045;
+  font-weight: 600;
+  color: #132535;
   margin: 0;
   max-width: 48rem;
   margin-left: auto;
@@ -139,7 +142,7 @@
   background: var(--pflege-cta, #e67e22);
   color: #fff !important;
   font-size: clamp(1.05rem, 0.95rem + 0.35vw, 1.2rem);
-  font-weight: 600;
+  font-weight: 700;
   text-decoration: none;
   border: none;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -164,7 +167,7 @@
 
 .pflege-product-finder__link-secondary {
   font-size: clamp(1rem, 0.95rem + 0.15vw, 1.1rem);
-  font-weight: 500;
+  font-weight: 600;
   color: var(--pflege-accent, #3f86d9);
   text-decoration: underline;
   text-underline-offset: 0.2em;
@@ -181,8 +184,8 @@
 
 .pflege-product-finder__side-title {
   font-family: var(--font-body-family, inherit);
-  font-size: clamp(1.2rem, 1.05rem + 0.45vw, 1.45rem);
-  font-weight: 700;
+  font-size: clamp(1.22rem, 1.06rem + 0.45vw, 1.48rem);
+  font-weight: 800;
   line-height: 1.35;
   color: var(--pflege-navy, #0b2347);
   margin: 0 0 clamp(1rem, 2vw, 1.4rem);
@@ -205,8 +208,8 @@
 }
 
 .pflege-product-finder__feature-title {
-  font-size: clamp(1rem, 0.94rem + 0.2vw, 1.08rem);
-  font-weight: 700;
+  font-size: clamp(1.02rem, 0.96rem + 0.2vw, 1.1rem);
+  font-weight: 800;
   line-height: 1.35;
   color: var(--pflege-navy, #0b2347);
   margin: 0 0 0.45rem;
@@ -214,53 +217,12 @@
 }
 
 .pflege-product-finder__feature-text {
-  font-size: clamp(0.92rem, 0.86rem + 0.14vw, 1.01rem);
+  font-size: clamp(0.94rem, 0.88rem + 0.14vw, 1.04rem);
   line-height: 1.58;
-  color: #243547;
+  font-weight: 600;
+  color: #1a2c3d;
   margin: 0;
   text-shadow: 0 0 0.75rem rgba(255, 255, 255, 0.85), 0 1px 2px rgba(255, 255, 255, 0.8);
-}
-
-.pflege-product-finder__steps-wrap {
-  margin-top: clamp(1.35rem, 2.8vw, 1.85rem);
-  padding-top: clamp(1rem, 2vw, 1.25rem);
-  border-top: 1px solid rgba(11, 35, 71, 0.15);
-  position: relative;
-  z-index: 1;
-}
-
-.pflege-product-finder__steps {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem 0.5rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  font-size: clamp(0.84rem, 0.78rem + 0.18vw, 0.93rem);
-  color: #2a3d52;
-  letter-spacing: 0.02em;
-  text-shadow: 0 0 0.65rem rgba(255, 255, 255, 0.88), 0 1px 1px rgba(255, 255, 255, 0.85);
-}
-
-.pflege-product-finder__steps li {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin: 0;
-  padding: 0;
-  white-space: nowrap;
-}
-
-.pflege-product-finder__steps li:not(:last-child)::after {
-  content: '';
-  display: inline-block;
-  width: clamp(1.25rem, 4vw, 2.5rem);
-  height: 1px;
-  background: rgba(63, 77, 98, 0.28);
-  flex-shrink: 0;
 }
 
 @media screen and (max-width: 699px) {
@@ -273,21 +235,6 @@
 }
 
 @media screen and (max-width: 599px) {
-  .pflege-product-finder__steps {
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .pflege-product-finder__steps li {
-    white-space: normal;
-    justify-content: center;
-  }
-
-  .pflege-product-finder__steps li:not(:last-child)::after {
-    display: none;
-  }
-
   .pflege-product-finder__cta {
     width: 100%;
     max-width: 28rem;
