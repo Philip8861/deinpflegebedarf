@@ -35,15 +35,28 @@
                 {%- if badge_label != blank -%}
                   <span class="pflege-pflegesets__badge">{{ badge_label | escape }}</span>
                 {%- endif -%}
-                {%- if card_product != blank and card_product.featured_image -%}
+                {%- liquid
+                  assign pflegesets_img = nil
+                  assign pflegesets_img_alt = card_label
+                  if card_product != blank
+                    if card_product.featured_media != blank
+                      assign pflegesets_img = card_product.featured_media
+                    elsif card_product.featured_image != blank
+                      assign pflegesets_img = card_product.featured_image
+                    elsif card_product.selected_or_first_available_variant.image != blank
+                      assign pflegesets_img = card_product.selected_or_first_available_variant.image
+                    endif
+                  endif
+                -%}
+                {%- if pflegesets_img != blank -%}
                   {{
-                    card_product.featured_image
+                    pflegesets_img
                     | image_url: width: 800
                     | image_tag:
                       loading: 'lazy',
                       widths: '400, 600, 800',
                       sizes: '(min-width: 990px) 20vw, (min-width: 750px) 23vw, 70vw',
-                      alt: card_label,
+                      alt: pflegesets_img_alt,
                       class: 'pflege-pflegesets__img'
                   }}
                 {%- else -%}
