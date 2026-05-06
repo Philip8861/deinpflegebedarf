@@ -1451,5 +1451,55 @@
         "default": "scheme-1"
       }
     ]
+  },
+  {
+    "name": "Footer — Rechtliches",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Diese Leiste erscheint unter dem Haupt-Footer auf allen Seiten. Leere Links nutzen die Shopify-Richtlinien (Shop-Einstellungen → Richtlinien), sofern dort Inhalte existieren. Impressum bitte als Seite anlegen und hier verknüpfen."
+      },
+      {
+        "type": "text",
+        "id": "pflege_legal_heading",
+        "label": "Überschrift",
+        "default": "Rechtliches"
+      },
+      {
+        "type": "color_scheme",
+        "id": "pflege_legal_color_scheme",
+        "label": "Farbschema",
+        "default": "scheme-1"
+      },
+      {
+        "type": "header",
+        "content": "Links (optional; Fallbacks siehe Beschreibung oben)"
+      },
+      {
+        "type": "url",
+        "id": "pflege_legal_url_agb",
+        "label": "AGB"
+      },
+      {
+        "type": "url",
+        "id": "pflege_legal_url_impressum",
+        "label": "Impressum"
+      },
+      {
+        "type": "url",
+        "id": "pflege_legal_url_widerruf",
+        "label": "Widerrufsrecht"
+      },
+      {
+        "type": "url",
+        "id": "pflege_legal_url_versand",
+        "label": "Versandrichtlinien"
+      },
+      {
+        "type": "url",
+        "id": "pflege_legal_url_datenschutz",
+        "label": "Datenschutzerklärung"
+      }
+    ]
   }
 ]
