@@ -4,6 +4,7 @@
   padding-bottom: clamp(1.25rem, 3vw, 2rem);
 }
 
+/* Außen wie Hero-Shell (gleiche Innenränder zur Seitenkante) */
 .pflege-bestseller__shell {
   max-width: none;
   width: 100%;
@@ -11,6 +12,15 @@
   margin-right: 0;
   padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
   padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
+}
+
+/* Innen: gleiche max. Breite wie der Hero-Kasten mit Asset-Bild (nicht volle Shell) */
+.pflege-bestseller__panel {
+  width: 100%;
+  max-width: var(--pflege-hero-tile-max-width, min(100%, 1426px));
+  margin-left: auto;
+  margin-right: auto;
   box-sizing: border-box;
 }
 

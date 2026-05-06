@@ -15,6 +15,11 @@
   --pflege-max-copy: 52rem;
   /* Horizontale Kanten: auf schmalen Phones weniger Rand, ab Desktop wie bisher */
   --pflege-inline-gutter: clamp(1rem, 4.5vw, 2rem);
+  /*
+    Max. Breite wie Hero-Kachel mit startseite_main.webp (1901px × zoom 0.75 ≈ 1426px).
+    Schmaler Viewport: min(100%, …) übernimmt die Shell.
+  */
+  --pflege-hero-tile-max-width: min(100%, 1426px);
 }
 
 @media screen and (min-width: 480px) {
