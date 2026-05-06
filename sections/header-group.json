@@ -13,14 +13,6 @@
             "link": ""
           }
         },
-        "s2": {
-          "type": "item",
-          "settings": {
-            "icon": "document",
-            "text": "Kauf auf Rechnung",
-            "link": ""
-          }
-        },
         "s3": {
           "type": "item",
           "settings": {
@@ -38,7 +30,7 @@
           }
         }
       },
-      "block_order": ["s1", "s2", "s3", "s4"],
+      "block_order": ["s1", "s3", "s4"],
       "settings": {}
     },
     "pflege_hauptleiste": {
