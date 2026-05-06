@@ -15,69 +15,8 @@
     },
     "pflege_bestseller": {
       "type": "pflege-bestseller-row",
-      "blocks": {
-        "b1": {
-          "type": "product",
-          "settings": {
-            "manual_title": "Seni Care Feuchttücher Aqua",
-            "manual_subtitle": "48 Stk. | Packung",
-            "manual_price_display": "4,49 €",
-            "manual_review_count": "128",
-            "show_rating": true
-          }
-        },
-        "b2": {
-          "type": "product",
-          "settings": {
-            "manual_title": "Seni Care Waschschaum ohne Wasser",
-            "manual_subtitle": "500 ml | Flasche",
-            "manual_price_display": "7,99 €",
-            "manual_review_count": "94",
-            "show_rating": true
-          }
-        },
-        "b3": {
-          "type": "product",
-          "settings": {
-            "manual_title": "Seni San Premium Plus Größe M",
-            "manual_subtitle": "30 Stk. | Packung",
-            "manual_price_display": "16,99 €",
-            "manual_review_count": "210",
-            "show_rating": true
-          }
-        },
-        "b4": {
-          "type": "product",
-          "settings": {
-            "manual_title": "Seni Care Schutzcreme mit Arginin",
-            "manual_subtitle": "100 ml | Tube",
-            "manual_price_display": "6,49 €",
-            "manual_review_count": "76",
-            "show_rating": true
-          }
-        },
-        "b5": {
-          "type": "product",
-          "settings": {
-            "manual_title": "Seni Care Händedesinfektion Gel",
-            "manual_subtitle": "500 ml | Flasche",
-            "manual_price_display": "6,39 €",
-            "manual_review_count": "54",
-            "show_rating": true
-          }
-        },
-        "b6": {
-          "type": "product",
-          "settings": {
-            "manual_title": "Seni Care Einmalwaschlappen Soft Care",
-            "manual_subtitle": "50 Stk. | Packung",
-            "manual_price_display": "3,99 €",
-            "manual_review_count": "61",
-            "show_rating": true
-          }
-        }
-      },
-      "block_order": ["b1", "b2", "b3", "b4", "b5", "b6"],
+      "blocks": {},
+      "block_order": [],
       "settings": {
         "title": "Bestseller",
         "data_source": "collection",

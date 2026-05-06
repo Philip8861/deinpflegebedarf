@@ -1,9 +1,19 @@
 {{ 'section-pflege-bestseller-row.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
-  assign use_collection = false
-  if section.settings.data_source == 'collection' and section.settings.collection != blank and section.settings.collection.all_products_count > 0
-    assign use_collection = true
+  assign limit_products = section.settings.products_to_show | default: 6
+  assign show_section = false
+
+  if section.settings.data_source == 'collection'
+    if section.settings.collection != blank and section.settings.collection.all_products_count > 0
+      assign show_section = true
+    endif
+  else
+    for block in section.blocks
+      if block.settings.product != blank
+        assign show_section = true
+      endif
+    endfor
   endif
 
   assign view_all_href = section.settings.view_all_link
@@ -13,33 +23,35 @@
   if view_all_href == blank
     assign view_all_href = routes.all_products_collection_url
   endif
-
-  assign limit_products = section.settings.products_to_show | default: 6
 -%}
 
-<section class="pflege-bestseller">
-  <div class="pflege-bestseller__shell">
-    <div class="pflege-bestseller__head">
-      <h2 class="pflege-bestseller__title">{{ section.settings.title | escape }}</h2>
-      {%- if section.settings.view_all_label != blank -%}
-        <a class="pflege-bestseller__view-all" href="{{ view_all_href }}">
-          {{- section.settings.view_all_label | escape -}}
-        </a>
-      {%- endif -%}
+{%- if show_section -%}
+  <section class="pflege-bestseller">
+    <div class="pflege-bestseller__shell">
+      <div class="pflege-bestseller__head">
+        <h2 class="pflege-bestseller__title">{{ section.settings.title | escape }}</h2>
+        {%- if section.settings.view_all_label != blank -%}
+          <a class="pflege-bestseller__view-all" href="{{ view_all_href }}">
+            {{- section.settings.view_all_label | escape -}}
+          </a>
+        {%- endif -%}
+      </div>
+      <div class="pflege-bestseller__grid">
+        {%- if section.settings.data_source == 'collection' -%}
+          {%- for card_product in section.settings.collection.products limit: limit_products -%}
+            {% render 'pflege-bestseller-card', card_context: 'collection', card_product: card_product %}
+          {%- endfor -%}
+        {%- else -%}
+          {%- for block in section.blocks -%}
+            {%- if block.settings.product != blank -%}
+              {% render 'pflege-bestseller-card', card_context: 'manual_block', block: block %}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
     </div>
-    <div class="pflege-bestseller__grid">
-      {%- if use_collection -%}
-        {%- for card_product in section.settings.collection.products limit: limit_products -%}
-          {% render 'pflege-bestseller-card', card_context: 'collection', card_product: card_product %}
-        {%- endfor -%}
-      {%- else -%}
-        {%- for block in section.blocks -%}
-          {% render 'pflege-bestseller-card', card_context: 'manual_block', block: block %}
-        {%- endfor -%}
-      {%- endif -%}
-    </div>
-  </div>
-</section>
+  </section>
+{%- endif -%}
 
 {% schema %}
 {
@@ -73,7 +85,7 @@
       "type": "collection",
       "id": "collection",
       "label": "Kollektion",
-      "info": "z. B. „Alle Produkte“ oder eine eigene Bestseller-Kollektion. Nur bei „Aus Kollektion“."
+      "info": "z. B. „Alle Produkte“. Ohne Kollektion oder ohne Artikel im Shop wird diese Section nicht angezeigt — keine Platzhalter."
     },
     {
       "type": "range",
@@ -117,33 +129,31 @@
         {
           "type": "text",
           "id": "manual_title",
-          "label": "Demo-Titel (ohne Produkt)",
-          "default": "Seni Care Feuchttücher Aqua"
+          "label": "Fallback-Titel",
+          "info": "Nur wenn oben kein Produkt gewählt ist. Ohne Produkt wird die Karte nicht angezeigt."
         },
         {
           "type": "text",
           "id": "manual_subtitle",
-          "label": "Demo-Unterzeile",
-          "default": "48 Stk. | Packung"
+          "label": "Fallback-Unterzeile"
         },
         {
           "type": "text",
           "id": "manual_price_display",
-          "label": "Demo-Preis als Text",
-          "default": "4,49 €",
-          "info": "Nur wenn kein Produkt gewählt. Sonst Shopify-Preis."
+          "label": "Fallback-Preis als Text",
+          "info": "Nur ohne gewähltes Produkt (selten). Mit Produkt: Shop-Preis."
         },
         {
           "type": "number",
           "id": "manual_price_cents",
-          "label": "Demo-Preis (Cent)",
-          "info": "Optional; sonst Textfeld „Demo-Preis“ nutzen."
+          "label": "Fallback-Preis (Cent)",
+          "info": "Nur ohne Produkt."
         },
         {
           "type": "text",
           "id": "manual_review_count",
-          "label": "Bewertungsanzahl Text",
-          "default": "128"
+          "label": "Bewertungsanzahl (Text)",
+          "info": "Nur bei manueller Zeile mit Produkt, wenn Sterne aktiv sind."
         },
         {
           "type": "checkbox",
@@ -154,13 +164,14 @@
         {
           "type": "url",
           "id": "manual_link",
-          "label": "Demo-Link",
-          "info": "Ohne Produkt: wohin soll die Karte führen?"
+          "label": "Fallback-Link",
+          "info": "Nur ohne gewähltes Produkt."
         },
         {
           "type": "image_picker",
           "id": "placeholder_image",
-          "label": "Demo-Bild"
+          "label": "Fallback-Bild",
+          "info": "Nur ohne gewähltes Produkt."
         }
       ]
     }
@@ -172,63 +183,7 @@
         "data_source": "collection",
         "products_to_show": 6,
         "show_collection_rating": true
-      },
-      "blocks": [
-        {
-          "type": "product",
-          "settings": {
-            "manual_title": "Seni Care Feuchttücher Aqua",
-            "manual_subtitle": "48 Stk. | Packung",
-            "manual_price_display": "4,49 €",
-            "manual_review_count": "128"
-          }
-        },
-        {
-          "type": "product",
-          "settings": {
-            "manual_title": "Seni Care Waschschaum ohne Wasser",
-            "manual_subtitle": "500 ml | Flasche",
-            "manual_price_display": "7,99 €",
-            "manual_review_count": "94"
-          }
-        },
-        {
-          "type": "product",
-          "settings": {
-            "manual_title": "Seni San Premium Plus Größe M",
-            "manual_subtitle": "30 Stk. | Packung",
-            "manual_price_display": "16,99 €",
-            "manual_review_count": "210"
-          }
-        },
-        {
-          "type": "product",
-          "settings": {
-            "manual_title": "Seni Care Schutzcreme mit Arginin",
-            "manual_subtitle": "100 ml | Tube",
-            "manual_price_display": "6,49 €",
-            "manual_review_count": "76"
-          }
-        },
-        {
-          "type": "product",
-          "settings": {
-            "manual_title": "Seni Care Händedesinfektion Gel",
-            "manual_subtitle": "500 ml | Flasche",
-            "manual_price_display": "6,39 €",
-            "manual_review_count": "54"
-          }
-        },
-        {
-          "type": "product",
-          "settings": {
-            "manual_title": "Seni Care Einmalwaschlappen Soft Care",
-            "manual_subtitle": "50 Stk. | Packung",
-            "manual_price_display": "3,99 €",
-            "manual_review_count": "61"
-          }
-        }
-      ]
+      }
     }
   ]
 }
