@@ -143,7 +143,7 @@
   align-items: center;
   gap: 1rem;
   padding-inline: 2.75rem;
-  margin-bottom: 1.55rem;
+  margin-bottom: 0.85rem;
   text-align: center;
 }
 
@@ -191,13 +191,19 @@
   text-align: center;
 }
 
-/* Produkt-Host + Card (Inhalt aus Section) */
+/* Produkt: Bild direkt unter Überschrift/Unterzeile, mittig; Infos optional in Karte */
 .cart-notification-product-host {
   margin-bottom: 1.55rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .cart-notification-product-host .cart-notification-product {
   margin: 0;
+  width: 100%;
+  max-width: 36rem;
 }
 
 .cart-notification-product {
@@ -206,10 +212,10 @@
   flex-wrap: nowrap;
   align-items: center;
   gap: 1.15rem;
-  padding: 1.45rem 1.55rem;
-  background: linear-gradient(180deg, var(--cn-bg-soft) 0%, var(--cn-white) 55%);
-  border: 1px solid var(--cn-border);
-  border-radius: var(--cn-radius-card);
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
   text-align: center;
 }
 
@@ -220,7 +226,7 @@
   justify-content: center;
   width: clamp(13.5rem, 45vw, 18rem);
   height: clamp(13.5rem, 45vw, 18rem);
-  margin: 0;
+  margin: 0 auto;
   padding: 0.95rem;
   border-radius: 22px;
   background: rgba(255, 255, 255, 0.9);
@@ -238,6 +244,10 @@
   width: 100%;
   max-width: 36rem;
   min-width: 0;
+  padding: 1.25rem 1.45rem;
+  background: linear-gradient(180deg, var(--cn-bg-soft) 0%, var(--cn-white) 55%);
+  border: 1px solid var(--cn-border);
+  border-radius: var(--cn-radius-card);
 }
 
 .cart-notification-product__body > .caption-with-letter-spacing {
