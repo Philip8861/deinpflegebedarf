@@ -1,0 +1,121 @@
+/* PflegeShop — Pflegesets unter Produktfinder: drei gleich große quadratische Kacheln */
+.pflege-pflegesets {
+  font-family: var(--font-body-family, inherit);
+  font-style: var(--font-body-style, normal);
+  padding-top: var(--pflege-home-section-stack, clamp(1.5rem, 3vw, 2rem));
+  padding-bottom: var(--pflege-home-section-stack, clamp(1.5rem, 3vw, 2rem));
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+.pflege-pflegesets__shell {
+  max-width: none;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
+}
+
+.pflege-pflegesets__panel {
+  width: 100%;
+  max-width: var(--pflege-hero-tile-max-width, min(100%, 1426px));
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+.pflege-pflegesets__title {
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1.85rem, 1.45rem + 1.15vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  color: var(--pflege-navy, #0b2347);
+  margin: 0 0 clamp(1.35rem, 3vw, 2rem);
+  text-align: center;
+  max-width: min(48rem, 100%);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pflege-pflegesets__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.85rem, 2.5vw, 1.5rem);
+  align-items: start;
+}
+
+.pflege-pflegesets__card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  border-radius: var(--pflege-radius-lg, 22px);
+  border: 1px solid var(--pflege-border, #e5eef8);
+  overflow: hidden;
+  background: var(--pflege-bg-softer, #f5faff);
+  box-sizing: border-box;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pflege-pflegesets__card:hover {
+  box-shadow: 0 8px 28px rgba(11, 35, 71, 0.1);
+  transform: translateY(-2px);
+}
+
+.pflege-pflegesets__card:focus-visible {
+  outline: 2px solid var(--pflege-accent, #3f86d9);
+  outline-offset: 3px;
+}
+
+/* Streng quadratischer Bildbereich — gleiche Seitenlänge in jeder Spalte */
+.pflege-pflegesets__media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--pflege-white, #fefefe);
+}
+
+.pflege-pflegesets__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.pflege-pflegesets__placeholder {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pflege-pflegesets__caption {
+  display: block;
+  padding: clamp(0.75rem, 2vw, 1rem) clamp(0.65rem, 1.5vw, 0.95rem);
+  font-size: clamp(0.98rem, 0.9rem + 0.25vw, 1.1rem);
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: center;
+  color: var(--pflege-navy, #0b2347);
+}
+
+@media screen and (max-width: 479px) {
+  .pflege-pflegesets__caption {
+    font-size: clamp(0.72rem, 3.1vw, 0.88rem);
+    padding: clamp(0.45rem, 1.5vw, 0.65rem) clamp(0.35rem, 1vw, 0.55rem);
+  }
+
+  .pflege-pflegesets__grid {
+    gap: clamp(0.45rem, 2vw, 0.75rem);
+  }
+}

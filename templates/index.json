@@ -40,11 +40,21 @@
         "intro": "Kein langes Suchen: Mit wenigen Klicks finden Sie passende Pflegeprodukte für Ihren individuellen Bedarf. Ob Hautpflege, Inkontinenz, Hygiene, Desinfektion, Schutz oder Pflegehilfen, unser Produktfinder führt Sie einfach durch die wichtigsten Fragen und zeigt Ihnen schnell passende Empfehlungen für Ihre persönliche Pflegesituation.",
         "primary_label": "Jetzt das passende Produkt erhalten"
       }
+    },
+    "pflege_pflegesets": {
+      "type": "pflege-pflegesets-row",
+      "settings": {
+        "heading": "Jetzt Sparen mit unseren Pflegesets",
+        "handle_1": "pflegeset-grosse-s",
+        "handle_2": "pflegeset-grosse-l",
+        "handle_3": "pflegeset-grosse-m"
+      }
     }
   },
   "order": [
     "pflege_hero",
     "pflege_bestseller",
-    "pflege_product_finder"
+    "pflege_product_finder",
+    "pflege_pflegesets"
   ]
 }
