@@ -37,7 +37,7 @@
       },
       "block_order": ["s1", "s2", "s3", "s4"]
     },
-    "pflege_main_nav": {
+    "pflege_header_main_nav": {
       "type": "pflege-main-nav",
       "blocks": {
         "nav_desinfektion": {
@@ -83,5 +83,5 @@
       }
     }
   },
-  "order": ["pflege_service_bar", "pflege_main_nav"]
+  "order": ["pflege_service_bar", "pflege_header_main_nav"]
 }

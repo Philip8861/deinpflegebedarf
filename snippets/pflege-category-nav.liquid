@@ -39,7 +39,9 @@
       assign active_des = true
     elsif collection.handle == 'pflegeartikel'
       assign active_pf = true
-    elsif collection.handle == 'hautschutz-hautpflege' or collection.handle == 'hauschutz-hautpflege'
+    elsif collection.handle == 'hautschutz-hautpflege'
+      assign active_hh = true
+    elsif collection.handle == 'hauschutz-hautpflege'
       assign active_hh = true
     elsif collection.handle == 'verbrauchsartikel'
       assign active_ver = true
