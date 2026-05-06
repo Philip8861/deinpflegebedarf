@@ -16,16 +16,16 @@
 }
 
 /* ============================================================
-   Desktop: zweispaltig — gleiche Zeilenhöhe Artikel | Summary;
-   Promo darunter über volle Hero-Breite
+   Desktop: zweispaltig — Hero-Breite (wie Pflege-Hero); Promo unter Artikeln;
+   Bestellübersicht rechts (sticky). Keine erzwungene Gleichhöhe der Spalten.
    ============================================================ */
 @media screen and (min-width: 990px) {
   .template-cart #MainContent:has(cart-items:not(.is-empty)) {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(320px, 400px);
+    grid-template-columns: minmax(0, 1fr) minmax(330px, 380px);
     column-gap: clamp(1.75rem, 2.5vw, 2rem);
     row-gap: 1.5rem;
-    align-items: stretch;
+    align-items: start;
     width: 100%;
     max-width: var(--pflege-hero-tile-max-width, min(100%, 1426px));
     margin-inline: auto;
@@ -69,97 +69,28 @@
     grid-column: 1;
     grid-row: 3;
     margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-self: stretch;
-    min-height: 0;
-    height: auto;
-  }
-
-  .template-cart #MainContent:has(cart-items:not(.is-empty)) form#cart #main-cart-items.cart__items {
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-  }
-
-  .template-cart #MainContent:has(cart-items:not(.is-empty)) form#cart #main-cart-items .js-contents {
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-  }
-
-  .template-cart #MainContent:has(cart-items:not(.is-empty)) form#cart .pflege-cart-items-table.cart-items {
-    flex: 1 1 auto;
-    width: 100%;
-    min-height: 0;
-    height: 100%;
   }
 
   .template-cart #MainContent:has(cart-items:not(.is-empty)) .pflege-cart-promo {
-    grid-column: 1 / -1;
+    grid-column: 1;
     grid-row: 4;
     margin: 0;
+    margin-top: 0;
   }
 
   .template-cart #MainContent:has(cart-items:not(.is-empty)) > .pflege-cart-section--aside {
     grid-column: 2;
-    grid-row: 3;
-    align-self: stretch;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
+    grid-row: 3 / span 2;
+    align-self: start;
+    position: sticky;
+    top: 1.25rem;
     z-index: 2;
   }
 
-  .template-cart #MainContent:has(cart-items:not(.is-empty)) > .pflege-cart-section--aside #main-cart-footer {
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-  }
-
   .template-cart #MainContent:has(cart-items:not(.is-empty)) > .pflege-cart-section--aside .pflege-cart-aside__inner.page-width {
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
     padding-inline: 0;
     max-width: none;
     margin: 0;
-  }
-
-  .template-cart #MainContent:has(cart-items:not(.is-empty)) > .pflege-cart-section--aside .cart__footer.pflege-cart-aside__footer {
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-  }
-
-  .template-cart #MainContent:has(cart-items:not(.is-empty)) > .pflege-cart-section--aside .cart__blocks.pflege-cart-aside__blocks {
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-  }
-
-  .template-cart #MainContent:has(cart-items:not(.is-empty)) > .pflege-cart-section--aside .cart__blocks > .js-contents {
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-  }
-
-  .template-cart #MainContent:has(cart-items:not(.is-empty)) > .pflege-cart-section--aside .pflege-cart-summary.pflege-cart-card {
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-  }
-
-  .template-cart #MainContent:has(cart-items:not(.is-empty)) > .pflege-cart-section--aside .pflege-cart-summary__cta-band {
-    margin-top: auto;
   }
 
   .template-cart #MainContent:has(cart-items:not(.is-empty))
