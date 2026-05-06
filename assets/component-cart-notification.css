@@ -26,7 +26,7 @@
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: rgba(11, 35, 71, 0.45);
+  background: rgba(11, 35, 71, 0.62);
   opacity: 0;
   transition: opacity var(--duration-default, 0.25s) ease;
   backdrop-filter: blur(4px);
@@ -52,12 +52,12 @@
 
   position: relative;
   z-index: 1;
-  width: min(100%, 38rem);
-  max-width: 40rem;
-  max-height: min(90vh, 46rem);
+  width: min(100%, 46rem);
+  max-width: 48rem;
+  max-height: min(92vh, 52rem);
   overflow: auto;
   margin: 0;
-  padding: clamp(1.25rem, 4vw, 2rem) clamp(1.25rem, 4vw, 2.25rem) clamp(1.25rem, 3vw, 1.75rem);
+  padding: clamp(1.5rem, 4.5vw, 2.35rem) clamp(1.5rem, 4.5vw, 2.75rem) clamp(1.5rem, 3.5vw, 2rem);
   background: var(--cn-white);
   border: 1px solid var(--cn-border);
   border-radius: var(--cn-radius);
@@ -195,8 +195,8 @@
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-  gap: 1rem 1.25rem;
-  padding: 1rem 1.1rem;
+  gap: 1.15rem 1.35rem;
+  padding: 1.15rem 1.25rem;
   background: linear-gradient(180deg, var(--cn-bg-soft) 0%, var(--cn-white) 55%);
   border: 1px solid var(--cn-border);
   border-radius: var(--cn-radius-card);
@@ -207,11 +207,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 4.5rem;
-  height: 4.5rem;
+  width: clamp(6.5rem, 22vw, 8.75rem);
+  height: clamp(6.5rem, 22vw, 8.75rem);
   margin: 0;
-  padding: 0.35rem;
-  border-radius: 12px;
+  padding: 0.5rem;
+  border-radius: 14px;
   background: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(212, 230, 251, 0.9);
 }
