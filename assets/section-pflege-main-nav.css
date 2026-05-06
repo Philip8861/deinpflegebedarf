@@ -425,25 +425,27 @@
   }
 }
 
-/* Desktop: Raster — Nav-Spalte darf nicht unter die Suche laufen; Suche schmaler max. */
+/* Desktop: Logo | vier Kategorien (gleichmäßig) | Suche | Aktionen */
 @media screen and (min-width: 990px) {
   .pflege-main-nav-section .pflege-main-nav__grid {
     display: grid;
+    /* Logo (auto) · Nav wächst zwischen Logo und Suche · Suche mit Obergrenze · Aktionen */
     grid-template-columns:
       auto
-      minmax(0, 1fr)
-      minmax(12rem, min(34rem, 30vw))
+      minmax(20rem, 1fr)
+      minmax(13rem, min(30rem, 26vw))
       auto;
-    gap: clamp(0.65rem, 1.5vw, 1.45rem);
+    column-gap: clamp(0.85rem, 2.2vw, 1.85rem);
     align-items: center;
-    /* Vertikaler Ausgleich Nav/Suche/Aktionen vs. Logo (Desktop ≥990px); translateY im Stylesheet oben */
     padding-top: 1.05rem;
     padding-bottom: 1.5rem;
   }
 
+  /* Eine Zeile mit Logo, Nav, Suche — ohne vertikalen Versatz */
   .pflege-main-nav-section .pflege-main-nav__logo {
     justify-self: start;
     align-self: center;
+    transform: none;
   }
 
   .pflege-main-nav-section .pflege-main-nav__logo-link {
@@ -455,53 +457,66 @@
   .pflege-main-nav-section .pflege-main-nav__search-host,
   .pflege-main-nav-section .pflege-main-nav__actions {
     align-self: center;
+    transform: none;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__grid:not(:has(.pflege-main-nav__search-host)) .pflege-main-nav__search {
+    transform: none;
   }
 
   .pflege-main-nav-section .pflege-main-nav__nav {
     justify-self: stretch;
     width: 100%;
     min-width: 0;
-    overflow: hidden;
+    max-width: 100%;
+    overflow: visible;
     padding: 0;
-    padding-inline-end: clamp(0.25rem, 0.8vw, 0.65rem);
+    padding-inline: clamp(0.15rem, 0.5vw, 0.5rem);
     box-sizing: border-box;
   }
 
+  /* Vier Kategorien gleich breit im Zwischenraum Logo–Suche */
   .pflege-main-nav-section .pflege-main-nav__menu {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: clamp(0.35rem, 1.1vw, 1rem);
+    row-gap: 0;
     width: 100%;
-    max-width: none;
-    justify-content: flex-start;
-    gap: clamp(0.25rem, 0.9vw, 0.85rem);
-    flex-wrap: nowrap;
-    transform: none;
+    max-width: 100%;
     align-items: center;
+    justify-items: stretch;
+    list-style: none;
+    margin: 0;
+    padding: 0;
   }
 
   .pflege-main-nav-section .pflege-main-nav__menu > li {
-    flex: 1 1 0;
     min-width: 0;
-    max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .pflege-main-nav-section .pflege-main-nav__menu-link {
-    flex: 0 1 auto;
-    min-width: 0;
     width: 100%;
+    max-width: 100%;
+    min-width: 0;
     text-align: center;
     letter-spacing: 0.02em;
-    padding-inline: clamp(0.02rem, 0.2vw, 0.28rem);
+    padding-inline: clamp(0.08rem, 0.35vw, 0.35rem);
+    padding-block: 0.35rem;
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    max-width: 100%;
-    font-size: clamp(1rem, 0.48rem + 0.82vw, 1.52rem);
+    font-size: clamp(0.92rem, 0.42rem + 0.72vw, 1.38rem);
+    line-height: 1.2;
   }
 
   .pflege-main-nav-section .pflege-main-nav__search,
   .pflege-main-nav-section .pflege-main-nav__search-host {
     width: 100%;
-    max-width: min(34rem, 30vw);
+    max-width: min(30rem, 26vw);
     min-width: 12rem;
     justify-self: stretch;
   }
@@ -570,22 +585,6 @@
   .pflege-main-nav-section .list-menu__item--link {
     padding-bottom: 0.5rem;
     padding-top: 0.5rem;
-  }
-}
-
-/* Desktop: vertikaler Ausgleich Nav / Suche / Aktionen (vormals inline, Theme-abhängig) */
-@media screen and (min-width: 990px) {
-  .pflege-main-nav-section .pflege-main-nav__nav,
-  .pflege-main-nav-section .pflege-main-nav__actions {
-    transform: translateY(8px);
-  }
-
-  .pflege-main-nav-section .pflege-main-nav__search-host {
-    transform: translateY(8px);
-  }
-
-  .pflege-main-nav-section .pflege-main-nav__grid:not(:has(.pflege-main-nav__search-host)) .pflege-main-nav__search {
-    transform: translateY(8px);
   }
 }
 
