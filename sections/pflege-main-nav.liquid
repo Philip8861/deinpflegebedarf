@@ -1,0 +1,378 @@
+<link rel="stylesheet" href="{{ 'component-list-menu.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-search.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-menu-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-cart-notification.css' | asset_url }}" media="print" onload="this.media='all'">
+
+{%- if settings.predictive_search_enabled -%}
+  <link rel="stylesheet" href="{{ 'component-price.css' | asset_url }}" media="print" onload="this.media='all'">
+{%- endif -%}
+
+<style>
+  .pflege-main-nav-section header-drawer {
+    justify-self: start;
+    margin-left: -1.2rem;
+  }
+
+  @media screen and (min-width: 990px) {
+    .pflege-main-nav-section header-drawer {
+      display: none !important;
+    }
+  }
+
+  .pflege-main-nav-section .menu-drawer-container {
+    display: flex;
+  }
+
+  .pflege-main-nav-section .list-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .pflege-main-nav-section .list-menu--inline {
+    display: inline-flex;
+    flex-wrap: wrap;
+  }
+
+  .pflege-main-nav-section summary.list-menu__item {
+    padding-right: 2.7rem;
+  }
+
+  .pflege-main-nav-section .list-menu__item {
+    display: flex;
+    align-items: center;
+    line-height: calc(1 + 0.3 / var(--font-body-scale));
+  }
+
+  .pflege-main-nav-section .list-menu__item--link {
+    text-decoration: none;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    line-height: calc(1 + 0.8 / var(--font-body-scale));
+  }
+
+  @media screen and (min-width: 750px) {
+    .pflege-main-nav-section .list-menu__item--link {
+      padding-bottom: 0.5rem;
+      padding-top: 0.5rem;
+    }
+  }
+</style>
+
+<script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
+
+{{ 'section-pflege-main-nav.css' | asset_url | stylesheet_tag }}
+
+<style>
+  {%- comment -%}
+    Vertikaler Shift nur für Nav + Suche + Konto/Warenkorb (Logo bleibt ohne transform).
+    Nur ≥990px. Werte bewusst in px: kleine %-Schritte sind auf dem Bildschirm kaum sichtbar —
+    Negativ = nach oben, positiv = nach unten (zur Logo-Zeile). Hier in ganzen Pixeln,
+    damit Änderungen sichtbar sind — kleine %-Schritte auf px-Werten sind kaum erkennbar.
+  {%- endcomment -%}
+  @media screen and (min-width: 990px) {
+    .pflege-main-nav-section .pflege-main-nav__nav,
+    .pflege-main-nav-section .pflege-main-nav__actions {
+      transform: translateY(8px);
+    }
+    {%- if settings.predictive_search_enabled -%}
+      /* Nur Host verschieben — Form liegt darin, sonst doppeltes translateY */
+      .pflege-main-nav-section .pflege-main-nav__search-host {
+        transform: translateY(8px);
+      }
+    {%- else -%}
+      .pflege-main-nav-section .pflege-main-nav__search {
+        transform: translateY(8px);
+      }
+    {%- endif -%}
+  }
+</style>
+
+<div class="header-wrapper pflege-main-nav pflege-main-nav--full-bleed color-{{ section.settings.color_scheme }} gradient">
+  <div class="pflege-main-nav__grid">
+    <div class="pflege-main-nav__drawer-slot large-up-hide">
+      {% render 'pflege-flat-drawer' %}
+    </div>
+
+    <div class="pflege-main-nav__logo">
+      <a href="{{ routes.root_url }}" class="pflege-main-nav__logo-link">
+        {% render 'pflege-logo-webp',
+          img_class: 'pflege-main-nav__logo-img',
+          logo_width: section.settings.logo_width,
+          logo_height: section.settings.logo_height
+        %}
+      </a>
+    </div>
+
+    <nav class="pflege-main-nav__nav" aria-label="{{ section.settings.menu_label | escape }}">
+      <ul class="pflege-main-nav__menu">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'nav_link' and block.settings.title != blank -%}
+            {%- liquid
+              assign nav_href = block.settings.link
+              if nav_href == blank
+                assign nav_href = routes.all_products_collection_url
+              endif
+              assign nav_active = false
+              if nav_href != blank and request.path == nav_href
+                assign nav_active = true
+              endif
+            -%}
+            <li {{ block.shopify_attributes }}>
+              <a
+                href="{{ nav_href }}"
+                class="pflege-main-nav__menu-link{% if nav_active %} pflege-main-nav__menu-link--active{% endif %}"
+                {% if nav_active %}
+                  aria-current="page"
+                {% endif %}
+              >
+                {{- block.settings.title | escape -}}
+              </a>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </nav>
+
+    {%- if settings.predictive_search_enabled -%}
+      <predictive-search class="pflege-main-nav__search-host" data-loading-text="{{ 'accessibility.loading' | t }}">
+    {%- endif -%}
+    <form class="pflege-main-nav__search" action="{{ routes.search_url }}" method="get" role="search">
+      <input type="hidden" name="options[prefix]" value="last">
+      <label class="visually-hidden" for="PflegeMainNavSearch-{{ section.id }}">
+        {{- section.settings.search_placeholder | escape -}}
+      </label>
+      <input
+        id="PflegeMainNavSearch-{{ section.id }}"
+        class="pflege-main-nav__search-input"
+        type="search"
+        name="q"
+        value="{{ search.terms | escape }}"
+        placeholder="{{ section.settings.search_placeholder | escape }}"
+        autocomplete="off"
+        {%- if settings.predictive_search_enabled -%}
+          role="combobox"
+          aria-expanded="false"
+          aria-owns="predictive-search-results"
+          aria-controls="predictive-search-results"
+          aria-haspopup="listbox"
+          aria-autocomplete="list"
+          autocorrect="off"
+          autocapitalize="off"
+          spellcheck="false"
+        {%- endif -%}
+      >
+      {%- if settings.predictive_search_enabled -%}
+        <button
+          type="reset"
+          class="pflege-main-nav__search-reset{% if search.terms == blank %} hidden{% endif %}"
+          aria-label="{{ 'general.search.reset' | t }}"
+        >
+          <span class="svg-wrapper">{{ 'icon-reset.svg' | inline_asset_content }}</span>
+        </button>
+      {%- endif -%}
+      <button type="submit" class="pflege-main-nav__search-submit" aria-label="{{ 'general.search.search' | t }}">
+        <span class="svg-wrapper">{{ 'icon-search.svg' | inline_asset_content }}</span>
+      </button>
+    </form>
+    {%- if settings.predictive_search_enabled -%}
+      <div
+        class="predictive-search predictive-search--header pflege-main-nav__predictive-panel"
+        tabindex="-1"
+        data-predictive-search
+      >
+        {%- render 'loading-spinner', class: 'predictive-search__loading-state' -%}
+      </div>
+      <span class="predictive-search-status visually-hidden" role="status" aria-hidden="true"></span>
+      </predictive-search>
+    {%- endif -%}
+
+    <div class="pflege-main-nav__actions">
+      {%- if shop.customer_accounts_enabled -%}
+        <a
+          href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
+          class="pflege-main-nav__action pflege-main-nav__action--account link focus-inset"
+          rel="nofollow"
+        >
+          <span class="pflege-main-nav__action-icon">
+            <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
+          </span>
+          <span class="pflege-main-nav__stack">
+            <strong class="pflege-main-nav__stack-title">{{ section.settings.account_heading | escape }}</strong>
+            <span class="pflege-main-nav__stack-sub">
+              {%- liquid
+                if customer
+                  echo 'customer.account_fallback' | t
+                else
+                  echo section.settings.account_sub_guest | escape
+                endif
+              -%}
+            </span>
+          </span>
+        </a>
+      {%- endif -%}
+
+      <div class="pflege-main-nav__action pflege-main-nav__action--cart">
+        <a
+          href="{{ routes.cart_url }}"
+          id="pflege-cart-icon-bubble"
+          class="pflege-main-nav__cart-hit pflege-main-nav__cart-icon link focus-inset"
+        >
+          <span id="pflege-cart-icon-contents" class="pflege-main-nav__cart-graphic">
+            {% render 'pflege-cart-icon-inner' %}
+          </span>
+          <div class="pflege-main-nav__stack">
+            <strong class="pflege-main-nav__stack-title">{{ section.settings.cart_heading | escape }}</strong>
+            <span class="pflege-main-nav__cart-total" data-pflege-cart-total>{{ cart.total_price | money }}</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{%- if settings.cart_type == 'notification' -%}
+  {%- render 'cart-notification', color_scheme: section.settings.color_scheme, desktop_menu_type: 'dropdown' -%}
+{%- endif -%}
+
+<div class="visually-hidden" aria-hidden="true">
+  <a href="{{ routes.cart_url }}" id="cart-icon-bubble">{% render 'pflege-cart-icon-inner' %}</a>
+</div>
+
+{% schema %}
+{
+  "name": "PflegeShop Hauptleiste",
+  "tag": "section",
+  "class": "pflege-main-nav-section section-header",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Farbschema",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color_scheme",
+      "id": "menu_color_scheme",
+      "label": "Farbschema Mobil-Menü (Drawer)",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "menu_label",
+      "label": "Navigations-Beschriftung (aria)",
+      "default": "Produktbereiche"
+    },
+    {
+      "type": "text",
+      "id": "search_placeholder",
+      "label": "Suchfeld Platzhalter",
+      "default": "Produkte suchen..."
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 80,
+      "max": 320,
+      "step": 4,
+      "unit": "px",
+      "label": "Logo Breite",
+      "default": 220
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "min": 24,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "Logo Höhe (Attribut)",
+      "default": 48
+    },
+    {
+      "type": "text",
+      "id": "account_heading",
+      "label": "Konto Überschrift",
+      "default": "Mein Konto"
+    },
+    {
+      "type": "text",
+      "id": "account_sub_guest",
+      "label": "Konto Unterzeile (Gast)",
+      "default": "Anmelden"
+    },
+    {
+      "type": "text",
+      "id": "cart_heading",
+      "label": "Warenkorb Überschrift",
+      "default": "Warenkorb"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "nav_link",
+      "name": "Navigations-Link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Bezeichnung",
+          "default": "Kategorie"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "Leer lassen für „Alle Produkte“."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "PflegeShop Hauptleiste",
+      "blocks": [
+        {
+          "type": "nav_link",
+          "settings": {
+            "title": "Körperpflege",
+            "link": ""
+          }
+        },
+        {
+          "type": "nav_link",
+          "settings": {
+            "title": "Schutzausrüstung",
+            "link": ""
+          }
+        },
+        {
+          "type": "nav_link",
+          "settings": {
+            "title": "Zubehör",
+            "link": ""
+          }
+        },
+        {
+          "type": "nav_link",
+          "settings": {
+            "title": "Wundbehandlung",
+            "link": ""
+          }
+        },
+        {
+          "type": "nav_link",
+          "settings": {
+            "title": "Hygiene",
+            "link": ""
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,23 @@
+{% comment %}
+  Shop-Logo ausschließlich aus theme/assets/logo.webp (Datei im Ordner tauschen → Logo aktualisiert).
+  Parameter (optional): img_class, logo_width, logo_height, loading
+{% endcomment %}
+{%- liquid
+  assign lw = logo_width | default: settings.logo_width | default: 200
+  if lw == blank or lw < 140
+    assign lw = 200
+  endif
+  assign lh = logo_height | default: 44
+  assign ic = img_class | default: ''
+  assign ld = loading | default: 'eager'
+-%}
+<img
+  src="{{ 'logo.webp' | asset_url }}"
+  alt="{{ shop.name | escape }}"
+  class="{{ ic }}"
+  width="{{ lw }}"
+  height="{{ lh }}"
+  loading="{{ ld }}"
+  decoding="async"
+  fetchpriority="high"
+>

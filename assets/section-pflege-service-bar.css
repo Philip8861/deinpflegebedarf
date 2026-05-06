@@ -1,7 +1,9 @@
 /* PflegeShop — Service-Leiste (Höhe: Basis 3rem × 1,1 × 1,05; Text ca. +10 %) */
+/* Oberer Headerbalken: feste Farbe (Token --pflege-bg-soft würde auf der Startseite sonst #eef6ff erzwingen) */
 .pflege-service-bar {
-  background: var(--pflege-bg-soft, #eef6ff);
+  background-color: #f0f5fb !important;
   border-bottom: 1px solid var(--pflege-border, #e5eef8);
+  --pflege-service-hover-glow: 88, 145, 215;
 }
 
 .pflege-service-bar__inner {
@@ -12,13 +14,13 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: calc(0.75rem * 1.1) calc(1.25rem * 1.1);
+  gap: 0.65rem 2cm;
 }
 
 @media screen and (min-width: 990px) {
   .pflege-service-bar__inner {
-    justify-content: space-between;
-    gap: 1rem 2rem;
+    justify-content: center;
+    gap: 0.65rem 2cm;
     flex-wrap: nowrap;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -35,7 +37,7 @@
 .pflege-service-bar__body {
   display: inline-flex;
   align-items: center;
-  gap: calc(0.55rem * 1.1);
+  gap: 0.4rem;
   margin: 0;
   padding: 0;
   font-size: calc(1.2rem * 1.1);
@@ -71,11 +73,27 @@
   font-family: inherit !important;
   color: inherit !important;
   text-decoration: none;
+  border-radius: 0.35rem;
+  transition: color 0.2s ease, text-shadow 0.28s ease, text-decoration-color 0.2s ease;
 }
 
 .pflege-service-bar__link:hover {
   text-decoration: underline;
   color: var(--pflege-accent, #3f86d9);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pflege-service-bar__link:hover,
+  .pflege-service-bar__link:focus-visible {
+    text-shadow:
+      0 0 12px rgba(var(--pflege-service-hover-glow), 0.36),
+      0 0 24px rgba(var(--pflege-service-hover-glow), 0.12);
+  }
+
+  .pflege-service-bar__item:has(.pflege-service-bar__link:hover) .pflege-icon,
+  .pflege-service-bar__item:has(.pflege-service-bar__link:focus-visible) .pflege-icon {
+    filter: drop-shadow(0 0 8px rgba(var(--pflege-service-hover-glow), 0.45));
+  }
 }
 
 .pflege-service-bar__link--tel {
@@ -106,4 +124,67 @@
   height: 22px;
   flex-shrink: 0;
   vertical-align: middle;
+}
+
+/* Startseite: Hinweise kurz nacheinander reinfahren + kurz aufleuchten */
+@keyframes pflege-service-bar-body-intro {
+  0% {
+    opacity: 0;
+    transform: translateY(0.7rem);
+    filter: brightness(1);
+  }
+  22% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: brightness(1);
+  }
+  48% {
+    filter: drop-shadow(0 0 10px rgba(88, 145, 215, 0.55)) brightness(1.06);
+  }
+  62% {
+    filter: drop-shadow(0 0 6px rgba(88, 145, 215, 0.3)) brightness(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: none;
+  }
+}
+
+.template-index .pflege-service-bar__body {
+  opacity: 0;
+  animation: pflege-service-bar-body-intro 1.55s ease forwards;
+}
+
+.template-index .pflege-service-bar__item:nth-child(1) .pflege-service-bar__body {
+  animation-delay: 0.06s;
+}
+
+.template-index .pflege-service-bar__item:nth-child(2) .pflege-service-bar__body {
+  animation-delay: 0.2s;
+}
+
+.template-index .pflege-service-bar__item:nth-child(3) .pflege-service-bar__body {
+  animation-delay: 0.34s;
+}
+
+.template-index .pflege-service-bar__item:nth-child(4) .pflege-service-bar__body {
+  animation-delay: 0.48s;
+}
+
+.template-index .pflege-service-bar__item:nth-child(5) .pflege-service-bar__body {
+  animation-delay: 0.62s;
+}
+
+.template-index .pflege-service-bar__item:nth-child(6) .pflege-service-bar__body {
+  animation-delay: 0.76s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .template-index .pflege-service-bar__body {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
 }

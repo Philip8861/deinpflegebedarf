@@ -2,85 +2,16 @@
   "sections": {
     "pflege_hero": {
       "type": "pflege-hero",
-      "blocks": {
-        "u1": {
-          "type": "usp",
-          "settings": {
-            "icon": "sparkles",
-            "text": "Sanfte Pflege für jeden Tag"
-          }
-        },
-        "u2": {
-          "type": "usp",
-          "settings": {
-            "icon": "shield",
-            "text": "Dermatologisch getestet"
-          }
-        },
-        "u3": {
-          "type": "usp",
-          "settings": {
-            "icon": "droplet",
-            "text": "Für empfindliche Haut"
-          }
-        }
-      },
-      "block_order": ["u1", "u2", "u3"],
       "settings": {
-        "badge": "VERTRAUEN, QUALITÄT, FÜR MEHR WOHLBEFINDEN.",
+        "badge": "Pflegeprodukte, die den Pflegealltag erleichtern",
         "heading_line1": "Pflegeprodukte",
         "heading_line2": "für jeden Bedarf",
-        "subheading": "Hochwertige Pflegeprodukte für mehr Lebensqualität – für Sie selbst oder Ihre Liebsten.",
-        "button_label": "Jetzt entdecken",
+        "subheading": "Ohne langes Suchen zu den passenden Pflegeprodukten.\nVertrauen Sie auf unsere Erfahrung: Beantworten Sie ein paar kurze Fragen und wir zeigen Ihnen Produkte, die zu Ihrer persönlichen Pflegesituation passen.",
+        "button_label": "Jetzt passende Produkte anzeigen",
         "button_link": "shopify://collections/all",
-        "image_alt": "Pflegeprodukte Auswahl"
+        "image_alt": "Pflegeprodukte Auswahl",
+        "trust_heading": "Ihre Vorteile im Überblick"
       }
-    },
-    "pflege_categories": {
-      "type": "pflege-category-cards",
-      "blocks": {
-        "c1": {
-          "type": "category",
-          "settings": {
-            "title": "Inkontinenz",
-            "description": "Diskreter Schutz und Pflege für den Alltag.",
-            "icon": "shield",
-            "link_label": "Jetzt entdecken",
-            "link": "shopify://collections/all"
-          }
-        },
-        "c2": {
-          "type": "category",
-          "settings": {
-            "title": "Hautpflege",
-            "description": "Schonende Reinigung und sensible Pflege.",
-            "icon": "droplet",
-            "link_label": "Jetzt entdecken",
-            "link": "shopify://collections/all"
-          }
-        },
-        "c3": {
-          "type": "category",
-          "settings": {
-            "title": "Hygiene",
-            "description": "Frisch und hygienisch – auch unterwegs.",
-            "icon": "sparkles",
-            "link_label": "Jetzt entdecken",
-            "link": "shopify://collections/all"
-          }
-        },
-        "c4": {
-          "type": "category",
-          "settings": {
-            "title": "Hilfsmittel",
-            "description": "Mehr Sicherheit und Komfort im Alltag.",
-            "icon": "package",
-            "link_label": "Jetzt entdecken",
-            "link": "shopify://collections/all"
-          }
-        }
-      },
-      "block_order": ["c1", "c2", "c3", "c4"]
     },
     "pflege_bestseller": {
       "type": "pflege-bestseller-row",
@@ -194,7 +125,6 @@
   },
   "order": [
     "pflege_hero",
-    "pflege_categories",
     "pflege_bestseller",
     "pflege_trust"
   ]

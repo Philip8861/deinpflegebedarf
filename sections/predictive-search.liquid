@@ -223,16 +223,13 @@
 
     <div id="predictive-search-option-search-keywords" class="predictive-search__search-for-button">
       <button
-        class="predictive-search__item predictive-search__item--term link link--text h5 animate-arrow"
+        class="predictive-search__item predictive-search__item--term link link--text h5"
         tabindex="-1"
         role="option"
         aria-selected="false"
       >
         <span data-predictive-search-search-for-text>
           {{- 'templates.search.search_for' | t: terms: predictive_search.terms -}}
-        </span>
-        <span class="svg-wrapper">
-          {{- 'icon-arrow.svg' | inline_asset_content -}}
         </span>
       </button>
     </div>

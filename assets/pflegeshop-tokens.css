@@ -13,4 +13,6 @@
   --pflege-radius-pill: 999px;
   --pflege-font-display: Georgia, 'Times New Roman', Times, serif;
   --pflege-max-copy: 52rem;
+  /* Gleiche horizontale Kanten wie Hauptleiste (Logo … Warenkorb) */
+  --pflege-inline-gutter: clamp(3.5rem, 9vw, 12rem);
 }

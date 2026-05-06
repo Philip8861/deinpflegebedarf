@@ -3,15 +3,24 @@
 {%- liquid
   assign fetch_prio = 'high'
   assign hero_loading = 'eager'
-  if section.settings.image == blank
-    assign fetch_prio = 'auto'
-  endif
 -%}
 
 <section class="pflege-hero">
   <div class="pflege-hero__shell">
-    <div class="pflege-hero__panel">
-      <div class="pflege-hero__grid">
+    <div class="pflege-hero__panel{% if section.settings.image == blank %} pflege-hero__panel--asset-bg{% endif %}">
+      {%- if section.settings.image == blank -%}
+        <div class="pflege-hero__asset-zoom">
+          <img
+            class="pflege-hero__asset-photo"
+            src="{{ 'startseite_main.webp' | asset_url }}"
+            alt="{{ section.settings.image_alt | default: 'Pflegeprodukte' | escape }}"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+          >
+        </div>
+      {%- endif -%}
+      <div class="pflege-hero__grid{% if section.settings.image == blank %} pflege-hero__grid--asset-bg{% endif %}">
         <div class="pflege-hero__content">
           {%- if section.settings.badge != blank -%}
             <p class="pflege-hero__badge">{{ section.settings.badge | escape }}</p>
@@ -28,7 +37,7 @@
           {%- if section.settings.button_label != blank -%}
             <a class="pflege-hero__cta" href="{{ section.settings.button_link | default: routes.collections_url }}">
               {{- section.settings.button_label | escape -}}
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
           {%- endif -%}
           {%- if section.blocks.size > 0 -%}
@@ -36,7 +45,7 @@
               {%- for block in section.blocks -%}
                 {%- if block.type == 'usp' -%}
                   <li class="pflege-hero__usp" {{ block.shopify_attributes }}>
-                    {% render 'pflege-icon', icon: block.settings.icon, width: 18 %}
+                    {% render 'pflege-icon', icon: block.settings.icon, width: 22 %}
                     <span>{{ block.settings.text | escape }}</span>
                   </li>
                 {%- endif -%}
@@ -44,8 +53,8 @@
             </ul>
           {%- endif -%}
         </div>
-        <div class="pflege-hero__media">
-          {%- if section.settings.image != blank -%}
+        {%- if section.settings.image != blank -%}
+          <div class="pflege-hero__media">
             {%- assign img_alt = section.settings.image.alt | default: section.settings.image_alt | escape -%}
             {{
               section.settings.image
@@ -57,12 +66,46 @@
                 fetchpriority: fetch_prio,
                 alt: img_alt
             }}
-          {%- else -%}
-            {{ 'product-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
-            <span class="pflege-hero__placeholder-note">Platzhalter — Hero-Bild im Theme-Editor wählen</span>
-          {%- endif -%}
-        </div>
+          </div>
+        {%- endif -%}
       </div>
+    </div>
+
+    <div class="pflege-hero__trust-wrap">
+      <h2 class="pflege-hero__trust-heading">
+        {{- section.settings.trust_heading | default: 'Ihre Vorteile im Überblick' | escape -}}
+      </h2>
+      <ul class="pflege-hero__trust" role="list">
+        <li class="pflege-hero__trust-item">
+          <span class="pflege-hero__trust-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+          </span>
+          <span class="pflege-hero__trust-text">Persönlich ausgewählte Pflegeprodukte</span>
+        </li>
+        <li class="pflege-hero__trust-item">
+          <span class="pflege-hero__trust-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="5" y="11" width="14" height="10" rx="2"/>
+              <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+            </svg>
+          </span>
+          <span class="pflege-hero__trust-text">Sicher bezahlen mit Käuferschutz</span>
+        </li>
+        <li class="pflege-hero__trust-item">
+          <span class="pflege-hero__trust-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/>
+              <path d="M15 18H9"/>
+              <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/>
+              <circle cx="17" cy="18" r="2"/>
+              <circle cx="7" cy="18" r="2"/>
+            </svg>
+          </span>
+          <span class="pflege-hero__trust-text">Schneller Versand in 1–2 Tagen</span>
+        </li>
+      </ul>
     </div>
   </div>
 </section>
@@ -77,7 +120,7 @@
       "type": "text",
       "id": "badge",
       "label": "Badge",
-      "default": "VERTRAUEN, QUALITÄT, FÜR MEHR WOHLBEFINDEN."
+      "default": "Pflegeprodukte, die den Pflegealltag erleichtern"
     },
     {
       "type": "text",
@@ -95,13 +138,13 @@
       "type": "textarea",
       "id": "subheading",
       "label": "Unterzeile",
-      "default": "Hochwertige Pflegeprodukte für mehr Lebensqualität – für Sie selbst oder Ihre Liebsten."
+      "default": "Ohne langes Suchen zu den passenden Pflegeprodukten.\nVertrauen Sie auf unsere Erfahrung: Beantworten Sie ein paar kurze Fragen und wir zeigen Ihnen Produkte, die zu Ihrer persönlichen Pflegesituation passen."
     },
     {
       "type": "text",
       "id": "button_label",
       "label": "Button-Text",
-      "default": "Jetzt entdecken"
+      "default": "Jetzt passende Produkte anzeigen"
     },
     {
       "type": "url",
@@ -111,7 +154,8 @@
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Hero-Bild"
+      "label": "Hero-Bild",
+      "info": "Ohne Auswahl: startseite_main.webp in Originalgröße in der Kachel (max. so breit wie Logo–Warenkorb). Mit Bild: zweispaltig."
     },
     {
       "type": "text",
@@ -119,6 +163,12 @@
       "label": "Alt-Text Bild",
       "default": "Pflegeprodukte Auswahl",
       "info": "Wird verwendet, wenn das Bild im Medien-Editor keinen Alt-Text hat."
+    },
+    {
+      "type": "text",
+      "id": "trust_heading",
+      "label": "Überschrift über den Trust-Hinweisen",
+      "default": "Ihre Vorteile im Überblick"
     }
   ],
   "blocks": [
@@ -149,12 +199,7 @@
   ],
   "presets": [
     {
-      "name": "PflegeShop Hero",
-      "blocks": [
-        { "type": "usp", "settings": { "icon": "sparkles", "text": "Sanfte Pflege für jeden Tag" } },
-        { "type": "usp", "settings": { "icon": "shield", "text": "Dermatologisch getestet" } },
-        { "type": "usp", "settings": { "icon": "droplet", "text": "Für empfindliche Haut" } }
-      ]
+      "name": "PflegeShop Hero"
     }
   ]
 }

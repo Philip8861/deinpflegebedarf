@@ -226,7 +226,7 @@
       "title": "Suchergebnisse",
       "page": "Seite",
       "products": "Produkte",
-      "search_for": "Nach \"{{ terms }}\" suchen",
+      "search_for": "Suchbegriff: „{{ terms }}“",
       "results_with_count_and_term": {
         "one": "{{ count }} Ergebnis für \"{{ terms }}\" gefunden",
         "other": "{{ count }} Ergebnisse für \"{{ terms }}\" gefunden"

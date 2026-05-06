@@ -1,0 +1,50 @@
+(function () {
+  function syncPflegeCartIcon() {
+    var master = document.getElementById('cart-icon-bubble');
+    var slave = document.getElementById('pflege-cart-icon-contents');
+    if (!master || !slave) return;
+    slave.innerHTML = master.innerHTML;
+  }
+
+  function updatePflegeCartTotal() {
+    var el = document.querySelector('[data-pflege-cart-total]');
+    if (!el || !window.routes || !window.routes.cart_url) return;
+    fetch(window.routes.cart_url + '.js')
+      .then(function (res) {
+        return res.json();
+      })
+      .then(function (cart) {
+        var currency = cart.currency || 'EUR';
+        el.textContent = new Intl.NumberFormat(document.documentElement.lang || 'de-DE', {
+          style: 'currency',
+          currency: currency,
+        }).format(cart.total_price / 100);
+      })
+      .catch(function () {});
+  }
+
+  function init() {
+    syncPflegeCartIcon();
+    var master = document.getElementById('cart-icon-bubble');
+    var slave = document.getElementById('pflege-cart-icon-contents');
+    if (master && slave) {
+      new MutationObserver(syncPflegeCartIcon).observe(master, { childList: true, subtree: true });
+    }
+    updatePflegeCartTotal();
+    requestAnimationFrame(syncPflegeCartIcon);
+    if (typeof subscribe === 'function' && typeof PUB_SUB_EVENTS !== 'undefined') {
+      subscribe(PUB_SUB_EVENTS.cartUpdate, function () {
+        requestAnimationFrame(function () {
+          syncPflegeCartIcon();
+          updatePflegeCartTotal();
+        });
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();

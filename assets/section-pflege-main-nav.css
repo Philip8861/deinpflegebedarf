@@ -1,0 +1,616 @@
+/* PflegeShop — Hauptleiste (ersetzt den Dawn-Standard-Header); ~10 % größere Maße */
+.pflege-main-nav-section.section-header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  --pflege-action-icon-color: #5891d7; /* Konto + Warenkorb Icon */
+  --pflege-action-icon-box: 3.65rem;
+  --pflege-action-icon-svg: 3.28rem;
+  /* Warenkorb füllt die ViewBox stärker als das Konto-Icon → etwas kleiner zeichnen */
+  --pflege-cart-svg-scale: 0.9;
+  /* RGB für rgba()-Leuchteffekte bei Hover */
+  --pflege-hover-glow: 88, 145, 215;
+}
+
+.pflege-main-nav-section .pflege-main-nav {
+  background: var(--pflege-main-bg, #fefefe);
+}
+
+/* Volle Viewport-Breite (ohne Dawn page-width-Kappe), Kanten nur mit Innenabstand */
+.pflege-main-nav-section .pflege-main-nav.pflege-main-nav--full-bleed {
+  max-width: none;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: var(--pflege-inline-gutter, clamp(3.5rem, 9vw, 12rem));
+  padding-right: var(--pflege-inline-gutter, clamp(3.5rem, 9vw, 12rem));
+  box-sizing: border-box;
+}
+
+.pflege-main-nav-section .pflege-main-nav__grid {
+  margin: 0;
+  padding: 1.1rem 0;
+  align-items: center;
+  width: 100%;
+}
+
+.pflege-main-nav-section .pflege-main-nav__drawer-slot {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.pflege-main-nav-section .pflege-main-nav__logo {
+  flex: 0 0 auto;
+}
+
+.pflege-main-nav-section .pflege-main-nav__logo-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.pflege-main-nav-section .pflege-main-nav__logo-img {
+  display: block;
+  height: auto;
+  max-height: 5.28rem;
+  width: auto;
+  max-width: min(24.2rem, 38vw);
+}
+
+/* Reihenfolge links → rechts: Logo | Nav | Suche | Aktionen */
+.pflege-main-nav-section .pflege-main-nav__nav {
+  display: flex;
+  min-width: 0;
+}
+
+.pflege-main-nav-section .pflege-main-nav__menu {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  gap: 0.35rem 0.8rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pflege-main-nav-section .pflege-main-nav__menu-link {
+  font-size: 1.82rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--pflege-main-nav-text, #3d4f68);
+  text-decoration: none;
+  white-space: nowrap;
+  padding: 0.385rem 0;
+  line-height: 1.2;
+  border-radius: 0.45rem;
+  transition: color 0.22s ease, text-shadow 0.28s ease, box-shadow 0.28s ease;
+}
+
+.pflege-main-nav-section .pflege-main-nav__menu-link:hover {
+  color: var(--pflege-main-nav-text-hover, #0b2347);
+}
+
+.pflege-main-nav-section .pflege-main-nav__menu-link--active {
+  font-weight: 600;
+  color: var(--pflege-main-nav-text-hover, #0b2347);
+}
+
+/* Predictive Search: Anker für Dropdown (wie Dawn .header predictive-search) */
+.pflege-main-nav-section predictive-search.pflege-main-nav__search-host {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+/* Pill-Suche */
+.pflege-main-nav-section .pflege-main-nav__search {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--pflege-main-search-border, #dfe6ef);
+  border-radius: var(--pflege-radius-pill, 999px);
+  background: rgb(var(--color-background, 254 254 254));
+  padding: 0 0 0 1.485rem;
+  overflow: hidden;
+  transition: border-color 0.22s ease, box-shadow 0.28s ease;
+}
+
+.pflege-main-nav-section .pflege-main-nav__search-reset {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  padding: 0.45rem 0.35rem;
+  margin: 0 0 0 -0.25rem;
+  cursor: pointer;
+  color: var(--pflege-main-muted, #9aa8bc);
+  line-height: 0;
+}
+
+.pflege-main-nav-section .pflege-main-nav__search-reset .svg-wrapper {
+  width: 1.65rem;
+  height: 1.65rem;
+}
+
+.pflege-main-nav-section .pflege-main-nav__search-reset:hover,
+.pflege-main-nav-section .pflege-main-nav__search-reset:focus-visible {
+  color: var(--pflege-main-nav-text, #3d4f68);
+}
+
+/* Dropdown: an Pill-Suche angepasst (runde Ecken, weicher Rand) */
+.pflege-main-nav-section .pflege-main-nav__predictive-panel.predictive-search--header {
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 12;
+  margin-top: 0.45rem;
+  border-radius: 1.05rem;
+  border: 1px solid var(--pflege-main-search-border, #dfe6ef);
+  border-top: none;
+  background-color: rgb(var(--color-background, 254 254 254));
+  box-shadow:
+    0 0 0 1px rgba(88, 145, 215, 0.06),
+    0 12px 32px rgba(11, 35, 71, 0.1);
+  overflow: hidden;
+}
+
+.pflege-main-nav-section .pflege-main-nav__predictive-panel .predictive-search__results-groups-wrapper {
+  border-radius: 0 0 0.85rem 0.85rem;
+}
+
+.pflege-main-nav-section .pflege-main-nav__predictive-panel .predictive-search__heading {
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+}
+
+.pflege-main-nav-section .pflege-main-nav__predictive-panel .predictive-search__search-for-button {
+  border-top: 1px solid rgba(var(--color-foreground, 18 18 18), 0.06);
+  padding: 0.35rem 0;
+}
+
+.pflege-main-nav-section .pflege-main-nav__predictive-panel .predictive-search__item--term {
+  border-radius: 0.65rem;
+  margin: 0.25rem 0.75rem 0.65rem;
+  padding: 0.65rem 1rem;
+}
+
+.pflege-main-nav-section .pflege-main-nav__search-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  font-size: 1.595rem;
+  letter-spacing: 0.03em;
+  color: rgb(var(--color-foreground, 18 18 18));
+  padding: 0.825rem 0.825rem 0.825rem 0;
+  outline: none;
+  line-height: 1.2;
+  /* Kein natives Suchfeld-Chrome (Safari/Chrome: innere graue Bögen am Fokus) */
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.pflege-main-nav-section .pflege-main-nav__search-input::-webkit-search-decoration,
+.pflege-main-nav-section .pflege-main-nav__search-input::-webkit-search-cancel-button,
+.pflege-main-nav-section .pflege-main-nav__search-input::-webkit-search-results-button,
+.pflege-main-nav-section .pflege-main-nav__search-input::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}
+
+.pflege-main-nav-section .pflege-main-nav__search-input::-moz-search-clear-button {
+  display: none;
+}
+
+.pflege-main-nav-section .pflege-main-nav__search-input::placeholder {
+  color: var(--pflege-main-muted, #9aa8bc);
+  opacity: 1;
+}
+
+.pflege-main-nav-section .pflege-main-nav__search-submit {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  padding: 0.715rem 1.265rem;
+  cursor: pointer;
+  color: var(--pflege-main-nav-text, #3d4f68);
+  border-radius: var(--pflege-radius-pill, 999px);
+  transition: color 0.2s ease, filter 0.28s ease;
+}
+
+.pflege-main-nav-section .pflege-main-nav__search-submit .svg-wrapper {
+  width: 2.2rem;
+  height: 2.2rem;
+}
+
+/* Konto + Warenkorb */
+.pflege-main-nav-section .pflege-main-nav__actions {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: clamp(0.85rem, 1.65vw, 1.85rem);
+}
+
+.pflege-main-nav-section .pflege-main-nav__action {
+  display: flex;
+  align-items: center;
+  gap: 0.935rem;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 0.75rem;
+  transition: box-shadow 0.28s ease;
+}
+
+.pflege-main-nav-section .pflege-main-nav__action--cart {
+  gap: 0.935rem;
+}
+
+.pflege-main-nav-section .pflege-main-nav__action-icon {
+  display: inline-flex;
+  width: var(--pflege-action-icon-box);
+  height: var(--pflege-action-icon-box);
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #5891d7;
+}
+
+.pflege-main-nav-section .pflege-main-nav__action-icon .svg-wrapper {
+  width: var(--pflege-action-icon-svg);
+  height: var(--pflege-action-icon-svg);
+  color: inherit;
+}
+
+.pflege-main-nav-section .pflege-main-nav__action-icon .svg-wrapper svg {
+  display: block;
+}
+
+/* Konto + Warenkorb: eine gemeinsame Icon-Farbe (kein Abweichen durch SVG-Defaults / leerer Wagen) */
+.pflege-main-nav-section .pflege-main-nav__action-icon .svg-wrapper,
+.pflege-main-nav-section .pflege-main-nav__cart-graphic .svg-wrapper {
+  color: #5891d7;
+}
+
+.pflege-main-nav-section .pflege-main-nav__action-icon svg,
+.pflege-main-nav-section .pflege-main-nav__cart-graphic svg {
+  color: #5891d7;
+  stroke: currentColor;
+  fill: none;
+  stroke-opacity: 1;
+}
+
+.pflege-main-nav-section .pflege-main-nav__action-icon svg circle,
+.pflege-main-nav-section .pflege-main-nav__action-icon svg path,
+.pflege-main-nav-section .pflege-main-nav__cart-graphic svg circle,
+.pflege-main-nav-section .pflege-main-nav__cart-graphic svg path {
+  fill: none;
+  stroke: currentColor;
+  stroke-opacity: 1;
+}
+
+/* Mobil-Drawer: Konto-Icon gleiche Markenfarbe */
+.pflege-main-nav-section .menu-drawer__account .svg-wrapper {
+  color: #5891d7;
+}
+
+.pflege-main-nav-section .pflege-main-nav__stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.11rem;
+  line-height: 1.2;
+}
+
+.pflege-main-nav-section .pflege-main-nav__stack-title {
+  font-size: 1.595rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--pflege-main-heading, #0b2347);
+}
+
+.pflege-main-nav-section .pflege-main-nav__stack-sub,
+.pflege-main-nav-section .pflege-main-nav__cart-total {
+  font-size: 1.43rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  color: var(--pflege-main-muted, #6f7f95);
+}
+
+.pflege-main-nav-section .pflege-main-nav__cart-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.935rem;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 0.75rem;
+  transition: box-shadow 0.28s ease;
+}
+
+.pflege-main-nav-section .pflege-main-nav__cart-graphic {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--pflege-action-icon-box);
+  height: var(--pflege-action-icon-box);
+  color: #5891d7;
+}
+
+.pflege-main-nav-section .pflege-main-nav__cart-graphic .svg-wrapper {
+  width: calc(var(--pflege-action-icon-svg) * var(--pflege-cart-svg-scale));
+  height: calc(var(--pflege-action-icon-svg) * var(--pflege-cart-svg-scale));
+  color: inherit;
+}
+
+.pflege-main-nav-section .pflege-main-nav__cart-graphic .svg-wrapper svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Badge: Dawn-Standard ist auf kleinerem Icon kalibriert */
+.pflege-main-nav-section .pflege-main-nav__cart-graphic .cart-count-bubble {
+  left: auto;
+  right: -0.1rem;
+  bottom: 0.55rem;
+  width: 1.85rem;
+  height: 1.85rem;
+  font-size: 0.95rem;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pflege-main-nav-section .pflege-main-nav__menu-link:hover,
+  .pflege-main-nav-section .pflege-main-nav__menu-link:focus-visible {
+    text-shadow:
+      0 0 12px rgba(var(--pflege-hover-glow), 0.38),
+      0 0 26px rgba(var(--pflege-hover-glow), 0.14);
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__search:hover,
+  .pflege-main-nav-section .pflege-main-nav__search:focus-within {
+    border-color: rgba(var(--pflege-hover-glow), 0.38);
+    box-shadow:
+      0 0 0 1px rgba(var(--pflege-hover-glow), 0.1),
+      0 0 22px rgba(var(--pflege-hover-glow), 0.18),
+      0 4px 20px rgba(var(--pflege-hover-glow), 0.08);
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__search-submit:hover,
+  .pflege-main-nav-section .pflege-main-nav__search-submit:focus-visible {
+    filter: drop-shadow(0 0 10px rgba(var(--pflege-hover-glow), 0.42));
+  }
+
+  /* Mobil-Menü (Drawer): gleiche dezente Leuchte */
+  .pflege-main-nav-section .menu-drawer__menu-item.list-menu__item:hover,
+  .pflege-main-nav-section .menu-drawer__menu-item.list-menu__item:focus-visible {
+    text-shadow:
+      0 0 12px rgba(var(--pflege-hover-glow), 0.35),
+      0 0 24px rgba(var(--pflege-hover-glow), 0.12);
+  }
+
+  .pflege-main-nav-section .menu-drawer__account:hover,
+  .pflege-main-nav-section .menu-drawer__account:focus-visible {
+    text-shadow:
+      0 0 12px rgba(var(--pflege-hover-glow), 0.35),
+      0 0 22px rgba(var(--pflege-hover-glow), 0.12);
+    filter: drop-shadow(0 0 8px rgba(var(--pflege-hover-glow), 0.35));
+  }
+
+  .pflege-main-nav-section .header__icon--menu:hover,
+  .pflege-main-nav-section .header__icon--menu:focus-visible {
+    filter: drop-shadow(0 0 10px rgba(var(--pflege-hover-glow), 0.4));
+  }
+}
+
+/* Desktop: Raster über volle Breite — mittlere Spalte für Kategorien, Suche fest begrenzt */
+@media screen and (min-width: 990px) {
+  .pflege-main-nav-section .pflege-main-nav__grid {
+    display: grid;
+    grid-template-columns:
+      auto
+      minmax(0, 1fr)
+      minmax(18rem, min(48rem, 52vw))
+      auto;
+    gap: clamp(0.85rem, 2vw, 2.35rem);
+    align-items: center;
+    /*
+      Vertikaler Ausgleich Nav/Suche/Aktionen vs. Logo (Desktop ≥990px):
+      Inline-<style> in sections/pflege-main-nav.liquid direkt nach dem Stylesheet (translateY).
+    */
+    padding-top: 1.05rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__logo {
+    justify-self: start;
+    align-self: center;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__logo-link {
+    align-items: center;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__nav,
+  .pflege-main-nav-section .pflege-main-nav__search,
+  .pflege-main-nav-section .pflege-main-nav__search-host,
+  .pflege-main-nav-section .pflege-main-nav__actions {
+    align-self: center;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__nav {
+    justify-self: stretch;
+    width: 100%;
+    min-width: 0;
+    overflow: visible;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__menu {
+    width: 100%;
+    max-width: none;
+    justify-content: space-between;
+    gap: clamp(0.65rem, 1.75vw, 1.85rem);
+    flex-wrap: nowrap;
+    transform: none;
+    align-items: center;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__menu-link {
+    flex: 0 1 auto;
+    text-align: center;
+    letter-spacing: 0.03em;
+    padding-inline: 0.15rem;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__search,
+  .pflege-main-nav-section .pflege-main-nav__search-host {
+    width: 100%;
+    max-width: min(48rem, 52vw);
+    min-width: 18rem;
+    justify-self: stretch;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__actions {
+    justify-self: end;
+    flex-shrink: 0;
+    align-items: center;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__action {
+    align-items: center;
+  }
+}
+
+/* Mobil: kompaktes Raster — Hamburger, Logo, Suche, Aktionen; Menü darunter scrollbar */
+@media screen and (max-width: 989px) {
+  .pflege-main-nav-section .pflege-main-nav__grid {
+    display: grid;
+    grid-template-columns: auto auto minmax(0, 1fr) auto;
+    grid-template-rows: auto auto;
+    align-items: center;
+    gap: 0.5rem 0.75rem;
+    padding: 0.715rem 0;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__drawer-slot {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__logo {
+    grid-column: 2;
+    grid-row: 1;
+    min-width: 0;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__search,
+  .pflege-main-nav-section .pflege-main-nav__search-host {
+    grid-column: 3;
+    grid-row: 1;
+    max-width: none;
+    min-width: 0;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__actions {
+    grid-column: 4;
+    grid-row: 1;
+    gap: 0.385rem;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-content: flex-start;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 0.165rem;
+    padding-left: 0;
+    padding-right: 0;
+    scrollbar-width: thin;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__menu {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 0.65rem 0.85rem;
+    padding: 0.165rem 0;
+    transform: none;
+    width: max-content;
+    max-width: none;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__menu-link {
+    font-size: 1.62rem;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__logo-img {
+    max-height: 4.4rem;
+    max-width: min(19.8rem, 52vw);
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__stack-title {
+    font-size: 1.32rem;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__stack-sub,
+  .pflege-main-nav-section .pflege-main-nav__cart-total {
+    font-size: 1.265rem;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__action--account .pflege-main-nav__stack {
+    display: none;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__action--cart .pflege-main-nav__stack {
+    display: none;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__cart-icon {
+    min-width: 3.75rem;
+    min-height: 3.15rem;
+    padding: 0.385rem;
+    gap: 0;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__action-icon {
+    width: 3.15rem;
+    height: 3.15rem;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__action-icon .svg-wrapper {
+    width: 2.85rem;
+    height: 2.85rem;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__cart-graphic {
+    width: 3.15rem;
+    height: 3.15rem;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__cart-graphic .svg-wrapper {
+    width: calc(2.85rem * var(--pflege-cart-svg-scale));
+    height: calc(2.85rem * var(--pflege-cart-svg-scale));
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__cart-graphic .cart-count-bubble {
+    right: -0.05rem;
+    bottom: 0.45rem;
+    width: 1.7rem;
+    height: 1.7rem;
+  }
+}

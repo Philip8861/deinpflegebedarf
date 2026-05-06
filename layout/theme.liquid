@@ -230,7 +230,8 @@
 
       html {
         box-sizing: border-box;
-        font-size: calc(var(--font-body-scale) * 62.5%);
+        /* +10 % Gesamtgröße (alle rem-Werte skalieren mit) */
+        font-size: calc(var(--font-body-scale) * 62.5% * 1.1);
         height: 100%;
       }
 
@@ -307,11 +308,15 @@
       {{ 'accessibility.skip_to_text' | t }}
     </a>
 
+    {% sections 'header-group' %}
+
+    {%- comment -%}
+      Cart-Drawer nach dem Header: JavaScript hängt Klicks an #cart-icon-bubble / #pflege-cart-icon-bubble —
+      die Links müssen beim Upgrade von &lt;cart-drawer&gt; bereits im DOM existieren.
+    {%- endcomment -%}
     {%- if settings.cart_type == 'drawer' -%}
       {%- render 'cart-drawer' -%}
     {%- endif -%}
-
-    {% sections 'header-group' %}
 
     <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
       {{ content_for_layout }}
@@ -376,5 +381,6 @@
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+    <script src="{{ 'pflege-cart-icon-sync.js' | asset_url }}" defer="defer"></script>
   </body>
 </html>

@@ -1,12 +1,17 @@
 /* PflegeShop — Hero */
 .pflege-hero {
-  padding-bottom: 2rem;
+  padding-bottom: clamp(2rem, 4vw, 2.75rem);
 }
 
+/* Volle Zeilenbreite wie Pflege-Hauptleiste (Logo … Warenkorb), gleiche Innenabstände */
 .pflege-hero__shell {
-  max-width: var(--page-width, 120rem);
-  margin: 0 auto;
-  padding: 0 1.5rem;
+  max-width: none;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: var(--pflege-inline-gutter, clamp(3.5rem, 9vw, 12rem));
+  padding-right: var(--pflege-inline-gutter, clamp(3.5rem, 9vw, 12rem));
+  box-sizing: border-box;
 }
 
 .pflege-hero__panel {
@@ -21,6 +26,73 @@
 @media screen and (min-width: 990px) {
   .pflege-hero__panel {
     min-height: 30rem;
+  }
+}
+
+/* Ohne Theme-Bild: Kachel = Originalbild (max. Shell-Breite Logo–Warenkorb), Text als Overlay */
+.pflege-hero__panel--asset-bg {
+  background: var(--pflege-bg-soft, #eef6ff);
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
+  min-height: 0;
+}
+
+/* Kachel + Bild 25 % kleiner; Overlay-Text bleibt unskaliert */
+.pflege-hero__asset-zoom {
+  zoom: 0.75;
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
+  line-height: 0;
+}
+
+.pflege-hero__asset-photo {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+}
+
+.pflege-hero__panel--asset-bg .pflege-hero__grid--asset-bg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding-top: clamp(1.5rem, 3.5vw, 2.75rem);
+  padding-right: clamp(1.25rem, 3.5vw, 2.75rem);
+  padding-bottom: clamp(1.25rem, 3vw, 2.5rem);
+  /* Leicht nach rechts: etwa dort, wo die Schutzausrüstung / Produkte von links beginnen */
+  padding-left: clamp(1.5rem, 5vw, 3rem);
+  box-sizing: border-box;
+  pointer-events: none;
+  z-index: 1;
+  min-height: 0;
+  gap: 0;
+}
+
+.pflege-hero__panel--asset-bg .pflege-hero__grid--asset-bg .pflege-hero__content {
+  max-width: min(52ch, 92%);
+  pointer-events: auto;
+}
+
+@media screen and (min-width: 750px) {
+  .pflege-hero__panel--asset-bg .pflege-hero__grid--asset-bg {
+    padding-left: clamp(2rem, 8vw, 14%);
+  }
+
+  .pflege-hero__panel--asset-bg .pflege-hero__grid--asset-bg .pflege-hero__content {
+    max-width: min(52ch, 52%);
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .pflege-hero__panel--asset-bg .pflege-hero__grid--asset-bg {
+    padding-left: clamp(2.5rem, 9vw, 17%);
   }
 }
 
@@ -46,13 +118,13 @@
 
 .pflege-hero__badge {
   display: inline-block;
-  padding: 0.35rem 0.85rem;
+  padding: 0.4rem 0.95rem;
   border-radius: var(--pflege-radius-pill, 999px);
   background: rgba(255, 255, 255, 0.72);
   border: 1px solid var(--pflege-border, #e5eef8);
-  font-size: 1rem;
+  font-size: 1.25rem;
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.045em;
   color: var(--pflege-navy, #0b2347);
   margin-bottom: 1rem;
 }
@@ -60,39 +132,43 @@
 .pflege-hero__title {
   font-family: var(--pflege-font-display, Georgia, serif);
   font-weight: 400;
-  font-size: clamp(2.8rem, 4vw, 4rem);
+  font-size: clamp(3.4rem, 5vw, 4.75rem);
   line-height: 1.12;
   letter-spacing: -0.02em;
   color: var(--pflege-navy, #0b2347);
-  margin: 0 0 1rem;
+  margin: 0 0 1.45rem;
 }
 
 .pflege-hero__sub {
   font-size: 1.45rem;
   line-height: 1.55;
-  color: var(--pflege-muted, #6f7f95);
-  margin: 0 0 1.5rem;
+  /* Lesbarer als --pflege-muted, aber blasser als die Überschrift (Navy) */
+  color: #3d556f;
+  margin: 0 0 2.35rem;
+  white-space: pre-line;
 }
 
 .pflege-hero__cta {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.85rem 1.6rem;
-  border-radius: 10px;
-  background: var(--pflege-accent, #3f86d9);
+  gap: 0.65rem;
+  padding: 1.05rem 1.9rem;
+  border-radius: 12px;
+  background: #e9711a;
   color: #fff !important;
-  font-size: 1.35rem;
+  font-size: 1.55rem;
   font-weight: 600;
   text-decoration: none;
   border: none;
   cursor: pointer;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .pflege-hero__cta:hover {
-  opacity: 0.92;
+  background: #cf6414;
   transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .pflege-hero__cta svg {
@@ -102,7 +178,7 @@
 .pflege-hero__usps {
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
+  gap: 0.72rem;
   margin-top: 1.75rem;
   padding: 0;
   list-style: none;
@@ -111,23 +187,28 @@
 .pflege-hero__usp {
   display: flex;
   align-items: flex-start;
-  gap: 0.55rem;
-  font-size: 1.25rem;
+  gap: 0.62rem;
+  font-size: 1.35rem;
+  line-height: 1.45;
   color: var(--pflege-navy, #0b2347);
 }
 
 .pflege-hero__usp .pflege-icon {
   color: var(--pflege-accent, #3f86d9);
-  margin-top: 0.15rem;
+  margin-top: 0.12rem;
+  flex-shrink: 0;
 }
 
 .pflege-hero__media {
   position: relative;
   border-radius: var(--pflege-radius-card, 14px);
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.35);
+  background-color: rgba(255, 255, 255, 0.35);
   aspect-ratio: 4 / 3;
   max-height: 34rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media screen and (min-width: 990px) {
@@ -136,10 +217,11 @@
   }
 }
 
-.pflege-hero__media img {
+.pflege-hero__media > img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
 .pflege-hero__media .placeholder-svg {
@@ -149,15 +231,89 @@
   padding: 2rem;
 }
 
-.pflege-hero__placeholder-note {
-  position: absolute;
-  bottom: 0.75rem;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 1rem;
-  background: rgba(11, 35, 71, 0.85);
-  color: #fff;
-  padding: 0.35rem 0.65rem;
-  border-radius: 6px;
-  pointer-events: none;
+/* Trust-Bereich mittig unter dem Hero */
+.pflege-hero__trust-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: clamp(1.35rem, 2.8vw, 2.25rem);
+  padding-bottom: 0.25rem;
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+.pflege-hero__trust-heading {
+  margin: 0;
+  padding: 0;
+  max-width: 40rem;
+  text-align: center;
+  font-family: var(--font-body-family);
+  font-size: clamp(1.45rem, 1.25rem + 0.55vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  color: var(--pflege-navy, #0b2347);
+}
+
+.pflege-hero__trust {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: clamp(1.25rem, 3vw, 2.25rem) clamp(1.75rem, 4vw, 3.25rem);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 76rem;
+}
+
+.pflege-hero__trust-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.85rem;
+  flex: 1 1 14rem;
+  max-width: 24rem;
+}
+
+/* Icon wie Referenz: Umriss in mittlerem Blau, auf hellem Kreis */
+.pflege-hero__trust-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: clamp(4.1rem, 7.5vw, 4.75rem);
+  height: clamp(4.1rem, 7.5vw, 4.75rem);
+  border-radius: 50%;
+  background: #e8f2fc;
+  line-height: 0;
+  color: #5891d7;
+  box-sizing: border-box;
+}
+
+.pflege-hero__trust-icon svg {
+  display: block;
+  width: 2.15rem;
+  height: 2.15rem;
+}
+
+.pflege-hero__trust-text {
+  font-size: clamp(1.22rem, 1.05rem + 0.35vw, 1.42rem);
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--pflege-navy, #0b2347);
+  letter-spacing: 0.01em;
+  max-width: 20rem;
+}
+
+@media screen and (min-width: 750px) {
+  .pflege-hero__trust {
+    flex-wrap: nowrap;
+  }
+
+  .pflege-hero__trust-item {
+    flex: 1 1 0;
+    min-width: 0;
+  }
 }
