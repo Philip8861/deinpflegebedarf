@@ -7,6 +7,16 @@
   if section.settings.secondary_label != blank and secondary_href != blank
     assign show_secondary = true
   endif
+
+  assign finder_bg_url = 'produktfinder.webp' | asset_url
+  assign finder_bg_cb = section.settings.bg_refresh_token | strip
+  if finder_bg_cb != blank
+    if finder_bg_url contains '?'
+      assign finder_bg_url = finder_bg_url | append: '&pflegepf=' | append: finder_bg_cb
+    else
+      assign finder_bg_url = finder_bg_url | append: '?pflegepf=' | append: finder_bg_cb
+    endif
+  endif
 -%}
 
 <section class="pflege-product-finder" {{ section.shopify_attributes }}>
@@ -17,7 +27,7 @@
       {%- endif -%}
       <div
         class="pflege-product-finder__panel"
-        style="--pflege-product-finder-bg: url('{{ 'produktfinder.webp' | asset_url }}');"
+        style="--pflege-product-finder-bg: url('{{ finder_bg_url }}');"
       >
         <div class="pflege-product-finder__inner">
         <div class="pflege-product-finder__stack">
@@ -58,7 +68,14 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Hintergrund: Theme-Asset assets/produktfinder.webp (cover, center). Bild aktualisieren = Datei im Theme unter assets/produktfinder.webp ersetzen."
+      "content": "Hintergrund: Theme-Asset assets/produktfinder.webp (gleicher Dateiname beibehalten). Nach Bildtausch im Theme: hier „Cache“ erhöhen (z. B. 2) und speichern, dann sieht man das neue Bild zuverlässig."
+    },
+    {
+      "type": "text",
+      "id": "bg_refresh_token",
+      "label": "Hintergrundbild — Cache leeren (Zahl)",
+      "default": "1",
+      "info": "Nach jedem Austausch von produktfinder.webp diese Zahl um 1 erhöhen (1→2→3…). Umgeht Browser- und CDN-Zwischenspeicher."
     },
     {
       "type": "text",
