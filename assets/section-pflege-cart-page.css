@@ -366,13 +366,13 @@
   }
 
   .template-cart .pflege-cart-items-table.cart-items .cart-item__media {
-    width: 11%;
-    min-width: 9.25rem;
+    width: 7.7%;
+    min-width: 6.48rem;
     max-width: none;
   }
 
   .template-cart .pflege-cart-items-table.cart-items .cart-item__details {
-    width: 35%;
+    width: 38.3%;
     min-width: 0;
     max-width: none;
   }
@@ -454,9 +454,9 @@
 
 @media screen and (min-width: 750px) {
   .template-cart .cart-item__media {
-    width: 12.5rem;
-    min-width: 10rem;
-    max-width: 13rem;
+    width: 8.75rem;
+    min-width: 7rem;
+    max-width: 9.1rem;
   }
 
   .template-cart .cart-item__image {
@@ -468,8 +468,8 @@
 .template-cart .cart-item__media .cart-item__image-container {
   background: rgba(248, 250, 253, 1);
   border: 1px solid rgba(88, 145, 215, 0.12);
-  border-radius: 0.85rem;
-  padding: 0.55rem;
+  border-radius: 0.6rem;
+  padding: 0.385rem;
   display: flex;
   align-items: center;
   justify-content: center;
