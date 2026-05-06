@@ -40,7 +40,7 @@
   align-items: center;
 }
 
-/* Hamburger nur schmale Handys — ab 750px Desktop-Leiste + Kategorie-Band */
+/* Hamburger nur Handys — ab 750px Grid: Logo | Kategorien | Suche | Aktionen */
 @media screen and (min-width: 750px) {
   .pflege-main-nav-section .pflege-main-nav__drawer-slot--phones-only {
     display: none !important;
@@ -67,12 +67,12 @@
   max-width: min(26.62rem, 41.8vw);
 }
 
-/* Reihenfolge: Kategorie-Band (.pflege-main-nav__nav--categories-band) unterhalb der Hauptzeile */
-.pflege-main-nav-section .pflege-main-nav__nav--categories-band {
+/* Desktop-Kategorien zwischen Logo & Suche; Mobil ausgeblendet (Drawer) */
+.pflege-main-nav-section .pflege-main-nav__nav--desktop-inline {
   display: none;
 }
 
-.pflege-main-nav-section .pflege-main-nav__nav--categories-band .pflege-main-nav__menu {
+.pflege-main-nav-section .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu {
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -431,35 +431,30 @@
   }
 }
 
-/* Tablet/Desktop ab 750px: Hauptzeile ohne Nav; Kategorien als volle Band-Zeile darunter */
+/* Tablet/Desktop ab 750px: CSS Grid — Nav-Spalte mit minmax(), damit sie nicht kollabiert */
 @media screen and (min-width: 750px) {
   .pflege-main-nav-section .pflege-main-nav__grid,
   .header-wrapper.pflege-main-nav .pflege-main-nav__grid {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
+    display: grid;
+    grid-template-columns:
+      auto
+      minmax(14rem, 1fr)
+      minmax(11rem, min(30rem, 28vw))
+      auto;
+    grid-template-areas: 'logo nav search actions';
     align-items: center;
-    justify-content: flex-start;
-    gap: clamp(0.75rem, 2vw, 1.75rem);
+    column-gap: clamp(0.55rem, 1.6vw, 1.35rem);
+    row-gap: 0;
     width: 100%;
     box-sizing: border-box;
     padding-top: 1.05rem;
-    padding-bottom: 0.55rem;
-  }
-
-  .pflege-main-nav-section .pflege-main-nav__top-spacer,
-  .header-wrapper.pflege-main-nav .pflege-main-nav__top-spacer {
-    flex: 1 1 auto;
-    min-width: 1.5rem;
-    height: 1px;
-    margin: 0;
-    padding: 0;
-    align-self: center;
+    padding-bottom: 1.35rem;
   }
 
   .pflege-main-nav-section .pflege-main-nav__logo,
   .header-wrapper.pflege-main-nav .pflege-main-nav__logo {
-    flex: 0 0 auto;
+    grid-area: logo;
+    justify-self: start;
     align-self: center;
     transform: none;
   }
@@ -469,28 +464,90 @@
     align-items: center;
   }
 
+  .pflege-main-nav-section .pflege-main-nav__nav--desktop-inline,
+  .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline {
+    grid-area: nav;
+    display: flex;
+    align-items: center;
+    justify-self: stretch;
+    align-self: center;
+    min-width: 0;
+    width: 100%;
+    margin: 0;
+    padding-inline: clamp(0.1rem, 0.45vw, 0.45rem);
+    box-sizing: border-box;
+    overflow: visible;
+    transform: none;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu,
+  .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: clamp(0.2rem, 1vw, 0.75rem);
+    width: 100%;
+    max-width: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu > li,
+  .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu > li {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu-link,
+  .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu-link {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    text-align: center;
+    letter-spacing: 0.02em;
+    padding-inline: clamp(0.06rem, 0.3vw, 0.3rem);
+    padding-block: 0.35rem;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: clamp(0.78rem, 0.32rem + 0.95vw, 1.28rem);
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
   .pflege-main-nav-section predictive-search.pflege-main-nav__search-host,
   .header-wrapper.pflege-main-nav predictive-search.pflege-main-nav__search-host {
-    flex: 0 1 min(30rem, 28vw);
+    grid-area: search;
     align-self: center;
+    justify-self: stretch;
     display: block;
     position: relative;
-    min-width: 11rem;
+    width: 100%;
     max-width: min(30rem, 28vw);
+    min-width: 11rem;
     box-sizing: border-box;
     transform: none;
   }
 
   .pflege-main-nav-section .pflege-main-nav__grid > form.pflege-main-nav__search,
   .header-wrapper.pflege-main-nav .pflege-main-nav__grid > form.pflege-main-nav__search {
-    flex: 0 1 min(30rem, 28vw);
+    grid-area: search;
     align-self: center;
+    justify-self: stretch;
     transform: none;
   }
 
   .pflege-main-nav-section .pflege-main-nav__actions,
   .header-wrapper.pflege-main-nav .pflege-main-nav__actions {
-    flex: 0 0 auto;
+    grid-area: actions;
+    justify-self: end;
     align-self: center;
     flex-shrink: 0;
     align-items: center;
@@ -511,63 +568,6 @@
     transform: none;
   }
 
-  .pflege-main-nav-section .pflege-main-nav__nav--categories-band,
-  .header-wrapper.pflege-main-nav .pflege-main-nav__nav--categories-band {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 0.35rem 0 0.85rem;
-    margin: 0;
-    border-top: 1px solid rgba(61, 79, 104, 0.12);
-    min-height: 2.75rem;
-    overflow: visible;
-  }
-
-  .pflege-main-nav-section .pflege-main-nav__nav--categories-band .pflege-main-nav__menu,
-  .header-wrapper.pflege-main-nav .pflege-main-nav__nav--categories-band .pflege-main-nav__menu {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: clamp(0.35rem, 1.5vw, 1.25rem);
-    width: 100%;
-    max-width: min(72rem, 100%);
-    list-style: none;
-    margin: 0 auto;
-    padding: 0;
-  }
-
-  .pflege-main-nav-section .pflege-main-nav__nav--categories-band .pflege-main-nav__menu > li,
-  .header-wrapper.pflege-main-nav .pflege-main-nav__nav--categories-band .pflege-main-nav__menu > li {
-    flex: 1 1 0;
-    min-width: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .pflege-main-nav-section .pflege-main-nav__nav--categories-band .pflege-main-nav__menu-link,
-  .header-wrapper.pflege-main-nav .pflege-main-nav__nav--categories-band .pflege-main-nav__menu-link {
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-    text-align: center;
-    letter-spacing: 0.02em;
-    padding-inline: clamp(0.08rem, 0.35vw, 0.35rem);
-    padding-block: 0.35rem;
-    display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: clamp(0.85rem, 0.4rem + 0.9vw, 1.35rem);
-    font-weight: 500;
-    line-height: 1.2;
-  }
-
   .pflege-main-nav-section .pflege-main-nav__action,
   .header-wrapper.pflege-main-nav .pflege-main-nav__action {
     align-items: center;
@@ -575,10 +575,10 @@
 }
 
 @media screen and (min-width: 750px) and (max-width: 989px) {
-  .pflege-main-nav-section .pflege-main-nav__nav--categories-band .pflege-main-nav__menu-link,
-  .header-wrapper.pflege-main-nav .pflege-main-nav__nav--categories-band .pflege-main-nav__menu-link {
-    font-size: clamp(0.72rem, 0.38rem + 0.7vw, 1.05rem);
-    padding-inline: clamp(0.05rem, 0.25vw, 0.25rem);
+  .pflege-main-nav-section .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu-link,
+  .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu-link {
+    font-size: clamp(0.68rem, 0.32rem + 0.75vw, 1rem);
+    padding-inline: clamp(0.03rem, 0.2vw, 0.2rem);
   }
 }
 
@@ -632,10 +632,10 @@
   }
 }
 
-/* Schmale Handys: Flex-Zeile; Desktop-Kategorie-Band aus (<750px); Kategorien im Drawer */
+/* Schmale Handys: Flex-Zeile; Desktop-Kategorien-Zeile aus; Kategorien im Drawer */
 @media screen and (max-width: 749px) {
-  .pflege-main-nav-section .pflege-main-nav__top-spacer,
-  .header-wrapper.pflege-main-nav .pflege-main-nav__top-spacer {
+  .pflege-main-nav-section .pflege-main-nav__nav--desktop-inline,
+  .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline {
     display: none !important;
   }
 
@@ -703,11 +703,6 @@
     gap: 0.2rem;
     margin-left: 0;
     align-self: center;
-  }
-
-  .pflege-main-nav-section .pflege-main-nav__nav--categories-band,
-  .header-wrapper.pflege-main-nav .pflege-main-nav__nav--categories-band {
-    display: none !important;
   }
 
   .pflege-main-nav-section .pflege-main-nav__logo-img {

@@ -12,93 +12,67 @@
 {{ 'section-pflege-main-nav.css' | asset_url | stylesheet_tag }}
 
 {%- comment -%}
-  Kritisches CSS: Kategorie-Leiste liegt als eigene Zeile unter Logo/Suche (nicht mehr im Flex-Zwischenraum).
+  Kritisches CSS: Desktop = Grid-Spalte »nav« mit minmax(), damit die 4 Kategorien zwischen Logo und Suche nie auf 0px kollabieren.
 {%- endcomment -%}
 <style id="pflege-main-nav-critical-{{ section.id }}">
   @media screen and (min-width: 750px) {
     .header-wrapper.pflege-main-nav .pflege-main-nav__grid {
-      display: flex !important;
-      flex-direction: row !important;
-      flex-wrap: nowrap !important;
+      display: grid !important;
+      grid-template-columns:
+        auto
+        minmax(14rem, 1fr)
+        minmax(11rem, min(30rem, 28vw))
+        auto !important;
+      grid-template-areas: 'logo nav search actions' !important;
       align-items: center !important;
-      justify-content: flex-start !important;
-      gap: clamp(0.75rem, 2vw, 1.75rem) !important;
+      column-gap: clamp(0.55rem, 1.6vw, 1.35rem) !important;
+      row-gap: 0 !important;
       width: 100% !important;
       box-sizing: border-box !important;
     }
     .header-wrapper.pflege-main-nav .pflege-main-nav__drawer-slot--phones-only {
       display: none !important;
     }
-    .header-wrapper.pflege-main-nav .pflege-main-nav__top-spacer {
-      display: block !important;
-      flex: 1 1 auto !important;
-      min-width: 1.5rem !important;
-      height: 1px !important;
-      margin: 0 !important;
-      padding: 0 !important;
-    }
     .header-wrapper.pflege-main-nav .pflege-main-nav__logo {
-      flex: 0 0 auto !important;
+      grid-area: logo !important;
+      justify-self: start !important;
       max-width: none !important;
     }
-    .header-wrapper.pflege-main-nav predictive-search.pflege-main-nav__search-host {
-      flex: 0 1 min(30rem, 28vw) !important;
-      display: block !important;
-      position: relative !important;
-      min-width: 11rem !important;
-      max-width: min(30rem, 28vw) !important;
-      box-sizing: border-box !important;
-    }
-    .header-wrapper.pflege-main-nav .pflege-main-nav__grid > form.pflege-main-nav__search {
-      flex: 0 1 min(30rem, 28vw) !important;
+    .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline {
+      grid-area: nav !important;
       display: flex !important;
-      position: relative !important;
-      min-width: 11rem !important;
-      max-width: min(30rem, 28vw) !important;
-      box-sizing: border-box !important;
-    }
-    .header-wrapper.pflege-main-nav .pflege-main-nav__actions {
-      flex: 0 0 auto !important;
-      margin-left: 0 !important;
-    }
-    /* Volle Breite unter der Hauptzeile — kann nicht auf Breite 0 schrumpfen */
-    .header-wrapper.pflege-main-nav .pflege-main-nav__nav--categories-band {
-      display: flex !important;
-      flex-direction: row !important;
       align-items: center !important;
-      justify-content: center !important;
+      justify-self: stretch !important;
+      min-width: 0 !important;
       width: 100% !important;
-      box-sizing: border-box !important;
-      padding: 0.35rem 0 0.85rem !important;
       margin: 0 !important;
-      border-top: 1px solid rgba(61, 79, 104, 0.12) !important;
+      padding: 0 clamp(0.1rem, 0.45vw, 0.45rem) !important;
+      overflow: visible !important;
       visibility: visible !important;
       opacity: 1 !important;
     }
-    .header-wrapper.pflege-main-nav .pflege-main-nav__nav--categories-band .pflege-main-nav__menu {
+    .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu {
       display: flex !important;
       flex-direction: row !important;
       flex-wrap: nowrap !important;
       align-items: center !important;
-      justify-content: space-between !important;
+      justify-content: space-evenly !important;
+      gap: clamp(0.2rem, 1vw, 0.75rem) !important;
       width: 100% !important;
-      max-width: min(72rem, 100%) !important;
-      margin: 0 auto !important;
+      margin: 0 !important;
       padding: 0 !important;
       list-style: none !important;
-      gap: clamp(0.35rem, 1.5vw, 1.25rem) !important;
     }
-    .header-wrapper.pflege-main-nav .pflege-main-nav__nav--categories-band .pflege-main-nav__menu > li {
+    .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu > li {
       flex: 1 1 0 !important;
       min-width: 0 !important;
       display: flex !important;
       justify-content: center !important;
-      align-items: center !important;
     }
-    .header-wrapper.pflege-main-nav .pflege-main-nav__nav--categories-band .pflege-main-nav__menu-link {
+    .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline .pflege-main-nav__menu-link {
       display: block !important;
       color: #0b2347 !important;
-      font-size: clamp(0.85rem, 0.4rem + 0.9vw, 1.35rem) !important;
+      font-size: clamp(0.78rem, 0.32rem + 0.95vw, 1.28rem) !important;
       font-weight: 500 !important;
       text-decoration: none !important;
       text-align: center !important;
@@ -107,12 +81,32 @@
       text-overflow: ellipsis !important;
       max-width: 100% !important;
     }
+    .header-wrapper.pflege-main-nav predictive-search.pflege-main-nav__search-host {
+      grid-area: search !important;
+      display: block !important;
+      position: relative !important;
+      width: 100% !important;
+      max-width: min(30rem, 28vw) !important;
+      min-width: 11rem !important;
+      justify-self: stretch !important;
+      box-sizing: border-box !important;
+    }
+    .header-wrapper.pflege-main-nav .pflege-main-nav__grid > form.pflege-main-nav__search {
+      grid-area: search !important;
+      display: flex !important;
+      width: 100% !important;
+      max-width: min(30rem, 28vw) !important;
+      min-width: 11rem !important;
+      justify-self: stretch !important;
+      box-sizing: border-box !important;
+    }
+    .header-wrapper.pflege-main-nav .pflege-main-nav__actions {
+      grid-area: actions !important;
+      justify-self: end !important;
+    }
   }
   @media screen and (max-width: 749px) {
-    .header-wrapper.pflege-main-nav .pflege-main-nav__top-spacer {
-      display: none !important;
-    }
-    .header-wrapper.pflege-main-nav .pflege-main-nav__nav--categories-band {
+    .header-wrapper.pflege-main-nav .pflege-main-nav__nav--desktop-inline {
       display: none !important;
     }
   }
@@ -134,7 +128,14 @@
       </a>
     </div>
 
-    <div class="pflege-main-nav__top-spacer" aria-hidden="true"></div>
+    <nav
+      class="pflege-main-nav__nav pflege-main-nav__nav--desktop-inline"
+      aria-label="{{ section.settings.menu_label | escape }}"
+    >
+      <ul class="pflege-main-nav__menu" data-pflege-nav-categories="inline-desktop-grid-v1">
+        {% render 'pflege-shop-kategorien', variant: 'desktop' %}
+      </ul>
+    </nav>
 
     {%- if settings.predictive_search_enabled -%}
       <predictive-search class="pflege-main-nav__search-host" data-loading-text="{{ 'accessibility.loading' | t }}">
@@ -231,15 +232,6 @@
       </div>
     </div>
   </div>
-
-  <nav
-    class="pflege-main-nav__nav pflege-main-nav__nav--categories-band"
-    aria-label="{{ section.settings.menu_label | escape }}"
-  >
-    <ul class="pflege-main-nav__menu" data-pflege-nav-categories="band-desktop-v1">
-      {% render 'pflege-shop-kategorien', variant: 'desktop' %}
-    </ul>
-  </nav>
 </div>
 
 {%- if settings.cart_type == 'notification' -%}
