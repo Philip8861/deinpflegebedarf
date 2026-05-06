@@ -1,0 +1,110 @@
+/* PflegeShop — Inhalt der Warenkorb-Seite (/cart), ergänzt Header/Mini-Popup */
+
+.template-cart cart-items .title-wrapper-with-link {
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.template-cart cart-items .title.title--primary {
+  color: var(--pflege-navy, #0b2347);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.template-cart cart-items .underlined-link {
+  color: #5891d7;
+  font-weight: 600;
+}
+
+.template-cart .cart-items {
+  border: 1px solid #dfe6ef;
+  border-radius: 0.85rem;
+  overflow: hidden;
+  background: rgb(var(--color-background, 254 254 254));
+}
+
+.template-cart .cart-items thead {
+  background: rgba(88, 145, 215, 0.08);
+}
+
+.template-cart .cart-items th {
+  color: var(--pflege-navy, #0b2347);
+  font-weight: 600;
+}
+
+.template-cart .cart-item__name {
+  color: var(--pflege-navy, #0b2347);
+}
+
+.template-cart cart-items .cart__items {
+  border-bottom-color: rgba(11, 35, 71, 0.1);
+}
+
+.template-cart .cart__warnings .button,
+.template-cart .cart__warnings a.button {
+  --pflege-cta-orange: #ff791f;
+  background: var(--pflege-cta-orange);
+  color: #fff;
+  border: none;
+  border-radius: 0.65rem;
+  font-weight: 700;
+  box-shadow: none;
+}
+
+.template-cart .cart__warnings .button::after,
+.template-cart .cart__warnings .button::before {
+  display: none;
+}
+
+.template-cart #Cart-note {
+  border-radius: 0.65rem;
+  border-color: #dfe6ef;
+}
+
+.template-cart #main-cart-footer .totals__total {
+  color: var(--pflege-navy, #0b2347);
+  font-weight: 700;
+}
+
+.template-cart #main-cart-footer .totals__total-value {
+  color: var(--pflege-navy, #0b2347);
+  font-weight: 700;
+  font-size: 1.85em;
+}
+
+.template-cart .cart__checkout-button.button {
+  --pflege-cta-orange: #ff791f;
+  width: 100%;
+  min-height: 4.5rem;
+  border-radius: 0.65rem;
+  border: none;
+  background: var(--pflege-cta-orange);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.35rem;
+  letter-spacing: 0.02em;
+  box-shadow: none;
+}
+
+.template-cart .cart__checkout-button.button::after,
+.template-cart .cart__checkout-button.button::before {
+  display: none;
+}
+
+.template-cart .cart__checkout-button.button:not([disabled]):hover {
+  background: #e86915;
+  color: #fff;
+}
+
+.template-cart quantity-input.quantity,
+.template-cart .quantity {
+  border-radius: 0.55rem;
+  border-color: #d5dce8;
+}
+
+@media screen and (min-width: 990px) {
+  .template-cart .cart__checkout-button.button {
+    max-width: 36rem;
+    margin-left: auto;
+  }
+}
