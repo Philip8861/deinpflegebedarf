@@ -1,3 +1,10 @@
+<style>
+  /* Bis component-cart-notification.css lädt (Deferred über media=print): Modal ohne Styles = FOUC mit riesigem SVG */
+  .cart-notification-wrapper:not(.is-active) #cart-notification {
+    visibility: hidden !important;
+    opacity: 0 !important;
+  }
+</style>
 {% comment %}
   Renders cart notification
 
