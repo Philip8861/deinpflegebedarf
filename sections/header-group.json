@@ -44,28 +44,28 @@
           "type": "nav_link",
           "settings": {
             "title": "Desinfektion",
-            "link": ""
+            "link": "shopify://collections/desinfektion"
           }
         },
         "nav_pflegeartikel": {
           "type": "nav_link",
           "settings": {
             "title": "Pflegeartikel",
-            "link": ""
+            "link": "shopify://collections/pflegeartikel"
           }
         },
         "nav_hauschutz_hautpflege": {
           "type": "nav_link",
           "settings": {
             "title": "Hauschutz & Hautpflege",
-            "link": ""
+            "link": "shopify://collections/hauschutz-hautpflege"
           }
         },
         "nav_verbrauchsartikel": {
           "type": "nav_link",
           "settings": {
             "title": "Verbrauchsartikel",
-            "link": ""
+            "link": "shopify://collections/verbrauchsartikel"
           }
         }
       },

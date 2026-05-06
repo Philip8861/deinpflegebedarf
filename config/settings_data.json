@@ -182,6 +182,56 @@
           "settings": {
             "color_scheme": "scheme-1"
           }
+        },
+        "pflege_main_nav": {
+          "type": "pflege-main-nav",
+          "blocks": {
+            "nav_desinfektion": {
+              "type": "nav_link",
+              "settings": {
+                "title": "Desinfektion",
+                "link": "shopify://collections/desinfektion"
+              }
+            },
+            "nav_pflegeartikel": {
+              "type": "nav_link",
+              "settings": {
+                "title": "Pflegeartikel",
+                "link": "shopify://collections/pflegeartikel"
+              }
+            },
+            "nav_hauschutz_hautpflege": {
+              "type": "nav_link",
+              "settings": {
+                "title": "Hauschutz & Hautpflege",
+                "link": "shopify://collections/hauschutz-hautpflege"
+              }
+            },
+            "nav_verbrauchsartikel": {
+              "type": "nav_link",
+              "settings": {
+                "title": "Verbrauchsartikel",
+                "link": "shopify://collections/verbrauchsartikel"
+              }
+            }
+          },
+          "block_order": [
+            "nav_desinfektion",
+            "nav_pflegeartikel",
+            "nav_hauschutz_hautpflege",
+            "nav_verbrauchsartikel"
+          ],
+          "settings": {
+            "color_scheme": "scheme-1",
+            "menu_color_scheme": "scheme-1",
+            "menu_label": "Produktbereiche",
+            "search_placeholder": "Produkte suchen...",
+            "logo_width": 242,
+            "logo_height": 52,
+            "account_heading": "Mein Konto",
+            "account_sub_guest": "Anmelden",
+            "cart_heading": "Warenkorb"
+          }
         }
       }
     }
