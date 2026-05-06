@@ -377,18 +377,19 @@
 
   .template-cart .pflege-cart-items-table.cart-items tbody .cart-item {
     display: grid !important;
-    grid-template-columns: minmax(4.85rem, 6.1rem) minmax(0, 1fr);
+    /* Feste Bildspalte + flexibler Text: minmax(0,1fr) verhindert „Quetsch-Inhalt“ */
+    grid-template-columns: 6.5rem minmax(0, 1fr);
     grid-template-areas:
       "media details"
       "line line"
       "qty qty";
-    column-gap: 0.85rem;
-    row-gap: 0.55rem;
+    column-gap: 0.9rem;
+    row-gap: 0.65rem;
     align-items: start;
     width: 100%;
     box-sizing: border-box;
     margin: 0 !important;
-    padding: 0.95rem 0.85rem 1.05rem;
+    padding: 1rem 0.9rem 1.1rem;
     border-bottom: 1px solid rgba(88, 145, 215, 0.2);
   }
 
@@ -409,13 +410,49 @@
   .template-cart .pflege-cart-items-table .cart-item__media {
     grid-area: media;
     grid-row: auto !important;
-    width: auto;
+    width: 6.5rem;
+    max-width: 6.5rem;
+    justify-self: start;
   }
 
   .template-cart .pflege-cart-items-table .cart-item__details {
     grid-area: details;
     grid-column: auto !important;
     min-width: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Dawn: .cart-item__details > * { max-width: 30rem } — auf Mobil volle Zeilenbreite */
+  .template-cart .pflege-cart-items-table .cart-item__details > * {
+    max-width: 100%;
+  }
+
+  .template-cart .pflege-cart-items-table .cart-item__details .pflege-cart-item__details-shell {
+    max-width: 100%;
+    padding-right: 2.65rem;
+  }
+
+  /* .break nutzt word-break: break-word → in schmalen Spalten „Han-dcre-me“ — normalisieren */
+  .template-cart .pflege-cart-items-table .cart-item__details .cart-item__name.break,
+  .template-cart .pflege-cart-items-table .cart-item__details .pflege-cart-item__title {
+    word-break: normal;
+    overflow-wrap: break-word;
+    hyphens: none;
+  }
+
+  .template-cart .pflege-cart-items-table .cart-item__details .product-option,
+  .template-cart .pflege-cart-items-table .cart-item__details .pflege-cart-item__unit-mobile {
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+
+  /* Geldbeträge nicht mitten im Betrag umbrechen */
+  .template-cart .pflege-cart-items-table .pflege-cart-price-stack__amount,
+  .template-cart .pflege-cart-items-table .pflege-cart-price-stack__amount .price,
+  .template-cart .pflege-cart-items-table .pflege-cart-price-stack__amount .cart-item__final-price {
+    white-space: nowrap;
   }
 
   .template-cart .pflege-cart-items-table .cart-item__totals.medium-hide.large-up-hide {
