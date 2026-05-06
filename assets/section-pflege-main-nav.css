@@ -85,7 +85,7 @@
 .pflege-main-nav-section .pflege-main-nav__category-link {
   display: inline-block;
   font-size: clamp(0.85rem, 0.35rem + 0.95vw, 1.32rem);
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.02em;
   color: var(--pflege-navy, #0b2347);
   -webkit-text-fill-color: var(--pflege-navy, #0b2347);
@@ -104,7 +104,7 @@
 }
 
 .pflege-main-nav-section .pflege-main-nav__category-link.is-active {
-  font-weight: 700;
+  font-weight: 600;
   color: #063057;
   -webkit-text-fill-color: #063057;
 }

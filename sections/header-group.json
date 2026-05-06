@@ -26,8 +26,8 @@
           "type": "item",
           "settings": {
             "icon": "document",
-            "text": "Kauf auf Rechnung",
-            "subtext": "Einfach und sicher"
+            "text": "Kostenübernahme mit Rezept möglich",
+            "subtext": "Je nach Krankenkasse"
           }
         },
         "svc_return": {

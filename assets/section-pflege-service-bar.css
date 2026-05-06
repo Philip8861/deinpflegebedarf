@@ -14,7 +14,7 @@
   padding-bottom: 0;
   padding-left: max(1rem, env(safe-area-inset-left, 0px));
   padding-right: max(1rem, env(safe-area-inset-right, 0px));
-  min-height: calc(3.35rem * 1.1 * 1.05);
+  min-height: calc(3.05rem * 1.08 * 1.05);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -43,13 +43,13 @@
 .pflege-service-bar__body {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: 0.4rem;
   margin: 0;
   padding: 0;
-  font-size: clamp(1.16rem, 0.25vw + 1.05rem, calc(1.2rem * 1.1));
+  font-size: clamp(0.98rem, 0.18vw + 0.9rem, 1.08rem);
   font-synthesis: none;
-  line-height: 1.25;
-  color: var(--pflege-navy, #0b2347);
+  line-height: 1.28;
+  color: rgba(11, 35, 71, 0.88);
   white-space: normal;
   text-align: left;
   max-width: 100%;
@@ -75,17 +75,17 @@ a.pflege-service-bar__copy.pflege-service-bar__link {
 
 .pflege-service-bar__line--main {
   font-size: inherit;
-  font-weight: 600;
-  line-height: 1.25;
+  font-weight: 500;
+  line-height: 1.28;
   color: inherit;
 }
 
 .pflege-service-bar__line--sub {
-  font-size: 0.88em;
+  font-size: 0.84em;
   font-weight: 400;
-  line-height: 1.3;
+  line-height: 1.32;
   color: inherit;
-  opacity: 0.78;
+  opacity: 0.68;
 }
 
 .pflege-service-bar__body a.pflege-service-bar__copy {
@@ -114,13 +114,13 @@ a.pflege-service-bar__copy.pflege-service-bar__link {
   .pflege-service-bar__link:hover,
   .pflege-service-bar__link:focus-visible {
     text-shadow:
-      0 0 12px rgba(var(--pflege-service-hover-glow), 0.36),
-      0 0 24px rgba(var(--pflege-service-hover-glow), 0.12);
+      0 0 8px rgba(var(--pflege-service-hover-glow), 0.22),
+      0 0 16px rgba(var(--pflege-service-hover-glow), 0.08);
   }
 
   .pflege-service-bar__item:has(.pflege-service-bar__link:hover) .pflege-icon,
   .pflege-service-bar__item:has(.pflege-service-bar__link:focus-visible) .pflege-icon {
-    filter: drop-shadow(0 0 8px rgba(var(--pflege-service-hover-glow), 0.45));
+    filter: drop-shadow(0 0 5px rgba(var(--pflege-service-hover-glow), 0.28));
   }
 }
 
@@ -134,11 +134,11 @@ a.pflege-service-bar__copy.pflege-service-bar__link {
   text-decoration-color: currentColor;
 }
 
-/* Icons fest */
+/* Icons etwas zurückhaltender */
 .pflege-service-bar__body .pflege-icon {
   flex-shrink: 0;
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -148,8 +148,8 @@ a.pflege-service-bar__copy.pflege-service-bar__link {
 
 .pflege-service-bar__body .pflege-icon svg {
   display: block;
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   flex-shrink: 0;
   vertical-align: middle;
 }
