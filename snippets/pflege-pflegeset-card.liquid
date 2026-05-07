@@ -24,29 +24,53 @@
   endif
 
   assign pflegesets_render_img = nil
+  assign pflegesets_render_pick = nil
   if card_product != blank
-    for m in card_product.media
-      if m.media_type == 'image'
-        assign pflegesets_render_img = m
-        break
+    assign featured_m = card_product.featured_media
+    if featured_m != blank and featured_m.media_type == 'image'
+      assign pflegesets_render_pick = featured_m
+    elsif featured_m != blank and featured_m.preview_image != blank
+      assign pflegesets_render_pick = featured_m.preview_image
+    endif
+
+    unless pflegesets_render_pick != blank
+      if card_product.featured_image != blank
+        assign pflegesets_render_pick = card_product.featured_image
       endif
-      if m.preview_image != blank
-        assign pflegesets_render_img = m.preview_image
-        break
+    endunless
+
+    unless pflegesets_render_pick != blank
+      if card_product.selected_or_first_available_variant.featured_media != blank
+        assign vm = card_product.selected_or_first_available_variant.featured_media
+        if vm.media_type == 'image'
+          assign pflegesets_render_pick = vm
+        elsif vm.preview_image != blank
+          assign pflegesets_render_pick = vm.preview_image
+        endif
+      elsif card_product.selected_or_first_available_variant.image != blank
+        assign pflegesets_render_pick = card_product.selected_or_first_available_variant.image
       endif
-    endfor
-    if pflegesets_render_img == blank and card_product.featured_media != blank
-      assign pflegesets_render_img = card_product.featured_media
-    endif
-    if pflegesets_render_img == blank and card_product.featured_image != blank
-      assign pflegesets_render_img = card_product.featured_image
-    endif
-    if pflegesets_render_img == blank and card_product.selected_or_first_available_variant.image != blank
-      assign pflegesets_render_img = card_product.selected_or_first_available_variant.image
-    endif
-    if pflegesets_render_img == blank and card_product.images.size > 0
-      assign pflegesets_render_img = card_product.images.first
-    endif
+    endunless
+
+    unless pflegesets_render_pick != blank
+      for m in card_product.media
+        if m.media_type == 'image'
+          assign pflegesets_render_pick = m
+          break
+        elsif m.preview_image != blank
+          assign pflegesets_render_pick = m.preview_image
+          break
+        endif
+      endfor
+    endunless
+
+    unless pflegesets_render_pick != blank
+      if card_product.images.size > 0
+        assign pflegesets_render_pick = card_product.images.first
+      endif
+    endunless
+
+    assign pflegesets_render_img = pflegesets_render_pick
   endif
 -%}
 
@@ -61,7 +85,7 @@
           pflegesets_render_img
           | image_url: width: 800
           | image_tag:
-            loading: 'lazy',
+            loading: 'eager',
             widths: '400, 600, 800',
             sizes: '(min-width: 990px) 30vw, (min-width: 750px) 32vw, min(100vw, 26rem)',
             alt: img_alt,
