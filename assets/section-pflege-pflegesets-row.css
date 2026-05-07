@@ -1,4 +1,4 @@
-/* PflegeShop — Pflegesets: kompakteres Bild (4:3), größere Typo für Überschrift & Liste */
+/* PflegeShop — Pflegesets: quadratisches Bild (große Fläche), kräftige Typo für Überschrift & Liste */
 .pflege-pflegesets {
   font-family: var(--font-body-family, inherit);
   font-style: var(--font-body-style, normal);
@@ -75,7 +75,7 @@
   transform: translateY(-2px);
 }
 
-/* Bild: weniger Höhe als früher (4:3 statt Quadrat), mehr Platz für Text */
+/* Bild: wieder klar höher/flächiger (~doppelte Wirkhöhe vs. vorheriges 4:3 + Cap) */
 .pflege-pflegesets__media-link {
   display: block;
   flex-shrink: 0;
@@ -98,7 +98,7 @@
 }
 
 /*
-  aspect-ratio 4 / 3: niedrigere Bildhöhe, Schwerpunkt Text darunter.
+  Quadratisch: deutlich mehr Bildhöhe als zuletzt (4:3 + max-height).
 */
 .pflege-pflegesets__media picture {
   display: block;
@@ -112,10 +112,9 @@
   width: 100%;
   max-width: 100%;
   height: auto;
-  aspect-ratio: 4 / 3;
-  max-height: clamp(11rem, 28vw, 15.5rem);
+  aspect-ratio: 1 / 1;
   object-fit: cover;
-  object-position: center 28%;
+  object-position: center center;
   display: block;
   position: relative;
   z-index: 1;
@@ -126,8 +125,7 @@
 .pflege-pflegesets__placeholder {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 3;
-  max-height: clamp(11rem, 28vw, 15.5rem);
+  aspect-ratio: 1 / 1;
   height: auto;
   object-fit: cover;
   display: block;
