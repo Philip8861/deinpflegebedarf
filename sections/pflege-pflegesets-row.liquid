@@ -36,11 +36,23 @@
                   assign slot_contents = section.settings.contents_3
               endcase
             -%}
+            {%- liquid
+              assign disp_title = ''
+              case forloop.index
+                when 1
+                  assign disp_title = section.settings.display_title_1 | strip
+                when 2
+                  assign disp_title = section.settings.display_title_2 | strip
+                when 3
+                  assign disp_title = section.settings.display_title_3 | strip
+              endcase
+            -%}
             {% render 'pflege-pflegeset-card',
               card_product: card_product,
               handle_fallback: card_product.handle,
               badge_label: badge_label,
-              card_contents: slot_contents
+              card_contents: slot_contents,
+              card_title: disp_title
             %}
           {%- endfor -%}
         {%- else -%}
@@ -90,11 +102,23 @@
                   assign slot_contents = section.settings.contents_3
               endcase
             -%}
+            {%- liquid
+              assign disp_title = ''
+              case forloop.index
+                when 1
+                  assign disp_title = section.settings.display_title_1 | strip
+                when 2
+                  assign disp_title = section.settings.display_title_2 | strip
+                when 3
+                  assign disp_title = section.settings.display_title_3 | strip
+              endcase
+            -%}
             {% render 'pflege-pflegeset-card',
               card_product: card_product,
               handle_fallback: handle,
               badge_label: badge_label,
-              card_contents: slot_contents
+              card_contents: slot_contents,
+              card_title: disp_title
             %}
           {%- endfor -%}
         {%- endif -%}
@@ -124,6 +148,25 @@
       "id": "badge_text",
       "label": "Hinweis (oben rechts auf dem Bild)",
       "default": "Sie sparen 10%"
+    },
+    {
+      "type": "text",
+      "id": "display_title_1",
+      "label": "Anzeigename — Kachel 1",
+      "default": "Pflegebox Set Größe S",
+      "info": "Überschreibt den Produktnamen nur auf dieser Kachel (Preis-Link bleibt zum Produkt)."
+    },
+    {
+      "type": "text",
+      "id": "display_title_2",
+      "label": "Anzeigename — Kachel 2",
+      "default": "Pflegebox Set Größe L"
+    },
+    {
+      "type": "text",
+      "id": "display_title_3",
+      "label": "Anzeigename — Kachel 3",
+      "default": "Pflegebox Set Größe M"
     },
     {
       "type": "textarea",

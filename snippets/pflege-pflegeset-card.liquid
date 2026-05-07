@@ -1,6 +1,7 @@
 {%- comment -%}
   Pflegeset-Kachel. Bild wie Bestseller: featured_media → image_url → image_tag
-  Param: card_product (Product, optional), handle_fallback (String), badge_label (String), card_contents (String, optional)
+  Param: card_product (Product, optional), handle_fallback (String), badge_label (String), card_contents (String, optional),
+         card_title (optional override for link/button label)
 {%- endcomment -%}
 {%- liquid
   if card_product != blank
@@ -13,6 +14,13 @@
     assign card_label = handle_fallback | replace: '-', ' '
     assign card_variant = nil
     assign img_alt = card_label
+  endif
+
+  if card_title != blank
+    assign card_label = card_title
+    if card_product != blank
+      assign img_alt = card_title
+    endif
   endif
 
   assign pflegesets_render_img = nil
@@ -55,7 +63,7 @@
           | image_tag:
             loading: 'lazy',
             widths: '400, 600, 800',
-            sizes: '(min-width: 990px) 22vw, (min-width: 750px) 28vw, min(100vw, 24rem)',
+            sizes: '(min-width: 990px) 30vw, (min-width: 750px) 32vw, min(100vw, 26rem)',
             alt: img_alt,
             class: 'pflege-pflegesets__img'
         }}
