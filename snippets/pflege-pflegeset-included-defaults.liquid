@@ -1,8 +1,10 @@
 {%- comment -%}
-  Feste Pflege-Listen (Kachel S / L / M). Quelle beim Rendern wenn Theme-Feld und optionale Shop-Metafelder leer sind —
-  Überleben theme push ohne Einträge in templates/index.json.
+  Param: slot (1–3, Zahl oder String). Liste pro Kachel wenn keine Theme-/Metafeld-Inhalte.
 {%- endcomment -%}
-{%- case slot -%}
+{%- liquid
+  assign ix = slot | default: 0 | plus: 0
+-%}
+{%- case ix -%}
   {%- when 1 -%}
 • Tiga Soft Einlagen Gr. S (16 Stück)
 • Sensiderm Barriercreme (75 ml)

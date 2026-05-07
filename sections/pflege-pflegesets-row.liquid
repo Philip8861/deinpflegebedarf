@@ -31,8 +31,22 @@
         {%- if use_collection -%}
           {%- comment -%} Zuverlässig wie Bestseller: Produkte kommen aus der Kollektion (volle Medien){%- endcomment -%}
           {%- for card_product in pflege_col.products limit: 3 -%}
+            {%- liquid
+              assign slot_setting = ''
+              case forloop.index
+                when 1
+                  assign slot_setting = section.settings.contents_1
+                when 2
+                  assign slot_setting = section.settings.contents_2
+                when 3
+                  assign slot_setting = section.settings.contents_3
+              endcase
+            -%}
             {%- capture slot_contents -%}
-              {%- render 'pflege-pflegeset-resolve-contents', slot: forloop.index -%}
+              {%- render 'pflege-pflegeset-resolve-contents',
+                slot: forloop.index,
+                setting_value: slot_setting
+              -%}
             {%- endcapture -%}
             {%- assign slot_contents = slot_contents | strip -%}
             {%- liquid
@@ -90,8 +104,22 @@
                 endif
               endif
             -%}
+            {%- liquid
+              assign slot_setting = ''
+              case forloop.index
+                when 1
+                  assign slot_setting = section.settings.contents_1
+                when 2
+                  assign slot_setting = section.settings.contents_2
+                when 3
+                  assign slot_setting = section.settings.contents_3
+              endcase
+            -%}
             {%- capture slot_contents -%}
-              {%- render 'pflege-pflegeset-resolve-contents', slot: forloop.index -%}
+              {%- render 'pflege-pflegeset-resolve-contents',
+                slot: forloop.index,
+                setting_value: slot_setting
+              -%}
             {%- endcapture -%}
             {%- assign slot_contents = slot_contents | strip -%}
             {%- liquid
