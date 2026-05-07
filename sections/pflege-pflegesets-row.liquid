@@ -6,7 +6,13 @@
   assign hc = section.settings.handle_3 | default: 'pflegeset-grosse-m' | strip
   assign handle_joined = ha | append: '|||' | append: hb | append: '|||' | append: hc
   assign pflegeset_handles = handle_joined | split: '|||'
-  assign badge_label = section.settings.badge_text | default: 'Sie sparen 10%' | strip
+  assign badge_label = section.settings.badge_text | strip
+  if badge_label == blank
+    assign badge_label = shop.metafields.pflegeshop.pflegesets_badge.value | strip
+  endif
+  if badge_label == blank
+    assign badge_label = 'Sie sparen 10%'
+  endif
   assign pflege_col = section.settings.pflegesets_collection
   assign use_collection = false
   if pflege_col != blank and pflege_col.all_products_count > 0
@@ -25,17 +31,10 @@
         {%- if use_collection -%}
           {%- comment -%} Zuverlässig wie Bestseller: Produkte kommen aus der Kollektion (volle Medien){%- endcomment -%}
           {%- for card_product in pflege_col.products limit: 3 -%}
-            {%- liquid
-              assign slot_contents = ''
-              case forloop.index
-                when 1
-                  assign slot_contents = section.settings.contents_1
-                when 2
-                  assign slot_contents = section.settings.contents_2
-                when 3
-                  assign slot_contents = section.settings.contents_3
-              endcase
-            -%}
+            {%- capture slot_contents -%}
+              {%- render 'pflege-pflegeset-resolve-contents', slot: forloop.index -%}
+            {%- endcapture -%}
+            {%- assign slot_contents = slot_contents | strip -%}
             {%- liquid
               assign disp_title = ''
               case forloop.index
@@ -91,17 +90,10 @@
                 endif
               endif
             -%}
-            {%- liquid
-              assign slot_contents = ''
-              case forloop.index
-                when 1
-                  assign slot_contents = section.settings.contents_1
-                when 2
-                  assign slot_contents = section.settings.contents_2
-                when 3
-                  assign slot_contents = section.settings.contents_3
-              endcase
-            -%}
+            {%- capture slot_contents -%}
+              {%- render 'pflege-pflegeset-resolve-contents', slot: forloop.index -%}
+            {%- endcapture -%}
+            {%- assign slot_contents = slot_contents | strip -%}
             {%- liquid
               assign disp_title = ''
               case forloop.index
@@ -135,7 +127,7 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Wenn keine Bilder erscheinen: Produkt fehlt im Onlineshop, falscher Handle (z. B. groesse/grosse) oder kein Produktbild. Am zuverlässigsten: eine Kollektion nur mit S/M/L wählen oder die drei Produkte unten anbinden."
+      "content": "Enthaltene Artikel: Wenn die Textfelder leer sind (z. B. nach theme push ohne index.json), erscheinen automatisch die festen Listen aus dem Theme-Snippet. Optional persistenter Text im Admin unter Einstellungen → Benutzerdefinierte Daten → Shop: Metafelder im Namensraum „pflegeshop“ mit den Schlüsseln pflegesets_contents_1, _2, _3 (mehrzeilig) und optional pflegesets_badge — die bleiben beim Theme-Upload erhalten. Bilder: veröffentlichte Produkte mit Bild / Kollektion wählen."
     },
     {
       "type": "text",
@@ -147,7 +139,8 @@
       "type": "text",
       "id": "badge_text",
       "label": "Hinweis (oben rechts auf dem Bild)",
-      "default": "Sie sparen 10%"
+      "default": "Sie sparen 10%",
+      "info": "Leer = Shop-Metafeld pflegesets_badge (Namensraum pflegeshop) oder Standard „Sie sparen 10%“."
     },
     {
       "type": "text",
@@ -173,21 +166,21 @@
       "id": "contents_1",
       "label": "Enthaltene Artikel — Kachel 1 (unter dem Namen)",
       "default": "• Tiga Soft Einlagen Gr. S (16 Stück)\n• Sensiderm Barriercreme (75 ml)\n• Mildes Waschgel ohne Parfum (250 ml)\n• Nitril-Einmalhandschuhe (10 Paar)\n• All-in-One Feuchttücher (48 Stück)",
-      "info": "Pro Zeile ein Artikel. Platzhalter — im Editor anpassen."
+      "info": "Pro Zeile ein Artikel. Leer lassen = Shop-Metafeld (pflegeshop.pflegesets_contents_1) oder feste Theme-Vorlage."
     },
     {
       "type": "textarea",
       "id": "contents_2",
       "label": "Enthaltene Artikel — Kachel 2",
       "default": "• Comfort Plus Inkontinenzhosen Gr. L (14 Stück)\n• Pflegebad-Öl beruhigend (200 ml)\n• Hautmilch rückfettend (400 ml)\n• Zellstoff-Vliesunterlagen (30 Stück)\n• Mundhygiene-Sticks einzeln verpackt (12 Stück)",
-      "info": "Pro Zeile ein Artikel."
+      "info": "Pro Zeile ein Artikel. Leer = Shop-Metafeld pflegesets_contents_2 oder Theme-Vorlage."
     },
     {
       "type": "textarea",
       "id": "contents_3",
       "label": "Enthaltene Artikel — Kachel 3",
       "default": "• Super-Saugvorlagen Gr. M (18 Stück)\n• Zinkpaste für gereizte Haut (100 g)\n• Desinfektionsreiniger für Oberflächen (500 ml)\n• Betteinlage Frottee waschbar (1 Stück)\n• Körperlotion unparfümiert (300 ml)",
-      "info": "Pro Zeile ein Artikel."
+      "info": "Pro Zeile ein Artikel. Leer = Shop-Metafeld pflegesets_contents_3 oder Theme-Vorlage."
     },
     {
       "type": "collection",
