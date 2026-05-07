@@ -101,12 +101,6 @@
                       </button>
                     </div>
 
-                    {%- if additional_checkout_buttons -%}
-                      <div class="cart__dynamic-checkout-buttons additional-checkout-buttons pflege-cart-dynamic-pay">
-                        {{ content_for_additional_checkout_buttons }}
-                      </div>
-                    {%- endif -%}
-
                     <a
                       href="{{ routes.all_products_collection_url }}"
                       class="button button--secondary pflege-cart-summary__continue"

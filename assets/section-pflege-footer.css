@@ -11,8 +11,8 @@
   --pflege-ft-accent: var(--pflege-accent, #3f86d9);
   --pflege-ft-radius-card: clamp(16px, 2vw, 22px);
   --pflege-ft-radius-pill: var(--pflege-radius-pill, 999px);
-  /* Breite wie Hero-Kasten / Bestseller: Shell + max. Kachelbreite über --pflege-hero-tile-max-width */
-  margin-top: var(--pflege-footer-margin-top, 2rem);
+  /* Grauer Footer-Band leicht unter den Inhalt darüber schieben (1–2 cm), ohne stärkere Krümmung */
+  margin-top: calc(var(--pflege-footer-margin-top, 2rem) - clamp(1cm, 1.4vw, 1.85cm));
   font-family: var(--font-body-family, inherit);
   font-style: var(--font-body-style, normal);
   color: var(--pflege-ft-navy);
@@ -20,13 +20,13 @@
   background: transparent;
 }
 
-/* Wie Produktfinder: gleicher Verlauf; Bogen ~1,5–2 cm höher als Standard-Token (--pflege-backdrop-ell-v) */
+/* Wie Produktfinder: gleicher Verlauf; flacherer Bogen (schwächere Wölbung als mit extra Radius) */
 .pflege-footer__band {
   background: var(
     --pflege-backdrop-band-gradient,
     linear-gradient(180deg, #fafcfd 0%, #f8fafc 40%, #f7f9fb 70%, #f6f8fb 100%)
   );
-  border-radius: 50% 50% 0 0 / clamp(3rem, 6.8vw, 6.5rem) clamp(3rem, 6.8vw, 6.5rem) 0 0;
+  border-radius: 50% 50% 0 0 / clamp(2.4rem, 5.4vw, 5.35rem) clamp(2.4rem, 5.4vw, 5.35rem) 0 0;
   overflow: hidden;
   box-sizing: border-box;
 }
