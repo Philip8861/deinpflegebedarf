@@ -483,10 +483,10 @@ a.pflege-footer__contact-line:hover {
   color: var(--pflege-ft-navy);
 }
 
-/* Trust-Zeile */
+/* Trust-Zeile: eigener heller Grund (nicht grauer Band-Verlauf vom .pflege-footer__band) */
 .pflege-footer__trust-strip {
   border-top: 1px solid rgba(11, 35, 71, 0.08);
-  background: transparent;
+  background: var(--pflege-white, #fefefe);
   padding-top: clamp(1.75rem, 3vw, 2.5rem);
   padding-bottom: clamp(1.75rem, 3vw, 2.5rem);
   padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
@@ -569,7 +569,7 @@ a.pflege-footer__contact-line:hover {
   align-items: center;
   justify-content: center;
   padding: 0.31rem 0.44rem;
-  background: var(--pflege-bg-softer, #f5faff);
+  background: var(--pflege-white, #fefefe);
   border: 1px solid var(--pflege-ft-border);
   border-radius: 10px;
   line-height: 0;
@@ -611,7 +611,7 @@ a.pflege-footer__contact-line:hover {
   font-weight: 600;
   letter-spacing: 0.02em;
   color: var(--pflege-ft-navy);
-  background: var(--pflege-bg-softer, #f5faff);
+  background: var(--pflege-white, #fefefe);
   border: 1px solid var(--pflege-ft-border);
   border-radius: 10px;
   transition: background 0.2s ease, border-color 0.2s ease;
@@ -684,10 +684,10 @@ a.pflege-footer__contact-line:hover {
   color: var(--pflege-ft-muted);
 }
 
-/* Bottom Bar */
+/* Bottom Bar — gleiche Page-Hintergrundfarbe wie Trust-Zeile */
 .pflege-footer__bottom-bar {
   border-top: 1px solid var(--pflege-ft-border);
-  background: transparent;
+  background: var(--pflege-white, #fefefe);
   padding-top: clamp(1rem, 2vw, 1.35rem);
   padding-bottom: max(clamp(1rem, 2vw, 1.35rem), env(safe-area-inset-bottom, 0px));
   padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
