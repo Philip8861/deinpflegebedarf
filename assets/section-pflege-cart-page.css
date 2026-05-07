@@ -520,12 +520,6 @@
     margin-top: 0 !important;
   }
 
-  .template-cart .pflege-cart-items-table .cart-item__details .pflege-cart-item__head-text .pflege-cart-item__desc {
-    width: 100%;
-    text-align: left;
-    margin-top: 0.35rem !important;
-  }
-
   .template-cart .pflege-cart-items-table .pflege-cart-item__mobile-media {
     display: flex;
     flex-shrink: 0;
@@ -640,11 +634,6 @@
     font-size: 1.38rem;
     line-height: 1.22;
     padding-right: 0.25rem;
-  }
-
-  .template-cart .pflege-cart-item__desc {
-    font-size: 1.16rem;
-    line-height: 1.38;
   }
 
   .template-cart #main-cart-footer .js-contents > .pflege-cart-stack-below-summary > .pflege-cart-promo--under-summary .pflege-cart-promo.pflege-cart-card {
@@ -842,14 +831,6 @@
   border-radius: 50%;
   background: #22c55e;
   box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.22);
-}
-
-.template-cart .pflege-cart-item__desc {
-  margin-top: 0.28rem !important;
-  color: rgba(11, 35, 71, 0.62);
-  font-size: 1.26rem;
-  line-height: 1.4;
-  max-width: 46rem !important;
 }
 
 .template-cart .pflege-cart-item__options {

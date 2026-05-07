@@ -1,0 +1,36 @@
+{%- comment -%}
+  Parameter: slot (1 | 2 | 3). Nur aus Section aufgerufen (nutzt globales section + shop).
+
+  Reihenfolge:
+  1) Section textarea contents_N
+  2) Shop-Metafeld pflegeshop.pflegesets_contents_N (mehrzeilig, optional — bleibt bei theme push erhalten)
+  3) Snippet pflege-pflegeset-included-defaults
+{%- endcomment -%}
+{%- liquid
+  assign setting_value = ''
+  case slot
+    when 1
+      assign setting_value = section.settings.contents_1
+    when 2
+      assign setting_value = section.settings.contents_2
+    when 3
+      assign setting_value = section.settings.contents_3
+  endcase
+
+  assign out = setting_value | strip
+  if out == blank
+    case slot
+      when 1
+        assign out = shop.metafields.pflegeshop.pflegesets_contents_1.value | strip
+      when 2
+        assign out = shop.metafields.pflegeshop.pflegesets_contents_2.value | strip
+      when 3
+        assign out = shop.metafields.pflegeshop.pflegesets_contents_3.value | strip
+    endcase
+  endif
+-%}
+{%- if out == blank -%}
+  {%- render 'pflege-pflegeset-included-defaults', slot: slot -%}
+{%- else -%}
+  {{- out -}}
+{%- endif -%}
