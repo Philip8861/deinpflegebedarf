@@ -20,16 +20,13 @@
   background: transparent;
 }
 
-/* Wie Produktfinder-Backdrop: gleicher Verlauf + elliptischer Bogen nach oben */
+/* Wie Produktfinder: gleicher Verlauf; Bogen ~1,5–2 cm höher als Standard-Token (--pflege-backdrop-ell-v) */
 .pflege-footer__band {
   background: var(
     --pflege-backdrop-band-gradient,
     linear-gradient(180deg, #fafcfd 0%, #f8fafc 40%, #f7f9fb 70%, #f6f8fb 100%)
   );
-  border-radius: var(
-    --pflege-backdrop-band-radius-top,
-    50% 50% 0 0 / clamp(2rem, 5.5vw, 4rem) clamp(2rem, 5.5vw, 4rem) 0 0
-  );
+  border-radius: 50% 50% 0 0 / clamp(3rem, 6.8vw, 6.5rem) clamp(3rem, 6.8vw, 6.5rem) 0 0;
   overflow: hidden;
   box-sizing: border-box;
 }
