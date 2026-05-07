@@ -1,4 +1,4 @@
-/* PflegeShop — Pflegesets: drei Kacheln, quadratisches Bild, Preis, Sterne, Warenkorb */
+/* PflegeShop — Pflegesets: kompakteres Bild (4:3), größere Typo für Überschrift & Liste */
 .pflege-pflegesets {
   font-family: var(--font-body-family, inherit);
   font-style: var(--font-body-style, normal);
@@ -6,6 +6,8 @@
   padding-bottom: var(--pflege-home-section-stack, clamp(1.5rem, 3vw, 2rem));
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 .pflege-pflegesets__shell {
@@ -28,14 +30,14 @@
 
 .pflege-pflegesets__title {
   font-family: var(--font-body-family, inherit);
-  font-size: clamp(1.95rem, 1.5rem + 1.25vw, 2.65rem);
+  font-size: clamp(2.35rem, 1.75rem + 1.85vw, 3.35rem);
   font-weight: 800;
-  line-height: 1.22;
-  letter-spacing: 0.018em;
-  color: var(--pflege-navy, #0b2347);
-  margin: 0 0 clamp(1.55rem, 3.2vw, 2.35rem);
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  color: var(--pflege-navy, #081a39);
+  margin: 0 0 clamp(1.65rem, 3.4vw, 2.55rem);
   text-align: center;
-  max-width: min(58rem, 100%);
+  max-width: min(60rem, 100%);
   margin-left: auto;
   margin-right: auto;
 }
@@ -73,7 +75,7 @@
   transform: translateY(-2px);
 }
 
-/* Bild (quadratisch) */
+/* Bild: weniger Höhe als früher (4:3 statt Quadrat), mehr Platz für Text */
 .pflege-pflegesets__media-link {
   display: block;
   flex-shrink: 0;
@@ -96,8 +98,7 @@
 }
 
 /*
-  Bild sichtbar machen: kein position:absolute nötig (Theme-img-Regeln + Customizer).
-  Quadrat über aspect-ratio direkt am Bild; Badge bleibt absolute über dem Stack.
+  aspect-ratio 4 / 3: niedrigere Bildhöhe, Schwerpunkt Text darunter.
 */
 .pflege-pflegesets__media picture {
   display: block;
@@ -111,9 +112,10 @@
   width: 100%;
   max-width: 100%;
   height: auto;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 4 / 3;
+  max-height: clamp(11rem, 28vw, 15.5rem);
   object-fit: cover;
-  object-position: center;
+  object-position: center 28%;
   display: block;
   position: relative;
   z-index: 1;
@@ -124,7 +126,8 @@
 .pflege-pflegesets__placeholder {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 4 / 3;
+  max-height: clamp(11rem, 28vw, 15.5rem);
   height: auto;
   object-fit: cover;
   display: block;
@@ -139,8 +142,8 @@
   max-width: calc(100% - 1rem);
   padding: 0.42rem 0.72rem;
   border-radius: var(--pflege-radius-card, 14px);
-  font-size: clamp(0.82rem, 0.72rem + 0.38vw, 1rem);
-  font-weight: 700;
+  font-size: clamp(0.86rem, 0.76rem + 0.4vw, 1.05rem);
+  font-weight: 800;
   line-height: 1.2;
   text-align: center;
   color: #fff;
@@ -154,8 +157,8 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 0.35rem;
-  padding: clamp(0.65rem, 1.8vw, 0.95rem) clamp(0.5rem, 1.5vw, 0.85rem) 0;
+  gap: 0.45rem;
+  padding: clamp(0.85rem, 2.2vw, 1.2rem) clamp(0.55rem, 1.6vw, 0.95rem) 0;
   padding-right: clamp(2.75rem, 7vw, 3.25rem);
   flex: 1;
   min-width: 0;
@@ -164,11 +167,12 @@
 
 .pflege-pflegesets__name-link {
   font-family: var(--font-body-family, inherit);
-  font-size: clamp(0.98rem, 0.88rem + 0.35vw, 1.14rem);
+  font-size: clamp(1.12rem, 0.98rem + 0.55vw, 1.38rem);
   font-weight: 800;
-  line-height: 1.3;
-  color: var(--pflege-navy, #0b2347);
+  line-height: 1.26;
+  color: var(--pflege-navy, #081a39);
   text-decoration: none;
+  letter-spacing: -0.015em;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
@@ -181,21 +185,22 @@
 
 .pflege-pflegesets__contents {
   font-family: var(--font-body-family, inherit);
-  font-size: clamp(0.76rem, 0.7rem + 0.22vw, 0.88rem);
-  font-weight: 500;
-  line-height: 1.48;
-  color: var(--pflege-muted, #6f7f95);
+  font-size: clamp(0.93rem, 0.82rem + 0.38vw, 1.08rem);
+  font-weight: 600;
+  line-height: 1.52;
+  color: var(--pflege-navy-soft, #3d4f6b);
   text-align: center;
-  margin: 0.35rem 0 0.45rem;
+  margin: 0.42rem 0 0.5rem;
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
+  letter-spacing: 0.01em;
 }
 
 .pflege-pflegesets__price {
   font-family: var(--font-body-family, inherit);
-  font-size: clamp(1.05rem, 0.98rem + 0.25vw, 1.2rem);
-  font-weight: 700;
+  font-size: clamp(1.12rem, 1.02rem + 0.32vw, 1.3rem);
+  font-weight: 800;
   font-variant-numeric: tabular-nums;
   color: var(--pflege-navy, #0b2347);
   margin: 0.15rem 0 0;
@@ -256,7 +261,7 @@
 .pflege-pflegesets__stars {
   color: var(--pflege-star, #f5b943);
   letter-spacing: 0.06em;
-  font-size: clamp(0.95rem, 0.88rem + 0.22vw, 1.08rem);
+  font-size: clamp(1.02rem, 0.92rem + 0.28vw, 1.18rem);
   line-height: 1;
 }
 
