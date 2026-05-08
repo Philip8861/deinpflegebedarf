@@ -426,9 +426,9 @@ cart-drawer.drawer {
 
 cart-drawer.drawer.active .cart-drawer__overlay {
   opacity: 1;
-  background: var(--pflege-overlay-backdrop, rgba(11, 35, 71, 0.48));
-  backdrop-filter: blur(var(--pflege-overlay-backdrop-blur, 3px));
-  -webkit-backdrop-filter: blur(var(--pflege-overlay-backdrop-blur, 3px));
+  background: var(--pflege-overlay-backdrop, rgba(11, 35, 71, 0.56));
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 cart-drawer.drawer .drawer__inner {

@@ -612,40 +612,62 @@
     box-sizing: border-box;
   }
 
+  .pflege-main-nav-section .pflege-main-nav__action {
+    align-items: center;
+  }
+}
+
+@media screen and (min-width: 750px) and (max-width: 989px) {
   .pflege-main-nav-section .pflege-main-nav__search,
   .pflege-main-nav-section .pflege-main-nav__search-host {
     width: 100%;
     max-width: none;
     min-width: 0;
   }
-
-  .pflege-main-nav-section .pflege-main-nav__action {
-    align-items: center;
-  }
 }
 
-/* Großes Desktop: eine Zeile mit zentraler Suchspalte */
+/* Desktop: gleichmäßige Abstände per Flex-gap — Suchfeld zentriert im Mittelteil (kein überbreiter 1fr-Rasterbereich) */
 @media screen and (min-width: 990px) {
-  .pflege-main-nav-section .pflege-main-nav__grid:has(.pflege-main-nav__action--account) {
-    grid-template-columns: auto auto minmax(0, 1fr) auto auto;
-    grid-template-areas: 'logo nav search account cart';
-    row-gap: 0;
+  .pflege-main-nav-section .pflege-main-nav__grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: var(--pflege-header-cluster-gap);
   }
 
-  .pflege-main-nav-section .pflege-main-nav__grid:not(:has(.pflege-main-nav__action--account)) {
-    grid-template-columns: auto auto minmax(0, 1fr) auto;
-    grid-template-areas: 'logo nav search cart';
-    row-gap: 0;
+  .pflege-main-nav-section .pflege-main-nav__logo,
+  .pflege-main-nav-section .pflege-main-nav__nav,
+  .pflege-main-nav-section .pflege-main-nav__action--account,
+  .pflege-main-nav-section .pflege-main-nav__action--cart {
+    flex: 0 0 auto;
   }
 
   .pflege-main-nav-section predictive-search.pflege-main-nav__search-host {
-    width: var(--pflege-nav-search-max-width);
-    max-width: var(--pflege-nav-search-max-width);
+    flex: 1 1 12rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 0;
+    width: auto;
+    max-width: none;
+    position: relative;
+    z-index: 1;
+  }
+
+  .pflege-main-nav-section predictive-search.pflege-main-nav__search-host .pflege-main-nav__search {
+    width: min(52rem, 100%);
+    max-width: min(52rem, 100%);
+    margin-inline: auto;
   }
 
   .pflege-main-nav-section .pflege-main-nav__grid > form.pflege-main-nav__search {
-    width: 100%;
-    max-width: none;
+    flex: 1 1 12rem;
+    min-width: 0;
+    width: min(52rem, 100%);
+    max-width: min(52rem, 100%);
+    margin-inline: auto;
   }
 }
 
@@ -915,9 +937,9 @@
 }
 
 .pflege-category-modal::backdrop {
-  background: var(--pflege-overlay-backdrop, rgba(11, 35, 71, 0.48));
-  backdrop-filter: blur(var(--pflege-overlay-backdrop-blur, 3px));
-  -webkit-backdrop-filter: blur(var(--pflege-overlay-backdrop-blur, 3px));
+  background: var(--pflege-overlay-backdrop, rgba(11, 35, 71, 0.56));
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 .pflege-category-modal__panel {

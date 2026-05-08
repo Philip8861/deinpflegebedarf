@@ -1,5 +1,10 @@
 <style>
-  /* Bis component-cart-notification.css lädt (Deferred über media=print): Modal ohne Styles = FOUC mit riesigem SVG */
+  /* Bis component-cart-notification.css lädt: gleicher bläulicher Schleier wie Kategorie-Popup */
+  .cart-notification__backdrop {
+    background: rgba(11, 35, 71, 0.56);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
   .cart-notification-wrapper:not(.is-active) #cart-notification {
     visibility: hidden !important;
     opacity: 0 !important;

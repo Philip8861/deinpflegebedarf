@@ -29,8 +29,9 @@
     Modale Overlays (Kategorie-Popup, Warenkorb-Bestätigung, Side-Drawer):
     gleicher dunkelblauer, bläulicher Schleier + sanfter Blur.
   */
-  --pflege-overlay-backdrop: rgba(11, 35, 71, 0.48);
-  --pflege-overlay-backdrop-blur: 3px;
+  --pflege-overlay-backdrop: rgba(11, 35, 71, 0.56);
+  /* Hinweis: backdrop-filter: blur(var(...)) unterstützt nicht alle Browser zuverlässig — Modals nutzen zusätzlich feste blur(4px)-Angaben */
+  --pflege-overlay-backdrop-blur: 4px;
   /* Mengen-Badge am Wagen-Icon wenn Artikel im Warenkorb */
   --pflege-cart-badge-fill: var(--pflege-cta);
   --pflege-cart-badge-text: #ffffff;
