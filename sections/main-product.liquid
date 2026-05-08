@@ -91,7 +91,8 @@
               assign pf_prev_type = ''
               assign pf_next_type = ''
               if forloop.index0 > 0
-                assign pf_prev_block = section.blocks[forloop.index0 | minus: 1]
+                assign pf_prev_idx = forloop.index0 | minus: 1
+                assign pf_prev_block = section.blocks[pf_prev_idx]
                 assign pf_prev_type = pf_prev_block.type
               endif
               assign pf_next_idx = forloop.index0 | plus: 1

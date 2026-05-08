@@ -14,7 +14,7 @@
   --pflege-radius-lg: 22px;
   --pflege-radius-card: 14px;
   --pflege-radius-pill: 999px;
-  --pflege-font-display: Georgia, 'Times New Roman', Times, serif;
+  --pflege-font-display: var(--font-body-family);
   --pflege-max-copy: 52rem;
   /* Horizontale Kanten: auf schmalen Phones weniger Rand, ab Desktop wie bisher */
   --pflege-inline-gutter: clamp(1rem, 4.5vw, 2rem);

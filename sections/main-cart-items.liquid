@@ -165,10 +165,6 @@
                               <span>Sofort lieferbar!</span>
                             </p>
                           {%- endif -%}
-
-                          {%- if item.product.description != blank -%}
-                            <p class="pflege-cart-item__desc">{{ item.product.description | strip_html | truncate: 160 }}</p>
-                          {%- endif -%}
                         </div>
                       </div>
 

@@ -173,7 +173,7 @@
 }
 
 .pflege-hero__title {
-  font-family: var(--pflege-font-display, Georgia, serif);
+  font-family: var(--pflege-font-display, var(--font-body-family));
   font-weight: 400;
   font-size: clamp(2.15rem, 5.5vw + 0.75rem, 4.75rem);
   line-height: 1.12;

@@ -1,0 +1,3 @@
+# Standard-Umgebung für Theme-Befehle (shopify theme dev / push -e default)
+[environments.default]
+store = "dd2e03-a6.myshopify.com"
