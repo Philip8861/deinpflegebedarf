@@ -8,6 +8,7 @@
 {%- endif -%}
 
 <script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'pflege-category-modal.js' | asset_url }}" defer="defer"></script>
 
 {{ 'section-pflege-main-nav.css' | asset_url | stylesheet_tag }}
 
@@ -37,6 +38,11 @@
     assign url_ver = root | append: 'collections/verbrauchsartikel'
   endif
 
+  assign finder_modal_href = section.settings.finder_promo_button_link | strip
+  if finder_modal_href == blank
+    assign finder_modal_href = root | append: '#produktfinder'
+  endif
+
   assign active_des = false
   assign active_pf = false
   assign active_hh = false
@@ -54,30 +60,49 @@
       assign active_ver = true
     endif
   endif
+  assign category_nav_active = false
+  if active_des or active_pf or active_hh or active_ver
+    assign category_nav_active = true
+  endif
 -%}
 
 {%- comment -%}
   Robustes Critical-CSS direkt in der Section: garantiert vor section-pflege-main-nav.css aktiv,
   damit der „Kategorien“-Bereich nie leer ist und die Grid-Spalten nie kollabieren.
-  Sync-Marker v3 (2026-05-06): inline-Kategorien.
+  Sync-Marker v4 (2026): Kategorieübersicht triggert Dialog.
 {%- endcomment -%}
 <style id="pflege-main-nav-critical-{{ section.id }}">
   .pflege-main-nav-section .pflege-main-nav__grid {
     width: 100%;
     box-sizing: border-box;
   }
-  .pflege-main-nav-section .pflege-main-nav__categories {
+  .pflege-main-nav-section .pflege-main-nav__category-dialog-trigger-wrap {
     list-style: none;
     margin: 0;
     padding: 0;
+    width: 100%;
   }
-  .pflege-main-nav-section .pflege-main-nav__category-link {
+  .pflege-main-nav-section .pflege-main-nav__category-dialog-trigger {
+    appearance: none;
+    -webkit-appearance: none;
+    font: inherit;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.42rem;
     color: #0b2347;
-    -webkit-text-fill-color: #0b2347;
+    background: transparent;
+    border: 0;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 700;
     line-height: 1.2;
     white-space: nowrap;
+  }
+  .pflege-main-nav-section .pflege-main-nav__category-trigger-chevron {
+    flex-shrink: 0;
+    width: 0.95rem;
+    height: 0.95rem;
+    opacity: 0.88;
   }
   @media screen and (min-width: 750px) {
     .pflege-main-nav-section .pflege-main-nav__grid {
@@ -110,26 +135,15 @@
       margin: 0 !important;
       padding: 0 clamp(0.1rem, 0.45vw, 0.4rem) !important;
     }
-    .pflege-main-nav-section .pflege-main-nav__categories {
-      display: flex !important;
-      flex-direction: row !important;
-      flex-wrap: nowrap !important;
-      align-items: center !important;
-      justify-content: space-evenly !important;
-      gap: clamp(0.4rem, 1.2vw, 1rem) !important;
-      width: 100% !important;
-    }
-    .pflege-main-nav-section .pflege-main-nav__categories > li {
-      flex: 0 1 auto !important;
-      min-width: max-content !important;
+    .pflege-main-nav-section .pflege-main-nav__category-dialog-trigger-wrap {
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
+      width: 100% !important;
     }
-    .pflege-main-nav-section .pflege-main-nav__category-link {
-      display: inline-block !important;
+    .pflege-main-nav-section .pflege-main-nav__category-dialog-trigger {
       font-size: clamp(0.85rem, 0.35rem + 0.95vw, 1.32rem) !important;
-      padding: 0.35rem 0.25rem !important;
+      padding: 0.35rem 0.65rem !important;
     }
     .pflege-main-nav-section predictive-search.pflege-main-nav__search-host {
       grid-area: search !important;
@@ -177,38 +191,25 @@
     <nav
       class="pflege-main-nav__nav"
       aria-label="{{ section.settings.menu_label | escape }}"
-      data-pflege-nav="inline-fixed-v2"
+      data-pflege-nav="category-overview-dialog"
     >
-      <ul class="pflege-main-nav__categories">
-        <li>
-          <a
-            href="{{ url_des }}"
-            class="pflege-main-nav__category-link{% if active_des %} is-active{% endif %}"
-            {% if active_des %}aria-current="page"{% endif %}
-          >Desinfektion</a>
-        </li>
-        <li>
-          <a
-            href="{{ url_pf }}"
-            class="pflege-main-nav__category-link{% if active_pf %} is-active{% endif %}"
-            {% if active_pf %}aria-current="page"{% endif %}
-          >Pflegeartikel</a>
-        </li>
-        <li>
-          <a
-            href="{{ url_hh }}"
-            class="pflege-main-nav__category-link{% if active_hh %} is-active{% endif %}"
-            {% if active_hh %}aria-current="page"{% endif %}
-          >Hautschutz &amp; Hautpflege</a>
-        </li>
-        <li>
-          <a
-            href="{{ url_ver }}"
-            class="pflege-main-nav__category-link{% if active_ver %} is-active{% endif %}"
-            {% if active_ver %}aria-current="page"{% endif %}
-          >Verbrauchsartikel</a>
-        </li>
-      </ul>
+      <div class="pflege-main-nav__category-dialog-trigger-wrap">
+        <button
+          type="button"
+          class="pflege-main-nav__category-dialog-trigger{% if category_nav_active %} is-active-context{% endif %}"
+          id="PflegeCategoryTrigger-{{ section.id }}"
+          aria-haspopup="dialog"
+          aria-expanded="false"
+          aria-controls="PflegeCategoryDialog-{{ section.id }}"
+        >
+          <span>{{ section.settings.category_overview_label | escape }}</span>
+          <span class="pflege-main-nav__category-trigger-chevron" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3.6 5.3 7 8.65 10.36 5.3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </button>
+      </div>
     </nav>
 
     {%- if settings.predictive_search_enabled -%}
@@ -308,6 +309,75 @@
   </div>
 </div>
 
+<dialog
+  class="pflege-category-modal gradient color-{{ section.settings.color_scheme }}"
+  id="PflegeCategoryDialog-{{ section.id }}"
+  aria-labelledby="PflegeCategoryHeading-{{ section.id }}"
+  aria-modal="true"
+  data-trigger-id="PflegeCategoryTrigger-{{ section.id }}"
+>
+  <div class="pflege-category-modal__panel">
+    <div class="pflege-category-modal__head">
+      <h2 id="PflegeCategoryHeading-{{ section.id }}" class="pflege-category-modal__title">
+        {{ section.settings.category_overview_label | escape }}
+      </h2>
+      <button
+        type="button"
+        class="pflege-category-modal__close"
+        aria-label="{{ 'accessibility.close' | t }}"
+        data-category-modal-close
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <ul class="pflege-category-modal__list" role="list">
+      <li>
+        <a
+          href="{{ url_des }}"
+          class="pflege-category-modal__link{% if active_des %} is-active{% endif %}"
+          {% if active_des %}aria-current="page"{% endif %}
+          data-category-modal-close
+        >Desinfektion</a>
+      </li>
+      <li>
+        <a
+          href="{{ url_pf }}"
+          class="pflege-category-modal__link{% if active_pf %} is-active{% endif %}"
+          {% if active_pf %}aria-current="page"{% endif %}
+          data-category-modal-close
+        >Pflegeartikel</a>
+      </li>
+      <li>
+        <a
+          href="{{ url_hh }}"
+          class="pflege-category-modal__link{% if active_hh %} is-active{% endif %}"
+          {% if active_hh %}aria-current="page"{% endif %}
+          data-category-modal-close
+        >Hautschutz &amp; Hautpflege</a>
+      </li>
+      <li>
+        <a
+          href="{{ url_ver }}"
+          class="pflege-category-modal__link{% if active_ver %} is-active{% endif %}"
+          {% if active_ver %}aria-current="page"{% endif %}
+          data-category-modal-close
+        >Verbrauchsartikel</a>
+      </li>
+    </ul>
+
+    <div class="pflege-category-modal__promo">
+      {%- if section.settings.finder_promo_text != blank -%}
+        <p class="pflege-category-modal__promo-copy">{{ section.settings.finder_promo_text | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.finder_promo_button_label != blank -%}
+        <a class="pflege-category-modal__cta" href="{{ finder_modal_href }}" data-category-modal-close>
+          {{- section.settings.finder_promo_button_label | escape -}}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</dialog>
+
 {%- if settings.cart_type == 'notification' -%}
   {%- render 'cart-notification', color_scheme: section.settings.color_scheme, desktop_menu_type: 'dropdown' -%}
 {%- endif -%}
@@ -348,6 +418,30 @@
       "id": "search_placeholder",
       "label": "Suchfeld Platzhalter",
       "default": "Produkte suchen..."
+    },
+    {
+      "type": "text",
+      "id": "category_overview_label",
+      "label": "Kategorieübersicht — Text (Button & Popup-Titel)",
+      "default": "Kategorieübersicht"
+    },
+    {
+      "type": "textarea",
+      "id": "finder_promo_text",
+      "label": "Hinweistext Produktfinder im Popup",
+      "default": "Kein langes suchen? Nutzen Sie unseren Produktfinder"
+    },
+    {
+      "type": "text",
+      "id": "finder_promo_button_label",
+      "label": "Produktfinder-Button Beschriftung",
+      "default": "Jetzt passende Produkte anzeigen"
+    },
+    {
+      "type": "url",
+      "id": "finder_promo_button_link",
+      "label": "Produktfinder-Link",
+      "info": "Leer lassen = Startseite mit Anker #produktfinder (Block „Produktfinder“ muss Anker id=produktfinder haben)."
     },
     {
       "type": "range",

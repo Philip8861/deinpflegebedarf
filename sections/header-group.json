@@ -48,7 +48,11 @@
         "logo_height": 48,
         "account_heading": "Mein Konto",
         "account_sub_guest": "Anmelden",
-        "cart_heading": "Warenkorb"
+        "cart_heading": "Warenkorb",
+        "category_overview_label": "Kategorieübersicht",
+        "finder_promo_text": "Kein langes suchen? Nutzen Sie unseren Produktfinder",
+        "finder_promo_button_label": "Jetzt passende Produkte anzeigen",
+        "finder_promo_button_link": ""
       }
     }
   },
