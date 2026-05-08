@@ -25,6 +25,15 @@
   --pflege-link-blue: #0b6edc;
   --pflege-surface-mist: #f5faff;
   --pflege-border-soft: #d8eafe;
+  /*
+    Modale Overlays (Kategorie-Popup, Warenkorb-Bestätigung, Side-Drawer):
+    gleicher dunkelblauer, bläulicher Schleier + sanfter Blur.
+  */
+  --pflege-overlay-backdrop: rgba(11, 35, 71, 0.48);
+  --pflege-overlay-backdrop-blur: 3px;
+  /* Mengen-Badge am Wagen-Icon wenn Artikel im Warenkorb */
+  --pflege-cart-badge-fill: var(--pflege-cta);
+  --pflege-cart-badge-text: #ffffff;
   --pflege-radius-lg: 22px;
   --pflege-radius-card: 14px;
   --pflege-radius-pill: 999px;

@@ -412,3 +412,26 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
     margin-left: 0;
   }
 }
+
+/* PflegeShop: Hintergrund-Schleier wie Kategorie-Modal (navy, bläulich, leichter Blur) */
+cart-drawer.drawer {
+  background-color: transparent;
+}
+
+.cart-drawer__overlay {
+  z-index: 0;
+  opacity: 0;
+  transition: opacity var(--duration-default, 0.25s) ease;
+}
+
+cart-drawer.drawer.active .cart-drawer__overlay {
+  opacity: 1;
+  background: var(--pflege-overlay-backdrop, rgba(11, 35, 71, 0.48));
+  backdrop-filter: blur(var(--pflege-overlay-backdrop-blur, 3px));
+  -webkit-backdrop-filter: blur(var(--pflege-overlay-backdrop-blur, 3px));
+}
+
+cart-drawer.drawer .drawer__inner {
+  position: relative;
+  z-index: 1;
+}

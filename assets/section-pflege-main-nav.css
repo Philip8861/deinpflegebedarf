@@ -449,7 +449,7 @@
   height: 100%;
 }
 
-/* Mengen-Badge: schwarzer Kreis, weiße Zahl, links vom Wagen (Referenz-PDP) */
+/* Mengen-Badge am Wagen-Icon bei Artikeln im Warenkorb (Orange = CTA) */
 .pflege-main-nav-section .pflege-main-nav__cart-graphic .cart-count-bubble {
   left: -0.2rem;
   right: auto;
@@ -460,8 +460,8 @@
   height: 1.85rem;
   font-size: 0.95rem;
   font-weight: 700;
-  background-color: #121212;
-  color: #fff;
+  background-color: var(--pflege-cart-badge-fill, var(--pflege-cta, #f97316));
+  color: var(--pflege-cart-badge-text, #ffffff);
   border: none;
 }
 
@@ -871,8 +871,8 @@
     width: 1.55rem;
     height: 1.55rem;
     font-size: 0.88rem;
-    background-color: #121212;
-    color: #fff;
+    background-color: var(--pflege-cart-badge-fill, var(--pflege-cta, #f97316));
+    color: var(--pflege-cart-badge-text, #ffffff);
   }
 
   .pflege-main-nav-section .pflege-main-nav__search {
@@ -915,8 +915,9 @@
 }
 
 .pflege-category-modal::backdrop {
-  background: rgba(11, 35, 71, 0.48);
-  backdrop-filter: blur(3px);
+  background: var(--pflege-overlay-backdrop, rgba(11, 35, 71, 0.48));
+  backdrop-filter: blur(var(--pflege-overlay-backdrop-blur, 3px));
+  -webkit-backdrop-filter: blur(var(--pflege-overlay-backdrop-blur, 3px));
 }
 
 .pflege-category-modal__panel {
