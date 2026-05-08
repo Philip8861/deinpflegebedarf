@@ -69,12 +69,14 @@
 {%- comment -%}
   Robustes Critical-CSS direkt in der Section: garantiert vor section-pflege-main-nav.css aktiv,
   damit der „Kategorien“-Bereich nie leer ist und die Grid-Spalten nie kollabieren.
-  Sync-Marker v8 (2026): ab 750px eine Flex-Zeile; Konto+Warenkorb eng; Suche flex-grow + max 62rem.
+  Sync-Marker v9 (2026): Suche ~2/3 Breite, zentriert zwischen Kategorien und Konto.
 {%- endcomment -%}
 <style id="pflege-main-nav-critical-{{ section.id }}">
   .pflege-main-nav-section.section-header {
     --pflege-header-cluster-gap: clamp(1rem, 1.85vw, 1.5rem);
     --pflege-header-actions-gap: clamp(0.28rem, 0.85vw, 0.5rem);
+    --pflege-nav-search-max-width: min(41rem, 100%);
+    --pflege-nav-search-min-width: 15rem;
   }
   .pflege-main-nav-section .pflege-main-nav__grid {
     width: 100%;
@@ -165,24 +167,25 @@
       flex: 0 0 auto !important;
     }
     .pflege-main-nav-section predictive-search.pflege-main-nav__search-host {
-      flex: 1 1 18rem !important;
+      flex: 1 1 0 !important;
       display: flex !important;
       flex-direction: column !important;
       justify-content: center !important;
-      align-items: stretch !important;
+      align-items: center !important;
       min-width: 0 !important;
       width: auto !important;
       max-width: none !important;
     }
     .pflege-main-nav-section predictive-search.pflege-main-nav__search-host .pflege-main-nav__search {
-      width: 100% !important;
-      max-width: min(62rem, 100%) !important;
+      width: min(100%, var(--pflege-nav-search-max-width, min(41rem, 100%))) !important;
+      max-width: var(--pflege-nav-search-max-width, min(41rem, 100%)) !important;
     }
     .pflege-main-nav-section .pflege-main-nav__grid > form.pflege-main-nav__search {
-      flex: 1 1 18rem !important;
-      width: 100% !important;
-      max-width: min(62rem, 100%) !important;
-      min-width: 0 !important;
+      flex: 1 1 0 !important;
+      width: auto !important;
+      max-width: var(--pflege-nav-search-max-width, min(41rem, 100%)) !important;
+      min-width: min(var(--pflege-nav-search-min-width, 15rem), 100%) !important;
+      margin-inline: auto !important;
     }
     .pflege-main-nav-section .pflege-main-nav__drawer-slot {
       display: none !important;
