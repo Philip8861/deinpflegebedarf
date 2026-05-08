@@ -152,7 +152,7 @@
 .pflege-footer__brand-logo {
   display: block;
   height: auto;
-  max-width: min(165px, 100%);
+  max-width: min(220px, 100%);
 }
 
 .pflege-footer__brand-copy {

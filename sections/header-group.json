@@ -44,8 +44,8 @@
         "menu_color_scheme": "scheme-1",
         "menu_label": "Produktbereiche",
         "search_placeholder": "Produkte suchen...",
-        "logo_width": 165,
-        "logo_height": 36,
+        "logo_width": 220,
+        "logo_height": 48,
         "account_heading": "Mein Konto",
         "account_sub_guest": "Anmelden",
         "cart_heading": "Warenkorb"
