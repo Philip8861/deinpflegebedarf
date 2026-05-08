@@ -60,9 +60,9 @@
 .pflege-main-nav-section .pflege-main-nav__logo-img {
   display: block;
   height: auto;
-  max-height: 5.81rem;
+  max-height: 4.3575rem;
   width: auto;
-  max-width: min(26.62rem, 41.8vw);
+  max-width: min(19.965rem, 31.35vw);
 }
 
 /* Kategorien-Leiste zwischen Logo und Suche (Desktop) */
@@ -628,7 +628,7 @@
   .pflege-main-nav-section .pflege-main-nav__logo {
     flex: 0 1 auto;
     min-width: 0;
-    max-width: min(40vw, 12.1rem);
+    max-width: min(30vw, 9.075rem);
   }
 
   .pflege-main-nav-section predictive-search.pflege-main-nav__search-host {
@@ -660,7 +660,7 @@
   }
 
   .pflege-main-nav-section .pflege-main-nav__logo-img {
-    max-height: 3.85rem;
+    max-height: 2.8875rem;
     max-width: 100%;
   }
 

@@ -4,7 +4,7 @@
 {% endcomment %}
 {%- liquid
   assign lw = logo_width | default: settings.logo_width | default: 200
-  if lw == blank or lw < 140
+  if lw == blank
     assign lw = 200
   endif
   assign lh = logo_height | default: 44

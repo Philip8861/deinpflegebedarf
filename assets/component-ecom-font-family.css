@@ -1,0 +1,5 @@
+/* EComposer Quickview: Schriftfamilie aus Theme (--font-body-family), keine separaten Display-Fonts aus dem Builder. Größen und font-weight kommen weiter aus bestehendem CSS/Inline. */
+.ecom-builder,
+.ecom-builder * {
+  font-family: var(--font-body-family) !important;
+}

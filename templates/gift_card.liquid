@@ -103,6 +103,7 @@
     {%- endunless -%}
 
     {{ 'template-giftcard.css' | asset_url | stylesheet_tag }}
+    {{ 'component-pflege-type-unified.css' | asset_url | stylesheet_tag }}
   </head>
 
   <body class="gradient gift-card">
@@ -129,7 +130,7 @@
 
     <main>
       <div class="gift-card__image-wrapper">
-        {% render 'pflege-logo-webp', img_class: 'gift-card__image', logo_width: 570, logo_height: 380 %}
+        {% render 'pflege-logo-webp', img_class: 'gift-card__image', logo_width: 428, logo_height: 285 %}
       </div>
       <h2>{{ shop.name }}</h2>
       <div class="gift-card__text-wrapper">
