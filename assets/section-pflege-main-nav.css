@@ -3,6 +3,7 @@
   position: sticky;
   top: 0;
   z-index: 5;
+  --pflege-header-cluster-gap: clamp(1rem, 1.85vw, 1.5rem);
   /* Suchfeld: zentrale Spalte, großzügige Maxbreite */
   --pflege-nav-search-max-width: min(52rem, 100%);
   --pflege-nav-search-min-width: 15rem;
@@ -92,8 +93,6 @@
   letter-spacing: 0.015em;
   font-size: inherit;
   line-height: 1.15;
-  color: var(--pflege-header-pill-text, #1267c9);
-  -webkit-text-fill-color: var(--pflege-header-pill-text, #1267c9);
   text-decoration: none;
   cursor: pointer;
   white-space: nowrap;
@@ -106,25 +105,31 @@
   transition:
     background 0.22s ease,
     border-color 0.22s ease,
-    box-shadow 0.26s ease,
-    color 0.2s ease;
+    box-shadow 0.26s ease;
 }
 
+/* Schrift wie „Mein Konto“; Icons bleiben Akzentblau */
 .pflege-main-nav-section .pflege-main-nav__category-label {
   font-size: clamp(0.88rem, 0.72rem + 0.42vw, 1.125rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
   overflow: hidden;
   text-overflow: ellipsis;
   min-width: 0;
+  color: var(--pflege-heading-navy, #062a55);
+  -webkit-text-fill-color: var(--pflege-heading-navy, #062a55);
 }
 
 .pflege-main-nav-section .pflege-main-nav__category-menu-icon {
   flex-shrink: 0;
-  color: inherit;
+  color: var(--pflege-link-blue, #0b6edc);
 }
 
 .pflege-main-nav-section .pflege-main-nav__category-trigger-chevron {
   display: inline-flex;
+  flex-shrink: 0;
   line-height: 0;
+  color: var(--pflege-link-blue, #0b6edc);
 }
 
 .pflege-main-nav-section .pflege-main-nav__category-trigger-chevron svg {
@@ -146,8 +151,6 @@
       0 4px 14px rgba(11, 109, 236, 0.1);
     outline: none;
     text-shadow: none;
-    color: var(--pflege-header-pill-text, #1267c9);
-    -webkit-text-fill-color: var(--pflege-header-pill-text, #1267c9);
   }
 
   .pflege-main-nav-section .pflege-main-nav__category-dialog-trigger:active {
@@ -164,8 +167,6 @@
 .pflege-main-nav-section .pflege-main-nav__category-dialog-trigger[aria-expanded='true']:hover {
   background: var(--pflege-header-pill-active-bg, #eaf4ff);
   border-color: var(--pflege-header-pill-active-border, #5fa8ff);
-  color: var(--pflege-header-pill-text, #1267c9);
-  -webkit-text-fill-color: var(--pflege-header-pill-text, #1267c9);
   box-shadow:
     var(--pflege-header-pill-shadow, 0 2px 12px rgba(11, 109, 236, 0.08)),
     0 2px 10px rgba(95, 168, 255, 0.18);
@@ -317,7 +318,7 @@
   flex: 0 0 auto;
   display: flex;
   align-items: center;
-  gap: clamp(0.85rem, 1.65vw, 1.85rem);
+  gap: var(--pflege-header-cluster-gap);
 }
 
 .pflege-main-nav-section .pflege-main-nav__action {
@@ -510,23 +511,41 @@
   }
 }
 
-/* Tablet/Desktop ab 750px: CSS Grid mit fixer Spalte für Kategorien-Leiste */
+/* Tablet/Desktop ab 750px: Konto & Warenkorb als eigene Grid-Zellen → gleichmäßiger Abstand */
 @media screen and (min-width: 750px) {
   .pflege-main-nav-section .pflege-main-nav__drawer-slot {
     display: none !important;
   }
 
+  .pflege-main-nav-section .pflege-main-nav__actions {
+    display: contents;
+  }
+
   .pflege-main-nav-section .pflege-main-nav__grid {
     display: grid;
-    grid-template-columns: auto auto minmax(0, 1fr) auto;
-    grid-template-areas: 'logo nav search actions';
     align-items: center;
-    column-gap: clamp(0.65rem, 1.75vw, 1.65rem);
-    row-gap: 0;
+    column-gap: var(--pflege-header-cluster-gap);
     width: 100%;
     box-sizing: border-box;
     padding-top: 1.05rem;
     padding-bottom: 1.35rem;
+  }
+
+  /* Tablet: Zeile 1 = Logo · Kategorien · Mein Konto · Warenkorb; Zeile 2 = Suche */
+  .pflege-main-nav-section .pflege-main-nav__grid:has(.pflege-main-nav__action--account) {
+    grid-template-columns: auto auto auto auto;
+    grid-template-areas:
+      'logo nav account cart'
+      'search search search search';
+    row-gap: var(--pflege-header-cluster-gap);
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__grid:not(:has(.pflege-main-nav__action--account)) {
+    grid-template-columns: auto auto auto;
+    grid-template-areas:
+      'logo nav cart'
+      'search search search';
+    row-gap: var(--pflege-header-cluster-gap);
   }
 
   .pflege-main-nav-section .pflege-main-nav__logo {
@@ -547,7 +566,7 @@
     width: 100%;
     min-width: 0;
     margin: 0;
-    padding-inline: 0.2rem;
+    padding-inline: 0;
     box-sizing: border-box;
     visibility: visible;
     opacity: 1;
@@ -558,6 +577,18 @@
     width: auto;
   }
 
+  .pflege-main-nav-section .pflege-main-nav__action--account {
+    grid-area: account;
+    justify-self: start;
+    align-self: center;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__action--cart {
+    grid-area: cart;
+    justify-self: start;
+    align-self: center;
+  }
+
   .pflege-main-nav-section predictive-search.pflege-main-nav__search-host {
     grid-area: search;
     align-self: center;
@@ -565,8 +596,8 @@
     display: block;
     position: relative;
     z-index: 1;
-    width: var(--pflege-nav-search-max-width);
-    max-width: var(--pflege-nav-search-max-width);
+    width: min(52rem, 100%);
+    max-width: min(52rem, 100%);
     min-width: min(var(--pflege-nav-search-min-width), 100%);
     box-sizing: border-box;
   }
@@ -575,17 +606,10 @@
     grid-area: search;
     align-self: center;
     justify-self: center;
-    width: 100%;
-    max-width: none;
+    width: min(52rem, 100%);
+    max-width: min(52rem, 100%);
     min-width: 0;
-  }
-
-  .pflege-main-nav-section .pflege-main-nav__actions {
-    grid-area: actions;
-    justify-self: end;
-    align-self: center;
-    flex-shrink: 0;
-    align-items: center;
+    box-sizing: border-box;
   }
 
   .pflege-main-nav-section .pflege-main-nav__search,
@@ -600,31 +624,28 @@
   }
 }
 
-/* Tablet: erste Zeile Logo · Kategorie · Aktionen (rechts), Suche prominent darunter */
-@media screen and (min-width: 750px) and (max-width: 989px) {
-  .pflege-main-nav-section .pflege-main-nav__grid {
-    grid-template-columns: auto auto minmax(0, 1fr);
-    grid-template-areas:
-      'logo nav actions'
-      'search search search';
-    row-gap: 0.7rem;
+/* Großes Desktop: eine Zeile mit zentraler Suchspalte */
+@media screen and (min-width: 990px) {
+  .pflege-main-nav-section .pflege-main-nav__grid:has(.pflege-main-nav__action--account) {
+    grid-template-columns: auto auto minmax(0, 1fr) auto auto;
+    grid-template-areas: 'logo nav search account cart';
+    row-gap: 0;
   }
 
-  .pflege-main-nav-section .pflege-main-nav__actions {
-    justify-self: end;
+  .pflege-main-nav-section .pflege-main-nav__grid:not(:has(.pflege-main-nav__action--account)) {
+    grid-template-columns: auto auto minmax(0, 1fr) auto;
+    grid-template-areas: 'logo nav search cart';
+    row-gap: 0;
   }
 
   .pflege-main-nav-section predictive-search.pflege-main-nav__search-host {
-    justify-self: center;
-    width: min(52rem, 100%);
-    max-width: min(52rem, 100%);
-    min-width: 0;
+    width: var(--pflege-nav-search-max-width);
+    max-width: var(--pflege-nav-search-max-width);
   }
 
   .pflege-main-nav-section .pflege-main-nav__grid > form.pflege-main-nav__search {
-    justify-self: center;
-    width: min(52rem, 100%);
-    max-width: min(52rem, 100%);
+    width: 100%;
+    max-width: none;
   }
 }
 
@@ -714,8 +735,8 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: flex-start;
-    gap: 0.45rem;
-    row-gap: 0.5rem;
+    gap: var(--pflege-header-cluster-gap);
+    row-gap: calc(var(--pflege-header-cluster-gap) * 0.65);
     padding: 0.55rem 0 0.65rem;
     width: 100%;
     max-width: 100%;
@@ -740,7 +761,7 @@
   .pflege-main-nav-section .pflege-main-nav__actions {
     flex: 0 0 auto;
     order: 3;
-    gap: 0.2rem;
+    gap: var(--pflege-header-cluster-gap);
     margin-left: auto;
     align-self: center;
   }
