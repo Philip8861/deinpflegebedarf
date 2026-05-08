@@ -1,0 +1,191 @@
+{{ 'section-pflege-home-category-rail.css' | asset_url | stylesheet_tag }}
+
+<section
+  class="pflege-category-rail color-{{ section.settings.color_scheme }} gradient{% if section.settings.full_bleed %} pflege-category-rail--full-bleed{% endif %}"
+  aria-label="{{ section.settings.heading | default: 'Produktkategorien' | escape }}"
+>
+  <div
+    class="pflege-category-rail__shell{% if section.settings.full_bleed %} pflege-category-rail__shell--bleed{% else %} page-width{% endif %}">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="pflege-category-rail__heading visually-hidden">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+    <div class="pflege-category-rail__track" role="list">
+      {%- for block in section.blocks -%}
+        {%- if block.type != 'category' -%}{%- continue -%}{%- endif -%}
+        {%- liquid
+          assign href = block.settings.link
+          if href == blank
+            assign fallback = routes.all_products_collection_url
+            assign href = fallback
+          endif
+          assign rail_active = false
+          if request.page_type == 'collection' and collection and block.settings.collection_handle != blank
+            if collection.handle == block.settings.collection_handle
+              assign rail_active = true
+            endif
+          elsif block.settings.highlight
+            assign rail_active = true
+          endif
+        -%}
+        <a
+          class="pflege-category-rail__item{% if rail_active %} is-active{% endif %}"
+          href="{{ href }}"
+          role="listitem"
+          {% if rail_active %}aria-current="page"{% endif %}
+          {{ block.shopify_attributes }}
+        >
+          <span class="pflege-category-rail__icon" aria-hidden="true">
+            {% render 'pflege-icon', icon: block.settings.icon, width: 22 %}
+          </span>
+          <span class="pflege-category-rail__label">{{ block.settings.title | escape }}</span>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PflegeShop Kategorie-Leiste",
+  "tag": "section",
+  "class": "pflege-category-rail-section",
+  "enabled_on": {
+    "templates": ["index"]
+  },
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Farbschema",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_bleed",
+      "label": "Gleiche Seitenränder wie Header/Hero",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Überschrift (nur Screenreader)",
+      "default": "Produktkategorien",
+      "info": "Für Barrierefreiheit; wird visuell ausgeblendet."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Kategorie",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Bezeichnung",
+          "default": "Kategorie"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "heart", "label": "Herz" },
+            { "value": "droplet", "label": "Tropfen" },
+            { "value": "bandage", "label": "Pflaster / Verband" },
+            { "value": "cross-medical", "label": "Medizinisches Kreuz" },
+            { "value": "bowl", "label": "Schale" },
+            { "value": "hand", "label": "Hand" },
+            { "value": "accessibility", "label": "Hilfsmittel / Barrierefrei" }
+          ],
+          "default": "heart"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "text",
+          "id": "collection_handle",
+          "label": "Collection-Handle (optional, für Aktiv-Markierung)",
+          "info": "z. B. desinfektion — bei passender Kollektion wird der Chip hervorgehoben.",
+          "default": ""
+        },
+        {
+          "type": "checkbox",
+          "id": "highlight",
+          "label": "Als aktiv hervorheben (Chip)",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PflegeShop Kategorie-Leiste",
+      "blocks": [
+        {
+          "type": "category",
+          "settings": {
+            "title": "Inkontinenzversorgung",
+            "icon": "heart",
+            "link": "shopify://collections/all",
+            "highlight": true
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "Körperpflege",
+            "icon": "droplet",
+            "link": "shopify://collections/pflegeartikel",
+            "collection_handle": "pflegeartikel"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "Wundversorgung",
+            "icon": "bandage",
+            "link": "shopify://collections/all"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "Desinfektion & Hygiene",
+            "icon": "cross-medical",
+            "link": "shopify://collections/desinfektion",
+            "collection_handle": "desinfektion"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "Ernährung",
+            "icon": "bowl",
+            "link": "shopify://collections/all"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "Schutz & Handschuhe",
+            "icon": "hand",
+            "link": "shopify://collections/verbrauchsartikel",
+            "collection_handle": "verbrauchsartikel"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "Hilfsmittel",
+            "icon": "accessibility",
+            "link": "shopify://collections/all"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

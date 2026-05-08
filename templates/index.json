@@ -9,6 +9,95 @@
  */
 {
   "sections": {
+    "pflege_category_rail": {
+      "type": "pflege-home-category-rail",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "full_bleed": true,
+        "heading": "Produktkategorien"
+      },
+      "blocks": {
+        "rail_1": {
+          "type": "category",
+          "settings": {
+            "title": "Inkontinenzversorgung",
+            "icon": "heart",
+            "link": "shopify://collections/all",
+            "collection_handle": "",
+            "highlight": true
+          }
+        },
+        "rail_2": {
+          "type": "category",
+          "settings": {
+            "title": "Körperpflege",
+            "icon": "droplet",
+            "link": "shopify://collections/pflegeartikel",
+            "collection_handle": "pflegeartikel",
+            "highlight": false
+          }
+        },
+        "rail_3": {
+          "type": "category",
+          "settings": {
+            "title": "Wundversorgung",
+            "icon": "bandage",
+            "link": "shopify://collections/all",
+            "collection_handle": "",
+            "highlight": false
+          }
+        },
+        "rail_4": {
+          "type": "category",
+          "settings": {
+            "title": "Desinfektion & Hygiene",
+            "icon": "cross-medical",
+            "link": "shopify://collections/desinfektion",
+            "collection_handle": "desinfektion",
+            "highlight": false
+          }
+        },
+        "rail_5": {
+          "type": "category",
+          "settings": {
+            "title": "Ernährung",
+            "icon": "bowl",
+            "link": "shopify://collections/all",
+            "collection_handle": "",
+            "highlight": false
+          }
+        },
+        "rail_6": {
+          "type": "category",
+          "settings": {
+            "title": "Schutz & Handschuhe",
+            "icon": "hand",
+            "link": "shopify://collections/verbrauchsartikel",
+            "collection_handle": "verbrauchsartikel",
+            "highlight": false
+          }
+        },
+        "rail_7": {
+          "type": "category",
+          "settings": {
+            "title": "Hilfsmittel",
+            "icon": "accessibility",
+            "link": "shopify://collections/all",
+            "collection_handle": "",
+            "highlight": false
+          }
+        }
+      },
+      "block_order": [
+        "rail_1",
+        "rail_2",
+        "rail_3",
+        "rail_4",
+        "rail_5",
+        "rail_6",
+        "rail_7"
+      ]
+    },
     "pflege_hero": {
       "type": "pflege-hero",
       "settings": {
@@ -55,6 +144,7 @@
     }
   },
   "order": [
+    "pflege_category_rail",
     "pflege_hero",
     "pflege_bestseller",
     "pflege_product_finder",

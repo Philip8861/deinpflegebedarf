@@ -9,8 +9,22 @@
   --pflege-muted: #6f7f95;
   --pflege-star: #f5b943;
   /* Primär-CTA (Warenkorb-Modal, Footer) */
-  --pflege-cta: #e67e22;
-  --pflege-cta-hover: #cf711f;
+  --pflege-cta: #f97316;
+  --pflege-cta-hover: #ea580c;
+
+  /* Header: helle Kategorieübersicht-Pill (freundliches Blau, kein dunkles Vollblau) */
+  --pflege-header-pill-bg: #f8fbff;
+  --pflege-header-pill-border: #b7d8ff;
+  --pflege-header-pill-text: #1267c9;
+  --pflege-header-pill-shadow: 0 2px 12px rgba(11, 109, 236, 0.08);
+  --pflege-header-pill-hover-bg: #eaf4ff;
+  --pflege-header-pill-hover-border: #8bbeff;
+  --pflege-header-pill-active-bg: #eaf4ff;
+  --pflege-header-pill-active-border: #5fa8ff;
+  --pflege-heading-navy: #062a55;
+  --pflege-link-blue: #0b6edc;
+  --pflege-surface-mist: #f5faff;
+  --pflege-border-soft: #d8eafe;
   --pflege-radius-lg: 22px;
   --pflege-radius-card: 14px;
   --pflege-radius-pill: 999px;

@@ -69,7 +69,7 @@
 {%- comment -%}
   Robustes Critical-CSS direkt in der Section: garantiert vor section-pflege-main-nav.css aktiv,
   damit der „Kategorien“-Bereich nie leer ist und die Grid-Spalten nie kollabieren.
-  Sync-Marker v4 (2026): Kategorieübersicht triggert Dialog.
+  Sync-Marker v5 (2026): „Kategorienübersicht“ heller Pill-Button + Mobile sichtbar.
 {%- endcomment -%}
 <style id="pflege-main-nav-critical-{{ section.id }}">
   .pflege-main-nav-section .pflege-main-nav__grid {
@@ -87,34 +87,65 @@
     -webkit-appearance: none;
     font: inherit;
     cursor: pointer;
+    box-sizing: border-box;
     display: inline-flex;
     align-items: center;
-    gap: 0.42rem;
-    color: #0b2347;
-    background: transparent;
-    border: 0;
-    text-decoration: none;
-    font-weight: 700;
-    line-height: 1.2;
+    justify-content: center;
+    gap: 0.62rem;
+    min-height: 52px;
+    padding: 0 clamp(22px, 2.8vw, 28px);
+    border-radius: 16px;
+    font-weight: 600;
+    line-height: 1.15;
     white-space: nowrap;
+    letter-spacing: 0.015em;
+    color: var(--pflege-header-pill-text, #1267c9);
+    background: var(--pflege-header-pill-bg, #f8fbff);
+    border: 1px solid var(--pflege-header-pill-border, #b7d8ff);
+    box-shadow: var(--pflege-header-pill-shadow, 0 2px 12px rgba(11, 109, 236, 0.08));
+    text-decoration: none;
+    width: 100%;
+    max-width: 100%;
+    transition:
+      background 0.22s ease,
+      border-color 0.22s ease,
+      box-shadow 0.26s ease;
+  }
+  .pflege-main-nav-section .pflege-main-nav__category-menu-icon.pflege-icon {
+    flex-shrink: 0;
+    color: inherit;
+    line-height: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pflege-main-nav-section .pflege-main-nav__category-label {
+    flex: 1 1 auto;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+    font-size: clamp(0.88rem, 0.72rem + 0.42vw, 1.125rem);
   }
   .pflege-main-nav-section .pflege-main-nav__category-trigger-chevron {
     flex-shrink: 0;
-    width: 0.95rem;
-    height: 0.95rem;
-    opacity: 0.88;
+    width: 0.92rem;
+    height: 0.92rem;
+    display: inline-flex;
+    line-height: 0;
+    color: inherit;
   }
   @media screen and (min-width: 750px) {
+    .pflege-main-nav-section .pflege-main-nav__category-label {
+      flex: none;
+      text-align: inherit;
+    }
     .pflege-main-nav-section .pflege-main-nav__grid {
       display: grid !important;
-      grid-template-columns:
-        auto
-        minmax(min(22rem, 36vw), 1fr)
-        minmax(15rem, min(40rem, 37.33vw))
-        auto !important;
+      grid-template-columns: auto auto minmax(0, 1fr) auto !important;
       grid-template-areas: 'logo nav search actions' !important;
       align-items: center !important;
-      column-gap: clamp(0.6rem, 1.6vw, 1.4rem) !important;
+      column-gap: clamp(0.65rem, 1.75vw, 1.65rem) !important;
       row-gap: 0 !important;
     }
     .pflege-main-nav-section .pflege-main-nav__drawer-slot {
@@ -123,7 +154,7 @@
     .pflege-main-nav-section .pflege-main-nav__logo {
       grid-area: logo !important;
       justify-self: start !important;
-      transform: translateY(-0.42rem) !important;
+      transform: translateY(-0.2rem) !important;
     }
     .pflege-main-nav-section .pflege-main-nav__nav {
       grid-area: nav !important;
@@ -133,41 +164,34 @@
       width: 100% !important;
       min-width: 0 !important;
       margin: 0 !important;
-      padding: 0 clamp(0.1rem, 0.45vw, 0.4rem) !important;
+      padding: 0 0.2rem !important;
     }
     .pflege-main-nav-section .pflege-main-nav__category-dialog-trigger-wrap {
       display: flex !important;
       align-items: center !important;
-      justify-content: center !important;
-      width: 100% !important;
+      justify-content: flex-start !important;
+      width: auto !important;
+      max-width: 100%;
     }
     .pflege-main-nav-section .pflege-main-nav__category-dialog-trigger {
-      font-size: clamp(0.85rem, 0.35rem + 0.95vw, 1.32rem) !important;
-      padding: 0.35rem 0.65rem !important;
+      width: auto !important;
     }
     .pflege-main-nav-section predictive-search.pflege-main-nav__search-host {
       grid-area: search !important;
       display: block !important;
-      width: 100% !important;
-      max-width: min(40rem, 37.33vw) !important;
-      min-width: 15rem !important;
-      justify-self: stretch !important;
+      width: min(52rem, 100%) !important;
+      max-width: min(52rem, 100%) !important;
+      justify-self: center !important;
     }
     .pflege-main-nav-section .pflege-main-nav__grid > form.pflege-main-nav__search {
       grid-area: search !important;
-      width: 100% !important;
-      max-width: min(40rem, 37.33vw) !important;
-      min-width: 15rem !important;
-      justify-self: stretch !important;
+      width: min(52rem, 100%) !important;
+      max-width: min(52rem, 100%) !important;
+      justify-self: center !important;
     }
     .pflege-main-nav-section .pflege-main-nav__actions {
       grid-area: actions !important;
       justify-self: end !important;
-    }
-  }
-  @media screen and (max-width: 749px) {
-    .pflege-main-nav-section .pflege-main-nav__nav {
-      display: none !important;
     }
   }
 </style>
@@ -202,7 +226,8 @@
           aria-expanded="false"
           aria-controls="PflegeCategoryDialog-{{ section.id }}"
         >
-          <span>{{ section.settings.category_overview_label | escape }}</span>
+          {% render 'pflege-icon', icon: 'menu', width: 20, class: 'pflege-main-nav__category-menu-icon' %}
+          <span class="pflege-main-nav__category-label">{{ section.settings.category_overview_label | escape }}</span>
           <span class="pflege-main-nav__category-trigger-chevron" aria-hidden="true">
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M3.6 5.3 7 8.65 10.36 5.3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -423,7 +448,7 @@
       "type": "text",
       "id": "category_overview_label",
       "label": "Kategorieübersicht — Text (Button & Popup-Titel)",
-      "default": "Kategorieübersicht"
+      "default": "Kategorienübersicht"
     },
     {
       "type": "textarea",

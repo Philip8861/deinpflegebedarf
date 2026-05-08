@@ -3,16 +3,16 @@
   position: sticky;
   top: 0;
   z-index: 5;
-  /* Suchfeld: ca. +1/3 gegenüber min(30rem, 28vw) (4/3-Faktor) */
-  --pflege-nav-search-max-width: min(40rem, 37.33vw);
+  /* Suchfeld: zentrale Spalte, großzügige Maxbreite */
+  --pflege-nav-search-max-width: min(52rem, 100%);
   --pflege-nav-search-min-width: 15rem;
-  --pflege-action-icon-color: #5891d7; /* Konto + Warenkorb Icon */
+  --pflege-action-icon-color: var(--pflege-link-blue, #0b6edc);
   --pflege-action-icon-box: 3.65rem;
   --pflege-action-icon-svg: 3.28rem;
   /* Warenkorb füllt die ViewBox stärker als das Konto-Icon → etwas kleiner zeichnen */
   --pflege-cart-svg-scale: 0.9;
   /* Desktop: Logo anheben, Wortmarke fluchtet mit Kategorie-Links (Feintuning: --pflege-header-logo-offset-y) */
-  --pflege-header-logo-offset-y: -0.42rem;
+  --pflege-header-logo-offset-y: -0.2rem;
   /* RGB für rgba()-Leuchteffekte bei Hover */
   --pflege-hover-glow: 88, 145, 215;
 }
@@ -48,7 +48,7 @@
 .pflege-main-nav-section .pflege-main-nav__logo {
   flex: 0 0 auto;
   /* Etwas nach oben zur optischen Ausrichtung mit Nav/Suche */
-  transform: translateY(-0.32rem);
+  transform: translateY(-0.2rem);
 }
 
 .pflege-main-nav-section .pflege-main-nav__logo-link {
@@ -82,25 +82,44 @@
 .pflege-main-nav-section .pflege-main-nav__category-dialog-trigger {
   display: inline-flex;
   align-items: center;
-  gap: 0.42rem;
+  justify-content: center;
+  gap: 0.62rem;
+  box-sizing: border-box;
+  min-height: 52px;
+  padding: 0 clamp(1.375rem, 2vw, 1.75rem);
   font-family: inherit;
-  font-size: clamp(0.85rem, 0.35rem + 0.95vw, 1.32rem);
   font-weight: 600;
-  letter-spacing: 0.02em;
-  color: var(--pflege-navy, #0b2347);
-  -webkit-text-fill-color: var(--pflege-navy, #0b2347);
+  letter-spacing: 0.015em;
+  font-size: inherit;
+  line-height: 1.15;
+  color: var(--pflege-header-pill-text, #1267c9);
+  -webkit-text-fill-color: var(--pflege-header-pill-text, #1267c9);
   text-decoration: none;
   cursor: pointer;
   white-space: nowrap;
-  padding: 0.35rem 0.55rem;
-  line-height: 1.2;
-  border-radius: 0.45rem;
-  background: transparent;
-  border: 0;
-  box-shadow: none;
+  border-radius: 16px;
+  background: var(--pflege-header-pill-bg, #f8fbff);
+  border: 1px solid var(--pflege-header-pill-border, #b7d8ff);
+  box-shadow: var(--pflege-header-pill-shadow, 0 2px 12px rgba(11, 109, 236, 0.08));
   appearance: none;
   -webkit-appearance: none;
-  transition: color 0.22s ease, text-shadow 0.28s ease;
+  transition:
+    background 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.26s ease,
+    color 0.2s ease;
+}
+
+.pflege-main-nav-section .pflege-main-nav__category-label {
+  font-size: clamp(0.88rem, 0.72rem + 0.42vw, 1.125rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.pflege-main-nav-section .pflege-main-nav__category-menu-icon {
+  flex-shrink: 0;
+  color: inherit;
 }
 
 .pflege-main-nav-section .pflege-main-nav__category-trigger-chevron {
@@ -110,24 +129,50 @@
 
 .pflege-main-nav-section .pflege-main-nav__category-trigger-chevron svg {
   display: block;
-  transition: transform 0.2s ease;
+  transition: transform 0.22s ease;
 }
 
 .pflege-main-nav-section .pflege-main-nav__category-dialog-trigger[aria-expanded='true'] .pflege-main-nav__category-trigger-chevron svg {
   transform: rotate(180deg);
 }
 
-.pflege-main-nav-section .pflege-main-nav__category-dialog-trigger:hover,
-.pflege-main-nav-section .pflege-main-nav__category-dialog-trigger:focus-visible {
-  color: #063057;
-  -webkit-text-fill-color: #063057;
-  outline: none;
+@media (hover: hover) and (pointer: fine) {
+  .pflege-main-nav-section .pflege-main-nav__category-dialog-trigger:hover,
+  .pflege-main-nav-section .pflege-main-nav__category-dialog-trigger:focus-visible {
+    background: var(--pflege-header-pill-hover-bg, #eaf4ff);
+    border-color: var(--pflege-header-pill-hover-border, #8bbeff);
+    box-shadow:
+      var(--pflege-header-pill-shadow, 0 2px 12px rgba(11, 109, 236, 0.08)),
+      0 4px 14px rgba(11, 109, 236, 0.1);
+    outline: none;
+    text-shadow: none;
+    color: var(--pflege-header-pill-text, #1267c9);
+    -webkit-text-fill-color: var(--pflege-header-pill-text, #1267c9);
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__category-dialog-trigger:active {
+    background: var(--pflege-header-pill-active-bg, #eaf4ff);
+    border-color: var(--pflege-header-pill-active-border, #5fa8ff);
+    box-shadow:
+      var(--pflege-header-pill-shadow, 0 2px 12px rgba(11, 109, 236, 0.08)),
+      0 2px 8px rgba(11, 109, 236, 0.12);
+  }
+}
+
+/* Offener Dialog-Zustand (JS setzt oft nur aria-expanded) */
+.pflege-main-nav-section .pflege-main-nav__category-dialog-trigger[aria-expanded='true'],
+.pflege-main-nav-section .pflege-main-nav__category-dialog-trigger[aria-expanded='true']:hover {
+  background: var(--pflege-header-pill-active-bg, #eaf4ff);
+  border-color: var(--pflege-header-pill-active-border, #5fa8ff);
+  color: var(--pflege-header-pill-text, #1267c9);
+  -webkit-text-fill-color: var(--pflege-header-pill-text, #1267c9);
+  box-shadow:
+    var(--pflege-header-pill-shadow, 0 2px 12px rgba(11, 109, 236, 0.08)),
+    0 2px 10px rgba(95, 168, 255, 0.18);
 }
 
 .pflege-main-nav-section .pflege-main-nav__category-dialog-trigger.is-active-context {
   font-weight: 700;
-  color: #063057;
-  -webkit-text-fill-color: #063057;
 }
 
 /* Predictive Search: Anker für Dropdown (wie Dawn .header predictive-search) */
@@ -138,14 +183,15 @@
   min-width: 0;
 }
 
-/* Pill-Suche */
+/* Pill-Suche (Höhe zur Kategorie-Pill abgestimmt) */
 .pflege-main-nav-section .pflege-main-nav__search {
   display: flex;
   align-items: center;
+  min-height: 52px;
   border: 1px solid var(--pflege-main-search-border, #dfe6ef);
   border-radius: var(--pflege-radius-pill, 999px);
   background: rgb(var(--color-background, 254 254 254));
-  padding: 0 0 0 1.485rem;
+  padding: 0.68rem 0 0.68rem 1.485rem;
   overflow: hidden;
   transition: border-color 0.22s ease, box-shadow 0.28s ease;
 }
@@ -295,7 +341,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  color: #5891d7;
+  color: var(--pflege-action-icon-color, #0b6edc);
 }
 
 .pflege-main-nav-section .pflege-main-nav__action-icon .svg-wrapper {
@@ -308,20 +354,20 @@
   display: block;
 }
 
-/* Warenkorb-Icon: Marine (#5891d7 nur für Konto) */
+/* Warenkorb-Icon */
 .pflege-main-nav-section .pflege-main-nav__cart-graphic .svg-wrapper {
-  color: var(--pflege-navy, #0b2347);
+  color: var(--pflege-heading-navy, #062a55);
 }
 
 .pflege-main-nav-section .pflege-main-nav__action-icon svg {
-  color: #5891d7;
+  color: var(--pflege-action-icon-color, #0b6edc);
   stroke: currentColor;
   fill: none;
   stroke-opacity: 1;
 }
 
 .pflege-main-nav-section .pflege-main-nav__cart-graphic svg {
-  color: var(--pflege-navy, #0b2347);
+  color: var(--pflege-heading-navy, #062a55);
   stroke: currentColor;
   fill: none;
   stroke-opacity: 1;
@@ -343,7 +389,7 @@
 
 /* Mobil-Drawer: Konto-Icon gleiche Markenfarbe */
 .pflege-main-nav-section .menu-drawer__account .svg-wrapper {
-  color: #5891d7;
+  color: var(--pflege-action-icon-color, #0b6edc);
 }
 
 .pflege-main-nav-section .pflege-main-nav__stack {
@@ -358,7 +404,7 @@
   font-size: 1.595rem;
   font-weight: 700;
   letter-spacing: 0.02em;
-  color: var(--pflege-main-heading, #0b2347);
+  color: var(--pflege-heading-navy, #062a55);
 }
 
 .pflege-main-nav-section .pflege-main-nav__stack-sub,
@@ -387,7 +433,7 @@
   flex-shrink: 0;
   width: var(--pflege-action-icon-box);
   height: var(--pflege-action-icon-box);
-  color: var(--pflege-navy, #0b2347);
+  color: var(--pflege-heading-navy, #062a55);
 }
 
 .pflege-main-nav-section .pflege-main-nav__cart-graphic .svg-wrapper {
@@ -428,13 +474,6 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .pflege-main-nav-section .pflege-main-nav__category-dialog-trigger:hover,
-  .pflege-main-nav-section .pflege-main-nav__category-dialog-trigger:focus-visible {
-    text-shadow:
-      0 0 12px rgba(var(--pflege-hover-glow), 0.38),
-      0 0 26px rgba(var(--pflege-hover-glow), 0.14);
-  }
-
   .pflege-main-nav-section .pflege-main-nav__search:hover,
   .pflege-main-nav-section .pflege-main-nav__search:focus-within {
     border-color: rgba(var(--pflege-hover-glow), 0.38);
@@ -479,14 +518,10 @@
 
   .pflege-main-nav-section .pflege-main-nav__grid {
     display: grid;
-    grid-template-columns:
-      auto
-      minmax(min(22rem, 36vw), 1fr)
-      minmax(var(--pflege-nav-search-min-width), var(--pflege-nav-search-max-width))
-      auto;
+    grid-template-columns: auto auto minmax(0, 1fr) auto;
     grid-template-areas: 'logo nav search actions';
     align-items: center;
-    column-gap: clamp(0.6rem, 1.6vw, 1.4rem);
+    column-gap: clamp(0.65rem, 1.75vw, 1.65rem);
     row-gap: 0;
     width: 100%;
     box-sizing: border-box;
@@ -512,29 +547,37 @@
     width: 100%;
     min-width: 0;
     margin: 0;
-    padding-inline: clamp(0.1rem, 0.45vw, 0.4rem);
+    padding-inline: 0.2rem;
     box-sizing: border-box;
     visibility: visible;
     opacity: 1;
   }
 
+  .pflege-main-nav-section .pflege-main-nav__category-dialog-trigger-wrap {
+    justify-content: flex-start;
+    width: auto;
+  }
+
   .pflege-main-nav-section predictive-search.pflege-main-nav__search-host {
     grid-area: search;
     align-self: center;
-    justify-self: stretch;
+    justify-self: center;
     display: block;
     position: relative;
     z-index: 1;
-    width: 100%;
+    width: var(--pflege-nav-search-max-width);
     max-width: var(--pflege-nav-search-max-width);
-    min-width: var(--pflege-nav-search-min-width);
+    min-width: min(var(--pflege-nav-search-min-width), 100%);
     box-sizing: border-box;
   }
 
   .pflege-main-nav-section .pflege-main-nav__grid > form.pflege-main-nav__search {
     grid-area: search;
     align-self: center;
-    justify-self: stretch;
+    justify-self: center;
+    width: 100%;
+    max-width: none;
+    min-width: 0;
   }
 
   .pflege-main-nav-section .pflege-main-nav__actions {
@@ -548,12 +591,40 @@
   .pflege-main-nav-section .pflege-main-nav__search,
   .pflege-main-nav-section .pflege-main-nav__search-host {
     width: 100%;
-    max-width: var(--pflege-nav-search-max-width);
-    min-width: var(--pflege-nav-search-min-width);
+    max-width: none;
+    min-width: 0;
   }
 
   .pflege-main-nav-section .pflege-main-nav__action {
     align-items: center;
+  }
+}
+
+/* Tablet: erste Zeile Logo · Kategorie · Aktionen (rechts), Suche prominent darunter */
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .pflege-main-nav-section .pflege-main-nav__grid {
+    grid-template-columns: auto auto minmax(0, 1fr);
+    grid-template-areas:
+      'logo nav actions'
+      'search search search';
+    row-gap: 0.7rem;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__actions {
+    justify-self: end;
+  }
+
+  .pflege-main-nav-section predictive-search.pflege-main-nav__search-host {
+    justify-self: center;
+    width: min(52rem, 100%);
+    max-width: min(52rem, 100%);
+    min-width: 0;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__grid > form.pflege-main-nav__search {
+    justify-self: center;
+    width: min(52rem, 100%);
+    max-width: min(52rem, 100%);
   }
 }
 
@@ -607,19 +678,44 @@
   }
 }
 
-/* Schmale Handys: Flex-Zeile; Kategorien-Nav aus; Kategorien im Drawer */
+/* Mobil: Zeile 1 = Drawer, Logo, Aktionen • Zeile 2 = Kategorie-Pill • Zeile 3 = Suche */
 @media screen and (max-width: 749px) {
   .pflege-main-nav-section .pflege-main-nav__nav {
-    display: none !important;
+    display: block !important;
+    order: 10;
+    flex: 1 1 100%;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__category-dialog-trigger-wrap {
+    justify-content: stretch;
+    width: 100%;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__category-dialog-trigger {
+    width: 100%;
+    justify-content: center;
+    gap: 0.55rem;
+    min-height: 48px;
+    padding: 0 clamp(1rem, 3vw, 1.5rem);
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__category-label {
+    flex: 0 1 auto;
+    text-align: center;
   }
 
   .pflege-main-nav-section .pflege-main-nav__grid {
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: flex-start;
     gap: 0.45rem;
+    row-gap: 0.5rem;
     padding: 0.55rem 0 0.65rem;
     width: 100%;
     max-width: 100%;
@@ -627,35 +723,33 @@
     box-sizing: border-box;
   }
 
-  .pflege-main-nav-section .pflege-main-nav__drawer-slot,
-  .pflege-main-nav-section .pflege-main-nav__logo,
-  .pflege-main-nav-section .pflege-main-nav__search,
-  .pflege-main-nav-section predictive-search.pflege-main-nav__search-host,
-  .pflege-main-nav-section .pflege-main-nav__actions {
-    grid-column: unset;
-    grid-row: unset;
-  }
-
-  .pflege-main-nav-section header-drawer {
-    margin-left: 0;
-  }
-
   .pflege-main-nav-section .pflege-main-nav__drawer-slot {
     flex: 0 0 auto;
     align-self: center;
     display: flex;
+    order: 1;
   }
 
   .pflege-main-nav-section .pflege-main-nav__logo {
-    flex: 0 1 auto;
+    flex: 1 1 auto;
+    order: 2;
     min-width: 0;
-    max-width: min(40vw, 12.1rem);
+    max-width: min(52vw, 14rem);
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__actions {
+    flex: 0 0 auto;
+    order: 3;
+    gap: 0.2rem;
+    margin-left: auto;
+    align-self: center;
   }
 
   .pflege-main-nav-section predictive-search.pflege-main-nav__search-host {
-    flex: 1 1 0;
+    order: 11;
+    flex: 1 1 100%;
     min-width: 0;
-    width: auto;
+    width: 100%;
     max-width: none;
     align-self: stretch;
     display: flex;
@@ -669,15 +763,23 @@
   }
 
   .pflege-main-nav-section .pflege-main-nav__grid > form.pflege-main-nav__search {
-    flex: 1 1 0;
+    order: 11;
+    flex: 1 1 100%;
     min-width: 0;
+    width: 100%;
   }
 
+  .pflege-main-nav-section .pflege-main-nav__drawer-slot,
+  .pflege-main-nav-section .pflege-main-nav__logo,
+  .pflege-main-nav-section .pflege-main-nav__search,
+  .pflege-main-nav-section predictive-search.pflege-main-nav__search-host,
   .pflege-main-nav-section .pflege-main-nav__actions {
-    flex: 0 0 auto;
-    gap: 0.2rem;
+    grid-column: unset;
+    grid-row: unset;
+  }
+
+  .pflege-main-nav-section header-drawer {
     margin-left: 0;
-    align-self: center;
   }
 
   .pflege-main-nav-section .pflege-main-nav__logo-img {
@@ -753,8 +855,8 @@
   }
 
   .pflege-main-nav-section .pflege-main-nav__search {
-    min-height: 2.75rem;
-    padding-left: 0.85rem;
+    min-height: 2.95rem;
+    padding: 0.45rem 0 0.45rem 0.85rem;
   }
 
   .pflege-main-nav-section .pflege-main-nav__search-input {
@@ -815,7 +917,7 @@
   font-size: clamp(1.45rem, 1.05rem + 1.25vw, 1.72rem);
   line-height: 1.25;
   letter-spacing: 0.02em;
-  color: var(--pflege-navy, #0b2347);
+  color: var(--pflege-heading-navy, #062a55);
 }
 
 .pflege-category-modal__close {
@@ -863,7 +965,7 @@
   font-size: 1.42rem;
   line-height: 1.35;
   letter-spacing: 0.015em;
-  color: var(--pflege-navy, #0b2347);
+  color: var(--pflege-heading-navy, #062a55);
   border: 1px solid transparent;
   background: rgba(88, 145, 215, 0.08);
   transition:

@@ -1,4 +1,8 @@
 /* PflegeShop — Hero */
+body.template-index .pflege-hero {
+  padding-top: clamp(0.35rem, 1.15vw, 0.9rem);
+}
+
 .pflege-hero {
   padding-bottom: var(--pflege-home-section-stack, clamp(1.5rem, 3vw, 2rem));
 }
