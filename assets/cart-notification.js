@@ -3,78 +3,42 @@ class CartNotification extends HTMLElement {
     super();
 
     this.notification = this.querySelector('#cart-notification');
-    this.wrapper = this.querySelector('dialog.cart-notification-wrapper');
+    this.wrapper = this.querySelector('.cart-notification-wrapper');
+    this.backdrop = this.querySelector('.cart-notification__backdrop');
     this.header = document.querySelector('sticky-header');
     this.onBodyClick = this.handleBodyClick.bind(this);
 
     if (!this.notification || !this.wrapper) return;
 
+    this.notification.addEventListener('keyup', (evt) => evt.code === 'Escape' && this.close());
     this.querySelectorAll('button[type="button"]').forEach((closeButton) =>
       closeButton.addEventListener('click', this.close.bind(this))
     );
-
-    this.wrapper.addEventListener('click', (evt) => {
-      if (evt.target === this.wrapper) this.close();
-    });
-
-    this.wrapper.addEventListener('close', () => {
-      this.notification.classList.remove('active', 'animate');
-      document.body.removeEventListener('click', this.onBodyClick);
-      removeTrapFocus(this.activeElement);
-    });
+    this.backdrop?.addEventListener('click', this.close.bind(this));
   }
 
   open() {
-    if (!this.wrapper) return;
+    this.wrapper?.classList.add('is-active');
+    this.notification.classList.add('animate', 'active');
 
-    const reveal = () => {
-      this.notification.classList.add('animate', 'active');
+    this.notification.addEventListener(
+      'transitionend',
+      () => {
+        this.notification.focus();
+        trapFocus(this.notification);
+      },
+      { once: true }
+    );
 
-      this.notification.addEventListener(
-        'transitionend',
-        () => {
-          this.notification.focus();
-          trapFocus(this.notification);
-        },
-        { once: true }
-      );
-
-      document.body.addEventListener('click', this.onBodyClick);
-    };
-
-    /* showModal wirft InvalidStateError, wenn der Dialog noch offen ist (z. B. erneut „In den Warenkorb“). */
-    if (typeof this.wrapper.showModal === 'function') {
-      try {
-        if (this.wrapper.open) this.wrapper.close();
-        this.wrapper.showModal();
-        this.wrapper.classList.remove('cart-notification-wrapper--modeless');
-      } catch (e) {
-        console.warn('[cart-notification] showModal fehlgeschlagen, nutze show() als Fallback', e);
-        if (this.wrapper.open) this.wrapper.close();
-        if (typeof this.wrapper.show === 'function') {
-          this.wrapper.show();
-          this.wrapper.classList.add('cart-notification-wrapper--modeless');
-        }
-      }
-    } else if (typeof this.wrapper.show === 'function') {
-      if (this.wrapper.open) this.wrapper.close();
-      this.wrapper.show();
-      this.wrapper.classList.add('cart-notification-wrapper--modeless');
-    } else {
-      return;
-    }
-
-    reveal();
+    document.body.addEventListener('click', this.onBodyClick);
   }
 
   close() {
-    if (this.wrapper?.open) {
-      this.wrapper.close();
-    } else {
-      this.notification?.classList.remove('active', 'animate');
-      document.body.removeEventListener('click', this.onBodyClick);
-    }
-    this.wrapper?.classList.remove('cart-notification-wrapper--modeless');
+    this.wrapper?.classList.remove('is-active');
+    this.notification.classList.remove('active', 'animate');
+    document.body.removeEventListener('click', this.onBodyClick);
+
+    removeTrapFocus(this.activeElement);
   }
 
   renderContents(parsedState) {
