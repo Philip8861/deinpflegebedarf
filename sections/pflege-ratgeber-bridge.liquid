@@ -1,0 +1,150 @@
+{%- comment -%}
+  Brückenseite: leitet Besucher freundlich zum Ratgeber auf alltagshilfe-sued.de.
+  Template: page.pflege-ratgeber — Seite im Admin anlegen, Handle z. B. „pflegeratgeber“.
+{%- endcomment -%}
+{{ 'section-pflege-ratgeber-bridge.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign heading = section.settings.heading | strip
+  if heading == blank
+    assign heading = page.title | default: 'Pflegeratgeber'
+  endif
+
+  assign sub = section.settings.subtitle | strip
+  if sub == blank
+    assign sub = 'Tipps, Orientierung und fundierte Texte rund um Pflege und Alltag – kuratiert von Ihrer Alltagshilfe Süd.'
+  endif
+
+  assign url = section.settings.external_url | strip
+  if url == blank
+    assign url = 'https://www.alltagshilfe-sued.de/ratgeber'
+  endif
+
+  assign label = section.settings.button_label | strip
+  if label == blank
+    assign label = 'Zum Pflegeratgeber'
+  endif
+-%}
+
+<section
+  class="pflege-ratgeber-bridge section-{{ section.id }}-padding"
+  aria-labelledby="pflege-ratgeber-title-{{ section.id }}"
+>
+  {%- style -%}
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+    @media screen and (min-width: 750px) {
+      .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+    }
+  {%- endstyle -%}
+
+  <div class="pflege-ratgeber-bridge__band">
+    <div class="pflege-ratgeber-bridge__inner">
+      <div class="pflege-ratgeber-bridge__card">
+        <div class="pflege-ratgeber-bridge__card-inner">
+          <div class="pflege-ratgeber-bridge__badge" aria-hidden="true">
+            {% render 'pflege-icon', icon: 'document', width: 34 %}
+          </div>
+
+          <h1 id="pflege-ratgeber-title-{{ section.id }}" class="pflege-ratgeber-bridge__title">
+            {{ heading | escape }}
+          </h1>
+          <p class="pflege-ratgeber-bridge__subtitle">{{ sub | escape }}</p>
+
+          {%- if section.settings.body != blank -%}
+            <div class="pflege-ratgeber-bridge__rte rte">{{ section.settings.body }}</div>
+          {%- endif -%}
+
+          <a
+            class="pflege-ratgeber-bridge__cta"
+            href="{{ url | escape }}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span>{{ label | escape }}</span>
+            <span class="pflege-ratgeber-bridge__cta-arrow" aria-hidden="true">→</span>
+          </a>
+
+          <p class="pflege-ratgeber-bridge__note">
+            <span class="pflege-ratgeber-bridge__host">{{ url | escape }}</span>
+            · öffnet in einem neuen Tab
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Pflegeratgeber (extern)",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Überschrift",
+      "default": "Pflegeratgeber"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Unterzeile",
+      "default": "Tipps, Orientierung und fundierte Texte rund um Pflege und Alltag – kuratiert von Ihrer Alltagshilfe Süd."
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Optionaler Textblock"
+    },
+    {
+      "type": "text",
+      "id": "external_url",
+      "label": "Link-Ziel (URL)",
+      "default": "https://www.alltagshilfe-sued.de/ratgeber",
+      "info": "Vollständige Webadresse, z. B. https://www.alltagshilfe-sued.de/ratgeber"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button-Text",
+      "default": "Zum Pflegeratgeber"
+    },
+    {
+      "type": "header",
+      "content": "Abstand"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding oben",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding unten",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pflegeratgeber (extern)"
+    }
+  ]
+}
+{% endschema %}

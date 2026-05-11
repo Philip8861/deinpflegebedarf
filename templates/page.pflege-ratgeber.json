@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "pflege_ratgeber_bridge": {
+      "type": "pflege-ratgeber-bridge",
+      "settings": {
+        "heading": "Pflegeratgeber",
+        "subtitle": "Tipps, Orientierung und fundierte Texte rund um Pflege und Alltag – kuratiert von Ihrer Alltagshilfe Süd.",
+        "body": "<p>Hier im Shop finden Sie unsere Produkte. Ausführliche Ratgeberartikel, Orientierungshilfen und Hintergrundwissen pflegen wir für Sie auf der Website unserer Alltagshilfe Süd.</p>",
+        "external_url": "https://www.alltagshilfe-sued.de/ratgeber",
+        "button_label": "Zum Pflegeratgeber",
+        "padding_top": 28,
+        "padding_bottom": 44
+      }
+    }
+  },
+  "order": ["pflege_ratgeber_bridge"]
+}

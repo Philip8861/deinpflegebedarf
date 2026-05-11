@@ -1,0 +1,153 @@
+/* PflegeShop — Brückenseite zum Ratgeber alltagshilfe-sued.de */
+
+.pflege-ratgeber-bridge {
+  --prb-navy: var(--pflege-navy, #0b2347);
+  --prb-accent: var(--pflege-accent, #3f86d9);
+  --prb-cta: var(--pflege-cta, #e67e22);
+  --prb-cta-hover: var(--pflege-cta-hover, #cf711f);
+  --prb-soft: var(--pflege-bg-soft, #eef6ff);
+  --prb-border: var(--pflege-border, #e5eef8);
+  font-family: var(--font-body-family, inherit);
+  color: var(--prb-navy);
+}
+
+.pflege-ratgeber-bridge__band {
+  background: var(
+    --pflege-backdrop-band-gradient,
+    linear-gradient(180deg, #fafcfd 0%, #f5f9ff 45%, #eef4fb 100%)
+  );
+  padding: clamp(2.25rem, 5vw, 3.75rem) max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px))
+    clamp(2.5rem, 6vw, 4.5rem) max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
+}
+
+.pflege-ratgeber-bridge__inner {
+  width: 100%;
+  max-width: min(42rem, 100%);
+  margin: 0 auto;
+}
+
+.pflege-ratgeber-bridge__card {
+  position: relative;
+  border-radius: var(--pflege-radius-lg, 22px);
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(63, 134, 217, 0.18);
+  box-shadow:
+    0 4px 24px -8px rgba(11, 35, 71, 0.12),
+    0 22px 48px -20px rgba(11, 35, 71, 0.14);
+  padding: clamp(1.75rem, 4vw, 2.75rem) clamp(1.35rem, 4vw, 2.5rem) clamp(1.85rem, 4vw, 2.85rem);
+  overflow: hidden;
+}
+
+.pflege-ratgeber-bridge__card::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  right: -18%;
+  width: clamp(12rem, 45vw, 18rem);
+  height: clamp(12rem, 45vw, 18rem);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(63, 134, 217, 0.14) 0%, transparent 68%);
+  pointer-events: none;
+}
+
+.pflege-ratgeber-bridge__card-inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.pflege-ratgeber-bridge__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.25rem;
+  height: 4.25rem;
+  margin: 0 auto 1.25rem;
+  border-radius: 18px;
+  background: linear-gradient(145deg, rgba(63, 134, 217, 0.18), rgba(63, 134, 217, 0.06));
+  color: var(--prb-accent);
+  border: 1px solid rgba(63, 134, 217, 0.22);
+}
+
+.pflege-ratgeber-bridge__title {
+  margin: 0 0 0.65rem;
+  font-size: clamp(1.85rem, 4.2vw, 2.45rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--prb-navy);
+}
+
+.pflege-ratgeber-bridge__subtitle {
+  margin: 0 0 1.15rem;
+  font-size: clamp(1.15rem, 2.2vw, 1.35rem);
+  line-height: 1.45;
+  color: rgba(11, 35, 71, 0.78);
+}
+
+.pflege-ratgeber-bridge__rte {
+  margin: 0 0 1.5rem;
+  font-size: clamp(1.05rem, 1.9vw, 1.2rem);
+  line-height: 1.6;
+  color: rgba(11, 35, 71, 0.72);
+  text-align: left;
+}
+
+.pflege-ratgeber-bridge__rte p {
+  margin: 0 0 0.85rem;
+}
+
+.pflege-ratgeber-bridge__rte p:last-child {
+  margin-bottom: 0;
+}
+
+.pflege-ratgeber-bridge__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 3.5rem;
+  padding: 0.85rem 1.75rem;
+  border-radius: var(--pflege-radius-pill, 999px);
+  font-size: clamp(1.08rem, 2vw, 1.28rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  color: #fff !important;
+  background: var(--prb-cta);
+  border: 1.5px solid var(--prb-cta);
+  box-shadow: 0 8px 20px -10px rgba(230, 126, 34, 0.55);
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.pflege-ratgeber-bridge__cta:hover {
+  background: var(--prb-cta-hover);
+  border-color: var(--prb-cta-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px -12px rgba(230, 126, 34, 0.55);
+}
+
+.pflege-ratgeber-bridge__cta:focus-visible {
+  outline: 2px solid var(--prb-accent);
+  outline-offset: 3px;
+}
+
+.pflege-ratgeber-bridge__cta-arrow {
+  font-size: 1.15em;
+  line-height: 0;
+}
+
+.pflege-ratgeber-bridge__note {
+  margin: 1.15rem 0 0;
+  font-size: clamp(0.95rem, 1.65vw, 1.05rem);
+  line-height: 1.45;
+  color: var(--pflege-muted, #6f7f95);
+}
+
+.pflege-ratgeber-bridge__note code,
+.pflege-ratgeber-bridge__host {
+  font-size: 0.92em;
+  word-break: break-all;
+  color: rgba(11, 35, 71, 0.55);
+}
