@@ -46,10 +46,16 @@
     {%- endif -%}
 
     <div class="cart__warnings">
+      {%- liquid
+        assign pflege_empty_cart_href = routes.root_url | append: 'pages/kontakt'
+        if pages['kontakt'] != blank
+          assign pflege_empty_cart_href = pages['kontakt'].url
+        endif
+      -%}
       <div class="pflege-cart-empty-card">
         <h2 class="cart__empty-text pflege-cart-empty-card__title">{{ 'sections.cart.pflege.empty_title' | t }}</h2>
         <p class="pflege-cart-empty-card__text">{{ 'sections.cart.pflege.empty_text' | t }}</p>
-        <a href="{{ routes.all_products_collection_url }}" class="button pflege-cart-empty-card__cta">
+        <a href="{{ pflege_empty_cart_href }}" class="button pflege-cart-empty-card__cta">
           {{- 'sections.cart.pflege.empty_cta' | t -}}
         </a>
       </div>
