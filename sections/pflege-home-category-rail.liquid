@@ -18,9 +18,13 @@
             assign fallback = routes.all_products_collection_url
             assign href = fallback
           endif
+          assign rail_ch = block.settings.collection_handle
+          if rail_ch == '__none__' or rail_ch == blank
+            assign rail_ch = ''
+          endif
           assign rail_active = false
-          if request.page_type == 'collection' and collection and block.settings.collection_handle != blank
-            if collection.handle == block.settings.collection_handle
+          if request.page_type == 'collection' and collection and rail_ch != blank
+            if collection.handle == rail_ch
               assign rail_active = true
             endif
           elsif block.settings.highlight
@@ -46,7 +50,7 @@
 
 {% schema %}
 {
-  "name": "PflegeShop Kategorie-Leiste",
+  "name": "Kategorie-Leiste Pflege",
   "tag": "section",
   "class": "pflege-category-rail-section",
   "enabled_on": {
@@ -109,7 +113,8 @@
           "id": "collection_handle",
           "label": "Collection-Handle (optional, für Aktiv-Markierung)",
           "info": "z. B. desinfektion — bei passender Kollektion wird der Chip hervorgehoben.",
-          "default": ""
+          "default": "__none__",
+          "placeholder": "Optional, z. B. inkontinenz"
         },
         {
           "type": "checkbox",
@@ -122,7 +127,7 @@
   ],
   "presets": [
     {
-      "name": "PflegeShop Kategorie-Leiste",
+      "name": "Kategorie-Leiste Pflege",
       "blocks": [
         {
           "type": "category",
