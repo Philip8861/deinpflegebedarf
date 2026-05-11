@@ -1,6 +1,6 @@
 {%- comment -%}
-  Fakten-Karte: Marke + optionale Metafields (PZN, Produkttyp, Hauttyp, Lieferzeit, Versandhinweis).
-  SKU bewusst nur in der Kaufspalte (<product-info>), damit Variantenwechsel immer stimmt.
+  Fakten-Karte (Mockup: hellblauer Kasten). Metafeld custom.content_volume = z. B. „75 ml“.
+  SKU bleibt in der Kaufspalte.
 {%- endcomment -%}
 <div class="pflege-pdp-facts" id="PflegePDP-{{ section_id }}-facts">
   <h3 class="pflege-pdp-facts__title">{{ heading | escape }}</h3>
@@ -10,21 +10,6 @@
         <dt class="pflege-pdp-facts__dt">{{ lbl_brand | escape }}</dt>
         <dd class="pflege-pdp-facts__dd">{{ product.vendor | escape }}</dd>
       </div>
-    {%- endif -%}
-
-    {%- if mf_pzn.value != blank -%}
-      <div class="pflege-pdp-facts__row">
-        <dt class="pflege-pdp-facts__dt">{{ lbl_pzn | escape }}</dt>
-        <dd class="pflege-pdp-facts__dd">{{ mf_pzn.value | escape }}</dd>
-      </div>
-    {%- elsif mf_pzn != blank and mf_pzn != empty -%}
-      {%- assign pzn_fallback = mf_pzn | metafield_text | strip -%}
-      {%- if pzn_fallback != blank -%}
-        <div class="pflege-pdp-facts__row">
-          <dt class="pflege-pdp-facts__dt">{{ lbl_pzn | escape }}</dt>
-          <dd class="pflege-pdp-facts__dd">{{ pzn_fallback | escape }}</dd>
-        </div>
-      {%- endif -%}
     {%- endif -%}
 
     {%- if mf_ptype.value != blank -%}
@@ -53,6 +38,38 @@
         <div class="pflege-pdp-facts__row">
           <dt class="pflege-pdp-facts__dt">{{ lbl_skin | escape }}</dt>
           <dd class="pflege-pdp-facts__dd">{{ _sk | escape }}</dd>
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- if mf_vol != blank and mf_vol != empty -%}
+      {%- if mf_vol.value != blank -%}
+        <div class="pflege-pdp-facts__row">
+          <dt class="pflege-pdp-facts__dt">{{ lbl_content | escape }}</dt>
+          <dd class="pflege-pdp-facts__dd">{{ mf_vol.value | escape }}</dd>
+        </div>
+      {%- else -%}
+        {%- assign _vol = mf_vol | metafield_text | strip -%}
+        {%- if _vol != blank -%}
+          <div class="pflege-pdp-facts__row">
+            <dt class="pflege-pdp-facts__dt">{{ lbl_content | escape }}</dt>
+            <dd class="pflege-pdp-facts__dd">{{ _vol | escape }}</dd>
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- if mf_pzn.value != blank -%}
+      <div class="pflege-pdp-facts__row">
+        <dt class="pflege-pdp-facts__dt">{{ lbl_pzn | escape }}</dt>
+        <dd class="pflege-pdp-facts__dd">{{ mf_pzn.value | escape }}</dd>
+      </div>
+    {%- elsif mf_pzn != blank and mf_pzn != empty -%}
+      {%- assign pzn_fallback = mf_pzn | metafield_text | strip -%}
+      {%- if pzn_fallback != blank -%}
+        <div class="pflege-pdp-facts__row">
+          <dt class="pflege-pdp-facts__dt">{{ lbl_pzn | escape }}</dt>
+          <dd class="pflege-pdp-facts__dd">{{ pzn_fallback | escape }}</dd>
         </div>
       {%- endif -%}
     {%- endif -%}

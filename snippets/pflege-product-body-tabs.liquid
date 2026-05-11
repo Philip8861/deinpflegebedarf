@@ -1,66 +1,170 @@
 {%- comment -%}
-  Akkordeon-Tabs: product.description + Metafields (Anwendung, Inhaltsstoffe, Merkmale).
-  Kein zweites product-form; keine variantenabhängigen Werte.
-  Argumente: siehe render-Aufruf in pflege-product-detail-body.liquid
+  Horizontales Tab-Leiste (Mockup PDP). Kein zweites product-form.
+  Übergaben: section_id, product, Metafeld-Labels, reviews_show_tab, reviews_count, label_reviews
 {%- endcomment -%}
-<div class="pflege-pdp-tabs" role="region" aria-label="Produktinformationen">
-  {%- if has_desc -%}
-    <details class="pflege-pdp-tabs__panel" open>
-      <summary class="pflege-pdp-tabs__summary">
-        <span class="pflege-pdp-tabs__summary-text">{{ label_desc | escape }}</span>
-        <span class="pflege-pdp-tabs__chev" aria-hidden="true">{{- 'icon-caret.svg' | inline_asset_content -}}</span>
-      </summary>
-      <div class="pflege-pdp-tabs__body rte" id="PflegePDP-acc-desc-{{ section_id }}">
+{%- liquid
+  assign show_rev = reviews_show_tab | default: false
+
+  assign first_tab_handled = false
+-%}
+<div class="pflege-pdp-tabs-h" id="PflegeTabs-{{ section_id }}" data-pflege-horizontal-tabs>
+  <div role="tablist" class="pflege-pdp-tabs-h__rail" aria-label="{{ 'products.product.pflege_pdp.tabs_aria' | t }}">
+    {%- if has_desc -%}
+      <button
+        type="button"
+        role="tab"
+        aria-selected="{%- unless first_tab_handled -%}true{%- else -%}false{%- endunless -%}"
+        id="PflegeTab-{{ section_id }}-desc"
+        aria-controls="PflegeTabPanel-{{ section_id }}-desc"
+        tabindex="{%- unless first_tab_handled -%}0{%- else -%}-1{%- endunless -%}"
+        class="pflege-pdp-tabs-h__btn"
+      >
+        {{- label_desc | escape -}}
+      </button>
+      {%- assign first_tab_handled = true -%}
+    {%- endif -%}
+
+    {%- if has_app -%}
+      <button
+        type="button"
+        role="tab"
+        aria-selected="{%- unless first_tab_handled -%}true{%- else -%}false{%- endunless -%}"
+        id="PflegeTab-{{ section_id }}-app"
+        aria-controls="PflegeTabPanel-{{ section_id }}-app"
+        tabindex="{%- unless first_tab_handled -%}0{%- else -%}-1{%- endunless -%}"
+        class="pflege-pdp-tabs-h__btn"
+      >
+        {{- label_app | escape -}}
+      </button>
+      {%- assign first_tab_handled = true -%}
+    {%- endif -%}
+
+    {%- if has_ing -%}
+      <button
+        type="button"
+        role="tab"
+        aria-selected="{%- unless first_tab_handled -%}true{%- else -%}false{%- endunless -%}"
+        id="PflegeTab-{{ section_id }}-ing"
+        aria-controls="PflegeTabPanel-{{ section_id }}-ing"
+        tabindex="{%- unless first_tab_handled -%}0{%- else -%}-1{%- endunless -%}"
+        class="pflege-pdp-tabs-h__btn"
+      >
+        {{- label_ing | escape -}}
+      </button>
+      {%- assign first_tab_handled = true -%}
+    {%- endif -%}
+
+    {%- if has_feat -%}
+      <button
+        type="button"
+        role="tab"
+        aria-selected="{%- unless first_tab_handled -%}true{%- else -%}false{%- endunless -%}"
+        id="PflegeTab-{{ section_id }}-feat"
+        aria-controls="PflegeTabPanel-{{ section_id }}-feat"
+        tabindex="{%- unless first_tab_handled -%}0{%- else -%}-1{%- endunless -%}"
+        class="pflege-pdp-tabs-h__btn"
+      >
+        {{- label_feat | escape -}}
+      </button>
+      {%- assign first_tab_handled = true -%}
+    {%- endif -%}
+
+    {%- if show_rev -%}
+      <button
+        type="button"
+        role="tab"
+        aria-selected="{%- unless first_tab_handled -%}true{%- else -%}false{%- endunless -%}"
+        id="PflegeTab-{{ section_id }}-rev"
+        aria-controls="pflege-pdp-review-panel"
+        tabindex="{%- unless first_tab_handled -%}0{%- else -%}-1{%- endunless -%}"
+        class="pflege-pdp-tabs-h__btn"
+      >
+        {{ label_reviews | escape }}
+        {% if reviews_count != blank -%}
+          ({{ reviews_count | escape -}})
+        {%- endif %}
+      </button>
+      {%- assign first_tab_handled = true -%}
+    {%- endif -%}
+  </div>
+
+  <div class="pflege-pdp-tabs-h__panels">
+    {%- assign opened = false -%}
+    {%- if has_desc -%}
+      <div
+        role="tabpanel"
+        id="PflegeTabPanel-{{ section_id }}-desc"
+        class="pflege-pdp-tabs-h__panel rte"
+        tabindex="0"
+        aria-labelledby="PflegeTab-{{ section_id }}-desc"
+        {% if opened %}hidden{% endif %}
+      >
         {{ product.description }}
       </div>
-    </details>
-  {%- endif -%}
-
-  {%- if has_app -%}
-    <details class="pflege-pdp-tabs__panel"{%- unless has_desc -%} open{%- endunless -%}>
-      <summary class="pflege-pdp-tabs__summary">
-        <span class="pflege-pdp-tabs__summary-text">{{ label_app | escape }}</span>
-        <span class="pflege-pdp-tabs__chev" aria-hidden="true">{{- 'icon-caret.svg' | inline_asset_content -}}</span>
-      </summary>
-      <div class="pflege-pdp-tabs__body rte" id="PflegePDP-acc-app-{{ section_id }}">
+      {%- assign opened = true -%}
+    {%- endif -%}
+    {%- if has_app -%}
+      <div
+        role="tabpanel"
+        id="PflegeTabPanel-{{ section_id }}-app"
+        class="pflege-pdp-tabs-h__panel rte"
+        tabindex="0"
+        aria-labelledby="PflegeTab-{{ section_id }}-app"
+        {% if opened %}hidden{% endif %}
+      >
         {%- if mf_app.value != blank -%}
           {{ mf_app.value }}
         {%- else -%}
           {{ mf_app | metafield_text }}
         {%- endif -%}
       </div>
-    </details>
-  {%- endif -%}
-
-  {%- if has_ing -%}
-    <details class="pflege-pdp-tabs__panel"{%- unless has_desc or has_app -%} open{%- endunless -%}>
-      <summary class="pflege-pdp-tabs__summary">
-        <span class="pflege-pdp-tabs__summary-text">{{ label_ing | escape }}</span>
-        <span class="pflege-pdp-tabs__chev" aria-hidden="true">{{- 'icon-caret.svg' | inline_asset_content -}}</span>
-      </summary>
-      <div class="pflege-pdp-tabs__body rte" id="PflegePDP-acc-ing-{{ section_id }}">
+      {%- assign opened = true -%}
+    {%- endif -%}
+    {%- if has_ing -%}
+      <div
+        role="tabpanel"
+        id="PflegeTabPanel-{{ section_id }}-ing"
+        class="pflege-pdp-tabs-h__panel rte"
+        tabindex="0"
+        aria-labelledby="PflegeTab-{{ section_id }}-ing"
+        {% if opened %}hidden{% endif %}
+      >
         {%- if mf_ing.value != blank -%}
           {{ mf_ing.value }}
         {%- else -%}
           {{ mf_ing | metafield_text }}
         {%- endif -%}
       </div>
-    </details>
-  {%- endif -%}
-
-  {%- if has_feat -%}
-    <details class="pflege-pdp-tabs__panel"{%- unless has_desc or has_app or has_ing -%} open{%- endunless -%}>
-      <summary class="pflege-pdp-tabs__summary">
-        <span class="pflege-pdp-tabs__summary-text">{{ label_feat | escape }}</span>
-        <span class="pflege-pdp-tabs__chev" aria-hidden="true">{{- 'icon-caret.svg' | inline_asset_content -}}</span>
-      </summary>
-      <div class="pflege-pdp-tabs__body rte" id="PflegePDP-acc-feat-{{ section_id }}">
+      {%- assign opened = true -%}
+    {%- endif -%}
+    {%- if has_feat -%}
+      <div
+        role="tabpanel"
+        id="PflegeTabPanel-{{ section_id }}-feat"
+        class="pflege-pdp-tabs-h__panel rte"
+        tabindex="0"
+        aria-labelledby="PflegeTab-{{ section_id }}-feat"
+        {% if opened %}hidden{% endif %}
+      >
         {%- if mf_feat.value != blank -%}
           {{ mf_feat.value }}
         {%- else -%}
           {{ mf_feat | metafield_text }}
         {%- endif -%}
       </div>
-    </details>
-  {%- endif -%}
+      {%- assign opened = true -%}
+    {%- endif -%}
+    {%- if show_rev -%}
+      <div
+        role="tabpanel"
+        id="pflege-pdp-review-panel"
+        class="pflege-pdp-tabs-h__panel rte pflege-pdp-tabs-h__panel--reviews"
+        tabindex="0"
+        aria-labelledby="PflegeTab-{{ section_id }}-rev"
+        {% if opened %}hidden{% endif %}
+      >
+        <p>{{ 'products.product.pflege_pdp.reviews_placeholder' | t }}</p>
+      </div>
+    {%- endif -%}
+  </div>
 </div>

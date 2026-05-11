@@ -90,14 +90,14 @@
               {%- elsif product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
                 {{ 'products.product.sold_out' | t }}
               {%- else -%}
-                {{ 'products.product.add_to_cart' | t }}
+                {% render 'pflege-icon', icon: 'cart', width: 22 %}
+                {{- 'products.product.add_to_cart' | t }}
               {%- endif -%}
               </span>
               {%- unless product.selected_or_first_available_variant == null
                 or product.selected_or_first_available_variant.available == false
                 or quantity_rule_soldout
               -%}
-                <span class="pflege-product__add-arrow" aria-hidden="true">→</span>
               {%- endunless -%}
             </span>
             {%- render 'loading-spinner' -%}

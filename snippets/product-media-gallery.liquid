@@ -42,6 +42,25 @@
   endif
 -%}
 
+{%- liquid
+  assign show_bs_badge = false
+  assign bn = section.settings.bestseller_tag | default: 'bestseller' | downcase | strip
+  if section.settings.show_bestseller_badge and bn != blank
+    for tag in product.tags
+      assign tl = tag | downcase
+      if tl == bn
+        assign show_bs_badge = true
+      endif
+    endfor
+    if product.metafields.custom.bestseller.value == true
+      assign show_bs_badge = true
+    endif
+  endif
+-%}
+<div class="pflege-product-gallery-shell">
+  {%- if show_bs_badge -%}
+    <span class="pflege-gallery-badge">{{ 'products.product.pflege_pdp.bestseller_badge' | t }}</span>
+  {%- endif -%}
 <media-gallery
   id="MediaGallery-{{ section.id }}"
   role="region"
@@ -330,3 +349,4 @@
     </slider-component>
   {%- endif -%}
 </media-gallery>
+</div>

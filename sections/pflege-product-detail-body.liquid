@@ -2,22 +2,21 @@
   PflegeShop — Unterer Produktbereich (Beschreibung, Metafields, Fakten, Vertrauen).
   Liegt AUSSERHALB von <product-info>: statisch nach erstem Laden; keine variantenabhängigen Felder hier (SKU bleibt in der Kaufspalte).
 
-  Erwartete Metafields (namespace custom, Fallback wenn leer): short_description, application, ingredients,
-  usps, skin_type, product_type_label, pzn, free_shipping_threshold, delivery_time, features
+  Erwartete Metafields im Namespace „custom“ (Auszug): application, ingredients,
+  features, content_volume, skin_type, product_type_label, pzn, delivery_time,
+  free_shipping_threshold. Für Schnell‑USPs in der Kaufspalte ebenfalls „usps“.
 {% endcomment %}
 {{ 'section-pflege-product-detail-body.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
-  # Checkboxen: fehlende JSON-Werte nicht als „aus“ werten (= Default an)
   assign dm_breadcrumb = section.settings.show_breadcrumb != false
   assign dm_trust = section.settings.show_trust_strip != false
   assign dm_facts = section.settings.show_facts_card != false
 
-  assign mf_short = product.metafields.custom.short_description
   assign mf_app = product.metafields.custom.application
   assign mf_ing = product.metafields.custom.ingredients
   assign mf_feat = product.metafields.custom.features
-  assign mf_usps = product.metafields.custom.usps
+  assign mf_vol = product.metafields.custom.content_volume
   assign mf_pzn = product.metafields.custom.pzn
   assign mf_ptype = product.metafields.custom.product_type_label
   assign mf_skin = product.metafields.custom.skin_type
@@ -25,16 +24,6 @@
   assign mf_fs = product.metafields.custom.free_shipping_threshold
 
   assign has_desc = product.description != blank
-
-  assign has_short = false
-  if mf_short.value != blank
-    assign has_short = true
-  elsif mf_short != blank and mf_short != empty
-    assign _ts = mf_short | metafield_text | strip
-    if _ts != blank
-      assign has_short = true
-    endif
-  endif
 
   assign has_app = false
   if mf_app.value != blank
@@ -66,25 +55,33 @@
     endif
   endif
 
-  assign has_usps = false
-  if mf_usps.value != blank
-    assign has_usps = true
-  elsif mf_usps != blank and mf_usps != empty
-    assign _tu = mf_usps | metafield_text | strip
-    if _tu != blank
-      assign has_usps = true
+  assign has_content_tabs = false
+  if has_desc or has_app or has_ing or has_feat
+    assign has_content_tabs = true
+  endif
+
+  assign reviews_count_disp = nil
+  if product.metafields.reviews.rating_count.value != blank
+    assign reviews_count_disp = product.metafields.reviews.rating_count.value | plus: 0
+  elsif product.metafields.reviews.rating_count != blank and product.metafields.reviews.rating_count != empty
+    assign reviews_count_disp = product.metafields.reviews.rating_count | metafield_text | strip
+  endif
+
+  assign reviews_show_tab = false
+  if product.metafields.reviews.rating.value != blank
+    assign reviews_show_tab = true
+  elsif reviews_count_disp != blank
+    assign review_num = reviews_count_disp | plus: 0
+    if review_num > 0
+      assign reviews_show_tab = true
     endif
   endif
 
-  assign has_panels = false
-  if has_desc or has_app or has_ing or has_feat
-    assign has_panels = true
-  endif
-
+  assign has_any_tab = has_content_tabs or reviews_show_tab
   assign show_facts_panel = dm_facts
 
   assign show_section_inner = false
-  if dm_breadcrumb or dm_trust or dm_facts or has_short or has_panels or has_usps
+  if dm_breadcrumb or dm_trust or dm_facts or has_any_tab
     assign show_section_inner = true
   endif
 
@@ -147,50 +144,9 @@
         </div>
       {%- endif -%}
 
-      <div class="pflege-pdp-detail__intro">
-        {%- if section.settings.intro_heading != blank -%}
-          <h2 id="PflegePDP-{{ section.id }}-intro-h" class="pflege-pdp-detail__intro-heading">{{ section.settings.intro_heading | escape }}</h2>
-        {%- endif -%}
-        {%- if has_short -%}
-          <div class="pflege-pdp-detail__short rte">
-            {%- if mf_short.value != blank -%}
-              {{ mf_short.value }}
-            {%- else -%}
-              {{ mf_short | metafield_text }}
-            {%- endif -%}
-          </div>
-        {%- endif -%}
-      </div>
-
-      <div class="pflege-pdp-detail__layout">
+      <div class="pflege-pdp-detail__layout{% unless has_any_tab %} pflege-pdp-detail__layout--facts-only{% endunless %}">
         <div class="pflege-pdp-detail__main-col">
-          {%- if has_usps -%}
-            <div class="pflege-pdp-detail__usps card-rail">
-              <ul class="pflege-pdp-detail__usps-list list-unstyled" role="list">
-                {%- if mf_usps.value != blank -%}
-                  {%- for u in mf_usps.value -%}
-                    <li class="pflege-pdp-detail__usp">
-                      {% render 'pflege-icon', icon: 'badge-check', width: 18 %}
-                      <span>
-                        {%- if u.value != blank -%}
-                          {{- u.value -}}
-                        {%- else -%}
-                          {{- u -}}
-                        {%- endif -%}
-                      </span>
-                    </li>
-                  {%- endfor -%}
-                {%- else -%}
-                  <li class="pflege-pdp-detail__usp">
-                    {% render 'pflege-icon', icon: 'badge-check', width: 18 %}
-                    <span>{{ mf_usps | metafield_text }}</span>
-                  </li>
-                {%- endif -%}
-              </ul>
-            </div>
-          {%- endif -%}
-
-          {%- if has_panels -%}
+          {%- if has_any_tab -%}
             {% render 'pflege-product-body-tabs',
               section_id: section.id,
               product: product,
@@ -204,17 +160,24 @@
               label_desc: section.settings.tab_description,
               label_app: section.settings.tab_application,
               label_ing: section.settings.tab_ingredients,
-              label_feat: section.settings.tab_features
+              label_feat: section.settings.tab_features,
+              reviews_show_tab: reviews_show_tab,
+              reviews_count: reviews_count_disp,
+              label_reviews: section.settings.tab_reviews
             %}
           {%- endif -%}
         </div>
 
         {%- if show_facts_panel -%}
-          <aside class="pflege-pdp-detail__aside" aria-labelledby="PflegePDP-{{ section.id }}-facts">
+          <aside
+            class="pflege-pdp-detail__aside{% unless has_any_tab %} pflege-pdp-detail__aside--full{% endunless %}"
+            aria-labelledby="PflegePDP-{{ section.id }}-facts"
+          >
             {% render 'pflege-product-body-facts',
               section_id: section.id,
               product: product,
               mf_pzn: mf_pzn,
+              mf_vol: mf_vol,
               mf_ptype: mf_ptype,
               mf_skin: mf_skin,
               mf_del: mf_del,
@@ -225,13 +188,17 @@
               lbl_skin: section.settings.lbl_skin,
               lbl_del: section.settings.lbl_delivery,
               lbl_fs: section.settings.lbl_shipping_hint,
-              lbl_brand: section.settings.lbl_brand
+              lbl_brand: section.settings.lbl_brand,
+              lbl_content: section.settings.lbl_content
             %}
           </aside>
         {%- endif -%}
       </div>
     </div>
   </section>
+  {%- if has_any_tab -%}
+    <script src="{{ 'pflege-pdp-horizontal-tabs.js' | asset_url }}" defer="defer"></script>
+  {%- endif -%}
 {%- endunless -%}
 
 {% schema %}
@@ -338,6 +305,12 @@
       "default": "Merkmale & Hinweise"
     },
     {
+      "type": "text",
+      "id": "tab_reviews",
+      "label": "Tab Bewertungen (vor Anzahl)",
+      "default": "Bewertungen"
+    },
+    {
       "type": "checkbox",
       "id": "show_facts_card",
       "label": "Rechte Faktenkarte anzeigen",
@@ -366,6 +339,12 @@
       "id": "lbl_skin",
       "label": "Label Hauttyp",
       "default": "Hauttyp"
+    },
+    {
+      "type": "text",
+      "id": "lbl_content",
+      "label": "Label Inhalt (Metafeld custom.content_volume)",
+      "default": "Inhalt"
     },
     {
       "type": "text",

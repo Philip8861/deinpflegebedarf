@@ -142,13 +142,20 @@
       "inventory_out_of_stock_continue_selling": "Sofort lieferbar",
       "pflege_cart": {
         "wishlist": "Auf den Merkzettel",
-        "delivery_eta": "Lieferzeit 1–2 Werktage",
-        "trust_ship_title": "Versand in 1-2 Tagen",
-        "trust_ship_sub": "Schnell bei Ihnen",
+        "delivery_eta": "in 1–2 Werktagen bei dir",
+        "trust_ship_title": "Kostenloser Versand ab 150 €",
+        "trust_ship_sub": "",
         "trust_invoice_title": "Kauf auf Rechnung",
-        "trust_invoice_sub": "Einfach und sicher",
+        "trust_invoice_sub": "",
+        "trust_returns_title": "30 Tage Rückgaberecht",
         "trust_care_title": "Von Pflegekräften empfohlen",
         "trust_care_sub": "Vertrauen, das zählt"
+      },
+      "pflege_pdp": {
+        "tabs_aria": "Product details & reviews",
+        "reviews_placeholder": "Connect Shopify product reviews or a reviews app — content will render in this panel.",
+        "reviews_link_suffix": "customer reviews",
+        "bestseller_badge": "Bestseller"
       },
       "sku": "SKU",
       "on_sale": "Angebot",

@@ -1,0 +1,54 @@
+{% comment %}
+  Drei Schnell-USPs in der Kaufspalte (Metafeld custom.usps Liste oder ein Text — erste drei Einträge).
+{% endcomment %}
+{%- liquid
+  assign mf = product.metafields.custom.usps
+-%}
+
+{%- if mf.value != blank and mf.value.size > 0 -%}
+  <div class="pflege-buy-usps" {{ block.shopify_attributes }}>
+    <ul class="pflege-buy-usps__list list-unstyled" role="list">
+      {%- assign icons_static = 'hand,droplet,cross-medical' | split: ',' -%}
+      {%- for u in mf.value limit: 3 -%}
+        <li class="pflege-buy-usps__item">
+          <span class="pflege-buy-usps__icon">
+            {% assign icon_pick = icons_static[forloop.index0] %}
+            {% render 'pflege-icon', icon: icon_pick, width: 24 %}
+          </span>
+          <span class="pflege-buy-usps__label">
+            {%- if u.value != blank -%}
+              {{- u.value -}}
+            {%- else -%}
+              {{- u -}}
+            {%- endif -%}
+          </span>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+{%- elsif mf != blank and mf != empty -%}
+  {%- assign raw = mf | metafield_text | strip -%}
+  {%- assign parts = raw | split: '|' -%}
+  {%- if parts.size <= 1 -%}
+    {%- assign parts = raw | split: ',' -%}
+  {%- endif -%}
+  {%- if raw != blank -%}
+    <div class="pflege-buy-usps" {{ block.shopify_attributes }}>
+      <ul class="pflege-buy-usps__list list-unstyled" role="list">
+        {%- assign icons_static = 'hand,droplet,cross-medical' | split: ',' -%}
+        {%- for line in parts limit: 3 -%}
+          {%- assign trimmed = line | strip -%}
+          {%- if trimmed != blank -%}
+            <li class="pflege-buy-usps__item">
+              <span class="pflege-buy-usps__icon">
+                {% assign icon_pick = icons_static[forloop.index0] %}
+                {% render 'pflege-icon', icon: icon_pick, width: 24 %}
+              </span>
+              <span class="pflege-buy-usps__label">{{ trimmed | escape }}</span>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+  {%- endif -%}
+{%- endif -%}

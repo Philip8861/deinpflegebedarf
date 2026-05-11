@@ -11,6 +11,7 @@
 >
   {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
   {{ 'section-pflege-cart-ui.css' | asset_url | stylesheet_tag }}
+  {{ 'pflege-mockup-pdp.css' | asset_url | stylesheet_tag }}
   {{ 'component-accordion.css' | asset_url | stylesheet_tag }}
   {{ 'component-price.css' | asset_url | stylesheet_tag }}
   {{ 'component-slider.css' | asset_url | stylesheet_tag }}
@@ -75,6 +76,15 @@
 
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
   <div class="page-width">
+    {%- if section.settings.show_pdp_breadcrumb -%}
+      {% render 'pflege-product-pdp-breadcrumb',
+        product: product,
+        home_label: section.settings.breadcrumb_home,
+        sep: section.settings.breadcrumb_sep,
+        aria_label: section.settings.breadcrumb_aria,
+        collection_hint: section.settings.breadcrumb_collection
+      %}
+    {%- endif -%}
     <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
       <div class="grid__item product__media-wrapper">
         {% render 'product-media-gallery', variant_images: variant_images %}
@@ -106,19 +116,14 @@
                 {% render block %}
               {%- when 'text' -%}
                 <p
-                  class="product__text inline-richtext{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}"
+                  class="product__text inline-richtext{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing pflege-mock-pdp__brand{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}"
                   {{ block.shopify_attributes }}
                 >
                   {{- block.settings.text -}}
                 </p>
               {%- when 'title' -%}
-                <div class="product__title" {{ block.shopify_attributes }}>
-                  <h1>{{ product.title | escape }}</h1>
-                  <a href="{{ product.url }}" class="product__title">
-                    <h2 class="h1">
-                      {{ product.title | escape }}
-                    </h2>
-                  </a>
+                <div class="product__title pflege-mock-pdp__title-wrap" {{ block.shopify_attributes }}>
+                  <h1 class="pflege-mock-pdp__product-title">{{ product.title | escape }}</h1>
                 </div>
               {%- when 'price' -%}
                 <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
@@ -157,7 +162,7 @@
                 </div>
               {%- when 'inventory' -%}
                 <div
-                  class="pflege-product__availability-wrap product__inventory{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}{% if product.selected_or_first_available_variant.inventory_management != 'shopify' %} visibility-hidden{% endif %}"
+                  class="pflege-product__availability-wrap product__inventory pflege-mock-pdp-inventory{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}{% if product.selected_or_first_available_variant.inventory_management != 'shopify' %} visibility-hidden{% endif %}"
                   {{ block.shopify_attributes }}
                   id="Inventory-{{ section.id }}"
                   role="status"
@@ -515,12 +520,13 @@
                   show_pickup_availability: true
                 -%}
                 {%- if pf_prev_type == 'quantity_selector' -%}
+                  {% render 'pflege-wishlist-icon-button' %}
                   </div>
                 {%- endif -%}
                 {% render 'pflege-product-cart-extras' %}
               {%- when 'rating' -%}
                 {%- if product.metafields.reviews.rating.value != blank -%}
-                  <div class="rating-wrapper">
+                  <div class="rating-wrapper pflege-mock-pdp__rating">
                     {% liquid
                       assign rating_decimal = 0
                       assign decimal = product.metafields.reviews.rating.value.rating | modulo: 1
@@ -541,21 +547,22 @@
                         style="--rating: {{ product.metafields.reviews.rating.value.rating | floor }}; --rating-max: {{ product.metafields.reviews.rating.value.scale_max }}; --rating-decimal: {{ rating_decimal }};"
                       ></span>
                     </div>
-                    <p class="rating-text caption">
-                      <span aria-hidden="true">
-                        {{- product.metafields.reviews.rating.value }} /
-                        {{ product.metafields.reviews.rating.value.scale_max -}}
-                      </span>
-                    </p>
-                    <p class="rating-count caption">
-                      <span aria-hidden="true">({{ product.metafields.reviews.rating_count }})</span>
-                      <span class="visually-hidden">
-                        {{- product.metafields.reviews.rating_count }}
-                        {{ 'accessibility.total_reviews' | t -}}
-                      </span>
-                    </p>
+                    {%- liquid
+                      assign pf_rc = nil
+                      if product.metafields.reviews.rating_count.value != blank
+                        assign pf_rc = product.metafields.reviews.rating_count.value
+                      elsif product.metafields.reviews.rating_count != blank and product.metafields.reviews.rating_count != empty
+                        assign pf_rc = product.metafields.reviews.rating_count | metafield_text | strip
+                      endif
+                      assign reviews_suffix = 'products.product.pflege_pdp.reviews_link_suffix' | t | strip
+                    -%}
+                    {%- if pf_rc != blank -%}
+                      <a href="#pflege-pdp-review-panel" class="pflege-mock-pdp__reviews-link">({{ pf_rc }} {{ reviews_suffix }})</a>
+                    {%- endif -%}
                   </div>
                 {%- endif -%}
+              {%- when 'pflege_quick_usps' -%}
+                {% render 'pflege-product-buy-usps', product: product, block: block %}
               {%- when 'complementary' -%}
                 <product-recommendations
                   class="complementary-products quick-add-hidden{% if block.settings.make_collapsible_row %} is-accordion{% endif %}{% if block.settings.enable_quick_add %} complementary-products-contains-quick-add{% endif %}"
@@ -1222,6 +1229,17 @@
         {
           "type": "paragraph",
           "content": "t:sections.main-product.blocks.rating.settings.paragraph.content"
+        }
+      ]
+    },
+    {
+      "type": "pflege_quick_usps",
+      "name": "Pflege — Schnell-USPs (custom.usps)",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Zeigt maximal drei Einträge aus dem Produkt-Metafeld „custom.usps“ (Liste oder Text mit Komma/Pipe)."
         }
       ]
     },
@@ -2271,6 +2289,52 @@
       "id": "enable_video_looping",
       "default": false,
       "label": "t:sections.main-product.settings.enable_video_looping.label"
+    },
+    {
+      "type": "header",
+      "content": "Pflege — PDP (Design)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pdp_breadcrumb",
+      "label": "Breadcrumb über Produktbereich",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "breadcrumb_home",
+      "label": "Breadcrumb Start",
+      "default": "Startseite"
+    },
+    {
+      "type": "text",
+      "id": "breadcrumb_sep",
+      "label": "Trenner",
+      "default": "›"
+    },
+    {
+      "type": "text",
+      "id": "breadcrumb_aria",
+      "label": "Breadcrumb ARIA",
+      "default": "Brotkrumen"
+    },
+    {
+      "type": "collection",
+      "id": "breadcrumb_collection",
+      "label": "Breadcrumb Kollektion (optional)",
+      "info": "Wenn leer: erste Produktkollektion"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bestseller_badge",
+      "label": "Bestseller-Badge über Galerie",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "bestseller_tag",
+      "label": "Produkt-Tag für Badge",
+      "default": "bestseller"
     },
     {
       "type": "header",
