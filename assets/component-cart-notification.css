@@ -170,7 +170,7 @@
 .cart-notification__headline {
   margin: 0;
   font-family: var(--font-body-family);
-  font-size: clamp(2.05rem, 5.1vw, 3.35rem);
+  font-size: clamp(1.95rem, 4.95vw, 3.22rem);
   font-weight: 700;
   line-height: 1.14;
   color: var(--cn-navy);
@@ -318,12 +318,12 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
+  gap: 0.7rem;
   width: 100%;
-  min-height: 4rem;
-  padding: 0.95rem 2rem;
+  min-height: 3.8125rem;
+  padding: 0.9rem 1.925rem;
   border-radius: 999px;
-  font-size: clamp(1.22rem, 2.35vw, 1.48rem);
+  font-size: clamp(1.16rem, 2.25vw, 1.42rem);
   font-weight: 600;
   letter-spacing: -0.01em;
   text-decoration: none;
@@ -339,8 +339,8 @@
 }
 
 .cart-notification__btn-arrow svg {
-  width: 1.48rem;
-  height: 1.48rem;
+  width: 1.415rem;
+  height: 1.415rem;
 }
 
 .cart-notification__btn--primary {
@@ -376,10 +376,10 @@
 
 .cart-notification__link-quiet {
   margin: 0.15rem 0 0;
-  padding: 0.65rem 1.15rem;
+  padding: 0.6rem 1.075rem;
   border: none;
   background: none;
-  font-size: clamp(1.16rem, 2.15vw, 1.4rem);
+  font-size: clamp(1.105rem, 2.075vw, 1.325rem);
   font-weight: 600;
   color: var(--cn-accent);
   text-align: center;
@@ -395,13 +395,13 @@
 
 /* Empfehlungen */
 .cart-notification__recos {
-  margin-top: 0.35rem;
-  padding-top: 1.1rem;
+  margin-top: 0.425rem;
+  padding-top: 1.25rem;
   border-top: 1px solid var(--pflege-border, #e5eef8);
 }
 
 .cart-notification__recos-heading-wrap {
-  margin: 0 auto 0.85rem;
+  margin: 0 auto 1.1rem;
   width: min(100%, 85%);
   text-align: center;
 }
@@ -409,7 +409,7 @@
 .cart-notification__recos-heading {
   margin: 0;
   font-family: var(--font-body-family);
-  font-size: clamp(1.12rem, 2.45vw, 1.48rem);
+  font-size: clamp(1.29rem, 2.825vw, 1.77rem);
   font-weight: 700;
   line-height: 1.2;
   color: var(--cn-navy);
@@ -420,7 +420,7 @@
 .cart-notification__recos-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.65rem;
+  gap: 0.825rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -429,7 +429,7 @@
 @media screen and (min-width: 750px) {
   .cart-notification__recos-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0.85rem;
+    gap: 1.05rem;
   }
 }
 
@@ -441,10 +441,10 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 0.7rem 0.7rem 0.8rem;
+  padding: 0.85rem 0.85rem 0.975rem;
   background: var(--cn-white);
   border: 1px solid var(--cn-border);
-  border-radius: 14px;
+  border-radius: 16px;
   text-decoration: none;
   color: inherit;
   transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
@@ -469,10 +469,10 @@
   justify-content: center;
   width: 100%;
   aspect-ratio: 1 / 1;
-  margin-bottom: 0.55rem;
-  padding: 0.45rem;
+  margin-bottom: 0.75rem;
+  padding: 0.575rem;
   background: var(--cn-bg-soft);
-  border-radius: 11px;
+  border-radius: 12.5px;
   overflow: hidden;
 }
 
@@ -488,8 +488,8 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  margin: 0 0 0.35rem;
-  font-size: clamp(0.85rem, 1.45vw, 0.95rem);
+  margin: 0 0 0.45rem;
+  font-size: clamp(0.925rem, 1.65vw, 1.025rem);
   font-weight: 600;
   line-height: 1.3;
   color: var(--cn-navy);
@@ -499,7 +499,7 @@
 
 .cart-notification__reco-price {
   margin-top: auto;
-  font-size: clamp(0.92rem, 1.55vw, 1.05rem);
+  font-size: clamp(0.985rem, 1.75vw, 1.125rem);
   font-weight: 700;
   color: var(--cn-cta);
   text-align: center;
