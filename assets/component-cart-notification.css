@@ -27,6 +27,28 @@
   -webkit-backdrop-filter: blur(4px);
 }
 
+/* Fallback wenn show() statt showModal() (z. B. nach try/catch): kein natives ::backdrop → Schleier per ::before */
+.cart-notification-wrapper.cart-notification-wrapper--modeless[open] {
+  position: fixed;
+  inset: 0;
+  z-index: 10100;
+}
+
+.cart-notification-wrapper.cart-notification-wrapper--modeless[open]::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: var(--pflege-overlay-backdrop, rgba(11, 35, 71, 0.56));
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.cart-notification-wrapper.cart-notification-wrapper--modeless[open] .cart-notification {
+  position: relative;
+  z-index: 1;
+}
+
 .cart-notification-wrapper .cart-notification {
   display: flex;
   flex-direction: column;

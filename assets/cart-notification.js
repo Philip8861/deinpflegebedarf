@@ -25,21 +25,46 @@ class CartNotification extends HTMLElement {
   }
 
   open() {
-    if (!this.wrapper || typeof this.wrapper.showModal !== 'function') return;
+    if (!this.wrapper) return;
 
-    this.wrapper.showModal();
-    this.notification.classList.add('animate', 'active');
+    const reveal = () => {
+      this.notification.classList.add('animate', 'active');
 
-    this.notification.addEventListener(
-      'transitionend',
-      () => {
-        this.notification.focus();
-        trapFocus(this.notification);
-      },
-      { once: true }
-    );
+      this.notification.addEventListener(
+        'transitionend',
+        () => {
+          this.notification.focus();
+          trapFocus(this.notification);
+        },
+        { once: true }
+      );
 
-    document.body.addEventListener('click', this.onBodyClick);
+      document.body.addEventListener('click', this.onBodyClick);
+    };
+
+    /* showModal wirft InvalidStateError, wenn der Dialog noch offen ist (z. B. erneut „In den Warenkorb“). */
+    if (typeof this.wrapper.showModal === 'function') {
+      try {
+        if (this.wrapper.open) this.wrapper.close();
+        this.wrapper.showModal();
+        this.wrapper.classList.remove('cart-notification-wrapper--modeless');
+      } catch (e) {
+        console.warn('[cart-notification] showModal fehlgeschlagen, nutze show() als Fallback', e);
+        if (this.wrapper.open) this.wrapper.close();
+        if (typeof this.wrapper.show === 'function') {
+          this.wrapper.show();
+          this.wrapper.classList.add('cart-notification-wrapper--modeless');
+        }
+      }
+    } else if (typeof this.wrapper.show === 'function') {
+      if (this.wrapper.open) this.wrapper.close();
+      this.wrapper.show();
+      this.wrapper.classList.add('cart-notification-wrapper--modeless');
+    } else {
+      return;
+    }
+
+    reveal();
   }
 
   close() {
@@ -49,15 +74,16 @@ class CartNotification extends HTMLElement {
       this.notification?.classList.remove('active', 'animate');
       document.body.removeEventListener('click', this.onBodyClick);
     }
+    this.wrapper?.classList.remove('cart-notification-wrapper--modeless');
   }
 
   renderContents(parsedState) {
     this.cartItemKey = parsedState.key;
     this.getSectionsToRender().forEach((section) => {
-      document.getElementById(section.id).innerHTML = this.getSectionInnerHTML(
-        parsedState.sections[section.id],
-        section.selector
-      );
+      const node = document.getElementById(section.id);
+      const html = parsedState.sections[section.id];
+      if (!node || html === undefined || html === null) return;
+      node.innerHTML = this.getSectionInnerHTML(html, section.selector);
     });
 
     if (this.header) this.header.reveal();
@@ -80,7 +106,9 @@ class CartNotification extends HTMLElement {
   }
 
   getSectionInnerHTML(html, selector = '.shopify-section') {
-    return new DOMParser().parseFromString(html, 'text/html').querySelector(selector).innerHTML;
+    const doc = new DOMParser().parseFromString(String(html), 'text/html');
+    const el = doc.querySelector(selector);
+    return el ? el.innerHTML : '';
   }
 
   handleBodyClick(evt) {
