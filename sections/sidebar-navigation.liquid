@@ -1,0 +1,212 @@
+{% comment %} Sidebar Navigation – Ausklappbare Kollektionen {% endcomment %}
+
+<style>
+  .sidebar-nav {
+    width: 260px;
+    min-width: 220px;
+    background: var(--color-background, #fff);
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    padding: 0;
+    overflow: hidden;
+    font-family: inherit;
+  }
+
+  .sidebar-nav__title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-foreground, #222);
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    margin: 0;
+  }
+
+  .sidebar-nav__item {
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .sidebar-nav__item:last-child {
+    border-bottom: none;
+  }
+
+  .sidebar-nav__toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 14px 20px;
+    cursor: pointer;
+    color: var(--color-foreground, #222);
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-align: left;
+    transition: background 0.15s;
+  }
+
+  .sidebar-nav__toggle:hover {
+    background: rgba(0,0,0,0.03);
+  }
+
+  .sidebar-nav__toggle svg {
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+    opacity: 0.5;
+  }
+
+  .sidebar-nav__toggle[aria-expanded="true"] svg {
+    transform: rotate(180deg);
+  }
+
+  .sidebar-nav__content {
+    display: none;
+    padding: 4px 20px 14px 20px;
+  }
+
+  .sidebar-nav__content.is-open {
+    display: block;
+  }
+
+  .sidebar-nav__link {
+    display: inline-block;
+    font-size: 0.9rem;
+    color: var(--color-button, var(--color-accent, #0066cc));
+    text-decoration: none;
+    padding: 4px 0;
+    border-bottom: 1px solid currentColor;
+    opacity: 0.85;
+    transition: opacity 0.15s;
+  }
+
+  .sidebar-nav__link:hover {
+    opacity: 1;
+  }
+
+  /* Mobile Toggle */
+  .sidebar-nav__mobile-toggle {
+    display: none;
+    width: 100%;
+    background: var(--color-button, #0066cc);
+    color: var(--color-button-label, #fff);
+    border: none;
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    border-radius: 8px;
+    margin-bottom: 8px;
+  }
+
+  .sidebar-nav__body {
+    display: block;
+  }
+
+  @media (max-width: 749px) {
+    .sidebar-nav {
+      width: 100%;
+      min-width: unset;
+    }
+
+    .sidebar-nav__mobile-toggle {
+      display: block;
+    }
+
+    .sidebar-nav__body {
+      display: none;
+    }
+
+    .sidebar-nav__body.is-open {
+      display: block;
+    }
+  }
+</style>
+
+<nav class="sidebar-nav" aria-label="{{ section.settings.title }}">
+  <button class="sidebar-nav__mobile-toggle" aria-expanded="false" aria-controls="sidebar-nav-body-{{ section.id }}">
+    {{ section.settings.title }} ▾
+  </button>
+
+  <div class="sidebar-nav__body" id="sidebar-nav-body-{{ section.id }}">
+    <p class="sidebar-nav__title">{{ section.settings.title }}</p>
+
+    {% assign items = "Körperpflege|/collections/korperpflege,Hygiene|/collections/hygiene,Stationsbedarf & Sonstiges|/collections/stationsbedarf-sonstiges" | split: "," %}
+
+    {% for item in items %}
+      {% assign parts = item | split: "|" %}
+      {% assign label = parts[0] %}
+      {% assign url = parts[1] %}
+      {% assign item_id = section.id | append: "-" | append: forloop.index %}
+
+      <div class="sidebar-nav__item">
+        <button
+          class="sidebar-nav__toggle"
+          aria-expanded="false"
+          aria-controls="sidebar-content-{{ item_id }}"
+        >
+          {{ label }}
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 5L7 10L12 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="sidebar-nav__content" id="sidebar-content-{{ item_id }}">
+          <a class="sidebar-nav__link" href="{{ url }}">Alle anzeigen</a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</nav>
+
+<script>
+  (function() {
+    var section = document.querySelector('.sidebar-nav');
+    if (!section) return;
+
+    // Akkordeon
+    var toggles = section.querySelectorAll('.sidebar-nav__toggle');
+    toggles.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var expanded = this.getAttribute('aria-expanded') === 'true';
+        var contentId = this.getAttribute('aria-controls');
+        var content = document.getElementById(contentId);
+        this.setAttribute('aria-expanded', !expanded);
+        content.classList.toggle('is-open', !expanded);
+      });
+    });
+
+    // Mobile Toggle
+    var mobileBtn = section.querySelector('.sidebar-nav__mobile-toggle');
+    var body = section.querySelector('.sidebar-nav__body');
+    if (mobileBtn && body) {
+      mobileBtn.addEventListener('click', function() {
+        var expanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', !expanded);
+        body.classList.toggle('is-open', !expanded);
+      });
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Sidebar Navigation",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titel",
+      "default": "Kategorien"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sidebar Navigation"
+    }
+  ]
+}
+{% endschema %}
