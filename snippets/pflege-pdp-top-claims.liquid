@@ -1,0 +1,77 @@
+{% comment %}
+  Eigenschaften-Leiste unter dem PDP-Hauptbereich.
+  Daten: Produkt‑Metafeld custom.feature_claims (Liste einzeilig) oder freier Text/Kommas.
+  Fallback: vier neutrale Vorteilstexte (Locales).
+{% endcomment %}
+{%- liquid
+  assign mf = product.metafields.custom.feature_claims
+  assign has_row = false
+-%}
+<section class="pflege-pdp-top-claims page-width" aria-label="{{ 'products.product.pflege_pdp.claims_aria' | t }}">
+  <ul class="pflege-pdp-top-claims__list" role="list">
+    {%- assign icons = 'badge-check,droplet,sparkles,cross-medical,bandage,heart' | split: ',' -%}
+    {%- if mf.value != blank and mf.value.size > 0 -%}
+      {%- for row in mf.value limit: 6 -%}
+        {%- liquid
+          assign txt = ''
+          if row.value != blank
+            assign txt = row.value | strip
+          elsif row != blank
+            assign txt = row | strip | strip_html
+          endif
+        -%}
+        {%- if txt == blank %}{%- continue %}{%- endif -%}
+        {%- assign has_row = true -%}
+        <li class="pflege-pdp-top-claims__item" role="listitem">
+          <span aria-hidden="true">
+            {% assign ic = icons[forloop.index0] | default: 'badge-check' %}
+            {% render 'pflege-icon', icon: ic, width: 22 %}
+          </span>
+          <span class="pflege-pdp-top-claims__text">{{ txt | escape }}</span>
+        </li>
+      {%- endfor -%}
+    {%- elsif mf != blank and mf != empty -%}
+      {%- assign raw = mf | metafield_text | strip -%}
+      {%- assign segs = raw | split: '|' -%}
+      {%- if segs.size <= 1 %}
+        {%- assign segs = raw | split: ',' -%}
+      {%- endif -%}
+      {%- for seg in segs limit: 6 %}
+        {%- assign txt = seg | strip -%}
+        {%- if txt == blank %}{% continue %}{% endif %}
+        {%- assign has_row = true %}
+        <li class="pflege-pdp-top-claims__item" role="listitem">
+          <span aria-hidden="true">
+            {% assign ic = icons[forloop.index0] | default: 'badge-check' %}
+            {% render 'pflege-icon', icon: ic, width: 22 %}
+          </span>
+          <span class="pflege-pdp-top-claims__text">{{ txt | escape }}</span>
+        </li>
+      {% endfor %}
+    {%- endif -%}
+
+    {%- unless has_row -%}
+      {%- for i in (1..4) -%}
+        {%- liquid
+          case i
+            when 1
+              assign line = 'products.product.pflege_pdp.claim_fallback_1' | t
+            when 2
+              assign line = 'products.product.pflege_pdp.claim_fallback_2' | t
+            when 3
+              assign line = 'products.product.pflege_pdp.claim_fallback_3' | t
+            else
+              assign line = 'products.product.pflege_pdp.claim_fallback_4' | t
+          endcase
+        -%}
+        <li class="pflege-pdp-top-claims__item" role="listitem">
+          <span aria-hidden="true">
+            {% assign ic = icons[forloop.index0] %}
+            {% render 'pflege-icon', icon: ic, width: 22 %}
+          </span>
+          <span class="pflege-pdp-top-claims__text">{{ line | escape }}</span>
+        </li>
+      {%- endfor -%}
+    {%- endunless -%}
+  </ul>
+</section>

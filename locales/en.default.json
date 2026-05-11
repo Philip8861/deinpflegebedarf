@@ -46,7 +46,19 @@
     },
     "search": {
       "search": "Suchen",
-      "reset": "Suchbegriff zurücksetzen"
+      "reset": "Suchbegriff zurücksetzen",
+      "heading": {
+        "one": "{{ count }} result",
+        "other": "{{ count }} results"
+      },
+      "results_with_count": {
+        "one": "{{ count }} result for \"{{ terms }}\"",
+        "other": "{{ count }} results for \"{{ terms }}\""
+      }
+    },
+    "meta": {
+      "tags": "Tagged \"{{ tags }}\"",
+      "page": "Page {{ page }}"
     },
     "cart": {
       "view": "Warenkorb anzeigen ({{ count }})",
@@ -146,6 +158,7 @@
         "trust_ship_title": "Kostenloser Versand ab 150 €",
         "trust_ship_sub": "",
         "trust_invoice_title": "Kauf auf Rechnung",
+        "trust_payment_title": "Secure payment",
         "trust_invoice_sub": "",
         "trust_returns_title": "30 Tage Rückgaberecht",
         "trust_care_title": "Von Pflegekräften empfohlen",
@@ -155,7 +168,22 @@
         "tabs_aria": "Product details & reviews",
         "reviews_placeholder": "Connect Shopify product reviews or a reviews app — content will render in this panel.",
         "reviews_link_suffix": "customer reviews",
-        "bestseller_badge": "Bestseller"
+        "bestseller_badge": "Bestseller",
+        "rating_placeholder": "No reviews yet.",
+        "claims_aria": "Highlighted product traits",
+        "claim_fallback_1": "Designed for delicate or sensitive-prone skin",
+        "claim_fallback_2": "Balanced, caring formulation",
+        "claim_fallback_3": "Suitable for home and professional care",
+        "claim_fallback_4": "Reliable sourcing and documented information",
+        "quick_usp_fallback_1": "Hygienic handling",
+        "quick_usp_fallback_2": "Balanced formulation",
+        "quick_usp_fallback_3": "For home & professional settings",
+        "quick_usp_fallback_4": "Trusted-care quality cues",
+        "service_foot_aria": "Service highlights",
+        "service_foot_shipping": "Fast shipping",
+        "service_foot_support": "Personal support",
+        "service_foot_quality": "Independently inspected quality signals",
+        "service_foot_returns": "30-day returns"
       },
       "sku": "SKU",
       "on_sale": "Angebot",

@@ -363,3 +363,49 @@
   grid-template-columns: minmax(0, 42rem);
   justify-content: center;
 }
+
+/* Service-Leiste unten */
+
+.pflege-pdp-service-foot {
+  margin-top: clamp(2rem, 4.5vw, 3.5rem);
+  padding-top: clamp(1.5rem, 4vw, 2.65rem);
+  border-top: 1px solid var(--pdp-border);
+}
+
+.pflege-pdp-service-foot__list {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr));
+  font-family: var(--font-body-family, inherit);
+}
+
+.pflege-pdp-service-foot__item {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.55rem 0.72rem;
+  border-radius: 12px;
+  border: 1px solid rgba(63, 134, 217, 0.15);
+  background: rgba(255, 255, 255, 0.94);
+  font-size: 1.26rem !important;
+  line-height: 1.42;
+  color: rgba(11, 35, 71, 0.86);
+}
+
+.pflege-pdp-service-foot__item .pflege-icon {
+  flex-shrink: 0;
+  color: var(--pdp-accent);
+}
+
+@media screen and (min-width: 990px) {
+  .pflege-pdp-intro-heading,
+  .pflege-pdp-tabs-h__btn,
+  .pflege-pdp-tabs-h__panel,
+  .pflege-pdp-facts__title,
+  .pflege-pdp-facts__dt,
+  .pflege-pdp-facts__dd {
+    font-family: var(--font-body-family, inherit);
+  }
+}

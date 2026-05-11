@@ -46,7 +46,19 @@
     },
     "search": {
       "search": "Suchen",
-      "reset": "Suchbegriff zurücksetzen"
+      "reset": "Suchbegriff zurücksetzen",
+      "heading": {
+        "one": "{{ count }} Ergebnis",
+        "other": "{{ count }} Ergebnisse"
+      },
+      "results_with_count": {
+        "one": "{{ count }} Ergebnis für „{{ terms }}“",
+        "other": "{{ count }} Ergebnisse für „{{ terms }}“"
+      }
+    },
+    "meta": {
+      "tags": "Getaggt mit „{{ tags }}“",
+      "page": "Seite {{ page }}"
     },
     "cart": {
       "view": "Warenkorb anzeigen ({{ count }})",
@@ -198,6 +210,7 @@
         "trust_ship_title": "Kostenloser Versand ab 150 €",
         "trust_ship_sub": "",
         "trust_invoice_title": "Kauf auf Rechnung",
+        "trust_payment_title": "Sichere Zahlung",
         "trust_invoice_sub": "",
         "trust_returns_title": "30 Tage Rückgaberecht",
         "trust_care_title": "Von Pflegekräften empfohlen",
@@ -207,7 +220,22 @@
         "tabs_aria": "Produktdetails und Bewertungen",
         "reviews_placeholder": "Binden Sie z. B. die Shopify Produktbewertungen oder eine App ein – dann erscheint der Inhalt in diesem Bereich automatisch hier.",
         "reviews_link_suffix": "Kundenbewertungen",
-        "bestseller_badge": "Bestseller"
+        "bestseller_badge": "Bestseller",
+        "rating_placeholder": "Noch keine Bewertungen vorhanden.",
+        "claims_aria": "Ausgewählte Produktdetails und Vorteile",
+        "claim_fallback_1": "Für empfindliche Haut und sanfte Anwendung geeignet",
+        "claim_fallback_2": "Pflegende, ausgewogene Rezeptur",
+        "claim_fallback_3": "Geeignet für den Pflege- und häuslichen Bereich",
+        "claim_fallback_4": "Verlässliche Qualität und dokumentierte Produktinfos",
+        "quick_usp_fallback_1": "Hygienisch einsetzbar",
+        "quick_usp_fallback_2": "Ausgewogene Anwendung",
+        "quick_usp_fallback_3": "Für häusliche & professionelle Pflege",
+        "quick_usp_fallback_4": "Verlässliche Qualität aus dem Pflegebereich",
+        "service_foot_aria": "Service und Rahmenbedingungen",
+        "service_foot_shipping": "Schneller Versand",
+        "service_foot_support": "Persönliche Beratung",
+        "service_foot_quality": "100 % geprüfte Qualität",
+        "service_foot_returns": "30 Tage Rückgaberecht"
       },
       "sku": "SKU",
       "volume_pricing": {

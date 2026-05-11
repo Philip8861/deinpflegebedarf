@@ -115,17 +115,48 @@
               {%- when '@app' -%}
                 {% render block %}
               {%- when 'text' -%}
-                <p
-                  class="product__text inline-richtext{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing pflege-mock-pdp__brand{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}"
-                  {{ block.shopify_attributes }}
-                >
-                  {{- block.settings.text -}}
-                </p>
+                {% if block.settings.text_style == 'uppercase' %}
+                  <p
+                    class="product__text inline-richtext caption-with-letter-spacing pflege-mock-pdp__brand"
+                    {{ block.shopify_attributes }}
+                  >
+                    {{- block.settings.text -}}
+                  </p>
+                {% elsif block.settings.text_style == 'subtitle' %}
+                  {% liquid
+                    assign subtitle_out = block.settings.text | strip
+                    if subtitle_out == blank or subtitle_out contains 'Liquid error'
+                      assign subtitle_out = ''
+                    endif
+                    if subtitle_out == blank and product.metafields.descriptors.subtitle.value != blank
+                      assign subtitle_out = product.metafields.descriptors.subtitle.value
+                    endif
+                    if subtitle_out == blank and product.metafields.custom.summary != blank
+                      assign subtitle_out = product.metafields.custom.summary | metafield_text | strip
+                    endif
+                    if subtitle_out == blank and product.description != blank
+                      assign subtitle_out = product.description | strip_html | truncate: 220
+                    endif
+                  %}
+                  {% if subtitle_out != blank %}
+                    <p
+                      class="product__text inline-richtext subtitle pflege-pdp-intro"
+                      {{ block.shopify_attributes }}
+                    >
+                      {{- subtitle_out | escape }}
+                    </p>
+                  {% endif %}
+                {% else %}
+                  <p class="product__text inline-richtext{% if block.settings.text_style == 'subtitle' %} subtitle{% endif %}" {{ block.shopify_attributes }}>
+                    {{- block.settings.text -}}
+                  </p>
+                {% endif %}
               {%- when 'title' -%}
                 <div class="product__title pflege-mock-pdp__title-wrap" {{ block.shopify_attributes }}>
                   <h1 class="pflege-mock-pdp__product-title">{{ product.title | escape }}</h1>
                 </div>
               {%- when 'price' -%}
+                <div class="pflege-mock-pdp__buy-card" data-pf-buy-card tabindex="-1">
                 <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
                   {%- render 'price',
                     product: product,
@@ -524,9 +555,10 @@
                   </div>
                 {%- endif -%}
                 {% render 'pflege-product-cart-extras' %}
+                </div>
               {%- when 'rating' -%}
                 {%- if product.metafields.reviews.rating.value != blank -%}
-                  <div class="rating-wrapper pflege-mock-pdp__rating">
+                  <div class="rating-wrapper pflege-mock-pdp__rating" {{ block.shopify_attributes }}>
                     {% liquid
                       assign rating_decimal = 0
                       assign decimal = product.metafields.reviews.rating.value.rating | modulo: 1
@@ -547,7 +579,7 @@
                         style="--rating: {{ product.metafields.reviews.rating.value.rating | floor }}; --rating-max: {{ product.metafields.reviews.rating.value.scale_max }}; --rating-decimal: {{ rating_decimal }};"
                       ></span>
                     </div>
-                    {%- liquid
+                    {% liquid
                       assign pf_rc = nil
                       if product.metafields.reviews.rating_count.value != blank
                         assign pf_rc = product.metafields.reviews.rating_count.value
@@ -555,10 +587,15 @@
                         assign pf_rc = product.metafields.reviews.rating_count | metafield_text | strip
                       endif
                       assign reviews_suffix = 'products.product.pflege_pdp.reviews_link_suffix' | t | strip
-                    -%}
+                    %}
                     {%- if pf_rc != blank -%}
                       <a href="#pflege-pdp-review-panel" class="pflege-mock-pdp__reviews-link">({{ pf_rc }} {{ reviews_suffix }})</a>
                     {%- endif -%}
+                  </div>
+                {% else %}
+                  <div class="rating-wrapper pflege-mock-pdp__rating pflege-mock-pdp__rating--soft" {{ block.shopify_attributes }}>
+                    <span class="pflege-mock-pdp__stars-muted" aria-hidden="true">★★★★★</span>
+                    <span class="pflege-mock-pdp__rating-soft-text">{{ 'products.product.pflege_pdp.rating_placeholder' | t }}</span>
                   </div>
                 {%- endif -%}
               {%- when 'pflege_quick_usps' -%}
@@ -723,6 +760,8 @@
         </section>
       </div>
     </div>
+
+    {% render 'pflege-pdp-top-claims' %}
 
     {% render 'product-media-modal', variant_images: variant_images %}
 

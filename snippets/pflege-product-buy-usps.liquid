@@ -1,54 +1,96 @@
 {% comment %}
-  Drei Schnell-USPs in der Kaufspalte (Metafeld custom.usps Liste oder ein Text — erste drei Einträge).
+  Schnell‑USPs in der Kaufspalte — Metafeld custom.usps oder neutraler Fallback (4 Punkte).
 {% endcomment %}
 {%- liquid
   assign mf = product.metafields.custom.usps
--%}
-
-{%- if mf.value != blank and mf.value.size > 0 -%}
-  <div class="pflege-buy-usps" {{ block.shopify_attributes }}>
+  assign icons = 'hand,droplet,cross-medical,shield' | split: ','
+  assign usp_written = false
+%}
+<div class="pflege-buy-usps" {{ block.shopify_attributes }}>
+  {%- if mf.value != blank and mf.value.size > 0 -%}
+    {% assign usp_written = true %}
     <ul class="pflege-buy-usps__list list-unstyled" role="list">
-      {%- assign icons_static = 'hand,droplet,cross-medical' | split: ',' -%}
-      {%- for u in mf.value limit: 3 -%}
+      {%- for u in mf.value limit: 4 -%}
         <li class="pflege-buy-usps__item">
           <span class="pflege-buy-usps__icon">
-            {% assign icon_pick = icons_static[forloop.index0] %}
-            {% render 'pflege-icon', icon: icon_pick, width: 24 %}
+            {% assign icon_pick = icons[forloop.index0] %}
+            {% if icon_pick == blank %}
+              {% assign icon_pick = 'hand' %}
+            {% endif %}
+            {% render 'pflege-icon', icon: icon_pick, width: 22 %}
           </span>
           <span class="pflege-buy-usps__label">
-            {%- if u.value != blank -%}
+            {%- if u.value != blank %}
               {{- u.value -}}
-            {%- else -%}
+            {%- else %}
               {{- u -}}
-            {%- endif -%}
+            {%- endif %}
           </span>
         </li>
       {%- endfor -%}
     </ul>
-  </div>
-{%- elsif mf != blank and mf != empty -%}
-  {%- assign raw = mf | metafield_text | strip -%}
-  {%- assign parts = raw | split: '|' -%}
-  {%- if parts.size <= 1 -%}
-    {%- assign parts = raw | split: ',' -%}
-  {%- endif -%}
-  {%- if raw != blank -%}
-    <div class="pflege-buy-usps" {{ block.shopify_attributes }}>
-      <ul class="pflege-buy-usps__list list-unstyled" role="list">
-        {%- assign icons_static = 'hand,droplet,cross-medical' | split: ',' -%}
-        {%- for line in parts limit: 3 -%}
-          {%- assign trimmed = line | strip -%}
-          {%- if trimmed != blank -%}
+  {%- elsif mf != blank and mf != empty -%}
+    {%- assign raw = mf | metafield_text | strip -%}
+    {%- assign segs = raw | split: '|' -%}
+    {%- if segs.size <= 1 %}
+      {%- assign segs = raw | split: ',' %}
+    {%- endif %}
+    {%- assign seg_idx = 0 -%}
+    {%- if raw != blank %}
+      {% capture nonempty %}
+      {%- for line in segs limit: 6 %}
+        {% assign tt = line | strip %}
+        {%- if tt != blank %}1{% endif %}
+      {%- endfor %}
+      {% endcapture %}
+      {%- if nonempty contains '1' %}
+        {% assign usp_written = true %}
+        <ul class="pflege-buy-usps__list list-unstyled" role="list">
+          {%- assign shown = 0 -%}
+          {%- for line in segs %}
+            {%- assign t = line | strip %}
+            {%- if t == blank %}
+              {% continue %}
+            {% endif %}
+            {% if shown >= 4 %}
+              {% break %}
+            {% endif %}
+            {% assign shown = shown | plus: 1 %}
             <li class="pflege-buy-usps__item">
               <span class="pflege-buy-usps__icon">
-                {% assign icon_pick = icons_static[forloop.index0] %}
-                {% render 'pflege-icon', icon: icon_pick, width: 24 %}
+                {% assign ip = icons[seg_idx] %}
+                {% assign seg_idx = seg_idx | plus: 1 %}
+                {% if ip == blank %}
+                  {% assign ip = 'hand' %}
+                {% endif %}
+                {% render 'pflege-icon', icon: ip, width: 22 %}
               </span>
-              <span class="pflege-buy-usps__label">{{ trimmed | escape }}</span>
+              <span class="pflege-buy-usps__label">{{ t | escape }}</span>
             </li>
-          {%- endif -%}
-        {%- endfor -%}
-      </ul>
-    </div>
+          {%- endfor -%}
+        </ul>
+      {%- endif %}
+    {%- endif %}
   {%- endif -%}
-{%- endif -%}
+
+  {%- unless usp_written -%}
+    <ul class="pflege-buy-usps__list list-unstyled" role="list">
+      {%- for i in (1..4) -%}
+        <li class="pflege-buy-usps__item">
+          <span class="pflege-buy-usps__icon">
+            {% assign ip = icons[forloop.index0] %}
+            {% render 'pflege-icon', icon: ip, width: 22 %}
+          </span>
+          <span class="pflege-buy-usps__label">
+            {%- case i -%}
+              {%- when 1 %}{{ 'products.product.pflege_pdp.quick_usp_fallback_1' | t }}
+              {%- when 2 %}{{ 'products.product.pflege_pdp.quick_usp_fallback_2' | t }}
+              {%- when 3 %}{{ 'products.product.pflege_pdp.quick_usp_fallback_3' | t }}
+              {%- else %}{{ 'products.product.pflege_pdp.quick_usp_fallback_4' | t }}
+            {%- endcase -%}
+          </span>
+        </li>
+      {%- endfor -%}
+    </ul>
+  {%- endunless -%}
+</div>
