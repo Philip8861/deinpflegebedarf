@@ -91,7 +91,33 @@
     },
     "pflege_product_detail_body": {
       "type": "pflege-product-detail-body",
-      "settings": {}
+      "settings": {
+        "show_breadcrumb": true,
+        "show_trust_strip": true,
+        "show_facts_card": true,
+        "breadcrumb_home": "Start",
+        "breadcrumb_sep": "›",
+        "breadcrumb_aria_label": "Brotkrumen",
+        "trust_line_1": "Persönlicher Kundenservice",
+        "trust_line_2": "Sicherer Versand",
+        "trust_line_3": "Qualitätsprodukte",
+        "intro_heading": "Alle Infos zum Produkt",
+        "section_aria_label": "Produktdetail und Merkmale",
+        "tab_description": "Beschreibung",
+        "tab_application": "Anwendung",
+        "tab_ingredients": "Inhaltsstoffe",
+        "tab_features": "Merkmale & Hinweise",
+        "facts_heading": "Auf einen Blick",
+        "lbl_pzn": "PZN",
+        "lbl_type": "Produkttyp",
+        "lbl_skin": "Hauttyp",
+        "lbl_delivery": "Lieferzeit",
+        "lbl_shipping_hint": "Versand",
+        "lbl_brand": "Hersteller",
+        "color_scheme": "scheme-1",
+        "padding_top": 52,
+        "padding_bottom": 72
+      }
     },
     "related_pflege": {
       "type": "related-products",

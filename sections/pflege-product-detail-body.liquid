@@ -8,6 +8,11 @@
 {{ 'section-pflege-product-detail-body.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
+  # Checkboxen: fehlende JSON-Werte nicht als „aus“ werten (= Default an)
+  assign dm_breadcrumb = section.settings.show_breadcrumb != false
+  assign dm_trust = section.settings.show_trust_strip != false
+  assign dm_facts = section.settings.show_facts_card != false
+
   assign mf_short = product.metafields.custom.short_description
   assign mf_app = product.metafields.custom.application
   assign mf_ing = product.metafields.custom.ingredients
@@ -76,10 +81,10 @@
     assign has_panels = true
   endif
 
-  assign show_facts_panel = section.settings.show_facts_card
+  assign show_facts_panel = dm_facts
 
   assign show_section_inner = false
-  if section.settings.show_breadcrumb or has_short or has_panels or has_usps or section.settings.show_trust_strip or show_facts_panel
+  if dm_breadcrumb or dm_trust or dm_facts or has_short or has_panels or has_usps
     assign show_section_inner = true
   endif
 
@@ -111,7 +116,7 @@
     {{ section.shopify_attributes }}
   >
     <div class="page-width pflege-pdp-detail__shell">
-      {%- if section.settings.show_breadcrumb -%}
+      {%- if dm_breadcrumb -%}
         <nav class="pflege-pdp-detail__breadcrumb caption" aria-label="{{ section.settings.breadcrumb_aria_label | escape }}">
           <ol class="pflege-pdp-detail__breadcrumb-list list-unstyled">
             <li class="pflege-pdp-detail__breadcrumb-item">
@@ -131,7 +136,7 @@
         </nav>
       {%- endif -%}
 
-      {%- if section.settings.show_trust_strip -%}
+      {%- if dm_trust -%}
         <div class="pflege-pdp-detail__trust-strip">
           {% render 'pflege-icon', icon: 'shield', width: 22 %}
           <span>{{ section.settings.trust_line_1 | escape }}</span>
