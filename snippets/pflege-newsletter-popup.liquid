@@ -9,12 +9,14 @@
 {%- endcomment -%}
 
 {{ 'component-pflege-newsletter-popup.css' | asset_url | stylesheet_tag }}
-{%- comment -%} Gleiche RGBA/Blur wie .pflege-category-modal::backdrop — Tokens stehen in pflegeshop-tokens.css (head) {%- endcomment -%}
+{%- comment -%} Zwei Schichten wie .pflege-category-modal::backdrop (Blur + rgba getrennt) {%- endcomment -%}
 <style>
-  .pflege-newsletter-popup__backdrop {
-    background: var(--pflege-overlay-backdrop-div, rgba(11, 35, 71, 0.76));
+  .pflege-newsletter-popup__backdrop-blur {
     -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
+  }
+  .pflege-newsletter-popup__backdrop-dim {
+    background: var(--pflege-overlay-backdrop, rgba(11, 35, 71, 0.56));
   }
 </style>
 
@@ -29,7 +31,10 @@
   hidden
   data-popup-delay="10000"
 >
-  <div class="pflege-newsletter-popup__backdrop" data-pnp-close aria-hidden="true"></div>
+  <div class="pflege-newsletter-popup__backdrop" data-pnp-close aria-hidden="true">
+    <span class="pflege-newsletter-popup__backdrop-blur"></span>
+    <span class="pflege-newsletter-popup__backdrop-dim"></span>
+  </div>
 
   <div class="pflege-newsletter-popup__panel" role="document">
     <button

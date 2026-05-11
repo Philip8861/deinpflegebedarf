@@ -26,12 +26,26 @@
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  /* Optisch wie dialog::backdrop — Div-Stacks brauchen höheres Alpha (s. --pflege-overlay-backdrop-div) */
-  background: var(--pflege-overlay-backdrop-div, rgba(11, 35, 71, 0.76));
   opacity: 0;
   transition: opacity var(--duration-default, 0.25s) ease;
+}
+
+/* Gleiche Aufteilung wie .pflege-category-modal::backdrop: Blur + rgba getrennt (kein „aufgehelltes“ Div-Kompositing) */
+.cart-notification__backdrop-blur,
+.cart-notification__backdrop-dim {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.cart-notification__backdrop-blur {
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
+  background: transparent;
+}
+
+.cart-notification__backdrop-dim {
+  background: var(--pflege-overlay-backdrop, rgba(11, 35, 71, 0.56));
 }
 
 .cart-notification-wrapper.is-active .cart-notification__backdrop {

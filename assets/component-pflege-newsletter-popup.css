@@ -26,17 +26,30 @@
 .pflege-newsletter-popup__backdrop {
   position: fixed;
   inset: 0;
-  /* Optisch wie .pflege-category-modal::backdrop (Div-Kompensation s. Tokens) */
-  background: var(--pflege-overlay-backdrop-div, rgba(11, 35, 71, 0.76));
-  -webkit-backdrop-filter: blur(4px);
-  backdrop-filter: blur(4px);
   cursor: pointer;
   animation: pnpFade 220ms ease-out both;
   z-index: 0;
 }
 
+.pflege-newsletter-popup__backdrop-blur,
+.pflege-newsletter-popup__backdrop-dim {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.pflege-newsletter-popup__backdrop-blur {
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  background: transparent;
+}
+
+.pflege-newsletter-popup__backdrop-dim {
+  background: var(--pflege-overlay-backdrop, rgba(11, 35, 71, 0.56));
+}
+
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .pflege-newsletter-popup__backdrop {
+  .pflege-newsletter-popup__backdrop-dim {
     background: rgba(11, 35, 71, 0.88);
   }
 }
@@ -326,7 +339,11 @@ html.pflege-popup-open body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pflege-newsletter-popup__backdrop,
+  .pflege-newsletter-popup__backdrop {
+    animation: none;
+    opacity: 1;
+  }
+
   .pflege-newsletter-popup__panel {
     animation: none;
   }
