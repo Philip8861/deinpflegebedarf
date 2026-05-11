@@ -2,21 +2,32 @@ class CartNotification extends HTMLElement {
   constructor() {
     super();
 
-    this.notification = document.getElementById('cart-notification');
-    this.wrapper = this.querySelector('.cart-notification-wrapper');
-    this.backdrop = this.querySelector('.cart-notification__backdrop');
+    this.notification = this.querySelector('#cart-notification');
+    this.wrapper = this.querySelector('dialog.cart-notification-wrapper');
     this.header = document.querySelector('sticky-header');
     this.onBodyClick = this.handleBodyClick.bind(this);
 
-    this.notification.addEventListener('keyup', (evt) => evt.code === 'Escape' && this.close());
+    if (!this.notification || !this.wrapper) return;
+
     this.querySelectorAll('button[type="button"]').forEach((closeButton) =>
       closeButton.addEventListener('click', this.close.bind(this))
     );
-    this.backdrop?.addEventListener('click', this.close.bind(this));
+
+    this.wrapper.addEventListener('click', (evt) => {
+      if (evt.target === this.wrapper) this.close();
+    });
+
+    this.wrapper.addEventListener('close', () => {
+      this.notification.classList.remove('active', 'animate');
+      document.body.removeEventListener('click', this.onBodyClick);
+      removeTrapFocus(this.activeElement);
+    });
   }
 
   open() {
-    this.wrapper?.classList.add('is-active');
+    if (!this.wrapper || typeof this.wrapper.showModal !== 'function') return;
+
+    this.wrapper.showModal();
     this.notification.classList.add('animate', 'active');
 
     this.notification.addEventListener(
@@ -32,11 +43,12 @@ class CartNotification extends HTMLElement {
   }
 
   close() {
-    this.wrapper?.classList.remove('is-active');
-    this.notification.classList.remove('active');
-    document.body.removeEventListener('click', this.onBodyClick);
-
-    removeTrapFocus(this.activeElement);
+    if (this.wrapper?.open) {
+      this.wrapper.close();
+    } else {
+      this.notification?.classList.remove('active', 'animate');
+      document.body.removeEventListener('click', this.onBodyClick);
+    }
   }
 
   renderContents(parsedState) {

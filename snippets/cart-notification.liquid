@@ -1,11 +1,11 @@
 <style>
-  /* Bis component-cart-notification.css lädt: gleicher bläulicher Schleier wie Kategorie-Popup */
-  .cart-notification__backdrop {
+  /* Bis component-cart-notification.css lädt — gleiche Werte wie Kategorie-<dialog>::backdrop */
+  .cart-notification-wrapper::backdrop {
     background: rgba(11, 35, 71, 0.56);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
   }
-  .cart-notification-wrapper:not(.is-active) #cart-notification {
+  .cart-notification-wrapper:not([open]) #cart-notification {
     visibility: hidden !important;
     opacity: 0 !important;
   }
@@ -22,18 +22,15 @@
 {% endcomment %}
 
 <cart-notification>
-  {%- comment -%} Kein page-width: sonst schmaler Overlay-Bereich, Scrap/Unschärfe am Rand {%- endcomment -%}
-  <div class="cart-notification-wrapper">
-    <div
-      class="cart-notification__backdrop"
-      aria-hidden="true"
-    ></div>
+  {%- comment -%} Native dialog + showModal() = Browser-Backdrop (Top-Layer) wie Kategorie-Popup {%- endcomment -%}
+  <dialog
+    class="cart-notification-wrapper"
+    aria-labelledby="cart-notification-title"
+    aria-modal="true"
+  >
     <div
       id="cart-notification"
       class="cart-notification focus-inset"
-      aria-modal="true"
-      aria-labelledby="cart-notification-title"
-      role="dialog"
       tabindex="-1"
     >
       <button
@@ -136,5 +133,5 @@
         </section>
       {%- endif -%}
     </div>
-  </div>
+  </dialog>
 </cart-notification>
