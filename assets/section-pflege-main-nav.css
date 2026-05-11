@@ -884,8 +884,8 @@
 
 .pflege-category-modal::backdrop {
   background: var(--pflege-overlay-backdrop, rgba(11, 35, 71, 0.56));
-  backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
 }
 
 .pflege-category-modal__panel {

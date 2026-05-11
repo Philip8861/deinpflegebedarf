@@ -26,12 +26,12 @@
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  /* Wie Kategorie-«dialog»-Backdrop (feste Farbe + blur — identisch wirkt wie Modal) */
+  /* Identisch zu .pflege-category-modal::backdrop */
   background: var(--pflege-overlay-backdrop, rgba(11, 35, 71, 0.56));
   opacity: 0;
   transition: opacity var(--duration-default, 0.25s) ease;
-  backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
 }
 
 .cart-notification-wrapper.is-active .cart-notification__backdrop {
