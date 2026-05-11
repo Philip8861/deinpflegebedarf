@@ -391,7 +391,12 @@
           class="pflege-category-modal__link{% if active_des %} is-active{% endif %}"
           {% if active_des %}aria-current="page"{% endif %}
           data-category-modal-close
-        >Desinfektion</a>
+        >
+          <span class="pflege-category-modal__link-icon" aria-hidden="true">
+            {%- render 'pflege-icon', icon: 'droplet', width: 22 -%}
+          </span>
+          <span class="pflege-category-modal__link-label">Desinfektion</span>
+        </a>
       </li>
       <li>
         <a
@@ -399,7 +404,12 @@
           class="pflege-category-modal__link{% if active_pf %} is-active{% endif %}"
           {% if active_pf %}aria-current="page"{% endif %}
           data-category-modal-close
-        >Pflegeartikel</a>
+        >
+          <span class="pflege-category-modal__link-icon" aria-hidden="true">
+            {%- render 'pflege-icon', icon: 'bandage', width: 22 -%}
+          </span>
+          <span class="pflege-category-modal__link-label">Pflegeartikel</span>
+        </a>
       </li>
       <li>
         <a
@@ -407,7 +417,12 @@
           class="pflege-category-modal__link{% if active_hh %} is-active{% endif %}"
           {% if active_hh %}aria-current="page"{% endif %}
           data-category-modal-close
-        >Hautschutz &amp; Hautpflege</a>
+        >
+          <span class="pflege-category-modal__link-icon" aria-hidden="true">
+            {%- render 'pflege-icon', icon: 'shield', width: 22 -%}
+          </span>
+          <span class="pflege-category-modal__link-label">Hautschutz &amp; Hautpflege</span>
+        </a>
       </li>
       <li>
         <a
@@ -415,7 +430,12 @@
           class="pflege-category-modal__link{% if active_ver %} is-active{% endif %}"
           {% if active_ver %}aria-current="page"{% endif %}
           data-category-modal-close
-        >Verbrauchsartikel</a>
+        >
+          <span class="pflege-category-modal__link-icon" aria-hidden="true">
+            {%- render 'pflege-icon', icon: 'package', width: 22 -%}
+          </span>
+          <span class="pflege-category-modal__link-label">Verbrauchsartikel</span>
+        </a>
       </li>
     </ul>
 
