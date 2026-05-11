@@ -1670,18 +1670,10 @@
   border: 1px solid var(--pflege-cart-border);
   background: rgb(var(--color-background, 255 255 255));
   box-shadow: 0 10px 36px rgba(11, 35, 71, 0.07);
-}
-
-.template-cart .pflege-cart-empty-card__icon {
   display: flex;
-  justify-content: center;
-  margin-bottom: 1rem;
-  color: var(--pflege-cart-sky);
-}
-
-.template-cart .pflege-cart-empty-card__icon svg {
-  width: 4rem;
-  height: 4rem;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .template-cart .pflege-cart-empty-card__title {
@@ -1689,6 +1681,8 @@
   font-weight: 700;
   font-size: 2.25rem;
   margin: 0 0 0.75rem !important;
+  width: 100%;
+  text-align: center;
 }
 
 .template-cart .pflege-cart-empty-card__text {
@@ -1697,6 +1691,7 @@
   font-size: 1.4rem;
   line-height: 1.55;
   color: rgba(11, 35, 71, 0.72);
+  text-align: center;
 }
 
 .template-cart .pflege-cart-empty-card__cta {
