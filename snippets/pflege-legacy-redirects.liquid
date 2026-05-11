@@ -1,18 +1,20 @@
 {%- comment -%}
-  PflegeShop: Weiterleitung alter Seiten-Handles.
-  Ergänzend im Admin: „URL-Weiterleitungen“ von /pages/pflegewissen → /pages/pflegeratgeber (301), falls die alte Seite entfernt wurde.
+  PflegeShop: Weiterleitungen im &lt;head&gt; (ohne sichtbare Zwischenseite).
+  — pflegewissen → https://www.alltagshilfe-sued.de/ratgeber (direkt)
+  — pflegeratgeber → dieselbe externe URL
+  Admin-URL-Weiterleitung zusätzlich möglich (301).
 {%- endcomment -%}
+{%- assign pflege_ratgeber_ext = 'https://www.alltagshilfe-sued.de/ratgeber' -%}
 {%- if request.page_type == 'page' and page.handle == 'pflegewissen' -%}
-  {%- liquid
-    assign pflege_legacy_path = '/pages/pflegeratgeber'
-    if pages['pflegeratgeber'] != blank
-      assign pflege_legacy_path = pages['pflegeratgeber'].url
-    endif
-    assign pflege_legacy_full = request.origin | append: pflege_legacy_path
-  -%}
-  <link rel="canonical" href="{{ pflege_legacy_full | escape }}">
-  <meta http-equiv="refresh" content="0;url={{ pflege_legacy_full | escape }}">
+  <link rel="canonical" href="{{ pflege_ratgeber_ext | escape }}">
+  <meta http-equiv="refresh" content="0;url={{ pflege_ratgeber_ext | escape }}">
   <script>
-    window.location.replace({{ pflege_legacy_full | json }});
+    window.location.replace({{ pflege_ratgeber_ext | json }});
+  </script>
+{%- elsif request.page_type == 'page' and page.handle == 'pflegeratgeber' -%}
+  <link rel="canonical" href="{{ pflege_ratgeber_ext | escape }}">
+  <meta http-equiv="refresh" content="0;url={{ pflege_ratgeber_ext | escape }}">
+  <script>
+    window.location.replace({{ pflege_ratgeber_ext | json }});
   </script>
 {%- endif -%}

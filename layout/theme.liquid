@@ -5,7 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="">
-    {%- if request.page_type == 'page' and page.handle == 'pflegewissen' -%}
+    {%- liquid
+      assign pflege_head_redirect = false
+      if request.page_type == 'page' and page.handle == 'pflegewissen'
+        assign pflege_head_redirect = true
+      elsif request.page_type == 'page' and page.handle == 'pflegeratgeber'
+        assign pflege_head_redirect = true
+      endif
+    -%}
+    {%- if pflege_head_redirect -%}
       {% render 'pflege-legacy-redirects' %}
     {%- else -%}
       <link rel="canonical" href="{{ canonical_url }}">

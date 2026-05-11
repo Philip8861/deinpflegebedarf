@@ -5,11 +5,9 @@
   assign og_description = page_description | default: shop.description | default: shop.name
 
   if request.page_type == 'page' and page.handle == 'pflegewissen'
-    assign _pflege_r = '/pages/pflegeratgeber'
-    if pages['pflegeratgeber'] != blank
-      assign _pflege_r = pages['pflegeratgeber'].url
-    endif
-    assign og_url = request.origin | append: _pflege_r
+    assign og_url = 'https://www.alltagshilfe-sued.de/ratgeber'
+  elsif request.page_type == 'page' and page.handle == 'pflegeratgeber'
+    assign og_url = 'https://www.alltagshilfe-sued.de/ratgeber'
   endif
 
   if request.page_type == 'product'
