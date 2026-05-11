@@ -1,0 +1,417 @@
+{% comment %}
+  PflegeShop — Unterer Produktbereich (Beschreibung, Metafields, Fakten, Vertrauen).
+  Liegt AUSSERHALB von <product-info>: statisch nach erstem Laden; keine variantenabhängigen Felder hier (SKU bleibt in der Kaufspalte).
+
+  Erwartete Metafields (namespace custom, Fallback wenn leer): short_description, application, ingredients,
+  usps, skin_type, product_type_label, pzn, free_shipping_threshold, delivery_time, features
+{% endcomment %}
+{{ 'section-pflege-product-detail-body.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign mf_short = product.metafields.custom.short_description
+  assign mf_app = product.metafields.custom.application
+  assign mf_ing = product.metafields.custom.ingredients
+  assign mf_feat = product.metafields.custom.features
+  assign mf_usps = product.metafields.custom.usps
+  assign mf_pzn = product.metafields.custom.pzn
+  assign mf_ptype = product.metafields.custom.product_type_label
+  assign mf_skin = product.metafields.custom.skin_type
+  assign mf_del = product.metafields.custom.delivery_time
+  assign mf_fs = product.metafields.custom.free_shipping_threshold
+
+  assign has_desc = product.description != blank
+
+  assign has_short = false
+  if mf_short.value != blank
+    assign has_short = true
+  elsif mf_short != blank and mf_short != empty
+    assign _ts = mf_short | metafield_text | strip
+    if _ts != blank
+      assign has_short = true
+    endif
+  endif
+
+  assign has_app = false
+  if mf_app.value != blank
+    assign has_app = true
+  elsif mf_app != blank and mf_app != empty
+    assign _ta = mf_app | metafield_text | strip
+    if _ta != blank
+      assign has_app = true
+    endif
+  endif
+
+  assign has_ing = false
+  if mf_ing.value != blank
+    assign has_ing = true
+  elsif mf_ing != blank and mf_ing != empty
+    assign _ti = mf_ing | metafield_text | strip
+    if _ti != blank
+      assign has_ing = true
+    endif
+  endif
+
+  assign has_feat = false
+  if mf_feat.value != blank
+    assign has_feat = true
+  elsif mf_feat != blank and mf_feat != empty
+    assign _tf = mf_feat | metafield_text | strip
+    if _tf != blank
+      assign has_feat = true
+    endif
+  endif
+
+  assign has_usps = false
+  if mf_usps.value != blank
+    assign has_usps = true
+  elsif mf_usps != blank and mf_usps != empty
+    assign _tu = mf_usps | metafield_text | strip
+    if _tu != blank
+      assign has_usps = true
+    endif
+  endif
+
+  assign has_panels = false
+  if has_desc or has_app or has_ing or has_feat
+    assign has_panels = true
+  endif
+
+  assign show_facts_panel = section.settings.show_facts_card
+
+  assign show_section_inner = false
+  if section.settings.show_breadcrumb or has_short or has_panels or has_usps or section.settings.show_trust_strip or show_facts_panel
+    assign show_section_inner = true
+  endif
+
+  assign bc_coll = section.settings.collection_for_breadcrumb
+  if bc_coll == blank and product.collections.size > 0
+    assign bc_coll = product.collections.first
+  endif
+-%}
+
+{%- style -%}
+  .pflege-pdp-detail.section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .pflege-pdp-detail.section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- unless show_section_inner -%}
+  {% comment %} Nichts anzuzeigen — Section minimal halten {% endcomment %}
+{%- else -%}
+  <section
+    class="pflege-pdp-detail section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}"
+    aria-label="{{ section.settings.section_aria_label | escape }}"
+    {{ section.shopify_attributes }}
+  >
+    <div class="page-width pflege-pdp-detail__shell">
+      {%- if section.settings.show_breadcrumb -%}
+        <nav class="pflege-pdp-detail__breadcrumb caption" aria-label="{{ section.settings.breadcrumb_aria_label | escape }}">
+          <ol class="pflege-pdp-detail__breadcrumb-list list-unstyled">
+            <li class="pflege-pdp-detail__breadcrumb-item">
+              <a href="{{ routes.root_url }}">{{ section.settings.breadcrumb_home | escape }}</a>
+            </li>
+            <li class="pflege-pdp-detail__breadcrumb-sep" aria-hidden="true">{{ section.settings.breadcrumb_sep | escape }}</li>
+            {%- if bc_coll != blank -%}
+              <li class="pflege-pdp-detail__breadcrumb-item">
+                <a href="{{ bc_coll.url }}">{{ bc_coll.title | escape }}</a>
+              </li>
+              <li class="pflege-pdp-detail__breadcrumb-sep" aria-hidden="true">{{ section.settings.breadcrumb_sep | escape }}</li>
+            {%- endif -%}
+            <li class="pflege-pdp-detail__breadcrumb-item pflege-pdp-detail__breadcrumb-item--current" aria-current="page">
+              {{ product.title | escape }}
+            </li>
+          </ol>
+        </nav>
+      {%- endif -%}
+
+      {%- if section.settings.show_trust_strip -%}
+        <div class="pflege-pdp-detail__trust-strip">
+          {% render 'pflege-icon', icon: 'shield', width: 22 %}
+          <span>{{ section.settings.trust_line_1 | escape }}</span>
+          {% render 'pflege-icon', icon: 'truck', width: 22 %}
+          <span>{{ section.settings.trust_line_2 | escape }}</span>
+          {% render 'pflege-icon', icon: 'badge-check', width: 22 %}
+          <span>{{ section.settings.trust_line_3 | escape }}</span>
+        </div>
+      {%- endif -%}
+
+      <div class="pflege-pdp-detail__intro">
+        {%- if section.settings.intro_heading != blank -%}
+          <h2 id="PflegePDP-{{ section.id }}-intro-h" class="pflege-pdp-detail__intro-heading">{{ section.settings.intro_heading | escape }}</h2>
+        {%- endif -%}
+        {%- if has_short -%}
+          <div class="pflege-pdp-detail__short rte">
+            {%- if mf_short.value != blank -%}
+              {{ mf_short.value }}
+            {%- else -%}
+              {{ mf_short | metafield_text }}
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="pflege-pdp-detail__layout">
+        <div class="pflege-pdp-detail__main-col">
+          {%- if has_usps -%}
+            <div class="pflege-pdp-detail__usps card-rail">
+              <ul class="pflege-pdp-detail__usps-list list-unstyled" role="list">
+                {%- if mf_usps.value != blank -%}
+                  {%- for u in mf_usps.value -%}
+                    <li class="pflege-pdp-detail__usp">
+                      {% render 'pflege-icon', icon: 'badge-check', width: 18 %}
+                      <span>
+                        {%- if u.value != blank -%}
+                          {{- u.value -}}
+                        {%- else -%}
+                          {{- u -}}
+                        {%- endif -%}
+                      </span>
+                    </li>
+                  {%- endfor -%}
+                {%- else -%}
+                  <li class="pflege-pdp-detail__usp">
+                    {% render 'pflege-icon', icon: 'badge-check', width: 18 %}
+                    <span>{{ mf_usps | metafield_text }}</span>
+                  </li>
+                {%- endif -%}
+              </ul>
+            </div>
+          {%- endif -%}
+
+          {%- if has_panels -%}
+            {% render 'pflege-product-body-tabs',
+              section_id: section.id,
+              product: product,
+              has_desc: has_desc,
+              has_app: has_app,
+              has_ing: has_ing,
+              has_feat: has_feat,
+              mf_app: mf_app,
+              mf_ing: mf_ing,
+              mf_feat: mf_feat,
+              label_desc: section.settings.tab_description,
+              label_app: section.settings.tab_application,
+              label_ing: section.settings.tab_ingredients,
+              label_feat: section.settings.tab_features
+            %}
+          {%- endif -%}
+        </div>
+
+        {%- if show_facts_panel -%}
+          <aside class="pflege-pdp-detail__aside" aria-labelledby="PflegePDP-{{ section.id }}-facts">
+            {% render 'pflege-product-body-facts',
+              section_id: section.id,
+              product: product,
+              mf_pzn: mf_pzn,
+              mf_ptype: mf_ptype,
+              mf_skin: mf_skin,
+              mf_del: mf_del,
+              mf_fs: mf_fs,
+              heading: section.settings.facts_heading,
+              lbl_pzn: section.settings.lbl_pzn,
+              lbl_type: section.settings.lbl_type,
+              lbl_skin: section.settings.lbl_skin,
+              lbl_del: section.settings.lbl_delivery,
+              lbl_fs: section.settings.lbl_shipping_hint,
+              lbl_brand: section.settings.lbl_brand
+            %}
+          </aside>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+{%- endunless -%}
+
+{% schema %}
+{
+  "name": "Pflege Produkt-Detailbereich",
+  "tag": "section",
+  "class": "section",
+  "enabled_on": {
+    "templates": ["product"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Inhalt über Shopify: product.description sowie optionale Produktmetafields im Namespace „custom“. Keine Änderung an Kaufen/Varianten (bleiben in Haupt-Section)."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_breadcrumb",
+      "label": "Breadcrumb anzeigen",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "breadcrumb_home",
+      "label": "Breadcrumb Start",
+      "default": "Start"
+    },
+    {
+      "type": "text",
+      "id": "breadcrumb_sep",
+      "label": "Breadcrumb Trenner",
+      "default": "›"
+    },
+    {
+      "type": "text",
+      "id": "breadcrumb_aria_label",
+      "label": "Breadcrumb ARIA-Label",
+      "default": "Brotkrumen"
+    },
+    {
+      "type": "collection",
+      "id": "collection_for_breadcrumb",
+      "label": "Sammlung im Breadcrumb (optional)",
+      "info": "Wenn leer: erste Produktkollektion"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_strip",
+      "label": "Vertrauens-Leiste unter Breadcrumb",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "trust_line_1",
+      "label": "Vertrauen Zeile 1",
+      "default": "Persönlicher Kundenservice"
+    },
+    {
+      "type": "text",
+      "id": "trust_line_2",
+      "label": "Vertrauen Zeile 2",
+      "default": "Sicherer Versand"
+    },
+    {
+      "type": "text",
+      "id": "trust_line_3",
+      "label": "Vertrauen Zeile 3",
+      "default": "Qualitätsprodukte"
+    },
+    {
+      "type": "text",
+      "id": "intro_heading",
+      "label": "Überschrift über Kurzbeschreibung",
+      "default": "Alle Infos zum Produkt"
+    },
+    {
+      "type": "text",
+      "id": "section_aria_label",
+      "label": "Section ARIA",
+      "default": "Produktdetail und Merkmale"
+    },
+    {
+      "type": "text",
+      "id": "tab_description",
+      "label": "Tab Beschreibung",
+      "default": "Beschreibung"
+    },
+    {
+      "type": "text",
+      "id": "tab_application",
+      "label": "Tab Anwendung",
+      "default": "Anwendung"
+    },
+    {
+      "type": "text",
+      "id": "tab_ingredients",
+      "label": "Tab Inhaltsstoffe",
+      "default": "Inhaltsstoffe"
+    },
+    {
+      "type": "text",
+      "id": "tab_features",
+      "label": "Tab Merkmale",
+      "default": "Merkmale & Hinweise"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_facts_card",
+      "label": "Rechte Faktenkarte anzeigen",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "facts_heading",
+      "label": "Faktenkarte Überschrift",
+      "default": "Auf einen Blick"
+    },
+    {
+      "type": "text",
+      "id": "lbl_pzn",
+      "label": "Label PZN",
+      "default": "PZN"
+    },
+    {
+      "type": "text",
+      "id": "lbl_type",
+      "label": "Label Produkttyp",
+      "default": "Produkttyp"
+    },
+    {
+      "type": "text",
+      "id": "lbl_skin",
+      "label": "Label Hauttyp",
+      "default": "Hauttyp"
+    },
+    {
+      "type": "text",
+      "id": "lbl_delivery",
+      "label": "Label Lieferzeit",
+      "default": "Lieferzeit"
+    },
+    {
+      "type": "text",
+      "id": "lbl_shipping_hint",
+      "label": "Label Versandhint",
+      "default": "Versand"
+    },
+    {
+      "type": "text",
+      "id": "lbl_brand",
+      "label": "Label Marke/Hersteller",
+      "default": "Hersteller"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Farbschema",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Abstand oben",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Abstand unten",
+      "default": 72
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pflege Produkt-Detailbereich",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}

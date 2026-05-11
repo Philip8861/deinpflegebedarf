@@ -1,0 +1,90 @@
+{%- comment -%}
+  Fakten-Karte: Marke + optionale Metafields (PZN, Produkttyp, Hauttyp, Lieferzeit, Versandhinweis).
+  SKU bewusst nur in der Kaufspalte (<product-info>), damit Variantenwechsel immer stimmt.
+{%- endcomment -%}
+<div class="pflege-pdp-facts" id="PflegePDP-{{ section_id }}-facts">
+  <h3 class="pflege-pdp-facts__title">{{ heading | escape }}</h3>
+  <dl class="pflege-pdp-facts__list">
+    {%- if product.vendor != blank -%}
+      <div class="pflege-pdp-facts__row">
+        <dt class="pflege-pdp-facts__dt">{{ lbl_brand | escape }}</dt>
+        <dd class="pflege-pdp-facts__dd">{{ product.vendor | escape }}</dd>
+      </div>
+    {%- endif -%}
+
+    {%- if mf_pzn.value != blank -%}
+      <div class="pflege-pdp-facts__row">
+        <dt class="pflege-pdp-facts__dt">{{ lbl_pzn | escape }}</dt>
+        <dd class="pflege-pdp-facts__dd">{{ mf_pzn.value | escape }}</dd>
+      </div>
+    {%- elsif mf_pzn != blank and mf_pzn != empty -%}
+      {%- assign pzn_fallback = mf_pzn | metafield_text | strip -%}
+      {%- if pzn_fallback != blank -%}
+        <div class="pflege-pdp-facts__row">
+          <dt class="pflege-pdp-facts__dt">{{ lbl_pzn | escape }}</dt>
+          <dd class="pflege-pdp-facts__dd">{{ pzn_fallback | escape }}</dd>
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- if mf_ptype.value != blank -%}
+      <div class="pflege-pdp-facts__row">
+        <dt class="pflege-pdp-facts__dt">{{ lbl_type | escape }}</dt>
+        <dd class="pflege-pdp-facts__dd">{{ mf_ptype.value | escape }}</dd>
+      </div>
+    {%- elsif mf_ptype != blank and mf_ptype != empty -%}
+      {%- assign _pt = mf_ptype | metafield_text | strip -%}
+      {%- if _pt != blank -%}
+        <div class="pflege-pdp-facts__row">
+          <dt class="pflege-pdp-facts__dt">{{ lbl_type | escape }}</dt>
+          <dd class="pflege-pdp-facts__dd">{{ _pt | escape }}</dd>
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- if mf_skin.value != blank -%}
+      <div class="pflege-pdp-facts__row">
+        <dt class="pflege-pdp-facts__dt">{{ lbl_skin | escape }}</dt>
+        <dd class="pflege-pdp-facts__dd">{{ mf_skin.value | escape }}</dd>
+      </div>
+    {%- elsif mf_skin != blank and mf_skin != empty -%}
+      {%- assign _sk = mf_skin | metafield_text | strip -%}
+      {%- if _sk != blank -%}
+        <div class="pflege-pdp-facts__row">
+          <dt class="pflege-pdp-facts__dt">{{ lbl_skin | escape }}</dt>
+          <dd class="pflege-pdp-facts__dd">{{ _sk | escape }}</dd>
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- if mf_del.value != blank -%}
+      <div class="pflege-pdp-facts__row">
+        <dt class="pflege-pdp-facts__dt">{{ lbl_del | escape }}</dt>
+        <dd class="pflege-pdp-facts__dd">{{ mf_del.value | escape }}</dd>
+      </div>
+    {%- elsif mf_del != blank and mf_del != empty -%}
+      {%- assign _de = mf_del | metafield_text | strip -%}
+      {%- if _de != blank -%}
+        <div class="pflege-pdp-facts__row">
+          <dt class="pflege-pdp-facts__dt">{{ lbl_del | escape }}</dt>
+          <dd class="pflege-pdp-facts__dd">{{ _de | escape }}</dd>
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- if mf_fs.value != blank -%}
+      <div class="pflege-pdp-facts__row">
+        <dt class="pflege-pdp-facts__dt">{{ lbl_fs | escape }}</dt>
+        <dd class="pflege-pdp-facts__dd">{{ mf_fs.value | escape }}</dd>
+      </div>
+    {%- elsif mf_fs != blank and mf_fs != empty -%}
+      {%- assign _fs = mf_fs | metafield_text | strip -%}
+      {%- if _fs != blank -%}
+        <div class="pflege-pdp-facts__row">
+          <dt class="pflege-pdp-facts__dt">{{ lbl_fs | escape }}</dt>
+          <dd class="pflege-pdp-facts__dd">{{ _fs | escape }}</dd>
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+  </dl>
+</div>

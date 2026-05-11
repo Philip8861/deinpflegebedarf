@@ -1492,3 +1492,11 @@ a.product__text {
     border: none;
   }
 }
+
+/* PflegeShop — Artikelnummer unter Kaufbox (variantenaktualisiert) */
+.pflege-product-page .product__sku:not(.visibility-hidden) {
+  margin-top: 0.35rem;
+  font-size: 1.32rem;
+  line-height: 1.4;
+  color: rgba(11, 35, 71, 0.62);
+}
