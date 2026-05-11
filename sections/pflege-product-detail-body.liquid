@@ -9,9 +9,18 @@
 {{ 'section-pflege-product-detail-body.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
-  assign dm_breadcrumb = section.settings.show_breadcrumb != false
-  assign dm_trust = section.settings.show_trust_strip != false
-  assign dm_facts = section.settings.show_facts_card != false
+  assign dm_breadcrumb = true
+  if section.settings.show_breadcrumb == false
+    assign dm_breadcrumb = false
+  endif
+  assign dm_trust = true
+  if section.settings.show_trust_strip == false
+    assign dm_trust = false
+  endif
+  assign dm_facts = true
+  if section.settings.show_facts_card == false
+    assign dm_facts = false
+  endif
 
   assign mf_app = product.metafields.custom.application
   assign mf_ing = product.metafields.custom.ingredients
@@ -23,7 +32,10 @@
   assign mf_del = product.metafields.custom.delivery_time
   assign mf_fs = product.metafields.custom.free_shipping_threshold
 
-  assign has_desc = product.description != blank
+  assign has_desc = false
+  if product.description != blank
+    assign has_desc = true
+  endif
 
   assign has_app = false
   if mf_app.value != blank
@@ -77,7 +89,10 @@
     endif
   endif
 
-  assign has_any_tab = has_content_tabs or reviews_show_tab
+  assign has_any_tab = false
+  if has_content_tabs or reviews_show_tab
+    assign has_any_tab = true
+  endif
   assign show_facts_panel = dm_facts
 
   assign show_section_inner = false
@@ -203,7 +218,7 @@
 
 {% schema %}
 {
-  "name": "Pflege Produkt-Detailbereich",
+  "name": "Pflege PDP-Detail",
   "tag": "section",
   "class": "section",
   "enabled_on": {
@@ -393,7 +408,7 @@
   ],
   "presets": [
     {
-      "name": "Pflege Produkt-Detailbereich",
+      "name": "Pflege PDP-Detail",
       "settings": {}
     }
   ]
