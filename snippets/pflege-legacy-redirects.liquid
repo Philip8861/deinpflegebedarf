@@ -1,0 +1,18 @@
+{%- comment -%}
+  PflegeShop: Weiterleitung alter Seiten-Handles.
+  Ergänzend im Admin: „URL-Weiterleitungen“ von /pages/pflegewissen → /pages/pflegeratgeber (301), falls die alte Seite entfernt wurde.
+{%- endcomment -%}
+{%- if request.page_type == 'page' and page.handle == 'pflegewissen' -%}
+  {%- liquid
+    assign pflege_legacy_path = '/pages/pflegeratgeber'
+    if pages['pflegeratgeber'] != blank
+      assign pflege_legacy_path = pages['pflegeratgeber'].url
+    endif
+    assign pflege_legacy_full = request.origin | append: pflege_legacy_path
+  -%}
+  <link rel="canonical" href="{{ pflege_legacy_full | escape }}">
+  <meta http-equiv="refresh" content="0;url={{ pflege_legacy_full | escape }}">
+  <script>
+    window.location.replace({{ pflege_legacy_full | json }});
+  </script>
+{%- endif -%}
