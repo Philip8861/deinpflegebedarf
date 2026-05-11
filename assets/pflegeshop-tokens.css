@@ -26,10 +26,13 @@
   --pflege-surface-mist: #f5faff;
   --pflege-border-soft: #d8eafe;
   /*
-   * Einheitlicher modaler Schleier — gleiche Werte wie:
-   * .pflege-category-modal::backdrop, .cart-notification__backdrop, .pflege-newsletter-popup__backdrop
+   * Modaler Schleier:
+   * — Native <dialog>::backdrop (Kategorie): .56 wirkt wie gewünscht.
+   * — Div-Layer + background + backdrop-filter (Warenkorb, Newsletter) wirken im Browser heller;
+   *   gleiche Optik über --pflege-overlay-backdrop-div (~komensiertes Alpha).
    */
   --pflege-overlay-backdrop: rgba(11, 35, 71, 0.56);
+  --pflege-overlay-backdrop-div: rgba(11, 35, 71, 0.76);
   /* Hinweis: backdrop-filter: blur(var(...)) unterstützt nicht alle Browser zuverlässig — Modals nutzen zusätzlich feste blur(4px)-Angaben */
   --pflege-overlay-backdrop-blur: 4px;
   /* Mengen-Badge am Wagen-Icon wenn Artikel im Warenkorb */

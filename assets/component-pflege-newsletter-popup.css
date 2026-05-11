@@ -26,8 +26,8 @@
 .pflege-newsletter-popup__backdrop {
   position: fixed;
   inset: 0;
-  /* Identisch zu .pflege-category-modal::backdrop (section-pflege-main-nav.css) */
-  background: var(--pflege-overlay-backdrop, rgba(11, 35, 71, 0.56));
+  /* Optisch wie .pflege-category-modal::backdrop (Div-Kompensation s. Tokens) */
+  background: var(--pflege-overlay-backdrop-div, rgba(11, 35, 71, 0.76));
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
   cursor: pointer;
@@ -37,7 +37,7 @@
 
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .pflege-newsletter-popup__backdrop {
-    background: rgba(11, 35, 71, 0.72);
+    background: rgba(11, 35, 71, 0.88);
   }
 }
 

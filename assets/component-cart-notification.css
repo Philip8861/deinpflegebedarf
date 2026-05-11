@@ -26,8 +26,8 @@
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  /* Identisch zu .pflege-category-modal::backdrop */
-  background: var(--pflege-overlay-backdrop, rgba(11, 35, 71, 0.56));
+  /* Optisch wie dialog::backdrop — Div-Stacks brauchen höheres Alpha (s. --pflege-overlay-backdrop-div) */
+  background: var(--pflege-overlay-backdrop-div, rgba(11, 35, 71, 0.76));
   opacity: 0;
   transition: opacity var(--duration-default, 0.25s) ease;
   -webkit-backdrop-filter: blur(4px);
