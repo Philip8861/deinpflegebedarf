@@ -26,17 +26,18 @@
 .pflege-newsletter-popup__backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(8, 22, 45, 0.82);
-  -webkit-backdrop-filter: blur(3px);
-  backdrop-filter: blur(3px);
+  /* Wie Kategorie-Popup (::backdrop), etwas kräftiger als --pflege-overlay-backdrop (0.56) */
+  background: rgba(11, 35, 71, 0.62);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
   cursor: pointer;
   animation: pnpFade 220ms ease-out both;
   z-index: 0;
 }
 
-@supports not ((backdrop-filter: blur(3px)) or (-webkit-backdrop-filter: blur(3px))) {
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .pflege-newsletter-popup__backdrop {
-    background: rgba(8, 22, 45, 0.88);
+    background: rgba(11, 35, 71, 0.78);
   }
 }
 
