@@ -100,11 +100,15 @@
     </div>
 
     {%- if section.settings.show_form -%}
+      {%- liquid
+        assign reviews_form_id = 'PflegeReviewsForm-' | append: section.id
+        assign reviews_form_class = 'pflege-reviews-rail__form'
+      -%}
       <div class="pflege-reviews-rail__form-card">
         <h3 class="pflege-reviews-rail__form-title">{{ section.settings.form_heading | escape }}</h3>
         <p class="pflege-reviews-rail__form-hint">{{ section.settings.form_hint | escape }}</p>
 
-        {%- form 'contact', id: 'PflegeReviewsForm-' | append: section.id, class: 'pflege-reviews-rail__form' -%}
+        {%- form 'contact', id: reviews_form_id, class: reviews_form_class -%}
           {%- if form.posted_successfully? -%}
             <p class="pflege-reviews-rail__success" tabindex="-1">
               {{ 'sections.pflege_reviews_rail.form_success' | t }}
