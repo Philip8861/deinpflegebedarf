@@ -46,12 +46,12 @@
     assign url_ink = root | append: 'collections/inkontinenzversorgung'
   endif
 
-  if collections['korperpflege'] != blank
-    assign url_body = collections['korperpflege'].url
-  elsif collections['koerperpflege'] != blank
+  if collections['koerperpflege'] != blank
     assign url_body = collections['koerperpflege'].url
+  elsif collections['korperpflege'] != blank
+    assign url_body = collections['korperpflege'].url
   else
-    assign url_body = root | append: 'collections/korperpflege'
+    assign url_body = root | append: 'collections/koerperpflege'
   endif
 
   if collections['hautpflege'] != blank
@@ -100,7 +100,7 @@
         assign active_ver = true
       when 'inkontinenzversorgung', 'inkontinenz'
         assign active_ink = true
-      when 'korperpflege', 'koerperpflege'
+      when 'koerperpflege', 'korperpflege'
         assign active_body = true
       when 'hautpflege'
         assign active_skin = true
@@ -119,7 +119,7 @@
     endfor
     if rail_cat == ''
       for c in product.collections
-        if c.handle == 'korperpflege' or c.handle == 'koerperpflege'
+        if c.handle == 'koerperpflege' or c.handle == 'korperpflege'
           assign rail_cat = 'body'
           break
         endif

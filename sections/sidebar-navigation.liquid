@@ -134,7 +134,7 @@
   <div class="sidebar-nav__body" id="sidebar-nav-body-{{ section.id }}">
     <p class="sidebar-nav__title">{{ section.settings.title }}</p>
 
-    {% assign items = "Körperpflege|/collections/korperpflege,Hygiene|/collections/hygiene,Stationsbedarf & Sonstiges|/collections/stationsbedarf-sonstiges" | split: "," %}
+    {% assign items = "Körperpflege|/collections/koerperpflege,Hygiene|/collections/hygiene,Stationsbedarf & Sonstiges|/collections/stationsbedarf-sonstiges" | split: "," %}
 
     {% for item in items %}
       {% assign parts = item | split: "|" %}
