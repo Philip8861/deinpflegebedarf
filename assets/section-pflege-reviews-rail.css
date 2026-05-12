@@ -3,9 +3,49 @@
 .pflege-reviews-rail {
   --prr-content-max: 1180px;
   --prr-form-max: 560px;
+  --prr-wave-top: #ffffff;
+  /* Anschluss an Footer-Band (vgl. pflege-footer__band Gradient-Start #fafcfd) */
+  --prr-wave-bottom: #fafcfd;
+  position: relative;
+  isolation: isolate;
   color: var(--pflege-heading-navy, #062a55);
+  background: transparent;
+  border-top: none;
+}
+
+/* Wellenoberkante zum Inhalt darüber / darunter */
+
+.pflege-reviews-rail__wave {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  pointer-events: none;
+}
+
+.pflege-reviews-rail__wave svg {
+  display: block;
+  width: 100%;
+  height: clamp(38px, 5.5vw, 64px);
+  transform: translateZ(0);
+}
+
+.pflege-reviews-rail__wave--top {
+  margin-bottom: -1px;
+  color: var(--prr-wave-top);
+}
+
+.pflege-reviews-rail__wave--bottom {
+  margin-top: -1px;
+  color: var(--prr-wave-bottom);
+}
+
+.pflege-reviews-rail__wave--bottom svg {
+  transform: translateZ(0) rotate(180deg);
+}
+
+.pflege-reviews-rail__surf {
   background: linear-gradient(180deg, #fbfdff 0%, #f5f9fc 50%, #eef4f8 100%);
-  border-top: 1px solid var(--pflege-border-soft, #d8eafe);
 }
 
 .pflege-reviews-rail__inner {

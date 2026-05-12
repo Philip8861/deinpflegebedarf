@@ -55,7 +55,13 @@
   aria-labelledby="pflege-reviews-title-{{ section.id }}"
   data-pflege-reviews-rail
 >
-  <div class="pflege-reviews-rail__inner">
+  <div class="pflege-reviews-rail__wave pflege-reviews-rail__wave--top">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 64" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <path fill="currentColor" d="M0 0h1440v20C1200 60 960 4 720 38S360 60 0 32V0z" />
+    </svg>
+  </div>
+  <div class="pflege-reviews-rail__surf">
+    <div class="pflege-reviews-rail__inner">
     <header class="pflege-reviews-rail__head">
       <h2 class="pflege-reviews-rail__title" id="pflege-reviews-title-{{ section.id }}">
         {{ section.settings.heading | escape }}
@@ -339,6 +345,12 @@
         </div>
       </dialog>
     {%- endif -%}
+    </div>
+  </div>
+  <div class="pflege-reviews-rail__wave pflege-reviews-rail__wave--bottom">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 64" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <path fill="currentColor" d="M0 0h1440v20C1200 60 960 4 720 38S360 60 0 32V0z" />
+    </svg>
   </div>
 </section>
 
