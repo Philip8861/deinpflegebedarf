@@ -22,8 +22,12 @@
   <script src="{{ 'quick-order-list.js' | asset_url }}" defer="defer"></script>
 {%- endif -%}
 {%- liquid
+  assign pflege_is_collection_layout = false
+  if template.name == 'collection' or request.page_type == 'collection'
+    assign pflege_is_collection_layout = true
+  endif
   assign pflege_coll_min_cards = false
-  if template.name == 'collection' and section.settings.minimal_collection_cards
+  if section.settings.minimal_collection_cards and pflege_is_collection_layout
     assign pflege_coll_min_cards = true
   endif
 -%}
@@ -42,7 +46,7 @@
   }
 {%- endstyle -%}
 
-<div class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}{% if template.name == 'collection' %} pflege-collection-product-section{% endif %}">
+<div class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}{% if pflege_is_collection_layout %} pflege-collection-product-section{% endif %}">
   {%- paginate collection.products by section.settings.products_per_page -%}
     {% comment %} Sort is the first tabbable element when filter type is vertical {% endcomment %}
     {%- if section.settings.enable_sorting and section.settings.filter_type == 'vertical' -%}

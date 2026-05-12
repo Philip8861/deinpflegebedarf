@@ -1,3 +1,5 @@
+{{ 'pflege-collection-page.css' | asset_url | stylesheet_tag }}
+
 {%- liquid
   assign intro_met = collection.metafields.pflege.intro.value | strip
   assign hero_intro = intro_met | strip_html | strip

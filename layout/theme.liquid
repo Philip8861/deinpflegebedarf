@@ -271,7 +271,7 @@
     {{ 'component-pflege-type-unified.css' | asset_url | stylesheet_tag }}
     {%- if template.name == 'index' -%}
       {{ 'pflegeshop-header-home.css' | asset_url | stylesheet_tag }}
-    {%- elsif template.name == 'collection' -%}
+    {%- elsif template.name == 'collection' or request.page_type == 'collection' -%}
       {{ 'pflege-collection-page.css' | asset_url | stylesheet_tag }}
     {%- endif -%}
     <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
@@ -316,7 +316,7 @@
     </script>
   </head>
 
-  <body class="gradient template-{{ template.name }}{% if template.name == 'collection' %} pflege-collection-page{% endif %}{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
+  <body class="gradient template-{{ template.name }}{% if template.name == 'collection' or request.page_type == 'collection' %} pflege-collection-page{% endif %}{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">
       {{ 'accessibility.skip_to_text' | t }}
     </a>

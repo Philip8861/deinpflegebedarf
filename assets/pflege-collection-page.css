@@ -18,7 +18,11 @@ body.pflege-collection-page.template-collection .gradient {
 }
 
 .pflege-category-intro__shell.page-width {
-  max-width: var(--pflege-coll-max);
+  /*
+    Unabhängig von body.pflege-collection-page: Shell-Breite nutzt globales Token aus pflegeshop-tokens.css.
+    (body.pflege-collection-page legt zusätzlich --pflege-coll-max für Grid/Facetten fest.)
+   */
+  max-width: min(100%, var(--pflege-hero-tile-max-width, 1426px));
 }
 
 .pflege-category-intro__hero-grid {
