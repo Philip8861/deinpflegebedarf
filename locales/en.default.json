@@ -364,7 +364,8 @@
       "cat_body": "Body care",
       "cat_skin": "Skin care",
       "cat_gloves": "Protection & gloves",
-      "cat_consumables": "Consumables"
+      "cat_consumables": "Consumables",
+      "modal_hand_surface_disinfection": "Hand and surface disinfection"
     },
     "cart": {
       "title": "Warenkorb",

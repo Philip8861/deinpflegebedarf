@@ -563,7 +563,7 @@
           data-category-modal-close
         >
           <span class="pflege-category-modal__link-icon" aria-hidden="true">
-            {%- render 'pflege-icon', icon: 'hand', width: 22 -%}
+            {%- render 'pflege-icon', icon: 'shield', width: 22 -%}
           </span>
           <span class="pflege-category-modal__link-label">{{ 'sections.pflege_header_category_rail.cat_gloves' | t }}</span>
         </a>
@@ -591,33 +591,7 @@
           <span class="pflege-category-modal__link-icon" aria-hidden="true">
             {%- render 'pflege-icon', icon: 'droplet', width: 22 -%}
           </span>
-          <span class="pflege-category-modal__link-label">Desinfektion</span>
-        </a>
-      </li>
-      <li>
-        <a
-          href="{{ url_pf }}"
-          class="pflege-category-modal__link{% if active_pf %} is-active{% endif %}"
-          {% if active_pf %}aria-current="page"{% endif %}
-          data-category-modal-close
-        >
-          <span class="pflege-category-modal__link-icon" aria-hidden="true">
-            {%- render 'pflege-icon', icon: 'bandage', width: 22 -%}
-          </span>
-          <span class="pflege-category-modal__link-label">Pflegeartikel</span>
-        </a>
-      </li>
-      <li>
-        <a
-          href="{{ url_hh }}"
-          class="pflege-category-modal__link{% if active_hh %} is-active{% endif %}"
-          {% if active_hh %}aria-current="page"{% endif %}
-          data-category-modal-close
-        >
-          <span class="pflege-category-modal__link-icon" aria-hidden="true">
-            {%- render 'pflege-icon', icon: 'shield', width: 22 -%}
-          </span>
-          <span class="pflege-category-modal__link-label">Hautschutz &amp; Hautpflege</span>
+          <span class="pflege-category-modal__link-label">{{ 'sections.pflege_header_category_rail.modal_hand_surface_disinfection' | t }}</span>
         </a>
       </li>
     </ul>
