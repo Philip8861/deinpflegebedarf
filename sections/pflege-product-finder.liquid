@@ -22,40 +22,39 @@
 <section id="produktfinder" class="pflege-product-finder" {{ section.shopify_attributes }}>
   <div class="pflege-product-finder__backdrop">
     <div class="pflege-product-finder__shell">
-      {%- if section.settings.heading != blank -%}
-        <h2 class="pflege-product-finder__section-title">{{ section.settings.heading | escape }}</h2>
-      {%- endif -%}
       <div
         class="pflege-product-finder__panel"
         style="--pflege-product-finder-bg: url('{{ finder_bg_url }}');"
       >
         <div class="pflege-product-finder__inner">
-        <div class="pflege-product-finder__stack">
-          <div class="pflege-product-finder__lead">
-            {%- if section.settings.intro != blank -%}
-              <p class="pflege-product-finder__intro">{{ section.settings.intro | escape }}</p>
-            {%- endif -%}
-          </div>
+          {%- if section.settings.heading != blank -%}
+            <h2 class="pflege-product-finder__title-on-image">{{ section.settings.heading | escape }}</h2>
+          {%- endif -%}
+          <div class="pflege-product-finder__stack">
+            <div class="pflege-product-finder__lead">
+              {%- if section.settings.intro != blank -%}
+                <p class="pflege-product-finder__intro">{{ section.settings.intro | escape }}</p>
+              {%- endif -%}
+            </div>
 
-          <div class="pflege-product-finder__actions pflege-product-finder__actions--center">
-            {%- if section.settings.primary_label != blank -%}
-              <a class="pflege-product-finder__cta" href="{{ primary_href }}">
-                {{- section.settings.primary_label | escape -}}
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </a>
-            {%- endif -%}
-            {%- if show_secondary -%}
-              <a class="pflege-product-finder__link-secondary" href="{{ secondary_href }}">
-                {{- section.settings.secondary_label | escape -}}
-              </a>
-            {%- endif -%}
+            <div class="pflege-product-finder__actions pflege-product-finder__actions--center">
+              {%- if section.settings.primary_label != blank -%}
+                <a class="pflege-product-finder__cta" href="{{ primary_href }}">
+                  {{- section.settings.primary_label | escape -}}
+                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+              {%- endif -%}
+              {%- if show_secondary -%}
+                <a class="pflege-product-finder__link-secondary" href="{{ secondary_href }}">
+                  {{- section.settings.secondary_label | escape -}}
+                </a>
+              {%- endif -%}
+            </div>
           </div>
-
         </div>
       </div>
-    </div>
     </div>
   </div>
 </section>
@@ -87,7 +86,7 @@
       "type": "textarea",
       "id": "intro",
       "label": "Text im Kasten (über dem Button)",
-      "default": "Beantworten Sie ein paar kurze Fragen und erhalten Sie sofort passende Pflegeprodukte für Ihre Situation, ganz ohne langes Suchen"
+      "default": "Beantworten Sie ein paar Fragen und erhalten Sie sofort passende Pflegeprodukte für Ihre Situation – ganz ohne langes Suchen."
     },
     {
       "type": "text",
