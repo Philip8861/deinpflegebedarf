@@ -9,9 +9,11 @@
   align-items: stretch;
 }
 
-/* Volle zweite Zeile unter Logo / Kategorie-Pill / Suche / Konto */
+/* Zweite Zeile: gleiche horizontale Spanne wie Hero-Kachel / Bestseller-Panel (--pflege-hero-tile-max-width). */
 .pflege-main-nav-section .pflege-main-nav__cat-rail-row {
   width: 100%;
+  max-width: var(--pflege-hero-tile-max-width, min(100%, 1426px));
+  margin-inline: auto;
   min-width: 0;
   flex: 0 0 auto;
   padding-block: 0.2rem 0.45rem;
