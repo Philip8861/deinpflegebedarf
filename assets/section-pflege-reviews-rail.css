@@ -4,7 +4,7 @@
   --prr-content-max: 1180px;
   --prr-form-max: 560px;
   --prr-wave-top: #ffffff;
-  /* Anschluss an Footer-Band (vgl. pflege-footer__band Gradient-Start #fafcfd) */
+  /* Anschluss an Footer-Band (wie pflege-footer__band, Gradient-Start #fafcfd) */
   --prr-wave-bottom: #fafcfd;
   position: relative;
   isolation: isolate;
@@ -13,35 +13,31 @@
   border-top: none;
 }
 
-/* Wellenoberkante zum Inhalt darüber / darunter */
+/* Weiche Bögen wie .pflege-footer__band-Ellipse; oben Überhöhung Richtung Hauptinhalt, unten zum Footer. */
 
-.pflege-reviews-rail__wave {
+.pflege-reviews-rail__arc-edge {
   display: block;
+  flex-shrink: 0;
   width: 100%;
-  overflow: hidden;
-  line-height: 0;
+  box-sizing: border-box;
   pointer-events: none;
 }
 
-.pflege-reviews-rail__wave svg {
-  display: block;
-  width: 100%;
-  height: clamp(38px, 5.5vw, 64px);
-  transform: translateZ(0);
-}
-
-.pflege-reviews-rail__wave--top {
+/*
+  Radius-Paar wie beim Footer-Oberrand: volle Breite, vertikal begrenzte Krümmung.
+*/
+.pflege-reviews-rail__arc-edge--top {
+  height: clamp(44px, 6.75vw, 88px);
   margin-bottom: -1px;
-  color: var(--prr-wave-top);
+  background: var(--prr-wave-top);
+  border-radius: 50% 50% 0 0 / clamp(2.4rem, 5.8vw, 6rem) clamp(2.4rem, 5.8vw, 6rem) 0 0;
 }
 
-.pflege-reviews-rail__wave--bottom {
+.pflege-reviews-rail__arc-edge--bottom {
+  height: clamp(44px, 6.75vw, 88px);
   margin-top: -1px;
-  color: var(--prr-wave-bottom);
-}
-
-.pflege-reviews-rail__wave--bottom svg {
-  transform: translateZ(0) rotate(180deg);
+  background: var(--prr-wave-bottom);
+  border-radius: 0 0 50% 50% / 0 0 clamp(2.4rem, 5.8vw, 6rem) clamp(2.4rem, 5.8vw, 6rem);
 }
 
 .pflege-reviews-rail__surf {
