@@ -32,7 +32,7 @@
 /* Überschrift liegt im Panel auf dem Hintergrundbild, oben zentriert */
 .pflege-product-finder__title-on-image {
   font-family: var(--font-body-family, inherit);
-  font-size: clamp(1.75rem, 1.35rem + 1.05vw, 2.42rem);
+  font-size: clamp(1.95rem, 1.5rem + 1.2vw, 2.72rem);
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: 0.02em;
@@ -89,7 +89,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: clamp(1.05rem, 2.35vw, 1.65rem);
+  gap: clamp(1.5rem, 3.2vw, 2.35rem);
   width: 100%;
   min-height: 0;
   --pf-pf-inner-py: clamp(1.35rem, 3.2vw, 2.35rem);
