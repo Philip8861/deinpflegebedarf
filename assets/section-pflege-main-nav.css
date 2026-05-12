@@ -872,10 +872,10 @@
   padding: 0;
   margin: auto;
   border: none;
-  max-height: calc(100vh - 2rem - env(safe-area-inset-bottom, 0px));
+  max-height: calc(100vh - 2.75rem - env(safe-area-inset-bottom, 0px));
   overflow: auto;
-  max-width: calc(100vw - 1.5rem);
-  width: min(33rem, calc(100vw - 1.5rem));
+  max-width: calc(100vw - 2.5rem);
+  width: min(38rem, calc(100vw - 2.5rem));
   border-radius: var(--pflege-radius-lg, 22px);
   background: rgb(var(--color-background));
   color: rgb(var(--color-foreground));
@@ -889,10 +889,10 @@
 }
 
 .pflege-category-modal__panel {
-  padding: 0 1.45rem 1.65rem;
+  padding: 0 1.75rem 1.85rem;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1.35rem;
 }
 
 .pflege-category-modal__head {
@@ -900,8 +900,8 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 0.85rem;
-  margin: 0 -1.45rem 0;
-  padding: 1.15rem 1.45rem 1.2rem;
+  margin: 0 -1.75rem 0;
+  padding: 1.35rem 1.75rem 1.35rem;
   background: rgba(88, 145, 215, 0.1);
   border-bottom: 1px solid rgba(88, 145, 215, 0.14);
   border-radius: var(--pflege-radius-lg, 22px) var(--pflege-radius-lg, 22px) 0 0;
@@ -909,8 +909,8 @@
 
 .pflege-category-modal__title {
   margin: 0;
-  font-size: clamp(1.45rem, 1.05rem + 1.25vw, 1.72rem);
-  line-height: 1.25;
+  font-size: clamp(1.58rem, 1.12rem + 1.45vw, 1.98rem);
+  line-height: 1.22;
   letter-spacing: 0.02em;
   color: var(--pflege-heading-navy, #062a55);
 }
