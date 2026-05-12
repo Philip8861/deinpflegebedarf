@@ -667,7 +667,7 @@
   }
 }
 
-/* Mobil: Zeile 1 = Drawer, Logo, Aktionen • Zeile 2 = Kategorie-Pill • Zeile 3 = Suche • Zeile 4 = Kategorie-Reiter (unterhalb Grid) */
+/* Mobil: Zeile 1 = Drawer, Logo, Aktionen • Zeile 2 = Kategorie-Pill • Zeile 3 = Suche (Kategorie-Reiter nur Desktop, unter „Kategorienübersicht“) */
 @media screen and (max-width: 749px) {
   .pflege-main-nav-section .pflege-main-nav__nav {
     display: block !important;

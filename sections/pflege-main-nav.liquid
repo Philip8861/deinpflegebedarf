@@ -38,6 +38,40 @@
     assign url_ver = root | append: 'collections/verbrauchsartikel'
   endif
 
+  if collections['inkontinenzversorgung'] != blank
+    assign url_ink = collections['inkontinenzversorgung'].url
+  elsif collections['inkontinenz'] != blank
+    assign url_ink = collections['inkontinenz'].url
+  else
+    assign url_ink = root | append: 'collections/inkontinenzversorgung'
+  endif
+
+  if collections['korperpflege'] != blank
+    assign url_body = collections['korperpflege'].url
+  elsif collections['koerperpflege'] != blank
+    assign url_body = collections['koerperpflege'].url
+  else
+    assign url_body = root | append: 'collections/korperpflege'
+  endif
+
+  if collections['hautpflege'] != blank
+    assign url_skin = collections['hautpflege'].url
+  elsif collections['hautschutz-hautpflege'] != blank
+    assign url_skin = collections['hautschutz-hautpflege'].url
+  else
+    assign url_skin = root | append: 'collections/hautpflege'
+  endif
+
+  if collections['schutz-handschuhe'] != blank
+    assign url_gloves = collections['schutz-handschuhe'].url
+  elsif collections['schutz-und-handschuhe'] != blank
+    assign url_gloves = collections['schutz-und-handschuhe'].url
+  elsif collections['handschuhe'] != blank
+    assign url_gloves = collections['handschuhe'].url
+  else
+    assign url_gloves = root | append: 'collections/schutz-handschuhe'
+  endif
+
   assign finder_modal_href = section.settings.finder_promo_button_link | strip
   if finder_modal_href == blank
     assign finder_modal_href = root | append: '#produktfinder'
@@ -47,21 +81,90 @@
   assign active_pf = false
   assign active_hh = false
   assign active_ver = false
+  assign active_ink = false
+  assign active_body = false
+  assign active_skin = false
+  assign active_gloves = false
+
   if request.page_type == 'collection'
-    if collection.handle == 'desinfektion'
-      assign active_des = true
-    elsif collection.handle == 'pflegeartikel'
-      assign active_pf = true
-    elsif collection.handle == 'hautschutz-hautpflege'
-      assign active_hh = true
-    elsif collection.handle == 'hauschutz-hautpflege'
-      assign active_hh = true
-    elsif collection.handle == 'verbrauchsartikel'
-      assign active_ver = true
-    endif
+    case collection.handle
+      when 'desinfektion'
+        assign active_des = true
+      when 'pflegeartikel'
+        assign active_pf = true
+      when 'hautschutz-hautpflege'
+        assign active_hh = true
+      when 'hauschutz-hautpflege'
+        assign active_hh = true
+      when 'verbrauchsartikel'
+        assign active_ver = true
+      when 'inkontinenzversorgung', 'inkontinenz'
+        assign active_ink = true
+      when 'korperpflege', 'koerperpflege'
+        assign active_body = true
+      when 'hautpflege'
+        assign active_skin = true
+      when 'schutz-handschuhe', 'schutz-und-handschuhe', 'handschuhe'
+        assign active_gloves = true
+    endcase
   endif
+
+  if request.page_type == 'product' and product != blank
+    assign rail_cat = ''
+    for c in product.collections
+      if c.handle == 'inkontinenzversorgung' or c.handle == 'inkontinenz'
+        assign rail_cat = 'ink'
+        break
+      endif
+    endfor
+    if rail_cat == ''
+      for c in product.collections
+        if c.handle == 'korperpflege' or c.handle == 'koerperpflege'
+          assign rail_cat = 'body'
+          break
+        endif
+      endfor
+    endif
+    if rail_cat == ''
+      for c in product.collections
+        if c.handle == 'hautpflege' or c.handle == 'hautschutz-hautpflege' or c.handle == 'hauschutz-hautpflege'
+          assign rail_cat = 'skin'
+          break
+        endif
+      endfor
+    endif
+    if rail_cat == ''
+      for c in product.collections
+        if c.handle == 'schutz-handschuhe' or c.handle == 'schutz-und-handschuhe' or c.handle == 'handschuhe'
+          assign rail_cat = 'gloves'
+          break
+        endif
+      endfor
+    endif
+    if rail_cat == ''
+      for c in product.collections
+        if c.handle == 'verbrauchsartikel'
+          assign rail_cat = 'ver'
+          break
+        endif
+      endfor
+    endif
+    case rail_cat
+      when 'ink'
+        assign active_ink = true
+      when 'body'
+        assign active_body = true
+      when 'skin'
+        assign active_skin = true
+      when 'gloves'
+        assign active_gloves = true
+      when 'ver'
+        assign active_ver = true
+    endcase
+  endif
+
   assign category_nav_active = false
-  if active_des or active_pf or active_hh or active_ver
+  if active_des or active_pf or active_hh or active_ver or active_ink or active_body or active_skin or active_gloves
     assign category_nav_active = true
   endif
 -%}
@@ -376,7 +479,18 @@
   </div>
 
   <div class="pflege-main-nav__cat-rail-row">
-    {% render 'pflege-header-category-rail' %}
+    {% render 'pflege-header-category-rail',
+      url_ink: url_ink,
+      url_body: url_body,
+      url_skin: url_skin,
+      url_gloves: url_gloves,
+      url_ver: url_ver,
+      active_ink: active_ink,
+      active_body: active_body,
+      active_skin: active_skin,
+      active_gloves: active_gloves,
+      active_ver: active_ver
+    %}
   </div>
 </div>
 
@@ -402,6 +516,71 @@
       </button>
     </div>
     <ul class="pflege-category-modal__list" role="list">
+      <li>
+        <a
+          href="{{ url_ink }}"
+          class="pflege-category-modal__link{% if active_ink %} is-active{% endif %}"
+          {% if active_ink %}aria-current="page"{% endif %}
+          data-category-modal-close
+        >
+          <span class="pflege-category-modal__link-icon" aria-hidden="true">
+            {%- render 'pflege-icon', icon: 'droplet', width: 22 -%}
+          </span>
+          <span class="pflege-category-modal__link-label">{{ 'sections.pflege_header_category_rail.cat_ink' | t }}</span>
+        </a>
+      </li>
+      <li>
+        <a
+          href="{{ url_body }}"
+          class="pflege-category-modal__link{% if active_body %} is-active{% endif %}"
+          {% if active_body %}aria-current="page"{% endif %}
+          data-category-modal-close
+        >
+          <span class="pflege-category-modal__link-icon" aria-hidden="true">
+            {%- render 'pflege-icon', icon: 'user', width: 22 -%}
+          </span>
+          <span class="pflege-category-modal__link-label">{{ 'sections.pflege_header_category_rail.cat_body' | t }}</span>
+        </a>
+      </li>
+      <li>
+        <a
+          href="{{ url_skin }}"
+          class="pflege-category-modal__link{% if active_skin %} is-active{% endif %}"
+          {% if active_skin %}aria-current="page"{% endif %}
+          data-category-modal-close
+        >
+          <span class="pflege-category-modal__link-icon" aria-hidden="true">
+            {%- render 'pflege-icon', icon: 'heart', width: 22 -%}
+          </span>
+          <span class="pflege-category-modal__link-label">{{ 'sections.pflege_header_category_rail.cat_skin' | t }}</span>
+        </a>
+      </li>
+      <li>
+        <a
+          href="{{ url_gloves }}"
+          class="pflege-category-modal__link{% if active_gloves %} is-active{% endif %}"
+          {% if active_gloves %}aria-current="page"{% endif %}
+          data-category-modal-close
+        >
+          <span class="pflege-category-modal__link-icon" aria-hidden="true">
+            {%- render 'pflege-icon', icon: 'hand', width: 22 -%}
+          </span>
+          <span class="pflege-category-modal__link-label">{{ 'sections.pflege_header_category_rail.cat_gloves' | t }}</span>
+        </a>
+      </li>
+      <li>
+        <a
+          href="{{ url_ver }}"
+          class="pflege-category-modal__link{% if active_ver %} is-active{% endif %}"
+          {% if active_ver %}aria-current="page"{% endif %}
+          data-category-modal-close
+        >
+          <span class="pflege-category-modal__link-icon" aria-hidden="true">
+            {%- render 'pflege-icon', icon: 'shopping-bag', width: 22 -%}
+          </span>
+          <span class="pflege-category-modal__link-label">{{ 'sections.pflege_header_category_rail.cat_consumables' | t }}</span>
+        </a>
+      </li>
       <li>
         <a
           href="{{ url_des }}"
@@ -439,19 +618,6 @@
             {%- render 'pflege-icon', icon: 'shield', width: 22 -%}
           </span>
           <span class="pflege-category-modal__link-label">Hautschutz &amp; Hautpflege</span>
-        </a>
-      </li>
-      <li>
-        <a
-          href="{{ url_ver }}"
-          class="pflege-category-modal__link{% if active_ver %} is-active{% endif %}"
-          {% if active_ver %}aria-current="page"{% endif %}
-          data-category-modal-close
-        >
-          <span class="pflege-category-modal__link-icon" aria-hidden="true">
-            {%- render 'pflege-icon', icon: 'shopping-bag', width: 22 -%}
-          </span>
-          <span class="pflege-category-modal__link-label">Verbrauchsartikel</span>
         </a>
       </li>
     </ul>

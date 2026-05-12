@@ -148,21 +148,8 @@
 }
 
 @media screen and (max-width: 749px) {
+  /* Gleiche Links in der Kategorienübersicht (Dialog); keine doppelte Leiste im Header. */
   .pflege-main-nav-section .pflege-main-nav__cat-rail-row {
-    padding-block: 0.15rem 0.35rem;
-  }
-
-  .pflege-cat-rail--header-row .pflege-cat-rail__bar {
-    border-radius: 1rem;
-  }
-
-  .pflege-cat-rail--header-row .pflege-cat-rail__link {
-    padding: 0.48rem clamp(0.28rem, 1.5vw, 0.55rem);
-    font-size: clamp(0.7rem, 2.9vw, 0.82rem);
-  }
-
-  .pflege-cat-rail--header-row .pflege-cat-rail__icon .pflege-icon svg {
-    width: 18px !important;
-    height: 18px !important;
+    display: none !important;
   }
 }
