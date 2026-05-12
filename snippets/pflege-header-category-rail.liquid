@@ -1,5 +1,5 @@
 {% comment %}
-  Horizontale Kategorie-Pille unter der Pflege-Hauptleiste (teil des sticky Headers).
+  Kategorie-Leiste in der Pflege-Hauptleiste: zwischen Kategorienübersicht und Mein Konto/Warenkorb (Desktop).
 {% endcomment %}
 {{ 'pflege-header-category-rail.css' | asset_url | stylesheet_tag }}
 
@@ -122,10 +122,9 @@
   endif
 -%}
 
-<nav class="pflege-cat-rail" aria-label="{{ 'sections.pflege_header_category_rail.nav_aria' | t }}">
-  <div class="pflege-cat-rail__outer page-width">
-    <div class="pflege-cat-rail__inner">
-      <ul class="pflege-cat-rail__list list-unstyled" role="list">
+<nav class="pflege-cat-rail pflege-cat-rail--header-row" aria-label="{{ 'sections.pflege_header_category_rail.nav_aria' | t }}">
+  <div class="pflege-cat-rail__bar">
+    <ul class="pflege-cat-rail__list list-unstyled" role="list">
         <li class="pflege-cat-rail__cell">
           <a
             href="{{ url_ink }}"
@@ -178,5 +177,4 @@
         </li>
       </ul>
     </div>
-  </div>
 </nav>

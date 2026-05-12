@@ -212,6 +212,16 @@
       margin: 0 !important;
       padding: 0 !important;
     }
+    .pflege-main-nav-section .pflege-main-nav__cat-rail-slot {
+      display: flex !important;
+      align-items: center !important;
+      flex: 1 1 0 !important;
+      min-width: 0 !important;
+      max-width: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      z-index: 1 !important;
+    }
     .pflege-main-nav-section .pflege-main-nav__category-dialog-trigger-wrap {
       display: flex !important;
       align-items: center !important;
@@ -265,6 +275,10 @@
         </button>
       </div>
     </nav>
+
+    <div class="pflege-main-nav__cat-rail-slot">
+      {% render 'pflege-header-category-rail' %}
+    </div>
 
     {%- if settings.predictive_search_enabled -%}
       <predictive-search class="pflege-main-nav__search-host" data-loading-text="{{ 'accessibility.loading' | t }}">
@@ -361,8 +375,6 @@
       </div>
     </div>
   </div>
-
-  {% render 'pflege-header-category-rail' %}
 </div>
 
 <dialog

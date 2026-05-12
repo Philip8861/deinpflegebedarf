@@ -735,7 +735,7 @@
   }
 
   .pflege-main-nav-section predictive-search.pflege-main-nav__search-host {
-    order: 11;
+    order: 12;
     flex: 1 1 100%;
     min-width: 0;
     width: 100%;
@@ -752,7 +752,7 @@
   }
 
   .pflege-main-nav-section .pflege-main-nav__grid > form.pflege-main-nav__search {
-    order: 11;
+    order: 12;
     flex: 1 1 100%;
     min-width: 0;
     width: 100%;
