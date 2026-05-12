@@ -2803,6 +2803,18 @@
           "content": "Related products can be managed in the [Search & Discovery app](https://help.shopify.com/manual/online-store/search-and-discovery/product-recommendations)",
           "default": "You may also like"
         },
+        "show_view_all_link": {
+          "label": "Show “View all” link"
+        },
+        "view_all_label": {
+          "label": "“View all” link text",
+          "default": "View all →",
+          "info": "If blank, uses the storefront locale string sections.related_products.view_all."
+        },
+        "view_all_link": {
+          "label": "Custom link URL",
+          "info": "If empty, the All products collection is used."
+        },
         "header__2": {
           "content": "Product card"
         },

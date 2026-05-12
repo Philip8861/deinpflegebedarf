@@ -15,6 +15,7 @@
   - media_fit: {String} Method ("contain" or "cover") to fit image into container
   - media_width: {Float} The width percentage that the media column occupies on desktop.
   - lazy_load: {Boolean} Image should be lazy loaded. Default: true (optional)
+  - product: {Object} Product (optional, für Alt-Text-Fallback)
 
   Usage:
   {% render 'product-thumbnail',
@@ -42,6 +43,11 @@
 
   if media.media_type == 'image'
     assign image_class = 'image-magnify-' | append: section.settings.image_zoom
+  endif
+
+  assign thumb_alt = media.alt | strip
+  if thumb_alt == blank and product != blank
+    assign thumb_alt = product.title
   endif
 -%}
 
@@ -85,7 +91,8 @@
           class: image_class,
           loading: lazy,
           sizes: sizes,
-          widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946'
+          widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946',
+          alt: thumb_alt
       }}
     </div>
     <button

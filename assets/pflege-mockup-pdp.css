@@ -9,7 +9,7 @@
   --pflege-mock-soft-blue: #f6f9fd;
   --pflege-pdp-card-border: rgba(0, 74, 153, 0.14);
   --pflege-pdp-card-bg: rgba(255, 255, 255, 0.98);
-  --pflege-pdp-radius: 14px;
+  --pflege-pdp-radius: 22px;
   --pflege-pdp-radius-sm: 10px;
   --pflege-pdp-thumb: 72px;
 }
@@ -221,9 +221,10 @@
   text-underline-offset: 0.14em;
 }
 
-.pflege-mock-pdp__rating-soft-text {
-  font-size: 1.22rem !important;
-  line-height: 1.42;
+.pflege-mock-pdp__rating-soft-link {
+  font-size: 1.18rem !important;
+  font-weight: 600;
+  color: rgba(15, 45, 84, 0.48);
 }
 
 /* Schnell‑USPs (Kaufspalte) */
@@ -231,8 +232,6 @@
 .pflege-buy-usps {
   margin: 0.25rem 0 1.15rem;
 }
-
-.pflege-buy-usps__list {
   display: grid;
   grid-template-columns: 1fr;
   gap: 0.62rem;
@@ -315,13 +314,18 @@
 
   .pflege-product-page .product-form__input--pill input[type='radio'] + label {
     border-radius: 999px !important;
-    padding: 0.48rem 0.92rem !important;
+    padding: 0.44rem 0.92rem !important;
     font-size: 1.22rem !important;
     border-color: rgba(0, 74, 153, 0.2) !important;
     border-width: 1px !important;
     box-shadow: none !important;
+    max-height: 48px !important;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.25;
     min-height: 0 !important;
-    line-height: 1.3;
   }
 
   .pflege-product-page .product-form__input--pill input[type='radio']:checked:not(.disabled):not(.visually-disabled) + label {
@@ -353,28 +357,48 @@
 
 @media screen {
   .pflege-product-page .quantity__label {
-    min-height: 3.4rem !important;
+    min-height: 3.85rem !important;
+  }
+
+  .pflege-product-page .quantity {
+    display: inline-flex;
+    align-items: stretch;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 74, 153, 0.22);
+    overflow: hidden;
+    min-height: 3.85rem;
+    background: #fff;
+  }
+
+  .pflege-product-page .quantity::after {
+    box-shadow: none !important;
   }
 
   .pflege-product-page .quantity__input {
     font-weight: 600;
-    padding: 0.45rem !important;
-    min-height: 3.4rem !important;
+    padding: 0.45rem 0.65rem !important;
+    min-height: 3.85rem !important;
+    border: none !important;
+    border-radius: 0 !important;
   }
 
   .pflege-product-page .quantity__button {
-    min-height: 3.4rem !important;
+    min-height: 3.85rem !important;
+    border: none !important;
+    width: auto;
+    min-width: 2.75rem !important;
   }
 
   .pflege-product-page .product-form__quantity {
     flex: 0 0 auto;
-    max-width: 16rem !important;
+    max-width: min(17rem, 100%) !important;
     margin-right: auto;
     margin-bottom: 0 !important;
   }
 
   .pflege-product-page .product-form .button,
   .pflege-product-page .shopify-payment-button .shopify-payment-button__button {
+    min-height: 3.85rem !important;
     border-radius: 12px !important;
     box-shadow:
       0 2px 0 rgba(255, 255, 255, 0.25) inset,
@@ -476,10 +500,25 @@
 
 .pflege-product-page .pflege-product__trust-panel-row {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.75rem;
   padding: 0.68rem 0;
   border-bottom: 1px solid rgba(0, 74, 153, 0.085);
+}
+
+.pflege-product-page .pflege-product__trust-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.08rem;
+  min-width: 0;
+}
+
+.pflege-product-page .pflege-product__trust-panel-sub {
+  font-size: 1.08rem !important;
+  font-weight: 600;
+  line-height: 1.38;
+  color: rgba(20, 52, 93, 0.58);
 }
 
 .pflege-product-page .pflege-product__trust-panel-row:last-child {
@@ -542,12 +581,47 @@
   color: rgba(15, 45, 84, 0.88);
 }
 
-.template-product product-recommendations.related-products.isolate .related-products__heading.inline-richtext {
+.template-product product-recommendations.related-products.pflege-related-pdp.isolate .related-products__header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem 1.25rem;
+  margin-bottom: 1.35rem;
+}
+
+.template-product product-recommendations.related-products.pflege-related-pdp.isolate .related-products__heading.inline-richtext {
+  flex: 1 1 auto;
+  min-width: min(280px, 100%);
   font-family: var(--font-body-family), sans-serif !important;
   letter-spacing: -0.015em;
   font-weight: 600;
   font-size: clamp(1.52rem, 1.06rem + 1.06vw, 2rem);
-  margin-bottom: 1.15rem;
+  margin: 0;
+}
+
+.template-product product-recommendations.related-products.pflege-related-pdp.isolate .related-products__view-all.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-body-family), sans-serif !important;
+  font-size: 1.38rem !important;
+  font-weight: 600;
+  letter-spacing: 0.015em;
+  color: rgba(15, 45, 84, 0.78);
+  white-space: nowrap;
+}
+
+.template-product product-recommendations.related-products.pflege-related-pdp.isolate .related-products__view-all svg {
+  width: 1.08em;
+  height: 1.08em;
+  flex-shrink: 0;
+}
+
+.template-product product-recommendations.related-products.pflege-related-pdp.isolate .product-card-wrapper {
+  border-radius: 20px;
+  border: 1px solid var(--pflege-pdp-card-border);
+  overflow: hidden;
 }
 
 .pflege-mock-pdp__stars-muted {
@@ -568,7 +642,7 @@
     padding: 0.55rem !important;
     border-radius: var(--pflege-pdp-radius);
     border: 1px solid var(--pflege-pdp-card-border);
-    background: var(--pflege-mock-soft-blue);
+    background: #fff !important;
   }
 
   .pflege-product-gallery-shell .thumbnail-list.slider {
@@ -581,7 +655,30 @@
     padding: clamp(1rem, 2vw, 1.65rem);
     border-radius: var(--pflege-pdp-radius);
     border: 1px solid var(--pflege-pdp-card-border);
-    background: var(--pflege-mock-soft-blue);
+    background: #fff !important;
     box-shadow: 0 10px 32px rgba(0, 40, 90, 0.05);
   }
+}
+
+@media screen and (min-width: 990px) {
+  .template-product .pflege-product-page.product--medium:not(.product--no-media) .product__media-wrapper {
+    max-width: 58%;
+    width: calc(58% - var(--grid-desktop-horizontal-spacing) / 2);
+  }
+
+  .template-product .pflege-product-page.product--medium:not(.product--no-media) .product__info-wrapper {
+    max-width: 42%;
+    width: calc(42% - var(--grid-desktop-horizontal-spacing) / 2);
+    padding-left: clamp(2.5rem, 4.75vw, 4.85rem) !important;
+  }
+}
+
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .template-product .pflege-product-page:not(.product--right) .product__info-wrapper {
+    padding-left: clamp(2rem, 4vw, 3.25rem) !important;
+  }
+}
+
+.template-product product-info.pflege-product-page .pflege-product-gallery-shell .product__media img {
+  object-fit: contain;
 }

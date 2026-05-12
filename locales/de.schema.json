@@ -3195,6 +3195,18 @@
           "content": "Ergänzende Produkte können in der [Search & Discovery-App](https://help.shopify.com/manual/online-store/search-and-discovery/product-recommendations) verwaltet werden",
           "default": "Das könnte dir auch gefallen"
         },
+        "show_view_all_link": {
+          "label": "\"Alle anzeigen\"-Link anzeigen"
+        },
+        "view_all_label": {
+          "label": "Link-Text „Alle anzeigen“",
+          "default": "Alle anzeigen →",
+          "info": "Wenn leer, nutzt das Theme einen Text aus den Sprachdateien (sections.related_products.view_all)."
+        },
+        "view_all_link": {
+          "label": "Eigene Ziel-URL (optional)",
+          "info": "Ohne Auswahl wird die Alle-Produkte-Collection geöffnet."
+        },
         "header__2": {
           "content": "Produktkarte"
         },

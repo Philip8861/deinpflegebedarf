@@ -89,6 +89,7 @@
         >
           {%- assign media_position = 1 -%}
           {% render 'product-thumbnail',
+            product: product,
             media: featured_media,
             media_count: media_count,
             position: media_position,
@@ -127,6 +128,7 @@
               endif
             -%}
             {% render 'product-thumbnail',
+              product: product,
               media: media,
               media_count: media_count,
               position: media_position,

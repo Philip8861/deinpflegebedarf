@@ -124,9 +124,22 @@
                   </p>
                 {% elsif block.settings.text_style == 'subtitle' %}
                   {% liquid
-                    assign subtitle_out = block.settings.text | strip
+                    assign mf_short = product.metafields.custom.short_description
+                    assign subtitle_out = ''
+                    if mf_short.value != blank
+                      assign subtitle_out = mf_short.value | strip
+                    elsif mf_short != blank and mf_short != empty
+                      assign subtitle_out = mf_short | metafield_text | strip
+                    endif
                     if subtitle_out == blank or subtitle_out contains 'Liquid error'
                       assign subtitle_out = ''
+                    endif
+                    assign block_sub = block.settings.text | strip
+                    if block_sub == blank or block_sub contains 'Liquid error'
+                      assign block_sub = ''
+                    endif
+                    if subtitle_out == blank and block_sub != blank
+                      assign subtitle_out = block_sub
                     endif
                     if subtitle_out == blank and product.metafields.descriptors.subtitle.value != blank
                       assign subtitle_out = product.metafields.descriptors.subtitle.value
@@ -595,7 +608,9 @@
                 {% else %}
                   <div class="rating-wrapper pflege-mock-pdp__rating pflege-mock-pdp__rating--soft" {{ block.shopify_attributes }}>
                     <span class="pflege-mock-pdp__stars-muted" aria-hidden="true">★★★★★</span>
-                    <span class="pflege-mock-pdp__rating-soft-text">{{ 'products.product.pflege_pdp.rating_placeholder' | t }}</span>
+                    <a href="#pflege-pdp-review-panel" class="pflege-mock-pdp__reviews-link pflege-mock-pdp__rating-soft-link">
+                      {{- 'products.product.pflege_pdp.rating_placeholder' | t -}}
+                    </a>
                   </div>
                 {%- endif -%}
               {%- when 'pflege_quick_usps' -%}

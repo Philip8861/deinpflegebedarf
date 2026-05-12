@@ -209,10 +209,10 @@
         "delivery_eta": "in 1–2 Werktagen bei dir",
         "trust_ship_title": "Kostenloser Versand ab 150 €",
         "trust_ship_sub": "",
-        "trust_invoice_title": "Kauf auf Rechnung",
         "trust_payment_title": "Sichere Zahlung",
-        "trust_invoice_sub": "",
         "trust_returns_title": "30 Tage Rückgaberecht",
+        "trust_quality_title": "100 % geprüfte Qualität",
+        "trust_quality_sub": "Sorgfältig ausgewählte Produkte",
         "trust_care_title": "Von Pflegekräften empfohlen",
         "trust_care_sub": "Vertrauen, das zählt"
       },
@@ -228,14 +228,18 @@
         "claim_fallback_3": "Geeignet für den Pflege- und häuslichen Bereich",
         "claim_fallback_4": "Verlässliche Qualität und dokumentierte Produktinfos",
         "quick_usp_fallback_1": "Hygienisch einsetzbar",
-        "quick_usp_fallback_2": "Ausgewogene Anwendung",
-        "quick_usp_fallback_3": "Für häusliche & professionelle Pflege",
+        "quick_usp_fallback_2": "Für häusliche & professionelle Pflege",
+        "quick_usp_fallback_3": "Ausgewogene Anwendung",
         "quick_usp_fallback_4": "Verlässliche Qualität aus dem Pflegebereich",
         "service_foot_aria": "Service und Rahmenbedingungen",
-        "service_foot_shipping": "Schneller Versand",
-        "service_foot_support": "Persönliche Beratung",
-        "service_foot_quality": "100 % geprüfte Qualität",
-        "service_foot_returns": "30 Tage Rückgaberecht"
+        "service_foot_shipping_title": "Schneller Versand",
+        "service_foot_shipping_sub": "In 1–2 Tagen bei dir",
+        "service_foot_support_title": "Persönliche Beratung",
+        "service_foot_support_sub": "08334 / 9893330",
+        "service_foot_quality_title": "100 % geprüfte Qualität",
+        "service_foot_quality_sub": "Sorgfältig ausgewählte Produkte",
+        "service_foot_returns_title": "30 Tage Rückgaberecht",
+        "service_foot_returns_sub": "Ohne Risiko bestellen"
       },
       "sku": "SKU",
       "volume_pricing": {
@@ -343,6 +347,17 @@
         "one": "{{ count }} Artikel",
         "other": "{{ count }} Artikel"
       }
+    },
+    "related_products": {
+      "view_all": "Alle anzeigen →"
+    },
+    "pflege_header_category_rail": {
+      "nav_aria": "Produktkategorien",
+      "cat_ink": "Inkontinenzversorgung",
+      "cat_body": "Körperpflege",
+      "cat_skin": "Hautpflege",
+      "cat_gloves": "Schutz & Handschuhe",
+      "cat_consumables": "Verbrauchsartikel"
     },
     "cart": {
       "title": "Warenkorb",

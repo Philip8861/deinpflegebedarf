@@ -54,21 +54,6 @@
       {%- assign first_tab_handled = true -%}
     {%- endif -%}
 
-    {%- if has_feat -%}
-      <button
-        type="button"
-        role="tab"
-        aria-selected="{%- unless first_tab_handled -%}true{%- else -%}false{%- endunless -%}"
-        id="PflegeTab-{{ section_id }}-feat"
-        aria-controls="PflegeTabPanel-{{ section_id }}-feat"
-        tabindex="{%- unless first_tab_handled -%}0{%- else -%}-1{%- endunless -%}"
-        class="pflege-pdp-tabs-h__btn"
-      >
-        {{- label_feat | escape -}}
-      </button>
-      {%- assign first_tab_handled = true -%}
-    {%- endif -%}
-
     {%- if show_rev -%}
       <button
         type="button"
@@ -133,23 +118,6 @@
           {{ mf_ing.value }}
         {%- else -%}
           {{ mf_ing | metafield_text }}
-        {%- endif -%}
-      </div>
-      {%- assign opened = true -%}
-    {%- endif -%}
-    {%- if has_feat -%}
-      <div
-        role="tabpanel"
-        id="PflegeTabPanel-{{ section_id }}-feat"
-        class="pflege-pdp-tabs-h__panel rte"
-        tabindex="0"
-        aria-labelledby="PflegeTab-{{ section_id }}-feat"
-        {% if opened %}hidden{% endif %}
-      >
-        {%- if mf_feat.value != blank -%}
-          {{ mf_feat.value }}
-        {%- else -%}
-          {{ mf_feat | metafield_text }}
         {%- endif -%}
       </div>
       {%- assign opened = true -%}

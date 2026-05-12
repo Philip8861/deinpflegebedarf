@@ -9,6 +9,15 @@
     assign related_quick_add = 'standard'
     assign related_icon_only = true
   endif
+
+  assign view_all_href = section.settings.view_all_link
+  if view_all_href == blank
+    assign view_all_href = routes.all_products_collection_url
+  endif
+  assign view_all_text = section.settings.view_all_label | strip
+  if view_all_text == blank
+    assign view_all_text = 'sections.related_products.view_all' | t
+  endif
 -%}
 
 {%- if section.settings.enable_mini_cart_icon -%}
@@ -35,15 +44,26 @@
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
   <product-recommendations
-    class="related-products page-width section-{{ section.id }}-padding isolate{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}{% if section.settings.enable_mini_cart_icon %} pflege-related--mini-cart-icon{% endif %}"
+    class="related-products pflege-related-pdp page-width section-{{ section.id }}-padding isolate{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}{% if section.settings.enable_mini_cart_icon %} pflege-related--mini-cart-icon{% endif %}"
     data-url="{{ routes.product_recommendations_url }}?limit={{ section.settings.products_to_show }}"
     data-section-id="{{ section.id }}"
     data-product-id="{{ product.id }}"
   >
     {% if recommendations.performed and recommendations.products_count > 0 %}
-      <h2 class="related-products__heading inline-richtext {{ section.settings.heading_size }}">
-        {{ section.settings.heading }}
-      </h2>
+      <div class="related-products__header pflege-related__header">
+        <h2 class="related-products__heading inline-richtext {{ section.settings.heading_size }}">
+          {{- section.settings.heading -}}
+        </h2>
+        {%- if section.settings.show_view_all_link -%}
+          <a
+            href="{{ view_all_href }}"
+            class="related-products__view-all link animate-arrow{% if settings.animations_hover_elements_underline_links %} underline-on-hover{% endif %}"
+          >
+            {{- view_all_text -}}
+            {{- 'icon-arrow.svg' | inline_asset_content -}}
+          </a>
+        {%- endif -%}
+      </div>
       <ul
         class="grid product-grid grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down"
         role="list"
@@ -92,6 +112,25 @@
       "id": "enable_mini_cart_icon",
       "label": "Mini-Warenkorb-Kachel (blaues Icon)",
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all_link",
+      "default": true,
+      "label": "t:sections.related-products.settings.show_view_all_link.label"
+    },
+    {
+      "type": "text",
+      "id": "view_all_label",
+      "label": "t:sections.related-products.settings.view_all_label.label",
+      "default": "t:sections.related-products.settings.view_all_label.default",
+      "info": "t:sections.related-products.settings.view_all_label.info"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "t:sections.related-products.settings.view_all_link.label",
+      "info": "t:sections.related-products.settings.view_all_link.info"
     },
     {
       "type": "inline_richtext",

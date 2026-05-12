@@ -3,7 +3,7 @@
   Liegt AUSSERHALB von <product-info>: statisch nach erstem Laden; keine variantenabhängigen Felder hier (SKU bleibt in der Kaufspalte).
 
   Erwartete Metafields im Namespace „custom“ (Auszug): application, ingredients,
-  features, content_volume, skin_type, product_type_label, pzn, delivery_time,
+  content_volume, skin_type, product_type_label, pzn, delivery_time,
   free_shipping_threshold. Für Schnell‑USPs in der Kaufspalte ebenfalls „usps“.
 {% endcomment %}
 {{ 'section-pflege-product-detail-body.css' | asset_url | stylesheet_tag }}
@@ -24,7 +24,6 @@
 
   assign mf_app = product.metafields.custom.application
   assign mf_ing = product.metafields.custom.ingredients
-  assign mf_feat = product.metafields.custom.features
   assign mf_vol = product.metafields.custom.content_volume
   assign mf_pzn = product.metafields.custom.pzn
   assign mf_ptype = product.metafields.custom.product_type_label
@@ -57,18 +56,8 @@
     endif
   endif
 
-  assign has_feat = false
-  if mf_feat.value != blank
-    assign has_feat = true
-  elsif mf_feat != blank and mf_feat != empty
-    assign _tf = mf_feat | metafield_text | strip
-    if _tf != blank
-      assign has_feat = true
-    endif
-  endif
-
   assign has_content_tabs = false
-  if has_desc or has_app or has_ing or has_feat
+  if has_desc or has_app or has_ing
     assign has_content_tabs = true
   endif
 
@@ -79,15 +68,7 @@
     assign reviews_count_disp = product.metafields.reviews.rating_count | metafield_text | strip
   endif
 
-  assign reviews_show_tab = false
-  if product.metafields.reviews.rating.value != blank
-    assign reviews_show_tab = true
-  elsif reviews_count_disp != blank
-    assign review_num = reviews_count_disp | plus: 0
-    if review_num > 0
-      assign reviews_show_tab = true
-    endif
-  endif
+  assign reviews_show_tab = true
 
   assign has_any_tab = false
   if has_content_tabs or reviews_show_tab
@@ -168,14 +149,11 @@
               has_desc: has_desc,
               has_app: has_app,
               has_ing: has_ing,
-              has_feat: has_feat,
               mf_app: mf_app,
               mf_ing: mf_ing,
-              mf_feat: mf_feat,
               label_desc: section.settings.tab_description,
               label_app: section.settings.tab_application,
               label_ing: section.settings.tab_ingredients,
-              label_feat: section.settings.tab_features,
               reviews_show_tab: reviews_show_tab,
               reviews_count: reviews_count_disp,
               label_reviews: section.settings.tab_reviews
