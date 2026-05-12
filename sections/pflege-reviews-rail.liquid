@@ -7,6 +7,49 @@
 {{ 'section-pflege-reviews-rail.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'pflege-reviews-rail.js' | asset_url }}" defer="defer"></script>
 
+{%- liquid
+  assign rating_summary_setting = section.settings.rating_summary | strip
+  if rating_summary_setting == blank
+    assign rating_summary_setting = 'sections.pflege_reviews_rail.rating_summary' | t
+  endif
+
+  assign intro_body_setting = section.settings.intro_body | strip
+  if intro_body_setting == blank
+    assign intro_body_setting = section.settings.subheading | strip
+  endif
+  if intro_body_setting == blank
+    assign intro_body_setting = 'sections.pflege_reviews_rail.intro_text' | t
+  endif
+
+  assign has_reviews = false
+  assign card_count = 0
+  if section.blocks.size > 0
+    assign has_reviews = true
+  endif
+
+  assign show_demo_rail = false
+  if has_reviews == false and section.settings.show_fallback_demo
+    assign show_demo_rail = true
+    assign card_count = 3
+  endif
+
+  if has_reviews
+    for block in section.blocks
+      if block.type == 'review'
+        assign card_count = card_count | plus: 1
+      endif
+    endfor
+  endif
+
+  assign track_mode = 'grid'
+  if card_count > 3
+    assign track_mode = 'scroll'
+  endif
+
+  assign reviews_form_panel_id = 'pflege-reviews-form-panel-' | append: section.id
+  assign reviews_toggle_id = 'pflege-reviews-form-toggle-' | append: section.id
+-%}
+
 <section
   class="pflege-reviews-rail color-{{ section.settings.color_scheme }}"
   aria-labelledby="pflege-reviews-title-{{ section.id }}"
@@ -17,85 +60,102 @@
       <h2 class="pflege-reviews-rail__title" id="pflege-reviews-title-{{ section.id }}">
         {{ section.settings.heading | escape }}
       </h2>
-      {%- if section.settings.subheading != blank -%}
-        <p class="pflege-reviews-rail__sub">{{ section.settings.subheading | escape }}</p>
+
+      <div class="pflege-reviews-rail__intro-stars" role="img" aria-label="{{ 'sections.pflege_reviews_rail.intro_stars_aria' | t }}">
+        {%- for s in (1..5) -%}
+          <span class="pflege-reviews-rail__intro-star" aria-hidden="true">★</span>
+        {%- endfor -%}
+      </div>
+
+      <p class="pflege-reviews-rail__rating-summary">{{ rating_summary_setting | escape }}</p>
+
+      {%- if intro_body_setting != blank -%}
+        <p class="pflege-reviews-rail__intro-text">{{ intro_body_setting | escape | newline_to_br }}</p>
       {%- endif -%}
     </header>
 
-    {%- liquid
-      assign has_reviews = false
-      if section.blocks.size > 0
-        assign has_reviews = true
-      endif
-      assign show_demo_rail = false
-      if has_reviews == false and section.settings.show_fallback_demo
-        assign show_demo_rail = true
-      endif
-    -%}
-
     <div class="pflege-reviews-rail__carousel-wrap">
       {%- if has_reviews or show_demo_rail -%}
-        <div class="pflege-reviews-rail__nav" aria-label="{{ 'sections.pflege_reviews_rail.nav_label' | t }}">
-          <button
-            type="button"
-            class="pflege-reviews-rail__nav-btn"
-            data-reviews-prev
-            aria-label="{{ 'sections.pflege_reviews_rail.prev' | t }}"
-          >
-            <span aria-hidden="true">‹</span>
-          </button>
-          <button
-            type="button"
-            class="pflege-reviews-rail__nav-btn"
-            data-reviews-next
-            aria-label="{{ 'sections.pflege_reviews_rail.next' | t }}"
-          >
-            <span aria-hidden="true">›</span>
-          </button>
-        </div>
         <div
-          class="pflege-reviews-rail__track"
-          data-reviews-track
-          role="region"
-          aria-roledescription="carousel"
-          aria-label="{{ 'sections.pflege_reviews_rail.carousel_label' | t }}"
+          class="pflege-reviews-rail__carousel"
+          {% if card_count > 3 %}
+            data-reviews-carousel-many
+          {% endif %}
         >
-          {%- if has_reviews -%}
-            {%- for block in section.blocks -%}
-              {%- case block.type -%}
-                {%- when 'review' -%}
-                  <article
-                    class="pflege-reviews-rail__card"
-                    {{ block.shopify_attributes }}
-                  >
-                    {%- assign review_rating = block.settings.rating | default: 5 | times: 1 -%}
-                    {%- if review_rating < 1 -%}
-                      {%- assign review_rating = 1 -%}
-                    {%- endif -%}
-                    {%- if review_rating > 5 -%}
-                      {%- assign review_rating = 5 -%}
-                    {%- endif -%}
-                    <div class="pflege-reviews-rail__stars" aria-label="{{ 'sections.pflege_reviews_rail.stars_aria' | t: count: review_rating }}">
-                      {%- for i in (1..5) -%}
-                        <span{% if i > review_rating %} style="opacity:0.22"{% endif %} aria-hidden="true">★</span>
-                      {%- endfor -%}
-                    </div>
-                    <p class="pflege-reviews-rail__quote">{{ block.settings.quote | escape }}</p>
-                    <div class="pflege-reviews-rail__meta">
-                      <span class="pflege-reviews-rail__author">{{ block.settings.author | escape }}</span>
-                      {%- if block.settings.subtitle != blank -%}
-                        <span> — {{ block.settings.subtitle | escape }}</span>
-                      {%- endif -%}
-                    </div>
-                  </article>
-              {%- endcase -%}
-            {%- endfor -%}
-          {%- else -%}
-            {% render 'pflege-reviews-democards' %}
-          {%- endif -%}
+          <div class="pflege-reviews-rail__carousel-stage">
+            <div
+              class="pflege-reviews-rail__track pflege-reviews-rail__track--{{ track_mode }}"
+              data-reviews-track
+              role="region"
+              {% if track_mode == 'scroll' %}
+                aria-roledescription="carousel"
+              {% endif %}
+              aria-label="{{ 'sections.pflege_reviews_rail.carousel_label' | t }}"
+            >
+              {%- if has_reviews -%}
+                {%- for block in section.blocks -%}
+                  {%- case block.type -%}
+                    {%- when 'review' -%}
+                      <article
+                        class="pflege-reviews-rail__card"
+                        {{ block.shopify_attributes }}
+                      >
+                        {%- assign review_rating = block.settings.rating | default: 5 | times: 1 -%}
+                        {%- if review_rating < 1 -%}
+                          {%- assign review_rating = 1 -%}
+                        {%- endif -%}
+                        {%- if review_rating > 5 -%}
+                          {%- assign review_rating = 5 -%}
+                        {%- endif -%}
+                        <div class="pflege-reviews-rail__stars" aria-label="{{ 'sections.pflege_reviews_rail.stars_aria' | t: count: review_rating }}">
+                          {%- for i in (1..5) -%}
+                            <span{% if i > review_rating %} class="pflege-reviews-rail__star--dim"{% endif %} aria-hidden="true">★</span>
+                          {%- endfor -%}
+                        </div>
+                        <p class="pflege-reviews-rail__quote">{{ block.settings.quote | escape }}</p>
+                        <div class="pflege-reviews-rail__meta">
+                          <span class="pflege-reviews-rail__author">{{ block.settings.author | escape }}</span>
+                          {%- if block.settings.subtitle != blank -%}
+                            <span class="pflege-reviews-rail__subtitle"> — {{ block.settings.subtitle | escape }}</span>
+                          {%- endif -%}
+                        </div>
+                      </article>
+                  {%- endcase -%}
+                {%- endfor -%}
+              {%- else -%}
+                {% render 'pflege-reviews-democards' %}
+              {%- endif -%}
+            </div>
+
+            <div
+              class="pflege-reviews-rail__nav"
+              data-reviews-nav
+              {% if card_count <= 3 %}
+                hidden
+              {% endif %}
+              aria-label="{{ 'sections.pflege_reviews_rail.nav_label' | t }}"
+            >
+              <button
+                type="button"
+                class="pflege-reviews-rail__nav-btn"
+                data-reviews-prev
+                aria-label="{{ 'sections.pflege_reviews_rail.prev' | t }}"
+              >
+                <span aria-hidden="true">‹</span>
+              </button>
+              <button
+                type="button"
+                class="pflege-reviews-rail__nav-btn"
+                data-reviews-next
+                aria-label="{{ 'sections.pflege_reviews_rail.next' | t }}"
+              >
+                <span aria-hidden="true">›</span>
+              </button>
+            </div>
+          </div>
         </div>
       {%- else -%}
-        <p class="pflege-reviews-rail__sub">{{ section.settings.empty_state | escape }}</p>
+        <p class="pflege-reviews-rail__empty">{{ section.settings.empty_state | escape }}</p>
       {%- endif -%}
     </div>
 
@@ -104,9 +164,39 @@
         assign reviews_form_id = 'PflegeReviewsForm-' | append: section.id
         assign reviews_form_class = 'pflege-reviews-rail__form'
       -%}
-      <div class="pflege-reviews-rail__form-card">
-        <h3 class="pflege-reviews-rail__form-title">{{ section.settings.form_heading | escape }}</h3>
-        <p class="pflege-reviews-rail__form-hint">{{ section.settings.form_hint | escape }}</p>
+      <div class="pflege-reviews-rail__form-zone">
+        <button
+          type="button"
+          id="{{ reviews_toggle_id }}"
+          class="pflege-reviews-rail__toggle-form"
+          data-reviews-toggle-form
+          aria-expanded="false"
+          aria-controls="{{ reviews_form_panel_id }}"
+        >
+          <span data-reviews-toggle-label-open>{{ 'sections.pflege_reviews_rail.toggle_form_open' | t }}</span>
+          <span data-reviews-toggle-label-close hidden>{{ 'sections.pflege_reviews_rail.toggle_form_close' | t }}</span>
+        </button>
+
+        <div
+          id="{{ reviews_form_panel_id }}"
+          class="pflege-reviews-rail__form-collapsible"
+          data-reviews-form-panel
+          aria-hidden="true"
+        >
+          <div class="pflege-reviews-rail__form-card">
+            <div class="pflege-reviews-rail__form-card-head">
+              <h3 class="pflege-reviews-rail__form-title" id="pflege-reviews-form-heading-{{ section.id }}">
+                {{ section.settings.form_heading | escape }}
+              </h3>
+              <button
+                type="button"
+                class="pflege-reviews-rail__form-close"
+                aria-label="{{ 'sections.pflege_reviews_rail.close_form_short' | t }}"
+              >
+                {{ 'sections.pflege_reviews_rail.close_form_link' | t }}
+              </button>
+            </div>
+            <p class="pflege-reviews-rail__form-hint">{{ section.settings.form_hint | escape | newline_to_br }}</p>
 
         {%- form 'contact', id: reviews_form_id, class: reviews_form_class -%}
           {%- if form.posted_successfully? -%}
@@ -201,11 +291,13 @@
           </button>
 
           {%- if section.settings.privacy_note != blank -%}
-            <div class="rte pflege-reviews-rail__sub" style="margin-top: 1rem; margin-bottom: 0;">
+            <div class="rte pflege-reviews-rail__privacy">
               {{ section.settings.privacy_note }}
             </div>
           {%- endif -%}
         {%- endform -%}
+          </div>
+        </div>
       </div>
     {%- endif -%}
   </div>
@@ -253,7 +345,7 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Die Karten im Slider tragt ihr im Theme-Editor ein. Über das Formular eingehende Bewertungen gehen als Kontakt-Mail an den Shop-Inhaber ([Kunde] ohne App). Freigeschaltete Stimmen könnt ihr später als neue Blöcke einfügen."
+      "content": "Karten („Kundenstimmen“-Blöcke) im Theme-Editor pflegen. Eingehende Bewertungen per Formular gehen als Kontakt-Mail an den Shop (ohne separate Bewertungs-App). Veröffentlichen Sie freigegebene Stimmen später als neue Blöcke hier."
     },
     {
       "type": "color_scheme",
@@ -265,13 +357,25 @@
       "type": "text",
       "id": "heading",
       "label": "Überschrift",
-      "default": "Das sagen unsere Kunden"
+      "default": "Das sagen unsere Kundinnen und Kunden"
+    },
+    {
+      "type": "text",
+      "id": "rating_summary",
+      "label": "Zeile unter den Sternen (Bewertungszusammenfassung)",
+      "default": "5,0 / 5 aus Kundenbewertungen"
+    },
+    {
+      "type": "textarea",
+      "id": "intro_body",
+      "label": "Kurzer Erklärungstext unter der Bewertungszeile",
+      "default": "Lesen Sie Erfahrungen anderer Käuferinnen und Käufer – oder teilen Sie Ihre eigene Bewertung."
     },
     {
       "type": "textarea",
       "id": "subheading",
-      "label": "Einleitung (optional)",
-      "default": "Wischen Sie horizontal durch die Bewertungen – oder schreiben Sie uns Ihre eigene!"
+      "label": "Einleitung (Fallback, falls obiger Text leer)",
+      "default": "Lesen Sie Erfahrungen anderer Käuferinnen und Käufer – oder teilen Sie Ihre eigene Bewertung."
     },
     {
       "type": "checkbox",
@@ -283,7 +387,7 @@
       "type": "textarea",
       "id": "empty_state",
       "label": "Text ohne Kartenblöcke",
-      "default": "Hier gibt es bald die ersten Bewertungen. Schreiben Sie uns gern eine!"
+      "default": "Hier gibt es bald die ersten Bewertungen. Nutzen Sie gern „Eigene Bewertung schreiben“."
     },
     {
       "type": "header",
@@ -304,14 +408,14 @@
     {
       "type": "textarea",
       "id": "form_hint",
-      "label": "Hinweis unter Überschrift",
-      "default": "Wählen Sie Sterne und Ihren kurzen Kommentar. Mit dem Absenden wird eine Nachricht über das Shopify-Kontaktformular verschickt."
+      "label": "Hinweis unter Überschrift (Formular)",
+      "default": "Teilen Sie Ihre Erfahrung mit uns. Ihre Bewertung wird nach Prüfung veröffentlicht."
     },
     {
       "type": "richtext",
       "id": "privacy_note",
       "label": "Datenschutz-Hinweis (optional)",
-      "default": "<p>Mit Absenden werden Ihre Angaben zur Bearbeitung gespeichert. Siehe auch unsere Datenschutzerklärung.</p>"
+      "default": "<p>Mit dem Absenden speichern wir Ihre Angaben zur Bearbeitung Ihrer Bewertung. Weitere Informationen finden Sie in unserer Datenschutzerklärung.</p>"
     }
   ],
   "max_blocks": 24,

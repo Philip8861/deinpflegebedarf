@@ -11,7 +11,7 @@
 <article class="pflege-reviews-rail__card">
   <div class="pflege-reviews-rail__stars" aria-label="{{ 'sections.pflege_reviews_rail.demo_badge_4' | t }}">
     {%- for i in (1..5) -%}
-      <span{% if i > 4 %} style="opacity:0.22"{% endif %} aria-hidden="true">★</span>
+      <span{% if i > 4 %} class="pflege-reviews-rail__star--dim"{% endif %} aria-hidden="true">★</span>
     {%- endfor -%}
   </div>
   <p class="pflege-reviews-rail__quote">{{ 'sections.pflege_reviews_rail.demo_2_quote' | t }}</p>
