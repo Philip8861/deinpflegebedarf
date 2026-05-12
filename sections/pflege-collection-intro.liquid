@@ -54,6 +54,19 @@
   if finder_href == blank
     assign finder_href = '/pages/produktfinder'
   endif
+
+  # Sonderfall Kollektion hautpflege: H1 Hallo123 (früher im Kollektionsbanner).
+  assign pflege_col_seg = ''
+  if request.path contains '/collections/'
+    assign pflege_col_seg = request.path | split: '/collections/' | last | split: '/' | first | split: '?' | first | downcase | strip
+  endif
+  if pflege_col_seg == blank
+    assign pflege_col_seg = collection.handle | default: '' | downcase | strip
+  endif
+  assign pflege_intro_heading = collection.title
+  if pflege_col_seg == 'hautpflege' or collection.handle == 'hautpflege'
+    assign pflege_intro_heading = 'Hallo123'
+  endif
 -%}
 
 {%- style -%}
@@ -76,7 +89,7 @@
   <div class="pflege-category-intro__shell page-width">
     <div class="pflege-category-intro__hero-grid">
       <header class="pflege-category-intro__main">
-        <h1 class="pflege-category-intro__title">{{ collection.title | escape }}</h1>
+        <h1 class="pflege-category-intro__title">{{ pflege_intro_heading | escape }}</h1>
         <p class="pflege-category-intro__lead">{{ hero_intro | escape }}</p>
         <ul class="pflege-category-intro__usps" aria-label="{{ 'sections.pflege_collection.usp_list_label' | t }}">
           <li class="pflege-category-intro__usp">
