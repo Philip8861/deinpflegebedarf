@@ -48,6 +48,16 @@
       </li>
       <li class="pflege-cat-rail__cell">
         <a
+          href="{{ url_des }}"
+          class="pflege-cat-rail__link{% if active_des %} pflege-cat-rail__link--active{% endif %}"
+          {% if active_des %}aria-current="page"{% endif %}
+        >
+          <span class="pflege-cat-rail__icon" aria-hidden="true">{% render 'pflege-icon', icon: 'cross-medical', width: 20 %}</span>
+          <span class="pflege-cat-rail__label">{{ 'sections.pflege_header_category_rail.cat_des' | t }}</span>
+        </a>
+      </li>
+      <li class="pflege-cat-rail__cell">
+        <a
           href="{{ url_ver }}"
           class="pflege-cat-rail__link{% if active_ver %} pflege-cat-rail__link--active{% endif %}"
           {% if active_ver %}aria-current="page"{% endif %}

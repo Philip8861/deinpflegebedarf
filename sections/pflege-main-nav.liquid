@@ -149,6 +149,14 @@
     endif
     if rail_cat == ''
       for c in product.collections
+        if c.handle == 'desinfektion'
+          assign rail_cat = 'des'
+          break
+        endif
+      endfor
+    endif
+    if rail_cat == ''
+      for c in product.collections
         if c.handle == 'verbrauchsartikel'
           assign rail_cat = 'ver'
           break
@@ -164,6 +172,8 @@
         assign active_skin = true
       when 'gloves'
         assign active_gloves = true
+      when 'des'
+        assign active_des = true
       when 'ver'
         assign active_ver = true
     endcase
@@ -490,11 +500,13 @@
       url_body: url_body,
       url_skin: url_skin,
       url_gloves: url_gloves,
+      url_des: url_des,
       url_ver: url_ver,
       active_ink: active_ink,
       active_body: active_body,
       active_skin: active_skin,
       active_gloves: active_gloves,
+      active_des: active_des,
       active_ver: active_ver
     %}
   </div>
@@ -576,6 +588,19 @@
       </li>
       <li>
         <a
+          href="{{ url_des }}"
+          class="pflege-category-modal__link{% if active_des %} is-active{% endif %}"
+          {% if active_des %}aria-current="page"{% endif %}
+          data-category-modal-close
+        >
+          <span class="pflege-category-modal__link-icon" aria-hidden="true">
+            {%- render 'pflege-icon', icon: 'cross-medical', width: 22 -%}
+          </span>
+          <span class="pflege-category-modal__link-label">{{ 'sections.pflege_header_category_rail.cat_des' | t }}</span>
+        </a>
+      </li>
+      <li>
+        <a
           href="{{ url_ver }}"
           class="pflege-category-modal__link{% if active_ver %} is-active{% endif %}"
           {% if active_ver %}aria-current="page"{% endif %}
@@ -585,19 +610,6 @@
             {%- render 'pflege-icon', icon: 'shopping-bag', width: 22 -%}
           </span>
           <span class="pflege-category-modal__link-label">{{ 'sections.pflege_header_category_rail.cat_consumables' | t }}</span>
-        </a>
-      </li>
-      <li>
-        <a
-          href="{{ url_des }}"
-          class="pflege-category-modal__link{% if active_des %} is-active{% endif %}"
-          {% if active_des %}aria-current="page"{% endif %}
-          data-category-modal-close
-        >
-          <span class="pflege-category-modal__link-icon" aria-hidden="true">
-            {%- render 'pflege-icon', icon: 'droplet', width: 22 -%}
-          </span>
-          <span class="pflege-category-modal__link-label">{{ 'sections.pflege_header_category_rail.modal_hand_surface_disinfection' | t }}</span>
         </a>
       </li>
     </ul>
