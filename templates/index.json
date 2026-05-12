@@ -37,6 +37,7 @@
     "pflege_product_finder": {
       "type": "pflege-product-finder",
       "settings": {
+        "bg_refresh_token": "2",
         "intro": "Beantworten Sie ein paar kurze Fragen und erhalten Sie sofort passende Pflegeprodukte für Ihre Situation, ganz ohne langes Suchen",
         "primary_label": "Jetzt das passende Produkt finden"
       }
