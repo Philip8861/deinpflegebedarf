@@ -13,24 +13,6 @@
     endif
   endif
 
-  assign usp1 = collection.metafields.pflege.usp_1.value | default: '' | strip_html | strip
-  assign usp2 = collection.metafields.pflege.usp_2.value | default: '' | strip_html | strip
-  assign usp3 = collection.metafields.pflege.usp_3.value | default: '' | strip_html | strip
-  if usp1 == blank
-    assign usp1 = 'sections.pflege_collection.fallback_usp_1' | t
-  endif
-  if usp2 == blank
-    assign usp2 = 'sections.pflege_collection.fallback_usp_2' | t
-  endif
-  if usp3 == blank
-    assign usp3 = 'sections.pflege_collection.fallback_usp_3' | t
-  endif
-
-  assign seo_para = collection.metafields.pflege.seo_paragraph.value | default: '' | strip_html | strip
-  if seo_para == blank
-    assign seo_para = 'sections.pflege_collection.seo_fallback' | t: title: collection.title
-  endif
-
   assign finder_heading = section.settings.finder_heading_override | strip
   if finder_heading == blank
     assign finder_heading = collection.metafields.pflege.finder_heading.value | strip_html | strip
@@ -91,26 +73,6 @@
       <header class="pflege-category-intro__main">
         <h1 class="pflege-category-intro__title">{{ pflege_intro_heading | escape }}</h1>
         <p class="pflege-category-intro__lead">{{ hero_intro | escape }}</p>
-        <ul class="pflege-category-intro__usps" aria-label="{{ 'sections.pflege_collection.usp_list_label' | t }}">
-          <li class="pflege-category-intro__usp">
-            <span class="pflege-category-intro__usp-ic" aria-hidden="true">
-              {% render 'pflege-icon', icon: 'shield', width: 18 %}
-            </span>
-            <span>{{ usp1 | escape }}</span>
-          </li>
-          <li class="pflege-category-intro__usp">
-            <span class="pflege-category-intro__usp-ic" aria-hidden="true">
-              {% render 'pflege-icon', icon: 'heart', width: 18 %}
-            </span>
-            <span>{{ usp2 | escape }}</span>
-          </li>
-          <li class="pflege-category-intro__usp">
-            <span class="pflege-category-intro__usp-ic" aria-hidden="true">
-              {% render 'pflege-icon', icon: 'headset', width: 18 %}
-            </span>
-            <span>{{ usp3 | escape }}</span>
-          </li>
-        </ul>
       </header>
 
       <aside class="pflege-category-intro__finder" aria-label="{{ 'sections.pflege_collection.finder_heading' | t }}">
@@ -133,14 +95,6 @@
         </div>
       </aside>
     </div>
-
-    <hr class="pflege-category-intro__rule" />
-
-    {% if seo_para != blank %}
-      <div class="pflege-category-intro__seo rte">
-        <p class="pflege-category-intro__seo-p">{{ seo_para | escape }}</p>
-      </div>
-    {% endif %}
   </div>
 </section>
 
