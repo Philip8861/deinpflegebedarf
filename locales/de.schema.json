@@ -1449,6 +1449,48 @@
         }
       }
     },
+    "pflege_collection_intro": {
+      "name": "Pflege: Kat.-Intro",
+      "presets": {
+        "name": "Kategorie-Einstieg"
+      },
+      "settings": {
+        "paragraph_metafields": {
+          "content": "Inhalte pro Kollektion: Im Admin unter „Kollektionen“ → Metafelder anlegen. Namespace pflege empfohlen mit z. B. intro (Kurzeinleitung), usp_1–usp_3, seo_paragraph, finder_heading, finder_text und finder_url. Leere Felder nutzen deutschsprachige Theme-Fallbacks bzw. die Kurzbeschreibung aus der Kollektion (erste Absätze, bereinigt)."
+        },
+        "finder_heading_override": {
+          "label": "Überschrift Produktfinder (optional)"
+        },
+        "finder_body_override": {
+          "label": "Text Produktfinder (optional)"
+        },
+        "finder_link": {
+          "label": "Link zum Produktfinder",
+          "info": "Relativer Pfad (z. B. /pages/produktfinder) oder komplette URL. Wird verwendet, wenn kein Kollektion-Metafeld finder_url gesetzt ist."
+        },
+        "finder_cta_label": {
+          "label": "Button-Produktfinder",
+          "info": "Frei lassen für den Standard „Produktfinder starten“."
+        }
+      }
+    },
+    "pflege_collection_bottom_content": {
+      "name": "Pflege: Text unter Grid",
+      "presets": {
+        "name": "Kollektionstext am Seitenende"
+      },
+      "settings": {
+        "paragraph_html": {
+          "content": "Zeigt die vollständige Kollektionsbeschreibung aus dem Shopify-Admin (RTE) unter dem Produktraster für Suchmaschinen. Deaktivieren, wenn keine Beschreibung gepflegt ist oder doppelte Inhalte störend sind."
+        },
+        "enable": {
+          "label": "Ausführlichen Text anzeigen"
+        },
+        "section_label": {
+          "label": "Kurzes Label für Screenreader zum Textblock unten"
+        }
+      }
+    },
     "main-collection-product-grid": {
       "name": "Produktraster",
       "settings": {
@@ -1461,6 +1503,10 @@
         },
         "enable_sorting": {
           "label": "Sortierung"
+        },
+        "minimal_collection_cards": {
+          "label": "Schlanke Kollektion-Karten",
+          "info": "Nur auf Kollektion-Seiten: schlichtes Kartenlayout mit „Details ansehen“. Keine Preisanzeige, kein Schnellkaufen in der Rasteransicht."
         },
         "image_ratio": {
           "label": "Bildverhältnis",

@@ -1762,6 +1762,48 @@
         }
       }
     },
+    "pflege_collection_intro": {
+      "name": "Pflege: Coll. intro",
+      "presets": {
+        "name": "Category intro"
+      },
+      "settings": {
+        "paragraph_metafields": {
+          "content": "Per collection: define metafields in Admin (Collections → metafields). Recommended namespace pflege with keys intro, usp_1–usp_3, seo_paragraph, finder_heading, finder_text and finder_url. Empty fields use theme fallbacks or the collection description excerpt."
+        },
+        "finder_heading_override": {
+          "label": "Product finder headline (optional)"
+        },
+        "finder_body_override": {
+          "label": "Product finder copy (optional)"
+        },
+        "finder_link": {
+          "label": "Product finder link",
+          "info": "Relative path or full URL when collection metafield finder_url is not set."
+        },
+        "finder_cta_label": {
+          "label": "Product finder button label",
+          "info": "Leave blank for the default “Start product finder”."
+        }
+      }
+    },
+    "pflege_collection_bottom_content": {
+      "name": "Pflege: Coll. RTE below",
+      "presets": {
+        "name": "Collection footer text"
+      },
+      "settings": {
+        "paragraph_html": {
+          "content": "Outputs the full collection description from Shopify admin below the product grid for SEO. Disable if duplicate or unwanted."
+        },
+        "enable": {
+          "label": "Show long description below grid"
+        },
+        "section_label": {
+          "label": "Screen reader label for the lower text block"
+        }
+      }
+    },
     "main-collection-product-grid": {
       "name": "Product grid",
       "settings": {
@@ -1789,6 +1831,10 @@
         },
         "enable_sorting": {
           "label": "Sorting"
+        },
+        "minimal_collection_cards": {
+          "label": "Minimal collection cards",
+          "info": "On collection pages only: simple cards with \"View details\". Hides inline price and quick add in this grid layout."
         },
         "image_ratio": {
           "label": "Image ratio",

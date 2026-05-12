@@ -365,7 +365,23 @@
       "cat_skin": "Skin care",
       "cat_gloves": "Protection & gloves",
       "cat_des": "Hand and surface disinfection",
-      "cat_consumables": "Consumables",
+      "cat_consumables": "Consumables"
+    },
+    "pflege_collection_bottom_content": {
+      "default_aria": "More information about this category"
+    },
+    "pflege_collection": {
+      "finder_heading": "Not sure which product fits?",
+      "finder_text_default": "Our product finder guides you step by step to a suitable selection.",
+      "finder_cta": "Start product finder",
+      "fallback_intro": "{{ title }} bundles curated essentials for straightforward shopping.",
+      "fallback_usp_1": "Reliable brands and dependable quality.",
+      "fallback_usp_2": "Clear layout — find what matters quickly.",
+      "fallback_usp_3": "Personal guidance when choosing products.",
+      "seo_fallback": "Browse products in {{ title }} with concise introduction above and detailed product pages for each offer.",
+      "view_details": "View details",
+      "view_details_aria": "{{ title }} — Open product details",
+      "usp_list_label": "Category highlights"
     },
     "cart": {
       "title": "Warenkorb",

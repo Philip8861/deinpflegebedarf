@@ -1,0 +1,85 @@
+{% comment %}
+  Ausgabe der vollständigen Kollektion-Beschreibung (RTE aus dem Shopify-Admin) unter dem Produktraster.
+{% endcomment %}
+{%- liquid
+  assign pflege_bottom_arialabel = section.settings.section_label | strip_html | strip
+  if pflege_bottom_arialabel == blank
+    assign pflege_bottom_arialabel = 'sections.pflege_collection_bottom_content.default_aria' | t
+  endif
+-%}
+{%- if section.settings.enable and collection.description != blank -%}
+  {%- style -%}
+    #PflegeBottomContent-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+    @media screen and (min-width: 750px) {
+      #PflegeBottomContent-{{ section.id }} {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+    }
+  {%- endstyle -%}
+  <aside
+    id="PflegeBottomContent-{{ section.id }}"
+    class="pflege-collection-bottom-rte gradient color-{{ section.settings.color_scheme }} {% if settings.animations_reveal_on_scroll %}scroll-trigger animate--fade-in{% endif %}"
+    aria-label="{{ pflege_bottom_arialabel | escape }}"
+  >
+    <div class="page-width pflege-collection-bottom-rte-inner rte">
+      {{ collection.description }}
+    </div>
+  </aside>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:sections.pflege_collection_bottom_content.name",
+  "tag": "section",
+  "class": "pflege-collection-footer-seo-section section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:sections.pflege_collection_bottom_content.settings.paragraph_html.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable",
+      "default": true,
+      "label": "t:sections.pflege_collection_bottom_content.settings.enable.label"
+    },
+    {
+      "type": "text",
+      "id": "section_label",
+      "label": "t:sections.pflege_collection_bottom_content.settings.section_label.label",
+      "default": "Ausführliche Informationen zur Kategorie"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 48
+    }
+  ],
+  "presets": [{ "name": "t:sections.pflege_collection_bottom_content.presets.name" }]
+}
+{% endschema %}

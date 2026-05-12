@@ -1,0 +1,195 @@
+{%- liquid
+  assign intro_met = collection.metafields.pflege.intro.value | strip
+  assign hero_intro = intro_met | strip_html | strip
+  if hero_intro == blank
+    assign desc_plain = collection.description | strip_html | newline_to_br | strip_newlines
+    assign desc_plain = desc_plain | replace: '<br />', ' ' | replace: '<br>', ' ' | replace: '<br/>', ' ' | strip | truncate: 260
+    if desc_plain.size > 24
+      assign hero_intro = desc_plain
+    else
+      assign hero_intro = 'sections.pflege_collection.fallback_intro' | t: title: collection.title
+    endif
+  endif
+
+  assign usp1 = collection.metafields.pflege.usp_1.value | default: '' | strip_html | strip
+  assign usp2 = collection.metafields.pflege.usp_2.value | default: '' | strip_html | strip
+  assign usp3 = collection.metafields.pflege.usp_3.value | default: '' | strip_html | strip
+  if usp1 == blank
+    assign usp1 = 'sections.pflege_collection.fallback_usp_1' | t
+  endif
+  if usp2 == blank
+    assign usp2 = 'sections.pflege_collection.fallback_usp_2' | t
+  endif
+  if usp3 == blank
+    assign usp3 = 'sections.pflege_collection.fallback_usp_3' | t
+  endif
+
+  assign seo_para = collection.metafields.pflege.seo_paragraph.value | default: '' | strip_html | strip
+  if seo_para == blank
+    assign seo_para = 'sections.pflege_collection.seo_fallback' | t: title: collection.title
+  endif
+
+  assign finder_heading = section.settings.finder_heading_override | strip
+  if finder_heading == blank
+    assign finder_heading = collection.metafields.pflege.finder_heading.value | strip_html | strip
+  endif
+  if finder_heading == blank
+    assign finder_heading = 'sections.pflege_collection.finder_heading' | t
+  endif
+
+  assign finder_desc = section.settings.finder_body_override | strip
+  if finder_desc == blank
+    assign finder_desc = collection.metafields.pflege.finder_text.value | strip_html | strip
+  endif
+  if finder_desc == blank
+    assign finder_desc = 'sections.pflege_collection.finder_text_default' | t
+  endif
+
+  assign finder_href = section.settings.finder_link | strip
+  if finder_href == blank
+    assign finder_href = collection.metafields.pflege.finder_url.value | strip
+  endif
+  if finder_href == blank
+    assign finder_href = '/pages/produktfinder'
+  endif
+-%}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section
+  class="pflege-category-intro section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }} {% if settings.animations_reveal_on_scroll %}scroll-trigger animate--fade-in{% endif %}"
+  id="PflegeCollectionIntro-{{ section.id }}"
+>
+  <div class="pflege-category-intro__shell page-width">
+    <div class="pflege-category-intro__hero-grid">
+      <header class="pflege-category-intro__main">
+        <h1 class="pflege-category-intro__title">{{ collection.title | escape }}</h1>
+        <p class="pflege-category-intro__lead">{{ hero_intro | escape }}</p>
+        <ul class="pflege-category-intro__usps" aria-label="{{ 'sections.pflege_collection.usp_list_label' | t }}">
+          <li class="pflege-category-intro__usp">
+            <span class="pflege-category-intro__usp-ic" aria-hidden="true">
+              {% render 'pflege-icon', icon: 'shield', width: 18 %}
+            </span>
+            <span>{{ usp1 | escape }}</span>
+          </li>
+          <li class="pflege-category-intro__usp">
+            <span class="pflege-category-intro__usp-ic" aria-hidden="true">
+              {% render 'pflege-icon', icon: 'heart', width: 18 %}
+            </span>
+            <span>{{ usp2 | escape }}</span>
+          </li>
+          <li class="pflege-category-intro__usp">
+            <span class="pflege-category-intro__usp-ic" aria-hidden="true">
+              {% render 'pflege-icon', icon: 'headset', width: 18 %}
+            </span>
+            <span>{{ usp3 | escape }}</span>
+          </li>
+        </ul>
+      </header>
+
+      <aside class="pflege-category-intro__finder" aria-label="{{ 'sections.pflege_collection.finder_heading' | t }}">
+        <div class="pflege-category-intro__finder-card">
+          <div class="pflege-category-intro__finder-icon-wrap" aria-hidden="true">
+            {% render 'pflege-icon', icon: 'sparkles', width: 26 %}
+          </div>
+          <h2 class="pflege-category-intro__finder-heading">{{ finder_heading | escape }}</h2>
+          <p class="pflege-category-intro__finder-text">{{ finder_desc | escape }}</p>
+          <a class="pflege-category-intro__finder-cta" href="{{ finder_href | escape }}">
+            {%- liquid
+              assign finder_cta_text = section.settings.finder_cta_label | strip
+              if finder_cta_text == blank
+                echo 'sections.pflege_collection.finder_cta' | t
+              else
+                echo finder_cta_text | escape
+              endif
+            -%}
+          </a>
+        </div>
+      </aside>
+    </div>
+
+    <hr class="pflege-category-intro__rule" />
+
+    {% if seo_para != blank %}
+      <div class="pflege-category-intro__seo rte">
+        <p class="pflege-category-intro__seo-p">{{ seo_para | escape }}</p>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.pflege_collection_intro.name",
+  "tag": "section",
+  "class": "pflege-collection-intro-section section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:sections.pflege_collection_intro.settings.paragraph_metafields.content"
+    },
+    {
+      "type": "text",
+      "id": "finder_heading_override",
+      "label": "t:sections.pflege_collection_intro.settings.finder_heading_override.label"
+    },
+    {
+      "type": "textarea",
+      "id": "finder_body_override",
+      "label": "t:sections.pflege_collection_intro.settings.finder_body_override.label"
+    },
+    {
+      "type": "text",
+      "id": "finder_link",
+      "label": "t:sections.pflege_collection_intro.settings.finder_link.label",
+      "default": "/pages/produktfinder",
+      "info": "t:sections.pflege_collection_intro.settings.finder_link.info"
+    },
+    {
+      "type": "text",
+      "id": "finder_cta_label",
+      "label": "t:sections.pflege_collection_intro.settings.finder_cta_label.label",
+      "default": "",
+      "info": "t:sections.pflege_collection_intro.settings.finder_cta_label.info"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 72,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 72,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 24
+    }
+  ],
+  "presets": [{ "name": "t:sections.pflege_collection_intro.presets.name" }]
+}
+{% endschema %}

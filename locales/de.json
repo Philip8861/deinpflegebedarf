@@ -358,7 +358,23 @@
       "cat_skin": "Hautpflege",
       "cat_gloves": "Schutz & Handschuhe",
       "cat_des": "Hände und Flächendesinfektion",
-      "cat_consumables": "Verbrauchsartikel",
+      "cat_consumables": "Verbrauchsartikel"
+    },
+    "pflege_collection_bottom_content": {
+      "default_aria": "Ausführliche Informationen zur Kategorie"
+    },
+    "pflege_collection": {
+      "finder_heading": "Unsicher, welches Produkt passt?",
+      "finder_text_default": "Unser Produktfinder hilft Ihnen in wenigen Schritten zur passenden Auswahl.",
+      "finder_cta": "Produktfinder starten",
+      "fallback_intro": "In der Kategorie {{ title }} finden Sie durchdacht zusammengestellte Produkte für Ihren Pflegebedarf.",
+      "fallback_usp_1": "Hohe Qualität und verlässliche Markenstandards.",
+      "fallback_usp_2": "Klare Produktwahl und übersichtliche Darstellung.",
+      "fallback_usp_3": "Persönlicher Service und Beratung bei der Auswahl.",
+      "seo_fallback": "Die folgenden Produkte in {{ title }} können Sie bequem online bestellen. Sie profitieren von schneller Orientierung und vollständigen Detailseiten je Artikel.",
+      "view_details": "Details ansehen",
+      "view_details_aria": "{{ title }} — Details zur Produktseite",
+      "usp_list_label": "Vorteile in dieser Kategorie"
     },
     "cart": {
       "title": "Warenkorb",
