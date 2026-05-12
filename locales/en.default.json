@@ -383,6 +383,26 @@
       "view_details_aria": "{{ title }} — Open product details",
       "usp_list_label": "Category highlights"
     },
+    "pflege_reviews_rail": {
+      "nav_label": "Review carousel navigation",
+      "prev": "Previous reviews",
+      "next": "More reviews to the right",
+      "carousel_label": "Highlighted customer testimonials",
+      "stars_aria": "{{ count }} out of 5 stars",
+      "form_success": "Thank you. Your review was sent by email and may be shown here after we review it.",
+      "label_rating": "Star rating",
+      "label_comment": "Your feedback",
+      "comment_placeholder": "Short review …",
+      "submit": "Submit review",
+      "demo_badge_5": "5 out of 5 stars",
+      "demo_badge_4": "4 out of 5 stars",
+      "demo_1_quote": "Easy ordering and genuinely helpful phone support.",
+      "demo_1_author": "Marion S.",
+      "demo_2_quote": "Products as described — delivery arrived on time.",
+      "demo_2_author": "Family Becker",
+      "demo_3_quote": "Great selection for everyday care — we would shop again.",
+      "demo_3_author": "Thomas R."
+    },
     "cart": {
       "title": "Warenkorb",
       "caption": "Artikel im Warenkorb",

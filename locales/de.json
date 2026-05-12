@@ -376,6 +376,26 @@
       "view_details_aria": "{{ title }} — Details zur Produktseite",
       "usp_list_label": "Vorteile in dieser Kategorie"
     },
+    "pflege_reviews_rail": {
+      "nav_label": "Karussell-Navigation",
+      "prev": "Vorherige Bewertungen",
+      "next": "Weitere Bewertungen nach rechts",
+      "carousel_label": "Ausgewählte Kundenstimmen",
+      "stars_aria": "{{ count }} von 5 Sternen",
+      "form_success": "Vielen Dank! Ihre Bewertung wurde per E-Mail an uns geschickt. Nach Prüfung können wir sie hier veröffentlichen.",
+      "label_rating": "Ihre Sterne-Bewertung",
+      "label_comment": "Ihr Kommentar",
+      "comment_placeholder": "Kurzer Erfahrungsbericht …",
+      "submit": "Bewertung absenden",
+      "demo_badge_5": "5 von 5 Sternen",
+      "demo_badge_4": "4 von 5 Sternen",
+      "demo_1_quote": "Unkomplizierte Bestellung und freundlicher Support am Telefon.",
+      "demo_1_author": "Marion S.",
+      "demo_2_quote": "Produkte wie beschrieben, die Lieferung hat prima geklappt.",
+      "demo_2_author": "Familie Becker",
+      "demo_3_quote": "Gute Auswahl rund um den Pflegealltag — sehr empfehlenswert.",
+      "demo_3_author": "Thomas R."
+    },
     "cart": {
       "title": "Warenkorb",
       "caption": "Artikel im Warenkorb",
