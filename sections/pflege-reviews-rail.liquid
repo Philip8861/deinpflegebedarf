@@ -159,6 +159,14 @@
       {%- endif -%}
     </div>
 
+    {%- liquid
+      assign prr_form_posted_ok = false
+      assign reviews_success_href = section.settings.success_continue_url | strip
+      if reviews_success_href == blank
+        assign reviews_success_href = routes.all_products_collection_url
+      endif
+    -%}
+
     {%- if section.settings.show_form -%}
       {%- liquid
         assign reviews_form_id = 'PflegeReviewsForm-' | append: section.id
@@ -200,9 +208,7 @@
 
         {%- form 'contact', id: reviews_form_id, class: reviews_form_class -%}
           {%- if form.posted_successfully? -%}
-            <p class="pflege-reviews-rail__success" tabindex="-1">
-              {{ 'sections.pflege_reviews_rail.form_success' | t }}
-            </p>
+            {%- assign prr_form_posted_ok = true -%}
           {%- endif -%}
 
           {%- if form.errors -%}
@@ -299,6 +305,39 @@
           </div>
         </div>
       </div>
+    {%- endif -%}
+
+    {%- if section.settings.show_form and prr_form_posted_ok -%}
+      <dialog
+        class="pflege-reviews-rail__success-dialog"
+        data-reviews-success-dialog
+        aria-labelledby="pflege-reviews-success-title-{{ section.id }}"
+        aria-describedby="pflege-reviews-success-desc-{{ section.id }}"
+      >
+        <div class="pflege-reviews-rail__success-dialog-panel">
+          <h3 class="pflege-reviews-rail__success-dialog-title" id="pflege-reviews-success-title-{{ section.id }}">
+            {{ 'sections.pflege_reviews_rail.success_modal_title' | t }}
+          </h3>
+          <p class="pflege-reviews-rail__success-dialog-text" id="pflege-reviews-success-desc-{{ section.id }}">
+            {{ 'sections.pflege_reviews_rail.form_success' | t }}
+          </p>
+          <div class="pflege-reviews-rail__success-dialog-actions">
+            <a
+              href="{{ reviews_success_href | escape }}"
+              class="pflege-reviews-rail__success-dialog-cta"
+            >
+              {{ 'sections.pflege_reviews_rail.continue_shopping' | t }}
+            </a>
+            <button
+              type="button"
+              class="pflege-reviews-rail__success-dialog-dismiss"
+              data-reviews-success-close
+            >
+              {{ 'sections.pflege_reviews_rail.success_modal_dismiss' | t }}
+            </button>
+          </div>
+        </div>
+      </dialog>
     {%- endif -%}
   </div>
 </section>
@@ -416,6 +455,13 @@
       "id": "privacy_note",
       "label": "Datenschutz-Hinweis (optional)",
       "default": "<p>Mit dem Absenden speichern wir Ihre Angaben zur Bearbeitung Ihrer Bewertung. Weitere Informationen finden Sie in unserer Datenschutzerklärung.</p>"
+    },
+    {
+      "type": "text",
+      "id": "success_continue_url",
+      "label": "Nach erfolgreicher Bewertung — Link für „Jetzt weiter shoppen“",
+      "info": "Leer lassen für die Standard-Kollektion „Alle Produkte“. Sonst Pfad eingeben, z. B. „/collections/inkontinenz“ oder vollständige URL.",
+      "placeholder": "/collections/all"
     }
   ],
   "max_blocks": 24,

@@ -35,8 +35,7 @@
     setPanelLabels(root, open);
   }
 
-  function bindFormCollapse(root, panel) {
-    const primaryToggle = root.querySelector('.pflege-reviews-rail__toggle-form');
+  function bindFormCollapse(root, panel, primaryToggle) {
     const closeBtn = root.querySelector('.pflege-reviews-rail__form-close');
 
     if (!panel || !primaryToggle) return;
@@ -55,15 +54,41 @@
       primaryToggle.focus({ preventScroll: true });
     });
 
-    const success = panel.querySelector('.pflege-reviews-rail__success');
     const errors = panel.querySelector('.pflege-reviews-rail__errors');
-    if (success || errors) {
+    if (errors) {
       setFormPanelOpen(root, panel, primaryToggle, true);
+    }
+  }
+
+  function openReviewSuccessDialog(root, panel, primaryToggle) {
+    const dlg = root.querySelector('[data-reviews-success-dialog]');
+    if (!dlg || typeof dlg.showModal !== 'function') return;
+
+    dlg.addEventListener('click', (e) => {
+      if (e.target === dlg) dlg.close();
+    });
+
+    dlg.querySelectorAll('[data-reviews-success-close]').forEach((btn) => {
+      btn.addEventListener('click', () => dlg.close());
+    });
+
+    dlg.addEventListener('close', () => {
+      primaryToggle?.focus({ preventScroll: true });
+    });
+
+    try {
+      if (panel && primaryToggle) {
+        setFormPanelOpen(root, panel, primaryToggle, false);
+      }
+      dlg.showModal();
       requestAnimationFrame(() => {
-        if (success && typeof success.focus === 'function') {
-          success.focus({ preventScroll: prefersReducedMotion() });
+        const cta = dlg.querySelector('.pflege-reviews-rail__success-dialog-cta');
+        if (cta && typeof cta.focus === 'function') {
+          cta.focus({ preventScroll: prefersReducedMotion() });
         }
       });
+    } catch (_) {
+      dlg.setAttribute('open', '');
     }
   }
 
@@ -77,6 +102,7 @@
     const next = root.querySelector('[data-reviews-next]');
     const form = root.querySelector('.pflege-reviews-rail__form');
     const panel = root.querySelector('[data-reviews-form-panel]');
+    const primaryToggle = root.querySelector('.pflege-reviews-rail__toggle-form');
 
     function scrollStep(direction) {
       if (!track || !track.children.length) return;
@@ -101,9 +127,10 @@
       syncReviewsNav(track, nav);
     }
 
-    if (panel) {
-      bindFormCollapse(root, panel);
+    if (panel && primaryToggle) {
+      bindFormCollapse(root, panel, primaryToggle);
     }
+    openReviewSuccessDialog(root, panel, primaryToggle);
 
     if (form) {
       const bodyOut = form.querySelector('[data-reviews-body-out]');
