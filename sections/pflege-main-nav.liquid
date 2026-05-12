@@ -56,8 +56,6 @@
 
   if collections['hautpflege'] != blank
     assign url_skin = collections['hautpflege'].url
-  elsif collections['hautschutz-hautpflege'] != blank
-    assign url_skin = collections['hautschutz-hautpflege'].url
   else
     assign url_skin = root | append: 'collections/hautpflege'
   endif
@@ -127,7 +125,15 @@
     endif
     if rail_cat == ''
       for c in product.collections
-        if c.handle == 'hautpflege' or c.handle == 'hautschutz-hautpflege' or c.handle == 'hauschutz-hautpflege'
+        if c.handle == 'hautpflege'
+          assign rail_cat = 'skin'
+          break
+        endif
+      endfor
+    endif
+    if rail_cat == ''
+      for c in product.collections
+        if c.handle == 'hautschutz-hautpflege' or c.handle == 'hauschutz-hautpflege'
           assign rail_cat = 'skin'
           break
         endif
