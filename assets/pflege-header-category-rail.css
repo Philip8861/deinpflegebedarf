@@ -1,17 +1,24 @@
 /*
- * Kategorie-Reiter in der Hauptheader-Zeile (Zwischenraum Kategorienübersicht → Mein Konto).
+ * Kategorie-Reiter unter der Hauptzeile (keine Überlappung mit zentrierter Suche).
  * Optik: weiße Pill, Trennlinien, aktiver Tab hellblau wie Referenz.
  */
 
-/* Slot im Flex-Grid — Breite zwischen Nav und Aktionen */
-.pflege-main-nav-section .pflege-main-nav__cat-rail-slot {
+.pflege-main-nav-section .header-wrapper.pflege-main-nav {
   display: flex;
-  align-items: center;
-  justify-content: stretch;
-  min-width: 0;
+  flex-direction: column;
+  align-items: stretch;
 }
 
-.pflege-main-nav-section .pflege-main-nav__cat-rail-slot .pflege-cat-rail {
+/* Volle zweite Zeile unter Logo / Kategorie-Pill / Suche / Konto */
+.pflege-main-nav-section .pflege-main-nav__cat-rail-row {
+  width: 100%;
+  min-width: 0;
+  flex: 0 0 auto;
+  padding-block: 0.2rem 0.45rem;
+  box-sizing: border-box;
+}
+
+.pflege-main-nav-section .pflege-main-nav__cat-rail-row .pflege-cat-rail {
   width: 100%;
   min-width: 0;
 }
@@ -133,22 +140,14 @@
 }
 
 @media screen and (min-width: 750px) {
-  .pflege-main-nav-section .pflege-main-nav__cat-rail-slot {
-    flex: 1 1 0;
-    padding-inline: clamp(0.2rem, 0.85vw, 0.65rem);
-    margin-inline: clamp(0.15rem, 0.55vw, 0.45rem);
-    z-index: 1;
+  .pflege-main-nav-section .pflege-main-nav__grid {
+    padding-bottom: 0.65rem;
   }
 }
 
 @media screen and (max-width: 749px) {
-  .pflege-main-nav-section .pflege-main-nav__cat-rail-slot {
-    order: 11;
-    flex: 1 1 100%;
-    width: 100%;
-    min-width: 0;
-    margin: 0;
-    padding-block: 0.15rem;
+  .pflege-main-nav-section .pflege-main-nav__cat-rail-row {
+    padding-block: 0.15rem 0.35rem;
   }
 
   .pflege-cat-rail--header-row .pflege-cat-rail__bar {

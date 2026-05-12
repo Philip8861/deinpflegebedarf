@@ -667,7 +667,7 @@
   }
 }
 
-/* Mobil: Zeile 1 = Drawer, Logo, Aktionen • Zeile 2 = Kategorie-Pill • Zeile 3 = Suche */
+/* Mobil: Zeile 1 = Drawer, Logo, Aktionen • Zeile 2 = Kategorie-Pill • Zeile 3 = Suche • Zeile 4 = Kategorie-Reiter (unterhalb Grid) */
 @media screen and (max-width: 749px) {
   .pflege-main-nav-section .pflege-main-nav__nav {
     display: block !important;
@@ -735,7 +735,7 @@
   }
 
   .pflege-main-nav-section predictive-search.pflege-main-nav__search-host {
-    order: 12;
+    order: 11;
     flex: 1 1 100%;
     min-width: 0;
     width: 100%;
@@ -752,7 +752,7 @@
   }
 
   .pflege-main-nav-section .pflege-main-nav__grid > form.pflege-main-nav__search {
-    order: 12;
+    order: 11;
     flex: 1 1 100%;
     min-width: 0;
     width: 100%;
