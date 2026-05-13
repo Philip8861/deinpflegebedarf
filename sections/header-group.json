@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "name": "t:sections.header.name",
   "type": "header",
@@ -28,7 +37,12 @@
           }
         }
       },
-      "block_order": ["svc_ship", "svc_phone", "svc_invoice"]
+      "block_order": [
+        "svc_ship",
+        "svc_phone",
+        "svc_invoice"
+      ],
+      "settings": {}
     },
     "pflege_hauptleiste": {
       "type": "pflege-main-nav",
@@ -37,17 +51,20 @@
         "menu_color_scheme": "scheme-1",
         "menu_label": "Produktbereiche",
         "search_placeholder": "Produkte suchen...",
+        "category_overview_label": "Kategorienübersicht",
+        "finder_promo_text": "Kein langes suchen? Nutzen Sie unseren Produktfinder",
+        "finder_promo_button_label": "Jetzt passende Produkte anzeigen",
+        "finder_promo_button_link": "",
         "logo_width": 220,
         "logo_height": 48,
         "account_heading": "Mein Konto",
         "account_sub_guest": "Anmelden",
-        "cart_heading": "Warenkorb",
-        "category_overview_label": "Kategorienübersicht",
-        "finder_promo_text": "Kein langes suchen? Nutzen Sie unseren Produktfinder",
-        "finder_promo_button_label": "Jetzt passende Produkte anzeigen",
-        "finder_promo_button_link": ""
+        "cart_heading": "Warenkorb"
       }
     }
   },
-  "order": ["pflege_service_bar", "pflege_hauptleiste"]
+  "order": [
+    "pflege_service_bar",
+    "pflege_hauptleiste"
+  ]
 }
