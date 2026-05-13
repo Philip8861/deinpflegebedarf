@@ -10,8 +10,6 @@
   {% endif %}
 >
   {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
-  {{ 'section-pflege-cart-ui.css' | asset_url | stylesheet_tag }}
-  {{ 'pflege-mockup-pdp.css' | asset_url | stylesheet_tag }}
   {{ 'component-accordion.css' | asset_url | stylesheet_tag }}
   {{ 'component-price.css' | asset_url | stylesheet_tag }}
   {{ 'component-slider.css' | asset_url | stylesheet_tag }}
@@ -26,6 +24,8 @@
   {%- if product.quantity_price_breaks_configured? -%}
     {{ 'component-volume-pricing.css' | asset_url | stylesheet_tag }}
   {%- endif -%}
+  {{ 'section-pflege-cart-ui.css' | asset_url | stylesheet_tag }}
+  {{ 'pflege-mockup-pdp.css' | asset_url | stylesheet_tag }}
 
   {%- style -%}
     .section-{{ section.id }}-padding {

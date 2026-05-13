@@ -1060,3 +1060,41 @@
 .template-product product-info.pflege-product-page .pflege-product-gallery-shell .product__media img {
   object-fit: contain;
 }
+
+/*
+ * Kaufzeile – letzte Regeln im Theme-Bundle (nach allen component-*.css):
+ * gleiche Höhe Menge/CTA, keine base.css quantity:before/after-Schatten, CTA-Breite.
+ */
+@media screen {
+  product-info.pflege-product-page .pflege-product__purchase-row quantity-input.quantity {
+    display: flex !important;
+    align-items: stretch !important;
+    height: var(--pflege-purchase-row-height, 4.5rem) !important;
+    min-height: var(--pflege-purchase-row-height, 4.5rem) !important;
+    max-height: var(--pflege-purchase-row-height, 4.5rem) !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Dawn base .quantity — z-index & Schatten wirken wie andere Höhe */
+  product-info.pflege-product-page .pflege-product__purchase-row quantity-input.quantity::before,
+  product-info.pflege-product-page .pflege-product__purchase-row quantity-input.quantity::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  product-info.pflege-product-page .pflege-product__purchase-row .product-form__submit.pflege-product__add-btn.button {
+    height: var(--pflege-purchase-row-height, 4.5rem) !important;
+    min-height: var(--pflege-purchase-row-height, 4.5rem) !important;
+    max-height: var(--pflege-purchase-row-height, 4.5rem) !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    line-height: 1.2 !important;
+    box-sizing: border-box !important;
+    align-items: center !important;
+    min-width: min(100%, calc(var(--pflege-qty-slot-width, 9.25rem) * 10 / 3)) !important;
+  }
+
+  product-info.pflege-product-page .pflege-product__purchase-row {
+    align-items: center;
+  }
+}
