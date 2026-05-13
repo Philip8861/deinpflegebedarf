@@ -25,8 +25,8 @@
   align-items: flex-end;
   gap: 0.4rem;
   pointer-events: auto;
-  /* 1.21 × 1.15 (weitere 15 %) ≈ 1.39 */
-  transform: scale(1.3915);
+  /* 1.3915 × 1.15 (weitere 15 %) ≈ 1.60 */
+  transform: scale(1.6);
   transform-origin: bottom right;
 }
 
@@ -110,29 +110,22 @@
 .pflege-pflegeboxi-widget__bubble {
   --pflegeboxi-bubble-fill: #fff;
   --pflegeboxi-bubble-border: #0f5069;
+  /* Zacken-Maße */
+  --pflegeboxi-tail-right: 1.6rem;
+  --pflegeboxi-tail-w: 9px;
+  --pflegeboxi-tail-h: 10px;
   display: block;
   position: relative;
   z-index: 0;
-  padding: 0.5rem 0.7rem 0.65rem;
-  margin-bottom: 0.35rem;
+  padding: 0.55rem 0.75rem 0.6rem;
+  margin-bottom: calc(var(--pflegeboxi-tail-h) + 0.25rem);
   max-width: min(14rem, calc(100vw - max(2.6rem, env(safe-area-inset-left, 0px) + env(safe-area-inset-right, 0px))));
   width: 100%;
   box-sizing: border-box;
   border: 1px solid var(--pflegeboxi-bubble-border);
-  border-bottom: none;
-  border-radius: 0.85rem 0.85rem 0.45rem 0.85rem;
+  border-radius: 0.85rem;
   background-color: var(--pflegeboxi-bubble-fill);
-  /* Unterkante nur links + rechts — Mitte frei für Zacken (kein Querstrich durch die Spitze) */
-  background-image: linear-gradient(var(--pflegeboxi-bubble-border), var(--pflegeboxi-bubble-border)),
-    linear-gradient(var(--pflegeboxi-bubble-border), var(--pflegeboxi-bubble-border));
-  background-size:
-    calc(100% - 4rem) 1px,
-    0.65rem 1px;
-  background-position:
-    bottom left,
-    bottom right;
-  background-repeat: no-repeat;
-  box-shadow: 0 8px 24px rgba(15, 45, 84, 0.09);
+  box-shadow: 0 6px 18px rgba(15, 45, 84, 0.08);
   font-size: 0.92rem;
   line-height: 1.35;
   font-weight: 600;
@@ -142,36 +135,34 @@
   overflow-wrap: break-word;
 }
 
+/* Außen-Dreieck = Rand-Farbe, sitzt direkt unter dem border-bottom */
 .pflege-pflegeboxi-widget__bubble::before {
   content: "";
   position: absolute;
-  z-index: 1;
   top: 100%;
-  right: 2rem;
-  left: auto;
+  right: var(--pflegeboxi-tail-right);
   transform: translateX(50%);
   width: 0;
   height: 0;
   border-style: solid;
   border-color: var(--pflegeboxi-bubble-border) transparent transparent transparent;
-  border-width: 9px 8px 0 8px;
+  border-width: var(--pflegeboxi-tail-h) var(--pflegeboxi-tail-w) 0 var(--pflegeboxi-tail-w);
   pointer-events: none;
 }
 
+/* Innen-Dreieck = Füllfarbe, 1px in die Blase gezogen (verdeckt den border-bottom an der Spitze) */
 .pflege-pflegeboxi-widget__bubble::after {
   content: "";
   position: absolute;
-  z-index: 2;
-  top: 100%;
-  right: 2rem;
-  left: auto;
-  margin-top: 1px;
+  top: calc(100% - 1px);
+  right: var(--pflegeboxi-tail-right);
   transform: translateX(50%);
   width: 0;
   height: 0;
   border-style: solid;
   border-color: var(--pflegeboxi-bubble-fill) transparent transparent transparent;
-  border-width: 8px 7px 0 7px;
+  border-width: calc(var(--pflegeboxi-tail-h) - 1px) calc(var(--pflegeboxi-tail-w) - 1px) 0
+    calc(var(--pflegeboxi-tail-w) - 1px);
   pointer-events: none;
 }
 
