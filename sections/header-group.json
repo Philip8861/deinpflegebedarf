@@ -26,16 +26,9 @@
             "icon": "document",
             "text": "Kostenübernahme mit Rezept möglich"
           }
-        },
-        "svc_return": {
-          "type": "item",
-          "settings": {
-            "icon": "rotate-ccw",
-            "text": "30 Tage Rückgaberecht"
-          }
         }
       },
-      "block_order": ["svc_ship", "svc_phone", "svc_invoice", "svc_return"]
+      "block_order": ["svc_ship", "svc_phone", "svc_invoice"]
     },
     "pflege_hauptleiste": {
       "type": "pflege-main-nav",

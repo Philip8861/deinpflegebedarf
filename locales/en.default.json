@@ -158,7 +158,6 @@
         "trust_ship_title": "Free shipping from €150",
         "trust_ship_sub": "",
         "trust_payment_title": "Secure payment",
-        "trust_returns_title": "30‑day returns",
         "trust_quality_title": "100 % verified quality",
         "trust_quality_sub": "Carefully selected products",
         "trust_care_title": "Von Pflegekräften empfohlen",
@@ -185,9 +184,7 @@
         "service_foot_support_title": "Personal advice",
         "service_foot_support_sub": "08334 / 9893330",
         "service_foot_quality_title": "100 % verified quality",
-        "service_foot_quality_sub": "Carefully selected products",
-        "service_foot_returns_title": "30‑day returns",
-        "service_foot_returns_sub": "Order without risk"
+        "service_foot_quality_sub": "Carefully selected products"
       },
       "sku": "SKU",
       "on_sale": "Angebot",
@@ -471,7 +468,6 @@
         "service_ship": "Schneller Versand in 1–2 Tagen",
         "service_phone": "Persönliche Beratung 08334 / 9893330",
         "service_quality": "100% geprüfte Qualität",
-        "service_returns": "30 Tage Rückgaberecht",
         "free_shipping_title": "Kostenloser Versand ab 150 €",
         "free_shipping_remaining": "Noch {{ amount }} bis zum kostenlosen Versand.",
         "free_shipping_qualified": "Sie erhalten kostenlosen Versand.",
