@@ -25,8 +25,8 @@
   align-items: flex-end;
   gap: 0.4rem;
   pointer-events: auto;
-  /* 1.40625 × 0.90 = 1.265625 — zuletzt −10 % */
-  transform: scale(1.265625);
+  /* 1.265625 × 1.05 = 1.32890625 — zuletzt +5 % */
+  transform: scale(1.32890625);
   transform-origin: bottom right;
 }
 
