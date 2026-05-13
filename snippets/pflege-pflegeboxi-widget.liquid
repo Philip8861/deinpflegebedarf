@@ -17,6 +17,11 @@
 
 {%- liquid
   assign pflegeboxi_contact = pages.kontakt | default: pages.contact
+  assign pflegeboxi_shipping = pages.versand | default: pages.shipping
+  assign pflegeboxi_shipping = pflegeboxi_shipping | default: pages['versand-und-rueckgabe']
+  assign pflegeboxi_shipping = pflegeboxi_shipping | default: pages['shipping-and-returns']
+  assign pflegeboxi_shipping_url = pflegeboxi_shipping.url | default: routes.root_url
+  assign pflegeboxi_contact_url = pflegeboxi_contact.url | default: routes.root_url
 -%}
 
 <div id="pflege-pflegeboxi-root">
@@ -67,7 +72,7 @@
   hidden
 >
   <button type="button" class="pflege-pflegeboxi-modal__backdrop" data-pflegeboxi-close tabindex="-1" aria-hidden="true"></button>
-  <div class="pflege-pflegeboxi-modal__stack">
+  <div class="pflege-pflegeboxi-modal__shell">
     <div class="pflege-pflegeboxi-modal__mascot" aria-hidden="true">
       <img
         class="pflege-pflegeboxi-modal__mascot-img"
@@ -79,45 +84,63 @@
         decoding="async"
       >
     </div>
+
     <div class="pflege-pflegeboxi-modal__panel" role="document">
-      <div class="pflege-pflegeboxi-modal__head">
-        <h2 id="pflege-pflegeboxi-title" class="pflege-pflegeboxi-modal__title">
-          {{ 'pflegeboxi.title' | t }}
-        </h2>
-        <button
-          type="button"
-          class="pflege-pflegeboxi-modal__close"
-          data-pflegeboxi-close
-          data-pflegeboxi-close-focus
-          aria-label="{{ 'pflegeboxi.close' | t }}"
+      {%- assign first_q_key = 'pflegeboxi.faq_1_q' -%}
+      {%- assign first_a_key = 'pflegeboxi.faq_1_a' -%}
+      <div class="pflege-pflegeboxi-modal__answer" id="pflege-pflegeboxi-answer" aria-live="polite">
+        <h3
+          id="pflege-pflegeboxi-title"
+          class="pflege-pflegeboxi-modal__answer-q"
+          data-pflegeboxi-active-q
         >
-          <span class="svg-wrapper" aria-hidden="true">
-            {{- 'icon-close.svg' | inline_asset_content -}}
-          </span>
-        </button>
+          {{ first_q_key | t }}
+        </h3>
+        <p class="pflege-pflegeboxi-modal__answer-a" data-pflegeboxi-active-a>
+          {{ first_a_key | t }}
+        </p>
       </div>
-      <div class="pflege-pflegeboxi-modal__body">
-        <div class="pflege-pflegeboxi-modal__faq-grid">
+
+      <div class="pflege-pflegeboxi-modal__questions" data-pflegeboxi-questions>
+        <div class="pflege-pflegeboxi-modal__faq-grid" role="list">
           {%- for i in (1..20) -%}
             {%- assign q_key = 'pflegeboxi.faq_' | append: i | append: '_q' -%}
             {%- assign a_key = 'pflegeboxi.faq_' | append: i | append: '_a' -%}
-            <details class="pflege-pflegeboxi-faq__item">
-              <summary>{{ q_key | t }}</summary>
-              <p class="pflege-pflegeboxi-faq__answer">{{ a_key | t }}</p>
-            </details>
+            <button
+              type="button"
+              class="pflege-pflegeboxi-faq-pill{% if forloop.first %} is-active{% endif %}"
+              data-pflegeboxi-q-index="{{ forloop.index }}"
+              data-pflegeboxi-q="{{ q_key | t | escape }}"
+              data-pflegeboxi-a="{{ a_key | t | escape }}"
+              {% if forloop.first %}aria-pressed="true"{% else %}aria-pressed="false"{% endif %}
+              role="listitem"
+            >
+              <span class="pflege-pflegeboxi-faq-pill__text">{{ q_key | t }}</span>
+            </button>
           {%- endfor -%}
         </div>
+      </div>
 
-        {%- if pflegeboxi_contact != blank -%}
-          <a class="pflege-pflegeboxi-modal__more" href="{{ pflegeboxi_contact.url }}">
-            {{ 'pflegeboxi.more_help' | t }}
-          </a>
-        {%- else -%}
-          <a class="pflege-pflegeboxi-modal__more" href="{{ routes.root_url }}">
-            {{ 'pflegeboxi.more_help' | t }}
-          </a>
-        {%- endif -%}
+      <div class="pflege-pflegeboxi-modal__footer">
+        <a class="pflege-pflegeboxi-modal__footer-link" href="{{ pflegeboxi_contact_url }}">
+          {{ 'pflegeboxi.footer_contact' | t }}
+        </a>
+        <a class="pflege-pflegeboxi-modal__footer-link" href="{{ pflegeboxi_shipping_url }}">
+          {{ 'pflegeboxi.footer_shipping' | t }}
+        </a>
       </div>
     </div>
+
+    <button
+      type="button"
+      class="pflege-pflegeboxi-modal__close"
+      data-pflegeboxi-close
+      data-pflegeboxi-close-focus
+      aria-label="{{ 'pflegeboxi.close' | t }}"
+    >
+      <span class="svg-wrapper pflege-pflegeboxi-modal__close-icon" aria-hidden="true">
+        {{- 'icon-close.svg' | inline_asset_content -}}
+      </span>
+    </button>
   </div>
 </div>

@@ -220,16 +220,27 @@
   animation: pflegeboxi-nudge 0.75s ease;
 }
 
-/* Modal */
+/* === Modal (geöffnet) ===================================================== */
+
 .pflege-pflegeboxi-modal {
+  --pfb-petrol: #0f4f69;
+  --pfb-petrol-deep: #0b3d52;
+  --pfb-petrol-soft: #14627e;
+  --pfb-pill-bg: #eaf1f7;
+  --pfb-pill-border: rgba(44, 106, 191, 0.32);
+  --pfb-pill-border-hover: rgba(44, 106, 191, 0.55);
+  --pfb-pill-text: #0f4f69;
+
   position: fixed;
   inset: 0;
   z-index: 10360;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right))
     max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
+  /* Modal leicht unterhalb der vertikalen Mitte */
+  padding-bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 4vh);
 }
 
 .pflege-pflegeboxi-modal[hidden] {
@@ -239,40 +250,36 @@
 .pflege-pflegeboxi-modal__backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(11, 35, 71, 0.45);
-  -webkit-backdrop-filter: blur(3px);
-  backdrop-filter: blur(3px);
+  background: rgba(7, 18, 36, 0.62);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
   border: none;
   padding: 0;
   margin: 0;
   cursor: pointer;
 }
 
-.pflege-pflegeboxi-modal__stack {
+.pflege-pflegeboxi-modal__shell {
   position: relative;
   z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: min(52rem, 100%);
-  max-height: min(calc(100vh - 2rem), 46rem);
-  margin-top: auto;
+  width: min(600px, calc(100vw - 32px));
+  max-width: calc(100vw - 32px);
   pointer-events: none;
-  overflow: visible;
 }
 
-.pflege-pflegeboxi-modal__stack > * {
+.pflege-pflegeboxi-modal__shell > * {
   pointer-events: auto;
 }
 
+/* Maskottchen schwebt über dem Modal */
 .pflege-pflegeboxi-modal__mascot {
-  display: flex;
-  justify-content: center;
-  position: relative;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, -82%);
   z-index: 3;
-  margin: 0 0 -2.75rem;
-  padding: 0 0.5rem;
   pointer-events: none;
+  line-height: 0;
 }
 
 @keyframes pflegeboxi-modal-glow {
@@ -303,7 +310,7 @@
 
 .pflege-pflegeboxi-modal__mascot-img {
   display: block;
-  width: min(10.5rem, 38vw);
+  width: 168px;
   height: auto;
   transform-origin: center bottom;
   animation:
@@ -311,172 +318,262 @@
     pflegeboxi-modal-hop 10s ease-in-out infinite;
 }
 
+/* Modal-Panel mit drei Bereichen */
 .pflege-pflegeboxi-modal__panel {
   position: relative;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
   width: 100%;
+  height: 520px;
+  max-height: min(80vh, 520px);
+  border-radius: 18px;
+  background: #fff;
+  border: 1px solid rgba(15, 79, 105, 0.08);
+  box-shadow:
+    0 14px 36px rgba(15, 45, 84, 0.16),
+    0 32px 64px rgba(15, 45, 84, 0.18);
+  padding: 12px 12px 0;
+  overflow: hidden;
+}
+
+/* Oberer Antwortbereich */
+.pflege-pflegeboxi-modal__answer {
+  flex: 0 0 auto;
+  background: linear-gradient(180deg, var(--pfb-petrol-soft) 0%, var(--pfb-petrol) 60%, var(--pfb-petrol-deep) 100%);
+  color: #fff;
+  border-radius: 10px;
+  padding: 16px 18px;
+  box-shadow: 0 6px 18px rgba(15, 45, 84, 0.18) inset, 0 1px 0 rgba(255, 255, 255, 0.06) inset;
+}
+
+.pflege-pflegeboxi-modal__answer-q {
+  margin: 0 0 6px;
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #fff;
+  line-height: 1.3;
+  padding-right: 2.25rem;
+}
+
+.pflege-pflegeboxi-modal__answer-a {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* Scrollbarer Fragenbereich */
+.pflege-pflegeboxi-modal__questions {
   flex: 1 1 auto;
   min-height: 0;
-  max-height: min(85vh, 44rem);
   overflow-y: auto;
-  border-radius: 1.25rem;
-  background: linear-gradient(180deg, #f6f9fd 0%, #fff 14%);
-  box-shadow: 0 -8px 48px rgba(15, 45, 84, 0.18);
-  border: 1px solid rgba(15, 79, 105, 0.12);
+  overflow-x: hidden;
+  padding: 12px 4px 12px 0;
+  margin-right: -4px;
+  scrollbar-color: rgba(15, 79, 105, 0.45) rgba(15, 79, 105, 0.08);
+  scrollbar-width: thin;
 }
 
-.pflege-pflegeboxi-modal__head {
-  padding: 2.75rem 1.35rem 0.65rem;
-  position: relative;
+.pflege-pflegeboxi-modal__questions::-webkit-scrollbar {
+  width: 8px;
 }
 
-.pflege-pflegeboxi-modal__title {
-  margin: 0;
-  font-size: clamp(1.2rem, 2.8vw, 1.45rem);
-  font-weight: 700;
-  color: #0f4f69;
-  letter-spacing: -0.02em;
-  padding-right: 2.75rem;
-}
-
-.pflege-pflegeboxi-modal__close {
-  position: absolute;
-  top: 0;
-  right: 1rem;
-  width: 2.5rem;
-  height: 2.5rem;
-  border: none;
+.pflege-pflegeboxi-modal__questions::-webkit-scrollbar-track {
+  background: rgba(15, 79, 105, 0.06);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid rgba(15, 79, 105, 0.12);
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: #0f4f69;
-  transition: background 0.15s ease;
 }
 
-.pflege-pflegeboxi-modal__close:hover {
-  background: #fff;
-}
-
-.pflege-pflegeboxi-modal__close:focus-visible {
-  outline: 0.2rem solid rgba(44, 106, 191, 0.55);
-  outline-offset: 2px;
-}
-
-.pflege-pflegeboxi-modal__body {
-  padding: 0 1.15rem 1.35rem;
+.pflege-pflegeboxi-modal__questions::-webkit-scrollbar-thumb {
+  background: rgba(15, 79, 105, 0.4);
+  border-radius: 999px;
 }
 
 .pflege-pflegeboxi-modal__faq-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.5rem 0.65rem;
-  align-items: start;
+  gap: 8px;
+  padding: 0 4px;
 }
 
-.pflege-pflegeboxi-faq__item {
-  border: 1px solid rgba(15, 79, 105, 0.1);
-  border-radius: 0.85rem;
-  background: #fff;
-  margin: 0;
-  overflow: hidden;
-  min-width: 0;
-}
-
-.pflege-pflegeboxi-faq__item summary {
-  padding: 0.65rem 0.75rem;
-  font-weight: 600;
-  font-size: clamp(0.8rem, 2.4vw, 0.98rem);
-  color: #14345d;
-  cursor: pointer;
-  list-style: none;
+/* Pillen-Buttons */
+.pflege-pflegeboxi-faq-pill {
+  appearance: none;
+  -webkit-appearance: none;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-}
-
-.pflege-pflegeboxi-faq__item summary::-webkit-details-marker {
-  display: none;
-}
-
-.pflege-pflegeboxi-faq__item summary::after {
-  content: "";
-  width: 0.45rem;
-  height: 0.45rem;
-  border-right: 2px solid #2c6abf;
-  border-bottom: 2px solid #2c6abf;
-  transform: rotate(45deg);
-  flex-shrink: 0;
-  transition: transform 0.2s ease;
-}
-
-.pflege-pflegeboxi-faq__item[open] summary::after {
-  transform: rotate(-135deg);
-}
-
-.pflege-pflegeboxi-faq__answer {
-  padding: 0 0.75rem 0.85rem;
+  justify-content: flex-start;
+  gap: 8px;
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 14px;
   margin: 0;
-  font-size: 0.88rem;
-  line-height: 1.5;
-  color: rgba(15, 45, 84, 0.85);
-  border-top: 1px solid rgba(15, 79, 105, 0.06);
+  border: 1px solid var(--pfb-pill-border);
+  border-radius: 12px;
+  background: var(--pfb-pill-bg);
+  color: var(--pfb-pill-text);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.3;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.18s ease;
 }
 
-.pflege-pflegeboxi-modal__more {
+.pflege-pflegeboxi-faq-pill__text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+.pflege-pflegeboxi-faq-pill:hover {
+  background: #dde9f4;
+  border-color: var(--pfb-pill-border-hover);
+}
+
+.pflege-pflegeboxi-faq-pill:focus-visible {
+  outline: 2px solid rgba(44, 106, 191, 0.7);
+  outline-offset: 2px;
+}
+
+.pflege-pflegeboxi-faq-pill.is-active {
+  background: #d6e5f3;
+  border-color: rgba(44, 106, 191, 0.6);
+  box-shadow: 0 0 0 1px rgba(44, 106, 191, 0.15);
+}
+
+/* Footer fest unten */
+.pflege-pflegeboxi-modal__footer {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  padding: 10px 12px;
+  margin: 0 -12px;
+  background: #fff;
+  border-top: 1px solid rgba(15, 79, 105, 0.1);
+  box-shadow: 0 -6px 16px rgba(15, 45, 84, 0.04);
+}
+
+.pflege-pflegeboxi-modal__footer-link {
+  color: var(--pfb-petrol);
+  font-size: 0.92rem;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.15s ease;
+}
+
+.pflege-pflegeboxi-modal__footer-link:hover {
+  color: var(--pfb-petrol-deep);
+}
+
+/* Schließen-Button am Modalrand */
+.pflege-pflegeboxi-modal__close {
+  position: absolute;
+  top: 110px;
+  right: -28px;
+  z-index: 4;
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  border: 1px solid rgba(15, 79, 105, 0.14);
+  background: #fff;
+  color: var(--pfb-petrol);
+  cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  padding: 0;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 6px 16px rgba(15, 45, 84, 0.18),
+    0 14px 32px rgba(15, 45, 84, 0.18);
+  transition:
+    background 0.18s ease,
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.pflege-pflegeboxi-modal__close:hover {
+  background: #fbfdff;
+  transform: scale(1.05);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 8px 18px rgba(15, 45, 84, 0.22),
+    0 18px 36px rgba(15, 45, 84, 0.22);
+}
+
+.pflege-pflegeboxi-modal__close:focus-visible {
+  outline: 2px solid rgba(44, 106, 191, 0.7);
+  outline-offset: 3px;
+}
+
+.pflege-pflegeboxi-modal__close-icon {
+  display: inline-flex;
+  width: 18px;
+  height: 18px;
+  color: var(--pfb-petrol);
+}
+
+.pflege-pflegeboxi-modal__close-icon svg {
   width: 100%;
-  margin-top: 1.1rem;
-  padding: 0.75rem 1rem;
-  border-radius: 0.85rem;
-  font-size: 1rem;
-  font-weight: 600;
-  text-decoration: none;
-  color: #fff;
-  background: linear-gradient(180deg, #f89738 0%, #dc7a22 100%);
-  border: none;
-  box-shadow: 0 4px 14px rgba(248, 151, 56, 0.35);
+  height: 100%;
 }
 
-.pflege-pflegeboxi-modal__more:hover {
-  filter: brightness(1.04);
-}
+/* === Responsive ============================================================ */
 
-@media screen and (min-width: 750px) {
+@media screen and (max-width: 749px) {
   .pflege-pflegeboxi-modal {
-    align-items: center;
-  }
-
-  .pflege-pflegeboxi-modal__stack {
-    margin-top: 0;
-    max-height: min(calc(100vh - 3rem), 46rem);
-  }
-
-  .pflege-pflegeboxi-modal__mascot {
-    margin-bottom: -3.25rem;
+    align-items: flex-end;
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
   }
 
   .pflege-pflegeboxi-modal__panel {
-    max-height: min(calc(100vh - 4rem), 44rem);
+    height: min(80vh, 560px);
+    max-height: 80vh;
+    border-radius: 16px;
   }
 
-  .pflege-pflegeboxi-modal__head {
-    padding-top: 3.15rem;
+  .pflege-pflegeboxi-modal__mascot-img {
+    width: 124px;
   }
 
-  .pflege-pflegeboxi-modal__body {
-    padding-left: 1.35rem;
-    padding-right: 1.35rem;
+  .pflege-pflegeboxi-modal__mascot {
+    transform: translate(-50%, -75%);
   }
 
+  /* Close-Button mobil innerhalb des Modals oben rechts */
+  .pflege-pflegeboxi-modal__close {
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.9) inset,
+      0 4px 10px rgba(15, 45, 84, 0.16);
+  }
+
+  .pflege-pflegeboxi-modal__answer {
+    padding: 14px 14px;
+    padding-right: 56px;
+  }
+}
+
+@media screen and (max-width: 480px) {
   .pflege-pflegeboxi-modal__faq-grid {
-    gap: 0.55rem 0.85rem;
+    grid-template-columns: 1fr;
   }
 }
 
