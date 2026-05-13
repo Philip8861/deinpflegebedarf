@@ -356,7 +356,7 @@ a.pflege-pflegeboxi-modal__footer-link {
 
 .pflege-pflegeboxi-modal__answer-q {
   margin: 0 0 8px;
-  font-size: 1.2rem;
+  font-size: calc(1.2rem + 4px);
   font-weight: 700;
   letter-spacing: -0.01em;
   color: #fff;
@@ -365,7 +365,7 @@ a.pflege-pflegeboxi-modal__footer-link {
 
 .pflege-pflegeboxi-modal__answer-a {
   margin: 0;
-  font-size: 1.05rem;
+  font-size: calc(1.05rem + 2px);
   font-weight: 600;
   line-height: 1.55;
   color: #fff;
@@ -542,11 +542,11 @@ a.pflege-pflegeboxi-modal__footer-link {
   }
 
   .pflege-pflegeboxi-modal__answer-q {
-    font-size: 1.1rem;
+    font-size: calc(1.1rem + 4px);
   }
 
   .pflege-pflegeboxi-modal__answer-a {
-    font-size: 1rem;
+    font-size: calc(1rem + 2px);
     font-weight: 600;
   }
 }
