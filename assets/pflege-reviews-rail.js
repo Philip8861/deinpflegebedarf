@@ -81,13 +81,18 @@
 
   function bindSingleSlider(root) {
     const carousel = root.querySelector('[data-reviews-carousel]');
-    const cards = Array.from(root.querySelectorAll('[data-reviews-card]'));
-    const dots = Array.from(root.querySelectorAll('[data-reviews-dot]'));
+    const track = root.querySelector('[data-reviews-track]');
+    const cards = track ? Array.from(track.querySelectorAll('[data-reviews-card]')) : [];
+    const nav = root.querySelector('[data-reviews-nav]');
+    const dots = nav ? Array.from(nav.querySelectorAll('[data-reviews-dot]')) : [];
     const prevBtn = root.querySelector('[data-reviews-prev]');
     const nextBtn = root.querySelector('[data-reviews-next]');
     if (!cards.length) return;
 
     let current = cards.findIndex((c) => c.classList.contains('is-active'));
+    if (current < 0) {
+      current = cards.findIndex((c) => String(c.getAttribute('data-reviews-index') || '') === '0');
+    }
     if (current < 0) current = 0;
     cards.forEach((c, i) => {
       const on = i === current;

@@ -29,12 +29,12 @@
 }
 
 .pflege-pflegesets__title {
-  font-family: var(--font-body-family, inherit);
-  font-size: clamp(1.85rem, 1.45rem + 1.15vw, 2.5rem);
-  font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: 0.02em;
-  color: var(--pflege-navy, #0b2347);
+  font-family: var(--pflege-font-display, var(--font-body-family, inherit));
+  font-size: var(--pflege-home-section-heading-size);
+  font-weight: var(--pflege-home-section-heading-weight);
+  line-height: var(--pflege-home-section-heading-line-height);
+  letter-spacing: var(--pflege-home-section-heading-letter-spacing);
+  color: var(--pflege-home-section-heading-color);
   margin: 0 0 clamp(1.55rem, 3.2vw, 2.35rem);
   text-align: center;
   max-width: min(48rem, 100%);

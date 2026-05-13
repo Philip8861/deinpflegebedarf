@@ -38,6 +38,15 @@
   --pflege-radius-card: 14px;
   --pflege-radius-pill: 999px;
   --pflege-font-display: var(--font-body-family);
+  /*
+   * Startseite: gleiche Überschriften-Ebene wie „Das sagen unsere Kundinnen und Kunden“
+   * (Größe) und Farbe wie .pflege-hero__title (#0f4f69).
+   */
+  --pflege-home-section-heading-size: clamp(1.85rem, 2.25vw + 1.15rem, 2.75rem);
+  --pflege-home-section-heading-weight: 800;
+  --pflege-home-section-heading-line-height: 1.18;
+  --pflege-home-section-heading-letter-spacing: -0.025em;
+  --pflege-home-section-heading-color: #0f4f69;
   --pflege-max-copy: 52rem;
   /* Horizontale Kanten: auf schmalen Phones weniger Rand, ab Desktop wie bisher */
   --pflege-inline-gutter: clamp(1rem, 4.5vw, 2rem);
@@ -66,6 +75,12 @@
   --pflege-backdrop-band-radius-top: 50% 50% 0 0 / var(--pflege-backdrop-ell-v) var(--pflege-backdrop-ell-v) 0 0;
   /* Produktfinder: zusätzlich Bogen nach unten — alle vier Ecken gleiche elliptische Radien */
   --pflege-backdrop-band-radius-vertical-both: 50% 50% 50% 50% / var(--pflege-backdrop-ell-v) var(--pflege-backdrop-ell-v) var(--pflege-backdrop-ell-v) var(--pflege-backdrop-ell-v);
+}
+
+@media screen and (max-width: 749px) {
+  :root {
+    --pflege-home-section-heading-size: clamp(1.6rem, 4.5vw + 0.85rem, 2.2rem);
+  }
 }
 
 @media screen and (min-width: 480px) {

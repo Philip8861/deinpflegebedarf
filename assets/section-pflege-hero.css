@@ -311,12 +311,12 @@ body.template-index .pflege-hero {
   padding: 0;
   max-width: 44rem;
   text-align: center;
-  font-family: var(--font-body-family);
-  font-size: clamp(1.58rem, 1.32rem + 0.72vw, 1.98rem);
-  font-weight: 600;
-  line-height: 1.28;
-  letter-spacing: 0.02em;
-  color: var(--pflege-navy, #0b2347);
+  font-family: var(--pflege-font-display, var(--font-body-family));
+  font-size: var(--pflege-home-section-heading-size);
+  font-weight: var(--pflege-home-section-heading-weight);
+  line-height: var(--pflege-home-section-heading-line-height);
+  letter-spacing: var(--pflege-home-section-heading-letter-spacing);
+  color: var(--pflege-home-section-heading-color);
 }
 
 .pflege-hero__trust {

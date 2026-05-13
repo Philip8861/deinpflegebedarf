@@ -106,11 +106,12 @@
 
 .pflege-reviews-rail__title {
   margin: 0 0 0.65rem;
-  font-size: clamp(1.85rem, 2.25vw + 1.15rem, 2.75rem);
-  font-weight: 800;
-  letter-spacing: -0.025em;
-  line-height: 1.18;
-  color: var(--prr-petrol);
+  font-family: var(--pflege-font-display, var(--font-body-family));
+  font-size: var(--pflege-home-section-heading-size);
+  font-weight: var(--pflege-home-section-heading-weight);
+  letter-spacing: var(--pflege-home-section-heading-letter-spacing);
+  line-height: var(--pflege-home-section-heading-line-height);
+  color: var(--pflege-home-section-heading-color);
 }
 
 .pflege-reviews-rail__intro-stars {
@@ -162,7 +163,8 @@
 .pflege-reviews-rail__carousel-stage {
   display: block;
   margin-top: clamp(1.5rem, 2.5vw + 0.5rem, 2.25rem);
-  overflow: hidden;
+  /* nichts abschneiden — „hidden“ hat in manchen Fällen die Zitate aus der Bühne geclippt */
+  overflow: visible;
 }
 
 .pflege-reviews-rail__track--single {
@@ -186,15 +188,15 @@
 
 .pflege-reviews-rail__track--single .pflege-reviews-rail__card.is-active {
   display: flex !important;
+  opacity: 1;
+  visibility: visible;
 }
 
 @keyframes prr-review-enter {
   from {
-    opacity: 0;
     transform: translateY(12px);
   }
   to {
-    opacity: 1;
     transform: translateY(0);
   }
 }
@@ -548,10 +550,6 @@
 @media screen and (max-width: 749px) {
   .pflege-reviews-rail__inner {
     padding-block: clamp(2.25rem, 6vw, 3rem);
-  }
-
-  .pflege-reviews-rail__title {
-    font-size: clamp(1.6rem, 4.5vw + 0.85rem, 2.2rem);
   }
 }
 
@@ -983,4 +981,6 @@
 
 .pflege-reviews-rail [data-reviews-track] .pflege-reviews-rail__card.is-active {
   display: flex !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }

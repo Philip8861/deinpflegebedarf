@@ -28,12 +28,12 @@
 
 /* Überschrift liegt im Panel auf dem Hintergrundbild, oben zentriert */
 .pflege-product-finder__title-on-image {
-  font-family: var(--font-body-family, inherit);
-  font-size: clamp(1.95rem, 1.5rem + 1.2vw, 2.72rem);
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: 0.02em;
-  color: var(--pflege-navy, #0b2347);
+  font-family: var(--pflege-font-display, var(--font-body-family, inherit));
+  font-size: var(--pflege-home-section-heading-size);
+  font-weight: var(--pflege-home-section-heading-weight);
+  line-height: var(--pflege-home-section-heading-line-height);
+  letter-spacing: var(--pflege-home-section-heading-letter-spacing);
+  color: var(--pflege-home-section-heading-color);
   margin: 0;
   padding: 0 clamp(0.75rem, 2vw, 1.5rem);
   text-align: center;
