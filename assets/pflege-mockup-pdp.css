@@ -754,19 +754,40 @@
 }
 
 @media screen and (min-width: 990px) {
+  /* Mehr Gesamtbreite auf der PDP (Richtung Header/Warenkorb), ohne Mobil zu beeinflussen */
+  .template-product product-info.pflege-product-page > .page-width {
+    max-width: min(calc(100vw - 3rem), calc(var(--page-width) + 22rem));
+    width: 100%;
+  }
+
+  /* Rechte Kaufspalte breiter: Gallery etwas schmaler, Infospalte ~52 % */
   .template-product .pflege-product-page.product--medium:not(.product--no-media) .product__media-wrapper {
-    max-width: 58%;
-    width: calc(58% - var(--grid-desktop-horizontal-spacing) / 2);
+    max-width: 48%;
+    width: calc(48% - var(--grid-desktop-horizontal-spacing) / 2);
   }
 
   .template-product .pflege-product-page.product--medium:not(.product--no-media) .product__info-wrapper {
-    max-width: 42%;
-    width: calc(42% - var(--grid-desktop-horizontal-spacing) / 2);
-    padding-left: clamp(2.5rem, 4.75vw, 4.85rem) !important;
+    max-width: 52%;
+    width: calc(52% - var(--grid-desktop-horizontal-spacing) / 2);
+    padding-left: clamp(1.85rem, 3.25vw, 3.35rem) !important;
+  }
+
+  .template-product .pflege-pdp-detail__shell {
+    max-width: min(calc(100vw - 3rem), calc(var(--page-width) + 22rem));
+  }
+
+  .template-product .related-products.pflege-related-pdp.page-width {
+    max-width: min(calc(100vw - 3rem), calc(var(--page-width) + 22rem));
+    width: 100%;
   }
 }
 
 @media screen and (min-width: 750px) and (max-width: 989px) {
+  .template-product product-info.pflege-product-page > .page-width {
+    max-width: min(calc(100vw - 2.5rem), calc(var(--page-width) + 14rem));
+    width: 100%;
+  }
+
   .template-product .pflege-product-page:not(.product--right) .product__info-wrapper {
     padding-left: clamp(2rem, 4vw, 3.25rem) !important;
   }
