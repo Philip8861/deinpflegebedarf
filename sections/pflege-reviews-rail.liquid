@@ -7,6 +7,14 @@
 <script src="{{ 'pflege-reviews-rail.js' | asset_url }}" defer="defer"></script>
 
 {%- liquid
+  assign prr_noise = 'Lesen Sie Erfahrungen anderer Käuferinnen und Käufer – oder teilen Sie Ihre eigene Bewertung.'
+  assign prr_noise_dash = 'Lesen Sie Erfahrungen anderer Käuferinnen und Käufer - oder teilen Sie Ihre eigene Bewertung.'
+
+  assign prr_heading_display = section.settings.heading | strip | remove: prr_noise | remove: prr_noise_dash | strip
+  if prr_heading_display == blank
+    assign prr_heading_display = 'Das sagen unsere Kundinnen und Kunden'
+  endif
+
   assign has_reviews = false
   assign card_count = 0
   if section.blocks.size > 0
@@ -42,7 +50,7 @@
     <div class="pflege-reviews-rail__inner">
       <header class="pflege-reviews-rail__head">
         <h2 class="pflege-reviews-rail__title" id="pflege-reviews-title-{{ section.id }}">
-          {{ section.settings.heading | escape }}
+          {{ prr_heading_display | escape }}
         </h2>
 
         <div class="pflege-reviews-rail__intro-stars" role="img" aria-label="{{ 'sections.pflege_reviews_rail.intro_stars_aria' | t }}">
@@ -52,11 +60,13 @@
         </div>
 
         {%- if section.settings.show_rating_summary_line -%}
-          {%- assign rating_summary_setting = section.settings.rating_summary | strip -%}
+          {%- assign rating_summary_setting = section.settings.rating_summary | strip | remove: prr_noise | remove: prr_noise_dash | strip -%}
           {%- if rating_summary_setting == blank -%}
             {%- assign rating_summary_setting = 'sections.pflege_reviews_rail.rating_summary' | t -%}
           {%- endif -%}
-          <p class="pflege-reviews-rail__rating-summary">{{ rating_summary_setting | escape }}</p>
+          {%- if rating_summary_setting != blank -%}
+            <p class="pflege-reviews-rail__rating-summary">{{ rating_summary_setting | escape }}</p>
+          {%- endif -%}
         {%- endif -%}
       </header>
 
