@@ -246,6 +246,11 @@
   }
 }
 
+/* Theme (section-main-product): blendet Varianten-Thumbnails nach dem ersten aus — hier wieder sichtbar */
+.pflege-product-gallery-shell .thumbnail-list__item.thumbnail-list_item--variant:not(:first-child) {
+  display: block !important;
+}
+
 .pflege-gallery-badge {
   position: absolute;
   top: 1rem;
