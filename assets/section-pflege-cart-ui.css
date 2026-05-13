@@ -124,7 +124,7 @@
   max-width: min(100%, 12rem);
   margin-inline: 0;
   border-radius: 999px;
-  border: 1px solid rgba(0, 74, 153, 0.16);
+  border: 1px solid rgba(137, 199, 251, 0.16);
   background: #fff;
   min-height: 4.45rem;
   max-height: 4.45rem;
@@ -142,7 +142,7 @@
 }
 
 .pflege-product__purchase-row .quantity__button:hover {
-  background: rgba(0, 74, 153, 0.06);
+  background: rgba(137, 199, 251, 0.06);
 }
 
 .pflege-product__purchase-row .quantity__button .svg-wrapper {

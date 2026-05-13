@@ -4,10 +4,10 @@
  */
 
 :root {
-  --pflege-mock-navy: #004a99;
+  --pflege-mock-navy: #89c7fb;
   --pflege-mock-orange: #ff791f;
   --pflege-mock-soft-blue: #f6f9fd;
-  --pflege-pdp-card-border: rgba(0, 74, 153, 0.14);
+  --pflege-pdp-card-border: rgba(137, 199, 251, 0.14);
   --pflege-pdp-card-bg: rgba(255, 255, 255, 0.98);
   --pflege-pdp-radius: 22px;
   --pflege-pdp-radius-sm: 10px;
@@ -190,7 +190,7 @@
   .pflege-product-page .thumbnail-list__item:has(button[aria-current='true']),
   .pflege-product-page .thumbnail[aria-current='true'] {
     border-color: var(--pflege-mock-navy) !important;
-    box-shadow: 0 2px 8px rgba(0, 74, 153, 0.12);
+    box-shadow: 0 2px 8px rgba(137, 199, 251, 0.12);
   }
 
   .pflege-product-page .thumbnail {
@@ -234,7 +234,7 @@
   .pflege-product-page .pflege-product-gallery-shell .thumbnail-list__item:has(button[aria-current='true']),
   .pflege-product-page .pflege-product-gallery-shell .thumbnail[aria-current='true'] {
     border-color: var(--pflege-mock-navy) !important;
-    box-shadow: 0 2px 8px rgba(0, 74, 153, 0.12);
+    box-shadow: 0 2px 8px rgba(137, 199, 251, 0.12);
   }
 
   .pflege-product-page .pflege-product-gallery-shell .thumbnail {
@@ -369,7 +369,7 @@
   min-height: 5.65rem;
   border-radius: calc(var(--pflege-pdp-radius-sm) + 2px);
   background: linear-gradient(165deg, #ffffff 0%, rgba(249, 252, 255, 0.97) 100%);
-  border: 1px solid rgba(0, 74, 153, 0.085);
+  border: 1px solid rgba(137, 199, 251, 0.085);
   box-shadow:
     0 4px 14px rgba(0, 40, 90, 0.06),
     0 1px 0 rgba(255, 255, 255, 0.88) inset;
@@ -382,7 +382,7 @@
 .pflege-buy-usps__item:hover {
   border-color: rgba(138, 200, 251, 0.45);
   box-shadow:
-    0 10px 26px rgba(0, 74, 153, 0.09),
+    0 10px 26px rgba(137, 199, 251, 0.09),
     0 1px 0 rgba(255, 255, 255, 0.95) inset;
   transform: translateY(-2px);
 }
@@ -497,7 +497,7 @@
     border-radius: 999px !important;
     padding: 0.44rem 0.92rem !important;
     font-size: 1.22rem !important;
-    border-color: rgba(0, 74, 153, 0.2) !important;
+    border-color: rgba(137, 199, 251, 0.2) !important;
     border-width: 1px !important;
     box-shadow: none !important;
     max-height: 48px !important;
@@ -514,7 +514,7 @@
     background: linear-gradient(145deg, rgba(222, 235, 255, 1) 0%, rgba(255, 255, 255, 1) 100%) !important;
     color: var(--pflege-mock-navy) !important;
     font-weight: 700 !important;
-    box-shadow: 0 0 0 1px rgba(0, 74, 153, 0.12) inset !important;
+    box-shadow: 0 0 0 1px rgba(137, 199, 251, 0.12) inset !important;
   }
 }
 
@@ -545,7 +545,7 @@
     display: inline-flex;
     align-items: stretch;
     border-radius: 999px;
-    border: 1px solid rgba(0, 74, 153, 0.22);
+    border: 1px solid rgba(137, 199, 251, 0.22);
     overflow: hidden;
     min-height: 3.85rem;
     background: #fff;
@@ -660,7 +660,7 @@
     box-sizing: border-box;
     border-radius: 999px !important;
     align-items: stretch;
-    border: 1px solid rgba(0, 74, 153, 0.16);
+    border: 1px solid rgba(137, 199, 251, 0.16);
     background: #fff;
     box-shadow:
       0 1px 0 rgba(255, 255, 255, 0.9) inset,
@@ -679,7 +679,7 @@
   }
 
   .pflege-product__purchase-row .quantity__button:hover {
-    background: rgba(0, 74, 153, 0.06);
+    background: rgba(137, 199, 251, 0.06);
   }
 
   .pflege-product__purchase-row .quantity__button .svg-wrapper {
@@ -801,7 +801,7 @@
     rgba(249, 252, 255, 0.94) 0%,
     rgba(240, 247, 255, 0.88) 100%
   );
-  border: 1px solid rgba(0, 74, 153, 0.12);
+  border: 1px solid rgba(137, 199, 251, 0.12);
 }
 
 .pflege-product-page .pflege-product__trust-panel-row {
@@ -809,7 +809,7 @@
   align-items: center;
   gap: 0.75rem;
   padding: 0.68rem 0;
-  border-bottom: 1px solid rgba(0, 74, 153, 0.085);
+  border-bottom: 1px solid rgba(137, 199, 251, 0.085);
 }
 
 .pflege-product-page .pflege-product__trust-copy {
@@ -886,7 +886,7 @@
   gap: 0.82rem;
   padding: 0.65rem 0.85rem;
   border-radius: var(--pflege-pdp-radius-sm);
-  border: 1px solid rgba(0, 74, 153, 0.1);
+  border: 1px solid rgba(137, 199, 251, 0.1);
   background: rgba(255, 255, 255, 0.95);
 }
 

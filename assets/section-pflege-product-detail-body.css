@@ -11,7 +11,7 @@
   /* Klar erkennbare Grenze unter Kauf-/Medienbereich – sonst wirkt Theme „wie vorher“. */
   margin-top: clamp(1.75rem, 4vw, 3rem);
   padding-top: 0;
-  border-top: 1px solid rgba(0, 74, 153, 0.1);
+  border-top: 1px solid rgba(137, 199, 251, 0.1);
   box-shadow: 0 -6px 28px rgba(11, 35, 71, 0.02);
 }
 
@@ -240,7 +240,7 @@
   margin: 0 0 1.15rem;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #004a99;
+  color: #89c7fb;
   letter-spacing: -0.02em;
 }
 
@@ -256,7 +256,7 @@
   display: grid;
   gap: 0.35rem 1.25rem;
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid rgba(0, 74, 153, 0.12);
+  border-bottom: 1px solid rgba(137, 199, 251, 0.12);
 }
 
 @media screen and (min-width: 750px) {
@@ -306,7 +306,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.25rem 1.75rem;
-  border-bottom: 2px solid rgba(0, 74, 153, 0.12);
+  border-bottom: 2px solid rgba(137, 199, 251, 0.12);
   margin-bottom: 1.65rem;
 }
 
@@ -325,7 +325,7 @@
 }
 
 .pflege-pdp-tabs-h__btn[aria-selected='true'] {
-  color: #004a99;
+  color: #89c7fb;
 }
 
 .pflege-pdp-tabs-h__btn[aria-selected='true']::after {
@@ -336,11 +336,11 @@
   bottom: -2px;
   height: 3px;
   border-radius: 3px;
-  background: #004a99;
+  background: #89c7fb;
 }
 
 .pflege-pdp-tabs-h__btn:focus-visible {
-  outline: 2px solid rgba(0, 74, 153, 0.45);
+  outline: 2px solid rgba(137, 199, 251, 0.45);
   outline-offset: 3px;
   border-radius: 0.3rem;
 }
