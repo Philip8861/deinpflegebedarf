@@ -1,5 +1,11 @@
 /* PflegeShop — Kundenstimmen über dem Footer (clean, eine Stimme + Häkchen-Indikatoren) */
 
+/* Über FAQ-Bogen / nachfolgende Sektionen: gleiche Fläche darf nicht über die Zitate malen */
+.shopify-section:has([data-pflege-reviews-rail]) {
+  position: relative;
+  z-index: 2;
+}
+
 .pflege-reviews-rail {
   --prr-content-max: 1180px;
   --prr-form-max: 560px;
