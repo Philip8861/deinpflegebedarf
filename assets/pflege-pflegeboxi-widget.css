@@ -513,6 +513,13 @@ a.pflege-pflegeboxi-modal__footer-link {
 
 /* === Responsive ============================================================ */
 
+/* Desktop: FAQ-Block + Pflegeboxi etwas tiefer — mehr Luft nach oben */
+@media screen and (min-width: 750px) {
+  .pflege-pflegeboxi-modal__shell {
+    margin-top: 1.75rem;
+  }
+}
+
 @media screen and (max-width: 749px) {
   .pflege-pflegeboxi-modal {
     align-items: flex-end;
