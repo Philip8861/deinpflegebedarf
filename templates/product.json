@@ -66,12 +66,6 @@
             "show_dynamic_checkout": false,
             "show_gift_card_recipient": true
           }
-        },
-        "sku_pflege": {
-          "type": "sku",
-          "settings": {
-            "text_style": "body"
-          }
         }
       },
       "block_order": [
@@ -84,8 +78,7 @@
         "variant_picker",
         "inventory_pflege",
         "quantity_selector",
-        "buy_buttons",
-        "sku_pflege"
+        "buy_buttons"
       ],
       "settings": {
         "enable_sticky_info": true,
