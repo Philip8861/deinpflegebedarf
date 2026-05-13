@@ -12,59 +12,65 @@
   --pflege-pdp-radius: 22px;
   --pflege-pdp-radius-sm: 10px;
   --pflege-pdp-thumb: 72px;
+  --pflege-pdp-font: var(--font-body-family), system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  /* Zwei klare Typo-Stufen im Produktblock */
+  --pflege-pdp-heading-1: clamp(1.45rem, 1.05rem + 1.15vw, 1.88rem);
+  --pflege-pdp-heading-2: clamp(0.88rem, 0.82rem + 0.22vw, 1.02rem);
 }
 
-/* ——— Einheitliche Schrift = Body-Variablen (keine Serif/Display nur auf PDP) ——— */
+/* ——— Eine Schriftart auf der gesamten Produktseite (Hauptbereich, Details, Empfehlungen) ——— */
 
-.pflege-product-page.product-info,
-.pflege-product-page.product-info .product__title,
-.pflege-product-page.product-info .product__text,
-.pflege-product-page.product-info .subtitle,
-.pflege-product-page.product-info h1.pflege-mock-pdp__product-title,
-.pflege-product-page.product-info .price,
-.pflege-product-page.product-info .rating-wrapper,
-.pflege-product-page.product-info label,
-.pflege-product-page.product-info .quantity__input,
-.pflege-product-page.product-info .button,
-.pflege-product-page.product-info caption,
-.pflege-product-page.product-info .caption {
-  font-family: var(--font-body-family), system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+.template-product product-info.pflege-product-page,
+.template-product product-info.pflege-product-page * {
+  font-family: var(--pflege-pdp-font);
   font-style: var(--font-body-style, normal);
 }
 
-/* Subtiler dunkel-blauer Titel ohne Display-Schrift */
+.template-product .pflege-pdp-detail,
+.template-product .pflege-pdp-detail * {
+  font-family: var(--pflege-pdp-font);
+  font-style: var(--font-body-style, normal);
+}
+
+.template-product product-recommendations.related-products.pflege-related-pdp,
+.template-product product-recommendations.related-products.pflege-related-pdp * {
+  font-family: var(--pflege-pdp-font);
+  font-style: var(--font-body-style, normal);
+}
+
+/* Stufe 1: Produkttitel */
 
 .pflege-mock-pdp__product-title {
   margin: 0;
-  font-size: clamp(1.65rem, 2vw + 1rem, 2.1rem);
+  font-size: var(--pflege-pdp-heading-1);
   font-weight: 600;
   line-height: 1.28;
   letter-spacing: -0.015em;
   color: #0f2d54;
 }
 
-/* Marke: fein, Body-Schrift */
+/* Stufe 2: Marke / übergeordnete Zeile */
 
 .pflege-product-page .pflege-mock-pdp__brand.caption-with-letter-spacing {
   display: block;
-  margin: 0 0 0.65rem;
+  margin: 0 0 0.55rem;
   letter-spacing: 0.06em !important;
-  font-size: 1.05rem !important;
+  font-size: var(--pflege-pdp-heading-2) !important;
   font-weight: 700;
   text-transform: uppercase;
   color: var(--pflege-mock-navy);
 }
 
 .product__title.pflege-mock-pdp__title-wrap {
-  margin-bottom: 0.6rem !important;
+  margin-bottom: 0 !important;
 }
 
-/* Kurzbeschreibung */
+/* Kurzbeschreibung (lesetypischer Fließtext) */
 
 .pflege-product-page .subtitle.pflege-pdp-intro,
 .pflege-product-page p.subtitle.pflege-pdp-intro:not(.pflege-mock-pdp__brand) {
-  margin: 0 0 1rem;
-  font-size: 1.32rem !important;
+  margin: 0.35rem 0 0.45rem;
+  font-size: clamp(1.02rem, 0.96rem + 0.22vw, 1.16rem) !important;
   line-height: 1.55;
   color: rgba(15, 45, 84, 0.67) !important;
   font-weight: 400;
@@ -190,21 +196,33 @@
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  font-family: var(--font-body-family), sans-serif;
+  font-family: var(--pflege-pdp-font);
   background: rgba(255, 255, 255, 0.96);
   border: 1px solid var(--pflege-pdp-card-border);
   color: var(--pflege-mock-navy);
   pointer-events: none;
 }
 
-/* ——— Bewertungen ——— */
+/* ——— Bewertungen (Abstand unter Überschrift / Kurztext; Abstand zu Vorteilen) ——— */
+
+.pflege-mock-pdp__title-wrap + .rating-wrapper.pflege-mock-pdp__rating {
+  margin-top: 0.65rem !important;
+}
+
+.pflege-pdp-intro + .rating-wrapper.pflege-mock-pdp__rating {
+  margin-top: 0.45rem !important;
+}
 
 .rating-wrapper.pflege-mock-pdp__rating {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.55rem 0.95rem;
-  margin: 0 0 0.95rem !important;
+  margin: 0.5rem 0 0.5rem !important;
+}
+
+.rating-wrapper.pflege-mock-pdp__rating + .pflege-buy-usps {
+  margin-top: 0.6rem !important;
 }
 
 .rating-wrapper.pflege-mock-pdp__rating.pflege-mock-pdp__rating--soft {
@@ -231,40 +249,50 @@
   color: rgba(15, 45, 84, 0.48);
 }
 
-/* Schnell‑USPs (Kaufspalte): drei Merkmale nebeneinander */
+/* Schnell‑USPs (Kaufspalte): drei Merkmale, ruhige Premium-Karten */
 
 .pflege-buy-usps {
-  margin: 0.25rem 0 1.15rem;
+  margin: 0 0 1.25rem;
+  padding: 0.65rem 0.5rem 0.75rem;
+  border-radius: calc(var(--pflege-pdp-radius-sm) + 4px);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.65) 0%, rgba(246, 249, 253, 0.55) 100%);
+  border: 1px solid rgba(0, 74, 153, 0.08);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset;
 }
 
 .pflege-buy-usps__list {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.5rem 0.55rem;
+  gap: 0.55rem 0.65rem;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 @media screen and (max-width: 749px) {
+  .pflege-buy-usps {
+    padding: 0.55rem 0.35rem 0.65rem;
+  }
+
   .pflege-buy-usps__list {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.35rem 0.3rem;
+    gap: 0.38rem 0.35rem;
   }
 
   .pflege-buy-usps__item {
-    padding: 0.5rem 0.28rem 0.58rem;
-    gap: 0.32rem;
+    padding: 0.55rem 0.32rem 0.62rem;
+    gap: 0.38rem;
+    min-height: 5.1rem;
   }
 
   .pflege-buy-usps__icon {
-    width: 2.2rem;
-    height: 2.2rem;
+    width: 2.35rem;
+    height: 2.35rem;
   }
 
   .pflege-buy-usps__label {
-    font-size: 0.88rem !important;
-    line-height: 1.25;
+    font-size: 0.86rem !important;
+    line-height: 1.28;
   }
 }
 
@@ -272,25 +300,59 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
-  gap: 0.42rem;
-  padding: 0.62rem 0.45rem 0.72rem;
+  gap: 0.48rem;
+  padding: 0.75rem 0.5rem 0.82rem;
   min-width: 0;
-  border-radius: var(--pflege-pdp-radius-sm);
-  background: var(--pflege-mock-soft-blue);
-  border: 1px solid rgba(0, 74, 153, 0.1);
+  min-height: 5.65rem;
+  border-radius: calc(var(--pflege-pdp-radius-sm) + 2px);
+  background: linear-gradient(165deg, #ffffff 0%, rgba(249, 252, 255, 0.97) 100%);
+  border: 1px solid rgba(0, 74, 153, 0.085);
+  box-shadow:
+    0 4px 14px rgba(0, 40, 90, 0.06),
+    0 1px 0 rgba(255, 255, 255, 0.88) inset;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.pflege-buy-usps__item:hover {
+  border-color: rgba(138, 200, 251, 0.45);
+  box-shadow:
+    0 10px 26px rgba(0, 74, 153, 0.09),
+    0 1px 0 rgba(255, 255, 255, 0.95) inset;
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pflege-buy-usps__item {
+    transition: none;
+  }
+
+  .pflege-buy-usps__item:hover {
+    transform: none;
+  }
 }
 
 .pflege-buy-usps__icon {
   flex-shrink: 0;
   display: inline-flex;
-  width: 2.55rem;
-  height: 2.55rem;
+  width: 2.75rem;
+  height: 2.75rem;
   align-items: center;
   justify-content: center;
-  border-radius: 0.52rem;
-  background: rgba(255, 255, 255, 0.92);
-  color: #8ac8fb;
+  border-radius: 999px;
+  background: radial-gradient(
+    circle at 30% 28%,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(138, 200, 251, 0.26) 48%,
+    rgba(138, 200, 251, 0.14) 100%
+  );
+  border: 1px solid rgba(138, 200, 251, 0.35);
+  color: #6bb0e8;
+  box-shadow: 0 2px 8px rgba(138, 200, 251, 0.18);
 }
 
 .pflege-buy-usps__icon .pflege-icon {
@@ -298,10 +360,11 @@
 }
 
 .pflege-buy-usps__label {
-  font-size: 1.05rem !important;
+  font-size: 1.02rem !important;
   font-weight: 600 !important;
-  line-height: 1.3;
-  color: rgba(10, 30, 60, 0.86);
+  line-height: 1.32;
+  letter-spacing: 0.01em;
+  color: rgba(10, 30, 60, 0.88);
 }
 
 /* ——— Kauf-Card ——— */
