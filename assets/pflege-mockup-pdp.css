@@ -960,6 +960,15 @@
 }
 
 /* Metafeld-Leiste (5 Karten, gleiche Hülle wie top-claims) */
+.template-product .pflege-pdp-meta-strip.pflege-pdp-top-claims {
+  display: block;
+  width: 100%;
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+  box-sizing: border-box;
+}
+
 .template-product .pflege-pdp-meta-strip__list {
   grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
 }
@@ -989,10 +998,27 @@
 .template-product .pflege-pdp-meta-strip__iconwrap {
   flex-shrink: 0;
   line-height: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  box-sizing: border-box;
+  background: rgba(44, 106, 191, 0.1);
+  color: #1e5aa8;
 }
 
 .template-product .pflege-pdp-meta-strip__iconwrap .pflege-icon {
-  color: var(--pflege-mock-navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.template-product .pflege-pdp-meta-strip__iconwrap .pflege-icon svg {
+  display: block;
+  flex-shrink: 0;
+  stroke-width: 1.5px;
 }
 
 .template-product .pflege-pdp-meta-strip__copy {

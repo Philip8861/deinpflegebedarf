@@ -138,7 +138,7 @@
 {%- unless show_row -%}
 {%- else -%}
   <section
-    class="pflege-pdp-top-claims pflege-pdp-meta-strip page-width"
+    class="pflege-pdp-top-claims pflege-pdp-meta-strip"
     aria-label="{{ 'products.product.pflege_pdp.meta_strip_aria' | t }}"
   >
     <ul class="pflege-pdp-top-claims__list pflege-pdp-meta-strip__list" role="list">
@@ -155,7 +155,7 @@
             class="pflege-pdp-meta-strip__card"
           >
             <span class="pflege-pdp-meta-strip__iconwrap" aria-hidden="true">
-              {%- render 'pflege-icon', icon: 'document', width: 22 -%}
+              {%- render 'pflege-icon', icon: 'file-text', width: 20 -%}
             </span>
             <span class="pflege-pdp-meta-strip__copy">
               <span class="pflege-pdp-meta-strip__title">{{ 'products.product.pflege_pdp.meta_strip_title_beschreibung' | t }}</span>
@@ -175,7 +175,7 @@
         <li class="pflege-pdp-top-claims__item pflege-pdp-meta-strip__item" role="listitem">
           <a href="#pflege-pdp-unified-detail" class="pflege-pdp-meta-strip__card">
             <span class="pflege-pdp-meta-strip__iconwrap" aria-hidden="true">
-              {%- render 'pflege-icon', icon: 'hand', width: 22 -%}
+              {%- render 'pflege-icon', icon: 'droplet', width: 20 -%}
             </span>
             <span class="pflege-pdp-meta-strip__copy">
               <span class="pflege-pdp-meta-strip__title">{{ 'products.product.pflege_pdp.meta_strip_title_anwendung' | t }}</span>
@@ -195,7 +195,7 @@
         <li class="pflege-pdp-top-claims__item pflege-pdp-meta-strip__item" role="listitem">
           <a href="#pflege-pdp-unified-detail" class="pflege-pdp-meta-strip__card">
             <span class="pflege-pdp-meta-strip__iconwrap" aria-hidden="true">
-              {%- render 'pflege-icon', icon: 'sparkles', width: 22 -%}
+              {%- render 'pflege-icon', icon: 'list-bullet', width: 20 -%}
             </span>
             <span class="pflege-pdp-meta-strip__copy">
               <span class="pflege-pdp-meta-strip__title">{{ 'products.product.pflege_pdp.meta_strip_title_eigenschaften' | t }}</span>
@@ -209,7 +209,7 @@
         <li class="pflege-pdp-top-claims__item pflege-pdp-meta-strip__item" role="listitem">
           <a href="#pflege-pdp-unified-detail" class="pflege-pdp-meta-strip__card">
             <span class="pflege-pdp-meta-strip__iconwrap" aria-hidden="true">
-              {%- render 'pflege-icon', icon: 'ticket', width: 22 -%}
+              {%- render 'pflege-icon', icon: 'hash', width: 20 -%}
             </span>
             <span class="pflege-pdp-meta-strip__copy">
               <span class="pflege-pdp-meta-strip__title">{{ 'products.product.pflege_pdp.meta_strip_title_hilfsmittel' | t }}</span>
@@ -242,7 +242,7 @@
               rel="noopener noreferrer"
             >
               <span class="pflege-pdp-meta-strip__iconwrap" aria-hidden="true">
-                {%- render 'pflege-icon', icon: 'document', width: 22 -%}
+                {%- render 'pflege-icon', icon: 'file-download', width: 20 -%}
               </span>
               <span class="pflege-pdp-meta-strip__copy">
                 <span class="pflege-pdp-meta-strip__title">{{ 'products.product.pflege_pdp.meta_strip_title_pdf' | t }}</span>
@@ -252,7 +252,7 @@
           {%- else -%}
             <a href="#pflege-pdp-unified-detail" class="pflege-pdp-meta-strip__card">
               <span class="pflege-pdp-meta-strip__iconwrap" aria-hidden="true">
-                {%- render 'pflege-icon', icon: 'document', width: 22 -%}
+                {%- render 'pflege-icon', icon: 'file-download', width: 20 -%}
               </span>
               <span class="pflege-pdp-meta-strip__copy">
                 <span class="pflege-pdp-meta-strip__title">{{ 'products.product.pflege_pdp.meta_strip_title_pdf' | t }}</span>
