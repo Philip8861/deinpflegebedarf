@@ -58,7 +58,7 @@
 
   display: grid;
   grid-template-columns: auto 1fr;
-  align-items: center;
+  align-items: start;
   column-gap: 0.65rem;
   width: 100%;
   max-width: 100%;
@@ -75,7 +75,8 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  justify-content: center;
+  justify-content: flex-start;
+  position: relative;
 }
 
 .pflege-product__purchase-row .product-form__quantity .form__label {
@@ -241,6 +242,22 @@
 .pflege-product__add-btn.button::after,
 .pflege-product__add-btn.button::before {
   display: none;
+}
+
+/* Kaufzeile: Dawn .button::before-Schatten (Theme-Settings) zuverlässig aus */
+.pflege-product__purchase-row .pflege-product__add-btn.button::after,
+.pflege-product__purchase-row .pflege-product__add-btn.button::before {
+  content: none !important;
+  display: none !important;
+  box-shadow: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.pflege-product__purchase-row .product-form__submit.button {
+  box-shadow: none !important;
+  filter: none !important;
 }
 
 .pflege-product__add-btn.button:not([disabled]):hover {

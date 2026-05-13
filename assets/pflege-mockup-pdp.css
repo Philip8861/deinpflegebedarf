@@ -638,7 +638,7 @@
 
     display: grid;
     grid-template-columns: auto 1fr;
-    align-items: center;
+    align-items: start;
     column-gap: 0.65rem;
     margin-bottom: 0 !important;
     width: 100%;
@@ -656,7 +656,8 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    justify-content: center;
+    justify-content: flex-start;
+    position: relative;
   }
 
   .pflege-product__purchase-row .product-form__quantity .quantity__label {
@@ -1084,7 +1085,8 @@
 
 /*
  * Kaufzeile – letzte Regeln im Theme-Bundle (nach allen component-*.css):
- * gleiche Höhe Menge/CTA, keine base.css quantity:before/after-Schatten, CTA-Breite.
+ * gleiche Höhe Menge/CTA, Grid align-items: start (linke Spalte enthält Regeln unter der Menge),
+ * keine base.css quantity/button-Pseudo-Schatten, CTA-Breite.
  */
 @media screen {
   product-info.pflege-product-page .pflege-product__purchase-row quantity-input.quantity {
@@ -1112,11 +1114,17 @@
   /* Theme .button-Schatten (Pseudo + Hover „3d-lift“ / „vertical-lift“ auf body) */
   product-info.pflege-product-page .pflege-product__purchase-row .product-form__submit.button::before,
   product-info.pflege-product-page .pflege-product__purchase-row .product-form__submit.button::after {
-    display: none !important;
     content: none !important;
+    display: none !important;
     box-shadow: none !important;
     opacity: 0 !important;
     visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
+  product-info.pflege-product-page .pflege-product__purchase-row .product-form__submit.button {
+    box-shadow: none !important;
+    filter: none !important;
   }
 
   product-info.pflege-product-page .pflege-product__purchase-row .product-form__submit.pflege-product__add-btn.button {
@@ -1135,7 +1143,7 @@
   }
 
   product-info.pflege-product-page .pflege-product__purchase-row {
-    align-items: center;
+    align-items: start;
   }
 }
 
