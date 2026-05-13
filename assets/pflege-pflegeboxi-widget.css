@@ -532,8 +532,13 @@ a.pflege-pflegeboxi-modal__footer-link {
     border-radius: 16px;
   }
 
+  /* Nur die Boxi-Figur +25 % (nicht Sprechblase / Schließen am Launcher) */
+  .pflege-pflegeboxi-widget__img-wrap img {
+    width: clamp(6.875rem, 30.25vw, 10.3125rem);
+  }
+
   .pflege-pflegeboxi-modal__mascot-img {
-    width: 155px;
+    width: 194px;
   }
 
   .pflege-pflegeboxi-modal__close {
