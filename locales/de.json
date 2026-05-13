@@ -394,9 +394,9 @@
       "load_more": "Weitere Fragen und Antworten laden"
     },
     "pflege_reviews_rail": {
-      "nav_label": "Karussell-Navigation",
-      "prev": "Vorherige Bewertungen",
-      "next": "Weitere Bewertungen nach rechts",
+      "nav_label": "Kundenstimmen durchblättern",
+      "prev": "Vorherige Bewertung",
+      "next": "Nächste Bewertung",
       "carousel_label": "Ausgewählte Kundenstimmen und Bewertungen",
       "intro_stars_aria": "5 von 5 Sternen",
       "rating_summary": "Google-Rezensionen · 5,0 Sterne",

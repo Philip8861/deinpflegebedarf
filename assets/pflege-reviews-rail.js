@@ -80,13 +80,38 @@
   }
 
   function bindSingleSlider(root) {
-    const track = root.querySelector('[data-reviews-track]');
+    const carousel = root.querySelector('[data-reviews-carousel]');
     const cards = Array.from(root.querySelectorAll('[data-reviews-card]'));
     const dots = Array.from(root.querySelectorAll('[data-reviews-dot]'));
+    const prevBtn = root.querySelector('[data-reviews-prev]');
+    const nextBtn = root.querySelector('[data-reviews-next]');
     if (!cards.length) return;
+
+    root._pflegeReviewsAbort?.abort();
+    const ac = new AbortController();
+    root._pflegeReviewsAbort = ac;
+    const { signal } = ac;
 
     let current = cards.findIndex((c) => c.classList.contains('is-active'));
     if (current < 0) current = 0;
+
+    const enterClass = 'pflege-reviews-rail__card--enter';
+
+    function playEnterAnimation(activeCard) {
+      if (!activeCard || prefersReducedMotion()) return;
+      cards.forEach((card) => {
+        card.classList.remove(enterClass);
+      });
+      void activeCard.offsetWidth;
+      activeCard.classList.add(enterClass);
+      activeCard.addEventListener(
+        'animationend',
+        () => {
+          activeCard.classList.remove(enterClass);
+        },
+        { once: true },
+      );
+    }
 
     function setActive(idx) {
       const target = Math.max(0, Math.min(idx, cards.length - 1));
@@ -110,6 +135,7 @@
           dot.setAttribute('tabindex', '-1');
         }
       });
+      playEnterAnimation(cards[target]);
     }
 
     function clearAutoplay() {
@@ -122,54 +148,83 @@
     function startAutoplay() {
       clearAutoplay();
       if (cards.length <= 1) return;
-      if (prefersReducedMotion()) return;
+      if (document.hidden) return;
       root._pflegeReviewsAutoplay = window.setInterval(() => {
         setActive((current + 1) % cards.length);
       }, 5000);
     }
 
+    function restartAutoplay() {
+      clearAutoplay();
+      startAutoplay();
+    }
+
     setActive(current);
 
+    function step(delta) {
+      const len = cards.length;
+      setActive((current + delta + len) % len);
+      restartAutoplay();
+    }
+
+    prevBtn?.addEventListener('click', () => step(-1), { signal });
+    nextBtn?.addEventListener('click', () => step(1), { signal });
+
     dots.forEach((dot, idx) => {
-      dot.addEventListener('click', () => {
-        setActive(idx);
-        clearAutoplay();
-        startAutoplay();
-      });
-      dot.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-          e.preventDefault();
-          const next = (idx + 1) % dots.length;
-          dots[next].focus();
-          setActive(next);
-          clearAutoplay();
-          startAutoplay();
-        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-          e.preventDefault();
-          const prev = (idx - 1 + dots.length) % dots.length;
-          dots[prev].focus();
-          setActive(prev);
-          clearAutoplay();
-          startAutoplay();
-        } else if (e.key === 'Home') {
-          e.preventDefault();
-          dots[0].focus();
-          setActive(0);
-          clearAutoplay();
-          startAutoplay();
-        } else if (e.key === 'End') {
-          e.preventDefault();
-          dots[dots.length - 1].focus();
-          setActive(dots.length - 1);
-          clearAutoplay();
-          startAutoplay();
-        }
-      });
+      dot.addEventListener(
+        'click',
+        () => {
+          setActive(idx);
+          restartAutoplay();
+        },
+        { signal },
+      );
+      dot.addEventListener(
+        'keydown',
+        (e) => {
+          if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+            e.preventDefault();
+            const next = (idx + 1) % dots.length;
+            dots[next].focus();
+            setActive(next);
+            restartAutoplay();
+          } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+            e.preventDefault();
+            const prev = (idx - 1 + dots.length) % dots.length;
+            dots[prev].focus();
+            setActive(prev);
+            restartAutoplay();
+          } else if (e.key === 'Home') {
+            e.preventDefault();
+            dots[0].focus();
+            setActive(0);
+            restartAutoplay();
+          } else if (e.key === 'End') {
+            e.preventDefault();
+            dots[dots.length - 1].focus();
+            setActive(dots.length - 1);
+            restartAutoplay();
+          }
+        },
+        { signal },
+      );
     });
 
-    if (dots.length && cards.length > 1) {
-      track?.addEventListener('mouseenter', clearAutoplay);
-      track?.addEventListener('mouseleave', startAutoplay);
+    document.addEventListener(
+      'visibilitychange',
+      () => {
+        if (document.hidden) {
+          clearAutoplay();
+        } else if (cards.length > 1) {
+          startAutoplay();
+        }
+      },
+      { signal },
+    );
+
+    if (cards.length > 1) {
+      carousel?.addEventListener('mouseenter', clearAutoplay, { signal });
+      carousel?.addEventListener('mouseleave', startAutoplay, { signal });
       startAutoplay();
     }
   }
@@ -267,6 +322,8 @@
         clearInterval(root._pflegeReviewsAutoplay);
         root._pflegeReviewsAutoplay = null;
       }
+      root._pflegeReviewsAbort?.abort();
+      root._pflegeReviewsAbort = null;
       root.removeAttribute('data-reviews-rail-ready');
     });
   });

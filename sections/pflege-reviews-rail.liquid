@@ -64,6 +64,7 @@
           <div class="pflege-reviews-rail__carousel" data-reviews-carousel>
             <div class="pflege-reviews-rail__carousel-stage">
               <div
+                id="pflege-reviews-track-{{ section.id }}"
                 class="pflege-reviews-rail__track pflege-reviews-rail__track--single"
                 data-reviews-track
                 role="region"
@@ -105,34 +106,64 @@
             </div>
 
             {%- if card_count > 1 -%}
-              <div
-                class="pflege-reviews-rail__dots"
-                role="tablist"
-                aria-label="{{ 'sections.pflege_reviews_rail.dots_label' | t }}"
-                data-reviews-dots
+              <nav
+                class="pflege-reviews-rail__nav"
+                aria-label="{{ 'sections.pflege_reviews_rail.nav_label' | t }}"
+                data-reviews-nav
               >
-                {%- for i in (1..card_count) -%}
-                  {%- assign dot_index = forloop.index0 -%}
-                  {%- assign dot_active = false -%}
-                  {%- if dot_index == 0 -%}
-                    {%- assign dot_active = true -%}
-                  {%- endif -%}
-                  <button
-                    type="button"
-                    class="pflege-reviews-rail__dot{% if dot_active %} is-active{% endif %}"
-                    role="tab"
-                    aria-selected="{% if dot_active %}true{% else %}false{% endif %}"
-                    aria-label="{{ 'sections.pflege_reviews_rail.dot_label' | t: index: forloop.index }}"
-                    data-reviews-dot="{{ dot_index }}"
-                    {% unless dot_active %}tabindex="-1"{% endunless %}
-                  >
-                    <svg class="pflege-reviews-rail__dot-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                      <path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <span class="visually-hidden">{{ 'sections.pflege_reviews_rail.dot_label' | t: index: forloop.index }}</span>
-                  </button>
-                {%- endfor -%}
-              </div>
+                <button
+                  type="button"
+                  class="pflege-reviews-rail__nav-btn pflege-reviews-rail__nav-btn--prev"
+                  data-reviews-prev
+                  aria-controls="pflege-reviews-track-{{ section.id }}"
+                >
+                  <span class="visually-hidden">{{ 'sections.pflege_reviews_rail.prev' | t }}</span>
+                  <svg class="pflege-reviews-rail__nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+
+                <div
+                  class="pflege-reviews-rail__dots"
+                  role="tablist"
+                  aria-label="{{ 'sections.pflege_reviews_rail.dots_label' | t }}"
+                  data-reviews-dots
+                >
+                  {%- for i in (1..card_count) -%}
+                    {%- assign dot_index = forloop.index0 -%}
+                    {%- assign dot_active = false -%}
+                    {%- if dot_index == 0 -%}
+                      {%- assign dot_active = true -%}
+                    {%- endif -%}
+                    <button
+                      type="button"
+                      class="pflege-reviews-rail__dot{% if dot_active %} is-active{% endif %}"
+                      role="tab"
+                      aria-selected="{% if dot_active %}true{% else %}false{% endif %}"
+                      aria-label="{{ 'sections.pflege_reviews_rail.dot_label' | t: index: forloop.index }}"
+                      data-reviews-dot="{{ dot_index }}"
+                      {% unless dot_active %}tabindex="-1"{% endunless %}
+                    >
+                      <svg class="pflege-reviews-rail__dot-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                      <span class="visually-hidden">{{ 'sections.pflege_reviews_rail.dot_label' | t: index: forloop.index }}</span>
+                    </button>
+                  {%- endfor -%}
+                </div>
+
+                <button
+                  type="button"
+                  class="pflege-reviews-rail__nav-btn pflege-reviews-rail__nav-btn--next"
+                  data-reviews-next
+                  aria-controls="pflege-reviews-track-{{ section.id }}"
+                >
+                  <span class="visually-hidden">{{ 'sections.pflege_reviews_rail.next' | t }}</span>
+                  <svg class="pflege-reviews-rail__nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M9 18l6-6-6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </nav>
             {%- endif -%}
 
             {%- if card_count > 1 -%}
@@ -414,7 +445,7 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Karten („Kundenstimmen“-Blöcke) im Theme-Editor pflegen. Eingehende Bewertungen per Formular gehen als Kontakt-Mail an den Shop. Die Anzahl der Indikatoren-Punkte entspricht der Anzahl der Blöcke."
+      "content": "Karten („Kundenstimmen“) im Theme-Editor pflegen. Im Shop ist jeweils nur eine Stimme sichtbar; sie wechselt alle 5 Sekunden oder per Pfeile/Punkten unten. Eingehende Bewertungen per Formular gehen als Kontakt-Mail an den Shop."
     },
     {
       "type": "color_scheme",

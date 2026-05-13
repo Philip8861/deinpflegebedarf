@@ -401,9 +401,9 @@
       "load_more": "Load more questions and answers"
     },
     "pflege_reviews_rail": {
-      "nav_label": "Review carousel navigation",
-      "prev": "Previous reviews",
-      "next": "More reviews to the right",
+      "nav_label": "Browse testimonials",
+      "prev": "Previous review",
+      "next": "Next review",
       "carousel_label": "Customer testimonials",
       "intro_stars_aria": "5 out of 5 stars",
       "rating_summary": "Google reviews · 5.0 stars",
