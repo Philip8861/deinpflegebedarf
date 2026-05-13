@@ -47,11 +47,13 @@
   color: var(--pflege-main-muted, #6f7f95);
 }
 
-/* Menge + Warenkorb: CSS-Variablen für einheitliche Kontrolle (Höhe, Radius, Mengen-Breite — CTA min. 2×) */
+/* Menge + Warenkorb: CSS-Variablen (Höhe, Radius, Trust-Blau für +/- wie 3-Vorteile-Icons) */
 .pflege-product__purchase-row {
   --pflege-purchase-radius: 0.65rem;
   --pflege-purchase-row-height: 4.45rem;
   --pflege-qty-slot-width: 9.25rem;
+  --pflege-qty-step-bg: rgba(88, 145, 215, 0.14);
+  --pflege-qty-step-bg-hover: rgba(88, 145, 215, 0.24);
 
   display: flex;
   flex-direction: row;
@@ -130,12 +132,12 @@
   border-radius: var(--pflege-purchase-radius);
   border: 1px solid rgba(15, 79, 105, 0.16);
   background: #fff;
+  height: var(--pflege-purchase-row-height);
   min-height: var(--pflege-purchase-row-height);
   max-height: var(--pflege-purchase-row-height);
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.9) inset,
-    0 2px 8px rgba(11, 35, 71, 0.06);
+  box-shadow: none;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .pflege-product__purchase-row .quantity__button {
@@ -145,8 +147,14 @@
   transition: background 0.15s ease;
 }
 
-.pflege-product__purchase-row .quantity__button:hover {
-  background: rgba(15, 79, 105, 0.06);
+.pflege-product__purchase-row .quantity__button:first-child,
+.pflege-product__purchase-row .quantity__button:last-child {
+  background: var(--pflege-qty-step-bg);
+}
+
+.pflege-product__purchase-row .quantity__button:first-child:hover,
+.pflege-product__purchase-row .quantity__button:last-child:hover {
+  background: var(--pflege-qty-step-bg-hover);
 }
 
 .pflege-product__purchase-row .quantity__button .svg-wrapper {
@@ -166,32 +174,34 @@
   letter-spacing: 0.02em;
   text-align: center;
   border: none !important;
-  background: transparent;
+  background: #fff;
   box-shadow: none !important;
   min-width: 2rem;
   max-width: 4rem;
   flex: 1 1 auto;
 }
 
-/* CTA: mindestens doppelte idealisierte Breite der Mengen-Zeile, gleiche Höhe/Rundung */
+/* CTA: +25 % zur vorigen Mindestbreite (2 × Slot × 1,25), gleiche Höhe/Rundung, ohne Schatten */
 .pflege-product__purchase-row .pflege-product__add-btn.button {
   width: 100%;
   max-width: 100%;
-  min-width: min(100%, calc(var(--pflege-qty-slot-width) * 2));
+  min-width: min(100%, calc(var(--pflege-qty-slot-width) * 2.5));
   min-height: var(--pflege-purchase-row-height);
   height: var(--pflege-purchase-row-height);
   border-radius: var(--pflege-purchase-radius);
   box-sizing: border-box;
+  box-shadow: none !important;
 }
 
 @media screen and (max-width: 600px) {
   .pflege-product__purchase-row .pflege-product__add-btn.button {
     width: 100%;
     max-width: 100%;
-    min-width: min(100%, calc(var(--pflege-qty-slot-width) * 2));
+    min-width: min(100%, calc(var(--pflege-qty-slot-width) * 2.5));
     min-height: var(--pflege-purchase-row-height);
     height: var(--pflege-purchase-row-height);
     border-radius: var(--pflege-purchase-radius);
+    box-shadow: none !important;
   }
 }
 

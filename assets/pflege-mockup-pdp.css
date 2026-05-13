@@ -597,9 +597,7 @@
   .pflege-product-page .shopify-payment-button .shopify-payment-button__button {
     min-height: 4.45rem !important;
     border-radius: 0.65rem !important;
-    box-shadow:
-      0 2px 0 rgba(255, 255, 255, 0.25) inset,
-      0 8px 20px rgba(255, 116, 12, 0.14);
+    box-shadow: none !important;
     font-weight: 700 !important;
     font-size: 1.28rem !important;
     letter-spacing: 0.015em !important;
@@ -633,6 +631,8 @@
     --pflege-purchase-radius: 0.65rem;
     --pflege-purchase-row-height: 4.45rem;
     --pflege-qty-slot-width: 9.25rem;
+    --pflege-qty-step-bg: rgba(88, 145, 215, 0.14);
+    --pflege-qty-step-bg-hover: rgba(88, 145, 215, 0.24);
 
     display: flex;
     align-items: center;
@@ -682,9 +682,7 @@
     align-items: stretch;
     border: 1px solid rgba(15, 79, 105, 0.16);
     background: #fff;
-    box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.9) inset,
-      0 2px 8px rgba(11, 35, 71, 0.06);
+    box-shadow: none;
     overflow: hidden;
   }
 
@@ -698,8 +696,14 @@
     transition: background 0.15s ease;
   }
 
-  .pflege-product__purchase-row .quantity__button:hover {
-    background: rgba(15, 79, 105, 0.06);
+  .pflege-product__purchase-row .quantity__button:first-child,
+  .pflege-product__purchase-row .quantity__button:last-child {
+    background: var(--pflege-qty-step-bg);
+  }
+
+  .pflege-product__purchase-row .quantity__button:first-child:hover,
+  .pflege-product__purchase-row .quantity__button:last-child:hover {
+    background: var(--pflege-qty-step-bg-hover);
   }
 
   .pflege-product__purchase-row .quantity__button .svg-wrapper {
@@ -727,7 +731,7 @@
     letter-spacing: 0.02em;
     color: var(--pflege-mock-navy);
     border: none !important;
-    background: transparent;
+    background: #fff;
     box-shadow: none !important;
   }
 
@@ -761,11 +765,12 @@
     flex: 1 1 auto;
     width: 100% !important;
     max-width: 100%;
-    min-width: min(100%, calc(var(--pflege-qty-slot-width) * 2));
+    min-width: min(100%, calc(var(--pflege-qty-slot-width) * 2.5));
     min-height: var(--pflege-purchase-row-height) !important;
     height: var(--pflege-purchase-row-height);
     border-radius: var(--pflege-purchase-radius) !important;
     box-sizing: border-box;
+    box-shadow: none !important;
     display: inline-flex !important;
     align-items: center;
     justify-content: center;
@@ -793,10 +798,11 @@
   .pflege-product__purchase-row .product-form__submit {
     width: 100% !important;
     max-width: 100%;
-    min-width: min(100%, calc(var(--pflege-qty-slot-width) * 2));
+    min-width: min(100%, calc(var(--pflege-qty-slot-width) * 2.5));
     min-height: var(--pflege-purchase-row-height) !important;
     height: var(--pflege-purchase-row-height);
     border-radius: var(--pflege-purchase-radius) !important;
+    box-shadow: none !important;
   }
 
   .pflege-product__purchase-row .quantity {
