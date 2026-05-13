@@ -1,4 +1,4 @@
-/* Startseite: dezente Einblend-Animation für Texte und Kacheln beim ersten Laden */
+/* Startseite: Einblend-Animation nur, wenn der Bereich ins Sichtfeld kommt (s. pflege-home-entrance.js) */
 
 @keyframes pflege-home-rise {
   from {
@@ -11,178 +11,528 @@
   }
 }
 
+/*
+  Nur mit JS: html.pflege-home-entrance-prep
+  Verborgen bis .pflege-home-in-view auf dem Section-Wrapper
+*/
+
 @media (prefers-reduced-motion: no-preference) {
-  body.template-index .pflege-hero:not(.pflege-hero--trust-only) .pflege-hero__badge,
-  body.template-index .pflege-hero:not(.pflege-hero--trust-only) .pflege-hero__title,
-  body.template-index .pflege-hero:not(.pflege-hero--trust-only) .pflege-hero__sub,
-  body.template-index .pflege-hero:not(.pflege-hero--trust-only) .pflege-hero__cta,
-  body.template-index .pflege-hero:not(.pflege-hero--trust-only) .pflege-hero__usp .pflege-hero__usp,
-  body.template-index .pflege-hero:not(.pflege-hero--trust-only) .pflege-hero__media,
-  body.template-index .pflege-bestseller .pflege-bestseller__title,
-  body.template-index .pflege-bestseller .pflege-bestseller__intro,
-  body.template-index .pflege-bestseller .pflege-bestseller__view-all,
-  body.template-index .pflege-bestseller .pflege-bestseller__grid .pflege-bestseller-card,
-  body.template-index .pflege-product-finder .pflege-product-finder__title-on-image,
-  body.template-index .pflege-product-finder .pflege-product-finder__intro,
-  body.template-index .pflege-product-finder .pflege-product-finder__cta,
-  body.template-index .pflege-product-finder .pflege-product-finder__link-secondary,
-  body.template-index .pflege-pflegesets .pflege-pflegesets__title,
-  body.template-index .pflege-pflegesets .pflege-pflegesets__grid .pflege-pflegesets__card,
-  body.template-index .pflege-hero--trust-only .pflege-hero__trust-heading,
-  body.template-index .pflege-hero--trust-only .pflege-hero__trust .pflege-hero__trust-item {
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section:not(.pflege-home-in-view)
+    .pflege-hero:not(.pflege-hero--trust-only)
+    .pflege-hero__badge,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section:not(.pflege-home-in-view)
+    .pflege-hero:not(.pflege-hero--trust-only)
+    .pflege-hero__title,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section:not(.pflege-home-in-view)
+    .pflege-hero:not(.pflege-hero--trust-only)
+    .pflege-hero__sub,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section:not(.pflege-home-in-view)
+    .pflege-hero:not(.pflege-hero--trust-only)
+    .pflege-hero__cta,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section:not(.pflege-home-in-view)
+    .pflege-hero:not(.pflege-hero--trust-only)
+    .pflege-hero__usp
+    .pflege-hero__usp,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section:not(.pflege-home-in-view)
+    .pflege-hero:not(.pflege-hero--trust-only)
+    .pflege-hero__media,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section:not(.pflege-home-in-view)
+    .pflege-bestseller
+    .pflege-bestseller__title,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section:not(.pflege-home-in-view)
+    .pflege-bestseller
+    .pflege-bestseller__intro,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section:not(.pflege-home-in-view)
+    .pflege-bestseller
+    .pflege-bestseller__view-all,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section:not(.pflege-home-in-view)
+    .pflege-bestseller
+    .pflege-bestseller__grid
+    .pflege-bestseller-card,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section:not(.pflege-home-in-view)
+    .pflege-product-finder
+    .pflege-product-finder__title-on-image,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section:not(.pflege-home-in-view)
+    .pflege-product-finder
+    .pflege-product-finder__intro,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section:not(.pflege-home-in-view)
+    .pflege-product-finder
+    .pflege-product-finder__cta,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section:not(.pflege-home-in-view)
+    .pflege-product-finder
+    .pflege-product-finder__link-secondary,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section:not(.pflege-home-in-view)
+    .pflege-pflegesets
+    .pflege-pflegesets__title,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section:not(.pflege-home-in-view)
+    .pflege-pflegesets
+    .pflege-pflegesets__grid
+    .pflege-pflegesets__card,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > section.pflege-hero--trust-only:not(.pflege-home-in-view)
+    .pflege-hero__trust-heading,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > section.pflege-hero--trust-only:not(.pflege-home-in-view)
+    .pflege-hero__trust
+    .pflege-hero__trust-item {
     opacity: 0;
+    transform: translate3d(0, 1.15rem, 0);
+    animation: none;
+  }
+
+  /* ——— Sichtbar: gestaffelte Animation ——— */
+
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-hero:not(.pflege-hero--trust-only)
+    .pflege-hero__badge,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-hero:not(.pflege-hero--trust-only)
+    .pflege-hero__title,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-hero:not(.pflege-hero--trust-only)
+    .pflege-hero__sub,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-hero:not(.pflege-hero--trust-only)
+    .pflege-hero__cta,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-hero:not(.pflege-hero--trust-only)
+    .pflege-hero__usp
+    .pflege-hero__usp,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-hero:not(.pflege-hero--trust-only)
+    .pflege-hero__media,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-bestseller
+    .pflege-bestseller__title,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-bestseller
+    .pflege-bestseller__intro,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-bestseller
+    .pflege-bestseller__view-all,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-bestseller
+    .pflege-bestseller__grid
+    .pflege-bestseller-card,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-product-finder
+    .pflege-product-finder__title-on-image,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-product-finder
+    .pflege-product-finder__intro,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-product-finder
+    .pflege-product-finder__cta,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-product-finder
+    .pflege-product-finder__link-secondary,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-pflegesets
+    .pflege-pflegesets__title,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-pflegesets
+    .pflege-pflegesets__grid
+    .pflege-pflegesets__card,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > section.pflege-hero--trust-only.pflege-home-in-view
+    .pflege-hero__trust-heading,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > section.pflege-hero--trust-only.pflege-home-in-view
+    .pflege-hero__trust
+    .pflege-hero__trust-item {
     animation: pflege-home-rise 0.68s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   /* Hero */
-  body.template-index .pflege-hero:not(.pflege-hero--trust-only) .pflege-hero__badge {
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-hero:not(.pflege-hero--trust-only)
+    .pflege-hero__badge {
     animation-delay: 0.08s;
   }
 
-  body.template-index .pflege-hero:not(.pflege-hero--trust-only) .pflege-hero__title {
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-hero:not(.pflege-hero--trust-only)
+    .pflege-hero__title {
     animation-delay: 0.14s;
   }
 
-  body.template-index .pflege-hero:not(.pflege-hero--trust-only) .pflege-hero__sub {
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-hero:not(.pflege-hero--trust-only)
+    .pflege-hero__sub {
     animation-delay: 0.22s;
   }
 
-  body.template-index .pflege-hero:not(.pflege-hero--trust-only) .pflege-hero__cta {
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-hero:not(.pflege-hero--trust-only)
+    .pflege-hero__cta {
     animation-delay: 0.3s;
   }
 
-  body.template-index .pflege-hero:not(.pflege-hero--trust-only) .pflege-hero__usp .pflege-hero__usp:nth-child(1) {
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-hero:not(.pflege-hero--trust-only)
+    .pflege-hero__usp
+    .pflege-hero__usp:nth-child(1) {
     animation-delay: 0.38s;
   }
 
-  body.template-index .pflege-hero:not(.pflege-hero--trust-only) .pflege-hero__usp .pflege-hero__usp:nth-child(2) {
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-hero:not(.pflege-hero--trust-only)
+    .pflege-hero__usp
+    .pflege-hero__usp:nth-child(2) {
     animation-delay: 0.45s;
   }
 
-  body.template-index .pflege-hero:not(.pflege-hero--trust-only) .pflege-hero__usp .pflege-hero__usp:nth-child(3) {
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-hero:not(.pflege-hero--trust-only)
+    .pflege-hero__usp
+    .pflege-hero__usp:nth-child(3) {
     animation-delay: 0.52s;
   }
 
-  body.template-index .pflege-hero:not(.pflege-hero--trust-only) .pflege-hero__usp .pflege-hero__usp:nth-child(4) {
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-hero:not(.pflege-hero--trust-only)
+    .pflege-hero__usp
+    .pflege-hero__usp:nth-child(4) {
     animation-delay: 0.59s;
   }
 
-  body.template-index .pflege-hero:not(.pflege-hero--trust-only) .pflege-hero__usp .pflege-hero__usp:nth-child(5) {
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-hero:not(.pflege-hero--trust-only)
+    .pflege-hero__usp
+    .pflege-hero__usp:nth-child(5) {
     animation-delay: 0.66s;
   }
 
-  body.template-index .pflege-hero:not(.pflege-hero--trust-only) .pflege-hero__media {
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-hero:not(.pflege-hero--trust-only)
+    .pflege-hero__media {
     animation-delay: 0.18s;
   }
 
   /* Bestseller */
-  body.template-index .pflege-bestseller .pflege-bestseller__title {
-    animation-delay: 0.44s;
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-bestseller
+    .pflege-bestseller__title {
+    animation-delay: 0.1s;
   }
 
-  body.template-index .pflege-bestseller .pflege-bestseller__intro {
-    animation-delay: 0.52s;
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-bestseller
+    .pflege-bestseller__intro {
+    animation-delay: 0.18s;
   }
 
-  body.template-index .pflege-bestseller .pflege-bestseller__view-all {
-    animation-delay: 0.56s;
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-bestseller
+    .pflege-bestseller__view-all {
+    animation-delay: 0.22s;
   }
 
-  body.template-index .pflege-bestseller .pflege-bestseller__grid .pflege-bestseller-card:nth-child(1) {
-    animation-delay: 0.62s;
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-bestseller
+    .pflege-bestseller__grid
+    .pflege-bestseller-card:nth-child(1) {
+    animation-delay: 0.28s;
   }
 
-  body.template-index .pflege-bestseller .pflege-bestseller__grid .pflege-bestseller-card:nth-child(2) {
-    animation-delay: 0.71s;
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-bestseller
+    .pflege-bestseller__grid
+    .pflege-bestseller-card:nth-child(2) {
+    animation-delay: 0.37s;
   }
 
-  body.template-index .pflege-bestseller .pflege-bestseller__grid .pflege-bestseller-card:nth-child(3) {
-    animation-delay: 0.8s;
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-bestseller
+    .pflege-bestseller__grid
+    .pflege-bestseller-card:nth-child(3) {
+    animation-delay: 0.46s;
   }
 
-  body.template-index .pflege-bestseller .pflege-bestseller__grid .pflege-bestseller-card:nth-child(4) {
-    animation-delay: 0.89s;
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-bestseller
+    .pflege-bestseller__grid
+    .pflege-bestseller-card:nth-child(4) {
+    animation-delay: 0.55s;
   }
 
-  body.template-index .pflege-bestseller .pflege-bestseller__grid .pflege-bestseller-card:nth-child(5) {
-    animation-delay: 0.98s;
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-bestseller
+    .pflege-bestseller__grid
+    .pflege-bestseller-card:nth-child(5) {
+    animation-delay: 0.64s;
   }
 
   /* Produktfinder */
-  body.template-index .pflege-product-finder .pflege-product-finder__title-on-image {
-    animation-delay: 0.92s;
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-product-finder
+    .pflege-product-finder__title-on-image {
+    animation-delay: 0.1s;
   }
 
-  body.template-index .pflege-product-finder .pflege-product-finder__intro {
-    animation-delay: 1s;
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-product-finder
+    .pflege-product-finder__intro {
+    animation-delay: 0.18s;
   }
 
-  body.template-index .pflege-product-finder .pflege-product-finder__cta {
-    animation-delay: 1.08s;
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-product-finder
+    .pflege-product-finder__cta {
+    animation-delay: 0.26s;
   }
 
-  body.template-index .pflege-product-finder .pflege-product-finder__link-secondary {
-    animation-delay: 1.14s;
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-product-finder
+    .pflege-product-finder__link-secondary {
+    animation-delay: 0.32s;
   }
 
   /* Pflegesets */
-  body.template-index .pflege-pflegesets .pflege-pflegesets__title {
-    animation-delay: 1.16s;
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-pflegesets
+    .pflege-pflegesets__title {
+    animation-delay: 0.1s;
   }
 
-  body.template-index .pflege-pflegesets .pflege-pflegesets__grid .pflege-pflegesets__card:nth-child(1) {
-    animation-delay: 1.24s;
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-pflegesets
+    .pflege-pflegesets__grid
+    .pflege-pflegesets__card:nth-child(1) {
+    animation-delay: 0.18s;
   }
 
-  body.template-index .pflege-pflegesets .pflege-pflegesets__grid .pflege-pflegesets__card:nth-child(2) {
-    animation-delay: 1.34s;
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-pflegesets
+    .pflege-pflegesets__grid
+    .pflege-pflegesets__card:nth-child(2) {
+    animation-delay: 0.28s;
   }
 
-  body.template-index .pflege-pflegesets .pflege-pflegesets__grid .pflege-pflegesets__card:nth-child(3) {
-    animation-delay: 1.44s;
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-pflegesets
+    .pflege-pflegesets__grid
+    .pflege-pflegesets__card:nth-child(3) {
+    animation-delay: 0.38s;
   }
 
-  /* Trust („Ihre Vorteile“) */
-  body.template-index .pflege-hero--trust-only .pflege-hero__trust-heading {
-    animation-delay: 1.48s;
+  /* Trust */
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > section.pflege-hero--trust-only.pflege-home-in-view
+    .pflege-hero__trust-heading {
+    animation-delay: 0.1s;
   }
 
-  body.template-index .pflege-hero--trust-only .pflege-hero__trust .pflege-hero__trust-item:nth-child(1) {
-    animation-delay: 1.56s;
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > section.pflege-hero--trust-only.pflege-home-in-view
+    .pflege-hero__trust
+    .pflege-hero__trust-item:nth-child(1) {
+    animation-delay: 0.18s;
   }
 
-  body.template-index .pflege-hero--trust-only .pflege-hero__trust .pflege-hero__trust-item:nth-child(2) {
-    animation-delay: 1.64s;
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > section.pflege-hero--trust-only.pflege-home-in-view
+    .pflege-hero__trust
+    .pflege-hero__trust-item:nth-child(2) {
+    animation-delay: 0.26s;
   }
 
-  body.template-index .pflege-hero--trust-only .pflege-hero__trust .pflege-hero__trust-item:nth-child(3) {
-    animation-delay: 1.72s;
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > section.pflege-hero--trust-only.pflege-home-in-view
+    .pflege-hero__trust
+    .pflege-hero__trust-item:nth-child(3) {
+    animation-delay: 0.34s;
   }
 
-  body.template-index .pflege-hero--trust-only .pflege-hero__trust .pflege-hero__trust-item:nth-child(4) {
-    animation-delay: 1.8s;
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    > section.pflege-hero--trust-only.pflege-home-in-view
+    .pflege-hero__trust
+    .pflege-hero__trust-item:nth-child(4) {
+    animation-delay: 0.42s;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  body.template-index .pflege-hero:not(.pflege-hero--trust-only) .pflege-hero__badge,
-  body.template-index .pflege-hero:not(.pflege-hero--trust-only) .pflege-hero__title,
-  body.template-index .pflege-hero:not(.pflege-hero--trust-only) .pflege-hero__sub,
-  body.template-index .pflege-hero:not(.pflege-hero--trust-only) .pflege-hero__cta,
-  body.template-index .pflege-hero:not(.pflege-hero--trust-only) .pflege-hero__usp .pflege-hero__usp,
-  body.template-index .pflege-hero:not(.pflege-hero--trust-only) .pflege-hero__media,
-  body.template-index .pflege-bestseller .pflege-bestseller__title,
-  body.template-index .pflege-bestseller .pflege-bestseller__intro,
-  body.template-index .pflege-bestseller .pflege-bestseller__view-all,
-  body.template-index .pflege-bestseller .pflege-bestseller__grid .pflege-bestseller-card,
-  body.template-index .pflege-product-finder .pflege-product-finder__title-on-image,
-  body.template-index .pflege-product-finder .pflege-product-finder__intro,
-  body.template-index .pflege-product-finder .pflege-product-finder__cta,
-  body.template-index .pflege-product-finder .pflege-product-finder__link-secondary,
-  body.template-index .pflege-pflegesets .pflege-pflegesets__title,
-  body.template-index .pflege-pflegesets .pflege-pflegesets__grid .pflege-pflegesets__card,
-  body.template-index .pflege-hero--trust-only .pflege-hero__trust-heading,
-  body.template-index .pflege-hero--trust-only .pflege-hero__trust .pflege-hero__trust-item {
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    .pflege-hero__badge,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    .pflege-hero__title,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    .pflege-hero__sub,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    .pflege-hero__cta,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    .pflege-hero__usp
+    .pflege-hero__usp,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    .pflege-hero__media,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    .pflege-bestseller__title,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    .pflege-bestseller__intro,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    .pflege-bestseller__view-all,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    .pflege-bestseller-card,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    .pflege-product-finder__title-on-image,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    .pflege-product-finder__intro,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    .pflege-product-finder__cta,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    .pflege-product-finder__link-secondary,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    .pflege-pflegesets__title,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    .pflege-pflegesets__card,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    .pflege-hero__trust-heading,
+  html.pflege-home-entrance-prep.template-index
+    #MainContent
+    .pflege-hero__trust-item {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;

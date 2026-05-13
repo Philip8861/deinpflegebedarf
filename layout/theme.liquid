@@ -318,6 +318,13 @@
   </head>
 
   <body class="gradient template-{{ template.name }}{% if template.name == 'collection' or request.page_type == 'collection' %} pflege-collection-page{% endif %}{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
+    {%- if template.name == 'index' -%}
+      <script>
+        if (!document.documentElement.classList.contains('shopify-design-mode')) {
+          document.documentElement.classList.add('pflege-home-entrance-prep');
+        }
+      </script>
+    {%- endif -%}
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">
       {{ 'accessibility.skip_to_text' | t }}
     </a>
@@ -422,5 +429,8 @@
     {%- endif -%}
     <script src="{{ 'pflege-bestseller-add.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pflege-cart-icon-sync.js' | asset_url }}" defer="defer"></script>
+    {%- if template.name == 'index' -%}
+      <script src="{{ 'pflege-home-entrance.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
   </body>
 </html>
