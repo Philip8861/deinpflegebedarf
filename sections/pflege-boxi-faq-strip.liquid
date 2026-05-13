@@ -36,11 +36,13 @@
 
 <section
   id="pflege-faq-root-{{ section.id }}"
-  class="pflege-boxi-faq-strip section-{{ section.id }}-padding"
+  class="pflege-boxi-faq-strip"
   aria-labelledby="pflege-faq-strip-title-{{ section.id }}"
   data-pflege-faq-strip
 >
-  <div class="pflege-boxi-faq-strip__inner">
+  {%- comment -%} Bogen nach oben — optischer Anschluss an „Kundenstimmen“ (Reviews) {%- endcomment -%}
+  <div class="pflege-boxi-faq-strip__arc-edge" aria-hidden="true"></div>
+  <div class="pflege-boxi-faq-strip__inner section-{{ section.id }}-padding">
     <header class="pflege-boxi-faq-strip__head">
       <h2 class="pflege-boxi-faq-strip__title" id="pflege-faq-strip-title-{{ section.id }}">
         {{ heading_text | escape }}

@@ -4,11 +4,32 @@
   --pfb-strip-petrol: #0f4f69;
   --pfb-strip-blue: #2c6abf;
   --pfb-strip-muted: rgba(15, 45, 84, 0.88);
+  /* Farben wie section-pflege-reviews-rail (Surf-Ende / Wellen-Band) */
+  --pfb-arc-from: #eef4f8;
+  --pfb-arc-mid: #fafcfd;
 
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   background: #fefefe;
-  border-top: 1px solid rgba(15, 79, 105, 0.08);
+  border-top: none;
+}
+
+/* Halbellipse nach oben — gleiche Logik wie .pflege-reviews-rail__arc-edge--top */
+.pflege-boxi-faq-strip__arc-edge {
+  display: block;
+  flex-shrink: 0;
+  width: 100%;
+  box-sizing: border-box;
+  height: clamp(44px, 6.75vw, 88px);
+  margin-bottom: -1px;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    var(--pfb-arc-from) 0%,
+    var(--pfb-arc-mid) 52%,
+    #fefefe 100%
+  );
+  border-radius: 50% 50% 0 0 / clamp(2.4rem, 5.8vw, 6rem) clamp(2.4rem, 5.8vw, 6rem) 0 0;
 }
 
 /* Gleiche seitliche Einrückung wie .pflege-hero__shell (Logo–Warenkorb) */
