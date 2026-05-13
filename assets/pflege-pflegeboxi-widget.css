@@ -318,7 +318,7 @@
     pflegeboxi-modal-hop 10s ease-in-out infinite;
 }
 
-/* Modal-Panel mit drei Bereichen */
+/* Modal-Panel: Antwortbereich + scrollbarer Fragenbereich */
 .pflege-pflegeboxi-modal__panel {
   position: relative;
   z-index: 2;
@@ -333,7 +333,7 @@
   box-shadow:
     0 14px 36px rgba(15, 45, 84, 0.16),
     0 32px 64px rgba(15, 45, 84, 0.18);
-  padding: 12px 12px 0;
+  padding: 12px;
   overflow: hidden;
 }
 
@@ -451,33 +451,6 @@
   background: #d6e5f3;
   border-color: rgba(44, 106, 191, 0.6);
   box-shadow: 0 0 0 1px rgba(44, 106, 191, 0.15);
-}
-
-/* Footer fest unten */
-.pflege-pflegeboxi-modal__footer {
-  flex: 0 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1.25rem;
-  padding: 10px 12px;
-  margin: 0 -12px;
-  background: #fff;
-  border-top: 1px solid rgba(15, 79, 105, 0.1);
-  box-shadow: 0 -6px 16px rgba(15, 45, 84, 0.04);
-}
-
-.pflege-pflegeboxi-modal__footer-link {
-  color: var(--pfb-petrol);
-  font-size: 0.92rem;
-  font-weight: 500;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  transition: color 0.15s ease;
-}
-
-.pflege-pflegeboxi-modal__footer-link:hover {
-  color: var(--pfb-petrol-deep);
 }
 
 /* Schließen-Button: oben rechts in der Antwortbox */

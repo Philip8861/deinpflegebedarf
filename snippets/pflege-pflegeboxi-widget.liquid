@@ -15,15 +15,6 @@
 {{ 'pflege-pflegeboxi-widget.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'pflege-pflegeboxi-widget.js' | asset_url }}" defer="defer"></script>
 
-{%- liquid
-  assign pflegeboxi_contact = pages.kontakt | default: pages.contact
-  assign pflegeboxi_shipping = pages.versand | default: pages.shipping
-  assign pflegeboxi_shipping = pflegeboxi_shipping | default: pages['versand-und-rueckgabe']
-  assign pflegeboxi_shipping = pflegeboxi_shipping | default: pages['shipping-and-returns']
-  assign pflegeboxi_shipping_url = pflegeboxi_shipping.url | default: routes.root_url
-  assign pflegeboxi_contact_url = pflegeboxi_contact.url | default: routes.root_url
--%}
-
 <div id="pflege-pflegeboxi-root">
   <div class="pflege-pflegeboxi-widget">
     <div class="pflege-pflegeboxi-widget__cluster">
@@ -119,15 +110,6 @@
             </button>
           {%- endfor -%}
         </div>
-      </div>
-
-      <div class="pflege-pflegeboxi-modal__footer">
-        <a class="pflege-pflegeboxi-modal__footer-link" href="{{ pflegeboxi_contact_url }}">
-          {{ 'pflegeboxi.footer_contact' | t }}
-        </a>
-        <a class="pflege-pflegeboxi-modal__footer-link" href="{{ pflegeboxi_shipping_url }}">
-          {{ 'pflegeboxi.footer_shipping' | t }}
-        </a>
       </div>
     </div>
 
