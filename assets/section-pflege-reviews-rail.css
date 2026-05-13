@@ -149,13 +149,22 @@
   width: 100%;
 }
 
-.pflege-reviews-rail__track--single > .pflege-reviews-rail__card {
+/* Eine sichtbare Karte: versteckte Slides nie im Layout (HTML hidden + Notfall-CSS) */
+.pflege-reviews-rail__track--single .pflege-reviews-rail__card[hidden] {
+  display: none !important;
+}
+
+.pflege-reviews-rail__track--single .pflege-reviews-rail__card.is-active {
+  display: flex !important;
+}
+
+.pflege-reviews-rail__track--single .pflege-reviews-rail__card {
   width: 100%;
+  max-width: 100%;
   box-sizing: border-box;
   transition:
     opacity 0.45s ease,
-    transform 0.45s ease,
-    visibility 0.45s ease;
+    transform 0.45s ease;
 }
 
 @keyframes prr-review-enter {
@@ -169,29 +178,9 @@
   }
 }
 
-.pflege-reviews-rail__track--single > .pflege-reviews-rail__card.is-active.pflege-reviews-rail__card--enter {
+.pflege-reviews-rail__track--single .pflege-reviews-rail__card.is-active.pflege-reviews-rail__card--enter {
   animation: prr-review-enter 0.52s cubic-bezier(0.22, 1, 0.36, 1) both;
   transition: none;
-}
-
-.pflege-reviews-rail__track--single > .pflege-reviews-rail__card:not(.is-active) {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(12px);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.pflege-reviews-rail__track--single > .pflege-reviews-rail__card.is-active {
-  position: relative;
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-  z-index: 1;
 }
 
 .pflege-reviews-rail__card {
@@ -624,11 +613,11 @@
     transition: none !important;
   }
 
-  .pflege-reviews-rail__track--single > .pflege-reviews-rail__card.is-active.pflege-reviews-rail__card--enter {
+  .pflege-reviews-rail__track--single .pflege-reviews-rail__card.is-active.pflege-reviews-rail__card--enter {
     animation: none !important;
   }
 
-  .pflege-reviews-rail__track--single > .pflege-reviews-rail__card {
+  .pflege-reviews-rail__track--single .pflege-reviews-rail__card {
     transition: none !important;
   }
 

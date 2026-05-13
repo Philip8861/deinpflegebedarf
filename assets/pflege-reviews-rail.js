@@ -120,8 +120,10 @@
         const isActive = i === target;
         card.classList.toggle('is-active', isActive);
         if (isActive) {
+          card.removeAttribute('hidden');
           card.removeAttribute('aria-hidden');
         } else {
+          card.setAttribute('hidden', '');
           card.setAttribute('aria-hidden', 'true');
         }
       });
