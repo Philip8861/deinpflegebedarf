@@ -395,6 +395,11 @@
       "view_details_aria": "{{ title }} — Open product details",
       "usp_list_label": "Category highlights"
     },
+    "pflege_boxi_faq_strip": {
+      "badge": "Pflegeboxi FAQ",
+      "intro_default": "The same quick answers as in the help window — tap to expand.",
+      "hint_boxi": "Tip: Open Pflegeboxi at the bottom right — the same help on every page."
+    },
     "pflege_reviews_rail": {
       "nav_label": "Review carousel navigation",
       "prev": "Previous reviews",

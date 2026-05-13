@@ -1,0 +1,156 @@
+{% comment %}
+  FAQ-Leiste mit denselben Einträgen wie Pflegeboxi (Locales pflegeboxi.faq_*).
+  Eingebunden in layout/theme.liquid direkt über dem Footer.
+{% endcomment %}
+
+{{ 'section-pflege-boxi-faq-strip.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign heading_setting = section.settings.heading | strip
+  if heading_setting == blank
+    assign heading_text = 'pflegeboxi.title' | t
+  else
+    assign heading_text = heading_setting
+  endif
+
+  assign intro_setting = section.settings.intro | strip
+  if intro_setting == blank
+    assign intro_text = 'sections.pflege_boxi_faq_strip.intro_default' | t
+  else
+    assign intro_text = intro_setting
+  endif
+-%}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section
+  class="pflege-boxi-faq-strip section-{{ section.id }}-padding"
+  aria-labelledby="pflege-boxi-faq-strip-title-{{ section.id }}"
+  data-pflege-boxi-faq-strip
+>
+  <div class="pflege-boxi-faq-strip__glow" aria-hidden="true"></div>
+  <div class="pflege-boxi-faq-strip__arc" aria-hidden="true"></div>
+
+  <div class="pflege-boxi-faq-strip__inner">
+    <header class="pflege-boxi-faq-strip__head">
+      <span class="pflege-boxi-faq-strip__badge">
+        <span class="pflege-boxi-faq-strip__badge-dot" aria-hidden="true"></span>
+        {{ 'sections.pflege_boxi_faq_strip.badge' | t }}
+      </span>
+      {%- if section.settings.show_mascot -%}
+        <div class="pflege-boxi-faq-strip__mascot-wrap">
+          <img
+            class="pflege-boxi-faq-strip__mascot"
+            src="{{ 'pflegeboxi.webp' | asset_url }}"
+            alt="{{ 'pflegeboxi.mascot_alt' | t }}"
+            width="140"
+            height="140"
+            loading="lazy"
+            decoding="async"
+          >
+        </div>
+      {%- endif -%}
+      <h2 class="pflege-boxi-faq-strip__title" id="pflege-boxi-faq-strip-title-{{ section.id }}">
+        {{ heading_text | escape }}
+      </h2>
+      {%- if intro_text != blank -%}
+        <p class="pflege-boxi-faq-strip__intro">{{ intro_text | escape | newline_to_br }}</p>
+      {%- endif -%}
+    </header>
+
+    <div class="pflege-boxi-faq-strip__grid">
+      {%- for i in (1..20) -%}
+        {%- assign q_key = 'pflegeboxi.faq_' | append: i | append: '_q' -%}
+        {%- assign a_key = 'pflegeboxi.faq_' | append: i | append: '_a' -%}
+        <details class="pflege-boxi-faq-strip__item" id="pflege-faq-strip-{{ section.id }}-{{ i }}">
+          <summary class="pflege-boxi-faq-strip__summary">{{ q_key | t }}</summary>
+          <div class="pflege-boxi-faq-strip__answer rte">
+            <p>{{ a_key | t }}</p>
+          </div>
+        </details>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.show_hint -%}
+      <p class="pflege-boxi-faq-strip__hint">{{ 'sections.pflege_boxi_faq_strip.hint_boxi' | t }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Pflege: FAQ-Leiste (Boxi)",
+  "tag": "section",
+  "class": "pflege-boxi-faq-strip-section section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Zeigt dieselben 20 FAQs wie Pflegeboxi (Übersetzungen unter „pflegeboxi“). Erscheint global über dem Footer, wenn die Section im Theme eingebunden ist."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Überschrift",
+      "info": "Leer lassen für Standard (Pflegeboxi-Titel aus Sprachdatei)."
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Kurzer Einleitungstext",
+      "info": "Leer lassen für Standardtext aus der Sprachdatei."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_mascot",
+      "label": "Pflegeboxi-Abbildung anzeigen",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_hint",
+      "label": "Hinweis zu Pflegeboxi unten anzeigen",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Abstand"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 24,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Abstand oben",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 24,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Abstand unten",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pflege: FAQ-Leiste (Boxi)"
+    }
+  ]
+}
+{% endschema %}
