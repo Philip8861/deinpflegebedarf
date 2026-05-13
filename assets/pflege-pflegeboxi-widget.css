@@ -108,77 +108,55 @@
 }
 
 .pflege-pflegeboxi-widget__bubble {
-  --pflegeboxi-bubble-fill: #fff;
   --pflegeboxi-bubble-border: #0f5069;
-  --pflegeboxi-tail-right: 2rem;
-  --pflegeboxi-tail-h-outer: 9px;
-  --pflegeboxi-tail-w-outer: 8px;
-  --pflegeboxi-tail-h-inner: 8px;
-  --pflegeboxi-tail-w-inner: 7px;
+  --pflegeboxi-bubble-fill: #fff;
+  --pflegeboxi-bubble-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 280 72' preserveAspectRatio='none'%3E%3Cpath fill='%23000' d='M14 4H266Q276 4 276 14V48H210L188 68L166 48H14Q4 48 4 38V14Q4 4 14 4Z'/%3E%3C/svg%3E");
   display: block;
   position: relative;
   z-index: 1;
-  padding: 0.5rem 0.7rem 0.58rem;
-  border-radius: 0.85rem 0.85rem 0.45rem 0.85rem;
-  /* Kein durchgehender border-bottom — läuft sonst durch den Zacken; Kanten unten über Hintergrund-Linien */
-  border: 1px solid var(--pflegeboxi-bubble-border);
-  border-bottom: none;
-  background-color: var(--pflegeboxi-bubble-fill);
-  background-image: linear-gradient(var(--pflegeboxi-bubble-border), var(--pflegeboxi-bubble-border)),
-    linear-gradient(var(--pflegeboxi-bubble-border), var(--pflegeboxi-bubble-border));
-  background-size:
-    calc(100% - 3.85rem) 1px,
-    0.65rem 1px;
-  background-position:
-    bottom left,
-    bottom right;
-  background-repeat: no-repeat;
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 8px 28px rgba(15, 45, 84, 0.1);
+  padding: 0.5rem 0.7rem 0.65rem;
+  margin-bottom: 0.28rem;
+  max-width: min(14rem, calc(100vw - max(2.6rem, env(safe-area-inset-left, 0px) + env(safe-area-inset-right, 0px))));
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  background: transparent;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  box-shadow: none;
   font-size: 0.92rem;
   line-height: 1.35;
   font-weight: 600;
   color: #0f4f69;
   text-align: left;
-  max-width: min(14rem, calc(100vw - max(2.6rem, env(safe-area-inset-left, 0px) + env(safe-area-inset-right, 0px))));
-  width: 100%;
-  box-sizing: border-box;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  margin-bottom: 0.28rem;
+  isolation: isolate;
 }
 
-/* Zacken: direkt an die Innenkante, Füllung = Blase (weiß) */
+/* Eine Form aus Füllung + Maske; Rand via drop-shadow (keine Naht zur Spitze) */
 .pflege-pflegeboxi-widget__bubble::before {
   content: "";
   position: absolute;
-  top: 100%;
-  right: var(--pflegeboxi-tail-right);
-  left: auto;
-  transform: translateX(50%);
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-color: var(--pflegeboxi-bubble-border) transparent transparent transparent;
-  border-width: var(--pflegeboxi-tail-h-outer) var(--pflegeboxi-tail-w-outer) 0 var(--pflegeboxi-tail-w-outer);
+  z-index: -1;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: -0.85rem;
+  background-color: var(--pflegeboxi-bubble-fill);
+  -webkit-mask-image: var(--pflegeboxi-bubble-mask);
+  mask-image: var(--pflegeboxi-bubble-mask);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
   pointer-events: none;
-}
-
-.pflege-pflegeboxi-widget__bubble::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  right: var(--pflegeboxi-tail-right);
-  left: auto;
-  margin-top: 1px;
-  transform: translateX(50%);
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-color: var(--pflegeboxi-bubble-fill) transparent transparent transparent;
-  border-width: var(--pflegeboxi-tail-h-inner) var(--pflegeboxi-tail-w-inner) 0 var(--pflegeboxi-tail-w-inner);
-  pointer-events: none;
+  filter:
+    drop-shadow(1px 0 0 var(--pflegeboxi-bubble-border))
+    drop-shadow(-1px 0 0 var(--pflegeboxi-bubble-border))
+    drop-shadow(0 1px 0 var(--pflegeboxi-bubble-border))
+    drop-shadow(0 -1px 0 var(--pflegeboxi-bubble-border))
+    drop-shadow(0 6px 14px rgba(15, 45, 84, 0.09));
 }
 
 .pflege-pflegeboxi-widget__img-wrap {
