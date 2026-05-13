@@ -25,8 +25,8 @@
   align-items: flex-end;
   gap: 0.4rem;
   pointer-events: auto;
-  /* 0.90 × 1.25 × 1.25 = 1.40625 — zwei Mal +25 % */
-  transform: scale(1.40625);
+  /* 1.40625 × 0.90 = 1.265625 — zuletzt −10 % */
+  transform: scale(1.265625);
   transform-origin: bottom right;
 }
 
