@@ -145,10 +145,11 @@
 }
 
 .pflege-product-finder__intro {
-  font-size: clamp(1.48rem, 1.22rem + 1vw, 2.08rem);
-  line-height: 1.34;
-  font-weight: 700;
-  color: #132535;
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1.18rem, 1.02rem + 0.55vw, 1.42rem);
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--pflege-muted, #6f7f95);
   margin: 0;
   max-width: 100%;
   width: 100%;
@@ -156,7 +157,10 @@
   margin-right: auto;
   text-align: center;
   text-wrap: balance;
-  text-shadow: 0 0 1rem rgba(255, 255, 255, 0.92), 0 1px 3px rgba(255, 255, 255, 0.85);
+  /* leichtes Aufhellen wie zuvor, damit es auf dem Bild lesbar bleibt */
+  text-shadow:
+    0 0 0.85rem rgba(255, 255, 255, 0.88),
+    0 1px 2px rgba(255, 255, 255, 0.75);
 }
 
 .pflege-product-finder__actions {
