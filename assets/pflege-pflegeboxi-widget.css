@@ -8,13 +8,15 @@
   position: fixed;
   /* Über Cookie (10250), Newsletter-Popup (10300) und üblichen Overlays */
   z-index: 10350;
-  right: max(1rem, env(safe-area-inset-right, 0px));
-  bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+  right: max(1.35rem, calc(env(safe-area-inset-right, 0px) + 0.35rem));
+  bottom: max(1.35rem, calc(env(safe-area-inset-bottom, 0px) + 0.35rem));
+  max-width: min(22rem, calc(100vw - max(2.25rem, env(safe-area-inset-left, 0px) + env(safe-area-inset-right, 0px))));
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   pointer-events: none;
   font-family: var(--font-body-family), system-ui, sans-serif;
+  box-sizing: border-box;
 }
 
 .pflege-pflegeboxi-widget__cluster {
@@ -23,7 +25,8 @@
   align-items: flex-end;
   gap: 0.4rem;
   pointer-events: auto;
-  transform: scale(1.1);
+  /* Vorher 1.1; +10 % → 1.21 */
+  transform: scale(1.21);
   transform-origin: bottom right;
 }
 
@@ -86,7 +89,8 @@
   color: inherit;
   text-align: right;
   -webkit-tap-highlight-color: transparent;
-  max-width: min(18.7rem, calc(100vw - 2rem));
+  max-width: min(100%, calc(100vw - max(2.5rem, env(safe-area-inset-left, 0px) + env(safe-area-inset-right, 0px)) - 0.5rem));
+  box-sizing: border-box;
 }
 
 .pflege-pflegeboxi-widget__launcher:focus-visible {
@@ -109,6 +113,11 @@
   font-weight: 600;
   color: #0f4f69;
   text-align: left;
+  max-width: min(16.25rem, calc(100vw - max(2.6rem, env(safe-area-inset-left, 0px) + env(safe-area-inset-right, 0px))));
+  width: 100%;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .pflege-pflegeboxi-widget__img-wrap {
@@ -123,10 +132,10 @@
 @keyframes pflegeboxi-soft-glow {
   0%,
   100% {
-    filter: drop-shadow(0 0 8px rgba(63, 134, 217, 0.45)) drop-shadow(0 0 18px rgba(120, 190, 255, 0.22));
+    filter: drop-shadow(0 0 5px rgba(63, 134, 217, 0.18)) drop-shadow(0 0 12px rgba(120, 190, 255, 0.06));
   }
   50% {
-    filter: drop-shadow(0 0 14px rgba(63, 134, 217, 0.7)) drop-shadow(0 0 28px rgba(120, 190, 255, 0.38));
+    filter: drop-shadow(0 0 8px rgba(63, 134, 217, 0.26)) drop-shadow(0 0 18px rgba(120, 190, 255, 0.1));
   }
 }
 
@@ -136,7 +145,7 @@
   height: auto;
   vertical-align: bottom;
   border-radius: 1.25rem;
-  animation: pflegeboxi-soft-glow 3.2s ease-in-out infinite;
+  animation: pflegeboxi-soft-glow 5s ease-in-out infinite;
 }
 
 @keyframes pflegeboxi-nudge {
@@ -350,6 +359,6 @@
 
   .pflege-pflegeboxi-widget__img-wrap img {
     animation: none;
-    filter: drop-shadow(0 0 10px rgba(63, 134, 217, 0.45));
+    filter: drop-shadow(0 0 8px rgba(63, 134, 217, 0.2));
   }
 }
