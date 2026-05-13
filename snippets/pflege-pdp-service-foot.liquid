@@ -18,7 +18,10 @@
       {% render 'pflege-icon', icon: 'badge-check', width: 22 %}
       <div class="pflege-pdp-service-foot__copy">
         <span class="pflege-pdp-service-foot__title">{{ 'products.product.pflege_pdp.service_foot_quality_title' | t }}</span>
-        <span class="pflege-pdp-service-foot__sub">{{ 'products.product.pflege_pdp.service_foot_quality_sub' | t }}</span>
+        {%- assign service_foot_quality_sub = 'products.product.pflege_pdp.service_foot_quality_sub' | t -%}
+        {%- if service_foot_quality_sub != blank -%}
+          <span class="pflege-pdp-service-foot__sub">{{ service_foot_quality_sub }}</span>
+        {%- endif -%}
       </div>
     </li>
   </ul>
