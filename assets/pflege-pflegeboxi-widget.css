@@ -271,12 +271,12 @@
   pointer-events: auto;
 }
 
-/* Maskottchen schwebt über dem Modal */
+/* ~1 cm Freiraum zwischen Maskottchen-Unterkante und FAQ-Kasten (Panel-Oberkante) */
 .pflege-pflegeboxi-modal__mascot {
   position: absolute;
   left: 50%;
   top: 0;
-  transform: translate(-50%, -82%);
+  transform: translate(-50%, calc(-100% - 1cm));
   z-index: 3;
   pointer-events: none;
   line-height: 0;
@@ -548,10 +548,6 @@
 
   .pflege-pflegeboxi-modal__mascot-img {
     width: 155px;
-  }
-
-  .pflege-pflegeboxi-modal__mascot {
-    transform: translate(-50%, -75%);
   }
 
   .pflege-pflegeboxi-modal__close {
