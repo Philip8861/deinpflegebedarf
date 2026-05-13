@@ -47,7 +47,7 @@
   color: var(--pflege-main-muted, #6f7f95);
 }
 
-/* Menge + „In den Warenkorb“: je ca. 50 %, kompakte Mengen-Pille */
+/* Menge + Warenkorb: Menge schmal links, CTA nutzt restliche Breite */
 .pflege-product__purchase-row {
   display: flex;
   flex-direction: row;
@@ -57,17 +57,18 @@
   width: 100%;
   max-width: 100%;
   margin-bottom: 0.85rem;
-  overflow: visible;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .pflege-product__purchase-row .product-form__quantity {
-  flex: 1 1 0;
+  flex: 0 0 auto;
   min-width: 0;
   margin-bottom: 0;
   max-width: none;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: flex-start;
 }
 
 .pflege-product__purchase-row .product-form__quantity .form__label {
@@ -87,18 +88,19 @@
 
 .pflege-product__purchase-row .product-form__quantity .price-per-item__container {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   width: 100%;
 }
 
 .pflege-product__purchase-row .product-form {
   flex: 1 1 0;
   min-width: 0;
+  max-width: 100%;
   margin-top: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  overflow: visible;
+  align-items: stretch;
+  overflow: hidden;
 }
 
 .pflege-product__purchase-row .product-form > .form {
@@ -110,16 +112,17 @@
   max-width: none;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: stretch;
+  justify-content: stretch;
   gap: 0;
   width: 100%;
+  min-width: 0;
 }
 
 .pflege-product__purchase-row quantity-input.quantity {
-  width: 100%;
+  width: auto;
   max-width: min(100%, 12rem);
-  margin-inline: auto;
+  margin-inline: 0;
   border-radius: 999px;
   border: 1px solid rgba(0, 74, 153, 0.16);
   background: #fff;
@@ -166,20 +169,19 @@
   flex: 1 1 auto;
 }
 
-/* Größerer CTA in der Kaufzeile: 50 % breiter, 5 % höher, im Kasten zentriert (Höhe wie pflege-mockup-pdp) */
+/* CTA: volle Breite der Form-Spalte, etwas höher (wie mockup) */
 .pflege-product__purchase-row .pflege-product__add-btn.button {
-  width: 150%;
-  max-width: none;
+  width: 100%;
+  max-width: 100%;
   min-height: calc(3.85rem * 1.05);
   height: calc(3.85rem * 1.05);
   box-sizing: border-box;
-  position: relative;
-  z-index: 1;
 }
 
 @media screen and (max-width: 600px) {
   .pflege-product__purchase-row .pflege-product__add-btn.button {
     width: 100%;
+    max-width: 100%;
     min-height: calc(3.85rem * 1.05);
     height: calc(3.85rem * 1.05);
   }
