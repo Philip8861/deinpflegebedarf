@@ -147,8 +147,14 @@
                     if subtitle_out == blank and product.metafields.custom.summary != blank
                       assign subtitle_out = product.metafields.custom.summary | metafield_text | strip
                     endif
+                    assign subtitle_is_duplicate_title = false
+                    assign _st = subtitle_out | strip | downcase
+                    assign _pt = product.title | strip | downcase
+                    if subtitle_out != blank and _st == _pt
+                      assign subtitle_is_duplicate_title = true
+                    endif
                   %}
-                  {% if subtitle_out != blank %}
+                  {% if subtitle_out != blank and subtitle_is_duplicate_title == false %}
                     <p
                       class="product__text inline-richtext subtitle pflege-pdp-intro"
                       {{ block.shopify_attributes }}

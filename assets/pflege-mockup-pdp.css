@@ -218,11 +218,11 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 0.55rem 0.95rem;
-  margin: 0.5rem 0 0.5rem !important;
+  margin: 0.55rem 0 clamp(1.1rem, 2.8vw, 1.65rem) !important;
 }
 
 .rating-wrapper.pflege-mock-pdp__rating + .pflege-buy-usps {
-  margin-top: 0.6rem !important;
+  margin-top: 0 !important;
 }
 
 .rating-wrapper.pflege-mock-pdp__rating.pflege-mock-pdp__rating--soft {
@@ -252,7 +252,7 @@
 /* Schnell‑USPs: nur die drei Karten, kein äußerer „Doppelrahmen“ */
 
 .pflege-buy-usps {
-  margin: 0 0 1.25rem;
+  margin: 0 0 clamp(1.45rem, 3.2vw, 2.15rem);
   padding: 0;
   border: none;
   background: none;
@@ -364,6 +364,11 @@
 
 /* ——— Kauf-Card ——— */
 
+/* Etwas mehr Luft zwischen USPs und der weißen Preis-/Kaufkarte */
+.pflege-buy-usps + .pflege-mock-pdp__buy-card {
+  margin-top: clamp(0.85rem, 2.2vw, 1.35rem) !important;
+}
+
 .pflege-mock-pdp__buy-card {
   margin-top: clamp(0.85rem, 2vw, 1.35rem);
   padding: clamp(1.05rem, 2.7vw, 1.65rem);
@@ -379,6 +384,11 @@
 
 .pflege-mock-pdp__buy-card .price.price--large {
   margin-bottom: 0.15rem !important;
+}
+
+/* Autoraten / Zahlungsmodal: kann den Produkttitel erneut einblenden */
+.pflege-mock-pdp__buy-card shopify-payment-terms {
+  display: none !important;
 }
 
 .pflege-mock-pdp__buy-card .price.price--large .price-item--sale,
@@ -522,9 +532,10 @@
   .pflege-product__purchase-row {
     display: flex;
     align-items: flex-end;
-    flex-wrap: wrap;
-    gap: 0.75rem 1rem;
+    flex-wrap: nowrap;
+    gap: 0.65rem 0.85rem;
     margin-bottom: 0 !important;
+    width: 100%;
   }
 
   .pflege-product__purchase-row .product-form__quantity {
@@ -536,53 +547,83 @@
 
   .pflege-product__purchase-row .product-form__quantity .quantity__label {
     min-height: 0 !important;
-    margin-bottom: 0.35rem;
+    margin-bottom: 0.28rem;
+    font-size: 1.14rem !important;
+    line-height: 1.2;
+  }
+
+  /* Kompakter Zahlenbereich, feste Höhe wie Button + Merkzettel */
+  .pflege-product__purchase-row .quantity {
+    height: 3.85rem;
+    min-height: 3.85rem !important;
+    max-height: 3.85rem !important;
+    box-sizing: border-box;
+    border-radius: 12px !important;
+    align-items: stretch;
+  }
+
+  .pflege-product__purchase-row .quantity__button {
+    min-height: 0 !important;
+    height: 100% !important;
+    min-width: 2.55rem !important;
+    flex: 0 0 auto;
   }
 
   .pflege-product__purchase-row .quantity__input {
-    max-width: 3.5rem;
+    min-height: 0 !important;
+    height: 100% !important;
+    max-width: 3rem;
+    min-width: 2.25rem;
     text-align: center;
-    padding-left: 0.35rem !important;
-    padding-right: 0.35rem !important;
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+    font-size: 1.2rem !important;
   }
 
+  /* Warenkorb füllt den Platz zwischen Menge und Herz */
   .pflege-product__purchase-row .product-form {
-    flex: 1 1 200px;
-    min-width: min(100%, 240px);
+    flex: 1 1 0;
+    min-width: 0;
     max-width: none;
     margin-right: 0 !important;
     margin-bottom: 0 !important;
   }
 
   .pflege-product__purchase-row .product-form__buttons {
+    display: flex;
     width: 100%;
+    align-items: stretch;
   }
 
   .pflege-product__purchase-row .product-form__submit {
-    width: 100%;
+    flex: 1 1 auto;
+    width: 100% !important;
     min-width: 0;
-  }
-
-  /* Gleiche Ecken wie Kaufbutton (nicht Pille), gleiche optische Höhe */
-  .pflege-product-page .pflege-product__purchase-row .quantity {
-    border-radius: 12px;
+    min-height: 3.85rem !important;
+    height: 3.85rem;
+    box-sizing: border-box;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
   }
 
   .pflege-product__purchase-row .pflege-wishlist-btn {
+    flex: 0 0 3.85rem;
     align-self: flex-end;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: min(100%, 3.85rem);
+    width: 3.85rem;
     height: 3.85rem;
-    aspect-ratio: 1;
+    min-width: 3.85rem;
     padding: 0;
     margin-bottom: 0 !important;
-    border-radius: var(--pflege-pdp-radius-sm);
-    border: 1px solid var(--pflege-pdp-card-border);
+    border-radius: 12px;
+    border: 1px solid rgba(0, 74, 153, 0.22);
     background: #fff;
     color: var(--pflege-mock-navy);
     text-decoration: none;
+    box-sizing: border-box;
     transition:
       border-color 0.18s ease,
       background 0.18s ease;
@@ -600,6 +641,31 @@
 
   .pflege-product__purchase-row .pflege-wishlist-btn .pflege-icon {
     color: currentColor;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .pflege-product__purchase-row {
+    flex-wrap: wrap;
+  }
+
+  .pflege-product__purchase-row .product-form {
+    flex: 1 1 100%;
+    order: 3;
+    min-width: 100%;
+  }
+
+  .pflege-product__purchase-row .product-form__submit {
+    width: 100% !important;
+  }
+
+  .pflege-product__purchase-row .product-form__quantity {
+    order: 1;
+  }
+
+  .pflege-product__purchase-row .pflege-wishlist-btn {
+    order: 2;
+    margin-left: auto;
   }
 }
 
