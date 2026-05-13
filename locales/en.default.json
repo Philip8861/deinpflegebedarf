@@ -704,6 +704,24 @@
     "link_versand": "Versandrichtlinien",
     "link_datenschutz": "Datenschutzerklärung"
   },
+  "pflegeboxi": {
+    "launcher_aria": "Open help and FAQ — Pflegeboxi",
+    "bubble": "Hi, I’m Pflegeboxi. Tap me — I’ll be happy to help!",
+    "title": "Quick answers",
+    "close": "Close",
+    "mascot_alt": "Pflegeboxi mascot",
+    "more_help": "More help",
+    "faq_1_q": "How does shipping work?",
+    "faq_1_a": "Orders are packed and shipped reliably. You’ll see delivery time and shipping costs in the cart and on our shipping pages.",
+    "faq_2_q": "Can I return something?",
+    "faq_2_a": "You can return unused items within the statutory period. Details are in our terms and cancellation policy.",
+    "faq_3_q": "Which payment methods do you offer?",
+    "faq_3_a": "You can pay with common online payment methods — you’ll see the options at checkout.",
+    "faq_4_q": "Can you help me choose a product?",
+    "faq_4_a": "We carry selected care and everyday products. For questions about use or size, please contact us via the contact page.",
+    "faq_5_q": "Where is customer service?",
+    "faq_5_a": "You’ll find our details on the imprint and contact page — we’ll get back to you as soon as we can."
+  },
   "recipient": {
     "form": {
       "checkbox": "Ich möchte dies als Geschenk senden",

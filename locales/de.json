@@ -704,6 +704,24 @@
     "link_versand": "Versandrichtlinien",
     "link_datenschutz": "Datenschutzerklärung"
   },
+  "pflegeboxi": {
+    "launcher_aria": "Hilfe und FAQ — Pflegeboxi öffnen",
+    "bubble": "Hallo, ich bin Pflegeboxi. Drück auf mich, ich helfe dir gerne weiter!",
+    "title": "Kurz gefragt — kurz geantwortet",
+    "close": "Schließen",
+    "mascot_alt": "Pflegeboxi, dein Helferlein",
+    "more_help": "Mehr Hilfe",
+    "faq_1_q": "Wie läuft der Versand ab?",
+    "faq_1_a": "Bestellungen werden zuverlässig verpackt und versendet. Lieferzeit und Versandkosten siehst du im Warenkorb und auf unseren Versandseiten.",
+    "faq_2_q": "Kann ich etwas zurücksenden?",
+    "faq_2_a": "Du kannst unbenutzte Artikel innerhalb der gesetzlichen Frist widerrufen. Details stehen in den AGB und im Widerrat.",
+    "faq_3_q": "Welche Zahlarten gibt es?",
+    "faq_3_a": "Du kannst bequem per gängigen Online-Zahlarten bezahlen — die Optionen siehst du im Checkout.",
+    "faq_4_q": "Womit helft ihr bei der Produktwahl?",
+    "faq_4_a": "Wir führen ausgewählte Produkte für Pflege und Alltag. Bei Fragen zu Anwendung oder Größe schreib uns gern über die Kontaktseite.",
+    "faq_5_q": "Wo finde ich euren Kundenservice?",
+    "faq_5_a": "Unsere Kontaktdaten stehen im Impressum und auf der Kontaktseite — wir melden uns schnellstmöglich bei dir."
+  },
   "recipient": {
     "form": {
       "checkbox": "Ich möchte dies als Geschenk senden",

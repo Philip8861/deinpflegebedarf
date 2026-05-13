@@ -1,0 +1,278 @@
+/* Pflegeboxi — fixierter Assistent unten rechts + FAQ-Modal */
+
+.pflege-pflegeboxi-widget {
+  position: fixed;
+  z-index: 10240;
+  /* untere rechte „Bildschirmhälfte“: etwas über der unteren Kante, im rechten Bereich */
+  right: max(1rem, env(safe-area-inset-right, 0px));
+  bottom: max(18vh, calc(1.25rem + env(safe-area-inset-bottom, 0px)));
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  pointer-events: none;
+  font-family: var(--font-body-family), system-ui, sans-serif;
+}
+
+.pflege-pflegeboxi-widget__launcher {
+  pointer-events: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+  text-align: right;
+  -webkit-tap-highlight-color: transparent;
+  max-width: min(17rem, calc(100vw - 2rem));
+}
+
+.pflege-pflegeboxi-widget__launcher:focus-visible {
+  outline: 0.2rem solid rgba(44, 106, 191, 0.65);
+  outline-offset: 0.25rem;
+  border-radius: 1rem;
+}
+
+.pflege-pflegeboxi-widget__bubble {
+  display: block;
+  padding: 0.65rem 0.85rem 0.7rem;
+  border-radius: 1rem 1rem 0.35rem 1rem;
+  background: #fff;
+  border: 1px solid rgba(15, 79, 105, 0.16);
+  box-shadow: 0 8px 28px rgba(15, 45, 84, 0.12);
+  font-size: 0.92rem;
+  line-height: 1.38;
+  font-weight: 600;
+  color: #0f4f69;
+  text-align: left;
+}
+
+.pflege-pflegeboxi-widget__img-wrap {
+  display: block;
+  line-height: 0;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  box-shadow: 0 12px 36px rgba(0, 40, 90, 0.14);
+  background: #fff;
+}
+
+.pflege-pflegeboxi-widget__img-wrap img {
+  display: block;
+  width: clamp(5rem, 22vw, 7.5rem);
+  height: auto;
+  vertical-align: bottom;
+}
+
+@keyframes pflegeboxi-nudge {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  35% {
+    transform: translateY(-14px);
+  }
+  55% {
+    transform: translateY(0);
+  }
+}
+
+.pflege-pflegeboxi-widget__launcher--nudge {
+  animation: pflegeboxi-nudge 0.75s ease;
+}
+
+/* Modal */
+.pflege-pflegeboxi-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10245;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right))
+    max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
+}
+
+.pflege-pflegeboxi-modal[hidden] {
+  display: none !important;
+}
+
+.pflege-pflegeboxi-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 35, 71, 0.45);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.pflege-pflegeboxi-modal__panel {
+  position: relative;
+  z-index: 1;
+  width: min(34rem, 100%);
+  max-height: min(85vh, 42rem);
+  overflow-y: auto;
+  margin-top: auto;
+  border-radius: 1.25rem;
+  background: linear-gradient(180deg, #f6f9fd 0%, #fff 14%);
+  box-shadow: 0 -8px 48px rgba(15, 45, 84, 0.18);
+  border: 1px solid rgba(15, 79, 105, 0.12);
+}
+
+.pflege-pflegeboxi-modal__mascot {
+  display: flex;
+  justify-content: center;
+  margin: -3.25rem 0 0.25rem;
+  pointer-events: none;
+}
+
+.pflege-pflegeboxi-modal__mascot img {
+  width: min(11rem, 44vw);
+  height: auto;
+  filter: drop-shadow(0 12px 24px rgba(0, 40, 90, 0.12));
+}
+
+.pflege-pflegeboxi-modal__head {
+  padding: 0 1.35rem 0.75rem;
+  position: relative;
+}
+
+.pflege-pflegeboxi-modal__title {
+  margin: 0;
+  font-size: clamp(1.2rem, 2.8vw, 1.45rem);
+  font-weight: 700;
+  color: #0f4f69;
+  letter-spacing: -0.02em;
+  padding-right: 2.75rem;
+}
+
+.pflege-pflegeboxi-modal__close {
+  position: absolute;
+  top: 0;
+  right: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: none;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(15, 79, 105, 0.12);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #0f4f69;
+  transition: background 0.15s ease;
+}
+
+.pflege-pflegeboxi-modal__close:hover {
+  background: #fff;
+}
+
+.pflege-pflegeboxi-modal__close:focus-visible {
+  outline: 0.2rem solid rgba(44, 106, 191, 0.55);
+  outline-offset: 2px;
+}
+
+.pflege-pflegeboxi-modal__body {
+  padding: 0 1.35rem 1.35rem;
+}
+
+.pflege-pflegeboxi-faq__item {
+  border: 1px solid rgba(15, 79, 105, 0.1);
+  border-radius: 0.85rem;
+  background: #fff;
+  margin-bottom: 0.55rem;
+  overflow: hidden;
+}
+
+.pflege-pflegeboxi-faq__item:last-of-type {
+  margin-bottom: 0.85rem;
+}
+
+.pflege-pflegeboxi-faq__item summary {
+  padding: 0.85rem 1rem;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #14345d;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.pflege-pflegeboxi-faq__item summary::-webkit-details-marker {
+  display: none;
+}
+
+.pflege-pflegeboxi-faq__item summary::after {
+  content: "";
+  width: 0.45rem;
+  height: 0.45rem;
+  border-right: 2px solid #2c6abf;
+  border-bottom: 2px solid #2c6abf;
+  transform: rotate(45deg);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.pflege-pflegeboxi-faq__item[open] summary::after {
+  transform: rotate(-135deg);
+}
+
+.pflege-pflegeboxi-faq__answer {
+  padding: 0 1rem 1rem;
+  margin: 0;
+  font-size: 0.96rem;
+  line-height: 1.5;
+  color: rgba(15, 45, 84, 0.85);
+  border-top: 1px solid rgba(15, 79, 105, 0.06);
+}
+
+.pflege-pflegeboxi-modal__more {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 0.85rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(180deg, #f5841f 0%, #e87312 100%);
+  border: none;
+  box-shadow: 0 4px 14px rgba(232, 115, 18, 0.35);
+}
+
+.pflege-pflegeboxi-modal__more:hover {
+  filter: brightness(1.04);
+}
+
+@media screen and (min-width: 750px) {
+  .pflege-pflegeboxi-modal {
+    align-items: center;
+  }
+
+  .pflege-pflegeboxi-modal__panel {
+    margin-top: 0;
+    max-height: min(calc(100vh - 4rem), 44rem);
+  }
+
+  .pflege-pflegeboxi-modal__mascot {
+    margin-top: -4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pflege-pflegeboxi-widget__launcher--nudge {
+    animation: none;
+  }
+}

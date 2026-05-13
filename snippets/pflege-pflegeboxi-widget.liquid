@@ -1,0 +1,106 @@
+{% comment %}
+  Pflegeboxi — Assistent unten rechts, FAQ-Modal (Asset: pflegeboxi.webp)
+{% endcomment %}
+{{ 'pflege-pflegeboxi-widget.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'pflege-pflegeboxi-widget.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign pflegeboxi_contact = pages.kontakt | default: pages.contact
+-%}
+
+<div id="pflege-pflegeboxi-root">
+  <div class="pflege-pflegeboxi-widget">
+    <button
+      type="button"
+      class="pflege-pflegeboxi-widget__launcher"
+      id="pflege-pflegeboxi-launcher"
+      data-pflegeboxi-open
+      aria-expanded="false"
+      aria-controls="pflege-pflegeboxi-dialog"
+      aria-label="{{ 'pflegeboxi.launcher_aria' | t }}"
+    >
+      <span class="pflege-pflegeboxi-widget__bubble">{{ 'pflegeboxi.bubble' | t }}</span>
+      <span class="pflege-pflegeboxi-widget__img-wrap">
+        <img
+          src="{{ 'pflegeboxi.webp' | asset_url }}"
+          alt="{{ 'pflegeboxi.mascot_alt' | t }}"
+          width="160"
+          height="160"
+          loading="lazy"
+          decoding="async"
+        >
+      </span>
+    </button>
+  </div>
+</div>
+
+<div
+  id="pflege-pflegeboxi-dialog"
+  class="pflege-pflegeboxi-modal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="pflege-pflegeboxi-title"
+  hidden
+>
+  <button type="button" class="pflege-pflegeboxi-modal__backdrop" data-pflegeboxi-close tabindex="-1" aria-hidden="true"></button>
+  <div class="pflege-pflegeboxi-modal__panel" role="document">
+    <div class="pflege-pflegeboxi-modal__mascot" aria-hidden="true">
+      <img
+        src="{{ 'pflegeboxi.webp' | asset_url }}"
+        alt=""
+        width="220"
+        height="220"
+        loading="lazy"
+        decoding="async"
+      >
+    </div>
+    <div class="pflege-pflegeboxi-modal__head">
+      <h2 id="pflege-pflegeboxi-title" class="pflege-pflegeboxi-modal__title">
+        {{ 'pflegeboxi.title' | t }}
+      </h2>
+      <button
+        type="button"
+        class="pflege-pflegeboxi-modal__close"
+        data-pflegeboxi-close
+        data-pflegeboxi-close-focus
+        aria-label="{{ 'pflegeboxi.close' | t }}"
+      >
+        <span class="svg-wrapper" aria-hidden="true">
+          {{- 'icon-close.svg' | inline_asset_content -}}
+        </span>
+      </button>
+    </div>
+    <div class="pflege-pflegeboxi-modal__body">
+      <details class="pflege-pflegeboxi-faq__item">
+        <summary>{{ 'pflegeboxi.faq_1_q' | t }}</summary>
+        <p class="pflege-pflegeboxi-faq__answer">{{ 'pflegeboxi.faq_1_a' | t }}</p>
+      </details>
+      <details class="pflege-pflegeboxi-faq__item">
+        <summary>{{ 'pflegeboxi.faq_2_q' | t }}</summary>
+        <p class="pflege-pflegeboxi-faq__answer">{{ 'pflegeboxi.faq_2_a' | t }}</p>
+      </details>
+      <details class="pflege-pflegeboxi-faq__item">
+        <summary>{{ 'pflegeboxi.faq_3_q' | t }}</summary>
+        <p class="pflege-pflegeboxi-faq__answer">{{ 'pflegeboxi.faq_3_a' | t }}</p>
+      </details>
+      <details class="pflege-pflegeboxi-faq__item">
+        <summary>{{ 'pflegeboxi.faq_4_q' | t }}</summary>
+        <p class="pflege-pflegeboxi-faq__answer">{{ 'pflegeboxi.faq_4_a' | t }}</p>
+      </details>
+      <details class="pflege-pflegeboxi-faq__item">
+        <summary>{{ 'pflegeboxi.faq_5_q' | t }}</summary>
+        <p class="pflege-pflegeboxi-faq__answer">{{ 'pflegeboxi.faq_5_a' | t }}</p>
+      </details>
+
+      {%- if pflegeboxi_contact != blank -%}
+        <a class="pflege-pflegeboxi-modal__more" href="{{ pflegeboxi_contact.url }}">
+          {{ 'pflegeboxi.more_help' | t }}
+        </a>
+      {%- else -%}
+        <a class="pflege-pflegeboxi-modal__more" href="{{ routes.root_url }}">
+          {{ 'pflegeboxi.more_help' | t }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
