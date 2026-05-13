@@ -184,7 +184,10 @@
         "service_foot_support_title": "Personal advice",
         "service_foot_support_sub": "08334 / 9893330",
         "service_foot_quality_title": "Ready to ship in 1-2 days",
-        "service_foot_quality_sub": ""
+        "service_foot_quality_sub": "",
+        "unified_info_aria": "Product information and downloads",
+        "hilfsmittelnummer_label": "Medical aid number:",
+        "product_sheet_download": "Download product sheet"
       },
       "sku": "SKU",
       "on_sale": "Angebot",

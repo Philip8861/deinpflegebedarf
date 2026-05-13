@@ -2,9 +2,10 @@
   PflegeShop — Unterer Produktbereich (Beschreibung, Metafields, Fakten, Vertrauen).
   Liegt AUSSERHALB von <product-info>: statisch nach erstem Laden; keine variantenabhängigen Felder hier (SKU bleibt in der Kaufspalte).
 
-  Erwartete Metafields im Namespace „custom“ (Auszug): application, ingredients,
-  content_volume, skin_type, product_type_label, pzn, delivery_time,
-  free_shipping_threshold. Für Schnell‑USPs in der Kaufspalte ebenfalls „usps“.
+  Einheitlicher Block: custom.beschreibung, custom.anwendung, custom.produkteigenschaften,
+  Hilfsmittelnummer (custom.hilfsmittelnummer / custom.hilfsmittel_nummer, sonst Fallback custom.pzn ohne Doppelung in der Faktenkarte),
+  PDF (erstes Treffer aus custom.produktblatt, product_sheet, produkt_pdf, pdf).
+  Legacy-Tabs (product.description, custom.application, custom.ingredients) nur, wenn keines der drei neuen Text-Metafelder gesetzt ist.
 {% endcomment %}
 {{ 'section-pflege-product-detail-body.css' | asset_url | stylesheet_tag }}
 
@@ -22,6 +23,10 @@
     assign dm_facts = false
   endif
 
+  assign mf_beschreibung = product.metafields.custom.beschreibung
+  assign mf_anwendung = product.metafields.custom.anwendung
+  assign mf_produkteigenschaften = product.metafields.custom.produkteigenschaften
+
   assign mf_app = product.metafields.custom.application
   assign mf_ing = product.metafields.custom.ingredients
   assign mf_vol = product.metafields.custom.content_volume
@@ -30,6 +35,128 @@
   assign mf_skin = product.metafields.custom.skin_type
   assign mf_del = product.metafields.custom.delivery_time
   assign mf_fs = product.metafields.custom.free_shipping_threshold
+
+  assign has_beschr = false
+  if mf_beschreibung.value != blank
+    assign has_beschr = true
+  elsif mf_beschreibung != blank and mf_beschreibung != empty
+    assign _tb = mf_beschreibung | metafield_text | strip
+    if _tb != blank
+      assign has_beschr = true
+    endif
+  endif
+
+  assign has_anw = false
+  if mf_anwendung.value != blank
+    assign has_anw = true
+  elsif mf_anwendung != blank and mf_anwendung != empty
+    assign _tn = mf_anwendung | metafield_text | strip
+    if _tn != blank
+      assign has_anw = true
+    endif
+  endif
+
+  assign has_prop = false
+  if mf_produkteigenschaften.value != blank
+    assign has_prop = true
+  elsif mf_produkteigenschaften != blank and mf_produkteigenschaften != empty
+    assign _tp = mf_produkteigenschaften | metafield_text | strip
+    if _tp != blank
+      assign has_prop = true
+    endif
+  endif
+
+  assign hilfsmittel_display = ''
+  assign hilf_from_dedicated = false
+  assign mf_hilf = product.metafields.custom.hilfsmittelnummer
+  if mf_hilf.value != blank
+    assign hilfsmittel_display = mf_hilf | metafield_text | strip
+    assign hilf_from_dedicated = true
+  elsif mf_hilf != blank and mf_hilf != empty
+    assign _hh = mf_hilf | metafield_text | strip
+    if _hh != blank
+      assign hilfsmittel_display = _hh
+      assign hilf_from_dedicated = true
+    endif
+  endif
+  if hilfsmittel_display == blank
+    assign mf_hilf = product.metafields.custom.hilfsmittel_nummer
+    if mf_hilf.value != blank
+      assign hilfsmittel_display = mf_hilf | metafield_text | strip
+      assign hilf_from_dedicated = true
+    elsif mf_hilf != blank and mf_hilf != empty
+      assign _hh2 = mf_hilf | metafield_text | strip
+      if _hh2 != blank
+        assign hilfsmittel_display = _hh2
+        assign hilf_from_dedicated = true
+      endif
+    endif
+  endif
+  if hilfsmittel_display == blank
+    if mf_pzn != blank and mf_pzn != empty
+      assign hilfsmittel_display = mf_pzn | metafield_text | strip
+      if hilfsmittel_display == blank and mf_pzn.value != blank
+        assign hilfsmittel_display = mf_pzn.value | append: ''
+      endif
+    endif
+  endif
+
+  assign has_hilf_line = false
+  if hilfsmittel_display != blank
+    assign has_hilf_line = true
+  endif
+
+  assign omit_pzn_in_facts = false
+  if has_hilf_line and hilf_from_dedicated == false
+    assign omit_pzn_in_facts = true
+  endif
+
+  assign pdf_url = ''
+  assign pdf_filename = ''
+  assign mf_pdf = product.metafields.custom.produktblatt
+  if mf_pdf != blank and mf_pdf.value != blank and mf_pdf.value.url != blank
+    assign pdf_url = mf_pdf.value.url
+    if mf_pdf.value.alt != blank
+      assign pdf_filename = mf_pdf.value.alt
+    endif
+  endif
+  if pdf_url == blank
+    assign mf_pdf = product.metafields.custom.product_sheet
+    if mf_pdf != blank and mf_pdf.value != blank and mf_pdf.value.url != blank
+      assign pdf_url = mf_pdf.value.url
+      if mf_pdf.value.alt != blank
+        assign pdf_filename = mf_pdf.value.alt
+      endif
+    endif
+  endif
+  if pdf_url == blank
+    assign mf_pdf = product.metafields.custom.produkt_pdf
+    if mf_pdf != blank and mf_pdf.value != blank and mf_pdf.value.url != blank
+      assign pdf_url = mf_pdf.value.url
+      if mf_pdf.value.alt != blank
+        assign pdf_filename = mf_pdf.value.alt
+      endif
+    endif
+  endif
+  if pdf_url == blank
+    assign mf_pdf = product.metafields.custom.pdf
+    if mf_pdf != blank and mf_pdf.value != blank and mf_pdf.value.url != blank
+      assign pdf_url = mf_pdf.value.url
+      if mf_pdf.value.alt != blank
+        assign pdf_filename = mf_pdf.value.alt
+      endif
+    endif
+  endif
+
+  assign has_pdf = false
+  if pdf_url != blank
+    assign has_pdf = true
+  endif
+
+  assign has_unified_block = false
+  if has_beschr or has_anw or has_prop or has_hilf_line or has_pdf
+    assign has_unified_block = true
+  endif
 
   assign has_desc = false
   if product.description != blank
@@ -56,9 +183,16 @@
     endif
   endif
 
-  assign has_content_tabs = false
+  assign uses_new_text_triple = false
+  if has_beschr or has_anw or has_prop
+    assign uses_new_text_triple = true
+  endif
+
+  assign show_legacy_tabs = false
   if has_desc or has_app or has_ing
-    assign has_content_tabs = true
+    if uses_new_text_triple == false
+      assign show_legacy_tabs = true
+    endif
   endif
 
   assign reviews_count_disp = nil
@@ -70,15 +204,27 @@
 
   assign reviews_show_tab = true
 
-  assign has_any_tab = false
-  if has_content_tabs or reviews_show_tab
-    assign has_any_tab = true
+  assign has_tab_strip = false
+  if show_legacy_tabs or reviews_show_tab
+    assign has_tab_strip = true
   endif
+
+  assign has_main_col = false
+  if has_unified_block or has_tab_strip
+    assign has_main_col = true
+  endif
+
+  assign has_any_tab = has_main_col
   assign show_facts_panel = dm_facts
 
   assign show_section_inner = false
-  if dm_breadcrumb or dm_trust or dm_facts or has_any_tab
+  if dm_breadcrumb or dm_trust or dm_facts or has_main_col
     assign show_section_inner = true
+  endif
+
+  assign needs_tab_js = false
+  if show_legacy_tabs or reviews_show_tab
+    assign needs_tab_js = true
   endif
 
   assign bc_coll = section.settings.collection_for_breadcrumb
@@ -140,9 +286,34 @@
         </div>
       {%- endif -%}
 
-      <div class="pflege-pdp-detail__layout{% unless has_any_tab %} pflege-pdp-detail__layout--facts-only{% endunless %}">
+      <div class="pflege-pdp-detail__layout{% unless has_main_col %} pflege-pdp-detail__layout--facts-only{% endunless %}">
         <div class="pflege-pdp-detail__main-col">
-          {%- if has_any_tab -%}
+          {%- if has_unified_block -%}
+            {% render 'pflege-product-unified-info',
+              section_id: section.id,
+              has_beschr: has_beschr,
+              has_anw: has_anw,
+              has_prop: has_prop,
+              has_hilf_line: has_hilf_line,
+              has_pdf: has_pdf,
+              mf_beschreibung: mf_beschreibung,
+              mf_anwendung: mf_anwendung,
+              mf_produkteigenschaften: mf_produkteigenschaften,
+              label_beschreibung: section.settings.unified_label_beschreibung,
+              label_anwendung: section.settings.unified_label_anwendung,
+              label_produkteigenschaften: section.settings.unified_label_produkteigenschaften,
+              hilfsmittel_display: hilfsmittel_display,
+              pdf_url: pdf_url,
+              pdf_filename: pdf_filename
+            %}
+          {%- endif -%}
+          {%- if has_tab_strip -%}
+            {% liquid
+              assign tab_reviews_only = false
+              if has_unified_block and show_legacy_tabs == false
+                assign tab_reviews_only = true
+              endif
+            %}
             {% render 'pflege-product-body-tabs',
               section_id: section.id,
               product: product,
@@ -156,14 +327,15 @@
               label_ing: section.settings.tab_ingredients,
               reviews_show_tab: reviews_show_tab,
               reviews_count: reviews_count_disp,
-              label_reviews: section.settings.tab_reviews
+              label_reviews: section.settings.tab_reviews,
+              reviews_only: tab_reviews_only
             %}
           {%- endif -%}
         </div>
 
         {%- if show_facts_panel -%}
           <aside
-            class="pflege-pdp-detail__aside{% unless has_any_tab %} pflege-pdp-detail__aside--full{% endunless %}"
+            class="pflege-pdp-detail__aside{% unless has_main_col %} pflege-pdp-detail__aside--full{% endunless %}"
             aria-labelledby="PflegePDP-{{ section.id }}-facts"
           >
             {% render 'pflege-product-body-facts',
@@ -182,7 +354,8 @@
               lbl_del: section.settings.lbl_delivery,
               lbl_fs: section.settings.lbl_shipping_hint,
               lbl_brand: section.settings.lbl_brand,
-              lbl_content: section.settings.lbl_content
+              lbl_content: section.settings.lbl_content,
+              omit_pzn_in_facts: omit_pzn_in_facts
             %}
           </aside>
         {%- endif -%}
@@ -190,7 +363,7 @@
     </div>
     {% render 'pflege-pdp-service-foot' %}
   </section>
-  {%- if has_any_tab -%}
+  {%- if needs_tab_js -%}
     <script src="{{ 'pflege-pdp-horizontal-tabs.js' | asset_url }}" defer="defer"></script>
   {%- endif -%}
 {%- endunless -%}
@@ -206,7 +379,7 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Inhalt über Shopify: product.description sowie optionale Produktmetafields im Namespace „custom“. Keine Änderung an Kaufen/Varianten (bleiben in Haupt-Section)."
+      "content": "Produktinformationen: Metafelder „custom.beschreibung“, „custom.anwendung“, „custom.produkteigenschaften“ (Rich Text). Hilfsmittelnummer: „custom.hilfsmittelnummer“ oder „custom.hilfsmittel_nummer“; ohne eigene Angabe wird „custom.pzn“ im einheitlichen Block als Hilfsmittelnummer gezeigt (nicht doppelt in der Faktenkarte). PDF: Datei-Metafeld, z. B. „custom.produktblatt“, alternativ „product_sheet“, „produkt_pdf“ oder „pdf“."
     },
     {
       "type": "checkbox",
@@ -273,6 +446,24 @@
       "id": "section_aria_label",
       "label": "Section ARIA",
       "default": "Produktdetail und Merkmale"
+    },
+    {
+      "type": "text",
+      "id": "unified_label_beschreibung",
+      "label": "Überschrift Beschreibung (Metafeld)",
+      "default": "Beschreibung"
+    },
+    {
+      "type": "text",
+      "id": "unified_label_anwendung",
+      "label": "Überschrift Anwendung (Metafeld)",
+      "default": "Anwendung"
+    },
+    {
+      "type": "text",
+      "id": "unified_label_produkteigenschaften",
+      "label": "Überschrift Produkteigenschaften (Metafeld)",
+      "default": "Produkteigenschaften"
     },
     {
       "type": "text",

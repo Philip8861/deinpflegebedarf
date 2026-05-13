@@ -1,9 +1,16 @@
 {%- comment -%}
   Horizontales Tab-Leiste (Mockup PDP). Kein zweites product-form.
   Übergaben: section_id, product, Metafeld-Labels, reviews_show_tab, reviews_count, label_reviews
+  reviews_only: true — nur Bewertungen (wenn der einheitliche Infoblock die übrigen Inhalte übernimmt)
 {%- endcomment -%}
 {%- liquid
   assign show_rev = reviews_show_tab | default: false
+  assign reviews_only = reviews_only | default: false
+  if reviews_only
+    assign has_desc = false
+    assign has_app = false
+    assign has_ing = false
+  endif
 
   assign first_tab_handled = false
 -%}

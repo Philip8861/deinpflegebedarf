@@ -59,20 +59,22 @@
       {%- endif -%}
     {%- endif -%}
 
-    {%- if mf_pzn.value != blank -%}
-      <div class="pflege-pdp-facts__row">
-        <dt class="pflege-pdp-facts__dt">{{ lbl_pzn | escape }}</dt>
-        <dd class="pflege-pdp-facts__dd">{{ mf_pzn.value | escape }}</dd>
-      </div>
-    {%- elsif mf_pzn != blank and mf_pzn != empty -%}
-      {%- assign pzn_fallback = mf_pzn | metafield_text | strip -%}
-      {%- if pzn_fallback != blank -%}
+    {%- unless omit_pzn_in_facts -%}
+      {%- if mf_pzn.value != blank -%}
         <div class="pflege-pdp-facts__row">
           <dt class="pflege-pdp-facts__dt">{{ lbl_pzn | escape }}</dt>
-          <dd class="pflege-pdp-facts__dd">{{ pzn_fallback | escape }}</dd>
+          <dd class="pflege-pdp-facts__dd">{{ mf_pzn.value | escape }}</dd>
         </div>
+      {%- elsif mf_pzn != blank and mf_pzn != empty -%}
+        {%- assign pzn_fallback = mf_pzn | metafield_text | strip -%}
+        {%- if pzn_fallback != blank -%}
+          <div class="pflege-pdp-facts__row">
+            <dt class="pflege-pdp-facts__dt">{{ lbl_pzn | escape }}</dt>
+            <dd class="pflege-pdp-facts__dd">{{ pzn_fallback | escape }}</dd>
+          </div>
+        {%- endif -%}
       {%- endif -%}
-    {%- endif -%}
+    {%- endunless -%}
 
     {%- if mf_del.value != blank -%}
       <div class="pflege-pdp-facts__row">

@@ -236,7 +236,10 @@
         "service_foot_support_title": "Persönliche Beratung",
         "service_foot_support_sub": "08334 / 9893330",
         "service_foot_quality_title": "Versandfertig in 1-2 Tagen",
-        "service_foot_quality_sub": ""
+        "service_foot_quality_sub": "",
+        "unified_info_aria": "Produktinformationen und Downloads",
+        "hilfsmittelnummer_label": "Hilfsmittelnummer:",
+        "product_sheet_download": "Produktblatt herunterladen"
       },
       "sku": "SKU",
       "volume_pricing": {
