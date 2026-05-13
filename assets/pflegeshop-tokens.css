@@ -47,7 +47,7 @@
   --pflege-home-section-heading-line-height: 1.18;
   --pflege-home-section-heading-letter-spacing: -0.025em;
   --pflege-home-section-heading-color: #0f4f69;
-  /* Kreise hinter Warenkorb-Icons (Header, Produktkarten) */
+  /* Kreise hinter Warenkorb-Icons auf Produktkarten (Bestseller, Pflegesets) */
   --pflege-cart-icon-bg: #8ac8fb;
   --pflege-cart-icon-bg-hover: #75b0f0;
   --pflege-max-copy: 52rem;

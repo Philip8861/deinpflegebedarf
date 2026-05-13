@@ -446,15 +446,14 @@
   flex-shrink: 0;
   width: var(--pflege-action-icon-box);
   height: var(--pflege-action-icon-box);
-  border-radius: 50%;
-  background-color: var(--pflege-cart-icon-bg, #8ac8fb);
+  border-radius: 0;
+  background-color: transparent;
   color: var(--pflege-heading-navy, #062a55);
-  transition: background-color 0.2s ease;
 }
 
 .pflege-main-nav-section .pflege-main-nav__cart-icon:hover .pflege-main-nav__cart-graphic,
 .pflege-main-nav-section .pflege-main-nav__cart-icon:focus-visible .pflege-main-nav__cart-graphic {
-  background-color: var(--pflege-cart-icon-bg-hover, #75b0f0);
+  background-color: transparent;
 }
 
 .pflege-main-nav-section .pflege-main-nav__cart-graphic .svg-wrapper {

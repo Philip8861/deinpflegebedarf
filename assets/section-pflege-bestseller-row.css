@@ -369,7 +369,7 @@
   color: #fff;
 }
 
-/* SVG kleiner als Kreis — Wagen ragt nicht mehr aus dem Rand */
+/* SVG kleiner als Kreis — Wagen ragt nicht mehr aus dem Rand; optisch zentriert, kräftigere Linie */
 .pflege-bestseller-card__cart .pflege-icon svg {
   width: 1.125rem;
   height: 1.125rem;
@@ -378,6 +378,11 @@
   flex-shrink: 0;
   display: block;
   vertical-align: middle;
+  transform: translate(0.5px, 1.25px);
+}
+
+.pflege-bestseller-card__cart .pflege-icon svg :is(path, circle) {
+  stroke-width: 2.15;
 }
 
 /* Warenkorb: Bestseller-Empfehlungen — #MainContent / .pflege-cart-page__inner liefern das Gutter */
