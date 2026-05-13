@@ -136,7 +136,16 @@
       "pflege-reviews-rail": {
         "type": "pflege-reviews-rail",
         "blocks": {
-          "review_zjAwWx": {
+          "review_CTCeEU": {
+            "type": "review",
+            "settings": {
+              "rating": 5,
+              "quote": "Sehr guter Service und schnelle Lieferung!",
+              "author": "Kundin/Kunde",
+              "subtitle": ""
+            }
+          },
+          "review_mAQyxf": {
             "type": "review",
             "settings": {
               "rating": 5,
@@ -147,7 +156,8 @@
           }
         },
         "block_order": [
-          "review_zjAwWx"
+          "review_CTCeEU",
+          "review_mAQyxf"
         ],
         "settings": {
           "color_scheme": "scheme-1",
