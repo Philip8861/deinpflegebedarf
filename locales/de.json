@@ -769,5 +769,12 @@
       "expanded": "Formular für den Empfänger des Gutscheins erweitert",
       "collapsed": "Formular für den Empfänger des Gutscheins minimiert"
     }
+  },
+  "shopify": {
+    "online_store": {
+      "spam_detection": {
+        "disclaimer_html": ""
+      }
+    }
   }
 }

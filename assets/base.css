@@ -3595,3 +3595,31 @@ details-disclosure > details {
     transform: translateX(100%) scaleX(0);
   }
 }
+
+/* Shopify hCaptcha: Hinweis „durch hCaptcha geschützt“ / Badge-Zeile ausblenden */
+#shop-hcaptcha-badge-container,
+#shop-hcaptcha {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  position: absolute !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  clip-path: inset(50%) !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+body:has(#shop-hcaptcha-badge-container) .shopify-hcaptcha-disclaimer,
+body:has(#shop-hcaptcha-badge-container) [class*="hcaptcha"][class*="disclaimer"] {
+  display: none !important;
+}
+
+/* Zeile mit hCaptcha-Hinweis unter Kontakt-/ähnlichen Formularen */
+form:has([name="contact[email]"]) p:has(a[href*="hcaptcha.com"]),
+form:has([name="contact[body]"]) p:has(a[href*="hcaptcha.com"]) {
+  display: none !important;
+}

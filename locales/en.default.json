@@ -769,5 +769,12 @@
       "send_on": "JJJJ-MM-TT",
       "send_on_label": "Senden am (optional)"
     }
+  },
+  "shopify": {
+    "online_store": {
+      "spam_detection": {
+        "disclaimer_html": ""
+      }
+    }
   }
 }
