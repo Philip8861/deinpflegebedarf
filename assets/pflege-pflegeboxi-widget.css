@@ -250,9 +250,9 @@
 .pflege-pflegeboxi-modal__backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(7, 18, 36, 0.62);
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
+  background: rgba(11, 35, 71, 0.38);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
   border: none;
   padding: 0;
   margin: 0;
@@ -271,15 +271,21 @@
   pointer-events: auto;
 }
 
-/* Kleiner Freiraum zwischen Maskottchen-Unterkante und FAQ-Kasten */
+/* Etwas Überlappung zur Kasten-Oberkante = optisch näher am Modal */
 .pflege-pflegeboxi-modal__mascot {
   position: absolute;
   left: 50%;
   top: 0;
-  transform: translate(-50%, calc(-100% - 6px));
+  transform: translate(-50%, calc(-100% + 18px));
   z-index: 3;
   pointer-events: none;
   line-height: 0;
+}
+
+/* Sicherheit: alte gecachte Footer-Zeile „Kontakt / Versand“ nie anzeigen */
+.pflege-pflegeboxi-modal__footer,
+a.pflege-pflegeboxi-modal__footer-link {
+  display: none !important;
 }
 
 @keyframes pflegeboxi-modal-glow {
