@@ -97,11 +97,11 @@
           endif
         endif
         assign bl_prev = button_label
-        assign button_label = button_label | replace: 'Stück', '' | replace: 'stück', '' | replace: 'STÜCK', ''
-        assign button_label = button_label | replace: ' Stk', '' | replace: ' stk', '' | replace: ' STK', ''
-        assign button_label = button_label | replace: 'Stk.', '' | replace: 'stk.', '' | replace: 'STK.', ''
-        assign button_label = button_label | replace: 'Stk', '' | replace: 'STK', '' | replace: 'stk', ''
-        assign button_label = button_label | replace: ' Packung', '' | replace: ' packung', '' | replace: 'PACKUNG', ''
+        assign button_label = button_label | remove: 'Stück' | remove: 'stück' | remove: 'STÜCK'
+        assign button_label = button_label | remove: 'Stk.' | remove: 'stk.' | remove: 'STK.'
+        assign button_label = button_label | remove: ' Stk' | remove: ' stk' | remove: ' STK'
+        assign button_label = button_label | remove: 'Stk' | remove: 'STK' | remove: 'stk'
+        assign button_label = button_label | remove: ' Packung' | remove: ' packung' | remove: 'PACKUNG'
         assign button_label = button_label | strip
         if button_label == blank
           assign button_label = bl_prev
