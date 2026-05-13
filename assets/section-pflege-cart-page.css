@@ -1147,7 +1147,7 @@
   min-width: 0;
   width: 100%;
   min-height: 3.6rem;
-  background: #ffffff;
+  background: #fefefe;
   border: 1px solid rgba(88, 145, 215, 0.28);
   border-radius: 1.1rem;
   overflow: hidden;
@@ -1171,7 +1171,7 @@
   border-radius: 0;
   font-size: 1.35rem;
   color: var(--pflege-cart-navy);
-  background: #ffffff;
+  background: #fefefe;
   box-shadow: none;
 }
 

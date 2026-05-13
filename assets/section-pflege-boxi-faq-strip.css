@@ -10,7 +10,7 @@
 
   position: relative;
   overflow: visible;
-  background: #ffffff;
+  background: #fefefe;
   border-top: none;
 }
 
@@ -27,7 +27,7 @@
     180deg,
     var(--pfb-arc-from) 0%,
     var(--pfb-arc-mid) 52%,
-    #ffffff 100%
+    #fefefe 100%
   );
   border-radius: 50% 50% 0 0 / clamp(2.4rem, 5.8vw, 6rem) clamp(2.4rem, 5.8vw, 6rem) 0 0;
 }

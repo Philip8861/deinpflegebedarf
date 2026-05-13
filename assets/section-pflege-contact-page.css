@@ -12,7 +12,7 @@
     180deg,
     var(--pfc-panel) 0%,
     rgba(255, 255, 255, 0.97) 45%,
-    var(--pflege-white, #ffffff) 100%
+    var(--pflege-white, #fefefe) 100%
   );
   border-top: 1px solid var(--pfc-border);
 }
@@ -78,7 +78,7 @@
 }
 
 .pflege-contact-page__card {
-  background: var(--pflege-white, #fff);
+  background: var(--pflege-white, #fefefe);
   border: 1px solid var(--pfc-border);
   border-radius: var(--pfc-radius);
   padding: clamp(1.25rem, 2.5vw, 1.65rem) clamp(1.35rem, 2.6vw, 1.85rem);
@@ -134,7 +134,7 @@
 
 /* Formular */
 .pflege-contact-page__form-card {
-  background: var(--pflege-white, #fff);
+  background: var(--pflege-white, #fefefe);
   border: 1px solid var(--pfc-border);
   border-radius: var(--pfc-radius);
   padding: clamp(1.5rem, 3vw, 2.25rem);

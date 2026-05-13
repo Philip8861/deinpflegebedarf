@@ -3,7 +3,7 @@
 .pflege-reviews-rail {
   --prr-content-max: 1180px;
   --prr-form-max: 560px;
-  --prr-wave-top: #ffffff;
+  --prr-wave-top: #fefefe;
   /* Anschluss an Footer-Band (wie pflege-footer__band, Gradient-Start #fafcfd) */
   --prr-wave-bottom: #fafcfd;
 
@@ -12,7 +12,7 @@
   --prr-quote: #4a4a4a;
   --prr-meta: #777777;
   --prr-star: #fbbc04;
-  --prr-dot-bg: #ffffff;
+  --prr-dot-bg: #fefefe;
   --prr-dot-border: #b7d5df;
   --prr-dot-icon: #b7d5df;
   --prr-dot-active-bg: #f28c28;
@@ -305,7 +305,7 @@
   margin: clamp(1.75rem, 2.6vw + 1rem, 2.25rem) auto 0;
   padding: 0.85rem 1.25rem;
   min-height: 46px;
-  background: #ffffff;
+  background: #fefefe;
   border: 1px solid var(--prr-pill-border);
   border-radius: 14px;
   color: var(--prr-petrol);
@@ -359,7 +359,7 @@
 }
 
 .pflege-reviews-rail__all-item {
-  background: #ffffff;
+  background: #fefefe;
   border: 1px solid var(--prr-pill-border);
   border-radius: 14px;
   padding: 1rem 1.1rem;
@@ -445,7 +445,7 @@
 .pflege-reviews-rail__toggle-form {
   appearance: none;
   border: 2px solid var(--pflege-cta, #f89738);
-  background: #fff;
+  background: #fefefe;
   color: var(--pflege-cta, #dc7a22);
   font: inherit;
   font-size: clamp(1rem, 0.8vw + 0.9rem, 1.1rem);
@@ -555,7 +555,7 @@
   max-width: var(--prr-form-max);
   padding: clamp(1.35rem, 2.5vw, 1.75rem);
   border-radius: var(--pflege-radius-card, 16px);
-  background: #fff;
+  background: #fefefe;
   border: 1px solid var(--pflege-border-soft, #d8eafe);
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 1) inset,
@@ -727,7 +727,7 @@
 .pflege-reviews-rail__success-dialog-panel {
   padding: clamp(2.2rem, 4.25vw, 3rem);
   border-radius: 26px;
-  background: #fff;
+  background: #fefefe;
   border: 1px solid var(--pflege-border-soft, #d8eafe);
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 1) inset,

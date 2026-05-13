@@ -125,7 +125,7 @@
   align-items: stretch;
   padding: clamp(0.75rem, 1.8vw, 1rem);
   padding-bottom: clamp(0.85rem, 2vw, 1.1rem);
-  background: var(--pflege-white, #fff);
+  background: var(--pflege-white, #fefefe);
   border: 1px solid var(--pflege-border, #e5eef8);
   border-radius: 12px;
   /* Nur harmonische Untergrenze — keine extra Höhe „wegen großem Foto“ */

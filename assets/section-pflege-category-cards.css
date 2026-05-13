@@ -33,7 +33,7 @@
   gap: 0.75rem;
   min-height: 11rem;
   padding: 1.1rem 1rem 1.1rem 1.25rem;
-  background: var(--pflege-white, #fff);
+  background: var(--pflege-white, #fefefe);
   border: 1px solid var(--pflege-border, #e5eef8);
   border-radius: var(--pflege-radius-card, 14px);
   text-decoration: none;
