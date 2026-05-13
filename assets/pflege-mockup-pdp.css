@@ -1073,6 +1073,8 @@
     min-height: var(--pflege-purchase-row-height, 4.5rem) !important;
     max-height: var(--pflege-purchase-row-height, 4.5rem) !important;
     box-sizing: border-box !important;
+    box-shadow: none !important;
+    filter: none !important;
   }
 
   /* Dawn base .quantity — z-index & Schatten wirken wie andere Höhe */
@@ -1080,6 +1082,20 @@
   product-info.pflege-product-page .pflege-product__purchase-row quantity-input.quantity::after {
     content: none !important;
     display: none !important;
+    box-shadow: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
+  /* Theme .button-Schatten (Pseudo + Hover „3d-lift“ / „vertical-lift“ auf body) */
+  product-info.pflege-product-page .pflege-product__purchase-row .product-form__submit.button::before,
+  product-info.pflege-product-page .pflege-product__purchase-row .product-form__submit.button::after {
+    display: none !important;
+    content: none !important;
+    box-shadow: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
   }
 
   product-info.pflege-product-page .pflege-product__purchase-row .product-form__submit.pflege-product__add-btn.button {
@@ -1092,9 +1108,42 @@
     box-sizing: border-box !important;
     align-items: center !important;
     min-width: min(100%, calc(var(--pflege-qty-slot-width, 9.25rem) * 10 / 3)) !important;
+    box-shadow: none !important;
+    filter: none !important;
   }
 
   product-info.pflege-product-page .pflege-product__purchase-row {
     align-items: center;
+  }
+}
+
+@media screen and (prefers-reduced-motion: no-preference) and (hover: hover) {
+  body.animate--hover-3d-lift
+    product-info.pflege-product-page
+    .pflege-product__purchase-row
+    .product-form__submit.button:not(.button--tertiary):not([disabled]):hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+}
+
+@media screen {
+  body.animate--hover-vertical-lift
+    product-info.pflege-product-page
+    .pflege-product__purchase-row
+    .product-form__submit.button:not(.button--tertiary):not([disabled]):hover,
+  body.animate--hover-vertical-lift
+    product-info.pflege-product-page
+    .pflege-product__purchase-row
+    .product-form__submit.button:not([disabled]):hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  body.animate--hover-vertical-lift
+    product-info.pflege-product-page
+    .pflege-product__purchase-row
+    .product-form__submit.button:not([disabled]):hover::after {
+    box-shadow: none !important;
   }
 }

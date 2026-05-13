@@ -96,6 +96,16 @@
             assign button_label = button_label | replace_first: ':', '' | strip
           endif
         endif
+        assign bl_prev = button_label
+        assign button_label = button_label | replace: 'Stück', '' | replace: 'stück', '' | replace: 'STÜCK', ''
+        assign button_label = button_label | replace: ' Stk', '' | replace: ' stk', '' | replace: ' STK', ''
+        assign button_label = button_label | replace: 'Stk.', '' | replace: 'stk.', '' | replace: 'STK.', ''
+        assign button_label = button_label | replace: 'Stk', '' | replace: 'STK', '' | replace: 'stk', ''
+        assign button_label = button_label | replace: ' Packung', '' | replace: ' packung', '' | replace: 'PACKUNG', ''
+        assign button_label = button_label | strip
+        if button_label == blank
+          assign button_label = bl_prev
+        endif
       endif
       if button_label == blank
         assign button_label = value | strip
