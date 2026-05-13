@@ -1,6 +1,6 @@
 {% comment %}
-  FAQ-Leiste mit denselben Einträgen wie Pflegeboxi (Locales pflegeboxi.faq_*).
-  Eingebunden in layout/theme.liquid direkt über dem Footer.
+  Häufige Fragen — gleiche 20 FAQ-Texte wie Pflegeboxi (Locales: pflegeboxi.faq_*).
+  Global über dem Footer (layout/theme.liquid).
 {% endcomment %}
 
 {{ 'section-pflege-boxi-faq-strip.css' | asset_url | stylesheet_tag }}
@@ -8,7 +8,7 @@
 {%- liquid
   assign heading_setting = section.settings.heading | strip
   if heading_setting == blank
-    assign heading_text = 'pflegeboxi.title' | t
+    assign heading_text = 'sections.pflege_boxi_faq_strip.heading' | t
   else
     assign heading_text = heading_setting
   endif
@@ -36,32 +36,12 @@
 
 <section
   class="pflege-boxi-faq-strip section-{{ section.id }}-padding"
-  aria-labelledby="pflege-boxi-faq-strip-title-{{ section.id }}"
-  data-pflege-boxi-faq-strip
+  aria-labelledby="pflege-faq-strip-title-{{ section.id }}"
+  data-pflege-faq-strip
 >
-  <div class="pflege-boxi-faq-strip__glow" aria-hidden="true"></div>
-  <div class="pflege-boxi-faq-strip__arc" aria-hidden="true"></div>
-
   <div class="pflege-boxi-faq-strip__inner">
     <header class="pflege-boxi-faq-strip__head">
-      <span class="pflege-boxi-faq-strip__badge">
-        <span class="pflege-boxi-faq-strip__badge-dot" aria-hidden="true"></span>
-        {{ 'sections.pflege_boxi_faq_strip.badge' | t }}
-      </span>
-      {%- if section.settings.show_mascot -%}
-        <div class="pflege-boxi-faq-strip__mascot-wrap">
-          <img
-            class="pflege-boxi-faq-strip__mascot"
-            src="{{ 'pflegeboxi.webp' | asset_url }}"
-            alt="{{ 'pflegeboxi.mascot_alt' | t }}"
-            width="140"
-            height="140"
-            loading="lazy"
-            decoding="async"
-          >
-        </div>
-      {%- endif -%}
-      <h2 class="pflege-boxi-faq-strip__title" id="pflege-boxi-faq-strip-title-{{ section.id }}">
+      <h2 class="pflege-boxi-faq-strip__title" id="pflege-faq-strip-title-{{ section.id }}">
         {{ heading_text | escape }}
       </h2>
       {%- if intro_text != blank -%}
@@ -81,46 +61,30 @@
         </details>
       {%- endfor -%}
     </div>
-
-    {%- if section.settings.show_hint -%}
-      <p class="pflege-boxi-faq-strip__hint">{{ 'sections.pflege_boxi_faq_strip.hint_boxi' | t }}</p>
-    {%- endif -%}
   </div>
 </section>
 
 {% schema %}
 {
-  "name": "Pflege: FAQ-Leiste (Boxi)",
+  "name": "Pflege: Häufige Fragen",
   "tag": "section",
   "class": "pflege-boxi-faq-strip-section section",
   "settings": [
     {
       "type": "paragraph",
-      "content": "Zeigt dieselben 20 FAQs wie Pflegeboxi (Übersetzungen unter „pflegeboxi“). Erscheint global über dem Footer, wenn die Section im Theme eingebunden ist."
+      "content": "Zeigt 20 Antworten aus der Sprachdatei „pflegeboxi“ (identisch mit den FAQs im Hilfe-Fenster). Volle Inhaltsbreite wie der Hero — Rand wie Hauptnavigation."
     },
     {
       "type": "text",
       "id": "heading",
       "label": "Überschrift",
-      "info": "Leer lassen für Standard (Pflegeboxi-Titel aus Sprachdatei)."
+      "default": "Häufige Fragen"
     },
     {
       "type": "textarea",
       "id": "intro",
-      "label": "Kurzer Einleitungstext",
-      "info": "Leer lassen für Standardtext aus der Sprachdatei."
-    },
-    {
-      "type": "checkbox",
-      "id": "show_mascot",
-      "label": "Pflegeboxi-Abbildung anzeigen",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_hint",
-      "label": "Hinweis zu Pflegeboxi unten anzeigen",
-      "default": true
+      "label": "Untertitel",
+      "default": "Antworten zum Bestellvorgang, Versand, Rückgabe und Ablauf"
     },
     {
       "type": "header",
@@ -149,7 +113,7 @@
   ],
   "presets": [
     {
-      "name": "Pflege: FAQ-Leiste (Boxi)"
+      "name": "Pflege: Häufige Fragen"
     }
   ]
 }

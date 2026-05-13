@@ -389,9 +389,8 @@
       "usp_list_label": "Vorteile in dieser Kategorie"
     },
     "pflege_boxi_faq_strip": {
-      "badge": "Pflegeboxi FAQ",
-      "intro_default": "Dieselben kurzen Antworten wie im Hilfe-Fenster — ein Klick zum Aufklappen.",
-      "hint_boxi": "Tipp: Unten rechts kannst du Pflegeboxi öffnen — die gleichen Infos auch auf jeder anderen Seite."
+      "heading": "Häufige Fragen",
+      "intro_default": "Antworten zum Bestellvorgang, Versand, Rückgabe und Ablauf"
     },
     "pflege_reviews_rail": {
       "nav_label": "Karussell-Navigation",
