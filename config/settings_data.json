@@ -136,38 +136,18 @@
       "pflege-reviews-rail": {
         "type": "pflege-reviews-rail",
         "blocks": {
-          "prr_review_a": {
+          "review_zjAwWx": {
             "type": "review",
             "settings": {
               "rating": 5,
-              "quote": "Alles bestens, top Service.",
-              "author": "E. A.",
-              "subtitle": "10 Rezensionen"
-            }
-          },
-          "prr_review_b": {
-            "type": "review",
-            "settings": {
-              "rating": 5,
-              "quote": "Unkomplizierte Bestellung und freundlicher Support am Telefon.",
-              "author": "Marion S.",
-              "subtitle": "8 Rezensionen"
-            }
-          },
-          "prr_review_c": {
-            "type": "review",
-            "settings": {
-              "rating": 5,
-              "quote": "Produkte wie beschrieben, Lieferzeit hat gepasst.",
-              "author": "Familie Becker",
-              "subtitle": "6 Rezensionen"
+              "quote": "Sehr guter Service und schnelle Lieferung!",
+              "author": "Kundin/Kunde",
+              "subtitle": ""
             }
           }
         },
         "block_order": [
-          "prr_review_a",
-          "prr_review_b",
-          "prr_review_c"
+          "review_zjAwWx"
         ],
         "settings": {
           "color_scheme": "scheme-1",
