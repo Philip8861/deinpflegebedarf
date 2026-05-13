@@ -17,11 +17,7 @@
 }
 
 .template-index .pflege-main-nav-section .pflege-main-nav__cart-graphic {
-  color: #5891d7 !important;
-}
-
-.template-index .pflege-main-nav-section .pflege-main-nav__action-icon {
-  color: #5891d7 !important;
+  color: var(--pflege-heading-navy, #062a55) !important;
 }
 
 .template-index .pflege-main-nav-section .pflege-main-nav__search-input {

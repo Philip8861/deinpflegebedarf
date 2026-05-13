@@ -1,6 +1,5 @@
 /* PflegeShop — Bestseller (gleiche horizontale Kanten wie Hero / Hauptleiste) */
 .pflege-bestseller {
-  --pflege-bestseller-cart-blue: #5891d7;
   /* Grundschrift wie Theme-Body; Überschriften/Namen separat mit Display-Serif wie Hero */
   font-family: var(--font-body-family, inherit);
   font-style: var(--font-body-style, normal);
@@ -308,7 +307,7 @@
   box-sizing: border-box;
 }
 
-/* Warenkorb: unten rechts; Kreis #5891D7, Icon weiß */
+/* Warenkorb: unten rechts; Kreis --pflege-cart-icon-bg, Icon weiß */
 .pflege-bestseller-card__cart {
   position: absolute;
   right: 0.5rem;
@@ -323,7 +322,7 @@
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.28);
   box-shadow: 0 2px 8px rgba(11, 35, 71, 0.12);
-  background: #5891d7;
+  background: var(--pflege-cart-icon-bg, #8ac8fb);
   color: #fff;
   display: flex;
   align-items: center;
@@ -342,9 +341,9 @@
 }
 
 .pflege-bestseller-card__cart:hover {
-  background: #4a82c9;
+  background: var(--pflege-cart-icon-bg-hover, #75b0f0);
   border-color: rgba(255, 255, 255, 0.4);
-  box-shadow: 0 3px 12px rgba(88, 145, 215, 0.35);
+  box-shadow: 0 3px 12px rgba(138, 200, 251, 0.45);
   transform: translateY(-1px);
 }
 

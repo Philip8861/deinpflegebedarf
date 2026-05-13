@@ -18,13 +18,29 @@
   if pflege_col != blank and pflege_col.all_products_count > 0
     assign use_collection = true
   endif
+
+  assign pfs_heading = section.settings.heading | strip
+  assign pfs_sub = section.settings.subheading | strip
+  if pfs_sub == blank and pfs_heading contains ' Entdecken Sie '
+    assign pfs_heading_parts = pfs_heading | split: ' Entdecken Sie '
+    assign pfs_heading = pfs_heading_parts | first | strip
+    assign pfs_tail = pfs_heading_parts | last | strip
+    assign pfs_sub = 'Entdecken Sie ' | append: pfs_tail
+  endif
 -%}
 
 <section class="pflege-pflegesets" {{ section.shopify_attributes }}>
   <div class="pflege-pflegesets__shell">
     <div class="pflege-pflegesets__panel">
-      {%- if section.settings.heading != blank -%}
-        <h2 class="pflege-pflegesets__title">{{ section.settings.heading | escape }}</h2>
+      {%- if pfs_heading != blank or pfs_sub != blank -%}
+        <header class="pflege-pflegesets__head">
+          {%- if pfs_heading != blank -%}
+            <h2 class="pflege-pflegesets__title">{{ pfs_heading | escape | newline_to_br }}</h2>
+          {%- endif -%}
+          {%- if pfs_sub != blank -%}
+            <p class="pflege-pflegesets__sub">{{ pfs_sub | escape | newline_to_br }}</p>
+          {%- endif -%}
+        </header>
       {%- endif -%}
 
       <div class="pflege-pflegesets__grid">
@@ -158,10 +174,17 @@
       "content": "Enthaltene Artikel: Wenn die Textfelder leer sind (z. B. nach theme push ohne index.json), erscheinen automatisch die festen Listen aus dem Theme-Snippet. Optional persistenter Text im Admin unter Einstellungen → Benutzerdefinierte Daten → Shop: Metafelder im Namensraum „pflegeshop“ mit den Schlüsseln pflegesets_contents_1, _2, _3 (mehrzeilig) und optional pflegesets_badge — die bleiben beim Theme-Upload erhalten. Bilder: veröffentlichte Produkte mit Bild / Kollektion wählen."
     },
     {
-      "type": "text",
+      "type": "textarea",
       "id": "heading",
-      "label": "Überschrift",
-      "default": "Sparen Sie nicht nur Zeit, sondern auch Geld! Entdecken Sie unsere 3 Pflegesets, die perfekt zu Ihrer Pflegesituation passen"
+      "label": "Überschrift (2 Zeilen möglich: Enter = Zeilenwechsel)",
+      "default": "Sparen Sie nicht nur Zeit, sondern auch\nGeld!",
+      "info": "Empfohlen: Erste Zeile bis „…auch“, zweite Zeile „Geld!“."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Text darunter (gedämpfter, mittig)",
+      "default": "Entdecken Sie unsere 3 Pflegesets, die perfekt zu Ihrer Pflegesituation passen"
     },
     {
       "type": "text",

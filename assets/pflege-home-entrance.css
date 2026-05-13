@@ -98,6 +98,11 @@
     #MainContent
     > .shopify-section:not(.pflege-home-in-view)
     .pflege-pflegesets
+    .pflege-pflegesets__sub,
+  html.pflege-home-entrance-prep body.template-index
+    #MainContent
+    > .shopify-section:not(.pflege-home-in-view)
+    .pflege-pflegesets
     .pflege-pflegesets__grid
     .pflege-pflegesets__card,
   html.pflege-home-entrance-prep body.template-index
@@ -193,6 +198,11 @@
     > .shopify-section.pflege-home-in-view
     .pflege-pflegesets
     .pflege-pflegesets__title,
+  html.pflege-home-entrance-prep body.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-pflegesets
+    .pflege-pflegesets__sub,
   html.pflege-home-entrance-prep body.template-index
     #MainContent
     > .shopify-section.pflege-home-in-view
@@ -413,6 +423,14 @@
     #MainContent
     > .shopify-section.pflege-home-in-view
     .pflege-pflegesets
+    .pflege-pflegesets__sub {
+    animation-delay: 0.16s;
+  }
+
+  html.pflege-home-entrance-prep body.template-index
+    #MainContent
+    > .shopify-section.pflege-home-in-view
+    .pflege-pflegesets
     .pflege-pflegesets__grid
     .pflege-pflegesets__card:nth-child(1) {
     animation-delay: 0.18s;
@@ -524,6 +542,9 @@
   html.pflege-home-entrance-prep body.template-index
     #MainContent
     .pflege-pflegesets__title,
+  html.pflege-home-entrance-prep body.template-index
+    #MainContent
+    .pflege-pflegesets__sub,
   html.pflege-home-entrance-prep body.template-index
     #MainContent
     .pflege-pflegesets__card,

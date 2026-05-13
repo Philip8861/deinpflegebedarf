@@ -358,6 +358,15 @@
   display: block;
 }
 
+/* Konto-Icon: gleiche dunkle Strichfarbe wie Warenkorb */
+.pflege-main-nav-section .pflege-main-nav__action--account .pflege-main-nav__action-icon {
+  color: var(--pflege-heading-navy, #062a55);
+}
+
+.pflege-main-nav-section .pflege-main-nav__action--account .pflege-main-nav__action-icon svg {
+  color: var(--pflege-heading-navy, #062a55);
+}
+
 /* Warenkorb-Icon */
 .pflege-main-nav-section .pflege-main-nav__cart-graphic .svg-wrapper {
   color: var(--pflege-heading-navy, #062a55);
@@ -391,9 +400,9 @@
   stroke-opacity: 1;
 }
 
-/* Mobil-Drawer: Konto-Icon gleiche Markenfarbe */
+/* Mobil-Drawer: Konto-Icon wie Warenkorb (dunkel) */
 .pflege-main-nav-section .menu-drawer__account .svg-wrapper {
-  color: var(--pflege-action-icon-color, #0b6edc);
+  color: var(--pflege-heading-navy, #062a55);
 }
 
 .pflege-main-nav-section .pflege-main-nav__stack {
@@ -437,7 +446,15 @@
   flex-shrink: 0;
   width: var(--pflege-action-icon-box);
   height: var(--pflege-action-icon-box);
+  border-radius: 50%;
+  background-color: var(--pflege-cart-icon-bg, #8ac8fb);
   color: var(--pflege-heading-navy, #062a55);
+  transition: background-color 0.2s ease;
+}
+
+.pflege-main-nav-section .pflege-main-nav__cart-icon:hover .pflege-main-nav__cart-graphic,
+.pflege-main-nav-section .pflege-main-nav__cart-icon:focus-visible .pflege-main-nav__cart-graphic {
+  background-color: var(--pflege-cart-icon-bg-hover, #75b0f0);
 }
 
 .pflege-main-nav-section .pflege-main-nav__cart-graphic .svg-wrapper {
