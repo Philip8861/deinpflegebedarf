@@ -1,17 +1,16 @@
 {%- comment -%}
-  Einheitlicher Informationsblock unter dem Produktbereich.
-  Metafelder: custom.beschreibung, custom.anwendung, custom.produkteigenschaften
-  Hilfsmittel: custom.hilfsmittelnummer | custom.hilfsmittel_nummer | Fallback custom.pzn (siehe Section)
-  PDF-Datei: erstes befülltes aus custom.produktblatt, product_sheet, produkt_pdf, pdf (Datei-Referenz)
-
-  Erwartete Übergaben aus der Section: section_id, label_*, has_*, mf_*, hilfsmittel_display, hilfsmittel_is_pzn_fallback,
-  pdf_url, pdf_filename
+  Einheitlicher Informationsblock. show_placeholders: leere Felder mit Übersetzungs-Platzhaltern füllen.
 {%- endcomment -%}
 {%- liquid
+  assign show_placeholders = show_placeholders | default: false
   assign open_first = true
   assign any_accordion = false
-  if has_beschr or has_anw or has_prop
+  if has_beschr or has_anw or has_prop or show_placeholders
     assign any_accordion = true
+  endif
+  assign show_extras = false
+  if has_hilf_line or has_pdf or show_placeholders
+    assign show_extras = true
   endif
 -%}
 <div
@@ -21,7 +20,7 @@
 >
   {%- if any_accordion -%}
     <div class="pflege-pdp-tabs">
-      {%- if has_beschr -%}
+      {%- if has_beschr or show_placeholders -%}
         <details
           class="pflege-pdp-tabs__panel"
           {% if open_first %}
@@ -35,13 +34,17 @@
             </span>
           </summary>
           <div class="pflege-pdp-tabs__body rte">
-            {{- mf_beschreibung | metafield_tag -}}
+            {%- if has_beschr -%}
+              {{- mf_beschreibung | metafield_tag -}}
+            {%- elsif show_placeholders -%}
+              <p class="pflege-pdp-placeholder">{{ 'products.product.pflege_pdp.unified_placeholder_beschreibung' | t }}</p>
+            {%- endif -%}
           </div>
         </details>
         {%- assign open_first = false -%}
       {%- endif -%}
 
-      {%- if has_anw -%}
+      {%- if has_anw or show_placeholders -%}
         <details
           class="pflege-pdp-tabs__panel"
           {% if open_first %}
@@ -55,13 +58,17 @@
             </span>
           </summary>
           <div class="pflege-pdp-tabs__body rte">
-            {{- mf_anwendung | metafield_tag -}}
+            {%- if has_anw -%}
+              {{- mf_anwendung | metafield_tag -}}
+            {%- elsif show_placeholders -%}
+              <p class="pflege-pdp-placeholder">{{ 'products.product.pflege_pdp.unified_placeholder_anwendung' | t }}</p>
+            {%- endif -%}
           </div>
         </details>
         {%- assign open_first = false -%}
       {%- endif -%}
 
-      {%- if has_prop -%}
+      {%- if has_prop or show_placeholders -%}
         <details
           class="pflege-pdp-tabs__panel"
           {% if open_first %}
@@ -75,21 +82,33 @@
             </span>
           </summary>
           <div class="pflege-pdp-tabs__body rte">
-            {{- mf_produkteigenschaften | metafield_tag -}}
+            {%- if has_prop -%}
+              {{- mf_produkteigenschaften | metafield_tag -}}
+            {%- elsif show_placeholders -%}
+              <p class="pflege-pdp-placeholder">
+                {{ 'products.product.pflege_pdp.unified_placeholder_produkteigenschaften' | t }}
+              </p>
+            {%- endif -%}
           </div>
         </details>
       {%- endif -%}
     </div>
   {%- endif -%}
 
-  {%- if has_hilf_line or has_pdf -%}
+  {%- if show_extras -%}
     <div class="pflege-pdp-unified__extras">
       {%- if has_hilf_line -%}
         <p class="pflege-pdp-unified__hilf">
           <span class="pflege-pdp-unified__hilf-label">{{ 'products.product.pflege_pdp.hilfsmittelnummer_label' | t }}</span>
           <span class="pflege-pdp-unified__hilf-value">{{ hilfsmittel_display | escape }}</span>
         </p>
+      {%- elsif show_placeholders -%}
+        <p class="pflege-pdp-unified__hilf">
+          <span class="pflege-pdp-unified__hilf-label">{{ 'products.product.pflege_pdp.hilfsmittelnummer_label' | t }}</span>
+          <span class="pflege-pdp-unified__hilf-value pflege-pdp-placeholder">{{ 'products.product.pflege_pdp.unified_placeholder_hilfsmittel' | t }}</span>
+        </p>
       {%- endif -%}
+
       {%- if has_pdf and pdf_url != blank -%}
         <p class="pflege-pdp-unified__pdf">
           <a
@@ -103,6 +122,10 @@
           >
             {{- 'products.product.pflege_pdp.product_sheet_download' | t -}}
           </a>
+        </p>
+      {%- elsif show_placeholders -%}
+        <p class="pflege-pdp-unified__pdf pflege-pdp-placeholder">
+          {{ 'products.product.pflege_pdp.unified_placeholder_pdf' | t }}
         </p>
       {%- endif -%}
     </div>

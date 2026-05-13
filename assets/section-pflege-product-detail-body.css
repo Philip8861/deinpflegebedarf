@@ -515,6 +515,12 @@
   color: #0f4f69;
 }
 
+.pflege-pdp-placeholder {
+  margin: 0;
+  font-style: italic;
+  color: rgba(11, 35, 71, 0.55);
+}
+
 @media screen and (min-width: 990px) {
   .pflege-pdp-intro-heading,
   .pflege-pdp-tabs-h__btn,

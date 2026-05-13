@@ -187,7 +187,12 @@
         "service_foot_quality_sub": "",
         "unified_info_aria": "Product information and downloads",
         "hilfsmittelnummer_label": "Medical aid number:",
-        "product_sheet_download": "Download product sheet"
+        "product_sheet_download": "Download product sheet",
+        "unified_placeholder_beschreibung": "Product description will appear here once the metafield custom.beschreibung is filled in the admin.",
+        "unified_placeholder_anwendung": "Application notes will appear here once custom.anwendung is filled.",
+        "unified_placeholder_produkteigenschaften": "Product attributes will appear here once custom.produkteigenschaften is filled.",
+        "unified_placeholder_hilfsmittel": "to be added",
+        "unified_placeholder_pdf": "Product sheet: no PDF uploaded yet (e.g. custom.produktblatt)."
       },
       "sku": "SKU",
       "on_sale": "Angebot",

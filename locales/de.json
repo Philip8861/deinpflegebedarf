@@ -239,7 +239,12 @@
         "service_foot_quality_sub": "",
         "unified_info_aria": "Produktinformationen und Downloads",
         "hilfsmittelnummer_label": "Hilfsmittelnummer:",
-        "product_sheet_download": "Produktblatt herunterladen"
+        "product_sheet_download": "Produktblatt herunterladen",
+        "unified_placeholder_beschreibung": "Hier erscheint die Produktbeschreibung, sobald das Metafeld „Beschreibung“ (custom.beschreibung) im Admin befüllt ist.",
+        "unified_placeholder_anwendung": "Hier erscheint die Anwendung, sobald das Metafeld „Anwendung“ (custom.anwendung) befüllt ist.",
+        "unified_placeholder_produkteigenschaften": "Hier erscheinen die Produkteigenschaften, sobald das Metafeld „Produkteigenschaften“ (custom.produkteigenschaften) befüllt ist.",
+        "unified_placeholder_hilfsmittel": "wird ergänzt",
+        "unified_placeholder_pdf": "Produktblatt: noch kein PDF hinterlegt (Metafeld z. B. custom.produktblatt)."
       },
       "sku": "SKU",
       "volume_pricing": {

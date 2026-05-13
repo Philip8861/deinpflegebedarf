@@ -153,8 +153,13 @@
     assign has_pdf = true
   endif
 
+  assign show_unified_placeholders = section.settings.show_unified_placeholders
+
   assign has_unified_block = false
   if has_beschr or has_anw or has_prop or has_hilf_line or has_pdf
+    assign has_unified_block = true
+  endif
+  if show_unified_placeholders
     assign has_unified_block = true
   endif
 
@@ -185,6 +190,9 @@
 
   assign uses_new_text_triple = false
   if has_beschr or has_anw or has_prop
+    assign uses_new_text_triple = true
+  endif
+  if show_unified_placeholders
     assign uses_new_text_triple = true
   endif
 
@@ -296,6 +304,7 @@
               has_prop: has_prop,
               has_hilf_line: has_hilf_line,
               has_pdf: has_pdf,
+              show_placeholders: show_unified_placeholders,
               mf_beschreibung: mf_beschreibung,
               mf_anwendung: mf_anwendung,
               mf_produkteigenschaften: mf_produkteigenschaften,
@@ -380,6 +389,13 @@
     {
       "type": "paragraph",
       "content": "Produktinformationen: Metafelder „custom.beschreibung“, „custom.anwendung“, „custom.produkteigenschaften“ (Rich Text). Hilfsmittelnummer: „custom.hilfsmittelnummer“ oder „custom.hilfsmittel_nummer“; ohne eigene Angabe wird „custom.pzn“ im einheitlichen Block als Hilfsmittelnummer gezeigt (nicht doppelt in der Faktenkarte). PDF: Datei-Metafeld, z. B. „custom.produktblatt“, alternativ „product_sheet“, „produkt_pdf“ oder „pdf“."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_unified_placeholders",
+      "label": "Platzhalter für alle Informationsbereiche anzeigen",
+      "info": "Wenn kein Metafeld befüllt ist, erscheint vordefinierter Text. Nach Befüllung der Felder deaktivieren.",
+      "default": true
     },
     {
       "type": "checkbox",
