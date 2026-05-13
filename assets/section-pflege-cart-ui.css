@@ -47,8 +47,12 @@
   color: var(--pflege-main-muted, #6f7f95);
 }
 
-/* Menge + Warenkorb: Menge schmal links, CTA nutzt restliche Breite */
+/* Menge + Warenkorb: CSS-Variablen für einheitliche Kontrolle (Höhe, Radius, Mengen-Breite — CTA min. 2×) */
 .pflege-product__purchase-row {
+  --pflege-purchase-radius: 0.65rem;
+  --pflege-purchase-row-height: 4.45rem;
+  --pflege-qty-slot-width: 9.25rem;
+
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -120,14 +124,14 @@
 }
 
 .pflege-product__purchase-row quantity-input.quantity {
-  width: auto;
-  max-width: min(100%, 12rem);
+  width: var(--pflege-qty-slot-width);
+  max-width: var(--pflege-qty-slot-width);
   margin-inline: 0;
-  border-radius: 999px;
+  border-radius: var(--pflege-purchase-radius);
   border: 1px solid rgba(15, 79, 105, 0.16);
   background: #fff;
-  min-height: 4.45rem;
-  max-height: 4.45rem;
+  min-height: var(--pflege-purchase-row-height);
+  max-height: var(--pflege-purchase-row-height);
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 0.9) inset,
     0 2px 8px rgba(11, 35, 71, 0.06);
@@ -169,12 +173,14 @@
   flex: 1 1 auto;
 }
 
-/* CTA: volle Breite der Form-Spalte, etwas höher (wie mockup) */
+/* CTA: mindestens doppelte idealisierte Breite der Mengen-Zeile, gleiche Höhe/Rundung */
 .pflege-product__purchase-row .pflege-product__add-btn.button {
   width: 100%;
   max-width: 100%;
-  min-height: calc(3.85rem * 1.05);
-  height: calc(3.85rem * 1.05);
+  min-width: min(100%, calc(var(--pflege-qty-slot-width) * 2));
+  min-height: var(--pflege-purchase-row-height);
+  height: var(--pflege-purchase-row-height);
+  border-radius: var(--pflege-purchase-radius);
   box-sizing: border-box;
 }
 
@@ -182,8 +188,10 @@
   .pflege-product__purchase-row .pflege-product__add-btn.button {
     width: 100%;
     max-width: 100%;
-    min-height: calc(3.85rem * 1.05);
-    height: calc(3.85rem * 1.05);
+    min-width: min(100%, calc(var(--pflege-qty-slot-width) * 2));
+    min-height: var(--pflege-purchase-row-height);
+    height: var(--pflege-purchase-row-height);
+    border-radius: var(--pflege-purchase-radius);
   }
 }
 
@@ -191,9 +199,9 @@
 .pflege-product__add-btn.button {
   --pflege-cta-orange: #ff791f;
   width: 100%;
-  min-height: 4.45rem;
+  min-height: var(--pflege-purchase-row-height, 4.45rem);
   padding: 0 1.5rem;
-  border-radius: 0.65rem;
+  border-radius: var(--pflege-purchase-radius, 0.65rem);
   border: none;
   background: var(--pflege-cta-orange);
   color: #fff;

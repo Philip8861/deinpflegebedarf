@@ -5,8 +5,15 @@
   - product: {Object} product object.
   - block: {Object} passing the block information.
   - product_form_id: {String} Id of the product form to which the variant picker is associated.
+  - compact_variant_labels: {Boolean} optional — pill labels nur Suffix ohne Produkttitel (z. B. 25 / 50).
+
   Usage:
-  {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
+  {% render 'product-variant-picker',
+    product: product,
+    block: block,
+    product_form_id: product_form_id,
+    compact_variant_labels: true
+  %}
 {% endcomment %}
 {%- unless product.has_only_default_variant -%}
   <variant-selects
@@ -54,7 +61,8 @@
             product: product,
             option: option,
             block: block,
-            picker_type: picker_type
+            picker_type: picker_type,
+            compact_variant_labels: compact_variant_labels
           %}
         </fieldset>
       {%- elsif picker_type == 'button' -%}
@@ -68,7 +76,8 @@
             product: product,
             option: option,
             block: block,
-            picker_type: picker_type
+            picker_type: picker_type,
+            compact_variant_labels: compact_variant_labels
           %}
         </fieldset>
       {%- else -%}
@@ -101,7 +110,8 @@
                 product: product,
                 option: option,
                 block: block,
-                picker_type: picker_type
+                picker_type: picker_type,
+                compact_variant_labels: compact_variant_labels
               %}
             </select>
             <span class="svg-wrapper">

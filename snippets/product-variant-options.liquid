@@ -6,14 +6,16 @@
   - option: {Object} current product_option object.
   - block: {Object} block object.
   - picker_type: {String} type of picker to dispay
+  - compact_variant_labels: {Boolean} optional (nur button-Picker)
 
 
   Usage:
   {% render 'product-variant-options',
     product: product,
     option: option,
-    block: block
-    picker_type: picker_type
+    block: block,
+    picker_type: picker_type,
+    compact_variant_labels: true
   %}
 {% endcomment %}
 {%- liquid
@@ -80,6 +82,25 @@
       additional_props: input_dataset
     %}
   {%- elsif picker_type == 'button' -%}
+    {%- liquid
+      assign button_label = value | strip
+      if compact_variant_labels
+        assign pt = product.title | strip
+        if pt != blank and button_label != blank
+          assign try_compact = button_label | remove_first: pt | strip
+          if try_compact != button_label and try_compact != blank
+            assign button_label = try_compact
+            assign button_label = button_label | replace_first: '-', '' | strip
+            assign button_label = button_label | replace_first: '–', '' | strip
+            assign button_label = button_label | replace_first: '|', '' | strip
+            assign button_label = button_label | replace_first: ':', '' | strip
+          endif
+        endif
+      endif
+      if button_label == blank
+        assign button_label = value | strip
+      endif
+    -%}
     <input
       type="radio"
       id="{{ input_id }}"
@@ -95,7 +116,16 @@
       {{ input_dataset }}
     >
     <label for="{{ input_id }}">
-      {{ value -}}
+      {%- if compact_variant_labels and button_label != value -%}
+        <span class="visually-hidden">{{ escaped_value }}</span>
+      {%- endif -%}
+      <span
+        {%- if compact_variant_labels and button_label != value -%}
+          aria-hidden="true"
+        {%- endif -%}
+      >
+        {{- button_label | escape -}}
+      </span>
       {{ label_unavailable }}
     </label>
   {%- elsif picker_type == 'dropdown' or picker_type == 'swatch_dropdown' -%}
