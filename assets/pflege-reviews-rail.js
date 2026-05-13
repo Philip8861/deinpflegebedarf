@@ -5,19 +5,6 @@
     return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
 
-  function getScrollStep(track) {
-    const card = track.querySelector('.pflege-reviews-rail__card');
-    const gs = getComputedStyle(track);
-    const gap = parseFloat(gs.columnGap || gs.gap) || 16;
-    return card ? card.getBoundingClientRect().width + gap : 296;
-  }
-
-  function syncReviewsNav(track, nav) {
-    if (!track || !nav) return;
-    const overflow = track.scrollWidth > track.clientWidth + 2;
-    nav.hidden = !overflow;
-  }
-
   function setPanelLabels(root, open) {
     const labelOpen = root.querySelector('[data-reviews-toggle-label-open]');
     const labelClose = root.querySelector('[data-reviews-toggle-label-close]');
@@ -92,40 +79,104 @@
     }
   }
 
+  function bindSingleSlider(root) {
+    const cards = Array.from(root.querySelectorAll('[data-reviews-card]'));
+    const dots = Array.from(root.querySelectorAll('[data-reviews-dot]'));
+    if (!cards.length || !dots.length) return;
+
+    function setActive(idx) {
+      const target = Math.max(0, Math.min(idx, cards.length - 1));
+      cards.forEach((card, i) => {
+        const isActive = i === target;
+        card.classList.toggle('is-active', isActive);
+        if (isActive) {
+          card.removeAttribute('hidden');
+          card.removeAttribute('aria-hidden');
+        } else {
+          card.setAttribute('hidden', '');
+          card.setAttribute('aria-hidden', 'true');
+        }
+      });
+      dots.forEach((dot, i) => {
+        const isActive = i === target;
+        dot.classList.toggle('is-active', isActive);
+        dot.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        if (isActive) {
+          dot.removeAttribute('tabindex');
+        } else {
+          dot.setAttribute('tabindex', '-1');
+        }
+      });
+    }
+
+    dots.forEach((dot, idx) => {
+      dot.addEventListener('click', () => setActive(idx));
+      dot.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+          e.preventDefault();
+          const next = (idx + 1) % dots.length;
+          dots[next].focus();
+          setActive(next);
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          const prev = (idx - 1 + dots.length) % dots.length;
+          dots[prev].focus();
+          setActive(prev);
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          dots[0].focus();
+          setActive(0);
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          dots[dots.length - 1].focus();
+          setActive(dots.length - 1);
+        }
+      });
+    });
+  }
+
+  function bindSeeAllToggle(root) {
+    const btn = root.querySelector('[data-reviews-see-all]');
+    const list = root.querySelector('[data-reviews-all-list]');
+    if (!btn) return;
+
+    const labelOpen = btn.querySelector('[data-reviews-see-all-open]');
+    const labelClose = btn.querySelector('[data-reviews-see-all-close]');
+
+    btn.addEventListener('click', () => {
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+      const next = !isOpen;
+      btn.setAttribute('aria-expanded', next ? 'true' : 'false');
+
+      if (list) {
+        if (next) {
+          list.removeAttribute('hidden');
+        } else {
+          list.setAttribute('hidden', '');
+        }
+      }
+
+      if (labelOpen && labelClose) {
+        labelOpen.hidden = next;
+        labelClose.hidden = !next;
+      }
+
+      if (next && list && !prefersReducedMotion()) {
+        list.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    });
+  }
+
   function initRoot(root) {
     if (root.hasAttribute('data-reviews-rail-ready')) return;
     root.setAttribute('data-reviews-rail-ready', '');
 
-    const track = root.querySelector('[data-reviews-track]');
-    const nav = root.querySelector('[data-reviews-nav]');
-    const prev = root.querySelector('[data-reviews-prev]');
-    const next = root.querySelector('[data-reviews-next]');
     const form = root.querySelector('.pflege-reviews-rail__form');
     const panel = root.querySelector('[data-reviews-form-panel]');
     const primaryToggle = root.querySelector('.pflege-reviews-rail__toggle-form');
 
-    function scrollStep(direction) {
-      if (!track || !track.children.length) return;
-      track.scrollBy({
-        left: direction * getScrollStep(track),
-        behavior: prefersReducedMotion() ? 'auto' : 'smooth',
-      });
-    }
-
-    prev?.addEventListener('click', () => scrollStep(-1));
-    next?.addEventListener('click', () => scrollStep(1));
-
-    if (track && !track.getAttribute('tabindex')) {
-      track.setAttribute('tabindex', '0');
-    }
-
-    if (track && nav) {
-      const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(() => syncReviewsNav(track, nav)) : null;
-      ro?.observe(track);
-      track.addEventListener('scroll', () => syncReviewsNav(track, nav), { passive: true });
-      window.addEventListener('resize', () => syncReviewsNav(track, nav), { passive: true });
-      syncReviewsNav(track, nav);
-    }
+    bindSingleSlider(root);
+    bindSeeAllToggle(root);
 
     if (panel && primaryToggle) {
       bindFormCollapse(root, panel, primaryToggle);

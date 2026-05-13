@@ -1,29 +1,18 @@
-{% comment %} Statische Demo-Karten vor Theme-Editor-Blöcken {% endcomment %}
-<article class="pflege-reviews-rail__card">
-  <div class="pflege-reviews-rail__stars" aria-label="{{ 'sections.pflege_reviews_rail.demo_badge_5' | t }}">
-    {%- for i in (1..5) -%}<span aria-hidden="true">★</span>{%- endfor -%}
-  </div>
-  <p class="pflege-reviews-rail__quote">{{ 'sections.pflege_reviews_rail.demo_1_quote' | t }}</p>
+{% comment %} Statische Demo-Stimmen, wenn keine Kartenblöcke vorhanden sind. Nur eine ist aktiv (Single-Layout). {% endcomment %}
+<article class="pflege-reviews-rail__card is-active" data-reviews-card data-reviews-index="0">
+  <p class="pflege-reviews-rail__quote">„{{ 'sections.pflege_reviews_rail.demo_1_quote' | t }}“</p>
   <div class="pflege-reviews-rail__meta">
     <span class="pflege-reviews-rail__author">{{ 'sections.pflege_reviews_rail.demo_1_author' | t }}</span>
   </div>
 </article>
-<article class="pflege-reviews-rail__card">
-  <div class="pflege-reviews-rail__stars" aria-label="{{ 'sections.pflege_reviews_rail.demo_badge_4' | t }}">
-    {%- for i in (1..5) -%}
-      <span{% if i > 4 %} class="pflege-reviews-rail__star--dim"{% endif %} aria-hidden="true">★</span>
-    {%- endfor -%}
-  </div>
-  <p class="pflege-reviews-rail__quote">{{ 'sections.pflege_reviews_rail.demo_2_quote' | t }}</p>
+<article class="pflege-reviews-rail__card" data-reviews-card data-reviews-index="1" aria-hidden="true" hidden>
+  <p class="pflege-reviews-rail__quote">„{{ 'sections.pflege_reviews_rail.demo_2_quote' | t }}“</p>
   <div class="pflege-reviews-rail__meta">
     <span class="pflege-reviews-rail__author">{{ 'sections.pflege_reviews_rail.demo_2_author' | t }}</span>
   </div>
 </article>
-<article class="pflege-reviews-rail__card">
-  <div class="pflege-reviews-rail__stars" aria-label="{{ 'sections.pflege_reviews_rail.demo_badge_5' | t }}">
-    {%- for i in (1..5) -%}<span aria-hidden="true">★</span>{%- endfor -%}
-  </div>
-  <p class="pflege-reviews-rail__quote">{{ 'sections.pflege_reviews_rail.demo_3_quote' | t }}</p>
+<article class="pflege-reviews-rail__card" data-reviews-card data-reviews-index="2" aria-hidden="true" hidden>
+  <p class="pflege-reviews-rail__quote">„{{ 'sections.pflege_reviews_rail.demo_3_quote' | t }}“</p>
   <div class="pflege-reviews-rail__meta">
     <span class="pflege-reviews-rail__author">{{ 'sections.pflege_reviews_rail.demo_3_author' | t }}</span>
   </div>
