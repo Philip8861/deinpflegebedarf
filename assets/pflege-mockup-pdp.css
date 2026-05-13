@@ -249,15 +249,14 @@
   color: rgba(15, 45, 84, 0.48);
 }
 
-/* Schnell‑USPs (Kaufspalte): drei Merkmale, ruhige Premium-Karten */
+/* Schnell‑USPs: nur die drei Karten, kein äußerer „Doppelrahmen“ */
 
 .pflege-buy-usps {
   margin: 0 0 1.25rem;
-  padding: 0.65rem 0.5rem 0.75rem;
-  border-radius: calc(var(--pflege-pdp-radius-sm) + 4px);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.65) 0%, rgba(246, 249, 253, 0.55) 100%);
-  border: 1px solid rgba(0, 74, 153, 0.08);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset;
+  padding: 0;
+  border: none;
+  background: none;
+  box-shadow: none;
 }
 
 .pflege-buy-usps__list {
@@ -270,10 +269,6 @@
 }
 
 @media screen and (max-width: 749px) {
-  .pflege-buy-usps {
-    padding: 0.55rem 0.35rem 0.65rem;
-  }
-
   .pflege-buy-usps__list {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 0.38rem 0.35rem;
@@ -532,15 +527,48 @@
     margin-bottom: 0 !important;
   }
 
-  .pflege-product__purchase-row .product-form {
-    flex-grow: 1;
-    flex-basis: min(240px, 100%);
-    margin-right: auto;
-    margin-bottom: 0 !important;
-    max-width: 100%;
+  .pflege-product__purchase-row .product-form__quantity {
+    flex: 0 0 auto;
+    max-width: none !important;
+    margin-right: 0 !important;
+    width: auto;
   }
 
-  .pflege-wishlist-btn {
+  .pflege-product__purchase-row .product-form__quantity .quantity__label {
+    min-height: 0 !important;
+    margin-bottom: 0.35rem;
+  }
+
+  .pflege-product__purchase-row .quantity__input {
+    max-width: 3.5rem;
+    text-align: center;
+    padding-left: 0.35rem !important;
+    padding-right: 0.35rem !important;
+  }
+
+  .pflege-product__purchase-row .product-form {
+    flex: 1 1 200px;
+    min-width: min(100%, 240px);
+    max-width: none;
+    margin-right: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .pflege-product__purchase-row .product-form__buttons {
+    width: 100%;
+  }
+
+  .pflege-product__purchase-row .product-form__submit {
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* Gleiche Ecken wie Kaufbutton (nicht Pille), gleiche optische Höhe */
+  .pflege-product-page .pflege-product__purchase-row .quantity {
+    border-radius: 12px;
+  }
+
+  .pflege-product__purchase-row .pflege-wishlist-btn {
     align-self: flex-end;
     display: inline-flex;
     align-items: center;
@@ -549,7 +577,7 @@
     height: 3.85rem;
     aspect-ratio: 1;
     padding: 0;
-    margin-bottom: 1rem !important;
+    margin-bottom: 0 !important;
     border-radius: var(--pflege-pdp-radius-sm);
     border: 1px solid var(--pflege-pdp-card-border);
     background: #fff;
@@ -560,17 +588,17 @@
       background 0.18s ease;
   }
 
-  .pflege-wishlist-btn:hover {
+  .pflege-product__purchase-row .pflege-wishlist-btn:hover {
     background: rgba(240, 247, 255, 0.8);
     border-color: rgba(0, 74, 153, 0.28);
   }
 
-  .pflege-wishlist-btn:focus-visible {
+  .pflege-product__purchase-row .pflege-wishlist-btn:focus-visible {
     outline: 2px solid rgba(0, 74, 153, 0.45);
     outline-offset: 2px;
   }
 
-  .pflege-wishlist-btn .pflege-icon {
+  .pflege-product__purchase-row .pflege-wishlist-btn .pflege-icon {
     color: currentColor;
   }
 }
