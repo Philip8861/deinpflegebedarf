@@ -220,15 +220,30 @@
 
 .pflege-product__trust-item {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 0.65rem;
   min-width: 0;
 }
 
 .pflege-product__trust-item .pflege-icon {
   flex-shrink: 0;
-  margin-top: 0.12rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  line-height: 0;
+  box-sizing: border-box;
+  background: rgba(88, 145, 215, 0.12);
+  margin: 0;
+  padding: 0;
   color: #5891d7;
+}
+
+.pflege-product__trust-item .pflege-icon svg {
+  display: block;
+  flex-shrink: 0;
 }
 
 .pflege-product__trust-copy {

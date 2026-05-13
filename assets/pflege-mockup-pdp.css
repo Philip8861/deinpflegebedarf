@@ -339,8 +339,10 @@
   align-items: center;
   justify-content: center;
   border-radius: 999px;
+  line-height: 0;
+  box-sizing: border-box;
   background: radial-gradient(
-    circle at 30% 28%,
+    circle at 50% 50%,
     rgba(255, 255, 255, 0.95) 0%,
     rgba(138, 200, 251, 0.26) 48%,
     rgba(138, 200, 251, 0.14) 100%
@@ -350,8 +352,22 @@
   box-shadow: 0 2px 8px rgba(138, 200, 251, 0.18);
 }
 
+/* Inline-SVG: keine Baseline-Verschiebung — Icon optisch mittig im Kreis */
 .pflege-buy-usps__icon .pflege-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  line-height: 0;
   color: #8ac8fb;
+}
+
+.pflege-buy-usps__icon .pflege-icon svg {
+  display: block;
+  flex-shrink: 0;
 }
 
 .pflege-buy-usps__label {
@@ -687,7 +703,7 @@
 
 .pflege-product-page .pflege-product__trust-panel-row {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 0.75rem;
   padding: 0.68rem 0;
   border-bottom: 1px solid rgba(0, 74, 153, 0.085);
@@ -727,7 +743,21 @@
 
 .pflege-product-page .pflege-product__trust-panel-row .pflege-icon {
   flex-shrink: 0;
+  width: 2.58rem;
+  height: 2.58rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  line-height: 0;
+  box-sizing: border-box;
+  background: rgba(88, 145, 215, 0.12);
   color: #2c6abf;
+}
+
+.pflege-product-page .pflege-product__trust-panel-row .pflege-icon svg {
+  display: block;
+  flex-shrink: 0;
 }
 
 .template-product .pflege-pdp-top-claims {

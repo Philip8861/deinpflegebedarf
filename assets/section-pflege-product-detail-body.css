@@ -400,7 +400,7 @@
 
 .pflege-pdp-service-foot__item {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 0.82rem;
   padding: 0.45rem;
   margin: 0;
@@ -433,8 +433,23 @@
 
 .pflege-pdp-service-foot__item .pflege-icon {
   flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  line-height: 0;
+  box-sizing: border-box;
+  background: rgba(88, 145, 215, 0.12);
   color: var(--pdp-accent);
-  margin-top: 0.1rem;
+  margin: 0;
+  padding: 0;
+}
+
+.pflege-pdp-service-foot__item .pflege-icon svg {
+  display: block;
+  flex-shrink: 0;
 }
 
 @media screen and (min-width: 990px) {
