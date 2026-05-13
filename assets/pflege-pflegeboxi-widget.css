@@ -360,6 +360,7 @@
 .pflege-pflegeboxi-modal__answer-a {
   margin: 0;
   font-size: 1.05rem;
+  font-weight: 600;
   line-height: 1.55;
   color: #fff;
 }
@@ -571,6 +572,7 @@
 
   .pflege-pflegeboxi-modal__answer-a {
     font-size: 1rem;
+    font-weight: 600;
   }
 }
 
