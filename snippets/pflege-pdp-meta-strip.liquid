@@ -1,0 +1,267 @@
+{% comment %}
+  Horizontale Kartenleiste (Metafelder) — gleiche Hülle wie früher pflege-pdp-top-claims.
+  Parameter: product, show_placeholders (bool)
+{% endcomment %}
+{%- liquid
+  assign show_ph = show_placeholders | default: false
+
+  assign mf_beschreibung = product.metafields.custom.beschreibung
+  assign mf_anwendung = product.metafields.custom.anwendung
+  assign mf_produkteigenschaften = product.metafields.custom.produkteigenschaften
+  assign mf_pzn = product.metafields.custom.pzn
+
+  assign has_beschr = false
+  if mf_beschreibung.value != blank
+    assign has_beschr = true
+  elsif mf_beschreibung != blank and mf_beschreibung != empty
+    assign _tb = mf_beschreibung | metafield_text | strip
+    if _tb != blank
+      assign has_beschr = true
+    endif
+  endif
+
+  assign has_anw = false
+  if mf_anwendung.value != blank
+    assign has_anw = true
+  elsif mf_anwendung != blank and mf_anwendung != empty
+    assign _tn = mf_anwendung | metafield_text | strip
+    if _tn != blank
+      assign has_anw = true
+    endif
+  endif
+
+  assign has_prop = false
+  if mf_produkteigenschaften.value != blank
+    assign has_prop = true
+  elsif mf_produkteigenschaften != blank and mf_produkteigenschaften != empty
+    assign _tp = mf_produkteigenschaften | metafield_text | strip
+    if _tp != blank
+      assign has_prop = true
+    endif
+  endif
+
+  assign hilfsmittel_display = ''
+  assign hilf_from_dedicated = false
+  assign mf_hilf = product.metafields.custom.hilfsmittelnummer
+  if mf_hilf.value != blank
+    assign hilfsmittel_display = mf_hilf | metafield_text | strip
+    assign hilf_from_dedicated = true
+  elsif mf_hilf != blank and mf_hilf != empty
+    assign _hh = mf_hilf | metafield_text | strip
+    if _hh != blank
+      assign hilfsmittel_display = _hh
+      assign hilf_from_dedicated = true
+    endif
+  endif
+  if hilfsmittel_display == blank
+    assign mf_hilf = product.metafields.custom.hilfsmittel_nummer
+    if mf_hilf.value != blank
+      assign hilfsmittel_display = mf_hilf | metafield_text | strip
+      assign hilf_from_dedicated = true
+    elsif mf_hilf != blank and mf_hilf != empty
+      assign _hh2 = mf_hilf | metafield_text | strip
+      if _hh2 != blank
+        assign hilfsmittel_display = _hh2
+        assign hilf_from_dedicated = true
+      endif
+    endif
+  endif
+  if hilfsmittel_display == blank
+    if mf_pzn != blank and mf_pzn != empty
+      assign hilfsmittel_display = mf_pzn | metafield_text | strip
+      if hilfsmittel_display == blank and mf_pzn.value != blank
+        assign hilfsmittel_display = mf_pzn.value | append: ''
+      endif
+    endif
+  endif
+
+  assign has_hilf = false
+  if hilfsmittel_display != blank
+    assign has_hilf = true
+  endif
+
+  assign pdf_url = ''
+  assign mf_pdf = product.metafields.custom.produktblatt
+  if mf_pdf != blank and mf_pdf.value != blank and mf_pdf.value.url != blank
+    assign pdf_url = mf_pdf.value.url
+  endif
+  if pdf_url == blank
+    assign mf_pdf = product.metafields.custom.product_sheet
+    if mf_pdf != blank and mf_pdf.value != blank and mf_pdf.value.url != blank
+      assign pdf_url = mf_pdf.value.url
+    endif
+  endif
+  if pdf_url == blank
+    assign mf_pdf = product.metafields.custom.produkt_pdf
+    if mf_pdf != blank and mf_pdf.value != blank and mf_pdf.value.url != blank
+      assign pdf_url = mf_pdf.value.url
+    endif
+  endif
+  if pdf_url == blank
+    assign mf_pdf = product.metafields.custom.pdf
+    if mf_pdf != blank and mf_pdf.value != blank and mf_pdf.value.url != blank
+      assign pdf_url = mf_pdf.value.url
+    endif
+  endif
+
+  assign has_pdf = false
+  if pdf_url != blank
+    assign has_pdf = true
+  endif
+
+  assign show_b_card = false
+  if has_beschr or show_ph
+    assign show_b_card = true
+  endif
+  assign show_a_card = false
+  if has_anw or show_ph
+    assign show_a_card = true
+  endif
+  assign show_p_card = false
+  if has_prop or show_ph
+    assign show_p_card = true
+  endif
+  assign show_h_card = false
+  if has_hilf or show_ph
+    assign show_h_card = true
+  endif
+  assign show_f_card = false
+  if has_pdf or show_ph
+    assign show_f_card = true
+  endif
+
+  assign show_row = false
+  if show_b_card or show_a_card or show_p_card or show_h_card or show_f_card
+    assign show_row = true
+  endif
+-%}
+{%- unless show_row -%}
+{%- else -%}
+  <section
+    class="pflege-pdp-top-claims pflege-pdp-meta-strip page-width"
+    aria-label="{{ 'products.product.pflege_pdp.meta_strip_aria' | t }}"
+  >
+    <ul class="pflege-pdp-top-claims__list pflege-pdp-meta-strip__list" role="list">
+      {%- if show_b_card -%}
+        {%- liquid
+          assign ex_b = mf_beschreibung | metafield_text | strip_html | strip | truncate: 92
+          if has_beschr == false and show_ph
+            assign ex_b = 'products.product.pflege_pdp.meta_strip_placeholder_body' | t
+          endif
+        -%}
+        <li class="pflege-pdp-top-claims__item pflege-pdp-meta-strip__item" role="listitem">
+          <a
+            href="#pflege-pdp-unified-detail"
+            class="pflege-pdp-meta-strip__card"
+          >
+            <span class="pflege-pdp-meta-strip__iconwrap" aria-hidden="true">
+              {%- render 'pflege-icon', icon: 'document', width: 22 -%}
+            </span>
+            <span class="pflege-pdp-meta-strip__copy">
+              <span class="pflege-pdp-meta-strip__title">{{ 'products.product.pflege_pdp.meta_strip_title_beschreibung' | t }}</span>
+              <span class="pflege-pdp-meta-strip__excerpt{% if has_beschr == false and show_ph %} pflege-pdp-meta-strip__excerpt--muted{% endif %}">{{ ex_b | escape }}</span>
+            </span>
+          </a>
+        </li>
+      {%- endif -%}
+
+      {%- if show_a_card -%}
+        {%- liquid
+          assign ex_a = mf_anwendung | metafield_text | strip_html | strip | truncate: 92
+          if has_anw == false and show_ph
+            assign ex_a = 'products.product.pflege_pdp.meta_strip_placeholder_body' | t
+          endif
+        -%}
+        <li class="pflege-pdp-top-claims__item pflege-pdp-meta-strip__item" role="listitem">
+          <a href="#pflege-pdp-unified-detail" class="pflege-pdp-meta-strip__card">
+            <span class="pflege-pdp-meta-strip__iconwrap" aria-hidden="true">
+              {%- render 'pflege-icon', icon: 'hand', width: 22 -%}
+            </span>
+            <span class="pflege-pdp-meta-strip__copy">
+              <span class="pflege-pdp-meta-strip__title">{{ 'products.product.pflege_pdp.meta_strip_title_anwendung' | t }}</span>
+              <span class="pflege-pdp-meta-strip__excerpt{% if has_anw == false and show_ph %} pflege-pdp-meta-strip__excerpt--muted{% endif %}">{{ ex_a | escape }}</span>
+            </span>
+          </a>
+        </li>
+      {%- endif -%}
+
+      {%- if show_p_card -%}
+        {%- liquid
+          assign ex_p = mf_produkteigenschaften | metafield_text | strip_html | strip | truncate: 92
+          if has_prop == false and show_ph
+            assign ex_p = 'products.product.pflege_pdp.meta_strip_placeholder_body' | t
+          endif
+        -%}
+        <li class="pflege-pdp-top-claims__item pflege-pdp-meta-strip__item" role="listitem">
+          <a href="#pflege-pdp-unified-detail" class="pflege-pdp-meta-strip__card">
+            <span class="pflege-pdp-meta-strip__iconwrap" aria-hidden="true">
+              {%- render 'pflege-icon', icon: 'sparkles', width: 22 -%}
+            </span>
+            <span class="pflege-pdp-meta-strip__copy">
+              <span class="pflege-pdp-meta-strip__title">{{ 'products.product.pflege_pdp.meta_strip_title_eigenschaften' | t }}</span>
+              <span class="pflege-pdp-meta-strip__excerpt{% if has_prop == false and show_ph %} pflege-pdp-meta-strip__excerpt--muted{% endif %}">{{ ex_p | escape }}</span>
+            </span>
+          </a>
+        </li>
+      {%- endif -%}
+
+      {%- if show_h_card -%}
+        <li class="pflege-pdp-top-claims__item pflege-pdp-meta-strip__item" role="listitem">
+          <a href="#pflege-pdp-unified-detail" class="pflege-pdp-meta-strip__card">
+            <span class="pflege-pdp-meta-strip__iconwrap" aria-hidden="true">
+              {%- render 'pflege-icon', icon: 'ticket', width: 22 -%}
+            </span>
+            <span class="pflege-pdp-meta-strip__copy">
+              <span class="pflege-pdp-meta-strip__title">{{ 'products.product.pflege_pdp.meta_strip_title_hilfsmittel' | t }}</span>
+              {%- if has_hilf -%}
+                <span class="pflege-pdp-meta-strip__excerpt">{{ hilfsmittel_display | escape }}</span>
+              {%- else -%}
+                <span class="pflege-pdp-meta-strip__excerpt pflege-pdp-meta-strip__excerpt--muted">
+                  {{- 'products.product.pflege_pdp.unified_placeholder_hilfsmittel' | t -}}
+                </span>
+              {%- endif -%}
+            </span>
+          </a>
+        </li>
+      {%- endif -%}
+
+      {%- if show_f_card -%}
+        {%- liquid
+          if has_pdf
+            assign ex_f = 'products.product.pflege_pdp.product_sheet_download' | t
+          else
+            assign ex_f = 'products.product.pflege_pdp.unified_placeholder_pdf' | t
+          endif
+        -%}
+        <li class="pflege-pdp-top-claims__item pflege-pdp-meta-strip__item" role="listitem">
+          {%- if has_pdf -%}
+            <a
+              href="{{ pdf_url }}"
+              class="pflege-pdp-meta-strip__card"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span class="pflege-pdp-meta-strip__iconwrap" aria-hidden="true">
+                {%- render 'pflege-icon', icon: 'document', width: 22 -%}
+              </span>
+              <span class="pflege-pdp-meta-strip__copy">
+                <span class="pflege-pdp-meta-strip__title">{{ 'products.product.pflege_pdp.meta_strip_title_pdf' | t }}</span>
+                <span class="pflege-pdp-meta-strip__excerpt">{{ ex_f | escape }}</span>
+              </span>
+            </a>
+          {%- else -%}
+            <a href="#pflege-pdp-unified-detail" class="pflege-pdp-meta-strip__card">
+              <span class="pflege-pdp-meta-strip__iconwrap" aria-hidden="true">
+                {%- render 'pflege-icon', icon: 'document', width: 22 -%}
+              </span>
+              <span class="pflege-pdp-meta-strip__copy">
+                <span class="pflege-pdp-meta-strip__title">{{ 'products.product.pflege_pdp.meta_strip_title_pdf' | t }}</span>
+                <span class="pflege-pdp-meta-strip__excerpt pflege-pdp-meta-strip__excerpt--muted">{{ ex_f | escape }}</span>
+              </span>
+            </a>
+          {%- endif -%}
+        </li>
+      {%- endif -%}
+    </ul>
+  </section>
+{%- endunless -%}

@@ -244,7 +244,14 @@
         "unified_placeholder_anwendung": "Hier erscheint die Anwendung, sobald das Metafeld „Anwendung“ (custom.anwendung) befüllt ist.",
         "unified_placeholder_produkteigenschaften": "Hier erscheinen die Produkteigenschaften, sobald das Metafeld „Produkteigenschaften“ (custom.produkteigenschaften) befüllt ist.",
         "unified_placeholder_hilfsmittel": "wird ergänzt",
-        "unified_placeholder_pdf": "Produktblatt: noch kein PDF hinterlegt (Metafeld z. B. custom.produktblatt)."
+        "unified_placeholder_pdf": "Produktblatt: noch kein PDF hinterlegt (Metafeld z. B. custom.produktblatt).",
+        "meta_strip_aria": "Kurzinfos zum Produkt",
+        "meta_strip_title_beschreibung": "Beschreibung",
+        "meta_strip_title_anwendung": "Anwendung",
+        "meta_strip_title_eigenschaften": "Produkteigenschaften",
+        "meta_strip_title_hilfsmittel": "Hilfsmittelnummer",
+        "meta_strip_title_pdf": "Produktblatt",
+        "meta_strip_placeholder_body": "Inhalt folgt – bitte Metafeld im Shopify-Admin befüllen."
       },
       "sku": "SKU",
       "volume_pricing": {

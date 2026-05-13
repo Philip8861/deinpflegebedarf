@@ -959,6 +959,71 @@
   color: rgba(15, 45, 84, 0.88);
 }
 
+/* Metafeld-Leiste (5 Karten, gleiche Hülle wie top-claims) */
+.template-product .pflege-pdp-meta-strip__list {
+  grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+}
+
+@media screen and (min-width: 1200px) {
+  .template-product .pflege-pdp-meta-strip__list {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+.template-product .pflege-pdp-meta-strip__card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.82rem;
+  text-decoration: none;
+  color: inherit;
+  width: 100%;
+  min-height: 100%;
+  box-sizing: border-box;
+}
+
+.template-product .pflege-pdp-meta-strip__card:hover .pflege-pdp-meta-strip__title {
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+}
+
+.template-product .pflege-pdp-meta-strip__iconwrap {
+  flex-shrink: 0;
+  line-height: 0;
+}
+
+.template-product .pflege-pdp-meta-strip__iconwrap .pflege-icon {
+  color: var(--pflege-mock-navy);
+}
+
+.template-product .pflege-pdp-meta-strip__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+  min-width: 0;
+}
+
+.template-product .pflege-pdp-meta-strip__title {
+  display: block;
+  font-size: 1.08rem !important;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #0f4f69;
+  letter-spacing: 0.01em;
+}
+
+.template-product .pflege-pdp-meta-strip__excerpt {
+  display: block;
+  font-size: 1.15rem !important;
+  line-height: 1.38;
+  color: rgba(15, 45, 84, 0.82);
+  word-break: break-word;
+}
+
+.template-product .pflege-pdp-meta-strip__excerpt--muted {
+  font-style: italic;
+  color: rgba(15, 45, 84, 0.5);
+}
+
 .template-product product-recommendations.related-products.pflege-related-pdp.isolate .related-products__header {
   display: flex;
   flex-wrap: wrap;

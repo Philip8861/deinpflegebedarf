@@ -192,7 +192,14 @@
         "unified_placeholder_anwendung": "Application notes will appear here once custom.anwendung is filled.",
         "unified_placeholder_produkteigenschaften": "Product attributes will appear here once custom.produkteigenschaften is filled.",
         "unified_placeholder_hilfsmittel": "to be added",
-        "unified_placeholder_pdf": "Product sheet: no PDF uploaded yet (e.g. custom.produktblatt)."
+        "unified_placeholder_pdf": "Product sheet: no PDF uploaded yet (e.g. custom.produktblatt).",
+        "meta_strip_aria": "Product highlights",
+        "meta_strip_title_beschreibung": "Description",
+        "meta_strip_title_anwendung": "How to use",
+        "meta_strip_title_eigenschaften": "Product details",
+        "meta_strip_title_hilfsmittel": "Medical aid number",
+        "meta_strip_title_pdf": "Product sheet",
+        "meta_strip_placeholder_body": "Content coming soon — fill the metafield in Shopify admin."
       },
       "sku": "SKU",
       "on_sale": "Angebot",

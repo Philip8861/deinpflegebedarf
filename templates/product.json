@@ -30,10 +30,6 @@
             "text_style": "subtitle"
           }
         },
-        "pflege_quick_usps": {
-          "type": "pflege_quick_usps",
-          "settings": {}
-        },
         "rating_pflege": {
           "type": "rating",
           "settings": {}
@@ -73,7 +69,6 @@
         "title",
         "caption",
         "rating_pflege",
-        "pflege_quick_usps",
         "price",
         "variant_picker",
         "inventory_pflege",
@@ -95,7 +90,9 @@
         "breadcrumb_sep": "›",
         "breadcrumb_aria": "Brotkrumen",
         "show_bestseller_badge": true,
-        "bestseller_tag": "bestseller"
+        "bestseller_tag": "bestseller",
+        "show_meta_field_strip": true,
+        "show_meta_strip_placeholders": true
       }
     },
     "pflege_product_detail_body": {

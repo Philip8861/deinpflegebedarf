@@ -773,7 +773,12 @@
       </div>
     </div>
 
-    {% render 'pflege-pdp-top-claims' %}
+    {%- if section.settings.show_meta_field_strip -%}
+      {% render 'pflege-pdp-meta-strip',
+        product: product,
+        show_placeholders: section.settings.show_meta_strip_placeholders
+      %}
+    {%- endif -%}
 
     {% render 'product-media-modal', variant_images: variant_images %}
 
@@ -2386,6 +2391,22 @@
       "id": "bestseller_tag",
       "label": "Produkt-Tag für Badge",
       "default": "bestseller"
+    },
+    {
+      "type": "header",
+      "content": "Produkt-Informationsleiste"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_meta_field_strip",
+      "label": "Metafeld-Karten unter Kauf-/Medienbereich (ersetzt alte Claim-Leiste)",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_meta_strip_placeholders",
+      "label": "Platzhalter in der Leiste, wenn Metafelder leer",
+      "default": true
     },
     {
       "type": "header",
