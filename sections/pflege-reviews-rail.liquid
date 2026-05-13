@@ -82,10 +82,11 @@
                           {%- assign is_active = true -%}
                         {%- endif -%}
                         <article
-                          class="pflege-reviews-rail__card{% if is_active %} is-active{% endif %}"
+                          class="pflege-reviews-rail__card{% if is_active %} is-active{% else %} prr-slide--off{% endif %}"
                           data-reviews-card
                           data-reviews-index="{{ card_index }}"
                           {% unless is_active %}hidden{% endunless %}
+                          {% unless is_active %}style="display: none !important;"{% endunless %}
                           {% unless is_active %}aria-hidden="true"{% endunless %}
                           {{ block.shopify_attributes }}
                         >

@@ -119,12 +119,15 @@
       cards.forEach((card, i) => {
         const isActive = i === target;
         card.classList.toggle('is-active', isActive);
+        card.classList.toggle('prr-slide--off', !isActive);
         if (isActive) {
           card.removeAttribute('hidden');
           card.removeAttribute('aria-hidden');
+          card.style.removeProperty('display');
         } else {
           card.setAttribute('hidden', '');
           card.setAttribute('aria-hidden', 'true');
+          card.style.setProperty('display', 'none', 'important');
         }
       });
       dots.forEach((dot, i) => {
