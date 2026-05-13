@@ -112,6 +112,8 @@
 
 .pflege-product-gallery-shell {
   position: relative;
+  max-width: 75%;
+  margin-inline: auto;
 }
 
 @media screen and (min-width: 750px) {
@@ -211,10 +213,12 @@
 
 .pflege-mock-pdp__rating .rating-star {
   --color-rating-star: var(--pflege-mock-orange);
+  --font-size: 2.05;
+  --letter-spacing: 0.72;
 }
 
 .pflege-mock-pdp__reviews-link {
-  font-size: 1.18rem !important;
+  font-size: 1.32rem !important;
   font-weight: 600 !important;
   color: var(--pflege-mock-navy);
   text-decoration: underline;
@@ -222,34 +226,56 @@
 }
 
 .pflege-mock-pdp__rating-soft-link {
-  font-size: 1.18rem !important;
+  font-size: 1.32rem !important;
   font-weight: 600;
   color: rgba(15, 45, 84, 0.48);
 }
 
-/* Schnell‑USPs (Kaufspalte) */
+/* Schnell‑USPs (Kaufspalte): drei Merkmale nebeneinander */
 
 .pflege-buy-usps {
   margin: 0.25rem 0 1.15rem;
 }
+
+.pflege-buy-usps__list {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.62rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem 0.55rem;
   margin: 0;
   padding: 0;
+  list-style: none;
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (max-width: 749px) {
   .pflege-buy-usps__list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.35rem 0.3rem;
+  }
+
+  .pflege-buy-usps__item {
+    padding: 0.5rem 0.28rem 0.58rem;
+    gap: 0.32rem;
+  }
+
+  .pflege-buy-usps__icon {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+
+  .pflege-buy-usps__label {
+    font-size: 0.88rem !important;
+    line-height: 1.25;
   }
 }
 
 .pflege-buy-usps__item {
-  display: inline-flex;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.55rem 0.82rem;
+  text-align: center;
+  gap: 0.42rem;
+  padding: 0.62rem 0.45rem 0.72rem;
+  min-width: 0;
   border-radius: var(--pflege-pdp-radius-sm);
   background: var(--pflege-mock-soft-blue);
   border: 1px solid rgba(0, 74, 153, 0.1);
@@ -258,19 +284,23 @@
 .pflege-buy-usps__icon {
   flex-shrink: 0;
   display: inline-flex;
-  width: 2.2rem;
-  height: 2.2rem;
+  width: 2.55rem;
+  height: 2.55rem;
   align-items: center;
   justify-content: center;
   border-radius: 0.52rem;
-  background: rgba(255, 255, 255, 0.85);
-  color: var(--pflege-mock-navy);
+  background: rgba(255, 255, 255, 0.92);
+  color: #8ac8fb;
+}
+
+.pflege-buy-usps__icon .pflege-icon {
+  color: #8ac8fb;
 }
 
 .pflege-buy-usps__label {
-  font-size: 1.17rem !important;
+  font-size: 1.05rem !important;
   font-weight: 600 !important;
-  line-height: 1.32;
+  line-height: 1.3;
   color: rgba(10, 30, 60, 0.86);
 }
 
@@ -626,7 +656,7 @@
 
 .pflege-mock-pdp__stars-muted {
   letter-spacing: 0.08em;
-  font-size: 1.08rem;
+  font-size: 1.22rem;
   color: rgba(15, 45, 84, 0.28);
   line-height: 1;
 }

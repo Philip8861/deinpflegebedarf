@@ -147,9 +147,6 @@
                     if subtitle_out == blank and product.metafields.custom.summary != blank
                       assign subtitle_out = product.metafields.custom.summary | metafield_text | strip
                     endif
-                    if subtitle_out == blank and product.description != blank
-                      assign subtitle_out = product.description | strip_html | truncate: 220
-                    endif
                   %}
                   {% if subtitle_out != blank %}
                     <p
