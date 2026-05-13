@@ -181,6 +181,23 @@
   display: flex !important;
 }
 
+/* Notfall: Falls weder is-active noch prr-slide--off gesetzt sind (z. B. alter Cache),
+   nur die erste Karte zeigen, alle weiteren Karten ausblenden. */
+.pflege-reviews-rail__track--single
+  > .pflege-reviews-rail__card:not(.is-active):not(.prr-slide--off)
+  ~ .pflege-reviews-rail__card {
+  display: none !important;
+}
+.pflege-reviews-rail__track--single
+  > .pflege-reviews-rail__card:first-of-type:not(.prr-slide--off) {
+  display: flex !important;
+}
+.pflege-reviews-rail__track--single
+  > .pflege-reviews-rail__card:first-of-type
+  ~ .pflege-reviews-rail__card:not(.is-active) {
+  display: none !important;
+}
+
 .pflege-reviews-rail__track--single .pflege-reviews-rail__card {
   width: 100%;
   max-width: 100%;
