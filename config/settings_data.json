@@ -10,9 +10,9 @@
 {
   "current": {
     "logo_width": 90,
-    "type_header_font": "nunito_sans_n8",
+    "type_header_font": "nunito_sans_n4",
     "heading_scale": 100,
-    "type_body_font": "nunito_sans_n8",
+    "type_body_font": "nunito_sans_n4",
     "body_scale": 100,
     "page_width": 1200,
     "spacing_sections": 0,
@@ -313,9 +313,9 @@
           }
         }
       },
-      "type_header_font": "nunito_sans_n8",
+      "type_header_font": "nunito_sans_n4",
       "heading_scale": 100,
-      "type_body_font": "nunito_sans_n8",
+      "type_body_font": "nunito_sans_n4",
       "body_scale": 100,
       "page_width": 1200,
       "spacing_sections": 0,
