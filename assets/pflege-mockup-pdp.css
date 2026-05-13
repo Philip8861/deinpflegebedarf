@@ -969,6 +969,109 @@
   box-sizing: border-box;
 }
 
+/*
+ * Linker Innenrand = linker Bildrand: .pflege-product-gallery-shell ist 75% der Medienspalte,
+ * zentriert (12,5% Einzug) + gleiches Innenpadding wie die Hauptbild-Karte (slider-mobile-gutter).
+ * Prozent bezieht sich auf die page-width-Innenbreite (wie die Produkt-Spalten).
+ * .product--* Klassen sitzen auf div.product; die Leiste ist dessen direktes Folge-Element.
+ */
+@media screen and (max-width: 749px) {
+  .template-product
+    .pflege-product-page
+    .product:not(.product--no-media)
+    ~ .pflege-pdp-meta-strip.pflege-pdp-top-claims {
+    padding-left: calc(clamp(1.05rem, 3vw, 1.65rem) + 12.5% + 0.55rem);
+  }
+}
+
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .template-product
+    .pflege-product-page
+    .product:not(.product--no-media):not(.product--right)
+    ~ .pflege-pdp-meta-strip.pflege-pdp-top-claims {
+    padding-left: calc(
+      clamp(1.05rem, 3vw, 1.65rem) + 0.125 * (50% - var(--grid-desktop-horizontal-spacing) / 2) +
+        clamp(1rem, 2vw, 1.65rem)
+    );
+  }
+
+  .template-product
+    .pflege-product-page
+    .product:not(.product--no-media).product--right
+    ~ .pflege-pdp-meta-strip.pflege-pdp-top-claims {
+    padding-left: calc(
+      clamp(1.05rem, 3vw, 1.65rem) + (50% - var(--grid-desktop-horizontal-spacing) / 2) +
+        var(--grid-desktop-horizontal-spacing) + 0.125 * (50% - var(--grid-desktop-horizontal-spacing) / 2) +
+        clamp(1rem, 2vw, 1.65rem)
+    );
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .template-product
+    .pflege-product-page
+    .product.product--large:not(.product--no-media):not(.product--right)
+    ~ .pflege-pdp-meta-strip.pflege-pdp-top-claims {
+    padding-left: calc(
+      clamp(1.05rem, 3vw, 1.65rem) + 0.125 * (65% - var(--grid-desktop-horizontal-spacing) / 2) +
+        clamp(1rem, 2vw, 1.65rem)
+    );
+  }
+
+  .template-product
+    .pflege-product-page
+    .product.product--large:not(.product--no-media).product--right
+    ~ .pflege-pdp-meta-strip.pflege-pdp-top-claims {
+    padding-left: calc(
+      clamp(1.05rem, 3vw, 1.65rem) + (35% - var(--grid-desktop-horizontal-spacing) / 2) +
+        var(--grid-desktop-horizontal-spacing) + 0.125 * (65% - var(--grid-desktop-horizontal-spacing) / 2) +
+        clamp(1rem, 2vw, 1.65rem)
+    );
+  }
+
+  .template-product
+    .pflege-product-page
+    .product.product--medium:not(.product--no-media):not(.product--right)
+    ~ .pflege-pdp-meta-strip.pflege-pdp-top-claims {
+    padding-left: calc(
+      clamp(1.05rem, 3vw, 1.65rem) + 0.125 * (48% - var(--grid-desktop-horizontal-spacing) / 2) +
+        clamp(1rem, 2vw, 1.65rem)
+    );
+  }
+
+  .template-product
+    .pflege-product-page
+    .product.product--medium:not(.product--no-media).product--right
+    ~ .pflege-pdp-meta-strip.pflege-pdp-top-claims {
+    padding-left: calc(
+      clamp(1.05rem, 3vw, 1.65rem) + (52% - var(--grid-desktop-horizontal-spacing) / 2) +
+        var(--grid-desktop-horizontal-spacing) + 0.125 * (48% - var(--grid-desktop-horizontal-spacing) / 2) +
+        clamp(1rem, 2vw, 1.65rem)
+    );
+  }
+
+  .template-product
+    .pflege-product-page
+    .product.product--small:not(.product--no-media):not(.product--right)
+    ~ .pflege-pdp-meta-strip.pflege-pdp-top-claims {
+    padding-left: calc(
+      clamp(1.05rem, 3vw, 1.65rem) + 0.125 * (45% - var(--grid-desktop-horizontal-spacing) / 2) +
+        clamp(1rem, 2vw, 1.65rem)
+    );
+  }
+
+  .template-product
+    .pflege-product-page
+    .product.product--small:not(.product--no-media).product--right
+    ~ .pflege-pdp-meta-strip.pflege-pdp-top-claims {
+    padding-left: calc(
+      clamp(1.05rem, 3vw, 1.65rem) + (55% - var(--grid-desktop-horizontal-spacing) / 2) +
+        var(--grid-desktop-horizontal-spacing) + 0.125 * (45% - var(--grid-desktop-horizontal-spacing) / 2) +
+        clamp(1rem, 2vw, 1.65rem)
+    );
+  }
+}
+
 .template-product .pflege-pdp-meta-strip__list {
   grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
 }
@@ -1143,12 +1246,12 @@
   }
 
   /* Rechte Kaufspalte breiter: Gallery etwas schmaler, Infospalte ~52 % */
-  .template-product .pflege-product-page.product--medium:not(.product--no-media) .product__media-wrapper {
+  .template-product .pflege-product-page .product.product--medium:not(.product--no-media) .product__media-wrapper {
     max-width: 48%;
     width: calc(48% - var(--grid-desktop-horizontal-spacing) / 2);
   }
 
-  .template-product .pflege-product-page.product--medium:not(.product--no-media) .product__info-wrapper {
+  .template-product .pflege-product-page .product.product--medium:not(.product--no-media) .product__info-wrapper {
     max-width: 52%;
     width: calc(52% - var(--grid-desktop-horizontal-spacing) / 2);
     padding-left: clamp(1.85rem, 3.25vw, 3.35rem) !important;
@@ -1170,7 +1273,7 @@
     width: 100%;
   }
 
-  .template-product .pflege-product-page:not(.product--right) .product__info-wrapper {
+  .template-product .pflege-product-page .product:not(.product--right) .product__info-wrapper {
     padding-left: clamp(2rem, 4vw, 3.25rem) !important;
   }
 }
