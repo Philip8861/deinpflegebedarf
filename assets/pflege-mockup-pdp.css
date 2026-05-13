@@ -564,7 +564,7 @@
     border-radius: 0.65rem;
     border: 1px solid rgba(15, 79, 105, 0.22);
     overflow: hidden;
-    min-height: 5.75rem;
+    min-height: 3.85rem;
     background: #fff;
   }
 
@@ -575,13 +575,13 @@
   .pflege-product-page .quantity__input {
     font-weight: 600;
     padding: 0.45rem 0.65rem !important;
-    min-height: 5.75rem !important;
+    min-height: 3.85rem !important;
     border: none !important;
     border-radius: 0 !important;
   }
 
   .pflege-product-page .quantity__button {
-    min-height: 5.75rem !important;
+    min-height: 3.85rem !important;
     border: none !important;
     width: auto;
     min-width: 2.75rem !important;
@@ -596,7 +596,7 @@
 
   .pflege-product-page .product-form .button,
   .pflege-product-page .shopify-payment-button .shopify-payment-button__button {
-    min-height: 5.75rem !important;
+    min-height: 3.85rem !important;
     border-radius: 0.65rem !important;
     box-shadow: none !important;
     font-weight: 700 !important;
@@ -630,16 +630,16 @@
   /* Eine Zeile: kompakte Menge links, Warenkorb füllt den restlichen Platz (ohne Überlauf) */
   .pflege-product__purchase-row {
     --pflege-purchase-radius: 0.65rem;
-    --pflege-purchase-row-height: 5.75rem;
-    --pflege-qty-slot-width: 10.75rem;
-    --pflege-cta-min-mult: 5;
-    --pflege-qty-step-bg: rgba(88, 145, 215, 0.14);
-    --pflege-qty-step-bg-hover: rgba(88, 145, 215, 0.24);
+    --pflege-purchase-row-height: 3.85rem;
+    --pflege-qty-slot-width: 9rem;
+    --pflege-qty-step-bg: rgba(88, 145, 215, 0.12);
+    --pflege-qty-step-bg-hover: rgba(88, 145, 215, 0.22);
+    --pflege-qty-inner-rule: rgba(15, 79, 105, 0.12);
 
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
-    column-gap: 0.75rem;
+    column-gap: 0.65rem;
     margin-bottom: 0 !important;
     width: 100%;
     max-width: 100%;
@@ -673,31 +673,46 @@
     width: 100%;
   }
 
-  /* Kompakte Mengen-Pille linksbündig zur Kaufkarte */
-  .pflege-product__purchase-row .quantity {
+  .pflege-product__purchase-row .product-form__quantity .quantity__rules-cart {
+    display: none;
+  }
+
+  /* Kompakte Mengen-Pille: gleiche Höhe wie CTA, abgestimmt an section-pflege-cart-ui */
+  .pflege-product__purchase-row quantity-input.quantity {
     width: var(--pflege-qty-slot-width);
     max-width: var(--pflege-qty-slot-width);
     margin-inline: 0;
+    border-radius: calc(var(--pflege-purchase-radius) + 0.06rem);
+    border: 1px solid rgba(15, 79, 105, 0.18);
+    background: linear-gradient(180deg, #fff 0%, #f6f9fc 100%);
     height: var(--pflege-purchase-row-height) !important;
     min-height: var(--pflege-purchase-row-height) !important;
     max-height: var(--pflege-purchase-row-height) !important;
-    box-sizing: border-box;
-    border-radius: var(--pflege-purchase-radius) !important;
-    align-items: stretch;
-    border: 1px solid rgba(15, 79, 105, 0.16);
-    background: #fff;
     box-shadow: none;
     overflow: hidden;
+    box-sizing: border-box;
+    align-items: stretch;
+    display: flex;
   }
 
   .pflege-product__purchase-row .quantity__button {
     min-height: 0 !important;
     height: 100% !important;
-    min-width: 2.75rem !important;
+    min-width: 2.95rem;
     flex: 0 0 auto;
     color: var(--pflege-mock-navy);
     background: transparent;
-    transition: background 0.15s ease;
+    transition:
+      background 0.18s ease,
+      color 0.18s ease;
+  }
+
+  .pflege-product__purchase-row .quantity__button:first-child {
+    border-right: 1px solid var(--pflege-qty-inner-rule);
+  }
+
+  .pflege-product__purchase-row .quantity__button:last-child {
+    border-left: 1px solid var(--pflege-qty-inner-rule);
   }
 
   .pflege-product__purchase-row .quantity__button:first-child,
@@ -717,8 +732,8 @@
   }
 
   .pflege-product__purchase-row .quantity__button .svg-wrapper svg {
-    width: 0.95rem;
-    height: 0.95rem;
+    width: 1.08rem;
+    height: 1.08rem;
   }
 
   .pflege-product__purchase-row .quantity__input {
@@ -730,7 +745,7 @@
     text-align: center;
     padding-left: 0.2rem !important;
     padding-right: 0.2rem !important;
-    font-size: 1.45rem !important;
+    font-size: 1.2rem !important;
     font-weight: 700;
     letter-spacing: 0.02em;
     color: var(--pflege-mock-navy);
@@ -769,7 +784,7 @@
     flex: 1 1 auto;
     width: 100% !important;
     max-width: 100%;
-    min-width: min(100%, calc(var(--pflege-qty-slot-width) * var(--pflege-cta-min-mult, 5)));
+    min-width: min(100%, calc(var(--pflege-qty-slot-width) * 10 / 3));
     min-height: var(--pflege-purchase-row-height) !important;
     height: var(--pflege-purchase-row-height) !important;
     max-height: var(--pflege-purchase-row-height) !important;
@@ -779,9 +794,9 @@
     display: inline-flex !important;
     align-items: center;
     justify-content: center;
-    font-size: 1.56rem !important;
-    padding-left: 1.25rem !important;
-    padding-right: 1.25rem !important;
+    font-size: 1.28rem !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
   }
 }
 
@@ -804,16 +819,16 @@
   .pflege-product__purchase-row .product-form__submit {
     width: 100% !important;
     max-width: 100%;
-    min-width: min(100%, calc(var(--pflege-qty-slot-width) * var(--pflege-cta-min-mult, 5)));
+    min-width: min(100%, calc(var(--pflege-qty-slot-width) * 10 / 3));
     min-height: var(--pflege-purchase-row-height) !important;
     height: var(--pflege-purchase-row-height) !important;
     max-height: var(--pflege-purchase-row-height) !important;
     border-radius: var(--pflege-purchase-radius) !important;
     box-shadow: none !important;
-    font-size: 1.56rem !important;
+    font-size: 1.28rem !important;
   }
 
-  .pflege-product__purchase-row .quantity {
+  .pflege-product__purchase-row quantity-input.quantity {
     max-width: var(--pflege-qty-slot-width);
   }
 }
@@ -1075,9 +1090,9 @@
   product-info.pflege-product-page .pflege-product__purchase-row quantity-input.quantity {
     display: flex !important;
     align-items: stretch !important;
-    height: var(--pflege-purchase-row-height, 5.75rem) !important;
-    min-height: var(--pflege-purchase-row-height, 5.75rem) !important;
-    max-height: var(--pflege-purchase-row-height, 5.75rem) !important;
+    height: var(--pflege-purchase-row-height, 3.85rem) !important;
+    min-height: var(--pflege-purchase-row-height, 3.85rem) !important;
+    max-height: var(--pflege-purchase-row-height, 3.85rem) !important;
     box-sizing: border-box !important;
     box-shadow: none !important;
     filter: none !important;
@@ -1105,16 +1120,16 @@
   }
 
   product-info.pflege-product-page .pflege-product__purchase-row .product-form__submit.pflege-product__add-btn.button {
-    height: var(--pflege-purchase-row-height, 5.75rem) !important;
-    min-height: var(--pflege-purchase-row-height, 5.75rem) !important;
-    max-height: var(--pflege-purchase-row-height, 5.75rem) !important;
+    height: var(--pflege-purchase-row-height, 3.85rem) !important;
+    min-height: var(--pflege-purchase-row-height, 3.85rem) !important;
+    max-height: var(--pflege-purchase-row-height, 3.85rem) !important;
     padding-top: 0 !important;
     padding-bottom: 0 !important;
     line-height: 1.2 !important;
     box-sizing: border-box !important;
     align-items: center !important;
-    min-width: min(100%, calc(var(--pflege-qty-slot-width, 10.75rem) * var(--pflege-cta-min-mult, 5))) !important;
-    font-size: 1.56rem !important;
+    min-width: min(100%, calc(var(--pflege-qty-slot-width, 9rem) * 10 / 3)) !important;
+    font-size: 1.28rem !important;
     box-shadow: none !important;
     filter: none !important;
   }

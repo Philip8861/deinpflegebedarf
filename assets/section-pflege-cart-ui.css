@@ -47,19 +47,19 @@
   color: var(--pflege-main-muted, #6f7f95);
 }
 
-/* Menge + Warenkorb: Grid = eine Zeile, vertikal zentriert; große gemeinsame Höhe */
+/* Menge + Warenkorb: Grid, eine Zeile; ~⅓ kleiner als vorige Maximalgröße, gleiche Höhe */
 .pflege-product__purchase-row {
   --pflege-purchase-radius: 0.65rem;
-  --pflege-purchase-row-height: 5.75rem;
-  --pflege-qty-slot-width: 10.75rem;
-  --pflege-cta-min-mult: 5;
-  --pflege-qty-step-bg: rgba(88, 145, 215, 0.14);
-  --pflege-qty-step-bg-hover: rgba(88, 145, 215, 0.24);
+  --pflege-purchase-row-height: 3.85rem;
+  --pflege-qty-slot-width: 9rem;
+  --pflege-qty-step-bg: rgba(88, 145, 215, 0.12);
+  --pflege-qty-step-bg-hover: rgba(88, 145, 215, 0.22);
+  --pflege-qty-inner-rule: rgba(15, 79, 105, 0.12);
 
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
-  column-gap: 0.75rem;
+  column-gap: 0.65rem;
   width: 100%;
   max-width: 100%;
   margin-bottom: 0.85rem;
@@ -130,9 +130,9 @@
   width: var(--pflege-qty-slot-width);
   max-width: var(--pflege-qty-slot-width);
   margin-inline: 0;
-  border-radius: var(--pflege-purchase-radius);
-  border: 1px solid rgba(15, 79, 105, 0.16);
-  background: #fff;
+  border-radius: calc(var(--pflege-purchase-radius) + 0.06rem);
+  border: 1px solid rgba(15, 79, 105, 0.18);
+  background: linear-gradient(180deg, #fff 0%, #f6f9fc 100%);
   height: var(--pflege-purchase-row-height) !important;
   min-height: var(--pflege-purchase-row-height) !important;
   max-height: var(--pflege-purchase-row-height) !important;
@@ -143,9 +143,19 @@
 
 .pflege-product__purchase-row .quantity__button {
   color: var(--pflege-navy, #0b2347);
-  min-width: 2.85rem;
+  min-width: 2.95rem;
   background: transparent;
-  transition: background 0.15s ease;
+  transition:
+    background 0.18s ease,
+    color 0.18s ease;
+}
+
+.pflege-product__purchase-row .quantity__button:first-child {
+  border-right: 1px solid var(--pflege-qty-inner-rule, rgba(15, 79, 105, 0.12));
+}
+
+.pflege-product__purchase-row .quantity__button:last-child {
+  border-left: 1px solid var(--pflege-qty-inner-rule, rgba(15, 79, 105, 0.12));
 }
 
 .pflege-product__purchase-row .quantity__button:first-child,
@@ -165,12 +175,12 @@
 }
 
 .pflege-product__purchase-row .quantity__button .svg-wrapper svg {
-  width: 1rem;
-  height: 1rem;
+  width: 1.08rem;
+  height: 1.08rem;
 }
 
 .pflege-product__purchase-row .quantity__input {
-  font-size: 1.45rem;
+  font-size: 1.2rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   text-align: center;
@@ -182,33 +192,33 @@
   flex: 1 1 auto;
 }
 
-/* CTA: deutlich breiter (× --pflege-cta-min-mult), gleiche Höhe wie Menge */
+/* CTA: ~⅓ schmaler als 5×-Slot → ca. 10/3 × Slot, gleiche Höhe wie Menge */
 .pflege-product__purchase-row .pflege-product__add-btn.button {
   width: 100%;
   max-width: 100%;
-  min-width: min(100%, calc(var(--pflege-qty-slot-width) * var(--pflege-cta-min-mult, 5)));
+  min-width: min(100%, calc(var(--pflege-qty-slot-width) * 10 / 3));
   min-height: var(--pflege-purchase-row-height) !important;
   height: var(--pflege-purchase-row-height) !important;
   max-height: var(--pflege-purchase-row-height) !important;
   border-radius: var(--pflege-purchase-radius);
   box-sizing: border-box;
   box-shadow: none !important;
-  font-size: 1.56rem !important;
-  padding-left: 1.25rem !important;
-  padding-right: 1.25rem !important;
+  font-size: 1.28rem !important;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
 }
 
 @media screen and (max-width: 600px) {
   .pflege-product__purchase-row .pflege-product__add-btn.button {
     width: 100%;
     max-width: 100%;
-    min-width: min(100%, calc(var(--pflege-qty-slot-width) * var(--pflege-cta-min-mult, 5)));
+    min-width: min(100%, calc(var(--pflege-qty-slot-width) * 10 / 3));
     min-height: var(--pflege-purchase-row-height) !important;
     height: var(--pflege-purchase-row-height) !important;
     max-height: var(--pflege-purchase-row-height) !important;
     border-radius: var(--pflege-purchase-radius);
     box-shadow: none !important;
-    font-size: 1.56rem !important;
+    font-size: 1.28rem !important;
   }
 }
 
@@ -216,7 +226,7 @@
 .pflege-product__add-btn.button {
   --pflege-cta-orange: #ff791f;
   width: 100%;
-  min-height: var(--pflege-purchase-row-height, 5.75rem);
+  min-height: var(--pflege-purchase-row-height, 3.85rem);
   padding: 0 1.5rem;
   border-radius: var(--pflege-purchase-radius, 0.65rem);
   border: none;
