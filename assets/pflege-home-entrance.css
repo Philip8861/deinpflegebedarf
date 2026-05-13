@@ -1,4 +1,4 @@
-/* Startseite: Einblend-Animation nur, wenn der Bereich ins Sichtfeld kommt (s. pflege-home-entrance.js) */
+/* Startseite: gestaffelte Einblend-Animation nach dem Laden (s. pflege-home-entrance.js) */
 
 @keyframes pflege-home-rise {
   from {

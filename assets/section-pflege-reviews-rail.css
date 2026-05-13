@@ -144,18 +144,18 @@
 }
 
 .pflege-reviews-rail__track--single {
-  display: grid;
-  grid-template-columns: 1fr;
-  align-items: start;
-  justify-items: stretch;
   position: relative;
+  display: block;
+  width: 100%;
 }
 
 .pflege-reviews-rail__track--single > .pflege-reviews-rail__card {
-  grid-area: 1 / 1;
+  width: 100%;
+  box-sizing: border-box;
   transition:
     opacity 0.45s ease,
-    transform 0.45s ease;
+    transform 0.45s ease,
+    visibility 0.45s ease;
 }
 
 @keyframes prr-review-enter {
@@ -175,14 +175,21 @@
 }
 
 .pflege-reviews-rail__track--single > .pflege-reviews-rail__card:not(.is-active) {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
   opacity: 0;
+  visibility: hidden;
   transform: translateY(12px);
   pointer-events: none;
   z-index: 0;
 }
 
 .pflege-reviews-rail__track--single > .pflege-reviews-rail__card.is-active {
+  position: relative;
   opacity: 1;
+  visibility: visible;
   transform: translateY(0);
   z-index: 1;
 }
@@ -208,11 +215,11 @@
 
 .pflege-reviews-rail__quote {
   margin: 0 auto;
-  font-size: clamp(1.28rem, 1.1vw + 1.05rem, 1.55rem);
-  line-height: 1.55;
-  font-weight: 400;
+  font-size: clamp(1.45rem, 1.5vw + 1.12rem, 1.92rem);
+  line-height: 1.5;
+  font-weight: 500;
   color: var(--prr-quote);
-  max-width: 44rem;
+  max-width: 40rem;
   text-align: center;
 }
 
@@ -227,14 +234,14 @@
 
 .pflege-reviews-rail__author {
   font-weight: 600;
-  font-size: clamp(0.86rem, 0.25vw + 0.78rem, 0.95rem);
+  font-size: clamp(1rem, 0.45vw + 0.88rem, 1.14rem);
   color: var(--prr-petrol);
   letter-spacing: 0.01em;
 }
 
 .pflege-reviews-rail__subtitle {
   font-weight: 400;
-  font-size: clamp(0.78rem, 0.18vw + 0.72rem, 0.84rem);
+  font-size: clamp(0.88rem, 0.28vw + 0.78rem, 0.98rem);
   color: var(--prr-meta);
 }
 

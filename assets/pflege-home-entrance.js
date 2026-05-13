@@ -17,37 +17,17 @@
     ...main.querySelectorAll(':scope > section.pflege-hero--trust-only'),
   ];
 
+  function revealAll() {
+    targets.forEach(reveal);
+  }
+
   if (designMode || reduceMotion) {
-    targets.forEach(reveal);
-    return;
+    revealAll();
+  } else {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(revealAll);
+    });
   }
-
-  const heroSection = main.querySelector(':scope > .shopify-section.pflege-hero-section');
-  if (heroSection) reveal(heroSection);
-
-  if (typeof IntersectionObserver === 'undefined') {
-    targets.forEach(reveal);
-    return;
-  }
-
-  const io = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        reveal(entry.target);
-        io.unobserve(entry.target);
-      });
-    },
-    {
-      root: null,
-      rootMargin: '0px 0px -12% 0px',
-      threshold: 0.02,
-    }
-  );
-
-  targets.forEach((el) => {
-    if (!el.classList.contains('pflege-home-in-view')) io.observe(el);
-  });
 
   document.addEventListener(
     'shopify:section:load',
@@ -55,7 +35,7 @@
       const root = ev.target;
       if (!(root instanceof HTMLElement)) return;
       if (root.id && root.id.startsWith('shopify-section-') && root.classList.contains('shopify-section')) {
-        if (!root.classList.contains('pflege-home-in-view')) io.observe(root);
+        reveal(root);
       }
     },
     { passive: true }
