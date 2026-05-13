@@ -1,5 +1,6 @@
 (function () {
   const NUDGE_MS = 10000;
+  const STORAGE_DISMISS = 'pflegeboxi-dismissed';
 
   function init() {
     const root = document.getElementById('pflege-pflegeboxi-root');
@@ -9,8 +10,23 @@
     const modal = document.getElementById('pflege-pflegeboxi-dialog');
     if (!launcher || !modal) return;
 
+    if (window.sessionStorage.getItem(STORAGE_DISMISS) === '1') {
+      root.hidden = true;
+      return;
+    }
+
+    const dismissBtn = root.querySelector('[data-pflegeboxi-dismiss]');
     const closeEls = modal.querySelectorAll('[data-pflegeboxi-close]');
     let lastFocus = null;
+    let nudgeIntervalId = null;
+
+    function closeModal() {
+      modal.hidden = true;
+      launcher.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus({ preventScroll: true });
+      lastFocus = null;
+    }
 
     function openModal() {
       lastFocus = document.activeElement;
@@ -21,17 +37,29 @@
       closeBtn?.focus({ preventScroll: true });
     }
 
-    function closeModal() {
-      modal.hidden = true;
-      launcher.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
-      if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus({ preventScroll: true });
-      lastFocus = null;
+    function dismissLauncher() {
+      try {
+        window.sessionStorage.setItem(STORAGE_DISMISS, '1');
+      } catch (e) {
+        /* ignore */
+      }
+      closeModal();
+      if (nudgeIntervalId != null) {
+        window.clearInterval(nudgeIntervalId);
+        nudgeIntervalId = null;
+      }
+      root.hidden = true;
     }
 
     launcher.addEventListener('click', (e) => {
       e.preventDefault();
       openModal();
+    });
+
+    dismissBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      dismissLauncher();
     });
 
     closeEls.forEach((el) => {
@@ -59,7 +87,7 @@
     });
 
     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      window.setInterval(nudge, NUDGE_MS);
+      nudgeIntervalId = window.setInterval(nudge, NUDGE_MS);
     }
   }
 

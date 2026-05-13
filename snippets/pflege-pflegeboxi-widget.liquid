@@ -1,6 +1,17 @@
 {% comment %}
   Pflegeboxi — Assistent unten rechts, FAQ-Modal (Asset: pflegeboxi.webp)
 {% endcomment %}
+<style>
+  #pflege-pflegeboxi-root .pflege-pflegeboxi-widget {
+    position: fixed;
+    z-index: 10350;
+    right: max(1rem, env(safe-area-inset-right, 0px));
+    bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+  }
+  #pflege-pflegeboxi-root[hidden] {
+    display: none !important;
+  }
+</style>
 {{ 'pflege-pflegeboxi-widget.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'pflege-pflegeboxi-widget.js' | asset_url }}" defer="defer"></script>
 
@@ -10,27 +21,40 @@
 
 <div id="pflege-pflegeboxi-root">
   <div class="pflege-pflegeboxi-widget">
-    <button
-      type="button"
-      class="pflege-pflegeboxi-widget__launcher"
-      id="pflege-pflegeboxi-launcher"
-      data-pflegeboxi-open
-      aria-expanded="false"
-      aria-controls="pflege-pflegeboxi-dialog"
-      aria-label="{{ 'pflegeboxi.launcher_aria' | t }}"
-    >
-      <span class="pflege-pflegeboxi-widget__bubble">{{ 'pflegeboxi.bubble' | t }}</span>
-      <span class="pflege-pflegeboxi-widget__img-wrap">
-        <img
-          src="{{ 'pflegeboxi.webp' | asset_url }}"
-          alt="{{ 'pflegeboxi.mascot_alt' | t }}"
-          width="160"
-          height="160"
-          loading="lazy"
-          decoding="async"
-        >
-      </span>
-    </button>
+    <div class="pflege-pflegeboxi-widget__cluster">
+      <button
+        type="button"
+        class="pflege-pflegeboxi-widget__dismiss"
+        data-pflegeboxi-dismiss
+        aria-label="{{ 'pflegeboxi.dismiss_launcher' | t }}"
+      >
+        <span class="svg-wrapper pflege-pflegeboxi-widget__dismiss-icon" aria-hidden="true">
+          {{- 'icon-close.svg' | inline_asset_content -}}
+        </span>
+      </button>
+      <button
+        type="button"
+        class="pflege-pflegeboxi-widget__launcher"
+        id="pflege-pflegeboxi-launcher"
+        data-pflegeboxi-open
+        aria-expanded="false"
+        aria-controls="pflege-pflegeboxi-dialog"
+        aria-label="{{ 'pflegeboxi.launcher_aria' | t }}"
+      >
+        <span class="pflege-pflegeboxi-widget__bubble">{{ 'pflegeboxi.bubble' | t }}</span>
+        <span class="pflege-pflegeboxi-widget__img-wrap">
+          <img
+            src="{{ 'pflegeboxi.webp' | asset_url }}"
+            alt="{{ 'pflegeboxi.mascot_alt' | t }}"
+            width="176"
+            height="176"
+            loading="eager"
+            decoding="async"
+            fetchpriority="low"
+          >
+        </span>
+      </button>
+    </div>
   </div>
 </div>
 
