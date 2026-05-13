@@ -78,6 +78,7 @@
 
 .pflege-product-page .product__tax.caption.rte {
   margin-top: 0.55rem;
+  margin-bottom: 1.2rem;
   font-size: 1.22rem !important;
   line-height: 1.42;
   color: rgba(15, 45, 84, 0.58) !important;
@@ -485,30 +486,34 @@
 }
 
 @media screen {
+  .pflege-product-page variant-selects .product-form__input--pill:first-child {
+    margin-top: 0.35rem;
+  }
+
   .pflege-product-page .product-form__input--pill {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.45rem 0.65rem;
+    gap: 0.6rem 0.86rem;
     border: none;
-    margin: 0 0 1.15rem;
+    margin: 0 0 1.53rem;
     padding: 0;
     min-width: 0;
   }
 
   .pflege-product-page .product-form__input--pill legend.form__label {
     font-weight: 600 !important;
-    margin-bottom: 0.55rem !important;
-    font-size: 1.18rem !important;
+    margin-bottom: 0.73rem !important;
+    font-size: 1.57rem !important;
     letter-spacing: 0.015em;
     color: rgba(15, 45, 84, 0.75) !important;
   }
 
   .pflege-product-page .product-form__input--pill input[type='radio'] + label {
-    border-radius: 0.65rem !important;
-    padding: 0.42rem 0.95rem !important;
-    font-size: 1.12rem !important;
+    border-radius: 0.86rem !important;
+    padding: 0.56rem 1.27rem !important;
+    font-size: 1.49rem !important;
     border-color: rgba(15, 79, 105, 0.2) !important;
     border-width: 1px !important;
     box-shadow: none !important;
@@ -521,7 +526,7 @@
     min-height: 0 !important;
     margin: 0 !important;
     flex: 0 0 auto;
-    min-width: 2.6rem;
+    min-width: 3.45rem;
     white-space: nowrap;
   }
 
