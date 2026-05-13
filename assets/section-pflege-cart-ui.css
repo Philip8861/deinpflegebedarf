@@ -47,34 +47,35 @@
   color: var(--pflege-main-muted, #6f7f95);
 }
 
-/* Menge + Warenkorb: CSS-Variablen (Höhe, Radius, Trust-Blau für +/- wie 3-Vorteile-Icons) */
+/* Menge + Warenkorb: Grid = eine Zeile, vertikal zentriert; große gemeinsame Höhe */
 .pflege-product__purchase-row {
   --pflege-purchase-radius: 0.65rem;
-  --pflege-purchase-row-height: 4.5rem;
-  --pflege-qty-slot-width: 9.25rem;
+  --pflege-purchase-row-height: 5.75rem;
+  --pflege-qty-slot-width: 10.75rem;
+  --pflege-cta-min-mult: 5;
   --pflege-qty-step-bg: rgba(88, 145, 215, 0.14);
   --pflege-qty-step-bg-hover: rgba(88, 145, 215, 0.24);
 
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
+  display: grid;
+  grid-template-columns: auto 1fr;
   align-items: center;
-  gap: 0.75rem;
+  column-gap: 0.75rem;
   width: 100%;
   max-width: 100%;
   margin-bottom: 0.85rem;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .pflege-product__purchase-row .product-form__quantity {
-  flex: 0 0 auto;
+  flex: unset;
   min-width: 0;
   margin-bottom: 0;
   max-width: none;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: stretch;
+  justify-content: center;
 }
 
 .pflege-product__purchase-row .product-form__quantity .form__label {
@@ -169,7 +170,7 @@
 }
 
 .pflege-product__purchase-row .quantity__input {
-  font-size: 1.35rem;
+  font-size: 1.45rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   text-align: center;
@@ -181,29 +182,33 @@
   flex: 1 1 auto;
 }
 
-/* CTA: Mindestbreite = vorher 2,5× Slot, jetzt +⅓ → 10/3 × Slot; Höhe wie Menge (theme .button min-height aushebeln) */
+/* CTA: deutlich breiter (× --pflege-cta-min-mult), gleiche Höhe wie Menge */
 .pflege-product__purchase-row .pflege-product__add-btn.button {
   width: 100%;
   max-width: 100%;
-  min-width: min(100%, calc(var(--pflege-qty-slot-width) * 10 / 3));
+  min-width: min(100%, calc(var(--pflege-qty-slot-width) * var(--pflege-cta-min-mult, 5)));
   min-height: var(--pflege-purchase-row-height) !important;
   height: var(--pflege-purchase-row-height) !important;
   max-height: var(--pflege-purchase-row-height) !important;
   border-radius: var(--pflege-purchase-radius);
   box-sizing: border-box;
   box-shadow: none !important;
+  font-size: 1.56rem !important;
+  padding-left: 1.25rem !important;
+  padding-right: 1.25rem !important;
 }
 
 @media screen and (max-width: 600px) {
   .pflege-product__purchase-row .pflege-product__add-btn.button {
     width: 100%;
     max-width: 100%;
-    min-width: min(100%, calc(var(--pflege-qty-slot-width) * 10 / 3));
+    min-width: min(100%, calc(var(--pflege-qty-slot-width) * var(--pflege-cta-min-mult, 5)));
     min-height: var(--pflege-purchase-row-height) !important;
     height: var(--pflege-purchase-row-height) !important;
     max-height: var(--pflege-purchase-row-height) !important;
     border-radius: var(--pflege-purchase-radius);
     box-shadow: none !important;
+    font-size: 1.56rem !important;
   }
 }
 
@@ -211,7 +216,7 @@
 .pflege-product__add-btn.button {
   --pflege-cta-orange: #ff791f;
   width: 100%;
-  min-height: var(--pflege-purchase-row-height, 4.5rem);
+  min-height: var(--pflege-purchase-row-height, 5.75rem);
   padding: 0 1.5rem;
   border-radius: var(--pflege-purchase-radius, 0.65rem);
   border: none;
