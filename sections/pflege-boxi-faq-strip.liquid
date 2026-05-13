@@ -35,6 +35,7 @@
 {%- endstyle -%}
 
 <section
+  id="pflege-faq-root-{{ section.id }}"
   class="pflege-boxi-faq-strip section-{{ section.id }}-padding"
   aria-labelledby="pflege-faq-strip-title-{{ section.id }}"
   data-pflege-faq-strip
@@ -49,8 +50,8 @@
       {%- endif -%}
     </header>
 
-    <div class="pflege-boxi-faq-strip__grid">
-      {%- for i in (1..20) -%}
+    <div class="pflege-boxi-faq-strip__list">
+      {%- for i in (1..10) -%}
         {%- assign q_key = 'pflegeboxi.faq_' | append: i | append: '_q' -%}
         {%- assign a_key = 'pflegeboxi.faq_' | append: i | append: '_a' -%}
         <details class="pflege-boxi-faq-strip__item" id="pflege-faq-strip-{{ section.id }}-{{ i }}">
@@ -60,9 +61,53 @@
           </div>
         </details>
       {%- endfor -%}
+
+      <button
+        type="button"
+        class="pflege-boxi-faq-strip__load-more"
+        data-faq-load-more
+        aria-expanded="false"
+        aria-controls="pflege-faq-extra-{{ section.id }}"
+      >
+        <span class="pflege-boxi-faq-strip__load-more-icon" aria-hidden="true"></span>
+        <span class="pflege-boxi-faq-strip__load-more-label">{{ 'sections.pflege_boxi_faq_strip.load_more' | t }}</span>
+      </button>
+
+      <div
+        class="pflege-boxi-faq-strip__deferred"
+        id="pflege-faq-extra-{{ section.id }}"
+        data-faq-extra
+        hidden
+      >
+        {%- for i in (11..20) -%}
+          {%- assign q_key = 'pflegeboxi.faq_' | append: i | append: '_q' -%}
+          {%- assign a_key = 'pflegeboxi.faq_' | append: i | append: '_a' -%}
+          <details class="pflege-boxi-faq-strip__item" id="pflege-faq-strip-{{ section.id }}-{{ i }}">
+            <summary class="pflege-boxi-faq-strip__summary">{{ q_key | t }}</summary>
+            <div class="pflege-boxi-faq-strip__answer rte">
+              <p>{{ a_key | t }}</p>
+            </div>
+          </details>
+        {%- endfor -%}
+      </div>
     </div>
   </div>
 </section>
+
+<script>
+  (function () {
+    var root = document.getElementById('pflege-faq-root-{{ section.id }}');
+    if (!root) return;
+    var btn = root.querySelector('[data-faq-load-more]');
+    var extra = root.querySelector('[data-faq-extra]');
+    if (!btn || !extra) return;
+    btn.addEventListener('click', function () {
+      extra.removeAttribute('hidden');
+      btn.setAttribute('aria-expanded', 'true');
+      btn.remove();
+    });
+  })();
+</script>
 
 {% schema %}
 {
@@ -72,7 +117,7 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Zeigt 20 Antworten aus der Sprachdatei „pflegeboxi“ (identisch mit den FAQs im Hilfe-Fenster). Volle Inhaltsbreite wie der Hero — Rand wie Hauptnavigation."
+      "content": "20 Antworten aus „pflegeboxi“; zuerst 10 sichtbar, Rest per Button. Eine Spalte, volle Breite wie der Hero."
     },
     {
       "type": "text",

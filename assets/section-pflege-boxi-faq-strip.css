@@ -3,7 +3,7 @@
 .pflege-boxi-faq-strip {
   --pfb-strip-petrol: #0f4f69;
   --pfb-strip-blue: #2c6abf;
-  --pfb-strip-muted: rgba(15, 45, 84, 0.82);
+  --pfb-strip-muted: rgba(15, 45, 84, 0.88);
 
   position: relative;
   overflow: hidden;
@@ -26,7 +26,7 @@
 .pflege-boxi-faq-strip__head {
   text-align: center;
   max-width: min(48rem, 100%);
-  margin: 0 auto 2rem;
+  margin: 0 auto 2.25rem;
 }
 
 .pflege-boxi-faq-strip__title {
@@ -40,28 +40,29 @@
 
 .pflege-boxi-faq-strip__intro {
   margin: 0;
-  font-size: 1.05rem;
-  line-height: 1.55;
+  font-size: clamp(1.05rem, 2vw, 1.15rem);
+  line-height: 1.6;
   color: var(--pfb-strip-muted);
 }
 
-.pflege-boxi-faq-strip__grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.7rem 1rem;
-  align-items: start;
+/* Eine Spalte, großzügiger Abstand */
+.pflege-boxi-faq-strip__list,
+.pflege-boxi-faq-strip__deferred {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-@media screen and (max-width: 749px) {
-  .pflege-boxi-faq-strip__grid {
-    grid-template-columns: 1fr;
-    gap: 0.55rem;
+@media screen and (min-width: 750px) {
+  .pflege-boxi-faq-strip__list,
+  .pflege-boxi-faq-strip__deferred {
+    gap: 1.15rem;
   }
 }
 
 .pflege-boxi-faq-strip__item {
   margin: 0;
-  border-radius: 0.95rem;
+  border-radius: 1rem;
   border: 1px solid rgba(15, 79, 105, 0.11);
   background: rgba(255, 255, 255, 0.92);
   box-shadow: 0 4px 16px rgba(15, 45, 84, 0.06);
@@ -88,11 +89,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.75rem;
-  padding: 0.9rem 1.1rem;
+  gap: 1rem;
+  padding: 1.2rem 1.35rem;
   font-weight: 600;
-  font-size: 0.98rem;
-  line-height: 1.35;
+  font-size: clamp(1.05rem, 2.1vw, 1.2rem);
+  line-height: 1.4;
   color: var(--pfb-strip-petrol);
   -webkit-tap-highlight-color: transparent;
 }
@@ -104,25 +105,25 @@
 .pflege-boxi-faq-strip__summary::after {
   content: "";
   flex-shrink: 0;
-  width: 0.42rem;
-  height: 0.42rem;
-  border-right: 2px solid var(--pfb-strip-blue);
-  border-bottom: 2px solid var(--pfb-strip-blue);
+  width: 0.5rem;
+  height: 0.5rem;
+  border-right: 2.5px solid var(--pfb-strip-blue);
+  border-bottom: 2.5px solid var(--pfb-strip-blue);
   transform: rotate(45deg);
-  margin-top: -0.15rem;
+  margin-top: -0.2rem;
   transition: transform 0.2s ease;
 }
 
 .pflege-boxi-faq-strip__item[open] .pflege-boxi-faq-strip__summary::after {
   transform: rotate(-135deg);
-  margin-top: 0.1rem;
+  margin-top: 0.15rem;
 }
 
 .pflege-boxi-faq-strip__answer {
-  padding: 0 1.1rem 1.05rem;
+  padding: 0 1.35rem 1.25rem;
   margin: 0;
-  font-size: 0.95rem;
-  line-height: 1.55;
+  font-size: clamp(1rem, 1.65vw, 1.08rem);
+  line-height: 1.65;
   color: var(--pfb-strip-muted);
   border-top: 1px solid rgba(15, 79, 105, 0.07);
 }
@@ -131,12 +132,69 @@
   margin: 0;
 }
 
+/* „Weitere laden“ */
+.pflege-boxi-faq-strip__load-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.55rem;
+  width: 100%;
+  margin: 0.35rem 0 0.15rem;
+  padding: 1.15rem 1.5rem;
+  border: 1px solid rgba(44, 106, 191, 0.35);
+  border-radius: 1rem;
+  background: #fff;
+  color: var(--pfb-strip-petrol);
+  font: inherit;
+  font-size: clamp(1.02rem, 2vw, 1.12rem);
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(15, 45, 84, 0.08);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pflege-boxi-faq-strip__load-more:hover {
+  border-color: rgba(44, 106, 191, 0.55);
+  background: #f8fbff;
+  box-shadow: 0 6px 20px rgba(15, 45, 84, 0.1);
+}
+
+.pflege-boxi-faq-strip__load-more:focus-visible {
+  outline: 2px solid var(--pfb-strip-blue);
+  outline-offset: 2px;
+}
+
+.pflege-boxi-faq-strip__load-more-icon {
+  display: block;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-right: 2.5px solid var(--pfb-strip-blue);
+  border-bottom: 2.5px solid var(--pfb-strip-blue);
+  transform: rotate(45deg);
+  margin-top: -0.25rem;
+}
+
+.pflege-boxi-faq-strip__load-more-label {
+  max-width: 28rem;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .pflege-boxi-faq-strip__item {
     transition: none;
   }
 
   .pflege-boxi-faq-strip__summary::after {
+    transition: none;
+  }
+
+  .pflege-boxi-faq-strip__load-more {
     transition: none;
   }
 }
