@@ -167,44 +167,20 @@
   width: 100%;
 }
 
-/* Eine sichtbare Karte: versteckte Slides nie im Layout (HTML hidden + Notfall-CSS) */
-/* Zusätzliche Absicherung (neben [hidden] / Inline-Styles aus Liquid) */
-.pflege-reviews-rail__track--single .pflege-reviews-rail__card.prr-slide--off {
+/* Nur die aktive Karte sichtbar — Standard: alle Karten aus, .is-active ein (schlägt fehlendes prr-slide--off) */
+.pflege-reviews-rail__track--single .pflege-reviews-rail__card {
   display: none !important;
-}
-
-.pflege-reviews-rail__track--single .pflege-reviews-rail__card[hidden] {
-  display: none !important;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s ease;
 }
 
 .pflege-reviews-rail__track--single .pflege-reviews-rail__card.is-active {
   display: flex !important;
-}
-
-/* Notfall: Falls weder is-active noch prr-slide--off gesetzt sind (z. B. alter Cache),
-   nur die erste Karte zeigen, alle weiteren Karten ausblenden. */
-.pflege-reviews-rail__track--single
-  > .pflege-reviews-rail__card:not(.is-active):not(.prr-slide--off)
-  ~ .pflege-reviews-rail__card {
-  display: none !important;
-}
-.pflege-reviews-rail__track--single
-  > .pflege-reviews-rail__card:first-of-type:not(.prr-slide--off) {
-  display: flex !important;
-}
-.pflege-reviews-rail__track--single
-  > .pflege-reviews-rail__card:first-of-type
-  ~ .pflege-reviews-rail__card:not(.is-active) {
-  display: none !important;
-}
-
-.pflege-reviews-rail__track--single .pflege-reviews-rail__card {
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-  transition:
-    opacity 0.45s ease,
-    transform 0.45s ease;
 }
 
 @keyframes prr-review-enter {
@@ -230,7 +206,7 @@
   box-shadow: none;
   padding: 0 0.75rem;
   margin: 0;
-  display: flex;
+  /* display: flex nur für .is-active — siehe .pflege-reviews-rail__track--single */
   flex-direction: column;
   gap: 1.35rem;
   align-items: center;
@@ -990,4 +966,16 @@
 
 .pflege-reviews-rail__privacy a:hover {
   color: var(--pflege-cta, #f89738);
+}
+
+/*
+  Letzte Zeile im Stylesheet: erzwingt eine sichtbare Kundenstimme, falls anderes CSS
+  (Theme-Editor, Custom CSS, Reihenfolge) display auf allen Karten setzt.
+*/
+.pflege-reviews-rail [data-reviews-track] .pflege-reviews-rail__card:not(.is-active) {
+  display: none !important;
+}
+
+.pflege-reviews-rail [data-reviews-track] .pflege-reviews-rail__card.is-active {
+  display: flex !important;
 }

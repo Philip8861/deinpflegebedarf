@@ -87,6 +87,13 @@
     const nextBtn = root.querySelector('[data-reviews-next]');
     if (!cards.length) return;
 
+    if (cards.filter((c) => c.classList.contains('is-active')).length !== 1) {
+      cards.forEach((c, i) => {
+        c.classList.toggle('is-active', i === 0);
+        c.classList.toggle('prr-slide--off', i !== 0);
+      });
+    }
+
     root._pflegeReviewsAbort?.abort();
     const ac = new AbortController();
     root._pflegeReviewsAbort = ac;
