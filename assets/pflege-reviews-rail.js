@@ -130,7 +130,7 @@
         if (isActive) {
           card.removeAttribute('hidden');
           card.removeAttribute('aria-hidden');
-          card.style.removeProperty('display');
+          card.style.setProperty('display', 'flex', 'important');
         } else {
           card.setAttribute('hidden', '');
           card.setAttribute('aria-hidden', 'true');
