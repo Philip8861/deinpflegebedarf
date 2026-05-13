@@ -167,41 +167,36 @@
   width: 100%;
 }
 
-/* Eine sichtbare Karte: inaktive Slides aus; aktive explizit flex (auch ohne perfektes Markup) */
-.pflege-reviews-rail__track--single .pflege-reviews-rail__card.prr-slide--off,
-.pflege-reviews-rail__track--single .pflege-reviews-rail__card[hidden] {
+/* Genau eine sichtbare Karte: im Track sind alle Slides standardmäßig aus, nur .is-active ein.
+   (Verhindert „alle 3 sichtbar“, wenn globales .pflege-reviews-rail__card display:flex setzt.) */
+.pflege-reviews-rail__track--single .pflege-reviews-rail__card {
   display: none !important;
-}
-
-.pflege-reviews-rail__track--single .pflege-reviews-rail__card:not(.is-active) {
-  display: none !important;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  transition:
+    opacity 0.48s ease,
+    transform 0.48s ease;
 }
 
 .pflege-reviews-rail__track--single .pflege-reviews-rail__card.is-active {
   display: flex !important;
 }
 
-.pflege-reviews-rail__track--single .pflege-reviews-rail__card {
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-  margin: 0;
-  transition:
-    opacity 0.45s ease,
-    transform 0.45s ease;
-}
-
 @keyframes prr-review-enter {
   from {
-    transform: translateY(14px);
+    opacity: 0;
+    transform: translateY(12px);
   }
   to {
+    opacity: 1;
     transform: translateY(0);
   }
 }
 
 .pflege-reviews-rail__track--single .pflege-reviews-rail__card.is-active.pflege-reviews-rail__card--enter {
-  animation: prr-review-enter 0.52s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: prr-review-enter 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   transition: none;
 }
 
@@ -212,7 +207,6 @@
   box-shadow: none;
   padding: 0 0.75rem;
   margin: 0;
-  display: flex;
   flex-direction: column;
   gap: 1.35rem;
   align-items: center;
@@ -670,6 +664,10 @@
     animation: none !important;
   }
 
+  .pflege-reviews-rail__track--single .pflege-reviews-rail__card.is-active {
+    opacity: 1 !important;
+  }
+
   .pflege-reviews-rail__track--single .pflege-reviews-rail__card {
     transition: none !important;
   }
@@ -972,4 +970,13 @@
 
 .pflege-reviews-rail__privacy a:hover {
   color: var(--pflege-cta, #f89738);
+}
+
+/* Falls anderes Theme-/Custom-CSS display überschreibt — bleibt am Ende der Kaskade */
+.pflege-reviews-rail [data-reviews-track] .pflege-reviews-rail__card:not(.is-active) {
+  display: none !important;
+}
+
+.pflege-reviews-rail [data-reviews-track] .pflege-reviews-rail__card.is-active {
+  display: flex !important;
 }

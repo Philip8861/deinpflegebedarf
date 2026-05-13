@@ -87,20 +87,18 @@
     const nextBtn = root.querySelector('[data-reviews-next]');
     if (!cards.length) return;
 
-    if (cards.filter((c) => c.classList.contains('is-active')).length !== 1) {
-      cards.forEach((c, i) => {
-        c.classList.toggle('is-active', i === 0);
-        c.classList.toggle('prr-slide--off', i !== 0);
-      });
-    }
+    let current = cards.findIndex((c) => c.classList.contains('is-active'));
+    if (current < 0) current = 0;
+    cards.forEach((c, i) => {
+      const on = i === current;
+      c.classList.toggle('is-active', on);
+      c.classList.toggle('prr-slide--off', !on);
+    });
 
     root._pflegeReviewsAbort?.abort();
     const ac = new AbortController();
     root._pflegeReviewsAbort = ac;
     const { signal } = ac;
-
-    let current = cards.findIndex((c) => c.classList.contains('is-active'));
-    if (current < 0) current = 0;
 
     const enterClass = 'pflege-reviews-rail__card--enter';
 
