@@ -400,7 +400,7 @@
       "carousel_label": "Ausgewählte Kundenstimmen und Bewertungen",
       "intro_stars_aria": "5 von 5 Sternen",
       "rating_summary": "Google-Rezensionen · 5,0 Sterne",
-      "intro_text": "Lesen Sie Erfahrungen anderer Käuferinnen und Käufer – oder teilen Sie Ihre eigene Bewertung.",
+      "intro_text": "",
       "dots_label": "Bewertungen auswählen",
       "dot_label": "Bewertung {{ index }} anzeigen",
       "see_all": "Alle {{ count }} Kundenstimmen anzeigen",

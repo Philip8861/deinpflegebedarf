@@ -89,7 +89,7 @@ body.pflege-collection-page.template-collection .gradient {
   padding: clamp(1.25rem, 2.5vw, 1.6rem);
   border: 1px solid var(--pflege-border-soft, #d8eafe);
   border-radius: var(--pflege-radius-card, 14px);
-  background: var(--pflege-white, #fefefe);
+  background: var(--pflege-white, #ffffff);
   box-shadow: 0 1px 2px rgba(11, 35, 71, 0.04);
 }
 
@@ -232,7 +232,7 @@ body.pflege-collection-page .pflege-coll-card__inner {
   display: flex;
   flex-direction: column;
   height: 100%;
-  background: var(--pflege-white, #fefefe);
+  background: var(--pflege-white, #ffffff);
   border: 1px solid var(--pflege-border, #e5eef8);
   border-radius: var(--pflege-radius-card, 14px);
   box-shadow: 0 4px 12px rgba(11, 35, 71, 0.04);

@@ -407,7 +407,7 @@
       "carousel_label": "Customer testimonials",
       "intro_stars_aria": "5 out of 5 stars",
       "rating_summary": "Google reviews · 5.0 stars",
-      "intro_text": "Read what other shoppers experienced — or share your own rating.",
+      "intro_text": "",
       "dots_label": "Choose review",
       "dot_label": "Show review {{ index }}",
       "see_all": "Show all {{ count }} customer reviews",

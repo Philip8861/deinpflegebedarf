@@ -80,20 +80,23 @@
   }
 
   function bindSingleSlider(root) {
+    const track = root.querySelector('[data-reviews-track]');
     const cards = Array.from(root.querySelectorAll('[data-reviews-card]'));
     const dots = Array.from(root.querySelectorAll('[data-reviews-dot]'));
-    if (!cards.length || !dots.length) return;
+    if (!cards.length) return;
+
+    let current = cards.findIndex((c) => c.classList.contains('is-active'));
+    if (current < 0) current = 0;
 
     function setActive(idx) {
       const target = Math.max(0, Math.min(idx, cards.length - 1));
+      current = target;
       cards.forEach((card, i) => {
         const isActive = i === target;
         card.classList.toggle('is-active', isActive);
         if (isActive) {
-          card.removeAttribute('hidden');
           card.removeAttribute('aria-hidden');
         } else {
-          card.setAttribute('hidden', '');
           card.setAttribute('aria-hidden', 'true');
         }
       });
@@ -109,30 +112,66 @@
       });
     }
 
+    function clearAutoplay() {
+      if (root._pflegeReviewsAutoplay) {
+        clearInterval(root._pflegeReviewsAutoplay);
+        root._pflegeReviewsAutoplay = null;
+      }
+    }
+
+    function startAutoplay() {
+      clearAutoplay();
+      if (cards.length <= 1) return;
+      if (prefersReducedMotion()) return;
+      root._pflegeReviewsAutoplay = window.setInterval(() => {
+        setActive((current + 1) % cards.length);
+      }, 5000);
+    }
+
+    setActive(current);
+
     dots.forEach((dot, idx) => {
-      dot.addEventListener('click', () => setActive(idx));
+      dot.addEventListener('click', () => {
+        setActive(idx);
+        clearAutoplay();
+        startAutoplay();
+      });
       dot.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
           e.preventDefault();
           const next = (idx + 1) % dots.length;
           dots[next].focus();
           setActive(next);
+          clearAutoplay();
+          startAutoplay();
         } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
           e.preventDefault();
           const prev = (idx - 1 + dots.length) % dots.length;
           dots[prev].focus();
           setActive(prev);
+          clearAutoplay();
+          startAutoplay();
         } else if (e.key === 'Home') {
           e.preventDefault();
           dots[0].focus();
           setActive(0);
+          clearAutoplay();
+          startAutoplay();
         } else if (e.key === 'End') {
           e.preventDefault();
           dots[dots.length - 1].focus();
           setActive(dots.length - 1);
+          clearAutoplay();
+          startAutoplay();
         }
       });
     });
+
+    if (dots.length && cards.length > 1) {
+      track?.addEventListener('mouseenter', clearAutoplay);
+      track?.addEventListener('mouseleave', startAutoplay);
+      startAutoplay();
+    }
   }
 
   function bindSeeAllToggle(root) {
@@ -223,6 +262,12 @@
   document.addEventListener('shopify:section:unload', (ev) => {
     const sid = typeof ev.detail?.sectionId === 'string' ? ev.detail.sectionId : '';
     const sec = sid ? document.getElementById(`shopify-section-${sid}`) : null;
-    sec?.querySelectorAll(sel).forEach((root) => root.removeAttribute('data-reviews-rail-ready'));
+    sec?.querySelectorAll(sel).forEach((root) => {
+      if (root._pflegeReviewsAutoplay) {
+        clearInterval(root._pflegeReviewsAutoplay);
+        root._pflegeReviewsAutoplay = null;
+      }
+      root.removeAttribute('data-reviews-rail-ready');
+    });
   });
 })();

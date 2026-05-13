@@ -94,7 +94,7 @@
   display: block;
   overflow: hidden;
   flex-shrink: 0;
-  background: var(--pflege-white, #fefefe);
+  background: var(--pflege-white, #ffffff);
   border-radius: var(--pflege-radius-lg, 22px) var(--pflege-radius-lg, 22px) 0 0;
   line-height: 0;
 }

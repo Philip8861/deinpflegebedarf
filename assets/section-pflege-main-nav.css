@@ -22,7 +22,7 @@
 }
 
 .pflege-main-nav-section .pflege-main-nav {
-  background: var(--pflege-main-bg, #fefefe);
+  background: var(--pflege-main-bg, #ffffff);
 }
 
 /* Volle Viewport-Breite (ohne Dawn page-width-Kappe), Kanten nur mit Innenabstand */
@@ -1057,7 +1057,7 @@
   padding: 0.92rem 1.15rem;
   border-radius: var(--pflege-radius-pill, 999px);
   background: var(--pflege-cta, #f89738);
-  color: var(--pflege-white, #fefefe);
+  color: var(--pflege-white, #ffffff);
   font-size: 1.34rem;
   font-weight: 700;
   text-decoration: none;

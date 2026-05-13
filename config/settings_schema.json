@@ -44,7 +44,7 @@
             "type": "color",
             "id": "background",
             "label": "t:settings_schema.colors.settings.background.label",
-            "default": "#FEFEFE"
+            "default": "#FFFFFF"
           },
           {
             "type": "color_background",

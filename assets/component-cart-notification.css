@@ -60,7 +60,7 @@
   --cn-bg-soft: var(--pflege-bg-soft, #eef6ff);
   --cn-muted: var(--pflege-muted, #6f7f95);
   --cn-muted-readable: #566574;
-  --cn-white: var(--pflege-white, #fefefe);
+  --cn-white: var(--pflege-white, #ffffff);
   --cn-cta: var(--pflege-cta, #f89738);
   --cn-cta-hover: var(--pflege-cta-hover, #dc7a22);
   --cn-radius: var(--pflege-radius-lg, 22px);
