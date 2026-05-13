@@ -121,7 +121,9 @@
     }
 
     function setActive(idx) {
-      const target = Math.max(0, Math.min(idx, cards.length - 1));
+      const raw = Number(idx);
+      const safeIdx = Number.isFinite(raw) ? raw : 0;
+      const target = Math.max(0, Math.min(safeIdx, cards.length - 1));
       current = target;
       cards.forEach((card, i) => {
         const isActive = i === target;
@@ -138,6 +140,7 @@
         }
       });
       dots.forEach((dot, i) => {
+        if (!(dot instanceof HTMLElement)) return;
         const isActive = i === target;
         dot.classList.toggle('is-active', isActive);
         dot.setAttribute('aria-selected', isActive ? 'true' : 'false');
