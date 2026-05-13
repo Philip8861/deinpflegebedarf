@@ -286,7 +286,7 @@
   padding: 0;
   border-radius: 50%;
   border: 1.5px solid var(--prr-dot-border);
-  background: transparent;
+  background: var(--prr-dot-bg);
   color: var(--prr-petrol);
   cursor: pointer;
   box-shadow: none;

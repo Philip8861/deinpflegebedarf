@@ -9,15 +9,23 @@
 {%- liquid
   assign prr_noise = 'Lesen Sie Erfahrungen anderer Käuferinnen und Käufer – oder teilen Sie Ihre eigene Bewertung.'
   assign prr_noise_dash = 'Lesen Sie Erfahrungen anderer Käuferinnen und Käufer - oder teilen Sie Ihre eigene Bewertung.'
+  assign prr_noise_em = 'Lesen Sie Erfahrungen anderer Käuferinnen und Käufer — oder teilen Sie Ihre eigene Bewertung.'
 
-  assign prr_heading_display = section.settings.heading | strip | remove: prr_noise | remove: prr_noise_dash | strip
+  assign prr_heading_src = section.settings.heading | strip | newline_to_br
+  assign prr_heading_display = prr_heading_src | split: '<br />' | first | strip
+  assign prr_heading_display = prr_heading_display | remove: prr_noise | remove: prr_noise_dash | remove: prr_noise_em | strip
+  if prr_heading_display contains 'Lesen Sie Erfahrungen'
+    assign prr_heading_display = prr_heading_display | split: 'Lesen Sie Erfahrungen' | first | strip
+  endif
+  assign prr_heading_display = prr_heading_display | replace: '  ', ' ' | strip
   if prr_heading_display == blank
     assign prr_heading_display = 'Das sagen unsere Kundinnen und Kunden'
   endif
 
+  assign review_blocks = section.blocks | where: 'type', 'review'
+  assign card_count = review_blocks.size
   assign has_reviews = false
-  assign card_count = 0
-  if section.blocks.size > 0
+  if card_count > 0
     assign has_reviews = true
   endif
 
@@ -25,14 +33,6 @@
   if has_reviews == false and section.settings.show_fallback_demo
     assign show_demo_rail = true
     assign card_count = 3
-  endif
-
-  if has_reviews
-    for block in section.blocks
-      if block.type == 'review'
-        assign card_count = card_count | plus: 1
-      endif
-    endfor
   endif
 
   assign reviews_form_panel_id = 'pflege-reviews-form-panel-' | append: section.id
@@ -60,7 +60,13 @@
         </div>
 
         {%- if section.settings.show_rating_summary_line -%}
-          {%- assign rating_summary_setting = section.settings.rating_summary | strip | remove: prr_noise | remove: prr_noise_dash | strip -%}
+          {%- assign rating_summary_src = section.settings.rating_summary | strip | newline_to_br -%}
+          {%- assign rating_summary_setting = rating_summary_src | split: '<br />' | first | strip -%}
+          {%- assign rating_summary_setting = rating_summary_setting | remove: prr_noise | remove: prr_noise_dash | remove: prr_noise_em | strip -%}
+          {%- if rating_summary_setting contains 'Lesen Sie Erfahrungen' -%}
+            {%- assign rating_summary_setting = rating_summary_setting | split: 'Lesen Sie Erfahrungen' | first | strip -%}
+          {%- endif -%}
+          {%- assign rating_summary_setting = rating_summary_setting | replace: '  ', ' ' | strip -%}
           {%- if rating_summary_setting == blank -%}
             {%- assign rating_summary_setting = 'sections.pflege_reviews_rail.rating_summary' | t -%}
           {%- endif -%}
@@ -85,32 +91,29 @@
               >
                 {%- if has_reviews -%}
                   {%- assign card_index = 0 -%}
-                  {%- for block in section.blocks -%}
-                    {%- case block.type -%}
-                      {%- when 'review' -%}
-                        {%- assign is_active = false -%}
-                        {%- if card_index == 0 -%}
-                          {%- assign is_active = true -%}
+                  {%- for block in review_blocks -%}
+                    {%- assign is_active = false -%}
+                    {%- if card_index == 0 -%}
+                      {%- assign is_active = true -%}
+                    {%- endif -%}
+                    <article
+                      class="pflege-reviews-rail__card{% if is_active %} is-active{% else %} prr-slide--off{% endif %}"
+                      data-reviews-card
+                      data-reviews-index="{{ card_index }}"
+                      {% unless is_active %}hidden{% endunless %}
+                      {% unless is_active %}style="display: none !important;"{% endunless %}
+                      {% unless is_active %}aria-hidden="true"{% endunless %}
+                      {{ block.shopify_attributes }}
+                    >
+                      <p class="pflege-reviews-rail__quote">„{{ block.settings.quote | escape }}“</p>
+                      <div class="pflege-reviews-rail__meta">
+                        <span class="pflege-reviews-rail__author">{{ block.settings.author | escape }}</span>
+                        {%- if block.settings.subtitle != blank -%}
+                          <span class="pflege-reviews-rail__subtitle">{{ block.settings.subtitle | escape }}</span>
                         {%- endif -%}
-                        <article
-                          class="pflege-reviews-rail__card{% if is_active %} is-active{% else %} prr-slide--off{% endif %}"
-                          data-reviews-card
-                          data-reviews-index="{{ card_index }}"
-                          {% unless is_active %}hidden{% endunless %}
-                          {% unless is_active %}style="display: none !important;"{% endunless %}
-                          {% unless is_active %}aria-hidden="true"{% endunless %}
-                          {{ block.shopify_attributes }}
-                        >
-                          <p class="pflege-reviews-rail__quote">„{{ block.settings.quote | escape }}“</p>
-                          <div class="pflege-reviews-rail__meta">
-                            <span class="pflege-reviews-rail__author">{{ block.settings.author | escape }}</span>
-                            {%- if block.settings.subtitle != blank -%}
-                              <span class="pflege-reviews-rail__subtitle">{{ block.settings.subtitle | escape }}</span>
-                            {%- endif -%}
-                          </div>
-                        </article>
-                        {%- assign card_index = card_index | plus: 1 -%}
-                    {%- endcase -%}
+                      </div>
+                    </article>
+                    {%- assign card_index = card_index | plus: 1 -%}
                   {%- endfor -%}
                 {%- else -%}
                   {% render 'pflege-reviews-democards' %}
@@ -198,27 +201,24 @@
                   data-reviews-all-list
                   hidden
                 >
-                  {%- for block in section.blocks -%}
-                    {%- case block.type -%}
-                      {%- when 'review' -%}
-                        {%- assign rr_rating = block.settings.rating | default: 5 | times: 1 -%}
-                        {%- if rr_rating < 1 -%}{%- assign rr_rating = 1 -%}{%- endif -%}
-                        {%- if rr_rating > 5 -%}{%- assign rr_rating = 5 -%}{%- endif -%}
-                        <article class="pflege-reviews-rail__all-item">
-                          <div class="pflege-reviews-rail__all-stars" aria-label="{{ 'sections.pflege_reviews_rail.stars_aria' | t: count: rr_rating }}">
-                            {%- for i in (1..5) -%}
-                              <span{% if i > rr_rating %} class="pflege-reviews-rail__star--dim"{% endif %} aria-hidden="true">★</span>
-                            {%- endfor -%}
-                          </div>
-                          <p class="pflege-reviews-rail__all-quote">„{{ block.settings.quote | escape }}“</p>
-                          <div class="pflege-reviews-rail__all-meta">
-                            <span class="pflege-reviews-rail__all-author">{{ block.settings.author | escape }}</span>
-                            {%- if block.settings.subtitle != blank -%}
-                              <span class="pflege-reviews-rail__all-subtitle">{{ block.settings.subtitle | escape }}</span>
-                            {%- endif -%}
-                          </div>
-                        </article>
-                    {%- endcase -%}
+                  {%- for block in review_blocks -%}
+                    {%- assign rr_rating = block.settings.rating | default: 5 | times: 1 -%}
+                    {%- if rr_rating < 1 -%}{%- assign rr_rating = 1 -%}{%- endif -%}
+                    {%- if rr_rating > 5 -%}{%- assign rr_rating = 5 -%}{%- endif -%}
+                    <article class="pflege-reviews-rail__all-item">
+                      <div class="pflege-reviews-rail__all-stars" aria-label="{{ 'sections.pflege_reviews_rail.stars_aria' | t: count: rr_rating }}">
+                        {%- for i in (1..5) -%}
+                          <span{% if i > rr_rating %} class="pflege-reviews-rail__star--dim"{% endif %} aria-hidden="true">★</span>
+                        {%- endfor -%}
+                      </div>
+                      <p class="pflege-reviews-rail__all-quote">„{{ block.settings.quote | escape }}“</p>
+                      <div class="pflege-reviews-rail__all-meta">
+                        <span class="pflege-reviews-rail__all-author">{{ block.settings.author | escape }}</span>
+                        {%- if block.settings.subtitle != blank -%}
+                          <span class="pflege-reviews-rail__all-subtitle">{{ block.settings.subtitle | escape }}</span>
+                        {%- endif -%}
+                      </div>
+                    </article>
                   {%- endfor -%}
                 </div>
               {%- endif -%}
