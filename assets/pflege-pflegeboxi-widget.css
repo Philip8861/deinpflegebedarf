@@ -271,12 +271,12 @@
   pointer-events: auto;
 }
 
-/* ~1 cm Freiraum zwischen Maskottchen-Unterkante und FAQ-Kasten (Panel-Oberkante) */
+/* Kleiner Freiraum zwischen Maskottchen-Unterkante und FAQ-Kasten */
 .pflege-pflegeboxi-modal__mascot {
   position: absolute;
   left: 50%;
   top: 0;
-  transform: translate(-50%, calc(-100% - 1cm));
+  transform: translate(-50%, calc(-100% - 6px));
   z-index: 3;
   pointer-events: none;
   line-height: 0;
