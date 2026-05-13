@@ -182,8 +182,12 @@ body.template-index .pflege-hero {
   font-size: clamp(2.15rem, 5.5vw + 0.75rem, 4.75rem);
   line-height: 1.12;
   letter-spacing: -0.02em;
-  color: var(--pflege-navy, #0b2347);
+  color: #0f4f69;
   margin: 0 0 1.45rem;
+}
+
+.pflege-hero__title span {
+  color: inherit;
 }
 
 .pflege-hero__sub {
