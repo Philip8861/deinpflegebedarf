@@ -271,6 +271,7 @@
     {{ 'component-pflege-type-unified.css' | asset_url | stylesheet_tag }}
     {%- if template.name == 'index' -%}
       {{ 'pflegeshop-header-home.css' | asset_url | stylesheet_tag }}
+      {{ 'pflege-home-entrance.css' | asset_url | stylesheet_tag }}
     {%- elsif template.name == 'collection' or request.page_type == 'collection' -%}
       {{ 'pflege-collection-page.css' | asset_url | stylesheet_tag }}
     {%- endif -%}
