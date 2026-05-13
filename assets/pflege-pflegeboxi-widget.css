@@ -110,53 +110,65 @@
 .pflege-pflegeboxi-widget__bubble {
   --pflegeboxi-bubble-fill: rgba(255, 255, 255, 0.78);
   --pflegeboxi-bubble-border: #0f5069;
+  /* Zacken: gemeinsame Ankerposition, saubere px-Werte */
+  --pflegeboxi-tail-right: 2rem;
+  --pflegeboxi-tail-h-outer: 9px;
+  --pflegeboxi-tail-w-outer: 8px;
+  --pflegeboxi-tail-h-inner: 7px;
+  --pflegeboxi-tail-w-inner: 6px;
+  --pflegeboxi-tail-border: 1px;
   display: block;
   position: relative;
   z-index: 1;
-  padding: 0.65rem 0.85rem 0.75rem;
-  border-radius: 1rem 1rem 0.55rem 1rem;
+  padding: 0.5rem 0.7rem 0.58rem;
+  border-radius: 0.85rem 0.85rem 0.45rem 0.85rem;
   background: var(--pflegeboxi-bubble-fill);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  border: 2px solid var(--pflegeboxi-bubble-border);
+  border: 1px solid var(--pflegeboxi-bubble-border);
   box-shadow: 0 8px 28px rgba(15, 45, 84, 0.1);
-  font-size: 1.01rem;
-  line-height: 1.38;
+  font-size: 0.92rem;
+  line-height: 1.35;
   font-weight: 600;
   color: #0f4f69;
   text-align: left;
-  max-width: min(16.25rem, calc(100vw - max(2.6rem, env(safe-area-inset-left, 0px) + env(safe-area-inset-right, 0px))));
+  max-width: min(14rem, calc(100vw - max(2.6rem, env(safe-area-inset-left, 0px) + env(safe-area-inset-right, 0px))));
   width: 100%;
   box-sizing: border-box;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.28rem;
 }
 
-/* Zacken zur Figur (zeigt nach unten auf Pflegeboxi) */
+/* Zacken zur Figur — Anschluss an Unterkante, gleiche Achse */
 .pflege-pflegeboxi-widget__bubble::before {
   content: "";
   position: absolute;
-  bottom: -0.62rem;
-  right: 1.35rem;
+  top: 100%;
+  right: var(--pflegeboxi-tail-right);
+  left: auto;
+  transform: translateX(50%);
   width: 0;
   height: 0;
-  border: solid transparent;
-  border-width: 0.62rem 0.55rem 0 0.55rem;
-  border-top-color: var(--pflegeboxi-bubble-border);
+  border-style: solid;
+  border-color: var(--pflegeboxi-bubble-border) transparent transparent transparent;
+  border-width: var(--pflegeboxi-tail-h-outer) var(--pflegeboxi-tail-w-outer) 0 var(--pflegeboxi-tail-w-outer);
   pointer-events: none;
 }
 
 .pflege-pflegeboxi-widget__bubble::after {
   content: "";
   position: absolute;
-  bottom: -0.46rem;
-  right: calc(1.35rem + 0.09rem);
+  top: 100%;
+  right: var(--pflegeboxi-tail-right);
+  left: auto;
+  margin-top: var(--pflegeboxi-tail-border);
+  transform: translateX(50%);
   width: 0;
   height: 0;
-  border: solid transparent;
-  border-width: 0.48rem 0.41rem 0 0.41rem;
-  border-top-color: var(--pflegeboxi-bubble-fill);
+  border-style: solid;
+  border-color: var(--pflegeboxi-bubble-fill) transparent transparent transparent;
+  border-width: var(--pflegeboxi-tail-h-inner) var(--pflegeboxi-tail-w-inner) 0 var(--pflegeboxi-tail-w-inner);
   pointer-events: none;
 }
 
