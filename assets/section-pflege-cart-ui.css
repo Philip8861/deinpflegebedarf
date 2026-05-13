@@ -47,22 +47,26 @@
   color: var(--pflege-main-muted, #6f7f95);
 }
 
-/* Menge + „In den Warenkorb“ in einer Zeile */
+/* Menge + „In den Warenkorb“: je ca. 50 %, kompakte Mengen-Pille */
 .pflege-product__purchase-row {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: flex-end;
-  gap: 0.85rem;
+  gap: 0.75rem;
   width: 100%;
   max-width: 100%;
   margin-bottom: 0.85rem;
 }
 
 .pflege-product__purchase-row .product-form__quantity {
-  flex: 0 0 auto;
+  flex: 1 1 0;
+  min-width: 0;
   margin-bottom: 0;
-  max-width: 100%;
+  max-width: none;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
 
 .pflege-product__purchase-row .product-form__quantity .form__label {
@@ -80,10 +84,17 @@
   display: none;
 }
 
+.pflege-product__purchase-row .product-form__quantity .price-per-item__container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
 .pflege-product__purchase-row .product-form {
-  flex: 1 1 14rem;
+  flex: 1 1 0;
+  min-width: 0;
   margin-top: 0;
-  min-width: min(100%, 14rem);
+  align-self: flex-end;
 }
 
 .pflege-product__purchase-row .product-form > .form {
@@ -98,19 +109,53 @@
 }
 
 .pflege-product__purchase-row quantity-input.quantity {
-  border-radius: 0.65rem;
-  border: 1px solid #d5dce8;
+  width: 100%;
+  max-width: min(100%, 12rem);
+  margin-inline: auto;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 74, 153, 0.16);
   background: #fff;
   min-height: 4.45rem;
+  max-height: 4.45rem;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 2px 8px rgba(11, 35, 71, 0.06);
+  overflow: hidden;
 }
 
 .pflege-product__purchase-row .quantity__button {
   color: var(--pflege-navy, #0b2347);
+  min-width: 2.85rem;
+  background: transparent;
+  transition: background 0.15s ease;
+}
+
+.pflege-product__purchase-row .quantity__button:hover {
+  background: rgba(0, 74, 153, 0.06);
+}
+
+.pflege-product__purchase-row .quantity__button .svg-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pflege-product__purchase-row .quantity__button .svg-wrapper svg {
+  width: 1rem;
+  height: 1rem;
 }
 
 .pflege-product__purchase-row .quantity__input {
-  font-size: 1.45rem;
-  font-weight: 600;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-align: center;
+  border: none !important;
+  background: transparent;
+  box-shadow: none !important;
+  min-width: 2rem;
+  max-width: 4rem;
+  flex: 1 1 auto;
 }
 
 /* Oranger Haupt-CTA */
