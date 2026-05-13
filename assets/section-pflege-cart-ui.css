@@ -50,7 +50,7 @@
 /* Menge + Warenkorb: CSS-Variablen (Höhe, Radius, Trust-Blau für +/- wie 3-Vorteile-Icons) */
 .pflege-product__purchase-row {
   --pflege-purchase-radius: 0.65rem;
-  --pflege-purchase-row-height: 4.45rem;
+  --pflege-purchase-row-height: 4.5rem;
   --pflege-qty-slot-width: 9.25rem;
   --pflege-qty-step-bg: rgba(88, 145, 215, 0.14);
   --pflege-qty-step-bg-hover: rgba(88, 145, 215, 0.24);
@@ -132,9 +132,9 @@
   border-radius: var(--pflege-purchase-radius);
   border: 1px solid rgba(15, 79, 105, 0.16);
   background: #fff;
-  height: var(--pflege-purchase-row-height);
-  min-height: var(--pflege-purchase-row-height);
-  max-height: var(--pflege-purchase-row-height);
+  height: var(--pflege-purchase-row-height) !important;
+  min-height: var(--pflege-purchase-row-height) !important;
+  max-height: var(--pflege-purchase-row-height) !important;
   box-shadow: none;
   overflow: hidden;
   box-sizing: border-box;
@@ -181,13 +181,14 @@
   flex: 1 1 auto;
 }
 
-/* CTA: +25 % zur vorigen Mindestbreite (2 × Slot × 1,25), gleiche Höhe/Rundung, ohne Schatten */
+/* CTA: Mindestbreite = vorher 2,5× Slot, jetzt +⅓ → 10/3 × Slot; Höhe wie Menge (theme .button min-height aushebeln) */
 .pflege-product__purchase-row .pflege-product__add-btn.button {
   width: 100%;
   max-width: 100%;
-  min-width: min(100%, calc(var(--pflege-qty-slot-width) * 2.5));
-  min-height: var(--pflege-purchase-row-height);
-  height: var(--pflege-purchase-row-height);
+  min-width: min(100%, calc(var(--pflege-qty-slot-width) * 10 / 3));
+  min-height: var(--pflege-purchase-row-height) !important;
+  height: var(--pflege-purchase-row-height) !important;
+  max-height: var(--pflege-purchase-row-height) !important;
   border-radius: var(--pflege-purchase-radius);
   box-sizing: border-box;
   box-shadow: none !important;
@@ -197,9 +198,10 @@
   .pflege-product__purchase-row .pflege-product__add-btn.button {
     width: 100%;
     max-width: 100%;
-    min-width: min(100%, calc(var(--pflege-qty-slot-width) * 2.5));
-    min-height: var(--pflege-purchase-row-height);
-    height: var(--pflege-purchase-row-height);
+    min-width: min(100%, calc(var(--pflege-qty-slot-width) * 10 / 3));
+    min-height: var(--pflege-purchase-row-height) !important;
+    height: var(--pflege-purchase-row-height) !important;
+    max-height: var(--pflege-purchase-row-height) !important;
     border-radius: var(--pflege-purchase-radius);
     box-shadow: none !important;
   }
@@ -209,7 +211,7 @@
 .pflege-product__add-btn.button {
   --pflege-cta-orange: #ff791f;
   width: 100%;
-  min-height: var(--pflege-purchase-row-height, 4.45rem);
+  min-height: var(--pflege-purchase-row-height, 4.5rem);
   padding: 0 1.5rem;
   border-radius: var(--pflege-purchase-radius, 0.65rem);
   border: none;
