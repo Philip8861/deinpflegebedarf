@@ -3,8 +3,8 @@
 .pflege-ratgeber-bridge {
   --prb-navy: var(--pflege-navy, #0b2347);
   --prb-accent: var(--pflege-accent, #3f86d9);
-  --prb-cta: var(--pflege-cta, #e67e22);
-  --prb-cta-hover: var(--pflege-cta-hover, #cf711f);
+  --prb-cta: var(--pflege-cta, #f89738);
+  --prb-cta-hover: var(--pflege-cta-hover, #dc7a22);
   --prb-soft: var(--pflege-bg-soft, #eef6ff);
   --prb-border: var(--pflege-border, #e5eef8);
   font-family: var(--font-body-family, inherit);

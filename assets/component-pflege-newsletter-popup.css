@@ -5,8 +5,8 @@
   --pnp-sky: var(--pflege-accent, #5891d7);
   --pnp-sky-soft: rgba(88, 145, 215, 0.12);
   --pnp-border: rgba(88, 145, 215, 0.28);
-  --pnp-cta: #ff791f;
-  --pnp-cta-hover: #e86915;
+  --pnp-cta: #f89738;
+  --pnp-cta-hover: #dc7a22;
   --pnp-input-border: #dce7f5;
   --pnp-shadow: 0 22px 60px rgba(11, 35, 71, 0.22), 0 6px 18px rgba(11, 35, 71, 0.08);
   position: fixed;

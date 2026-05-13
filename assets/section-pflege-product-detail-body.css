@@ -5,7 +5,7 @@
   --pdp-accent: var(--pflege-accent, #3f86d9);
   --pdp-border: rgba(63, 134, 217, 0.22);
   --pdp-soft: var(--pflege-bg-soft, #eef6ff);
-  --pdp-cta: var(--pflege-cta, #e67e22);
+  --pdp-cta: var(--pflege-cta, #f89738);
   font-family: var(--font-body-family, inherit);
   color: var(--pdp-n);
   /* Klar erkennbare Grenze unter Kauf-/Medienbereich – sonst wirkt Theme „wie vorher“. */

@@ -18,8 +18,8 @@
 .pflege-cookie-banner {
   --pflege-cookie-navy: var(--pflege-navy, #0b2347);
   --pflege-cookie-accent: var(--pflege-accent, #3f86d9);
-  --pflege-cookie-cta: #ea7000;
-  --pflege-cookie-cta-hover: #c75f00;
+  --pflege-cookie-cta: #f89738;
+  --pflege-cookie-cta-hover: #dc7a22;
   --pflege-cookie-border: var(--pflege-border, #e5eef8);
   --pflege-cookie-panel: var(--pflege-bg-soft, #eef6ff);
   position: fixed;

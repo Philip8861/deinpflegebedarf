@@ -225,7 +225,7 @@
 
 /* Oranger Haupt-CTA */
 .pflege-product__add-btn.button {
-  --pflege-cta-orange: #ff791f;
+  --pflege-cta-orange: var(--pflege-cta, #f89738);
   width: 100%;
   min-height: var(--pflege-purchase-row-height, 3.85rem);
   padding: 0 1.5rem;
@@ -261,7 +261,7 @@
 }
 
 .pflege-product__add-btn.button:not([disabled]):hover {
-  background: #e86915;
+  background: var(--pflege-cta-hover, #dc7a22);
   color: #fff;
 }
 

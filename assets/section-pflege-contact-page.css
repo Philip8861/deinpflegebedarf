@@ -5,8 +5,8 @@
   --pfc-border: var(--pflege-border, #e5eef8);
   --pfc-muted: var(--pflege-muted, #6f7f95);
   --pfc-panel: var(--pflege-bg-soft, #eef6ff);
-  --pfc-cta: var(--pflege-cta, #e67e22);
-  --pfc-cta-hover: var(--pflege-cta-hover, #cf711f);
+  --pfc-cta: var(--pflege-cta, #f89738);
+  --pfc-cta-hover: var(--pflege-cta-hover, #dc7a22);
   --pfc-radius: var(--pflege-radius-lg, 22px);
   background: linear-gradient(
     180deg,

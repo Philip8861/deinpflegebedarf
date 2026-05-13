@@ -61,8 +61,8 @@
   --cn-muted: var(--pflege-muted, #6f7f95);
   --cn-muted-readable: #566574;
   --cn-white: var(--pflege-white, #fefefe);
-  --cn-cta: var(--pflege-cta, #e67e22);
-  --cn-cta-hover: var(--pflege-cta-hover, #cf711f);
+  --cn-cta: var(--pflege-cta, #f89738);
+  --cn-cta-hover: var(--pflege-cta-hover, #dc7a22);
   --cn-radius: var(--pflege-radius-lg, 22px);
   --cn-radius-card: clamp(13px, 3.3vw, 16px);
 

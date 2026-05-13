@@ -5,8 +5,8 @@
   --pflege-cart-sky: #5891d7;
   --pflege-cart-sky-soft: rgba(88, 145, 215, 0.12);
   --pflege-cart-border: #dfe6ef;
-  --pflege-cart-cta: var(--pflege-cta-orange, #ff791f);
-  --pflege-cart-cta-hover: #e86915;
+  --pflege-cart-cta: var(--pflege-cta-orange, #f89738);
+  --pflege-cart-cta-hover: #dc7a22;
   --pflege-cart-green: #1e8f5a;
 }
 

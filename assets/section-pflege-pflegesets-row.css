@@ -148,7 +148,7 @@
   line-height: 1.2;
   text-align: center;
   color: #fff;
-  background: var(--pflege-cta, #e67e22);
+  background: var(--pflege-cta, #f89738);
   box-shadow: 0 2px 8px rgba(11, 35, 71, 0.18);
   box-sizing: border-box;
 }
@@ -239,7 +239,7 @@
 }
 
 .pflege-pflegesets__price--sale .pflege-pflegesets__current {
-  color: var(--pflege-cta, #e67e22);
+  color: var(--pflege-cta, #f89738);
 }
 
 .pflege-pflegesets__save {

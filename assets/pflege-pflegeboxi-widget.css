@@ -319,9 +319,9 @@
   font-weight: 600;
   text-decoration: none;
   color: #fff;
-  background: linear-gradient(180deg, #f5841f 0%, #e87312 100%);
+  background: linear-gradient(180deg, #f89738 0%, #dc7a22 100%);
   border: none;
-  box-shadow: 0 4px 14px rgba(232, 115, 18, 0.35);
+  box-shadow: 0 4px 14px rgba(248, 151, 56, 0.35);
 }
 
 .pflege-pflegeboxi-modal__more:hover {
