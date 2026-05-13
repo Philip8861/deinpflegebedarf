@@ -7,11 +7,6 @@
 <script src="{{ 'pflege-reviews-rail.js' | asset_url }}" defer="defer"></script>
 
 {%- liquid
-  assign rating_summary_setting = section.settings.rating_summary | strip
-  if rating_summary_setting == blank
-    assign rating_summary_setting = 'sections.pflege_reviews_rail.rating_summary' | t
-  endif
-
   assign has_reviews = false
   assign card_count = 0
   if section.blocks.size > 0
@@ -56,7 +51,13 @@
           {%- endfor -%}
         </div>
 
-        <p class="pflege-reviews-rail__rating-summary">{{ rating_summary_setting | escape }}</p>
+        {%- if section.settings.show_rating_summary_line -%}
+          {%- assign rating_summary_setting = section.settings.rating_summary | strip -%}
+          {%- if rating_summary_setting == blank -%}
+            {%- assign rating_summary_setting = 'sections.pflege_reviews_rail.rating_summary' | t -%}
+          {%- endif -%}
+          <p class="pflege-reviews-rail__rating-summary">{{ rating_summary_setting | escape }}</p>
+        {%- endif -%}
       </header>
 
       <div class="pflege-reviews-rail__carousel-wrap">
@@ -464,8 +465,16 @@
     {
       "type": "text",
       "id": "rating_summary",
-      "label": "Zeile unter den Sternen (Bewertungszusammenfassung)",
-      "default": "Google-Rezensionen · 5,0 Sterne"
+      "label": "Zeile unter den Sternen (nur wenn unten aktiviert)",
+      "default": "Google-Rezensionen · 5,0 Sterne",
+      "info": "Kurzer Zusatztext. Langer Werbetext (z. B. „Lesen Sie Erfahrungen …“) ist absichtlich nicht vorgesehen — nutzen Sie dafür ggf. die Hauptüberschrift oder einen eigenen Text-Baustein."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating_summary_line",
+      "label": "Zeile unter den Sternen anzeigen",
+      "default": false,
+      "info": "Standard: aus (schlanker Block). Einschalten für einen kurzen Hinweis wie „Google-Rezensionen …“."
     },
     {
       "type": "checkbox",
