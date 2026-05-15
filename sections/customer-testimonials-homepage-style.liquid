@@ -5,15 +5,16 @@
 <script src="{{ 'customer-testimonials-homepage-style.js' | asset_url }}" defer="defer"></script>
 
 {%- liquid
-  assign rating_count = section.settings.rating_count | default: 13
-  if rating_count < 1
-    assign rating_count = 1
-  elsif rating_count > 30
-    assign rating_count = 30
-  endif
-
   assign review_blocks = section.blocks | where: 'type', 'review'
   assign review_count = review_blocks.size
+
+  assign dot_count = 0
+  if review_count > 0
+    assign dot_count = review_count
+    if dot_count > 20
+      assign dot_count = 20
+    endif
+  endif
 
   assign eyebrow = section.settings.eyebrow_text | strip
   if eyebrow == blank
@@ -29,7 +30,7 @@
   if btn_label_t == blank
     assign btn_label_t = 'Alle [count] Kundenstimmen anzeigen'
   endif
-  assign btn_label_t = btn_label_t | replace: '[count]', rating_count
+  assign btn_label_t = btn_label_t | replace: '[count]', review_count
 
   assign pad_top = section.settings.padding_top | default: 64
   assign pad_bot = section.settings.padding_bottom | default: 68
@@ -116,27 +117,29 @@
       {%- endif -%}
     </div>
 
-    <ul class="ct-hp__dots" role="list" aria-label="{{ 'sections.customer_testimonials_hp.dots_label' | t }}">
-      {%- for i in (1..rating_count) -%}
-        {%- assign dot_idx = forloop.index0 -%}
-        <li role="listitem">
-          <button
-            type="button"
-            class="ct-hp__dot{% if forloop.first %} is-active{% endif %}"
-            data-ct-dot
-            data-ct-dot-index="{{ dot_idx }}"
-            aria-label="{{ 'sections.customer_testimonials_hp.dot_aria' | t: index: forloop.index }}"
-            {% if forloop.first %}
-              aria-current="true"
-            {% endif %}
-          >
-            <svg class="ct-hp__dot-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path class="ct-hp__dot-check" d="M6 12.5L10 16.5L18 8.5"/>
-            </svg>
-          </button>
-        </li>
-      {%- endfor -%}
-    </ul>
+    {%- if review_count > 0 -%}
+      <ul class="ct-hp__dots" role="list" aria-label="{{ 'sections.customer_testimonials_hp.dots_label' | t }}">
+        {%- for i in (1..dot_count) -%}
+          {%- assign dot_idx = forloop.index0 -%}
+          <li role="listitem">
+            <button
+              type="button"
+              class="ct-hp__dot{% if forloop.first %} is-active{% endif %}"
+              data-ct-dot
+              data-ct-dot-index="{{ dot_idx }}"
+              aria-label="{{ 'sections.customer_testimonials_hp.dot_aria' | t: index: forloop.index }}"
+              {% if forloop.first %}
+                aria-current="true"
+              {% endif %}
+            >
+              <svg class="ct-hp__dot-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path class="ct-hp__dot-check" d="M6 12.5L10 16.5L18 8.5"/>
+              </svg>
+            </button>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
 
     <div class="ct-hp__cta-wrap">
       {%- if section.settings.button_link != blank -%}
@@ -229,7 +232,7 @@
       "id": "button_label",
       "label": "Button-Text",
       "default": "Alle [count] Kundenstimmen anzeigen",
-      "info": "[count] wird durch die Anzahl Marker ersetzt."
+      "info": "[count] wird durch die Anzahl der Kundenstimmen-Blocks ersetzt. Die orangefarbenen Marker entsprechen dieser Anzahl (höchstens 20)."
     },
     {
       "type": "url",
@@ -242,15 +245,6 @@
       "id": "modal_heading",
       "label": "Überschrift über der aufklappbaren Liste",
       "default": "Alle Kundenstimmen"
-    },
-    {
-      "type": "range",
-      "id": "rating_count",
-      "min": 1,
-      "max": 30,
-      "step": 1,
-      "label": "Anzahl Marker (Pagination)",
-      "default": 13
     },
     {
       "type": "checkbox",
