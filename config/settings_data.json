@@ -139,9 +139,9 @@
           "ct_review_1": {
             "type": "review",
             "settings": {
-              "review_text": "Ich freue mich, dass ich von einer so guten Organisation mit einer überaus freundlichen und kompetenten Mitarbeiterin, Frau Riegel betreut werde.",
-              "customer_name": "Günter Bautz",
-              "source_text": "Rezension aus Google · 5/5"
+              "review_text": "Test",
+              "customer_name": "Julia Tanheimer",
+              "source_text": "Bewertung direkt aus dem Shop · 5/5"
             }
           },
           "ct_review_2": {
@@ -164,8 +164,8 @@
           "button_label": "Alle [count] Kundenstimmen anzeigen",
           "button_link": "",
           "rating_count": 13,
-          "auto_rotate": true,
-          "auto_rotate_seconds": 5,
+          "auto_rotate": false,
+          "auto_rotate_seconds": 8,
           "empty_message": "Fügen Sie Kundenstimmen-Blocks hinzu.",
           "padding_top": 64,
           "padding_bottom": 68
