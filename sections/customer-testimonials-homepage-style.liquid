@@ -34,7 +34,7 @@
   assign pad_top = section.settings.padding_top | default: 64
   assign pad_bot = section.settings.padding_bottom | default: 68
   assign auto_on = section.settings.auto_rotate
-  assign auto_sec = section.settings.auto_rotate_seconds | default: 8
+  assign auto_sec = section.settings.auto_rotate_seconds | default: 5
   if auto_sec < 3
     assign auto_sec = 3
   elsif auto_sec > 60
@@ -197,7 +197,8 @@
       "type": "checkbox",
       "id": "auto_rotate",
       "label": "Automatisch wechseln",
-      "default": false
+      "default": true,
+      "info": "Wechselt Zitat und Marker (bei mehreren Stimmen)."
     },
     {
       "type": "range",
@@ -207,7 +208,7 @@
       "step": 1,
       "unit": "s",
       "label": "Wechsel alle (Sekunden)",
-      "default": 8
+      "default": 5
     },
     {
       "type": "textarea",

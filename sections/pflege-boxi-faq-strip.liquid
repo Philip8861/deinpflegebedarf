@@ -104,11 +104,27 @@
     if (!root) return;
     var btn = root.querySelector('[data-faq-load-more]');
     var extra = root.querySelector('[data-faq-extra]');
-    if (!btn || !extra) return;
+    var labelEl = btn && btn.querySelector('.pflege-boxi-faq-strip__load-more-label');
+    if (!btn || !extra || !labelEl) return;
+    var labelMore = btn.getAttribute('data-faq-label-more') || labelEl.textContent || '';
+    var labelLess = btn.getAttribute('data-faq-label-less') || '';
+
     btn.addEventListener('click', function () {
-      extra.removeAttribute('hidden');
-      btn.setAttribute('aria-expanded', 'true');
-      btn.remove();
+      var hidden = extra.hasAttribute('hidden');
+      if (hidden) {
+        extra.removeAttribute('hidden');
+        btn.setAttribute('aria-expanded', 'true');
+        btn.classList.add('is-expanded');
+        labelEl.textContent = labelLess;
+      } else {
+        extra.setAttribute('hidden', '');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.classList.remove('is-expanded');
+        labelEl.textContent = labelMore;
+        extra.querySelectorAll('details.pflege-boxi-faq-strip__item[open]').forEach(function (el) {
+          el.removeAttribute('open');
+        });
+      }
     });
   })();
 </script>

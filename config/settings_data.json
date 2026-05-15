@@ -164,8 +164,8 @@
           "button_label": "Alle [count] Kundenstimmen anzeigen",
           "button_link": "",
           "rating_count": 13,
-          "auto_rotate": false,
-          "auto_rotate_seconds": 8,
+          "auto_rotate": true,
+          "auto_rotate_seconds": 5,
           "empty_message": "Fügen Sie Kundenstimmen-Blocks hinzu.",
           "padding_top": 64,
           "padding_bottom": 68
@@ -463,8 +463,8 @@
             "button_label": "Alle [count] Kundenstimmen anzeigen",
             "button_link": "",
             "rating_count": 13,
-            "auto_rotate": false,
-            "auto_rotate_seconds": 8,
+            "auto_rotate": true,
+            "auto_rotate_seconds": 5,
             "empty_message": "Fügen Sie Kundenstimmen-Blocks hinzu.",
             "padding_top": 64,
             "padding_bottom": 68

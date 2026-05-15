@@ -46,11 +46,22 @@
     }
   }
 
+  function prefersReducedMotion() {
+    try {
+      return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    } catch (e) {
+      return false;
+    }
+  }
+
   function setupAuto(root) {
     destroyAuto(root);
     if (root.getAttribute('data-ct-auto') !== 'true') return;
-    var sec = parseInt(root.getAttribute('data-ct-auto-sec') || '8', 10);
-    if (!sec || sec < 3) sec = 8;
+    if (prefersReducedMotion()) return;
+    var panels = getPanels(root);
+    if (panels.length <= 1) return;
+    var sec = parseInt(root.getAttribute('data-ct-auto-sec') || '5', 10);
+    if (isNaN(sec) || sec < 3) sec = 5;
     var dots = getDots(root);
     if (dots.length <= 1) return;
 
