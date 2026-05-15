@@ -4,7 +4,7 @@
   --pfb-strip-petrol: #0f4f69;
   --pfb-strip-blue: #2c6abf;
   --pfb-strip-muted: rgba(15, 45, 84, 0.88);
-  /* Farben wie section-pflege-reviews-rail (Surf-Ende / Wellen-Band) */
+  /* Farben: helles Band über dem FAQ-Bereich */
   --pfb-arc-from: #eef4f8;
   --pfb-arc-mid: #fafcfd;
 
@@ -14,7 +14,7 @@
   border-top: none;
 }
 
-/* Halbellipse nach oben — gleiche Logik wie .pflege-reviews-rail__arc-edge--top */
+/* Halbellipse nach oben — weicher Übergang zum FAQ-Bereich */
 .pflege-boxi-faq-strip__arc-edge {
   display: block;
   flex-shrink: 0;

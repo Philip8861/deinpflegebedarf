@@ -133,45 +133,42 @@
           "color_scheme": "scheme-1"
         }
       },
-      "pflege-reviews-rail": {
-        "type": "pflege-reviews-rail",
+      "customer-testimonials-homepage-style": {
+        "type": "customer-testimonials-homepage-style",
         "blocks": {
-          "review_CTCeEU": {
+          "ct_review_1": {
             "type": "review",
             "settings": {
-              "rating": 5,
-              "quote": "Sehr guter Service und schnelle Lieferung!",
-              "author": "Kundin/Kunde",
-              "subtitle": ""
+              "review_text": "Ich freue mich, dass ich von einer so guten Organisation mit einer überaus freundlichen und kompetenten Mitarbeiterin, Frau Riegel betreut werde.",
+              "customer_name": "Günter Bautz",
+              "source_text": "Rezension aus Google · 5/5"
             }
           },
-          "review_mAQyxf": {
+          "ct_review_2": {
             "type": "review",
             "settings": {
-              "rating": 5,
-              "quote": "Sehr guter Service und schnelle Lieferung!",
-              "author": "Kundin/Kunde",
-              "subtitle": ""
+              "review_text": "Sehr guter Service und schnelle Lieferung!",
+              "customer_name": "Kundin/Kunde",
+              "source_text": "Rezension aus Google · 5/5"
             }
           }
         },
         "block_order": [
-          "review_CTCeEU",
-          "review_mAQyxf"
+          "ct_review_1",
+          "ct_review_2"
         ],
         "settings": {
-          "color_scheme": "scheme-1",
-          "heading": "Das sagen unsere Kundinnen und Kunden",
-          "rating_summary": "Google-Rezensionen · 5,0 Sterne",
-          "intro_body": "",
-          "subheading": "",
-          "show_fallback_demo": true,
-          "empty_state": "",
-          "show_form": true,
-          "form_heading": "Ihre Bewertung",
-          "form_hint": "Teilen Sie Ihre Erfahrung mit uns. Ihre Bewertung wird nach Prüfung veröffentlicht.",
-          "privacy_note": "<p>Mit dem Absenden speichern wir Ihre Angaben zur Bearbeitung Ihrer Bewertung. Weitere Informationen finden Sie in unserer Datenschutzerklärung.</p>",
-          "success_continue_url": ""
+          "eyebrow_text": "Google-Rezensionen · 5,0 Sterne",
+          "heading": "Das sagen unsere Kund*innen",
+          "stars_aria_label": "5 von 5 Sternen",
+          "button_label": "Alle [count] Kundenstimmen anzeigen",
+          "button_link": "",
+          "rating_count": 13,
+          "auto_rotate": false,
+          "auto_rotate_seconds": 8,
+          "empty_message": "Fügen Sie Kundenstimmen-Blocks hinzu.",
+          "padding_top": 64,
+          "padding_bottom": 68
         }
       },
       "pflege-boxi-faq-strip": {
@@ -426,53 +423,51 @@
             "color_scheme": "scheme-1"
           }
         },
-        "pflege-reviews-rail": {
-          "type": "pflege-reviews-rail",
+        "customer-testimonials-homepage-style": {
+          "type": "customer-testimonials-homepage-style",
           "blocks": {
-            "prr_review_a": {
+            "ct_review_a": {
               "type": "review",
               "settings": {
-                "rating": 5,
-                "quote": "Alles bestens, top Service.",
-                "author": "E. A.",
-                "subtitle": "10 Rezensionen"
+                "review_text": "Ich freue mich, dass ich von einer so guten Organisation mit einer überaus freundlichen und kompetenten Mitarbeiterin, Frau Riegel betreut werde.",
+                "customer_name": "Günter Bautz",
+                "source_text": "Rezension aus Google · 5/5"
               }
             },
-            "prr_review_b": {
+            "ct_review_b": {
               "type": "review",
               "settings": {
-                "rating": 5,
-                "quote": "Unkomplizierte Bestellung und freundlicher Support am Telefon.",
-                "author": "Marion S.",
-                "subtitle": "8 Rezensionen"
+                "review_text": "Alles bestens, top Service.",
+                "customer_name": "E. A.",
+                "source_text": "Rezension aus Google · 5/5"
               }
             },
-            "prr_review_c": {
+            "ct_review_c": {
               "type": "review",
               "settings": {
-                "rating": 5,
-                "quote": "Produkte wie beschrieben, Lieferzeit hat gepasst.",
-                "author": "Familie Becker",
-                "subtitle": "6 Rezensionen"
+                "review_text": "Unkomplizierte Bestellung und freundlicher Support am Telefon.",
+                "customer_name": "Marion S.",
+                "source_text": "Rezension aus Google · 5/5"
               }
             }
           },
           "block_order": [
-            "prr_review_a",
-            "prr_review_b",
-            "prr_review_c"
+            "ct_review_a",
+            "ct_review_b",
+            "ct_review_c"
           ],
           "settings": {
-            "color_scheme": "scheme-1",
-            "heading": "Das sagen unsere Kundinnen und Kunden",
-            "rating_summary": "Google-Rezensionen · 5,0 Sterne",
-            "show_fallback_demo": true,
-            "empty_state": "Hier gibt es bald die ersten Bewertungen. Nutzen Sie gern „Eigene Bewertung schreiben“.",
-            "show_form": true,
-            "form_heading": "Ihre Bewertung",
-            "form_hint": "Teilen Sie Ihre Erfahrung mit uns. Ihre Bewertung wird nach Prüfung veröffentlicht.",
-            "privacy_note": "<p>Mit dem Absenden speichern wir Ihre Angaben zur Bearbeitung Ihrer Bewertung. Weitere Informationen finden Sie in unserer Datenschutzerklärung.</p>",
-            "success_continue_url": ""
+            "eyebrow_text": "Google-Rezensionen · 5,0 Sterne",
+            "heading": "Das sagen unsere Kund*innen",
+            "stars_aria_label": "5 von 5 Sternen",
+            "button_label": "Alle [count] Kundenstimmen anzeigen",
+            "button_link": "",
+            "rating_count": 13,
+            "auto_rotate": false,
+            "auto_rotate_seconds": 8,
+            "empty_message": "Fügen Sie Kundenstimmen-Blocks hinzu.",
+            "padding_top": 64,
+            "padding_bottom": 68
           }
         }
       }

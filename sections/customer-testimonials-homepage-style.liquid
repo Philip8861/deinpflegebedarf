@@ -1,0 +1,285 @@
+{% comment %}
+  Kundenstimmen / Google-Rezensionen — Homepage-Vorbild (clean, Blocks für Zitate).
+{% endcomment %}
+{{ 'section-customer-testimonials-homepage-style.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'customer-testimonials-homepage-style.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign rating_count = section.settings.rating_count | default: 13
+  if rating_count < 1
+    assign rating_count = 1
+  elsif rating_count > 30
+    assign rating_count = 30
+  endif
+
+  assign review_blocks = section.blocks | where: 'type', 'review'
+  assign review_count = review_blocks.size
+
+  assign eyebrow = section.settings.eyebrow_text | strip
+  if eyebrow == blank
+    assign eyebrow = 'Google-Rezensionen · 5,0 Sterne'
+  endif
+
+  assign head = section.settings.heading | strip
+  if head == blank
+    assign head = 'Das sagen unsere Kund*innen'
+  endif
+
+  assign btn_label_t = section.settings.button_label | strip
+  if btn_label_t == blank
+    assign btn_label_t = 'Alle [count] Kundenstimmen anzeigen'
+  endif
+  assign btn_label_t = btn_label_t | replace: '[count]', rating_count
+
+  assign pad_top = section.settings.padding_top | default: 64
+  assign pad_bot = section.settings.padding_bottom | default: 68
+  assign auto_on = section.settings.auto_rotate
+  assign auto_sec = section.settings.auto_rotate_seconds | default: 8
+  if auto_sec < 3
+    assign auto_sec = 3
+  elsif auto_sec > 60
+    assign auto_sec = 60
+  endif
+
+  assign stars_aria = section.settings.stars_aria_label | strip
+  if stars_aria == blank
+    assign stars_aria = '5 von 5 Sternen'
+  endif
+-%}
+
+{%- style -%}
+  #CustomerTestimonials-{{ section.id }} {
+    padding-top: {{ pad_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ pad_bot | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    #CustomerTestimonials-{{ section.id }} {
+      padding-top: {{ pad_top }}px;
+      padding-bottom: {{ pad_bot }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section
+  id="CustomerTestimonials-{{ section.id }}"
+  class="ct-hp"
+  data-ct-root="{{ section.id }}"
+  {% if auto_on %}
+    data-ct-auto="true"
+    data-ct-auto-sec="{{ auto_sec }}"
+  {% endif %}
+  aria-labelledby="ct-title-{{ section.id }}"
+  {{ section.shopify_attributes }}
+>
+  <div class="ct-hp__inner">
+    <header class="ct-hp__head">
+      <div class="ct-hp__stars" role="img" aria-label="{{ stars_aria | escape }}">
+        {%- for _ in (1..5) -%}
+          <span class="ct-hp__star" aria-hidden="true">★</span>
+        {%- endfor -%}
+      </div>
+      <p class="ct-hp__eyebrow">{{ eyebrow | escape }}</p>
+      <h2 class="ct-hp__title" id="ct-title-{{ section.id }}">{{ head | escape }}</h2>
+    </header>
+
+    <div class="ct-hp__body" aria-live="polite">
+      {%- if review_count > 0 -%}
+        {%- for block in review_blocks -%}
+          <article
+            class="ct-hp__panel{% if forloop.first %} is-active{% endif %}"
+            id="ct-panel-{{ section.id }}-{{ forloop.index0 }}"
+            data-ct-panel
+            data-block-id="{{ block.id }}"
+            aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}"
+            {{ block.shopify_attributes }}
+            {% unless forloop.first %}
+              hidden
+            {% endunless %}
+          >
+            <p class="ct-hp__quote">
+              „{{ block.settings.review_text | strip | escape }}“
+            </p>
+            <span class="ct-hp__name">{{ block.settings.customer_name | strip | escape }}</span>
+            <span class="ct-hp__source">
+              {{- block.settings.source_text | strip | default: 'Rezension aus Google · 5/5' | escape -}}
+            </span>
+          </article>
+        {%- endfor -%}
+      {%- else -%}
+        <p class="ct-hp__empty">{{ section.settings.empty_message | escape }}</p>
+      {%- endif -%}
+    </div>
+
+    <ul class="ct-hp__dots" role="list" aria-label="{{ 'sections.customer_testimonials_hp.dots_label' | t }}">
+      {%- for i in (1..rating_count) -%}
+        {%- assign dot_idx = forloop.index0 -%}
+        <li role="listitem">
+          <button
+            type="button"
+            class="ct-hp__dot{% if forloop.first %} is-active{% endif %}"
+            data-ct-dot
+            data-ct-dot-index="{{ dot_idx }}"
+            aria-label="{{ 'sections.customer_testimonials_hp.dot_aria' | t: index: forloop.index }}"
+            {% if forloop.first %}
+              aria-current="true"
+            {% endif %}
+          >
+            <svg class="ct-hp__dot-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path class="ct-hp__dot-check" d="M6 12.5L10 16.5L18 8.5"/>
+            </svg>
+          </button>
+        </li>
+      {%- endfor -%}
+    </ul>
+
+    <div class="ct-hp__cta-wrap">
+      {%- if section.settings.button_link != blank -%}
+        <a class="ct-hp__cta" href="{{ section.settings.button_link }}">
+          {{- btn_label_t | escape -}}
+        </a>
+      {%- else -%}
+        <span class="ct-hp__cta ct-hp__cta--inactive">{{ btn_label_t | escape }}</span>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Kundenstimmen (Homepage)",
+  "tag": "section",
+  "class": "customer-testimonials-hp-section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Mehrere Kundenstimmen als Blocks. Marker-Anzahl = Bewertungs-Slots; bei weniger Texten werden Zitate zyklisch zugeordnet."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_text",
+      "label": "Zeile unter den Sternen",
+      "default": "Google-Rezensionen · 5,0 Sterne"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Überschrift",
+      "default": "Das sagen unsere Kund*innen"
+    },
+    {
+      "type": "text",
+      "id": "stars_aria_label",
+      "label": "Sterne (Barrierefreiheit)",
+      "default": "5 von 5 Sternen"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button-Text",
+      "default": "Alle [count] Kundenstimmen anzeigen",
+      "info": "[count] wird durch die Anzahl Marker ersetzt."
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button-Link (z. B. Kundenstimmen-Seite)"
+    },
+    {
+      "type": "range",
+      "id": "rating_count",
+      "min": 1,
+      "max": 30,
+      "step": 1,
+      "label": "Anzahl Marker (Pagination)",
+      "default": 13
+    },
+    {
+      "type": "checkbox",
+      "id": "auto_rotate",
+      "label": "Automatisch wechseln",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "auto_rotate_seconds",
+      "min": 3,
+      "max": 30,
+      "step": 1,
+      "unit": "s",
+      "label": "Wechsel alle (Sekunden)",
+      "default": 8
+    },
+    {
+      "type": "textarea",
+      "id": "empty_message",
+      "label": "Hinweis ohne Stimmen-Blocks",
+      "default": "Fügen Sie Kundenstimmen-Blocks hinzu."
+    },
+    {
+      "type": "header",
+      "content": "Abstand"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 32,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Oben",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 32,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Unten",
+      "default": 68
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Kundenstimme",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "review_text",
+          "label": "Zitat",
+          "default": "Ich freue mich, dass ich von einer so guten Organisation mit einer überaus freundlichen und kompetenten Mitarbeiterin, Frau Riegel betreut werde."
+        },
+        {
+          "type": "text",
+          "id": "customer_name",
+          "label": "Name",
+          "default": "Günter Bautz"
+        },
+        {
+          "type": "text",
+          "id": "source_text",
+          "label": "Quellenzeile",
+          "default": "Rezension aus Google · 5/5"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Kundenstimmen (Homepage)",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "review_text": "Ich freue mich, dass ich von einer so guten Organisation mit einer überaus freundlichen und kompetenten Mitarbeiterin, Frau Riegel betreut werde.",
+            "customer_name": "Günter Bautz",
+            "source_text": "Rezension aus Google · 5/5"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
