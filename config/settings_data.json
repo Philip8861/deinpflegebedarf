@@ -139,8 +139,8 @@
           "ct_review_1": {
             "type": "review",
             "settings": {
-              "review_text": "Test",
-              "customer_name": "Julia Tanheimer",
+              "review_text": "Test132",
+              "customer_name": "Peter Seiler",
               "source_text": "Bewertung direkt aus dem Shop · 5/5"
             }
           },
@@ -163,6 +163,7 @@
           "stars_aria_label": "5 von 5 Sternen",
           "button_label": "Alle [count] Kundenstimmen anzeigen",
           "button_link": "",
+          "modal_heading": "Alle Kundenstimmen",
           "rating_count": 13,
           "auto_rotate": true,
           "auto_rotate_seconds": 5,
