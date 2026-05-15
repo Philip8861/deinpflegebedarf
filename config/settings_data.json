@@ -136,6 +136,14 @@
       "customer-testimonials-homepage-style": {
         "type": "customer-testimonials-homepage-style",
         "blocks": {
+          "review_bwkjRh": {
+            "type": "review",
+            "settings": {
+              "review_text": "Ich freue mich, dass ich von einer so guten Organisation mit einer überaus freundlichen und kompetenten Mitarbeiterin, Frau Riegel betreut werde.",
+              "customer_name": "Günter Bautz",
+              "source_text": "Rezension aus Google · 5/5"
+            }
+          },
           "ct_review_1": {
             "type": "review",
             "settings": {
@@ -154,6 +162,7 @@
           }
         },
         "block_order": [
+          "review_bwkjRh",
           "ct_review_1",
           "ct_review_2"
         ],
