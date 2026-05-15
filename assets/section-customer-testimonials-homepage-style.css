@@ -150,7 +150,7 @@
   margin-top: clamp(1.15rem, 2vw, 1.45rem);
   font-family: var(--font-body-family, inherit);
   font-style: var(--font-body-style, normal);
-  font-size: clamp(0.98rem, 0.9rem + 0.28vw, 1.14rem);
+  font-size: clamp(1.08rem, 0.98rem + 0.38vw, 1.32rem);
   font-weight: 600;
   line-height: 1.35;
   color: var(--ct-hp-petrol);
