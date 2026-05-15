@@ -105,6 +105,7 @@
               „{{ block.settings.review_text | strip | escape }}“
             </p>
             <span class="ct-hp__name">{{ block.settings.customer_name | strip | escape }}</span>
+            {% render 'ct-hp-verified-buyer' %}
             <span class="ct-hp__source">
               {{- block.settings.source_text | strip | default: 'Rezension aus Google · 5/5' | escape -}}
             </span>
@@ -145,12 +146,15 @@
       {%- elsif review_count > 0 -%}
         <button
           type="button"
-          class="ct-hp__cta"
-          data-ct-open-modal
-          aria-haspopup="dialog"
-          aria-controls="ct-modal-{{ section.id }}"
+          class="ct-hp__cta ct-hp__cta--toggle"
+          data-ct-toggle-expand
+          aria-expanded="false"
+          aria-controls="ct-expand-{{ section.id }}"
+          data-ct-label-more="{{ btn_label_t | escape }}"
+          data-ct-label-less="{{ 'sections.customer_testimonials_hp.show_less' | t | escape }}"
         >
-          {{- btn_label_t | escape -}}
+          <span data-ct-expand-label>{{ btn_label_t | escape }}</span>
+          <span class="ct-hp__cta-chevron" aria-hidden="true">{{- 'sections.customer_testimonials_hp.chevron_down' | t -}}</span>
         </button>
       {%- else -%}
         <span class="ct-hp__cta ct-hp__cta--inactive">{{ btn_label_t | escape }}</span>
@@ -158,39 +162,37 @@
     </div>
   </div>
 
-  {%- if review_count > 0 -%}
-    <dialog
-      id="ct-modal-{{ section.id }}"
-      class="ct-hp__modal"
-      aria-labelledby="ct-modal-title-{{ section.id }}"
+  {%- if review_count > 0 and section.settings.button_link == blank -%}
+    <div
+      class="ct-hp__expand-wrap"
+      data-ct-expand-wrap
+      aria-hidden="true"
     >
-      <div class="ct-hp__modal-box">
-        <div class="ct-hp__modal-head">
-          <h2 class="ct-hp__modal-title" id="ct-modal-title-{{ section.id }}">{{ modal_head | escape }}</h2>
-          <button
-            type="button"
-            class="ct-hp__modal-close"
-            data-ct-close-modal
-            aria-label="{{ 'sections.customer_testimonials_hp.close_modal' | t }}"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="ct-hp__modal-list">
-          {%- for block in review_blocks -%}
-            <article class="ct-hp__modal-review" {{ block.shopify_attributes }}>
-              <p class="ct-hp__quote ct-hp__quote--modal">
-                „{{ block.settings.review_text | strip | escape }}“
-              </p>
-              <span class="ct-hp__name">{{ block.settings.customer_name | strip | escape }}</span>
-              <span class="ct-hp__source">
-                {{- block.settings.source_text | strip | default: 'Rezension aus Google · 5/5' | escape -}}
-              </span>
-            </article>
-          {%- endfor -%}
+      <div class="ct-hp__expand-inner">
+        <div
+          class="ct-hp__expand-panel"
+          id="ct-expand-{{ section.id }}"
+          role="region"
+          aria-labelledby="ct-expand-title-{{ section.id }}"
+        >
+          <h3 class="ct-hp__expand-title" id="ct-expand-title-{{ section.id }}">{{ modal_head | escape }}</h3>
+          <div class="ct-hp__expand-list">
+            {%- for block in review_blocks -%}
+              <article class="ct-hp__expand-review" {{ block.shopify_attributes }}>
+                <p class="ct-hp__quote ct-hp__quote--expand">
+                  „{{ block.settings.review_text | strip | escape }}“
+                </p>
+                <span class="ct-hp__name">{{ block.settings.customer_name | strip | escape }}</span>
+                {% render 'ct-hp-verified-buyer' %}
+                <span class="ct-hp__source">
+                  {{- block.settings.source_text | strip | default: 'Rezension aus Google · 5/5' | escape -}}
+                </span>
+              </article>
+            {%- endfor -%}
+          </div>
         </div>
       </div>
-    </dialog>
+    </div>
   {%- endif -%}
 </section>
 
@@ -233,12 +235,12 @@
       "type": "url",
       "id": "button_link",
       "label": "Button-Link (z. B. Kundenstimmen-Seite)",
-      "info": "Ohne Link öffnet der Button ein Overlay mit allen Stimmen (zentriert untereinander)."
+      "info": "Ohne Link klappt darunter auf der Seite ein Bereich mit allen Stimmen auf (und wieder zu)."
     },
     {
       "type": "text",
       "id": "modal_heading",
-      "label": "Überschrift im Overlay",
+      "label": "Überschrift über der aufklappbaren Liste",
       "default": "Alle Kundenstimmen"
     },
     {

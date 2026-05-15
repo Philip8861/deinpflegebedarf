@@ -54,27 +54,33 @@
     }
   }
 
-  function setupModal(root) {
-    if (root._ctModalBound) return;
-    var dlg = root.querySelector('.ct-hp__modal');
-    var openBtn = root.querySelector('[data-ct-open-modal]');
-    if (!dlg || !openBtn || typeof dlg.showModal !== 'function') return;
-    root._ctModalBound = true;
+  function setupExpand(root) {
+    if (root._ctExpandBound) return;
+    var btn = root.querySelector('[data-ct-toggle-expand]');
+    var wrap = root.querySelector('[data-ct-expand-wrap]');
+    if (!btn || !wrap) return;
+    root._ctExpandBound = true;
 
-    var closeBtn = dlg.querySelector('[data-ct-close-modal]');
+    var labelEl = btn.querySelector('[data-ct-expand-label]');
+    var more = btn.getAttribute('data-ct-label-more');
+    var less = btn.getAttribute('data-ct-label-less');
 
-    openBtn.addEventListener('click', function () {
-      dlg.showModal();
-    });
-
-    if (closeBtn) {
-      closeBtn.addEventListener('click', function () {
-        dlg.close();
-      });
-    }
-
-    dlg.addEventListener('click', function (e) {
-      if (e.target === dlg) dlg.close();
+    btn.addEventListener('click', function () {
+      var open = wrap.classList.toggle('is-open');
+      btn.classList.toggle('is-expanded', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      wrap.setAttribute('aria-hidden', open ? 'false' : 'true');
+      if (labelEl && more != null && less != null) {
+        labelEl.textContent = open ? less : more;
+      }
+      if (open && wrap.scrollIntoView) {
+        try {
+          wrap.scrollIntoView({
+            behavior: prefersReducedMotion() ? 'auto' : 'smooth',
+            block: 'nearest',
+          });
+        } catch (e) {}
+      }
     });
   }
 
@@ -100,7 +106,7 @@
     if (!root || root._ctInited) return;
     root._ctInited = true;
 
-    setupModal(root);
+    setupExpand(root);
 
     var panels = getPanels(root);
     var dots = getDots(root);
@@ -142,17 +148,13 @@
     var n = ev.target && ev.target.querySelector && ev.target.querySelector('[data-ct-root]');
     if (n) {
       n._ctInited = false;
-      n._ctModalBound = false;
+      n._ctExpandBound = false;
       init(n);
     }
   });
 
   document.addEventListener('shopify:section:unload', function (ev) {
     var n = ev.target && ev.target.querySelector && ev.target.querySelector('[data-ct-root]');
-    if (n) {
-      destroyAuto(n);
-      var dlg = n.querySelector('.ct-hp__modal');
-      if (dlg && dlg.open) dlg.close();
-    }
+    if (n) destroyAuto(n);
   });
 })();

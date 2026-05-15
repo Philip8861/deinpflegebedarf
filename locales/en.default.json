@@ -404,7 +404,9 @@
     "customer_testimonials_hp": {
       "dots_label": "Choose testimonial",
       "dot_aria": "Show testimonial {{ index }}",
-      "close_modal": "Close all testimonials"
+      "show_less": "Show less",
+      "chevron_down": "▼",
+      "verified_buyer": "Verified buyer"
     },
     "cart": {
       "title": "Warenkorb",
