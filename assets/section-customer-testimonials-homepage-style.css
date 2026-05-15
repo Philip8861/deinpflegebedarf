@@ -101,14 +101,15 @@
   color: var(--ct-hp-muted);
 }
 
-.ct-hp__title {
+/* h2 + .ct-hp erhöht Spezifikation ggü. base.css (h2 { color: --color-foreground }) */
+.ct-hp h2.ct-hp__title {
   margin: clamp(0.65rem, 1.2vw, 0.85rem) 0 0;
   font-family: var(--pflege-font-display, var(--font-body-family, inherit));
-  font-size: var(--pflege-home-section-heading-size, clamp(1.85rem, 2.25vw + 1.15rem, 2.75rem));
-  font-weight: var(--pflege-home-section-heading-weight, 800);
-  line-height: var(--pflege-home-section-heading-line-height, 1.18);
-  letter-spacing: var(--pflege-home-section-heading-letter-spacing, -0.025em);
-  color: var(--pflege-home-section-heading-color, #0f4f69);
+  font-size: var(--pflege-home-section-heading-size);
+  font-weight: var(--pflege-home-section-heading-weight);
+  line-height: var(--pflege-home-section-heading-line-height);
+  letter-spacing: var(--pflege-home-section-heading-letter-spacing);
+  color: var(--pflege-home-section-heading-color);
 }
 
 .ct-hp__body {
