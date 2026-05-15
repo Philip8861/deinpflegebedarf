@@ -391,7 +391,8 @@
     "pflege_boxi_faq_strip": {
       "heading": "Häufige Fragen",
       "intro_default": "Antworten zum Bestellvorgang, Versand, Rückgabe und Ablauf",
-      "load_more": "Weitere Fragen und Antworten laden"
+      "load_more": "Weitere Fragen und Antworten laden",
+      "load_less": "Weniger Fragen anzeigen"
     },
     "pflege_reviews_rail": {
       "nav_label": "Kundenstimmen durchblättern",

@@ -208,6 +208,12 @@
   border-bottom: 2.5px solid var(--pfb-strip-blue);
   transform: rotate(45deg);
   margin-top: -0.25rem;
+  transition: transform 0.2s ease, margin-top 0.2s ease;
+}
+
+.pflege-boxi-faq-strip__load-more.is-expanded .pflege-boxi-faq-strip__load-more-icon {
+  transform: rotate(-135deg);
+  margin-top: 0.12rem;
 }
 
 .pflege-boxi-faq-strip__load-more-label {
@@ -224,6 +230,10 @@
   }
 
   .pflege-boxi-faq-strip__load-more {
+    transition: none;
+  }
+
+  .pflege-boxi-faq-strip__load-more-icon {
     transition: none;
   }
 }

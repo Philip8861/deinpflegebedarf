@@ -398,7 +398,8 @@
     "pflege_boxi_faq_strip": {
       "heading": "Frequently asked questions",
       "intro_default": "Answers about ordering, shipping, returns, and how it works",
-      "load_more": "Load more questions and answers"
+      "load_more": "Load more questions and answers",
+      "load_less": "Show fewer questions"
     },
     "pflege_reviews_rail": {
       "nav_label": "Browse testimonials",

@@ -70,6 +70,8 @@
         data-faq-load-more
         aria-expanded="false"
         aria-controls="pflege-faq-extra-{{ section.id }}"
+        data-faq-label-more="{{ 'sections.pflege_boxi_faq_strip.load_more' | t | escape }}"
+        data-faq-label-less="{{ 'sections.pflege_boxi_faq_strip.load_less' | t | escape }}"
       >
         <span class="pflege-boxi-faq-strip__load-more-icon" aria-hidden="true"></span>
         <span class="pflege-boxi-faq-strip__load-more-label">{{ 'sections.pflege_boxi_faq_strip.load_more' | t }}</span>
@@ -119,7 +121,7 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "20 Antworten aus „pflegeboxi“; zuerst 10 sichtbar, Rest per Button. Eine Spalte, volle Breite wie der Hero."
+      "content": "20 Antworten aus „pflegeboxi“; zuerst 10 sichtbar, Rest per Button ein- und ausblendbar. Eine Spalte, volle Breite wie der Hero."
     },
     {
       "type": "text",
