@@ -54,6 +54,30 @@
     }
   }
 
+  function setupModal(root) {
+    if (root._ctModalBound) return;
+    var dlg = root.querySelector('.ct-hp__modal');
+    var openBtn = root.querySelector('[data-ct-open-modal]');
+    if (!dlg || !openBtn || typeof dlg.showModal !== 'function') return;
+    root._ctModalBound = true;
+
+    var closeBtn = dlg.querySelector('[data-ct-close-modal]');
+
+    openBtn.addEventListener('click', function () {
+      dlg.showModal();
+    });
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function () {
+        dlg.close();
+      });
+    }
+
+    dlg.addEventListener('click', function (e) {
+      if (e.target === dlg) dlg.close();
+    });
+  }
+
   function setupAuto(root) {
     destroyAuto(root);
     if (root.getAttribute('data-ct-auto') !== 'true') return;
@@ -75,6 +99,8 @@
   function init(root) {
     if (!root || root._ctInited) return;
     root._ctInited = true;
+
+    setupModal(root);
 
     var panels = getPanels(root);
     var dots = getDots(root);
@@ -116,12 +142,17 @@
     var n = ev.target && ev.target.querySelector && ev.target.querySelector('[data-ct-root]');
     if (n) {
       n._ctInited = false;
+      n._ctModalBound = false;
       init(n);
     }
   });
 
   document.addEventListener('shopify:section:unload', function (ev) {
     var n = ev.target && ev.target.querySelector && ev.target.querySelector('[data-ct-root]');
-    if (n) destroyAuto(n);
+    if (n) {
+      destroyAuto(n);
+      var dlg = n.querySelector('.ct-hp__modal');
+      if (dlg && dlg.open) dlg.close();
+    }
   });
 })();

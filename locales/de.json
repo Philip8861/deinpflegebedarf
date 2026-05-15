@@ -396,7 +396,8 @@
     },
     "customer_testimonials_hp": {
       "dots_label": "Kundenstimmen auswählen",
-      "dot_aria": "Kundenstimme {{ index }} anzeigen"
+      "dot_aria": "Kundenstimme {{ index }} anzeigen",
+      "close_modal": "Alle Kundenstimmen schließen"
     },
     "cart": {
       "title": "Warenkorb",

@@ -403,7 +403,8 @@
     },
     "customer_testimonials_hp": {
       "dots_label": "Choose testimonial",
-      "dot_aria": "Show testimonial {{ index }}"
+      "dot_aria": "Show testimonial {{ index }}",
+      "close_modal": "Close all testimonials"
     },
     "cart": {
       "title": "Warenkorb",

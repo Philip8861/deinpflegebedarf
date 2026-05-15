@@ -45,6 +45,11 @@
   if stars_aria == blank
     assign stars_aria = '5 von 5 Sternen'
   endif
+
+  assign modal_head = section.settings.modal_heading | strip
+  if modal_head == blank
+    assign modal_head = 'Alle Kundenstimmen'
+  endif
 -%}
 
 {%- style -%}
@@ -137,11 +142,56 @@
         <a class="ct-hp__cta" href="{{ section.settings.button_link }}">
           {{- btn_label_t | escape -}}
         </a>
+      {%- elsif review_count > 0 -%}
+        <button
+          type="button"
+          class="ct-hp__cta"
+          data-ct-open-modal
+          aria-haspopup="dialog"
+          aria-controls="ct-modal-{{ section.id }}"
+        >
+          {{- btn_label_t | escape -}}
+        </button>
       {%- else -%}
         <span class="ct-hp__cta ct-hp__cta--inactive">{{ btn_label_t | escape }}</span>
       {%- endif -%}
     </div>
   </div>
+
+  {%- if review_count > 0 -%}
+    <dialog
+      id="ct-modal-{{ section.id }}"
+      class="ct-hp__modal"
+      aria-labelledby="ct-modal-title-{{ section.id }}"
+    >
+      <div class="ct-hp__modal-box">
+        <div class="ct-hp__modal-head">
+          <h2 class="ct-hp__modal-title" id="ct-modal-title-{{ section.id }}">{{ modal_head | escape }}</h2>
+          <button
+            type="button"
+            class="ct-hp__modal-close"
+            data-ct-close-modal
+            aria-label="{{ 'sections.customer_testimonials_hp.close_modal' | t }}"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="ct-hp__modal-list">
+          {%- for block in review_blocks -%}
+            <article class="ct-hp__modal-review" {{ block.shopify_attributes }}>
+              <p class="ct-hp__quote ct-hp__quote--modal">
+                „{{ block.settings.review_text | strip | escape }}“
+              </p>
+              <span class="ct-hp__name">{{ block.settings.customer_name | strip | escape }}</span>
+              <span class="ct-hp__source">
+                {{- block.settings.source_text | strip | default: 'Rezension aus Google · 5/5' | escape -}}
+              </span>
+            </article>
+          {%- endfor -%}
+        </div>
+      </div>
+    </dialog>
+  {%- endif -%}
 </section>
 
 {% schema %}
@@ -182,7 +232,14 @@
     {
       "type": "url",
       "id": "button_link",
-      "label": "Button-Link (z. B. Kundenstimmen-Seite)"
+      "label": "Button-Link (z. B. Kundenstimmen-Seite)",
+      "info": "Ohne Link öffnet der Button ein Overlay mit allen Stimmen (zentriert untereinander)."
+    },
+    {
+      "type": "text",
+      "id": "modal_heading",
+      "label": "Überschrift im Overlay",
+      "default": "Alle Kundenstimmen"
     },
     {
       "type": "range",
