@@ -74,6 +74,14 @@
   gap: 1rem;
 }
 
+/*
+ * FAQ 11–20: `hidden` am Wrapper — ohne diese Regel gewinnt `display: flex` von oben
+ * und der Block bleibt sichtbar (Browser-Standard für [hidden] wird überschrieben).
+ */
+.pflege-boxi-faq-strip__deferred[hidden] {
+  display: none !important;
+}
+
 @media screen and (min-width: 750px) {
   .pflege-boxi-faq-strip__list,
   .pflege-boxi-faq-strip__deferred {
