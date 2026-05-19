@@ -465,6 +465,23 @@
       "closing_title": "Sichern Sie sich Ihre Pflegehilfsmittel kostenlos ab Pflegegrad 1",
       "closing_text": "Nutzen Sie Ihren gesetzlichen Anspruch und stellen Sie Ihre Pflegebox bequem online zusammen. Unser Konfigurator führt Sie Schritt für Schritt durch die Auswahl."
     },
+    "pflege_faq_accordion": {
+      "heading": "Häufige Fragen",
+      "intro_html": "Antworten zu Bestellung, Versorgung und Lieferung. Mehr zur {{ link }} und zu kostenfreien Pflegehilfsmitteln finden Sie in unseren Kategorien.",
+      "intro_link_label": "Inkontinenzversorgung",
+      "faq_1_q": "Wie funktioniert die Rezeptabrechnung bei Inkontinenzprodukten?",
+      "faq_1_a": "<p>Auf Wunsch übernehmen wir die <strong>Abrechnung mit Ihrer Krankenkasse</strong>. Sie bestellen die passenden Produkte bei uns, wir prüfen die Angaben und kümmern uns um die formale Abwicklung. So entfällt der Gang zur Apotheke.</p>",
+      "faq_2_q": "Wie läuft der Versand nach Hause ab?",
+      "faq_2_a": "<p>Nach Bestellung und Prüfung Ihrer Angaben verpacken wir die Ware <strong>diskret und sicher</strong> und senden sie an Ihre Wunschadresse. Lieferzeit und Versanddetails sehen Sie im Bestellprozess und in der Bestätigung.</p>",
+      "faq_3_q": "Muss ich noch selbst in die Apotheke gehen?",
+      "faq_3_a": "<p>Nein. Bei Rezeptabrechnung oder kostenfreier Pflegebox-Versorgung liefern wir <strong>direkt zu Ihnen nach Hause</strong>. Das spart Zeit und erleichtert die regelmäßige Versorgung im Alltag.</p>",
+      "faq_4_q": "Wie werden die Produkte ausgewählt und geprüft?",
+      "faq_4_a": "<p>Unsere Auswahl orientiert sich an <strong>pflegefachlicher Praxis</strong>. Wir achten auf verlässliche Qualität, passende Größen und eine übersichtliche Produktpalette, damit Sie schnell eine passende Lösung finden.</p>",
+      "faq_5_q": "Ich bin unsicher bei der Produktwahl – wer hilft mir?",
+      "faq_5_a": "<p>Unser Kundenservice unterstützt Sie bei Fragen zu <strong>Größen, Mengen und Bestellablauf</strong>. Bei medizinischen Entscheidungen wenden Sie sich zusätzlich an Ihre Ärztin, Ihren Arzt oder Ihre Pflegefachkraft.</p>",
+      "faq_6_q": "Wie funktioniert die Nachbestellung für die regelmäßige Versorgung?",
+      "faq_6_a": "<p>Bereits bestellte Artikel können Sie <strong>unkompliziert erneut bestellen</strong>. Bei genehmigter Pflegebox oder laufender Rezeptversorgung läuft die Belieferung nach Freigabe in der Regel automatisch weiter.</p>"
+    },
     "pflege_boxi_faq_strip": {
       "heading": "Häufige Fragen",
       "intro_default": "Antworten zum Bestellvorgang, Versand, Rückgabe und Ablauf",

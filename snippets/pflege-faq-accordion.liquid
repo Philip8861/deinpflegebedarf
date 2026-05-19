@@ -1,0 +1,111 @@
+{% comment %}
+  FAQ-Accordion (Referenz-Optik)
+  Parameter:
+  - section_id: eindeutige ID (Pflicht)
+  - locale_root: Locale-Prefix, z. B. sections.pflege_faq_accordion (Pflicht)
+  - faq_count: Anzahl Einträge (Standard: 6)
+  - heading, intro: optional, sonst aus Locale
+  - intro_link_url, intro_link_label: optionaler Link in der Einleitung
+  - first_open, single_open: true/false (Standard: true)
+  - modifier_class: zusätzliche CSS-Klasse am Wrapper
+{% endcomment %}
+
+{%- liquid
+  assign faq_count = faq_count | default: 6
+  assign locale_root = locale_root | default: 'sections.pflege_faq_accordion'
+  assign first_open = first_open | default: true
+  assign single_open = single_open | default: true
+
+  assign heading_key = locale_root | append: '.heading'
+  assign intro_key = locale_root | append: '.intro_html'
+  assign intro_link_label_key = locale_root | append: '.intro_link_label'
+
+  if heading != blank
+    assign heading_text = heading
+  else
+    assign heading_text = heading_key | t
+  endif
+
+  if collections['inkontinenzversorgung'] != blank
+    assign default_ink_url = collections['inkontinenzversorgung'].url
+  elsif collections['inkontinenz'] != blank
+    assign default_ink_url = collections['inkontinenz'].url
+  else
+    assign default_ink_url = routes.root_url | append: 'collections/inkontinenzversorgung'
+  endif
+
+  assign intro_link_url = intro_link_url | strip
+  if intro_link_url == blank
+    assign intro_link_url = default_ink_url
+  endif
+  if intro_link_label == blank
+    assign intro_link_label = intro_link_label_key | t
+  endif
+-%}
+
+{{ 'section-pflege-faq-accordion.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'pflege-faq-accordion.js' | asset_url }}" defer></script>
+
+<section
+  class="pflege-faq-accordion{% if modifier_class != blank %} {{ modifier_class }}{% endif %}"
+  aria-labelledby="pflege-faq-accordion-title-{{ section_id }}"
+  data-pflege-faq-accordion
+  data-first-open="{% if first_open %}true{% else %}false{% endif %}"
+  data-single-open="{% if single_open %}true{% else %}false{% endif %}"
+>
+  <div class="pflege-faq-accordion__inner">
+    <header class="pflege-faq-accordion__head">
+      <h2 class="pflege-faq-accordion__title" id="pflege-faq-accordion-title-{{ section_id }}">
+        {{ heading_text | escape }}
+      </h2>
+      {%- if intro != blank -%}
+        <p class="pflege-faq-accordion__intro">{{ intro }}</p>
+      {%- else -%}
+        {%- capture intro_link_markup -%}
+          <a href="{{ intro_link_url | escape }}">{{ intro_link_label | escape }}</a>
+        {%- endcapture -%}
+        <p class="pflege-faq-accordion__intro">
+          {{ intro_key | t: link: intro_link_markup }}
+        </p>
+      {%- endif -%}
+    </header>
+
+    <div class="pflege-faq-accordion__list" role="list">
+      {%- for i in (1..faq_count) -%}
+        {%- assign q_key = locale_root | append: '.faq_' | append: i | append: '_q' -%}
+        {%- assign a_key = locale_root | append: '.faq_' | append: i | append: '_a' -%}
+        {%- assign item_id = 'pflege-faq-' | append: section_id | append: '-' | append: i -%}
+        {%- assign trigger_id = item_id | append: '-trigger' -%}
+        {%- assign panel_id = item_id | append: '-panel' -%}
+
+        <div class="pflege-faq-accordion__item" role="listitem" data-faq-accordion-item id="{{ item_id }}">
+          <h3 class="pflege-faq-accordion__question">
+            <button
+              type="button"
+              class="pflege-faq-accordion__trigger"
+              id="{{ trigger_id }}"
+              data-faq-accordion-trigger
+              aria-expanded="false"
+              aria-controls="{{ panel_id }}"
+            >
+              <span class="pflege-faq-accordion__trigger-text">{{ q_key | t }}</span>
+              <span class="pflege-faq-accordion__chevron" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div
+            id="{{ panel_id }}"
+            class="pflege-faq-accordion__panel"
+            role="region"
+            aria-labelledby="{{ trigger_id }}"
+            data-faq-accordion-panel
+            hidden
+          >
+            <div class="pflege-faq-accordion__answer rte">
+              {{ a_key | t }}
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>

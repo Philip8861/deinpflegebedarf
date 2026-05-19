@@ -285,85 +285,9 @@
   color: rgba(var(--color-foreground), 0.88);
 }
 
-/* --- FAQ ---------------------------------------------------------------- */
-.pfc-free-care--bottom {
-  border-top: 1px solid rgba(11, 35, 71, 0.08);
-  background: #fafcfd;
-}
-
-.pfc-free-care__faq {
-  margin-bottom: clamp(2rem, 4vw, 2.75rem);
-}
-
-.pfc-free-care__faq-title {
-  margin: 0 0 1.25rem;
-  font-size: clamp(1.35rem, 2vw + 0.9rem, 1.75rem);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  text-align: center;
-  color: var(--pfc-navy);
-}
-
-.pfc-free-care__faq-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
-  max-width: 52rem;
-  margin-inline: auto;
-}
-
-.pfc-free-care__faq-item {
-  border: 1px solid var(--pfc-border);
-  border-radius: var(--pfc-radius);
-  background: #fff;
-  overflow: hidden;
-}
-
-.pfc-free-care__faq-summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0.95rem 1.1rem;
-  font-size: 1rem;
-  font-weight: 600;
-  line-height: 1.4;
-  color: var(--pfc-navy);
-  cursor: pointer;
-  list-style: none;
-}
-
-.pfc-free-care__faq-summary::-webkit-details-marker {
-  display: none;
-}
-
-.pfc-free-care__faq-summary::after {
-  content: '';
-  flex-shrink: 0;
-  width: 0.55rem;
-  height: 0.55rem;
-  border-right: 2px solid var(--pfc-accent);
-  border-bottom: 2px solid var(--pfc-accent);
-  transform: rotate(45deg);
-  transition: transform 0.2s ease;
-  margin-top: -0.15rem;
-}
-
-.pfc-free-care__faq-item[open] .pfc-free-care__faq-summary::after {
-  transform: rotate(-135deg);
-  margin-top: 0.2rem;
-}
-
-.pfc-free-care__faq-answer {
-  padding: 0 1.1rem 1rem;
-  border-top: 1px solid rgba(11, 35, 71, 0.06);
-}
-
-.pfc-free-care__faq-answer p {
-  margin: 0.75rem 0 0;
-  font-size: 0.96rem;
-  line-height: 1.58;
-  color: var(--pfc-muted);
+/* --- Closing CTA (FAQ: section-pflege-faq-accordion.css) -------------- */
+.pfc-free-care--bottom .pfc-free-care__shell {
+  padding-top: clamp(1.5rem, 3vw, 2.25rem);
 }
 
 /* --- Closing CTA -------------------------------------------------------- */

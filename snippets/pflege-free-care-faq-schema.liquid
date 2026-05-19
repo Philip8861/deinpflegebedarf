@@ -1,18 +1,25 @@
-{% comment %} FAQPage JSON-LD für Kategorie Kostenfreie Pflegehilfsmittel {% endcomment %}
+{% comment %}
+  FAQPage JSON-LD
+  Parameter: locale_root (z. B. sections.pflege_faq_accordion), faq_count (Standard: 6)
+{% endcomment %}
+{%- liquid
+  assign locale_root = locale_root | default: 'sections.pflege_faq_accordion'
+  assign faq_count = faq_count | default: 6
+-%}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {%- for i in (1..14) -%}
-      {%- assign q_key = 'faq_' | append: i | append: '_q' -%}
-      {%- assign a_key = 'faq_' | append: i | append: '_a' -%}
+    {%- for i in (1..faq_count) -%}
+      {%- assign q_key = locale_root | append: '.faq_' | append: i | append: '_q' -%}
+      {%- assign a_key = locale_root | append: '.faq_' | append: i | append: '_a' -%}
       {
         "@type": "Question",
-        "name": {{ 'sections.pflege_collection_free_care.' | append: q_key | t | json }},
+        "name": {{ q_key | t | json }},
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": {{ 'sections.pflege_collection_free_care.' | append: a_key | t | json }}
+          "text": {{ a_key | t | strip_html | json }}
         }
       }{%- unless forloop.last -%},{%- endunless -%}
     {%- endfor -%}

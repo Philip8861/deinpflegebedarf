@@ -19,6 +19,7 @@
     if pfc_info_url == blank
       assign pfc_info_url = 'https://www.alltagshilfe-sued.de/pflegehilfsmittel/kostenfreie-pflegehilfsmittel'
     endif
+    assign faq_intro_link = section.settings.faq_intro_link | strip
   -%}
 
   {%- style -%}
@@ -35,27 +36,14 @@
   {%- endstyle -%}
 
   <div class="pfc-free-care pfc-free-care--bottom section-{{ section.id }}-padding" id="pfc-free-care-bottom-{{ section.id }}">
-    <div class="pfc-free-care__shell page-width">
-      <section class="pfc-free-care__faq" aria-labelledby="pfc-free-care-faq-title-{{ section.id }}">
-        <h2 id="pfc-free-care-faq-title-{{ section.id }}" class="pfc-free-care__faq-title">
-          {{ 'sections.pflege_collection_free_care.faq_heading' | t }}
-        </h2>
-        <div class="pfc-free-care__faq-list">
-          {%- for i in (1..14) -%}
-            {%- assign q_key = 'faq_' | append: i | append: '_q' -%}
-            {%- assign a_key = 'faq_' | append: i | append: '_a' -%}
-            <details class="pfc-free-care__faq-item" id="pfc-faq-{{ section.id }}-{{ i }}">
-              <summary class="pfc-free-care__faq-summary">
-                {{ 'sections.pflege_collection_free_care.' | append: q_key | t }}
-              </summary>
-              <div class="pfc-free-care__faq-answer rte">
-                <p>{{ 'sections.pflege_collection_free_care.' | append: a_key | t }}</p>
-              </div>
-            </details>
-          {%- endfor -%}
-        </div>
-      </section>
+    {% render 'pflege-faq-accordion',
+      section_id: section.id,
+      locale_root: 'sections.pflege_faq_accordion',
+      faq_count: 6,
+      intro_link_url: faq_intro_link
+    %}
 
+    <div class="pfc-free-care__shell page-width">
       <section class="pfc-free-care__closing" aria-labelledby="pfc-free-care-closing-title-{{ section.id }}">
         <div class="pfc-free-care__closing-card">
           <h2 id="pfc-free-care-closing-title-{{ section.id }}" class="pfc-free-care__closing-title">
@@ -75,7 +63,10 @@
     </div>
   </div>
 
-  {% render 'pflege-free-care-faq-schema', section_id: section.id %}
+  {% render 'pflege-free-care-faq-schema',
+    locale_root: 'sections.pflege_faq_accordion',
+    faq_count: 6
+  %}
 {%- endif -%}
 
 {% schema %}
@@ -94,6 +85,12 @@
       "type": "url",
       "id": "info_link",
       "label": "Link „Mehr Infos“"
+    },
+    {
+      "type": "url",
+      "id": "faq_intro_link",
+      "label": "FAQ: Link in der Einleitung (optional)",
+      "info": "Leer = Kollektion Inkontinenzversorgung"
     },
     {
       "type": "range",
