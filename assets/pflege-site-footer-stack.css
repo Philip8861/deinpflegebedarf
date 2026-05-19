@@ -35,6 +35,9 @@
 
 /* PHM: Pflegebox-CTA unter Kundenstimmen */
 .pflege-site-footer-stack .pfc-free-care__testimonials-cta {
+  --pfc-cta: var(--pflege-cta, #f89738);
+  --pfc-cta-hover: var(--pflege-cta-hover, #dc7a22);
+  --pfc-navy: var(--pflege-navy, #0b2347);
   width: 100%;
   max-width: var(--pflege-hero-tile-max-width, min(100%, 1426px));
   margin: 0 auto;

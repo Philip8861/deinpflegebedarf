@@ -24,6 +24,10 @@
   {% section 'customer-testimonials-homepage-style' %}
 
   {%- if show_pfc_testimonials_cta -%}
+    {%- liquid
+      assign pfc_testimonials_cta_title = 'sections.pflege_collection_free_care.testimonials_cta_title' | t
+      assign pfc_testimonials_cta_text = 'sections.pflege_collection_free_care.testimonials_cta_text' | t
+    -%}
     {{ 'section-pflege-bestseller-row.css' | asset_url | stylesheet_tag }}
     {{ 'section-pflege-collection-free-care.css' | asset_url | stylesheet_tag }}
     <div class="pfc-free-care__testimonials-cta">
@@ -31,8 +35,8 @@
         section_id: 'after-testimonials',
         config_url: pfc_external_config_url,
         info_url: pfc_external_info_url,
-        title: 'sections.pflege_collection_free_care.testimonials_cta_title' | t,
-        text: 'sections.pflege_collection_free_care.testimonials_cta_text' | t,
+        title: pfc_testimonials_cta_title,
+        text: pfc_testimonials_cta_text,
         modifier_class: 'pflege-bestseller--closing-cta--after-testimonials'
       %}
     </div>
