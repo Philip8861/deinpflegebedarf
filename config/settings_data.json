@@ -154,7 +154,7 @@
           "ct_review_1": {
             "type": "review",
             "settings": {
-              "review_text": "Test132",
+              "review_text": "Ich bin durch eine Mitarbeiterin von ihnen auf diesen neuen Online Shop aufmerksam geworden. Ich kannte die Seni Produkte zuvor noch nicht, bin aber bisher sehr zufrieden mit der Auswahl. Die Pflegeprodukte waren bereits nach 3 Tagen bei mir. Danke. VG Sieglinde T.",
               "customer_name": "Peter Seiler",
               "source_text": "Bewertung direkt aus dem Shop · 5/5"
             }
@@ -180,6 +180,8 @@
           "button_label": "Alle [count] Kundenstimmen anzeigen",
           "button_link": "",
           "modal_heading": "Alle Kundenstimmen",
+          "show_review_form": true,
+          "review_submit_label": "Bewertung abgeben",
           "auto_rotate": true,
           "auto_rotate_seconds": 5,
           "empty_message": "Fügen Sie Kundenstimmen-Blocks hinzu.",
