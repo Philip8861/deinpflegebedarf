@@ -128,10 +128,6 @@
   line-height: 0;
 }
 
-.pflege-cat-rail--header-row .pflege-cat-rail__icon .pflege-icon__euro-sign {
-  color: #0f4f69;
-}
-
 .pflege-cat-rail--header-row .pflege-cat-rail__label {
   overflow: hidden;
   text-overflow: ellipsis;
