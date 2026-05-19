@@ -105,20 +105,22 @@
 }
 
 .pflege-advantages-us__item-title {
-  margin: 0 0 0.4rem;
+  margin: 0 0 0.45rem;
   font-family: var(--font-body-family, inherit);
-  font-size: clamp(1.12rem, 0.5vw + 1.02rem, 1.22rem);
-  line-height: 1.35;
-  font-weight: 800;
+  font-style: var(--font-body-style, normal);
+  font-size: clamp(1.32rem, 0.55vw + 1.22rem, 1.42rem);
+  line-height: 1.38;
+  font-weight: 700;
   color: var(--pflege-heading-navy, #062a55);
 }
 
 .pflege-advantages-us__item-text {
   margin: 0;
   font-family: var(--font-body-family, inherit);
-  font-size: clamp(1.02rem, 0.4vw + 0.96rem, 1.1rem);
+  font-style: var(--font-body-style, normal);
+  font-weight: var(--font-body-weight, 400);
+  font-size: clamp(1.22rem, 0.45vw + 1.14rem, 1.3rem);
   line-height: 1.58;
-  font-weight: 400;
   color: var(--pflege-muted, #6f7f95);
 }
 
