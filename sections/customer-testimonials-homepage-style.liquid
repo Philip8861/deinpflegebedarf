@@ -1,4 +1,4 @@
-{% comment %}
+﻿{% comment %}
   Kundenstimmen / Google-Rezensionen — Homepage-Vorbild (clean, Blocks für Zitate).
 {% endcomment %}
 {{ 'section-customer-testimonials-homepage-style.css' | asset_url | stylesheet_tag }}
@@ -162,6 +162,23 @@
       {%- else -%}
         <span class="ct-hp__cta ct-hp__cta--inactive">{{ btn_label_t | escape }}</span>
       {%- endif -%}
+
+      {%- unless section.settings.show_review_form == false -%}
+        {%- assign review_btn = section.settings.review_submit_label | strip -%}
+        {%- if review_btn == blank -%}
+          {%- assign review_btn = 'sections.customer_testimonials_hp.review_submit' | t -%}
+        {%- endif -%}
+        <button
+          type="button"
+          class="ct-hp__cta ct-hp__cta--review"
+          data-ct-review-open
+          aria-haspopup="dialog"
+          aria-expanded="false"
+          aria-controls="ct-review-modal-{{ section.id }}"
+        >
+          {{- review_btn | escape -}}
+        </button>
+      {%- endunless -%}
     </div>
   </div>
 
@@ -197,6 +214,129 @@
       </div>
     </div>
   {%- endif -%}
+
+  {%- unless section.settings.show_review_form == false -%}
+    {%- assign review_btn = section.settings.review_submit_label | strip -%}
+    {%- if review_btn == blank -%}
+      {%- assign review_btn = 'sections.customer_testimonials_hp.review_submit' | t -%}
+    {%- endif -%}
+    {%- assign review_form_id = 'CtReviewForm-' | append: section.id -%}
+    <dialog
+      class="ct-hp__review-modal"
+      id="ct-review-modal-{{ section.id }}"
+      data-ct-review-dialog
+      aria-labelledby="ct-review-title-{{ section.id }}"
+      aria-modal="true"
+    >
+      <div class="ct-hp__review-modal__panel">
+        <div class="ct-hp__review-modal__head">
+          <h2 class="ct-hp__review-modal__title" id="ct-review-title-{{ section.id }}">
+            {{- review_btn | escape -}}
+          </h2>
+          <button
+            type="button"
+            class="ct-hp__review-modal__close"
+            data-ct-review-close
+            aria-label="{{ 'accessibility.close' | t }}"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {%- form 'contact', id: review_form_id, class: 'ct-hp__review-form' -%}
+          <input type="hidden" name="contact[Betreff]" value="Kundenstimme / Bewertung">
+          {%- if form.posted_successfully? -%}
+            <p class="ct-hp__review-status ct-hp__review-status--success" role="status" tabindex="-1">
+              {{- 'sections.customer_testimonials_hp.review_success' | t -}}
+            </p>
+            <button type="button" class="ct-hp__review-modal__submit" data-ct-review-close>
+              {{- 'accessibility.close' | t -}}
+            </button>
+          {%- else -%}
+            {%- if form.errors -%}
+              <p class="ct-hp__review-status ct-hp__review-status--error" role="alert">
+                {{- 'sections.customer_testimonials_hp.review_error' | t -}}
+              </p>
+            {%- endif -%}
+            <p class="ct-hp__review-required-note">
+              {{- 'sections.customer_testimonials_hp.review_required_note' | t -}}
+            </p>
+            <div class="ct-hp__review-fields">
+              <div class="ct-hp__review-field">
+                <label class="ct-hp__review-label" for="{{ review_form_id }}-lastname">
+                  {{- 'sections.customer_testimonials_hp.review_lastname' | t -}}
+                  <span class="ct-hp__review-required" aria-hidden="true">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="{{ review_form_id }}-lastname"
+                  class="ct-hp__review-input"
+                  name="contact[Nachname]"
+                  autocomplete="family-name"
+                  required
+                  aria-required="true"
+                  value="{{ form.Nachname }}"
+                >
+              </div>
+              <div class="ct-hp__review-field">
+                <label class="ct-hp__review-label" for="{{ review_form_id }}-firstname">
+                  {{- 'sections.customer_testimonials_hp.review_firstname' | t -}}
+                  <span class="ct-hp__review-required" aria-hidden="true">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="{{ review_form_id }}-firstname"
+                  class="ct-hp__review-input"
+                  name="contact[Vorname]"
+                  autocomplete="given-name"
+                  required
+                  aria-required="true"
+                  value="{{ form.Vorname }}"
+                >
+              </div>
+              <div class="ct-hp__review-field ct-hp__review-field--full">
+                <label class="ct-hp__review-label" for="{{ review_form_id }}-message">
+                  {{- 'sections.customer_testimonials_hp.review_message' | t -}}
+                  <span class="ct-hp__review-required" aria-hidden="true">*</span>
+                </label>
+                <textarea
+                  id="{{ review_form_id }}-message"
+                  class="ct-hp__review-input ct-hp__review-textarea"
+                  name="contact[Nachricht]"
+                  rows="6"
+                  required
+                  aria-required="true"
+                >{{ form.Nachricht }}</textarea>
+              </div>
+              <div class="ct-hp__review-field ct-hp__review-field--full">
+                <label class="ct-hp__review-label" for="{{ review_form_id }}-email">
+                  {{- 'sections.customer_testimonials_hp.review_email' | t -}}
+                  <span class="ct-hp__review-required" aria-hidden="true">*</span>
+                </label>
+                <input
+                  type="email"
+                  id="{{ review_form_id }}-email"
+                  class="ct-hp__review-input"
+                  name="contact[email]"
+                  autocomplete="email"
+                  spellcheck="false"
+                  autocapitalize="off"
+                  required
+                  aria-required="true"
+                  value="{% if form.email %}{{ form.email }}{% endif %}"
+                  {% if form.errors contains 'email' %}
+                    aria-invalid="true"
+                  {% endif %}
+                >
+              </div>
+            </div>
+            <button type="submit" class="ct-hp__review-modal__submit">
+              {{- 'sections.customer_testimonials_hp.review_send' | t -}}
+            </button>
+          {%- endif -%}
+        {%- endform -%}
+      </div>
+    </dialog>
+  {%- endunless -%}
 </section>
 
 {% schema %}
@@ -245,6 +385,22 @@
       "id": "modal_heading",
       "label": "Überschrift über der aufklappbaren Liste",
       "default": "Alle Kundenstimmen"
+    },
+    {
+      "type": "header",
+      "content": "Bewertung einreichen"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_review_form",
+      "label": "Button und Formular „Bewertung abgeben“ anzeigen",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "review_submit_label",
+      "label": "Button-Text",
+      "default": "Bewertung abgeben"
     },
     {
       "type": "checkbox",
