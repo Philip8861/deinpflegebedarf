@@ -367,19 +367,12 @@
 
     <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
       {{ content_for_layout }}
-      {%- comment -%}
-        Startseite: „Ihre Vorteile“ fest nach Hero + Bestseller (templates/index.json),
-        damit der Block nicht fehlt, wenn eine Section im Editor/Deploy nicht greift.
-      {%- endcomment -%}
-      {%- if template.name == 'index' -%}
-        {% render 'pflege-hero-trust-inner' %}
-      {%- endif -%}
     </main>
 
     {% comment %} Global: Kundenstimmen (Homepage-Stil) über dem Footer (alle Seiten) {% endcomment %}
     {% section 'customer-testimonials-homepage-style' %}
 
-    {% comment %} FAQ-Leiste — einheitliches Accordion über dem Footer (nicht auf PHM-Kollektion) {% endcomment %}
+    {% comment %} FAQ-Leiste über dem Footer (auf PHM-Kollektion ausgeblendet — eigener Block im Seiteninhalt) {% endcomment %}
     {{ 'section-pflege-faq-accordion.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'pflege-faq-accordion.js' | asset_url }}" defer></script>
     {%- liquid

@@ -273,7 +273,7 @@
   margin-top: clamp(1.35rem, 2.5vw, 1.85rem);
 }
 
-.ct-hp__cta-wrap > .ct-hp__cta:not(.ct-hp__cta--small):not(.ct-hp__cta--submit) {
+.ct-hp__cta-wrap > .ct-hp__cta:not(.ct-hp__cta--review) {
   width: 100%;
 }
 
@@ -323,48 +323,102 @@ button.ct-hp__cta {
   opacity: 0.75;
 }
 
-.ct-hp__cta--small {
-  width: auto;
-  min-width: min(100%, 12.5rem);
-  max-width: 18rem;
-  min-height: 2.1rem;
-  padding: 0.42rem 1rem;
-  font-size: clamp(0.76rem, 0.72rem + 0.18vw, 0.86rem);
-  font-weight: 500;
-  border-radius: 0.65rem;
-  box-shadow: 0 1px 2px rgba(15, 45, 84, 0.05);
-}
-
-.ct-hp__cta--submit {
-  margin-top: 0.35rem;
-}
-
-.ct-hp__review-wrap {
+/* Bewertung abgeben — volle Breite wie Haupt-CTA */
+.ct-hp__cta--review {
   width: 100%;
-  max-width: 36rem;
-  margin-top: 0.25rem;
-  padding: clamp(1rem, 2vw, 1.25rem);
-  border: 1px solid var(--ct-hp-cta-border);
-  border-radius: 0.85rem;
-  background: linear-gradient(180deg, #fafbfd 0%, #fff 40%);
-  text-align: left;
+  margin-top: 0.15rem;
 }
 
-.ct-hp__review-wrap[hidden] {
-  display: none !important;
+/* Pop-up (dialog) — Optik wie .pflege-category-modal */
+.ct-hp__review-modal {
+  padding: 0;
+  margin: auto;
+  border: none;
+  max-height: calc(100vh - 2.75rem - env(safe-area-inset-bottom, 0px));
+  overflow: auto;
+  max-width: calc(100vw - 2.5rem);
+  width: min(44rem, calc(100vw - 2.5rem));
+  border-radius: var(--pflege-radius-lg, 22px);
+  background: #fff;
+  color: var(--pflege-navy, #0b2347);
+  box-shadow: 0 22px 56px rgba(11, 35, 71, 0.22);
+}
+
+.ct-hp__review-modal::backdrop {
+  background: var(--pflege-overlay-backdrop, rgba(11, 35, 71, 0.56));
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.ct-hp__review-modal__panel {
+  padding: 0 1.75rem 1.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.ct-hp__review-modal__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.85rem;
+  margin: 0 -1.75rem 0;
+  padding: 1.35rem 1.75rem 1.35rem;
+  background: rgba(88, 145, 215, 0.1);
+  border-bottom: 1px solid rgba(88, 145, 215, 0.14);
+  border-radius: var(--pflege-radius-lg, 22px) var(--pflege-radius-lg, 22px) 0 0;
+}
+
+.ct-hp__review-modal__title {
+  margin: 0;
+  font-family: var(--pflege-font-display, var(--font-body-family, inherit));
+  font-size: clamp(1.45rem, 1.05rem + 1.2vw, 1.85rem);
+  font-weight: var(--pflege-home-section-heading-weight, 700);
+  line-height: 1.22;
+  letter-spacing: 0.02em;
+  color: var(--pflege-heading-navy, #062a55);
+}
+
+.ct-hp__review-modal__close {
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(11, 35, 71, 0.07);
+  color: var(--pflege-navy, #0b2347);
+  font-size: 1.65rem;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.18s ease;
+}
+
+.ct-hp__review-modal__close:hover,
+.ct-hp__review-modal__close:focus-visible {
+  background: rgba(11, 35, 71, 0.12);
+  outline: none;
+}
+
+.ct-hp__review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .ct-hp__review-required-note {
-  margin: 0 0 0.85rem;
-  font-size: 0.78rem;
-  line-height: 1.4;
+  margin: 0;
+  font-size: clamp(0.88rem, 0.82rem + 0.2vw, 0.98rem);
+  line-height: 1.45;
   color: var(--ct-hp-muted);
 }
 
 .ct-hp__review-fields {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.75rem 0.85rem;
+  gap: 1rem 1.1rem;
 }
 
 .ct-hp__review-field--full {
@@ -373,8 +427,8 @@ button.ct-hp__cta {
 
 .ct-hp__review-label {
   display: block;
-  margin-bottom: 0.32rem;
-  font-size: 0.82rem;
+  margin-bottom: 0.45rem;
+  font-size: clamp(0.95rem, 0.88rem + 0.22vw, 1.08rem);
   font-weight: 600;
   color: var(--ct-hp-petrol);
 }
@@ -386,14 +440,14 @@ button.ct-hp__cta {
 .ct-hp__review-input {
   display: block;
   width: 100%;
-  padding: 0.52rem 0.65rem;
+  padding: 0.85rem 1rem;
   border: 1px solid var(--ct-hp-cta-border);
-  border-radius: 0.5rem;
+  border-radius: 0.65rem;
   background: #fff;
   color: var(--pflege-navy, #0b2347);
   font: inherit;
-  font-size: 0.88rem;
-  line-height: 1.35;
+  font-size: clamp(1rem, 0.92rem + 0.28vw, 1.12rem);
+  line-height: 1.4;
   transition:
     border-color 0.2s ease,
     box-shadow 0.2s ease;
@@ -402,20 +456,20 @@ button.ct-hp__cta {
 .ct-hp__review-input:focus {
   outline: none;
   border-color: var(--ct-hp-petrol);
-  box-shadow: 0 0 0 2px rgba(7, 82, 107, 0.12);
+  box-shadow: 0 0 0 3px rgba(7, 82, 107, 0.14);
 }
 
 .ct-hp__review-textarea {
-  min-height: 6.5rem;
+  min-height: 9.5rem;
   resize: vertical;
 }
 
 .ct-hp__review-status {
-  margin: 0 0 0.75rem;
-  padding: 0.55rem 0.7rem;
-  border-radius: 0.5rem;
-  font-size: 0.86rem;
-  line-height: 1.4;
+  margin: 0;
+  padding: 0.75rem 1rem;
+  border-radius: 0.65rem;
+  font-size: clamp(0.95rem, 0.88rem + 0.22vw, 1.05rem);
+  line-height: 1.45;
 }
 
 .ct-hp__review-status--success {
@@ -428,9 +482,52 @@ button.ct-hp__cta {
   color: #8b2e2e;
 }
 
+.ct-hp__review-modal__submit {
+  width: 100%;
+  min-height: 3rem;
+  margin-top: 0.25rem;
+  padding: 0.92rem 1.15rem;
+  border: none;
+  border-radius: var(--pflege-radius-pill, 999px);
+  background: var(--pflege-cta, #f89738);
+  color: #fff;
+  font: inherit;
+  font-size: clamp(1.08rem, 0.98rem + 0.35vw, 1.28rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition:
+    filter 0.2s ease,
+    box-shadow 0.22s ease,
+    transform 0.18s ease;
+}
+
+.ct-hp__review-modal__submit:hover,
+.ct-hp__review-modal__submit:focus-visible {
+  filter: brightness(1.05);
+  box-shadow:
+    0 0 0 1px rgba(230, 126, 34, 0.35),
+    0 10px 28px rgba(230, 126, 34, 0.28);
+  outline: none;
+}
+
+.ct-hp__review-modal__submit:active {
+  filter: brightness(0.97);
+  transform: scale(0.99);
+}
+
 @media screen and (max-width: 549px) {
   .ct-hp__review-fields {
     grid-template-columns: 1fr;
+  }
+
+  .ct-hp__review-modal__panel {
+    padding: 0 1.15rem 1.35rem;
+  }
+
+  .ct-hp__review-modal__head {
+    margin: 0 -1.15rem 0;
+    padding: 1.1rem 1.15rem;
   }
 }
 
