@@ -379,10 +379,21 @@
     {% comment %} Global: Kundenstimmen (Homepage-Stil) über dem Footer (alle Seiten) {% endcomment %}
     {% section 'customer-testimonials-homepage-style' %}
 
-    {% comment %} FAQ-Leiste — einheitliches Accordion über dem Footer {% endcomment %}
+    {% comment %} FAQ-Leiste — einheitliches Accordion über dem Footer (nicht auf PHM-Kollektion) {% endcomment %}
     {{ 'section-pflege-faq-accordion.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'pflege-faq-accordion.js' | asset_url }}" defer></script>
-    {% section 'pflege-boxi-faq-strip' %}
+    {%- liquid
+      assign hide_global_faq = false
+      if template.name == 'collection' and collection != blank
+        assign col_handle_down = collection.handle | downcase
+        if col_handle_down == 'kostenfreie-pflegehilfsmittel' or col_handle_down == 'pflegehilfsmittel-kostenfrei'
+          assign hide_global_faq = true
+        endif
+      endif
+    -%}
+    {%- unless hide_global_faq -%}
+      {% section 'pflege-boxi-faq-strip' %}
+    {%- endunless -%}
 
     {%- comment -%}
       Footer als Snippet — keine Shopify-Section / kein Theme-Editor-Zwang;

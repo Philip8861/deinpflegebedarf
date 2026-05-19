@@ -1,10 +1,10 @@
 {% comment %}
   FAQPage JSON-LD
-  Parameter: locale_root (z. B. sections.pflege_faq_accordion), faq_count (Standard: 6)
+  Parameter: locale_root, faq_count (Standard: 14)
 {% endcomment %}
 {%- liquid
-  assign locale_root = locale_root | default: 'sections.pflege_faq_accordion'
-  assign faq_count = faq_count | default: 6
+  assign locale_root = locale_root | default: 'sections.pflege_collection_free_care'
+  assign faq_count = faq_count | default: 14
 -%}
 <script type="application/ld+json">
 {
@@ -12,14 +12,24 @@
   "@type": "FAQPage",
   "mainEntity": [
     {%- for i in (1..faq_count) -%}
-      {%- assign q_key = locale_root | append: '.faq_' | append: i | append: '_q' -%}
-      {%- assign a_key = locale_root | append: '.faq_' | append: i | append: '_a' -%}
+      {%- liquid
+        if locale_root == 'sections.pflege_collection_free_care'
+          assign schema_q = 'sections.pflege_collection_free_care.faq_' | append: i | append: '_q' | t
+          assign schema_a = 'sections.pflege_collection_free_care.faq_' | append: i | append: '_a' | t
+        elsif locale_root == 'pflegeboxi'
+          assign schema_q = 'pflegeboxi.faq_' | append: i | append: '_q' | t
+          assign schema_a = 'pflegeboxi.faq_' | append: i | append: '_a' | t
+        else
+          assign schema_q = 'sections.pflege_faq_accordion.faq_' | append: i | append: '_q' | t
+          assign schema_a = 'sections.pflege_faq_accordion.faq_' | append: i | append: '_a' | t
+        endif
+      -%}
       {
         "@type": "Question",
-        "name": {{ q_key | t | json }},
+        "name": {{ schema_q | json }},
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": {{ a_key | t | strip_html | json }}
+          "text": {{ schema_a | strip_html | json }}
         }
       }{%- unless forloop.last -%},{%- endunless -%}
     {%- endfor -%}

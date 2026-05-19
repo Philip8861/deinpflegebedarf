@@ -84,44 +84,11 @@
 
     <div class="pflege-faq-accordion__list" role="list">
       {%- for i in (faq_from..faq_to) -%}
-        {%- assign q_key = locale_root | append: '.faq_' | append: i | append: '_q' -%}
-        {%- assign a_key = locale_root | append: '.faq_' | append: i | append: '_a' -%}
-        {%- assign item_id = 'pflege-faq-' | append: section_id | append: '-' | append: i -%}
-        {%- assign trigger_id = item_id | append: '-trigger' -%}
-        {%- assign panel_id = item_id | append: '-panel' -%}
-
-        <div class="pflege-faq-accordion__item" role="listitem" data-faq-accordion-item id="{{ item_id }}">
-          <h3 class="pflege-faq-accordion__question">
-            <button
-              type="button"
-              class="pflege-faq-accordion__trigger"
-              id="{{ trigger_id }}"
-              data-faq-accordion-trigger
-              aria-expanded="false"
-              aria-controls="{{ panel_id }}"
-            >
-              <span class="pflege-faq-accordion__trigger-text">{{ q_key | t }}</span>
-              <span class="pflege-faq-accordion__chevron" aria-hidden="true"></span>
-            </button>
-          </h3>
-          <div
-            id="{{ panel_id }}"
-            class="pflege-faq-accordion__panel"
-            role="region"
-            aria-labelledby="{{ trigger_id }}"
-            data-faq-accordion-panel
-            hidden
-          >
-            <div class="pflege-faq-accordion__answer rte">
-              {%- assign answer_html = a_key | t -%}
-              {%- if answer_html contains '<' -%}
-                {{ answer_html }}
-              {%- else -%}
-                <p>{{ answer_html }}</p>
-              {%- endif -%}
-            </div>
-          </div>
-        </div>
+        {% render 'pflege-faq-accordion-item',
+          section_id: section_id,
+          index: i,
+          locale_root: locale_root
+        %}
       {%- endfor -%}
 
       {%- if has_deferred -%}
@@ -147,44 +114,11 @@
           hidden
         >
           {%- for i in (deferred_from_num..deferred_to_num) -%}
-            {%- assign q_key = locale_root | append: '.faq_' | append: i | append: '_q' -%}
-            {%- assign a_key = locale_root | append: '.faq_' | append: i | append: '_a' -%}
-            {%- assign item_id = 'pflege-faq-' | append: section_id | append: '-' | append: i -%}
-            {%- assign trigger_id = item_id | append: '-trigger' -%}
-            {%- assign panel_id = item_id | append: '-panel' -%}
-
-            <div class="pflege-faq-accordion__item" role="listitem" data-faq-accordion-item id="{{ item_id }}">
-              <h3 class="pflege-faq-accordion__question">
-                <button
-                  type="button"
-                  class="pflege-faq-accordion__trigger"
-                  id="{{ trigger_id }}"
-                  data-faq-accordion-trigger
-                  aria-expanded="false"
-                  aria-controls="{{ panel_id }}"
-                >
-                  <span class="pflege-faq-accordion__trigger-text">{{ q_key | t }}</span>
-                  <span class="pflege-faq-accordion__chevron" aria-hidden="true"></span>
-                </button>
-              </h3>
-              <div
-                id="{{ panel_id }}"
-                class="pflege-faq-accordion__panel"
-                role="region"
-                aria-labelledby="{{ trigger_id }}"
-                data-faq-accordion-panel
-                hidden
-              >
-                <div class="pflege-faq-accordion__answer rte">
-                  {%- assign answer_html = a_key | t -%}
-                  {%- if answer_html contains '<' -%}
-                    {{ answer_html }}
-                  {%- else -%}
-                    <p>{{ answer_html }}</p>
-                  {%- endif -%}
-                </div>
-              </div>
-            </div>
+            {% render 'pflege-faq-accordion-item',
+              section_id: section_id,
+              index: i,
+              locale_root: locale_root
+            %}
           {%- endfor -%}
         </div>
       {%- endif -%}
