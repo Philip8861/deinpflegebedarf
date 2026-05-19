@@ -1,6 +1,17 @@
 {{ 'pflege-collection-page.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
+  assign col_handle_intro = collection.handle | downcase
+  if col_handle_intro == 'kostenfreie-pflegehilfsmittel' or col_handle_intro == 'pflegehilfsmittel-kostenfrei'
+    assign skip_intro_for_free_care = true
+  else
+    assign skip_intro_for_free_care = false
+  endif
+-%}
+{%- if skip_intro_for_free_care -%}
+  {%- comment -%} Inhalt über Section „PHM Kopfbereich“ (pflege-collection-free-care-top). {%- endcomment -%}
+{%- else -%}
+{%- liquid
   assign intro_met = collection.metafields.pflege.intro.value | strip
   assign hero_intro = intro_met | strip_html | strip
   if hero_intro == blank
@@ -97,6 +108,7 @@
     </div>
   </div>
 </section>
+{%- endif -%}
 
 {% schema %}
 {

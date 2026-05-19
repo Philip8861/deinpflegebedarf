@@ -294,6 +294,11 @@
       {{ 'pflege-collection-page.css' | asset_url | stylesheet_tag }}
       {%- if template.suffix == 'kostenfreie-pflegehilfsmittel' -%}
         {{ 'section-pflege-collection-free-care.css' | asset_url | stylesheet_tag }}
+      {%- elsif request.page_type == 'collection' and collection != blank -%}
+        {%- assign col_h_css = collection.handle | downcase -%}
+        {%- if col_h_css == 'kostenfreie-pflegehilfsmittel' or col_h_css == 'pflegehilfsmittel-kostenfrei' -%}
+          {{ 'section-pflege-collection-free-care.css' | asset_url | stylesheet_tag }}
+        {%- endif -%}
       {%- endif -%}
     {%- endif -%}
     <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">

@@ -7,7 +7,14 @@
     assign pflege_bottom_arialabel = 'sections.pflege_collection_bottom_content.default_aria' | t
   endif
 -%}
-{%- if section.settings.enable and collection.description != blank -%}
+{%- liquid
+  assign col_handle_bottom = collection.handle | downcase
+  assign skip_bottom_rte = false
+  if col_handle_bottom == 'kostenfreie-pflegehilfsmittel' or col_handle_bottom == 'pflegehilfsmittel-kostenfrei'
+    assign skip_bottom_rte = true
+  endif
+-%}
+{%- if section.settings.enable and collection.description != blank and skip_bottom_rte == false -%}
   {%- style -%}
     #PflegeBottomContent-{{ section.id }} {
       padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;

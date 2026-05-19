@@ -1,14 +1,18 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
+    "pfc_free_care_top": {
+      "type": "pflege-collection-free-care-top",
+      "settings": {
+        "configurator_link": "",
+        "info_link": "",
+        "benefit_1_icon": "euro",
+        "benefit_2_icon": "user",
+        "benefit_3_icon": "rotate-ccw",
+        "benefit_4_icon": "headset",
+        "padding_top": 36,
+        "padding_bottom": 28
+      }
+    },
     "pflege_intro": {
       "type": "pflege-collection-intro",
       "settings": {
@@ -42,6 +46,15 @@
         "color_scheme": "scheme-1"
       }
     },
+    "pfc_free_care_bottom": {
+      "type": "pflege-collection-free-care-bottom",
+      "settings": {
+        "configurator_link": "",
+        "info_link": "",
+        "padding_top": 40,
+        "padding_bottom": 48
+      }
+    },
     "pflege_bottom_description": {
       "type": "pflege-collection-bottom-content",
       "settings": {
@@ -54,8 +67,10 @@
     }
   },
   "order": [
+    "pfc_free_care_top",
     "pflege_intro",
     "product-grid",
+    "pfc_free_care_bottom",
     "pflege_bottom_description"
   ]
 }
