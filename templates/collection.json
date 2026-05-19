@@ -12,6 +12,7 @@
     "pfc_free_care_top": {
       "type": "pflege-collection-free-care-top",
       "settings": {
+        "badge": "Kostenfreie Pflegehilfsmittel ab Pflegegrad 1",
         "configurator_link": "",
         "info_link": "",
         "benefit_1_icon": "euro",
