@@ -1010,6 +1010,22 @@
   display: block;
 }
 
+/* Euro: echtes €-Zeichen — bei 20–22px lesbarer als Strich-Icons */
+.pflege-icon__euro-sign {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--pflege-icon-euro-size, 20px);
+  height: var(--pflege-icon-euro-size, 20px);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: calc(var(--pflege-icon-euro-size, 20px) * 0.95);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.06em;
+  color: inherit;
+  user-select: none;
+}
+
 .pflege-category-modal__link-label {
   flex: 1 1 auto;
   min-width: 0;

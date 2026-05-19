@@ -122,8 +122,14 @@
 .pflege-cat-rail--header-row .pflege-cat-rail__icon {
   display: inline-flex;
   flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
   color: #0f4f69;
   line-height: 0;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__icon .pflege-icon__euro-sign {
+  color: #0f4f69;
 }
 
 .pflege-cat-rail--header-row .pflege-cat-rail__label {
