@@ -6,76 +6,23 @@
 <nav class="pflege-cat-rail pflege-cat-rail--header-row" aria-label="{{ 'sections.pflege_header_category_rail.nav_aria' | t }}">
   <div class="pflege-cat-rail__bar">
     <ul class="pflege-cat-rail__list list-unstyled" role="list">
-      <li class="pflege-cat-rail__cell">
-        <a
-          href="{{ url_free_care }}"
-          class="pflege-cat-rail__link{% if active_free_care %} pflege-cat-rail__link--active{% endif %}"
-          {% if active_free_care %}aria-current="page"{% endif %}
-        >
-          <span class="pflege-cat-rail__icon" aria-hidden="true">{% render 'pflege-icon', icon: 'ticket', width: 20 %}</span>
-          <span class="pflege-cat-rail__label">{{ 'sections.pflege_header_category_rail.cat_free_care' | t }}</span>
-        </a>
-      </li>
-      <li class="pflege-cat-rail__cell">
-        <a
-          href="{{ url_ink }}"
-          class="pflege-cat-rail__link{% if active_ink %} pflege-cat-rail__link--active{% endif %}"
-          {% if active_ink %}aria-current="page"{% endif %}
-        >
-          <span class="pflege-cat-rail__icon" aria-hidden="true">{% render 'pflege-icon', icon: 'droplet', width: 20 %}</span>
-          <span class="pflege-cat-rail__label">{{ 'sections.pflege_header_category_rail.cat_ink' | t }}</span>
-        </a>
-      </li>
-      <li class="pflege-cat-rail__cell">
-        <a
-          href="{{ url_body }}"
-          class="pflege-cat-rail__link{% if active_body %} pflege-cat-rail__link--active{% endif %}"
-          {% if active_body %}aria-current="page"{% endif %}
-        >
-          <span class="pflege-cat-rail__icon" aria-hidden="true">{% render 'pflege-icon', icon: 'user', width: 20 %}</span>
-          <span class="pflege-cat-rail__label">{{ 'sections.pflege_header_category_rail.cat_body' | t }}</span>
-        </a>
-      </li>
-      <li class="pflege-cat-rail__cell">
-        <a
-          href="{{ url_skin }}"
-          class="pflege-cat-rail__link{% if active_skin %} pflege-cat-rail__link--active{% endif %}"
-          {% if active_skin %}aria-current="page"{% endif %}
-        >
-          <span class="pflege-cat-rail__icon" aria-hidden="true">{% render 'pflege-icon', icon: 'heart', width: 20 %}</span>
-          <span class="pflege-cat-rail__label">{{ 'sections.pflege_header_category_rail.cat_skin' | t }}</span>
-        </a>
-      </li>
-      <li class="pflege-cat-rail__cell">
-        <a
-          href="{{ url_gloves }}"
-          class="pflege-cat-rail__link{% if active_gloves %} pflege-cat-rail__link--active{% endif %}"
-          {% if active_gloves %}aria-current="page"{% endif %}
-        >
-          <span class="pflege-cat-rail__icon" aria-hidden="true">{% render 'pflege-icon', icon: 'shield', width: 20 %}</span>
-          <span class="pflege-cat-rail__label">{{ 'sections.pflege_header_category_rail.cat_gloves' | t }}</span>
-        </a>
-      </li>
-      <li class="pflege-cat-rail__cell">
-        <a
-          href="{{ url_des }}"
-          class="pflege-cat-rail__link{% if active_des %} pflege-cat-rail__link--active{% endif %}"
-          {% if active_des %}aria-current="page"{% endif %}
-        >
-          <span class="pflege-cat-rail__icon" aria-hidden="true">{% render 'pflege-icon', icon: 'cross-medical', width: 20 %}</span>
-          <span class="pflege-cat-rail__label">{{ 'sections.pflege_header_category_rail.cat_des' | t }}</span>
-        </a>
-      </li>
-      <li class="pflege-cat-rail__cell">
-        <a
-          href="{{ url_ver }}"
-          class="pflege-cat-rail__link{% if active_ver %} pflege-cat-rail__link--active{% endif %}"
-          {% if active_ver %}aria-current="page"{% endif %}
-        >
-          <span class="pflege-cat-rail__icon" aria-hidden="true">{% render 'pflege-icon', icon: 'shopping-bag', width: 20 %}</span>
-          <span class="pflege-cat-rail__label">{{ 'sections.pflege_header_category_rail.cat_consumables' | t }}</span>
-        </a>
-      </li>
+      {% render 'pflege-category-overview-links',
+        variant: 'rail',
+        url_free_care: url_free_care,
+        url_ink: url_ink,
+        url_body: url_body,
+        url_skin: url_skin,
+        url_gloves: url_gloves,
+        url_des: url_des,
+        url_ver: url_ver,
+        active_free_care: active_free_care,
+        active_ink: active_ink,
+        active_body: active_body,
+        active_skin: active_skin,
+        active_gloves: active_gloves,
+        active_des: active_des,
+        active_ver: active_ver
+      %}
     </ul>
   </div>
 </nav>
