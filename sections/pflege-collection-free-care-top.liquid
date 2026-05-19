@@ -4,6 +4,7 @@
 {{ 'section-pflege-hero.css' | asset_url | stylesheet_tag }}
 {{ 'section-pflege-collection-free-care.css' | asset_url | stylesheet_tag }}
 {{ 'section-pflege-bestseller-row.css' | asset_url | stylesheet_tag }}
+{{ 'section-pflege-advantages-us.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
   assign col_handle = collection.handle | downcase
@@ -119,39 +120,10 @@
       %}
     </div>
 
+    {% render 'pflege-advantages-us-block', section_id: section.id %}
+
     <div class="pfc-free-care__below section-{{ section.id }}-padding">
       <div class="pfc-free-care__shell page-width">
-        <ul class="pfc-free-care__benefits" role="list">
-          <li class="pfc-free-care__benefit">
-            <span class="pfc-free-care__benefit-icon" aria-hidden="true">
-              {% render 'pflege-icon', icon: section.settings.benefit_1_icon, width: 24 %}
-            </span>
-            <h2 class="pfc-free-care__benefit-title">{{ 'sections.pflege_collection_free_care.benefit_1_title' | t }}</h2>
-            <p class="pfc-free-care__benefit-text">{{ 'sections.pflege_collection_free_care.benefit_1_text' | t }}</p>
-          </li>
-          <li class="pfc-free-care__benefit">
-            <span class="pfc-free-care__benefit-icon" aria-hidden="true">
-              {% render 'pflege-icon', icon: section.settings.benefit_2_icon, width: 24 %}
-            </span>
-            <h2 class="pfc-free-care__benefit-title">{{ 'sections.pflege_collection_free_care.benefit_2_title' | t }}</h2>
-            <p class="pfc-free-care__benefit-text">{{ 'sections.pflege_collection_free_care.benefit_2_text' | t }}</p>
-          </li>
-          <li class="pfc-free-care__benefit">
-            <span class="pfc-free-care__benefit-icon" aria-hidden="true">
-              {% render 'pflege-icon', icon: section.settings.benefit_3_icon, width: 24 %}
-            </span>
-            <h2 class="pfc-free-care__benefit-title">{{ 'sections.pflege_collection_free_care.benefit_3_title' | t }}</h2>
-            <p class="pfc-free-care__benefit-text">{{ 'sections.pflege_collection_free_care.benefit_3_text' | t }}</p>
-          </li>
-          <li class="pfc-free-care__benefit">
-            <span class="pfc-free-care__benefit-icon" aria-hidden="true">
-              {% render 'pflege-icon', icon: section.settings.benefit_4_icon, width: 24 %}
-            </span>
-            <h2 class="pfc-free-care__benefit-title">{{ 'sections.pflege_collection_free_care.benefit_4_title' | t }}</h2>
-            <p class="pfc-free-care__benefit-text">{{ 'sections.pflege_collection_free_care.benefit_4_text' | t }}</p>
-          </li>
-        </ul>
-
         <aside class="pfc-free-care__pregrid" aria-label="{{ 'sections.pflege_collection_free_care.pregrid_aria' | t }}">
           <p class="pfc-free-care__pregrid-text">{{ 'sections.pflege_collection_free_care.pregrid_text' | t }}</p>
           <a class="pfc-free-care__btn pfc-free-care__btn--compact" href="{{ pfc_config_url | escape }}">
@@ -232,50 +204,6 @@
       "id": "info_link",
       "label": "Link „Mehr Infos“ (Homepage-Abschnitt)",
       "info": "Leer = Startseite mit Anker #kostenfreie-pflegehilfsmittel"
-    },
-    {
-      "type": "select",
-      "id": "benefit_1_icon",
-      "label": "Icon Vorteil 1",
-      "options": [
-        { "value": "euro", "label": "Euro" },
-        { "value": "ticket", "label": "Ticket" },
-        { "value": "badge-check", "label": "Häkchen" }
-      ],
-      "default": "euro"
-    },
-    {
-      "type": "select",
-      "id": "benefit_2_icon",
-      "label": "Icon Vorteil 2",
-      "options": [
-        { "value": "user", "label": "Person" },
-        { "value": "heart", "label": "Herz" },
-        { "value": "shield", "label": "Schutz" }
-      ],
-      "default": "user"
-    },
-    {
-      "type": "select",
-      "id": "benefit_3_icon",
-      "label": "Icon Vorteil 3",
-      "options": [
-        { "value": "rotate-ccw", "label": "Wiederholung" },
-        { "value": "document", "label": "Dokument" },
-        { "value": "clock", "label": "Uhr" }
-      ],
-      "default": "rotate-ccw"
-    },
-    {
-      "type": "select",
-      "id": "benefit_4_icon",
-      "label": "Icon Vorteil 4",
-      "options": [
-        { "value": "headset", "label": "Service" },
-        { "value": "package", "label": "Paket" },
-        { "value": "badge-check", "label": "Häkchen" }
-      ],
-      "default": "headset"
     },
     {
       "type": "range",
