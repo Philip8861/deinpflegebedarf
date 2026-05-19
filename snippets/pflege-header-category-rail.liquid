@@ -8,6 +8,16 @@
     <ul class="pflege-cat-rail__list list-unstyled" role="list">
       <li class="pflege-cat-rail__cell">
         <a
+          href="{{ url_free_care }}"
+          class="pflege-cat-rail__link{% if active_free_care %} pflege-cat-rail__link--active{% endif %}"
+          {% if active_free_care %}aria-current="page"{% endif %}
+        >
+          <span class="pflege-cat-rail__icon" aria-hidden="true">{% render 'pflege-icon', icon: 'ticket', width: 20 %}</span>
+          <span class="pflege-cat-rail__label">{{ 'sections.pflege_header_category_rail.cat_free_care' | t }}</span>
+        </a>
+      </li>
+      <li class="pflege-cat-rail__cell">
+        <a
           href="{{ url_ink }}"
           class="pflege-cat-rail__link{% if active_ink %} pflege-cat-rail__link--active{% endif %}"
           {% if active_ink %}aria-current="page"{% endif %}

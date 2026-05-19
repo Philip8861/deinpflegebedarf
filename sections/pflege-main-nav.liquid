@@ -70,6 +70,14 @@
     assign url_gloves = root | append: 'collections/schutz-handschuhe'
   endif
 
+  if collections['kostenfreie-pflegehilfsmittel'] != blank
+    assign url_free_care = collections['kostenfreie-pflegehilfsmittel'].url
+  elsif collections['pflegehilfsmittel-kostenfrei'] != blank
+    assign url_free_care = collections['pflegehilfsmittel-kostenfrei'].url
+  else
+    assign url_free_care = root | append: 'collections/kostenfreie-pflegehilfsmittel'
+  endif
+
   assign finder_modal_href = section.settings.finder_promo_button_link | strip
   if finder_modal_href == blank
     assign finder_modal_href = root | append: '#produktfinder'
@@ -83,6 +91,7 @@
   assign active_body = false
   assign active_skin = false
   assign active_gloves = false
+  assign active_free_care = false
 
   if request.page_type == 'collection'
     case collection.handle
@@ -104,17 +113,26 @@
         assign active_skin = true
       when 'schutz-handschuhe', 'schutz-und-handschuhe', 'handschuhe'
         assign active_gloves = true
+      when 'kostenfreie-pflegehilfsmittel', 'pflegehilfsmittel-kostenfrei'
+        assign active_free_care = true
     endcase
   endif
 
   if request.page_type == 'product' and product != blank
     assign rail_cat = ''
     for c in product.collections
-      if c.handle == 'inkontinenzversorgung' or c.handle == 'inkontinenz'
-        assign rail_cat = 'ink'
+      if c.handle == 'kostenfreie-pflegehilfsmittel' or c.handle == 'pflegehilfsmittel-kostenfrei'
+        assign rail_cat = 'free_care'
         break
       endif
     endfor
+    if rail_cat == ''
+      for c in product.collections
+        if c.handle == 'inkontinenzversorgung' or c.handle == 'inkontinenz'
+          assign rail_cat = 'ink'
+          break
+        endif
+      endfor
     if rail_cat == ''
       for c in product.collections
         if c.handle == 'koerperpflege' or c.handle == 'korperpflege'
@@ -164,6 +182,8 @@
       endfor
     endif
     case rail_cat
+      when 'free_care'
+        assign active_free_care = true
       when 'ink'
         assign active_ink = true
       when 'body'
@@ -180,7 +200,7 @@
   endif
 
   assign category_nav_active = false
-  if active_des or active_pf or active_hh or active_ver or active_ink or active_body or active_skin or active_gloves
+  if active_des or active_pf or active_hh or active_ver or active_ink or active_body or active_skin or active_gloves or active_free_care
     assign category_nav_active = true
   endif
 -%}
@@ -496,12 +516,14 @@
 
   <div class="pflege-main-nav__cat-rail-row">
     {% render 'pflege-header-category-rail',
+      url_free_care: url_free_care,
       url_ink: url_ink,
       url_body: url_body,
       url_skin: url_skin,
       url_gloves: url_gloves,
       url_des: url_des,
       url_ver: url_ver,
+      active_free_care: active_free_care,
       active_ink: active_ink,
       active_body: active_body,
       active_skin: active_skin,
@@ -534,6 +556,19 @@
       </button>
     </div>
     <ul class="pflege-category-modal__list" role="list">
+      <li>
+        <a
+          href="{{ url_free_care }}"
+          class="pflege-category-modal__link{% if active_free_care %} is-active{% endif %}"
+          {% if active_free_care %}aria-current="page"{% endif %}
+          data-category-modal-close
+        >
+          <span class="pflege-category-modal__link-icon" aria-hidden="true">
+            {%- render 'pflege-icon', icon: 'ticket', width: 22 -%}
+          </span>
+          <span class="pflege-category-modal__link-label">{{ 'sections.pflege_header_category_rail.cat_free_care' | t }}</span>
+        </a>
+      </li>
       <li>
         <a
           href="{{ url_ink }}"
