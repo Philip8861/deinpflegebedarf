@@ -1,9 +1,6 @@
 {% comment %}
-  Häufige Fragen — gleiche 20 FAQ-Texte wie Pflegeboxi (Locales: pflegeboxi.faq_*).
-  Global über dem Footer (layout/theme.liquid).
+  Häufige Fragen — global über dem Footer, einheitliche FAQ-Accordion-Optik.
 {% endcomment %}
-
-{{ 'section-pflege-boxi-faq-strip.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
   assign heading_setting = section.settings.heading | strip
@@ -32,102 +29,28 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+  .pflege-faq-strip-wrap--{{ section.id }} .pflege-faq-accordion__inner {
+    padding-top: 0;
+  }
 {%- endstyle -%}
 
-<section
-  id="pflege-faq-root-{{ section.id }}"
-  class="pflege-boxi-faq-strip"
-  aria-labelledby="pflege-faq-strip-title-{{ section.id }}"
-  data-pflege-faq-strip
->
-  {%- comment -%} Bogen nach oben — optischer Anschluss an „Kundenstimmen“ (Reviews) {%- endcomment -%}
-  <div class="pflege-boxi-faq-strip__arc-edge" aria-hidden="true"></div>
-  <div class="pflege-boxi-faq-strip__inner section-{{ section.id }}-padding">
-    <header class="pflege-boxi-faq-strip__head">
-      <h2 class="pflege-boxi-faq-strip__title" id="pflege-faq-strip-title-{{ section.id }}">
-        {{ heading_text | escape }}
-      </h2>
-      {%- if intro_text != blank -%}
-        <p class="pflege-boxi-faq-strip__intro">{{ intro_text | escape | newline_to_br }}</p>
-      {%- endif -%}
-    </header>
-
-    <div class="pflege-boxi-faq-strip__list">
-      {%- for i in (1..10) -%}
-        {%- assign q_key = 'pflegeboxi.faq_' | append: i | append: '_q' -%}
-        {%- assign a_key = 'pflegeboxi.faq_' | append: i | append: '_a' -%}
-        <details class="pflege-boxi-faq-strip__item" id="pflege-faq-strip-{{ section.id }}-{{ i }}">
-          <summary class="pflege-boxi-faq-strip__summary">{{ q_key | t }}</summary>
-          <div class="pflege-boxi-faq-strip__answer rte">
-            <p>{{ a_key | t }}</p>
-          </div>
-        </details>
-      {%- endfor -%}
-
-      <button
-        type="button"
-        class="pflege-boxi-faq-strip__load-more"
-        data-faq-load-more
-        aria-expanded="false"
-        aria-controls="pflege-faq-extra-{{ section.id }}"
-        data-faq-label-more="{{ 'sections.pflege_boxi_faq_strip.load_more' | t | escape }}"
-        data-faq-label-less="{{ 'sections.pflege_boxi_faq_strip.load_less' | t | escape }}"
-      >
-        <span class="pflege-boxi-faq-strip__load-more-icon" aria-hidden="true"></span>
-        <span class="pflege-boxi-faq-strip__load-more-label">{{ 'sections.pflege_boxi_faq_strip.load_more' | t }}</span>
-      </button>
-
-      <div
-        class="pflege-boxi-faq-strip__deferred"
-        id="pflege-faq-extra-{{ section.id }}"
-        data-faq-extra
-        hidden
-      >
-        {%- for i in (11..20) -%}
-          {%- assign q_key = 'pflegeboxi.faq_' | append: i | append: '_q' -%}
-          {%- assign a_key = 'pflegeboxi.faq_' | append: i | append: '_a' -%}
-          <details class="pflege-boxi-faq-strip__item" id="pflege-faq-strip-{{ section.id }}-{{ i }}">
-            <summary class="pflege-boxi-faq-strip__summary">{{ q_key | t }}</summary>
-            <div class="pflege-boxi-faq-strip__answer rte">
-              <p>{{ a_key | t }}</p>
-            </div>
-          </details>
-        {%- endfor -%}
-      </div>
-    </div>
+<div class="pflege-faq-strip-wrap pflege-faq-strip-wrap--{{ section.id }}" id="pflege-faq-root-{{ section.id }}">
+  <div class="pflege-faq-strip-wrap__arc" aria-hidden="true"></div>
+  <div class="section-{{ section.id }}-padding">
+    {% render 'pflege-faq-accordion',
+      section_id: section.id,
+      locale_root: 'pflegeboxi',
+      faq_from: 1,
+      faq_to: 10,
+      heading: heading_text,
+      intro: intro_text,
+      intro_html: false,
+      modifier_class: 'pflege-faq-accordion--global-strip',
+      deferred_from: 11,
+      deferred_to: 20
+    %}
   </div>
-</section>
-
-<script>
-  (function () {
-    var root = document.getElementById('pflege-faq-root-{{ section.id }}');
-    if (!root) return;
-    var btn = root.querySelector('[data-faq-load-more]');
-    var extra = root.querySelector('[data-faq-extra]');
-    var labelEl = btn && btn.querySelector('.pflege-boxi-faq-strip__load-more-label');
-    if (!btn || !extra || !labelEl) return;
-    var labelMore = btn.getAttribute('data-faq-label-more') || labelEl.textContent || '';
-    var labelLess = btn.getAttribute('data-faq-label-less') || '';
-
-    btn.addEventListener('click', function () {
-      var hidden = extra.hasAttribute('hidden');
-      if (hidden) {
-        extra.removeAttribute('hidden');
-        btn.setAttribute('aria-expanded', 'true');
-        btn.classList.add('is-expanded');
-        labelEl.textContent = labelLess;
-      } else {
-        extra.setAttribute('hidden', '');
-        btn.setAttribute('aria-expanded', 'false');
-        btn.classList.remove('is-expanded');
-        labelEl.textContent = labelMore;
-        extra.querySelectorAll('details.pflege-boxi-faq-strip__item[open]').forEach(function (el) {
-          el.removeAttribute('open');
-        });
-      }
-    });
-  })();
-</script>
+</div>
 
 {% schema %}
 {
@@ -137,7 +60,7 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "20 Antworten aus „pflegeboxi“; zuerst 10 sichtbar, Rest per Button ein- und ausblendbar. Eine Spalte, volle Breite wie der Hero."
+      "content": "20 Antworten aus „pflegeboxi“; zuerst 10 sichtbar, Rest per Button. Gleiche Optik wie FAQ auf Kategorieseiten."
     },
     {
       "type": "text",

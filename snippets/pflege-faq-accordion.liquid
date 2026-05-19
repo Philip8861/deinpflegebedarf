@@ -1,20 +1,26 @@
 {% comment %}
-  FAQ-Accordion (Referenz-Optik)
+  FAQ-Accordion (einheitlich auf allen Seiten)
   Parameter:
-  - section_id: eindeutige ID (Pflicht)
-  - locale_root: Locale-Prefix, z. B. sections.pflege_faq_accordion (Pflicht)
-  - faq_count: Anzahl Einträge (Standard: 6)
-  - heading, intro: optional, sonst aus Locale
-  - intro_link_url, intro_link_label: optionaler Link in der Einleitung
-  - first_open, single_open: true/false (Standard: true)
-  - modifier_class: zusätzliche CSS-Klasse am Wrapper
+  - section_id (Pflicht)
+  - locale_root: z. B. sections.pflege_faq_accordion oder pflegeboxi
+  - faq_from / faq_to: Index-Bereich (Standard 1..faq_count)
+  - faq_count: Fallback-Ende, wenn faq_to leer
+  - heading, intro: optional
+  - intro_html: true = Locale intro_html mit Link, false = nur intro-Text
+  - intro_link_url, intro_link_label
+  - first_open, single_open
+  - modifier_class
+  - deferred_from / deferred_to: weitere FAQs + „Mehr laden“
+  - load_more_label_more / load_more_label_less
 {% endcomment %}
 
 {%- liquid
-  assign faq_count = faq_count | default: 6
+  assign faq_from = faq_from | default: 1 | plus: 0
+  assign faq_to = faq_to | default: faq_count | default: 6 | plus: 0
   assign locale_root = locale_root | default: 'sections.pflege_faq_accordion'
   assign first_open = first_open | default: true
   assign single_open = single_open | default: true
+  assign intro_html = intro_html | default: true
 
   assign heading_key = locale_root | append: '.heading'
   assign intro_key = locale_root | append: '.intro_html'
@@ -41,10 +47,14 @@
   if intro_link_label == blank
     assign intro_link_label = intro_link_label_key | t
   endif
--%}
 
-{{ 'section-pflege-faq-accordion.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'pflege-faq-accordion.js' | asset_url }}" defer></script>
+  assign deferred_from_num = deferred_from | plus: 0
+  assign deferred_to_num = deferred_to | plus: 0
+  assign has_deferred = false
+  if deferred_from_num > 0 and deferred_to_num >= deferred_from_num
+    assign has_deferred = true
+  endif
+-%}
 
 <section
   class="pflege-faq-accordion{% if modifier_class != blank %} {{ modifier_class }}{% endif %}"
@@ -52,6 +62,7 @@
   data-pflege-faq-accordion
   data-first-open="{% if first_open %}true{% else %}false{% endif %}"
   data-single-open="{% if single_open %}true{% else %}false{% endif %}"
+  {% if has_deferred %}data-pflege-faq-has-load-more{% endif %}
 >
   <div class="pflege-faq-accordion__inner">
     <header class="pflege-faq-accordion__head">
@@ -59,8 +70,8 @@
         {{ heading_text | escape }}
       </h2>
       {%- if intro != blank -%}
-        <p class="pflege-faq-accordion__intro">{{ intro }}</p>
-      {%- else -%}
+        <p class="pflege-faq-accordion__intro">{{ intro | newline_to_br }}</p>
+      {%- elsif intro_html -%}
         {%- capture intro_link_markup -%}
           <a href="{{ intro_link_url | escape }}">{{ intro_link_label | escape }}</a>
         {%- endcapture -%}
@@ -71,7 +82,7 @@
     </header>
 
     <div class="pflege-faq-accordion__list" role="list">
-      {%- for i in (1..faq_count) -%}
+      {%- for i in (faq_from..faq_to) -%}
         {%- assign q_key = locale_root | append: '.faq_' | append: i | append: '_q' -%}
         {%- assign a_key = locale_root | append: '.faq_' | append: i | append: '_a' -%}
         {%- assign item_id = 'pflege-faq-' | append: section_id | append: '-' | append: i -%}
@@ -101,11 +112,81 @@
             hidden
           >
             <div class="pflege-faq-accordion__answer rte">
-              {{ a_key | t }}
+              {%- assign answer_html = a_key | t -%}
+              {%- if answer_html contains '<' -%}
+                {{ answer_html }}
+              {%- else -%}
+                <p>{{ answer_html }}</p>
+              {%- endif -%}
             </div>
           </div>
         </div>
       {%- endfor -%}
+
+      {%- if has_deferred -%}
+        <div class="pflege-faq-accordion__load-more-wrap">
+          <button
+            type="button"
+            class="pflege-faq-accordion__load-more"
+            data-faq-load-more
+            aria-expanded="false"
+            aria-controls="pflege-faq-extra-{{ section_id }}"
+            data-faq-label-more="{{ load_more_label_more | default: 'sections.pflege_boxi_faq_strip.load_more' | t | escape }}"
+            data-faq-label-less="{{ load_more_label_less | default: 'sections.pflege_boxi_faq_strip.load_less' | t | escape }}"
+          >
+            <span class="pflege-faq-accordion__load-more-icon" aria-hidden="true"></span>
+            <span class="pflege-faq-accordion__load-more-label">{{ load_more_label_more | default: 'sections.pflege_boxi_faq_strip.load_more' | t }}</span>
+          </button>
+        </div>
+
+        <div
+          class="pflege-faq-accordion__deferred"
+          id="pflege-faq-extra-{{ section_id }}"
+          data-faq-extra
+          hidden
+        >
+          {%- for i in (deferred_from_num..deferred_to_num) -%}
+            {%- assign q_key = locale_root | append: '.faq_' | append: i | append: '_q' -%}
+            {%- assign a_key = locale_root | append: '.faq_' | append: i | append: '_a' -%}
+            {%- assign item_id = 'pflege-faq-' | append: section_id | append: '-' | append: i -%}
+            {%- assign trigger_id = item_id | append: '-trigger' -%}
+            {%- assign panel_id = item_id | append: '-panel' -%}
+
+            <div class="pflege-faq-accordion__item" role="listitem" data-faq-accordion-item id="{{ item_id }}">
+              <h3 class="pflege-faq-accordion__question">
+                <button
+                  type="button"
+                  class="pflege-faq-accordion__trigger"
+                  id="{{ trigger_id }}"
+                  data-faq-accordion-trigger
+                  aria-expanded="false"
+                  aria-controls="{{ panel_id }}"
+                >
+                  <span class="pflege-faq-accordion__trigger-text">{{ q_key | t }}</span>
+                  <span class="pflege-faq-accordion__chevron" aria-hidden="true"></span>
+                </button>
+              </h3>
+              <div
+                id="{{ panel_id }}"
+                class="pflege-faq-accordion__panel"
+                role="region"
+                aria-labelledby="{{ trigger_id }}"
+                data-faq-accordion-panel
+                hidden
+              >
+                <div class="pflege-faq-accordion__answer rte">
+                  {%- assign answer_html = a_key | t -%}
+                  {%- if answer_html contains '<' -%}
+                    {{ answer_html }}
+                  {%- else -%}
+                    <p>{{ answer_html }}</p>
+                  {%- endif -%}
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
     </div>
   </div>
 </section>

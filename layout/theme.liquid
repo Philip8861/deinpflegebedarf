@@ -379,7 +379,9 @@
     {% comment %} Global: Kundenstimmen (Homepage-Stil) über dem Footer (alle Seiten) {% endcomment %}
     {% section 'customer-testimonials-homepage-style' %}
 
-    {% comment %} FAQ-Leiste — dieselben Antworten wie Pflegeboxi, visuell über dem Footer {% endcomment %}
+    {% comment %} FAQ-Leiste — einheitliches Accordion über dem Footer {% endcomment %}
+    {{ 'section-pflege-faq-accordion.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'pflege-faq-accordion.js' | asset_url }}" defer></script>
     {% section 'pflege-boxi-faq-strip' %}
 
     {%- comment -%}
