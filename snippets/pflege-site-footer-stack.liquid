@@ -2,12 +2,41 @@
   Globaler Seitenfuß vor dem Shop-Footer (alle Seiten):
   1. Ihre Vorteile bei uns
   2. Kundenstimmen
-  3. Häufige Fragen
+  3. (nur PHM) Pflegebox-CTA unter Kundenstimmen
+  4. Häufige Fragen
 {% endcomment %}
 {{ 'pflege-site-footer-stack.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign show_pfc_testimonials_cta = false
+  if template.name == 'collection' and collection != blank
+    assign col_h_footer = collection.handle | downcase
+    if col_h_footer == 'kostenfreie-pflegehilfsmittel' or col_h_footer == 'pflegehilfsmittel-kostenfrei'
+      assign show_pfc_testimonials_cta = true
+    endif
+  endif
+  assign pfc_external_config_url = 'https://www.alltagshilfe-sued.de/pflegehilfsmittel/pflegebox-konfigurator'
+  assign pfc_external_info_url = 'https://www.alltagshilfe-sued.de/pflegehilfsmittel/kostenfreie-pflegehilfsmittel'
+-%}
 
 <aside class="pflege-site-footer-stack" id="pflege-site-footer-stack" aria-label="{{ 'sections.pflege_site_footer_stack.aria_label' | t }}">
   {% section 'pflege-advantages-us' %}
   {% section 'customer-testimonials-homepage-style' %}
+
+  {%- if show_pfc_testimonials_cta -%}
+    {{ 'section-pflege-bestseller-row.css' | asset_url | stylesheet_tag }}
+    {{ 'section-pflege-collection-free-care.css' | asset_url | stylesheet_tag }}
+    <div class="pfc-free-care__testimonials-cta">
+      {% render 'pflege-free-care-closing-cta',
+        section_id: 'after-testimonials',
+        config_url: pfc_external_config_url,
+        info_url: pfc_external_info_url,
+        title: 'sections.pflege_collection_free_care.testimonials_cta_title' | t,
+        text: 'sections.pflege_collection_free_care.testimonials_cta_text' | t,
+        modifier_class: 'pflege-bestseller--closing-cta--after-testimonials'
+      %}
+    </div>
+  {%- endif -%}
+
   {% section 'pflege-boxi-faq-strip' %}
 </aside>

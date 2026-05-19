@@ -1,0 +1,73 @@
+/* Einheitlicher Block vor dem Shop-Footer: Vorteile → Kundenstimmen → FAQ */
+
+.pflege-site-footer-stack {
+  --pfs-stack-gap: clamp(2.75rem, 5.5vw, 4.25rem);
+  --pfs-stack-gap-tight: clamp(1.35rem, 2.8vw, 2rem);
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.pflege-site-footer-stack > .shopify-section {
+  margin: 0;
+}
+
+/* ——— 1. Ihre Vorteile bei uns ——— */
+.pflege-site-footer-stack .pflege-advantages-us-section .pflege-advantages-us {
+  margin: 0;
+}
+
+.pflege-site-footer-stack .pflege-advantages-us__backdrop {
+  padding-top: clamp(2.5rem, 4.5vw, 3.5rem);
+  padding-bottom: calc(var(--pfs-stack-gap) * 0.55);
+}
+
+/* ——— 2. Kundenstimmen ——— */
+.pflege-site-footer-stack .customer-testimonials-hp-section .ct-hp {
+  background: #fff;
+}
+
+.pflege-site-footer-stack .customer-testimonials-hp-section .ct-hp__inner {
+  padding-top: calc(var(--pfs-stack-gap) * 0.45);
+  padding-bottom: calc(var(--pfs-stack-gap) * 0.35);
+}
+
+/* PHM: Pflegebox-CTA unter Kundenstimmen */
+.pflege-site-footer-stack .pfc-free-care__testimonials-cta {
+  width: 100%;
+  max-width: var(--pflege-hero-tile-max-width, min(100%, 1426px));
+  margin: 0 auto;
+  padding: 0 max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
+  box-sizing: border-box;
+}
+
+.pflege-site-footer-stack .pflege-bestseller--closing-cta--after-testimonials {
+  padding-top: calc(var(--pfs-stack-gap) * 0.35);
+  padding-bottom: calc(var(--pfs-stack-gap) * 0.45);
+}
+
+.pflege-site-footer-stack .pflege-bestseller--closing-cta--after-testimonials .pflege-bestseller__shell {
+  max-width: 100%;
+}
+
+/* ——— 3. FAQ (ganz unten vor Shop-Footer) ——— */
+.pflege-site-footer-stack .pflege-boxi-faq-strip-section .pflege-faq-strip-wrap {
+  margin: 0;
+}
+
+.pflege-site-footer-stack .pflege-boxi-faq-strip-section .pflege-faq-strip-wrap > div {
+  padding-top: calc(var(--pfs-stack-gap) * 0.4) !important;
+  padding-bottom: clamp(2.5rem, 4vw, 3.25rem) !important;
+}
+
+.pflege-site-footer-stack .pflege-faq-strip-wrap .pflege-faq-accordion__backdrop {
+  padding-top: var(--pfs-stack-gap-tight);
+}
+
+/* Abstand zum statischen Shop-Footer */
+.pflege-site-footer-stack + .pflege-footer-static,
+.pflege-site-footer-stack + footer,
+.pflege-site-footer-stack ~ .pflege-footer-static {
+  margin-top: 0;
+}
