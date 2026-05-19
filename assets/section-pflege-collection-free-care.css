@@ -285,12 +285,22 @@
   color: rgba(var(--color-foreground), 0.88);
 }
 
-/* --- Closing CTA (FAQ: section-pflege-faq-accordion.css) -------------- */
-.pfc-free-care--bottom .pfc-free-care__shell {
-  padding-top: clamp(1.5rem, 3vw, 2.25rem);
+/* --- Closing CTA (unter Vorteilen) -------------------------------------- */
+.pfc-free-care__closing-wrap {
+  margin-top: 0;
+  padding: clamp(1.25rem, 3vw, 2rem) 0 clamp(1.75rem, 3.5vw, 2.5rem);
+  background: #fff;
 }
 
-/* --- Closing CTA -------------------------------------------------------- */
+.pfc-free-care .pflege-advantages-us + .pfc-free-care__closing-wrap {
+  margin-top: 0;
+}
+
+.pfc-free-care__closing-wrap .pfc-free-care__shell {
+  max-width: min(52rem, 100%);
+}
+
+/* --- Closing CTA Karte -------------------------------------------------- */
 .pfc-free-care__closing-card {
   padding: clamp(1.35rem, 3vw, 2rem);
   border-radius: calc(var(--pfc-radius) + 2px);

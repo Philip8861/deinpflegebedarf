@@ -1,5 +1,5 @@
 {% comment %}
-  Kategorie „Kostenfreie Pflegehilfsmittel“ — FAQ + Abschluss-CTA
+  Kategorie „Kostenfreie Pflegehilfsmittel“ — FAQ
 {% endcomment %}
 
 {%- liquid
@@ -11,14 +11,6 @@
 -%}
 {%- if show_free_care -%}
   {%- liquid
-    assign pfc_config_url = section.settings.configurator_link | strip
-    if pfc_config_url == blank
-      assign pfc_config_url = 'https://www.alltagshilfe-sued.de/pflegehilfsmittel/pflegebox-konfigurator'
-    endif
-    assign pfc_info_url = section.settings.info_link | strip
-    if pfc_info_url == blank
-      assign pfc_info_url = 'https://www.alltagshilfe-sued.de/pflegehilfsmittel/kostenfreie-pflegehilfsmittel'
-    endif
     assign faq_intro_link = section.settings.faq_intro_link | strip
   -%}
 
@@ -43,24 +35,6 @@
       intro_link_url: faq_intro_link
     %}
 
-    <div class="pfc-free-care__shell page-width">
-      <section class="pfc-free-care__closing" aria-labelledby="pfc-free-care-closing-title-{{ section.id }}">
-        <div class="pfc-free-care__closing-card">
-          <h2 id="pfc-free-care-closing-title-{{ section.id }}" class="pfc-free-care__closing-title">
-            {{ 'sections.pflege_collection_free_care.closing_title' | t }}
-          </h2>
-          <p class="pfc-free-care__closing-text">{{ 'sections.pflege_collection_free_care.closing_text' | t }}</p>
-          <div class="pfc-free-care__actions pfc-free-care__actions--closing">
-            <a class="pfc-free-care__btn pfc-free-care__btn--primary" href="{{ pfc_config_url | escape }}">
-              {{ 'sections.pflege_collection_free_care.cta_configure_box' | t }}
-            </a>
-            <a class="pfc-free-care__btn pfc-free-care__btn--secondary" href="{{ pfc_info_url | escape }}">
-              {{ 'sections.pflege_collection_free_care.cta_more_info_view' | t }}
-            </a>
-          </div>
-        </div>
-      </section>
-    </div>
   </div>
 
   {% render 'pflege-free-care-faq-schema',
@@ -71,20 +45,14 @@
 
 {% schema %}
 {
-  "name": "PHM FAQ & CTA",
+  "name": "PHM FAQ",
   "tag": "section",
   "class": "pfc-free-care-bottom-section",
   "limit": 1,
   "settings": [
     {
-      "type": "url",
-      "id": "configurator_link",
-      "label": "Link Pflegebox-Konfigurator"
-    },
-    {
-      "type": "url",
-      "id": "info_link",
-      "label": "Link „Mehr Infos“"
+      "type": "paragraph",
+      "content": "Abschluss-CTA (Pflegebox konfigurieren) liegt im Section „PHM Kopfbereich“ unter den Vorteilen."
     },
     {
       "type": "url",
@@ -113,6 +81,6 @@
       "default": 48
     }
   ],
-  "presets": [{ "name": "PHM FAQ & CTA" }]
+  "presets": [{ "name": "PHM FAQ" }]
 }
 {% endschema %}
