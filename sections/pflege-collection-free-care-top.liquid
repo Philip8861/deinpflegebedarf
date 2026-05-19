@@ -18,10 +18,24 @@
     </div>
   {%- endif -%}
 {%- else -%}
-  {% render 'pflege-free-care-collection-urls',
-    configurator_link: section.settings.configurator_link,
-    info_link: section.settings.info_link
-  %}
+  {%- liquid
+    assign pfc_config_url = section.settings.configurator_link | strip
+    if pfc_config_url == blank
+      if pages['pflegebox-konfigurator'] != blank
+        assign pfc_config_url = pages['pflegebox-konfigurator'].url
+      elsif pages['pflegehilfsmittel-konfigurator'] != blank
+        assign pfc_config_url = pages['pflegehilfsmittel-konfigurator'].url
+      elsif pages['pflegebox-konfigurieren'] != blank
+        assign pfc_config_url = pages['pflegebox-konfigurieren'].url
+      else
+        assign pfc_config_url = routes.root_url | append: 'pages/pflegebox-konfigurator'
+      endif
+    endif
+    assign pfc_info_url = section.settings.info_link | strip
+    if pfc_info_url == blank
+      assign pfc_info_url = routes.root_url | append: '#kostenfreie-pflegehilfsmittel'
+    endif
+  -%}
 
   {%- style -%}
     .section-{{ section.id }}-padding {
@@ -37,16 +51,16 @@
   {%- endstyle -%}
 
   {%- liquid
-    assign hero_badge = section.settings.badge
-    if hero_badge == blank
-      assign hero_badge = 'sections.pflege_collection_free_care.hero_badge' | t
-    endif
+    assign hero_badge = section.settings.badge | strip
     assign hero_line1 = section.settings.heading_line1
     if hero_line1 == blank
       assign hero_line1 = 'sections.pflege_collection_free_care.hero_h1' | t
     endif
-    assign hero_line2 = section.settings.heading_line2
+    assign hero_line2 = ''
     assign hero_sub = section.settings.subheading
+    if hero_sub == blank
+      assign hero_sub = 'sections.pflege_collection_free_care.hero_sub' | t
+    endif
     assign hero_btn_label = section.settings.button_label
     if hero_btn_label == blank
       assign hero_btn_label = 'sections.pflege_collection_free_care.cta_configure' | t
@@ -54,6 +68,14 @@
     assign hero_btn_link = section.settings.button_link
     if hero_btn_link == blank
       assign hero_btn_link = pfc_config_url
+    endif
+    assign hero_secondary_label = section.settings.secondary_button_label
+    if hero_secondary_label == blank
+      assign hero_secondary_label = 'sections.pflege_collection_free_care.cta_more_info' | t
+    endif
+    assign hero_secondary_link = section.settings.secondary_button_link
+    if hero_secondary_link == blank
+      assign hero_secondary_link = pfc_info_url
     endif
     assign hero_img_alt = section.settings.hero_image_alt
     if hero_img_alt == blank
@@ -75,6 +97,8 @@
           subheading: hero_sub,
           button_label: hero_btn_label,
           button_link: hero_btn_link,
+          secondary_button_label: hero_secondary_label,
+          secondary_button_link: hero_secondary_link,
           title_id: hero_title_id
         %}
       </div>
@@ -138,38 +162,43 @@
     {
       "type": "text",
       "id": "badge",
-      "label": "Badge",
-      "default": "Kostenfreie Pflegehilfsmittel"
+      "label": "Badge (leer lassen = ausblenden)"
     },
     {
       "type": "text",
       "id": "heading_line1",
-      "label": "Überschrift Zeile 1",
+      "label": "Überschrift",
       "default": "Wussten Sie schon?"
-    },
-    {
-      "type": "text",
-      "id": "heading_line2",
-      "label": "Überschrift Zeile 2",
-      "default": "ab Pflegegrad 1"
     },
     {
       "type": "textarea",
       "id": "subheading",
-      "label": "Unterzeile",
-      "default": "Sie erhalten eine Vielzahl unserer Produkte auch kostenlos ab Pflegegrad 1.\n\nViele Pflegehilfsmittel müssen Sie nicht selbst im Shop kaufen. Wenn bei Ihnen oder einem Angehörigen mindestens Pflegegrad 1 vorliegt und die Pflege zu Hause stattfindet, können bestimmte Verbrauchsprodukte monatlich kostenlos über die Pflegekasse bezogen werden – im Wert von bis zu 42 € pro Monat."
+      "label": "Text",
+      "default": "Viele Produkte aus unserem Shop müssen Sie nicht selbst bezahlen. Ab Pflegegrad 1 können Sie Pflegehilfsmittel im Wert von bis zu 42 € monatlich kostenlos über die Pflegekasse erhalten."
     },
     {
       "type": "text",
       "id": "button_label",
-      "label": "Button-Text",
-      "default": "Jetzt kostenlos konfigurieren"
+      "label": "Button primär",
+      "default": "Jetzt konfigurieren"
     },
     {
       "type": "url",
       "id": "button_link",
-      "label": "Button-Link",
+      "label": "Link primärer Button",
       "info": "Leer = Pflegebox-Konfigurator"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_label",
+      "label": "Button sekundär",
+      "default": "Weitere Infos"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "Link sekundärer Button",
+      "info": "Leer = Homepage-Abschnitt Mehr Infos"
     },
     {
       "type": "text",

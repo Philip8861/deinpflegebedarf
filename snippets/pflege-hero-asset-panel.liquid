@@ -45,8 +45,8 @@
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
           {%- endif -%}
-          {%- if secondary_button_label != blank and secondary_button_link != blank -%}
-            <a class="pflege-hero__cta pflege-hero__cta--secondary" href="{{ secondary_button_link | escape }}">
+          {%- if secondary_button_label != blank -%}
+            <a class="pflege-hero__cta pflege-hero__cta--secondary" href="{{ secondary_button_link | default: '#' | escape }}">
               {{- secondary_button_label | escape -}}
             </a>
           {%- endif -%}

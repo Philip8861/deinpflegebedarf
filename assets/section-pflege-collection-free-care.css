@@ -21,13 +21,17 @@
   margin-top: 0;
 }
 
-.pflege-hero--free-care .pflege-hero__actions {
+.pflege-hero--free-care .pflege-hero__content .pflege-hero__actions {
   display: flex;
   flex-direction: column;
   align-items: stretch;
   gap: 0.65rem;
   width: 100%;
   max-width: 28rem;
+  margin-top: 0.25rem;
+  position: relative;
+  z-index: 2;
+  pointer-events: auto;
 }
 
 @media screen and (min-width: 480px) {
