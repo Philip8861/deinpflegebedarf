@@ -14,7 +14,7 @@
     root.dataset.pflegeFaqInit = 'true';
 
     var singleOpen = root.getAttribute('data-single-open') !== 'false';
-    var firstOpen = root.getAttribute('data-first-open') !== 'false';
+    var firstOpen = root.getAttribute('data-first-open') === 'true';
     var items = root.querySelectorAll('[data-faq-accordion-item]');
 
     items.forEach(function (item) {
