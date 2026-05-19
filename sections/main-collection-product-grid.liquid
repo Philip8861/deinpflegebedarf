@@ -30,7 +30,15 @@
   if section.settings.minimal_collection_cards and pflege_is_collection_layout
     assign pflege_coll_min_cards = true
   endif
+  assign skip_grid_free_care = false
+  if collection != blank
+    assign col_h_grid = collection.handle | downcase
+    if col_h_grid == 'kostenfreie-pflegehilfsmittel' or col_h_grid == 'pflegehilfsmittel-kostenfrei'
+      assign skip_grid_free_care = true
+    endif
+  endif
 -%}
+{%- unless skip_grid_free_care -%}
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -212,6 +220,7 @@
     {{ 'mask-arch.svg' | inline_asset_content }}
   {%- endif -%}
 </div>
+{%- endunless -%}
 
 {% schema %}
 {
