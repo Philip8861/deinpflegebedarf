@@ -39,7 +39,7 @@
       "type": "pflege-bestseller-row",
       "settings": {
         "title": "Artikel die in der kostenfreien Pflegebox enthalten sind",
-        "intro": "Diese Pflegehilfsmittel können Sie im Rahmen Ihrer monatlichen Pflegebox kostenlos über die Pflegekasse beziehen.",
+        "intro": "Jetzt konfigurieren und bis zu 504€ im Jahr sparen!",
         "data_source": "collection",
         "collection": "kostenfreie-pflegehilfsmittel",
         "products_to_show": 20,
