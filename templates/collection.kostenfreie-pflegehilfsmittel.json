@@ -27,20 +27,6 @@
         "padding_bottom": 28
       }
     },
-    "pfc_box_products": {
-      "type": "pflege-bestseller-row",
-      "settings": {
-        "title": "Artikel die in der kostenfreien Pflegebox enthalten sind",
-        "intro": "Diese Pflegehilfsmittel können Sie im Rahmen Ihrer monatlichen Pflegebox kostenlos über die Pflegekasse beziehen.",
-        "data_source": "collection",
-        "collection": "kostenfreie-pflegehilfsmittel",
-        "products_to_show": 20,
-        "columns_desktop": "5",
-        "show_collection_rating": true,
-        "view_all_label": "",
-        "view_all_link": ""
-      }
-    },
     "product-grid": {
       "type": "main-collection-product-grid",
       "settings": {
@@ -74,7 +60,6 @@
   },
   "order": [
     "pfc_free_care_top",
-    "pfc_box_products",
     "product-grid",
     "pfc_free_care_bottom"
   ]

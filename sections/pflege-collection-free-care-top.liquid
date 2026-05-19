@@ -3,6 +3,7 @@
 {% endcomment %}
 {{ 'section-pflege-hero.css' | asset_url | stylesheet_tag }}
 {{ 'section-pflege-collection-free-care.css' | asset_url | stylesheet_tag }}
+{{ 'section-pflege-bestseller-row.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
   assign col_handle = collection.handle | downcase
@@ -80,6 +81,9 @@
     endif
     assign hero_asset_file = 'kostenfreie_pflegehilfsmittel.webp'
     assign hero_title_id = 'pfc-free-care-hero-title-' | append: section.id
+    assign box_products_title = 'sections.pflege_collection_free_care.box_products_title' | t
+    assign box_products_intro = 'sections.cart.pflege.recommendations_bestseller_intro' | t
+    assign box_products_limit = section.settings.box_products_count | default: 20
   -%}
 
   <div class="pfc-free-care" id="pfc-free-care-top-{{ section.id }}">
@@ -100,6 +104,20 @@
         %}
       </div>
     </section>
+
+    <div class="pfc-free-care__box-products" id="pfc-box-products-{{ section.id }}">
+      {% render 'pflege-bestseller-block',
+        data_source: 'collection',
+        title: box_products_title,
+        intro: box_products_intro,
+        collection: collection,
+        products_limit: box_products_limit,
+        columns_desktop: 5,
+        show_collection_rating: true,
+        view_all_label: '',
+        view_all_href: collection.url
+      %}
+    </div>
 
     <div class="pfc-free-care__below section-{{ section.id }}-padding">
       <div class="pfc-free-care__shell page-width">
@@ -258,6 +276,16 @@
         { "value": "badge-check", "label": "Häkchen" }
       ],
       "default": "headset"
+    },
+    {
+      "type": "range",
+      "id": "box_products_count",
+      "min": 5,
+      "max": 50,
+      "step": 1,
+      "default": 20,
+      "label": "Pflegebox-Artikel (Anzahl Karten)",
+      "info": "Produktreihe direkt unter dem Hero. 5 Spalten, zweite Reihe bei Bedarf."
     },
     {
       "type": "range",

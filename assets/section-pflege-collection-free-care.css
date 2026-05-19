@@ -22,6 +22,11 @@
   line-height: 1.58;
 }
 
+.pfc-free-care__box-products .pflege-bestseller {
+  padding-top: var(--pflege-home-section-stack, clamp(1.5rem, 3vw, 2rem));
+  padding-bottom: var(--pflege-home-section-stack, clamp(1.5rem, 3vw, 2rem));
+}
+
 .pfc-free-care__below {
   margin-top: 0;
 }
