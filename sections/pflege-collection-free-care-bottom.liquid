@@ -13,19 +13,11 @@
   {%- liquid
     assign pfc_config_url = section.settings.configurator_link | strip
     if pfc_config_url == blank
-      if pages['pflegebox-konfigurator'] != blank
-        assign pfc_config_url = pages['pflegebox-konfigurator'].url
-      elsif pages['pflegehilfsmittel-konfigurator'] != blank
-        assign pfc_config_url = pages['pflegehilfsmittel-konfigurator'].url
-      elsif pages['pflegebox-konfigurieren'] != blank
-        assign pfc_config_url = pages['pflegebox-konfigurieren'].url
-      else
-        assign pfc_config_url = routes.root_url | append: 'pages/pflegebox-konfigurator'
-      endif
+      assign pfc_config_url = 'https://www.alltagshilfe-sued.de/pflegehilfsmittel/pflegebox-konfigurator'
     endif
     assign pfc_info_url = section.settings.info_link | strip
     if pfc_info_url == blank
-      assign pfc_info_url = routes.root_url | append: '#kostenfreie-pflegehilfsmittel'
+      assign pfc_info_url = 'https://www.alltagshilfe-sued.de/pflegehilfsmittel/kostenfreie-pflegehilfsmittel'
     endif
   -%}
 
