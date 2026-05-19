@@ -258,8 +258,7 @@
 
       html {
         box-sizing: border-box;
-        /* +10 % Gesamtgröße (alle rem-Werte skalieren mit) */
-        font-size: calc(var(--font-body-scale) * 62.5% * 1.1);
+        font-size: calc(var(--font-body-scale) * 62.5%);
         height: 100%;
       }
 
@@ -285,6 +284,7 @@
     {% endstyle %}
 
     {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'pflege-ui-scale.css' | asset_url | stylesheet_tag }}
     {{ 'pflegeshop-tokens.css' | asset_url | stylesheet_tag }}
     {{ 'component-pflege-type-unified.css' | asset_url | stylesheet_tag }}
     {%- if template.name == 'index' -%}
