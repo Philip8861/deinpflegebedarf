@@ -19,21 +19,15 @@
   {%- endif -%}
 {%- else -%}
   {%- liquid
+    assign pfc_external_config_url = 'https://www.alltagshilfe-sued.de/pflegehilfsmittel/pflegebox-konfigurator'
+    assign pfc_external_info_url = 'https://www.alltagshilfe-sued.de/pflegehilfsmittel/kostenfreie-pflegehilfsmittel'
     assign pfc_config_url = section.settings.configurator_link | strip
     if pfc_config_url == blank
-      if pages['pflegebox-konfigurator'] != blank
-        assign pfc_config_url = pages['pflegebox-konfigurator'].url
-      elsif pages['pflegehilfsmittel-konfigurator'] != blank
-        assign pfc_config_url = pages['pflegehilfsmittel-konfigurator'].url
-      elsif pages['pflegebox-konfigurieren'] != blank
-        assign pfc_config_url = pages['pflegebox-konfigurieren'].url
-      else
-        assign pfc_config_url = routes.root_url | append: 'pages/pflegebox-konfigurator'
-      endif
+      assign pfc_config_url = pfc_external_config_url
     endif
     assign pfc_info_url = section.settings.info_link | strip
     if pfc_info_url == blank
-      assign pfc_info_url = routes.root_url | append: '#kostenfreie-pflegehilfsmittel'
+      assign pfc_info_url = pfc_external_info_url
     endif
   -%}
 
@@ -68,17 +62,17 @@
     if hero_btn_label == blank
       assign hero_btn_label = 'sections.pflege_collection_free_care.cta_configure' | t
     endif
-    assign hero_btn_link = section.settings.button_link
+    assign hero_btn_link = section.settings.button_link | strip
     if hero_btn_link == blank
-      assign hero_btn_link = pfc_config_url
+      assign hero_btn_link = pfc_external_config_url
     endif
     assign hero_secondary_label = section.settings.secondary_button_label
     if hero_secondary_label == blank
       assign hero_secondary_label = 'sections.pflege_collection_free_care.cta_more_info' | t
     endif
-    assign hero_secondary_link = section.settings.secondary_button_link
+    assign hero_secondary_link = section.settings.secondary_button_link | strip
     if hero_secondary_link == blank
-      assign hero_secondary_link = pfc_info_url
+      assign hero_secondary_link = pfc_external_info_url
     endif
     assign hero_img_alt = section.settings.hero_image_alt
     if hero_img_alt == blank
@@ -184,13 +178,13 @@
       "type": "text",
       "id": "button_label",
       "label": "Button primär",
-      "default": "Jetzt konfigurieren"
+      "default": "Pflegebox jetzt konfigurieren"
     },
     {
       "type": "url",
       "id": "button_link",
       "label": "Link primärer Button",
-      "info": "Leer = Pflegebox-Konfigurator"
+      "info": "Leer = alltagshilfe-sued.de/pflegehilfsmittel/pflegebox-konfigurator"
     },
     {
       "type": "text",
@@ -202,7 +196,7 @@
       "type": "url",
       "id": "secondary_button_link",
       "label": "Link sekundärer Button",
-      "info": "Leer = Homepage-Abschnitt Mehr Infos"
+      "info": "Leer = alltagshilfe-sued.de/pflegehilfsmittel/kostenfreie-pflegehilfsmittel"
     },
     {
       "type": "text",
