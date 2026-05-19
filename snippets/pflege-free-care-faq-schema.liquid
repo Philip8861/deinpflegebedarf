@@ -1,0 +1,21 @@
+{% comment %} FAQPage JSON-LD für Kategorie Kostenfreie Pflegehilfsmittel {% endcomment %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {%- for i in (1..14) -%}
+      {%- assign q_key = 'faq_' | append: i | append: '_q' -%}
+      {%- assign a_key = 'faq_' | append: i | append: '_a' -%}
+      {
+        "@type": "Question",
+        "name": {{ 'sections.pflege_collection_free_care.' | append: q_key | t | json }},
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": {{ 'sections.pflege_collection_free_care.' | append: a_key | t | json }}
+        }
+      }{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  ]
+}
+</script>

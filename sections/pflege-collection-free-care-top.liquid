@@ -1,0 +1,199 @@
+{% comment %}
+  Kategorie „Kostenfreie Pflegehilfsmittel“ — Hero, Vorteile, Hinweis vor Produktliste.
+  Template: collection.kostenfreie-pflegehilfsmittel
+{% endcomment %}
+{{ 'section-pflege-collection-free-care.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign col_handle = collection.handle | downcase
+  assign show_free_care = false
+  if col_handle == 'kostenfreie-pflegehilfsmittel' or col_handle == 'pflegehilfsmittel-kostenfrei'
+    assign show_free_care = true
+  endif
+-%}
+{%- unless show_free_care -%}
+  {%- if request.design_mode -%}
+    <div class="page-width" style="padding:1rem 0;color:#6f7f95;font-size:1.1rem;">
+      Hinweis: Diese Section ist für die Kollektion „Kostenfreie Pflegehilfsmittel“ gedacht (Handle: kostenfreie-pflegehilfsmittel).
+    </div>
+  {%- endif -%}
+{%- else -%}
+  {% render 'pflege-free-care-collection-urls',
+    configurator_link: section.settings.configurator_link,
+    info_link: section.settings.info_link
+  %}
+
+  {%- style -%}
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+    @media screen and (min-width: 750px) {
+      .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+    }
+  {%- endstyle -%}
+
+  <div class="pfc-free-care section-{{ section.id }}-padding" id="pfc-free-care-top-{{ section.id }}">
+    <div class="pfc-free-care__shell page-width">
+      <header class="pfc-free-care__hero" aria-labelledby="pfc-free-care-hero-title-{{ section.id }}">
+        <div class="pfc-free-care__hero-badge">
+          {% render 'pflege-icon', icon: 'euro', width: 22 %}
+          <span>{{ 'sections.pflege_collection_free_care.hero_badge' | t }}</span>
+        </div>
+        <h1 id="pfc-free-care-hero-title-{{ section.id }}" class="pfc-free-care__hero-title">
+          {{ 'sections.pflege_collection_free_care.hero_h1' | t }}
+        </h1>
+        <p class="pfc-free-care__hero-sub">{{ 'sections.pflege_collection_free_care.hero_sub' | t }}</p>
+        <div class="pfc-free-care__hero-body rte">
+          <p>{{ 'sections.pflege_collection_free_care.hero_p1' | t }}</p>
+          <p>{{ 'sections.pflege_collection_free_care.hero_p2' | t }}</p>
+          <p>{{ 'sections.pflege_collection_free_care.hero_p3' | t }}</p>
+        </div>
+        <p class="pfc-free-care__trust">
+          {% render 'pflege-icon', icon: 'badge-check', width: 20 %}
+          <span>{{ 'sections.pflege_collection_free_care.trust_kassen' | t }}</span>
+        </p>
+        <div class="pfc-free-care__actions pfc-free-care__actions--hero">
+          <a class="pfc-free-care__btn pfc-free-care__btn--primary" href="{{ pfc_config_url | escape }}">
+            {{ 'sections.pflege_collection_free_care.cta_configure' | t }}
+          </a>
+          <a class="pfc-free-care__btn pfc-free-care__btn--secondary" href="{{ pfc_info_url | escape }}">
+            {{ 'sections.pflege_collection_free_care.cta_more_info' | t }}
+          </a>
+        </div>
+      </header>
+
+      <ul class="pfc-free-care__benefits" role="list">
+        <li class="pfc-free-care__benefit">
+          <span class="pfc-free-care__benefit-icon" aria-hidden="true">
+            {% render 'pflege-icon', icon: section.settings.benefit_1_icon, width: 24 %}
+          </span>
+          <h2 class="pfc-free-care__benefit-title">{{ 'sections.pflege_collection_free_care.benefit_1_title' | t }}</h2>
+          <p class="pfc-free-care__benefit-text">{{ 'sections.pflege_collection_free_care.benefit_1_text' | t }}</p>
+        </li>
+        <li class="pfc-free-care__benefit">
+          <span class="pfc-free-care__benefit-icon" aria-hidden="true">
+            {% render 'pflege-icon', icon: section.settings.benefit_2_icon, width: 24 %}
+          </span>
+          <h2 class="pfc-free-care__benefit-title">{{ 'sections.pflege_collection_free_care.benefit_2_title' | t }}</h2>
+          <p class="pfc-free-care__benefit-text">{{ 'sections.pflege_collection_free_care.benefit_2_text' | t }}</p>
+        </li>
+        <li class="pfc-free-care__benefit">
+          <span class="pfc-free-care__benefit-icon" aria-hidden="true">
+            {% render 'pflege-icon', icon: section.settings.benefit_3_icon, width: 24 %}
+          </span>
+          <h2 class="pfc-free-care__benefit-title">{{ 'sections.pflege_collection_free_care.benefit_3_title' | t }}</h2>
+          <p class="pfc-free-care__benefit-text">{{ 'sections.pflege_collection_free_care.benefit_3_text' | t }}</p>
+        </li>
+        <li class="pfc-free-care__benefit">
+          <span class="pfc-free-care__benefit-icon" aria-hidden="true">
+            {% render 'pflege-icon', icon: section.settings.benefit_4_icon, width: 24 %}
+          </span>
+          <h2 class="pfc-free-care__benefit-title">{{ 'sections.pflege_collection_free_care.benefit_4_title' | t }}</h2>
+          <p class="pfc-free-care__benefit-text">{{ 'sections.pflege_collection_free_care.benefit_4_text' | t }}</p>
+        </li>
+      </ul>
+
+      <aside class="pfc-free-care__pregrid" aria-label="{{ 'sections.pflege_collection_free_care.pregrid_aria' | t }}">
+        <p class="pfc-free-care__pregrid-text">{{ 'sections.pflege_collection_free_care.pregrid_text' | t }}</p>
+        <a class="pfc-free-care__btn pfc-free-care__btn--compact" href="{{ pfc_config_url | escape }}">
+          {{ 'sections.pflege_collection_free_care.cta_check_configure' | t }}
+        </a>
+      </aside>
+    </div>
+  </div>
+{%- endunless -%}
+
+{% schema %}
+{
+  "name": "Kostenfreie PHM — Kopfbereich",
+  "tag": "section",
+  "class": "pfc-free-care-top-section",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Für die Kollektion mit Handle „kostenfreie-pflegehilfsmittel“ und Template „kostenfreie-pflegehilfsmittel“."
+    },
+    {
+      "type": "url",
+      "id": "configurator_link",
+      "label": "Link Pflegebox-Konfigurator"
+    },
+    {
+      "type": "url",
+      "id": "info_link",
+      "label": "Link „Mehr Infos“ (Homepage-Abschnitt)",
+      "info": "Leer = Startseite mit Anker #kostenfreie-pflegehilfsmittel"
+    },
+    {
+      "type": "select",
+      "id": "benefit_1_icon",
+      "label": "Icon Vorteil 1",
+      "options": [
+        { "value": "euro", "label": "Euro" },
+        { "value": "ticket", "label": "Ticket" },
+        { "value": "badge-check", "label": "Häkchen" }
+      ],
+      "default": "euro"
+    },
+    {
+      "type": "select",
+      "id": "benefit_2_icon",
+      "label": "Icon Vorteil 2",
+      "options": [
+        { "value": "user", "label": "Person" },
+        { "value": "heart", "label": "Herz" },
+        { "value": "shield", "label": "Schutz" }
+      ],
+      "default": "user"
+    },
+    {
+      "type": "select",
+      "id": "benefit_3_icon",
+      "label": "Icon Vorteil 3",
+      "options": [
+        { "value": "rotate-ccw", "label": "Wiederholung" },
+        { "value": "document", "label": "Dokument" },
+        { "value": "clock", "label": "Uhr" }
+      ],
+      "default": "rotate-ccw"
+    },
+    {
+      "type": "select",
+      "id": "benefit_4_icon",
+      "label": "Icon Vorteil 4",
+      "options": [
+        { "value": "headset", "label": "Service" },
+        { "value": "package", "label": "Paket" },
+        { "value": "badge-check", "label": "Häkchen" }
+      ],
+      "default": "headset"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Abstand oben",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Abstand unten",
+      "default": 28
+    }
+  ],
+  "presets": [{ "name": "Kostenfreie PHM — Kopfbereich" }]
+}
+{% endschema %}

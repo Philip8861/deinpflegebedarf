@@ -1,0 +1,52 @@
+{
+  "sections": {
+    "pfc_free_care_top": {
+      "type": "pflege-collection-free-care-top",
+      "settings": {
+        "configurator_link": "",
+        "info_link": "",
+        "benefit_1_icon": "euro",
+        "benefit_2_icon": "user",
+        "benefit_3_icon": "rotate-ccw",
+        "benefit_4_icon": "headset",
+        "padding_top": 36,
+        "padding_bottom": 28
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "products_per_page": 16,
+        "columns_desktop": 4,
+        "image_ratio": "adapt",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "enable_filtering": true,
+        "enable_sorting": true,
+        "filter_type": "horizontal",
+        "minimal_collection_cards": true,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "padding_top": 8,
+        "padding_bottom": 40,
+        "image_shape": "default",
+        "color_scheme": "scheme-1"
+      }
+    },
+    "pfc_free_care_bottom": {
+      "type": "pflege-collection-free-care-bottom",
+      "settings": {
+        "configurator_link": "",
+        "info_link": "",
+        "padding_top": 40,
+        "padding_bottom": 48
+      }
+    }
+  },
+  "order": [
+    "pfc_free_care_top",
+    "product-grid",
+    "pfc_free_care_bottom"
+  ]
+}

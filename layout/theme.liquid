@@ -25,16 +25,34 @@
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
     {%- endunless -%}
 
+    {%- liquid
+      assign pflege_seo_title = blank
+      assign pflege_seo_description = blank
+      if request.page_type == 'collection' and collection != blank
+        assign col_h = collection.handle | downcase
+        if col_h == 'kostenfreie-pflegehilfsmittel' or col_h == 'pflegehilfsmittel-kostenfrei'
+          assign pflege_seo_title = 'sections.pflege_collection_free_care.meta_title' | t
+          assign pflege_seo_description = 'sections.pflege_collection_free_care.meta_description' | t
+        endif
+      endif
+    -%}
+
     <title>
-      {{ page_title }}
-      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
-      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
-      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+      {%- if pflege_seo_title != blank -%}
+        {{ pflege_seo_title | escape }}
+      {%- else -%}
+        {{ page_title }}
+        {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+        {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+        {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+      {%- endif -%}
     </title>
 
-    {% if page_description %}
+    {%- if pflege_seo_description != blank -%}
+      <meta name="description" content="{{ pflege_seo_description | escape }}">
+    {%- elsif page_description -%}
       <meta name="description" content="{{ page_description | escape }}">
-    {% endif %}
+    {%- endif -%}
 
     {% render 'meta-tags' %}
 
@@ -274,6 +292,9 @@
       {{ 'pflege-home-entrance.css' | asset_url | stylesheet_tag }}
     {%- elsif template.name == 'collection' or request.page_type == 'collection' -%}
       {{ 'pflege-collection-page.css' | asset_url | stylesheet_tag }}
+      {%- if template.suffix == 'kostenfreie-pflegehilfsmittel' -%}
+        {{ 'section-pflege-collection-free-care.css' | asset_url | stylesheet_tag }}
+      {%- endif -%}
     {%- endif -%}
     <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
 
