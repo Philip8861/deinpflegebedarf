@@ -38,19 +38,13 @@
 
   <div class="pfc-free-care section-{{ section.id }}-padding" id="pfc-free-care-top-{{ section.id }}">
     <div class="pfc-free-care__shell page-width">
-      <header class="pfc-free-care__hero" aria-labelledby="pfc-free-care-hero-title-{{ section.id }}">
-        <div class="pfc-free-care__hero-badge">
-          {% render 'pflege-icon', icon: 'euro', width: 22 %}
-          <span>{{ 'sections.pflege_collection_free_care.hero_badge' | t }}</span>
-        </div>
-        <h1 id="pfc-free-care-hero-title-{{ section.id }}" class="pfc-free-care__hero-title">
-          {{ 'sections.pflege_collection_free_care.hero_h1' | t }}
-        </h1>
-        <p class="pfc-free-care__hero-sub">{{ 'sections.pflege_collection_free_care.hero_sub' | t }}</p>
-        <div class="pfc-free-care__hero-body rte">
-          <p>{{ 'sections.pflege_collection_free_care.hero_p1' | t }}</p>
-          <p>{{ 'sections.pflege_collection_free_care.hero_p2' | t }}</p>
-          <p>{{ 'sections.pflege_collection_free_care.hero_p3' | t }}</p>
+      <header class="pfc-free-care__head" aria-labelledby="pfc-free-care-hero-title-{{ section.id }}">
+        <div class="pfc-free-care__head-text">
+          <h1 id="pfc-free-care-hero-title-{{ section.id }}" class="pfc-free-care__title">
+            {{ 'sections.pflege_collection_free_care.hero_h1' | t }}
+          </h1>
+          <p class="pfc-free-care__intro">{{ 'sections.pflege_collection_free_care.hero_sub' | t }}</p>
+          <p class="pfc-free-care__intro">{{ 'sections.pflege_collection_free_care.hero_p1' | t }}</p>
         </div>
         <p class="pfc-free-care__trust">
           {% render 'pflege-icon', icon: 'badge-check', width: 20 %}

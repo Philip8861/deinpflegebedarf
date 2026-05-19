@@ -16,73 +16,62 @@
   max-width: min(100%, var(--pflege-hero-tile-max-width, 1426px));
 }
 
-/* --- Hero --------------------------------------------------------------- */
-.pfc-free-care__hero {
-  margin: 0 0 clamp(2rem, 4vw, 2.75rem);
-  padding: clamp(1.35rem, 3vw, 2rem);
-  border-radius: calc(var(--pfc-radius) + 4px);
-  border: 1px solid var(--pfc-border);
-  background: linear-gradient(145deg, #f4f9ff 0%, #fefefe 48%, #f8fbfe 100%);
-  box-shadow: 0 4px 24px rgba(11, 35, 71, 0.06);
-}
-
-.pfc-free-care__hero-badge {
-  display: inline-flex;
+/* --- Kopfbereich (wie .pflege-bestseller__head — ohne Karte/Hintergrund) --- */
+.pfc-free-care__head {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 0.45rem;
-  margin-bottom: 0.85rem;
-  padding: 0.35rem 0.75rem;
-  border-radius: 999px;
-  font-size: 0.92rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: var(--pfc-accent);
-  background: rgba(63, 134, 217, 0.1);
-  border: 1px solid rgba(63, 134, 217, 0.2);
+  text-align: center;
+  gap: clamp(1rem, 2.2vw, 1.35rem);
+  margin: 0 0 clamp(1.75rem, 3.5vw, 2.5rem);
+  padding: 0;
+  border: none;
+  background: none;
+  box-shadow: none;
 }
 
-.pfc-free-care__hero-title {
-  margin: 0 0 0.55rem;
-  font-size: clamp(1.85rem, 2.4vw + 1rem, 2.65rem);
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  line-height: 1.12;
-  color: var(--pfc-navy);
+.pfc-free-care__head-text {
+  min-width: 0;
+  width: 100%;
+  max-width: min(48rem, 100%);
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
-.pfc-free-care__hero-sub {
-  margin: 0 0 1.1rem;
-  font-size: clamp(1.15rem, 1.2vw + 0.85rem, 1.45rem);
-  font-weight: 600;
-  line-height: 1.35;
-  color: var(--pfc-navy);
+.pfc-free-care__title {
+  font-family: var(--pflege-font-display, var(--font-body-family, inherit));
+  font-size: var(--pflege-home-section-heading-size);
+  font-weight: var(--pflege-home-section-heading-weight);
+  line-height: var(--pflege-home-section-heading-line-height);
+  letter-spacing: var(--pflege-home-section-heading-letter-spacing);
+  color: var(--pflege-home-section-heading-color, var(--pfc-navy));
+  margin: 0;
 }
 
-.pfc-free-care__hero-body {
-  max-width: 46rem;
-}
-
-.pfc-free-care__hero-body p {
-  margin: 0 0 0.85rem;
-  font-size: clamp(1rem, 0.35vw + 0.92rem, 1.12rem);
-  line-height: 1.58;
-  color: var(--pfc-muted);
-}
-
-.pfc-free-care__hero-body p:last-child {
-  margin-bottom: 0;
+.pfc-free-care__intro {
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1.18rem, 1.02rem + 0.55vw, 1.42rem);
+  line-height: 1.5;
+  color: var(--pflege-muted, var(--pfc-muted));
+  margin: 0.55rem 0 0;
+  max-width: min(48rem, 100%);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .pfc-free-care__trust {
   display: flex;
   align-items: flex-start;
+  justify-content: center;
   gap: 0.5rem;
-  margin: 1.15rem 0 1.35rem;
-  max-width: 40rem;
-  font-size: 0.98rem;
-  font-weight: 600;
+  margin: 0;
+  max-width: min(40rem, 100%);
+  font-size: clamp(1rem, 0.35vw + 0.92rem, 1.08rem);
+  font-weight: 500;
   line-height: 1.45;
-  color: var(--pfc-navy);
+  color: var(--pflege-muted, var(--pfc-muted));
+  text-align: center;
 }
 
 .pfc-free-care__trust .pflege-icon {
@@ -105,7 +94,13 @@
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
   }
+}
+
+.pfc-free-care__head .pfc-free-care__actions--hero {
+  width: 100%;
+  max-width: min(48rem, 100%);
 }
 
 .pfc-free-care__btn {
