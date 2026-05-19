@@ -23,27 +23,6 @@
         "padding_bottom": 28
       }
     },
-    "product-grid": {
-      "type": "main-collection-product-grid",
-      "settings": {
-        "products_per_page": 16,
-        "columns_desktop": 5,
-        "columns_mobile": "2",
-        "color_scheme": "scheme-1",
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": false,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "enable_filtering": true,
-        "filter_type": "horizontal",
-        "enable_sorting": true,
-        "minimal_collection_cards": true,
-        "padding_top": 8,
-        "padding_bottom": 40
-      }
-    },
     "pfc_free_care_bottom": {
       "type": "pflege-collection-free-care-bottom",
       "settings": {
@@ -56,7 +35,6 @@
   },
   "order": [
     "pfc_free_care_top",
-    "product-grid",
     "pfc_free_care_bottom"
   ]
 }
