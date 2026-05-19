@@ -133,6 +133,13 @@
           "color_scheme": "scheme-1"
         }
       },
+      "pflege-advantages-us": {
+        "type": "pflege-advantages-us",
+        "settings": {
+          "heading": "Ihre Vorteile bei uns",
+          "subtitle": "Schneller Versand & unkomplizierte Bestellung. Unsere Artikel bieten eine echte Unterstützung im Alltag."
+        }
+      },
       "customer-testimonials-homepage-style": {
         "type": "customer-testimonials-homepage-style",
         "blocks": {

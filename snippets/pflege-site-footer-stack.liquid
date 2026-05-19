@@ -1,0 +1,13 @@
+{% comment %}
+  Globaler Seitenfuß vor dem Shop-Footer (alle Seiten):
+  1. Ihre Vorteile bei uns
+  2. Kundenstimmen
+  3. Häufige Fragen
+{% endcomment %}
+{{ 'pflege-site-footer-stack.css' | asset_url | stylesheet_tag }}
+
+<aside class="pflege-site-footer-stack" id="pflege-site-footer-stack" aria-label="{{ 'sections.pflege_site_footer_stack.aria_label' | t }}">
+  {% section 'pflege-advantages-us' %}
+  {% section 'customer-testimonials-homepage-style' %}
+  {% section 'pflege-boxi-faq-strip' %}
+</aside>

@@ -485,6 +485,9 @@
       "faq_6_q": "Wie funktioniert die Nachbestellung für die regelmäßige Versorgung?",
       "faq_6_a": "<p>Bereits bestellte Artikel können Sie <strong>unkompliziert erneut bestellen</strong>. Bei genehmigter Pflegebox oder laufender Rezeptversorgung läuft die Belieferung nach Freigabe in der Regel automatisch weiter.</p>"
     },
+    "pflege_site_footer_stack": {
+      "aria_label": "Vorteile, Kundenstimmen und häufige Fragen"
+    },
     "pflege_boxi_faq_strip": {
       "heading": "Häufige Fragen",
       "intro_default": "Antworten zum Bestellvorgang, Versand, Rückgabe und Ablauf",

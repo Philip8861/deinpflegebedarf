@@ -4,7 +4,6 @@
 {{ 'section-pflege-hero.css' | asset_url | stylesheet_tag }}
 {{ 'section-pflege-collection-free-care.css' | asset_url | stylesheet_tag }}
 {{ 'section-pflege-bestseller-row.css' | asset_url | stylesheet_tag }}
-{{ 'section-pflege-advantages-us.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
   assign col_handle = collection.handle | downcase
@@ -127,8 +126,6 @@
         view_all_href: collection.url
       %}
     </div>
-
-    {% render 'pflege-advantages-us-block', section_id: section.id %}
 
     <div class="pfc-free-care__closing-wrap pfc-free-care__below">
       {% render 'pflege-free-care-closing-cta',

@@ -474,6 +474,9 @@
       "faq_6_q": "How do reorders work for ongoing supply?",
       "faq_6_a": "<p>You can <strong>reorder previous items easily</strong>. With an approved care box or ongoing prescription supply, delivery usually continues automatically after approval.</p>"
     },
+    "pflege_site_footer_stack": {
+      "aria_label": "Benefits, customer reviews, and frequently asked questions"
+    },
     "pflege_boxi_faq_strip": {
       "heading": "Frequently asked questions",
       "intro_default": "Answers about ordering, shipping, returns, and how it works",

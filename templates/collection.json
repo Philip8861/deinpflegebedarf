@@ -60,13 +60,6 @@
         "padding_bottom": 40
       }
     },
-    "pfc_free_care_bottom": {
-      "type": "pflege-collection-free-care-bottom",
-      "settings": {
-        "padding_top": 40,
-        "padding_bottom": 48
-      }
-    },
     "pflege_bottom_description": {
       "type": "pflege-collection-bottom-content",
       "settings": {
@@ -82,7 +75,6 @@
     "pfc_free_care_top",
     "pflege_intro",
     "product-grid",
-    "pfc_free_care_bottom",
     "pflege_bottom_description"
   ]
 }
