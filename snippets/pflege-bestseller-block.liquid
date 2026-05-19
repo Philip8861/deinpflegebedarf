@@ -1,11 +1,16 @@
 {% comment %}
   Wiederverwendbarer Bestseller-Block (gleiche Optik wie Startseite).
   Parameter: data_source, title, intro, collection, products_limit, view_all_label, view_all_href,
-  show_collection_rating, blocks (nur manual), layout_mod (optionaler CSS-Suffix, z. B. für Sonderlayouts).
+  show_collection_rating, blocks (nur manual), layout_mod (optional), columns_desktop (4 oder 5).
 {% endcomment %}
 {%- liquid
   assign _ds = data_source | default: 'collection'
   assign _limit = products_limit | default: 4
+  assign _cols = columns_desktop | default: 4 | plus: 0
+  assign _layout = layout_mod
+  if _layout == blank and _cols >= 5
+    assign _layout = 'cols-5'
+  endif
   assign _show = false
 
   if _ds == 'collection'
@@ -37,7 +42,7 @@
 -%}
 
 {%- if _show -%}
-  <section class="pflege-bestseller{% if layout_mod != blank %} pflege-bestseller--{{ layout_mod }}{% endif %}">
+  <section class="pflege-bestseller{% if _layout != blank %} pflege-bestseller--{{ _layout }}{% endif %}">
     <div class="pflege-bestseller__shell">
       <div class="pflege-bestseller__panel">
         <div class="pflege-bestseller__head">

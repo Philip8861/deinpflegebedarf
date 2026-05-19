@@ -111,6 +111,20 @@
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: clamp(0.85rem, 1.8vw, 1.35rem);
   }
+
+  .pflege-bestseller--cols-5 .pflege-bestseller__grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: clamp(0.65rem, 1.35vw, 1rem);
+  }
+
+  .pflege-bestseller--cols-5 .pflege-bestseller-card__name {
+    font-size: clamp(1.05rem, 0.9rem + 0.25vw, 1.18rem);
+  }
+
+  .pflege-bestseller--cols-5 .pflege-bestseller-card__meta,
+  .pflege-bestseller--cols-5 .pflege-bestseller-card__price {
+    font-size: clamp(0.95rem, 0.88rem + 0.15vw, 1.05rem);
+  }
 }
 
 .pflege-bestseller-card {

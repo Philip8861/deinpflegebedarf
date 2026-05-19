@@ -35,6 +35,7 @@
     view_all_label: section.settings.view_all_label,
     view_all_href: view_all_href,
     show_collection_rating: section.settings.show_collection_rating,
+    columns_desktop: section.settings.columns_desktop,
     blocks: section.blocks
   %}
 {%- endif -%}
@@ -85,11 +86,27 @@
       "type": "range",
       "id": "products_to_show",
       "min": 2,
-      "max": 8,
+      "max": 50,
       "step": 1,
       "default": 4,
       "label": "Anzahl Produkte",
-      "info": "Nur bei „Aus Kollektion“. Standard: 4 Karten in einer Reihe (Desktop)."
+      "info": "Nur bei „Aus Kollektion“. Bei 5 Spalten: z. B. 10 für zwei Reihen à 5."
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "Spalten (Desktop)",
+      "options": [
+        {
+          "value": "4",
+          "label": "4 nebeneinander"
+        },
+        {
+          "value": "5",
+          "label": "5 nebeneinander (zweite Reihe bei Bedarf)"
+        }
+      ],
+      "default": "4"
     },
     {
       "type": "checkbox",
