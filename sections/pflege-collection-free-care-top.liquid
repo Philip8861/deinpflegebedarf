@@ -60,15 +60,10 @@
                   class: 'pfc-free-care__head-photo'
               }}
             {%- else -%}
+              {%- comment -%} asset_img_url unterstützt kein WebP — asset_url wie Startseiten-Hero {%- endcomment -%}
               <img
                 class="pfc-free-care__head-photo"
-                src="{{ 'kostenfreie_pflegehilfsmittel.webp' | asset_img_url: width: 1200 }}"
-                srcset="
-                  {{ 'kostenfreie_pflegehilfsmittel.webp' | asset_img_url: width: 400 }} 400w,
-                  {{ 'kostenfreie_pflegehilfsmittel.webp' | asset_img_url: width: 800 }} 800w,
-                  {{ 'kostenfreie_pflegehilfsmittel.webp' | asset_img_url: width: 1200 }} 1200w
-                "
-                sizes="(min-width: 990px) 42vw, 100vw"
+                src="{{ 'kostenfreie_pflegehilfsmittel.webp' | asset_url }}"
                 width="1200"
                 height="900"
                 loading="eager"

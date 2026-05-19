@@ -58,9 +58,10 @@
   margin-inline: auto;
   border-radius: var(--pflege-radius-card, 14px);
   overflow: hidden;
-  background-color: rgba(255, 255, 255, 0.35);
+  background-color: var(--pflege-bg-soft, #eef6ff);
   aspect-ratio: 4 / 3;
   max-height: 28rem;
+  min-height: 12rem;
 }
 
 @media screen and (min-width: 990px) {
@@ -75,8 +76,11 @@
 .pfc-free-care__head-photo {
   width: 100%;
   height: 100%;
+  min-height: 12rem;
   object-fit: cover;
+  object-position: center;
   display: block;
+  vertical-align: middle;
 }
 
 .pfc-free-care__head-main {
