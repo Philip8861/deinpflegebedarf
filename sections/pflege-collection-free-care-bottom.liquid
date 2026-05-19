@@ -10,6 +10,8 @@
   endif
 -%}
 {%- if show_free_care -%}
+  {{ 'section-pflege-faq-accordion.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'pflege-faq-accordion.js' | asset_url }}" defer></script>
   {%- liquid
     assign pfc_faq_heading = 'sections.pflege_collection_free_care.faq_heading' | t
     assign pfc_faq_intro = 'sections.pflege_collection_free_care.faq_intro' | t
