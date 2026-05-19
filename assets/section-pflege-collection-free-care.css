@@ -21,6 +21,50 @@
   margin-top: 0;
 }
 
+.pflege-hero--free-care .pflege-hero__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.65rem;
+  width: 100%;
+  max-width: 28rem;
+}
+
+@media screen and (min-width: 480px) {
+  .pflege-hero--free-care .pflege-hero__actions {
+    align-items: flex-start;
+    width: auto;
+    max-width: none;
+  }
+}
+
+.pflege-hero--free-care .pflege-hero__cta--secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  max-width: none;
+  min-height: auto;
+  padding: 0.55rem 1rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(61, 85, 111, 0.22);
+  color: #3d556f !important;
+  font-size: clamp(1.02rem, 0.3vw + 0.95rem, 1.15rem);
+  font-weight: 500;
+  text-decoration: none;
+  box-shadow: none;
+  box-sizing: border-box;
+}
+
+.pflege-hero--free-care .pflege-hero__cta--secondary:hover {
+  background: rgba(255, 255, 255, 0.78);
+  border-color: rgba(61, 85, 111, 0.35);
+  color: #0f4f69 !important;
+  transform: none;
+  box-shadow: none;
+}
+
 /* --- Buttons (Vorteile / Pregrid) --------------------------------------- */
 .pfc-free-care__actions {
   display: flex;
