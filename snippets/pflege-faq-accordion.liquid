@@ -64,6 +64,7 @@
   data-single-open="{% if single_open %}true{% else %}false{% endif %}"
   {% if has_deferred %}data-pflege-faq-has-load-more{% endif %}
 >
+  <div class="pflege-faq-accordion__backdrop">
   <div class="pflege-faq-accordion__inner">
     <header class="pflege-faq-accordion__head">
       <h2 class="pflege-faq-accordion__title" id="pflege-faq-accordion-title-{{ section_id }}">
@@ -188,5 +189,6 @@
         </div>
       {%- endif -%}
     </div>
+  </div>
   </div>
 </section>

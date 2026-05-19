@@ -35,7 +35,6 @@
 {%- endstyle -%}
 
 <div class="pflege-faq-strip-wrap pflege-faq-strip-wrap--{{ section.id }}" id="pflege-faq-root-{{ section.id }}">
-  <div class="pflege-faq-strip-wrap__arc" aria-hidden="true"></div>
   <div class="section-{{ section.id }}-padding">
     {% render 'pflege-faq-accordion',
       section_id: section.id,
@@ -45,7 +44,7 @@
       heading: heading_text,
       intro: intro_text,
       intro_html: false,
-      modifier_class: 'pflege-faq-accordion--global-strip',
+      modifier_class: 'pflege-faq-accordion--footer-strip',
       deferred_from: 11,
       deferred_to: 20
     %}

@@ -1,7 +1,8 @@
 /* FAQ-Accordion — einheitlich, große Typo wie Section-Überschriften */
 
 .pflege-faq-accordion {
-  --pfa-bg: #f7f9fb;
+  --pfa-bg: #fafbfc;
+  --pfa-ell-v: var(--pflege-backdrop-ell-v, clamp(2rem, 5.5vw, 4rem));
   --pfa-petrol: var(--pflege-home-section-heading-color, #0f4f69);
   --pfa-text: #3d4f63;
   --pfa-muted: var(--pflege-muted, #6f7f95);
@@ -16,9 +17,22 @@
 
   box-sizing: border-box;
   width: 100%;
-  background: var(--pfa-bg);
+  background: transparent;
   color: var(--pfa-text);
   font-family: var(--font-body-family, inherit);
+  overflow: visible;
+}
+
+/* Bogen nur oben — Übergang von der Section darüber */
+.pflege-faq-accordion__backdrop {
+  box-sizing: border-box;
+  padding: clamp(2.25rem, 4.2vw, 3.25rem) 0 clamp(2.5rem, 5vw, 3.75rem);
+  background: var(--pfa-bg);
+  border-radius: var(
+    --pflege-backdrop-band-radius-top,
+    50% 50% 0 0 / var(--pfa-ell-v) var(--pfa-ell-v) 0 0
+  );
+  overflow: hidden;
 }
 
 .pflege-faq-accordion__inner {
@@ -27,7 +41,8 @@
   max-width: var(--pfa-max);
   margin-left: auto;
   margin-right: auto;
-  padding: clamp(2.75rem, 5.5vw, 4rem) 20px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .pflege-faq-accordion__head {
@@ -248,29 +263,15 @@
   margin-top: 0.15rem;
 }
 
-/* Globaler Streifen über dem Footer — Bogen + volle Breite */
-.pflege-faq-accordion--global-strip {
-  background: #fefefe;
-}
-
-.pflege-faq-accordion--global-strip .pflege-faq-accordion__inner {
-  max-width: var(--pfa-max);
-}
-
+/* Globaler Streifen über dem Footer */
 .pflege-faq-strip-wrap {
   position: relative;
   overflow: visible;
-  background: #fefefe;
+  background: transparent;
 }
 
-.pflege-faq-strip-wrap__arc {
-  display: block;
-  width: 100%;
-  height: clamp(44px, 6.75vw, 88px);
-  margin-bottom: -1px;
-  pointer-events: none;
-  background: linear-gradient(180deg, #eef4f8 0%, #fafcfd 52%, #fefefe 100%);
-  border-radius: 50% 50% 0 0 / clamp(2.4rem, 5.8vw, 6rem) clamp(2.4rem, 5.8vw, 6rem) 0 0;
+.pflege-faq-strip-wrap .pflege-faq-accordion__backdrop {
+  padding-top: clamp(1.75rem, 3.5vw, 2.5rem);
 }
 
 /* PHM-Kollektion: volle Viewport-Breite */
@@ -279,6 +280,10 @@
   max-width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
+}
+
+.pfc-free-care .pflege-faq-accordion__backdrop {
+  width: 100%;
 }
 
 .pfc-free-care--bottom .pflege-faq-accordion {
