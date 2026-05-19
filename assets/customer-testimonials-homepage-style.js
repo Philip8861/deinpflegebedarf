@@ -54,6 +54,47 @@
     }
   }
 
+  function openReviewForm(root) {
+    var btn = root.querySelector('[data-ct-review-toggle]');
+    var wrap = root.querySelector('[data-ct-review-wrap]');
+    if (!btn || !wrap) return;
+    wrap.removeAttribute('hidden');
+    btn.setAttribute('aria-expanded', 'true');
+    btn.classList.add('is-expanded');
+  }
+
+  function setupReviewForm(root) {
+    if (root._ctReviewBound) return;
+    var btn = root.querySelector('[data-ct-review-toggle]');
+    var wrap = root.querySelector('[data-ct-review-wrap]');
+    if (!btn || !wrap) return;
+    root._ctReviewBound = true;
+
+    var hasStatus =
+      wrap.querySelector('.ct-hp__review-status--success') ||
+      wrap.querySelector('.ct-hp__review-status--error');
+    if (hasStatus) {
+      openReviewForm(root);
+    }
+
+    btn.addEventListener('click', function () {
+      var open = wrap.hasAttribute('hidden');
+      if (open) {
+        openReviewForm(root);
+        try {
+          wrap.scrollIntoView({
+            behavior: prefersReducedMotion() ? 'auto' : 'smooth',
+            block: 'nearest',
+          });
+        } catch (e) {}
+      } else {
+        wrap.setAttribute('hidden', '');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.classList.remove('is-expanded');
+      }
+    });
+  }
+
   function setupExpand(root) {
     if (root._ctExpandBound) return;
     var btn = root.querySelector('[data-ct-toggle-expand]');
@@ -107,6 +148,7 @@
     root._ctInited = true;
 
     setupExpand(root);
+    setupReviewForm(root);
 
     var panels = getPanels(root);
     var dots = getDots(root);
@@ -149,6 +191,7 @@
     if (n) {
       n._ctInited = false;
       n._ctExpandBound = false;
+      n._ctReviewBound = false;
       init(n);
     }
   });

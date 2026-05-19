@@ -1,88 +1,82 @@
-{% comment %} PHM-Kollektion: feste Locale-Keys (1–14) {% endcomment %}
-{%- liquid
-  assign idx = index | plus: 0
-  assign faq_q = ''
-  assign faq_a = ''
-
-  case idx
-    when 1
-      assign faq_q = 'sections.pflege_collection_free_care.faq_1_q' | t
-      assign faq_a = 'sections.pflege_collection_free_care.faq_1_a' | t
-    when 2
-      assign faq_q = 'sections.pflege_collection_free_care.faq_2_q' | t
-      assign faq_a = 'sections.pflege_collection_free_care.faq_2_a' | t
-    when 3
-      assign faq_q = 'sections.pflege_collection_free_care.faq_3_q' | t
-      assign faq_a = 'sections.pflege_collection_free_care.faq_3_a' | t
-    when 4
-      assign faq_q = 'sections.pflege_collection_free_care.faq_4_q' | t
-      assign faq_a = 'sections.pflege_collection_free_care.faq_4_a' | t
-    when 5
-      assign faq_q = 'sections.pflege_collection_free_care.faq_5_q' | t
-      assign faq_a = 'sections.pflege_collection_free_care.faq_5_a' | t
-    when 6
-      assign faq_q = 'sections.pflege_collection_free_care.faq_6_q' | t
-      assign faq_a = 'sections.pflege_collection_free_care.faq_6_a' | t
-    when 7
-      assign faq_q = 'sections.pflege_collection_free_care.faq_7_q' | t
-      assign faq_a = 'sections.pflege_collection_free_care.faq_7_a' | t
-    when 8
-      assign faq_q = 'sections.pflege_collection_free_care.faq_8_q' | t
-      assign faq_a = 'sections.pflege_collection_free_care.faq_8_a' | t
-    when 9
-      assign faq_q = 'sections.pflege_collection_free_care.faq_9_q' | t
-      assign faq_a = 'sections.pflege_collection_free_care.faq_9_a' | t
-    when 10
-      assign faq_q = 'sections.pflege_collection_free_care.faq_10_q' | t
-      assign faq_a = 'sections.pflege_collection_free_care.faq_10_a' | t
-    when 11
-      assign faq_q = 'sections.pflege_collection_free_care.faq_11_q' | t
-      assign faq_a = 'sections.pflege_collection_free_care.faq_11_a' | t
-    when 12
-      assign faq_q = 'sections.pflege_collection_free_care.faq_12_q' | t
-      assign faq_a = 'sections.pflege_collection_free_care.faq_12_a' | t
-    when 13
-      assign faq_q = 'sections.pflege_collection_free_care.faq_13_q' | t
-      assign faq_a = 'sections.pflege_collection_free_care.faq_13_a' | t
-    when 14
-      assign faq_q = 'sections.pflege_collection_free_care.faq_14_q' | t
-      assign faq_a = 'sections.pflege_collection_free_care.faq_14_a' | t
-  endcase
-
-  assign item_id = 'pflege-faq-' | append: section_id | append: '-' | append: idx
-  assign trigger_id = item_id | append: '-trigger'
-  assign panel_id = item_id | append: '-panel'
--%}
-{%- if faq_q != blank -%}
-  <div class="pflege-faq-accordion__item" role="listitem" data-faq-accordion-item id="{{ item_id }}">
-    <h3 class="pflege-faq-accordion__question">
-      <button
-        type="button"
-        class="pflege-faq-accordion__trigger"
-        id="{{ trigger_id }}"
-        data-faq-accordion-trigger
-        aria-expanded="false"
-        aria-controls="{{ panel_id }}"
-      >
-        <span class="pflege-faq-accordion__trigger-text">{{ faq_q }}</span>
-        <span class="pflege-faq-accordion__chevron" aria-hidden="true"></span>
-      </button>
-    </h3>
-    <div
-      id="{{ panel_id }}"
-      class="pflege-faq-accordion__panel"
-      role="region"
-      aria-labelledby="{{ trigger_id }}"
-      data-faq-accordion-panel
-      hidden
+{% comment %} PHM-Kollektion: feste Locale-Keys (1–15) {% endcomment %}
+{%- assign idx = index | plus: 0 -%}
+{%- if idx == 1 -%}
+  {%- assign faq_q = 'sections.pflege_collection_free_care.faq_1_q' | t -%}
+  {%- assign faq_a = 'sections.pflege_collection_free_care.faq_1_a' | t -%}
+{%- elsif idx == 2 -%}
+  {%- assign faq_q = 'sections.pflege_collection_free_care.faq_2_q' | t -%}
+  {%- assign faq_a = 'sections.pflege_collection_free_care.faq_2_a' | t -%}
+{%- elsif idx == 3 -%}
+  {%- assign faq_q = 'sections.pflege_collection_free_care.faq_3_q' | t -%}
+  {%- assign faq_a = 'sections.pflege_collection_free_care.faq_3_a' | t -%}
+{%- elsif idx == 4 -%}
+  {%- assign faq_q = 'sections.pflege_collection_free_care.faq_4_q' | t -%}
+  {%- assign faq_a = 'sections.pflege_collection_free_care.faq_4_a' | t -%}
+{%- elsif idx == 5 -%}
+  {%- assign faq_q = 'sections.pflege_collection_free_care.faq_5_q' | t -%}
+  {%- assign faq_a = 'sections.pflege_collection_free_care.faq_5_a' | t -%}
+{%- elsif idx == 6 -%}
+  {%- assign faq_q = 'sections.pflege_collection_free_care.faq_6_q' | t -%}
+  {%- assign faq_a = 'sections.pflege_collection_free_care.faq_6_a' | t -%}
+{%- elsif idx == 7 -%}
+  {%- assign faq_q = 'sections.pflege_collection_free_care.faq_7_q' | t -%}
+  {%- assign faq_a = 'sections.pflege_collection_free_care.faq_7_a' | t -%}
+{%- elsif idx == 8 -%}
+  {%- assign faq_q = 'sections.pflege_collection_free_care.faq_8_q' | t -%}
+  {%- assign faq_a = 'sections.pflege_collection_free_care.faq_8_a' | t -%}
+{%- elsif idx == 9 -%}
+  {%- assign faq_q = 'sections.pflege_collection_free_care.faq_9_q' | t -%}
+  {%- assign faq_a = 'sections.pflege_collection_free_care.faq_9_a' | t -%}
+{%- elsif idx == 10 -%}
+  {%- assign faq_q = 'sections.pflege_collection_free_care.faq_10_q' | t -%}
+  {%- assign faq_a = 'sections.pflege_collection_free_care.faq_10_a' | t -%}
+{%- elsif idx == 11 -%}
+  {%- assign faq_q = 'sections.pflege_collection_free_care.faq_11_q' | t -%}
+  {%- assign faq_a = 'sections.pflege_collection_free_care.faq_11_a' | t -%}
+{%- elsif idx == 12 -%}
+  {%- assign faq_q = 'sections.pflege_collection_free_care.faq_12_q' | t -%}
+  {%- assign faq_a = 'sections.pflege_collection_free_care.faq_12_a' | t -%}
+{%- elsif idx == 13 -%}
+  {%- assign faq_q = 'sections.pflege_collection_free_care.faq_13_q' | t -%}
+  {%- assign faq_a = 'sections.pflege_collection_free_care.faq_13_a' | t -%}
+{%- elsif idx == 14 -%}
+  {%- assign faq_q = 'sections.pflege_collection_free_care.faq_14_q' | t -%}
+  {%- assign faq_a = 'sections.pflege_collection_free_care.faq_14_a' | t -%}
+{%- elsif idx == 15 -%}
+  {%- assign faq_q = 'sections.pflege_collection_free_care.faq_15_q' | t -%}
+  {%- assign faq_a = 'sections.pflege_collection_free_care.faq_15_a' | t -%}
+{%- endif -%}
+{%- assign item_id = 'pflege-faq-' | append: section_id | append: '-' | append: idx -%}
+{%- assign trigger_id = item_id | append: '-trigger' -%}
+{%- assign panel_id = item_id | append: '-panel' -%}
+<div class="pflege-faq-accordion__item" role="listitem" data-faq-accordion-item id="{{ item_id }}">
+  <h3 class="pflege-faq-accordion__question">
+    <button
+      type="button"
+      class="pflege-faq-accordion__trigger"
+      id="{{ trigger_id }}"
+      data-faq-accordion-trigger
+      aria-expanded="false"
+      aria-controls="{{ panel_id }}"
     >
-      <div class="pflege-faq-accordion__answer rte">
-        {%- if faq_a contains '<' -%}
-          {{ faq_a }}
-        {%- else -%}
-          <p>{{ faq_a }}</p>
-        {%- endif -%}
-      </div>
+      <span class="pflege-faq-accordion__trigger-text">{{ faq_q }}</span>
+      <span class="pflege-faq-accordion__chevron" aria-hidden="true"></span>
+    </button>
+  </h3>
+  <div
+    id="{{ panel_id }}"
+    class="pflege-faq-accordion__panel"
+    role="region"
+    aria-labelledby="{{ trigger_id }}"
+    data-faq-accordion-panel
+    hidden
+  >
+    <div class="pflege-faq-accordion__answer rte">
+      {%- if faq_a contains '<' -%}
+        {{ faq_a }}
+      {%- else -%}
+        <p>{{ faq_a }}</p>
+      {%- endif -%}
     </div>
   </div>
-{%- endif -%}
+</div>

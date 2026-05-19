@@ -266,7 +266,15 @@
 }
 
 .ct-hp__cta-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
   margin-top: clamp(1.35rem, 2.5vw, 1.85rem);
+}
+
+.ct-hp__cta-wrap > .ct-hp__cta:not(.ct-hp__cta--small):not(.ct-hp__cta--submit) {
+  width: 100%;
 }
 
 .ct-hp__cta {
@@ -313,6 +321,117 @@ button.ct-hp__cta {
   cursor: default;
   pointer-events: none;
   opacity: 0.75;
+}
+
+.ct-hp__cta--small {
+  width: auto;
+  min-width: min(100%, 12.5rem);
+  max-width: 18rem;
+  min-height: 2.1rem;
+  padding: 0.42rem 1rem;
+  font-size: clamp(0.76rem, 0.72rem + 0.18vw, 0.86rem);
+  font-weight: 500;
+  border-radius: 0.65rem;
+  box-shadow: 0 1px 2px rgba(15, 45, 84, 0.05);
+}
+
+.ct-hp__cta--submit {
+  margin-top: 0.35rem;
+}
+
+.ct-hp__review-wrap {
+  width: 100%;
+  max-width: 36rem;
+  margin-top: 0.25rem;
+  padding: clamp(1rem, 2vw, 1.25rem);
+  border: 1px solid var(--ct-hp-cta-border);
+  border-radius: 0.85rem;
+  background: linear-gradient(180deg, #fafbfd 0%, #fff 40%);
+  text-align: left;
+}
+
+.ct-hp__review-wrap[hidden] {
+  display: none !important;
+}
+
+.ct-hp__review-required-note {
+  margin: 0 0 0.85rem;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: var(--ct-hp-muted);
+}
+
+.ct-hp__review-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem 0.85rem;
+}
+
+.ct-hp__review-field--full {
+  grid-column: 1 / -1;
+}
+
+.ct-hp__review-label {
+  display: block;
+  margin-bottom: 0.32rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ct-hp-petrol);
+}
+
+.ct-hp__review-required {
+  color: #c45a2a;
+}
+
+.ct-hp__review-input {
+  display: block;
+  width: 100%;
+  padding: 0.52rem 0.65rem;
+  border: 1px solid var(--ct-hp-cta-border);
+  border-radius: 0.5rem;
+  background: #fff;
+  color: var(--pflege-navy, #0b2347);
+  font: inherit;
+  font-size: 0.88rem;
+  line-height: 1.35;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.ct-hp__review-input:focus {
+  outline: none;
+  border-color: var(--ct-hp-petrol);
+  box-shadow: 0 0 0 2px rgba(7, 82, 107, 0.12);
+}
+
+.ct-hp__review-textarea {
+  min-height: 6.5rem;
+  resize: vertical;
+}
+
+.ct-hp__review-status {
+  margin: 0 0 0.75rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 0.5rem;
+  font-size: 0.86rem;
+  line-height: 1.4;
+}
+
+.ct-hp__review-status--success {
+  background: #e8f5ec;
+  color: #1a5c34;
+}
+
+.ct-hp__review-status--error {
+  background: #fdeeee;
+  color: #8b2e2e;
+}
+
+@media screen and (max-width: 549px) {
+  .ct-hp__review-fields {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Ausklappbare Liste direkt unter dem Button (kein Pop-up) */
