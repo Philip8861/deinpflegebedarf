@@ -218,6 +218,9 @@
     --pflege-nav-search-max-width: min(calc(41rem * 4 / 3), 100%);
     --pflege-nav-search-min-width: 15rem;
     --pflege-nav-search-screen-gutter: clamp(8rem, 16vw, 20rem);
+    --pflege-nav-pill-min-height: 3.25rem;
+    --pflege-nav-pill-pad-inline: clamp(1.375rem, 2vw, 1.75rem);
+    --pflege-nav-pill-font-size: 1.595rem;
   }
   .pflege-main-nav-section .pflege-main-nav__grid {
     width: 100%;
@@ -239,13 +242,15 @@
     align-items: center;
     justify-content: center;
     gap: 0.62rem;
-    min-height: 52px;
-    padding: 0 clamp(22px, 2.8vw, 28px);
+    min-height: var(--pflege-nav-pill-min-height, 3.25rem);
+    height: var(--pflege-nav-pill-min-height, 3.25rem);
+    padding: 0 var(--pflege-nav-pill-pad-inline, clamp(22px, 2.8vw, 28px));
     border-radius: var(--pflege-radius-pill, 999px);
-    font-weight: 600;
-    line-height: 1.15;
+    font-size: var(--pflege-nav-pill-font-size, 1.595rem);
+    font-weight: 700;
+    line-height: 1.2;
     white-space: nowrap;
-    letter-spacing: 0.015em;
+    letter-spacing: 0.03em;
     background: rgb(var(--color-background, 254 254 254));
     border: 1px solid var(--pflege-main-search-border, #dfe6ef);
     box-shadow: none;
@@ -268,9 +273,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
     min-width: 0;
-    font-weight: 800;
-    letter-spacing: 0.02em;
-    font-size: clamp(0.92rem, 0.76rem + 0.44vw, 1.18rem);
+    font-weight: inherit;
+    letter-spacing: inherit;
+    font-size: inherit;
     color: var(--pflege-heading-navy, #062a55);
     -webkit-text-fill-color: var(--pflege-heading-navy, #062a55);
   }
