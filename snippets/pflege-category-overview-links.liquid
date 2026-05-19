@@ -22,10 +22,10 @@
     {% if active_free_care %}aria-current="page"{% endif %}
   >
     {% if link_variant == 'rail' %}
-      <span class="pflege-cat-rail__icon" aria-hidden="true">{% render 'pflege-icon', icon: 'ticket', width: icon_w %}</span>
+      <span class="pflege-cat-rail__icon" aria-hidden="true">{% render 'pflege-icon', icon: 'euro', width: icon_w %}</span>
       <span class="pflege-cat-rail__label">{{ 'sections.pflege_header_category_rail.cat_free_care' | t }}</span>
     {% else %}
-      <span class="pflege-category-modal__link-icon" aria-hidden="true">{% render 'pflege-icon', icon: 'ticket', width: icon_w %}</span>
+      <span class="pflege-category-modal__link-icon" aria-hidden="true">{% render 'pflege-icon', icon: 'euro', width: icon_w %}</span>
       <span class="pflege-category-modal__link-label">{{ 'sections.pflege_header_category_rail.cat_free_care' | t }}</span>
     {% endif %}
   </a>
