@@ -13,16 +13,16 @@
       "type": "pflege-collection-free-care-top",
       "settings": {
         "badge": "Kostenfreie Pflegehilfsmittel ab Pflegegrad 1",
+        "heading_line1": "Wussten Sie schon?",
+        "subheading": "Viele Produkte aus unserem Shop müssen Sie nicht selbst bezahlen. Ab Pflegegrad 1 können Sie Pflegehilfsmittel im Wert von bis zu 42 € monatlich kostenlos über die Pflegekasse erhalten.",
         "button_label": "Pflegebox jetzt konfigurieren",
         "button_link": "https://www.alltagshilfe-sued.de/pflegehilfsmittel/pflegebox-konfigurator",
         "secondary_button_label": "Weitere Infos",
         "secondary_button_link": "https://www.alltagshilfe-sued.de/pflegehilfsmittel/kostenfreie-pflegehilfsmittel",
+        "hero_image_alt": "Kostenfreie Pflegehilfsmittel für die häusliche Pflege",
         "configurator_link": "https://www.alltagshilfe-sued.de/pflegehilfsmittel/pflegebox-konfigurator",
         "info_link": "https://www.alltagshilfe-sued.de/pflegehilfsmittel/kostenfreie-pflegehilfsmittel",
-        "benefit_1_icon": "euro",
-        "benefit_2_icon": "user",
-        "benefit_3_icon": "rotate-ccw",
-        "benefit_4_icon": "headset",
+        "box_products_count": 5,
         "padding_top": 0,
         "padding_bottom": 28
       }
@@ -44,29 +44,20 @@
       "settings": {
         "products_per_page": 16,
         "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
         "image_ratio": "adapt",
+        "image_shape": "default",
         "show_secondary_image": false,
         "show_vendor": false,
         "show_rating": false,
-        "enable_filtering": true,
-        "enable_sorting": true,
-        "filter_type": "horizontal",
-        "minimal_collection_cards": true,
         "quick_add": "none",
-        "columns_mobile": "2",
+        "enable_filtering": true,
+        "filter_type": "horizontal",
+        "enable_sorting": true,
+        "minimal_collection_cards": true,
         "padding_top": 8,
-        "padding_bottom": 40,
-        "image_shape": "default",
-        "color_scheme": "scheme-1"
-      }
-    },
-    "pfc_free_care_bottom": {
-      "type": "pflege-collection-free-care-bottom",
-      "settings": {
-        "configurator_link": "",
-        "info_link": "",
-        "padding_top": 40,
-        "padding_bottom": 48
+        "padding_bottom": 40
       }
     },
     "pflege_bottom_description": {
@@ -84,7 +75,6 @@
     "pfc_free_care_top",
     "pflege_intro",
     "product-grid",
-    "pfc_free_care_bottom",
     "pflege_bottom_description"
   ]
 }
