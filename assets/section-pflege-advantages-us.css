@@ -1,4 +1,4 @@
-/* „Ihre Vorteile bei uns“ — Vollbreite, hellblauer Bereich mit Bogen oben/unten */
+/* „Ihre Vorteile bei uns“ — Vollbreite, hellblauer Bereich, Bogen nur oben */
 .pflege-advantages-us {
   --pflege-advantages-us-bg: #f0f5fb;
   --pflege-advantages-us-max: 1180px;
@@ -10,14 +10,14 @@
   background: transparent;
 }
 
-/* Wie Produktfinder-Backdrop: elliptischer Übergang zur Fläche darüber/darunter */
+/* Elliptischer Übergang nur nach oben; unten gerade Kante */
 .pflege-advantages-us__backdrop {
   box-sizing: border-box;
   padding: clamp(2.25rem, 4.2vw, 3.25rem) 0;
   background: var(--pflege-advantages-us-bg);
   border-radius: var(
-    --pflege-backdrop-band-radius-vertical-both,
-    50% 50% 50% 50% / var(--pflege-advantages-us-ell-v) var(--pflege-advantages-us-ell-v) var(--pflege-advantages-us-ell-v) var(--pflege-advantages-us-ell-v)
+    --pflege-backdrop-band-radius-top,
+    50% 50% 0 0 / var(--pflege-advantages-us-ell-v) var(--pflege-advantages-us-ell-v) 0 0
   );
   overflow: hidden;
 }
@@ -126,7 +126,7 @@
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
   margin-top: clamp(0.5rem, 1.5vw, 1rem);
-  margin-bottom: clamp(0.5rem, 1.5vw, 1rem);
+  margin-bottom: 0;
 }
 
 .pfc-free-care .pflege-advantages-us + .pfc-free-care__below {
