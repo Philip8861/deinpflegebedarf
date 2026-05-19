@@ -39,24 +39,66 @@
   <div class="pfc-free-care section-{{ section.id }}-padding" id="pfc-free-care-top-{{ section.id }}">
     <div class="pfc-free-care__shell page-width">
       <header class="pfc-free-care__head" aria-labelledby="pfc-free-care-hero-title-{{ section.id }}">
-        <div class="pfc-free-care__head-text">
-          <h1 id="pfc-free-care-hero-title-{{ section.id }}" class="pfc-free-care__title">
-            {{ 'sections.pflege_collection_free_care.hero_h1' | t }}
-          </h1>
-          <p class="pfc-free-care__intro">{{ 'sections.pflege_collection_free_care.hero_sub' | t }}</p>
-          <p class="pfc-free-care__intro">{{ 'sections.pflege_collection_free_care.hero_p1' | t }}</p>
-        </div>
-        <p class="pfc-free-care__trust">
-          {% render 'pflege-icon', icon: 'badge-check', width: 20 %}
-          <span>{{ 'sections.pflege_collection_free_care.trust_kassen' | t }}</span>
-        </p>
-        <div class="pfc-free-care__actions pfc-free-care__actions--hero">
-          <a class="pfc-free-care__btn pfc-free-care__btn--primary" href="{{ pfc_config_url | escape }}">
-            {{ 'sections.pflege_collection_free_care.cta_configure' | t }}
-          </a>
-          <a class="pfc-free-care__btn pfc-free-care__btn--secondary" href="{{ pfc_info_url | escape }}">
-            {{ 'sections.pflege_collection_free_care.cta_more_info' | t }}
-          </a>
+        <div class="pfc-free-care__head-split">
+          <div class="pfc-free-care__head-media">
+            {%- liquid
+              assign hero_img_alt = section.settings.hero_image_alt
+              if hero_img_alt == blank
+                assign hero_img_alt = 'sections.pflege_collection_free_care.hero_image_alt' | t
+              endif
+            -%}
+            {%- if section.settings.hero_image != blank -%}
+              {{
+                section.settings.hero_image
+                | image_url: width: 1200
+                | image_tag:
+                  widths: '400, 600, 800, 1000, 1200',
+                  sizes: '(min-width: 990px) 42vw, 100vw',
+                  loading: 'eager',
+                  fetchpriority: 'high',
+                  alt: hero_img_alt,
+                  class: 'pfc-free-care__head-photo'
+              }}
+            {%- else -%}
+              <img
+                class="pfc-free-care__head-photo"
+                src="{{ 'kostenfreie_pflegehilfsmittel.webp' | asset_img_url: width: 1200 }}"
+                srcset="
+                  {{ 'kostenfreie_pflegehilfsmittel.webp' | asset_img_url: width: 400 }} 400w,
+                  {{ 'kostenfreie_pflegehilfsmittel.webp' | asset_img_url: width: 800 }} 800w,
+                  {{ 'kostenfreie_pflegehilfsmittel.webp' | asset_img_url: width: 1200 }} 1200w
+                "
+                sizes="(min-width: 990px) 42vw, 100vw"
+                width="1200"
+                height="900"
+                loading="eager"
+                fetchpriority="high"
+                decoding="async"
+                alt="{{ hero_img_alt | escape }}"
+              >
+            {%- endif -%}
+          </div>
+          <div class="pfc-free-care__head-main">
+            <div class="pfc-free-care__head-text">
+              <h1 id="pfc-free-care-hero-title-{{ section.id }}" class="pfc-free-care__title">
+                {{ 'sections.pflege_collection_free_care.hero_h1' | t }}
+              </h1>
+              <p class="pfc-free-care__intro">{{ 'sections.pflege_collection_free_care.hero_sub' | t }}</p>
+              <p class="pfc-free-care__intro">{{ 'sections.pflege_collection_free_care.hero_p1' | t }}</p>
+            </div>
+            <p class="pfc-free-care__trust">
+              {% render 'pflege-icon', icon: 'badge-check', width: 20 %}
+              <span>{{ 'sections.pflege_collection_free_care.trust_kassen' | t }}</span>
+            </p>
+            <div class="pfc-free-care__actions pfc-free-care__actions--hero">
+              <a class="pfc-free-care__btn pfc-free-care__btn--primary" href="{{ pfc_config_url | escape }}">
+                {{ 'sections.pflege_collection_free_care.cta_configure' | t }}
+              </a>
+              <a class="pfc-free-care__btn pfc-free-care__btn--secondary" href="{{ pfc_info_url | escape }}">
+                {{ 'sections.pflege_collection_free_care.cta_more_info' | t }}
+              </a>
+            </div>
+          </div>
         </div>
       </header>
 
@@ -111,6 +153,18 @@
     {
       "type": "paragraph",
       "content": "Für die Kollektion mit Handle „kostenfreie-pflegehilfsmittel“ und Template „kostenfreie-pflegehilfsmittel“."
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Kopfbild",
+      "info": "Leer = Theme-Asset kostenfreie_pflegehilfsmittel.webp"
+    },
+    {
+      "type": "text",
+      "id": "hero_image_alt",
+      "label": "Alt-Text Kopfbild",
+      "default": "Kostenfreie Pflegehilfsmittel für die häusliche Pflege"
     },
     {
       "type": "url",
