@@ -110,8 +110,8 @@
 
 /* Schrift wie „Mein Konto“; Icons bleiben Akzentblau */
 .pflege-main-nav-section .pflege-main-nav__category-label {
-  font-size: clamp(0.88rem, 0.72rem + 0.42vw, 1.125rem);
-  font-weight: 700;
+  font-size: clamp(0.92rem, 0.76rem + 0.44vw, 1.18rem);
+  font-weight: 800;
   letter-spacing: 0.02em;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -267,6 +267,7 @@
   border: 0;
   background: transparent;
   font-size: 1.595rem;
+  font-weight: 600;
   letter-spacing: 0.03em;
   color: rgb(var(--color-foreground, 18 18 18));
   padding: 0.825rem 0.825rem 0.825rem 0;
@@ -293,7 +294,8 @@
 }
 
 .pflege-main-nav-section .pflege-main-nav__search-input::placeholder {
-  color: var(--pflege-main-muted, #9aa8bc);
+  color: var(--pflege-main-muted, #7a8da3);
+  font-weight: 600;
   opacity: 1;
 }
 
@@ -415,15 +417,16 @@
 
 .pflege-main-nav-section .pflege-main-nav__stack-title {
   font-size: 1.595rem;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.02em;
   color: var(--pflege-heading-navy, #062a55);
+  -webkit-font-smoothing: antialiased;
 }
 
 .pflege-main-nav-section .pflege-main-nav__stack-sub,
 .pflege-main-nav-section .pflege-main-nav__cart-total {
   font-size: 1.43rem;
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: 0.03em;
   color: var(--pflege-main-muted, #6f7f95);
 }
@@ -976,8 +979,9 @@
   border-radius: var(--pflege-radius-card, 14px);
   text-decoration: none;
   font-size: 1.42rem;
+  font-weight: 700;
   line-height: 1.35;
-  letter-spacing: 0.015em;
+  letter-spacing: 0.02em;
   color: var(--pflege-heading-navy, #062a55);
   border: 1px solid transparent;
   background: rgba(88, 145, 215, 0.08);
