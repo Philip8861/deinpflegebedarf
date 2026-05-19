@@ -26,8 +26,6 @@
     "pfc_free_care_bottom": {
       "type": "pflege-collection-free-care-bottom",
       "settings": {
-        "configurator_link": "",
-        "info_link": "",
         "padding_top": 40,
         "padding_bottom": 48
       }
