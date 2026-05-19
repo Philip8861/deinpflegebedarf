@@ -84,7 +84,7 @@
     assign hero_title_id = 'pfc-free-care-hero-title-' | append: section.id
     assign box_products_title = 'sections.pflege_collection_free_care.box_products_title' | t
     assign box_products_intro = 'sections.pflege_collection_free_care.box_products_intro' | t
-    assign box_products_limit = section.settings.box_products_count | default: 20
+    assign box_products_limit = section.settings.box_products_count | default: 5
   -%}
 
   <div class="pfc-free-care" id="pfc-free-care-top-{{ section.id }}">
@@ -201,9 +201,9 @@
       "min": 5,
       "max": 50,
       "step": 1,
-      "default": 20,
+      "default": 5,
       "label": "Pflegebox-Artikel (Anzahl Karten)",
-      "info": "Produktreihe direkt unter dem Hero. 5 Spalten, zweite Reihe bei Bedarf."
+      "info": "Produktreihe direkt unter dem Hero: 5 Karten in einer Reihe (Desktop)."
     },
     {
       "type": "range",

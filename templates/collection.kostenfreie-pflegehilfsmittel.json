@@ -19,10 +19,6 @@
         "secondary_button_link": "https://www.alltagshilfe-sued.de/pflegehilfsmittel/kostenfreie-pflegehilfsmittel",
         "configurator_link": "https://www.alltagshilfe-sued.de/pflegehilfsmittel/pflegebox-konfigurator",
         "info_link": "https://www.alltagshilfe-sued.de/pflegehilfsmittel/kostenfreie-pflegehilfsmittel",
-        "benefit_1_icon": "euro",
-        "benefit_2_icon": "user",
-        "benefit_3_icon": "rotate-ccw",
-        "benefit_4_icon": "headset",
         "padding_top": 0,
         "padding_bottom": 28
       }
@@ -31,21 +27,21 @@
       "type": "main-collection-product-grid",
       "settings": {
         "products_per_page": 16,
-        "columns_desktop": 4,
+        "columns_desktop": 5,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
         "image_ratio": "adapt",
+        "image_shape": "default",
         "show_secondary_image": false,
         "show_vendor": false,
         "show_rating": false,
-        "enable_filtering": true,
-        "enable_sorting": true,
-        "filter_type": "horizontal",
-        "minimal_collection_cards": true,
         "quick_add": "none",
-        "columns_mobile": "2",
+        "enable_filtering": true,
+        "filter_type": "horizontal",
+        "enable_sorting": true,
+        "minimal_collection_cards": true,
         "padding_top": 8,
-        "padding_bottom": 40,
-        "image_shape": "default",
-        "color_scheme": "scheme-1"
+        "padding_bottom": 40
       }
     },
     "pfc_free_care_bottom": {
