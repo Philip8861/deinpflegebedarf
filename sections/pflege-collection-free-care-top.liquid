@@ -52,6 +52,9 @@
 
   {%- liquid
     assign hero_badge = section.settings.badge | strip
+    if hero_badge == blank
+      assign hero_badge = 'sections.pflege_collection_free_care.hero_badge' | t
+    endif
     assign hero_line1 = section.settings.heading_line1
     if hero_line1 == blank
       assign hero_line1 = 'sections.pflege_collection_free_care.hero_h1' | t
@@ -162,7 +165,8 @@
     {
       "type": "text",
       "id": "badge",
-      "label": "Badge (leer lassen = ausblenden)"
+      "label": "Badge (wie Startseiten-Hero)",
+      "default": "Kostenfreie Pflegehilfsmittel ab Pflegegrad 1"
     },
     {
       "type": "text",
