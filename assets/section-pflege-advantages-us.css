@@ -1,7 +1,7 @@
 /* „Ihre Vorteile bei uns“ — Vollbreite, hellblauer Bereich, Bogen nur oben */
 .pflege-advantages-us {
   --pflege-advantages-us-bg: #f0f5fb;
-  --pflege-advantages-us-max: 1180px;
+  --pflege-advantages-us-max: var(--pflege-hero-tile-max-width, min(100%, 1426px));
   --pflege-advantages-us-ell-v: var(--pflege-backdrop-ell-v, clamp(2rem, 5.5vw, 4rem));
   padding: 0;
   font-family: var(--font-body-family, inherit);
@@ -34,7 +34,7 @@
 
 .pflege-advantages-us__head {
   text-align: center;
-  max-width: min(52rem, 100%);
+  max-width: min(56rem, 100%);
   margin-left: auto;
   margin-right: auto;
 }
@@ -68,9 +68,20 @@
 @media screen and (min-width: 750px) {
   .pflege-advantages-us__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: clamp(4.375rem, 7.5vw, 6.875rem);
+    column-gap: clamp(2.25rem, 3.5vw, 3.5rem);
     row-gap: 0;
     align-items: start;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .pflege-advantages-us__grid {
+    column-gap: clamp(2.75rem, 4vw, 4.25rem);
+  }
+
+  .pflege-advantages-us__item-title,
+  .pflege-advantages-us__item-text {
+    text-wrap: pretty;
   }
 }
 
@@ -134,7 +145,7 @@
   }
 }
 
-/* Eingebettet in PHM-Kopfbereich: volle Viewport-Breite */
+/* Eingebettet in PHM-Kopfbereich: volle Viewport-Breite, Inhalt wie Hero-Kachel */
 .pfc-free-care .pflege-advantages-us {
   width: 100vw;
   max-width: 100vw;
@@ -142,6 +153,16 @@
   margin-right: calc(50% - 50vw);
   margin-top: clamp(0.5rem, 1.5vw, 1rem);
   margin-bottom: 0;
+}
+
+.pfc-free-care .pflege-advantages-us__inner {
+  max-width: var(--pflege-hero-tile-max-width, min(100%, 1426px));
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
 }
 
 .pfc-free-care .pflege-advantages-us + .pfc-free-care__below {
