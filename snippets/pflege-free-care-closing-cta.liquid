@@ -1,5 +1,5 @@
 {% comment %}
-  Abschluss-CTA Pflegebox (Kategorie Kostenfreie Pflegehilfsmittel)
+  Abschluss-CTA — gleiche Kopf-Optik wie Pflegebox-Artikel (Bestseller-Block), ohne Karten-Hintergrund.
   Parameter: section_id, config_url, info_url
 {% endcomment %}
 {%- liquid
@@ -8,19 +8,30 @@
     assign closing_title_id = closing_title_id | append: '-' | append: section_id
   endif
 -%}
-<section class="pfc-free-care__closing" aria-labelledby="{{ closing_title_id }}">
-  <div class="pfc-free-care__closing-card">
-    <h2 id="{{ closing_title_id }}" class="pfc-free-care__closing-title">
-      {{ 'sections.pflege_collection_free_care.closing_title' | t }}
-    </h2>
-    <p class="pfc-free-care__closing-text">{{ 'sections.pflege_collection_free_care.closing_text' | t }}</p>
-    <div class="pfc-free-care__actions pfc-free-care__actions--closing">
-      <a class="pfc-free-care__btn pfc-free-care__btn--primary" href="{{ config_url | escape }}">
-        {{ 'sections.pflege_collection_free_care.cta_configure_box' | t }}
-      </a>
-      <a class="pfc-free-care__btn pfc-free-care__btn--secondary" href="{{ info_url | escape }}">
-        {{ 'sections.pflege_collection_free_care.cta_more_info_view' | t }}
-      </a>
+<section
+  class="pflege-bestseller pflege-bestseller--closing-cta pfc-free-care__closing"
+  aria-labelledby="{{ closing_title_id }}"
+>
+  <div class="pflege-bestseller__shell">
+    <div class="pflege-bestseller__panel">
+      <header class="pflege-bestseller__head">
+        <div class="pflege-bestseller__head-text">
+          <h2 id="{{ closing_title_id }}" class="pflege-bestseller__title">
+            {{ 'sections.pflege_collection_free_care.closing_title' | t }}
+          </h2>
+          <p class="pflege-bestseller__intro">
+            {{ 'sections.pflege_collection_free_care.closing_text' | t }}
+          </p>
+        </div>
+        <div class="pflege-bestseller__closing-actions">
+          <a class="pflege-bestseller__closing-cta-primary" href="{{ config_url | escape }}">
+            {{ 'sections.pflege_collection_free_care.cta_configure_box' | t }}
+          </a>
+          <a class="pflege-bestseller__closing-cta-secondary" href="{{ info_url | escape }}">
+            {{ 'sections.pflege_collection_free_care.cta_more_info_view' | t }}
+          </a>
+        </div>
+      </header>
     </div>
   </div>
 </section>

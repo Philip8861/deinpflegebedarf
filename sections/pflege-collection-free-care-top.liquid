@@ -131,13 +131,11 @@
     {% render 'pflege-advantages-us-block', section_id: section.id %}
 
     <div class="pfc-free-care__closing-wrap pfc-free-care__below">
-      <div class="pfc-free-care__shell page-width">
-        {% render 'pflege-free-care-closing-cta',
-          section_id: section.id,
-          config_url: pfc_closing_config_url,
-          info_url: pfc_closing_info_url
-        %}
-      </div>
+      {% render 'pflege-free-care-closing-cta',
+        section_id: section.id,
+        config_url: pfc_closing_config_url,
+        info_url: pfc_closing_info_url
+      %}
     </div>
 
   </div>

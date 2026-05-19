@@ -285,47 +285,86 @@
   color: rgba(var(--color-foreground), 0.88);
 }
 
-/* --- Closing CTA (unter Vorteilen) -------------------------------------- */
+/* --- Closing CTA (unter Vorteilen, wie Pflegebox-Kopf) ----------------- */
 .pfc-free-care__closing-wrap {
   margin-top: 0;
-  padding: clamp(1.25rem, 3vw, 2rem) 0 clamp(1.75rem, 3.5vw, 2.5rem);
-  background: #fff;
+  background: transparent;
 }
 
 .pfc-free-care .pflege-advantages-us + .pfc-free-care__closing-wrap {
   margin-top: 0;
 }
 
-.pfc-free-care__closing-wrap .pfc-free-care__shell {
-  max-width: min(52rem, 100%);
+.pfc-free-care__closing-wrap .pflege-bestseller--closing-cta {
+  padding-top: var(--pflege-home-section-stack, clamp(1.5rem, 3vw, 2rem));
+  padding-bottom: var(--pflege-home-section-stack, clamp(1.5rem, 3vw, 2rem));
 }
 
-/* --- Closing CTA Karte -------------------------------------------------- */
-.pfc-free-care__closing-card {
-  padding: clamp(1.35rem, 3vw, 2rem);
-  border-radius: calc(var(--pfc-radius) + 2px);
-  text-align: center;
-  border: 1px solid var(--pfc-border);
-  background: linear-gradient(160deg, #fefefe 0%, #eef6fc 100%);
-  box-shadow: 0 8px 28px rgba(11, 35, 71, 0.07);
+.pflege-bestseller--closing-cta .pflege-bestseller__closing-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.65rem, 1.5vw, 0.85rem);
+  width: 100%;
+  max-width: min(48rem, 100%);
+  margin-top: 0.12rem;
 }
 
-.pfc-free-care__closing-title {
-  margin: 0 0 0.65rem;
-  font-size: clamp(1.25rem, 1.8vw + 0.75rem, 1.65rem);
-  font-weight: 700;
-  line-height: 1.25;
-  color: var(--pfc-navy);
+@media screen and (min-width: 560px) {
+  .pflege-bestseller--closing-cta .pflege-bestseller__closing-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
 
-.pfc-free-care__closing-text {
-  margin: 0 auto 1.25rem;
-  max-width: 36rem;
-  font-size: 1rem;
-  line-height: 1.55;
-  color: var(--pfc-muted);
-}
-
-.pfc-free-care__actions--closing {
+.pflege-bestseller--closing-cta .pflege-bestseller__closing-cta-primary {
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
+  min-height: 3rem;
+  padding: 0.72rem 1.55rem;
+  border-radius: 10px;
+  border: 1px solid rgba(217, 98, 20, 0.35);
+  background: var(--pfc-cta);
+  color: #fff;
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1.12rem, 0.35vw + 1.05rem, 1.28rem);
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(249, 115, 22, 0.22);
+  transition:
+    transform 120ms ease,
+    background-color 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.pflege-bestseller--closing-cta .pflege-bestseller__closing-cta-primary:hover,
+.pflege-bestseller--closing-cta .pflege-bestseller__closing-cta-primary:focus-visible {
+  color: #fff;
+  background: var(--pfc-cta-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(249, 115, 22, 0.28);
+}
+
+.pflege-bestseller--closing-cta .pflege-bestseller__closing-cta-secondary {
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1.1rem, 1.02rem + 0.2vw, 1.25rem);
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--pflege-accent, #3f86d9);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.pflege-bestseller--closing-cta .pflege-bestseller__closing-cta-secondary:hover {
+  text-decoration: underline;
+}
+
+.pflege-bestseller--closing-cta .pflege-bestseller__closing-cta-primary:focus-visible,
+.pflege-bestseller--closing-cta .pflege-bestseller__closing-cta-secondary:focus-visible {
+  outline: 2px solid var(--pfc-navy);
+  outline-offset: 3px;
 }
