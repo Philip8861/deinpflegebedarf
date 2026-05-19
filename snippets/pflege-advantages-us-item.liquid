@@ -1,0 +1,24 @@
+{% comment %}
+  Ein Vorteilspunkt mit haken.webp, fetter Überschrift + Fließtext.
+  Parameter: item_index (1–6)
+{% endcomment %}
+{%- liquid
+  assign idx = item_index | default: 1
+  assign title_key = 'sections.pflege_collection_free_care.advantages_us_item_' | append: idx | append: '_title'
+  assign text_key = 'sections.pflege_collection_free_care.advantages_us_item_' | append: idx | append: '_text'
+-%}
+<li class="pflege-advantages-us__item">
+  <img
+    class="pflege-advantages-us__check"
+    src="{{ 'haken.webp' | asset_url }}"
+    alt=""
+    width="40"
+    height="40"
+    loading="lazy"
+    decoding="async"
+  >
+  <div class="pflege-advantages-us__copy">
+    <p class="pflege-advantages-us__item-title">{{ title_key | t }}</p>
+    <p class="pflege-advantages-us__item-text">{{ text_key | t }}</p>
+  </div>
+</li>
