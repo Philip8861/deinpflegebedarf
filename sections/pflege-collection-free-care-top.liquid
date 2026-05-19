@@ -122,17 +122,7 @@
 
     {% render 'pflege-advantages-us-block', section_id: section.id %}
 
-    <div class="pfc-free-care__below section-{{ section.id }}-padding">
-      <div class="pfc-free-care__shell page-width">
-        <aside class="pfc-free-care__pregrid" aria-label="{{ 'sections.pflege_collection_free_care.pregrid_aria' | t }}">
-          <p class="pfc-free-care__pregrid-text">{{ 'sections.pflege_collection_free_care.pregrid_text' | t }}</p>
-          <a class="pfc-free-care__btn pfc-free-care__btn--compact" href="{{ pfc_config_url | escape }}">
-            {{ 'sections.pflege_collection_free_care.cta_check_configure' | t }}
-          </a>
-        </aside>
-      </div>
-    </div>
-      </div>
+  </div>
 {%- endunless -%}
 
 {% schema %}
