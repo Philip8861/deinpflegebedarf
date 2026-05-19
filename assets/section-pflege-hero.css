@@ -1,5 +1,6 @@
 /* PflegeShop — Hero */
-body.template-index .pflege-hero {
+body.template-index .pflege-hero,
+.pflege-hero--free-care {
   padding-top: clamp(0.35rem, 1.15vw, 0.9rem);
 }
 

@@ -16,20 +16,9 @@
   max-width: min(100%, var(--pflege-hero-tile-max-width, 1426px));
 }
 
-/* Hero auf Kollektionsseite: gleiche Kachel wie Startseite (section-pflege-hero.css) */
-.pfc-free-care .pflege-hero--free-care {
-  padding-top: 0;
-  padding-bottom: clamp(1.35rem, 3vw, 2rem);
-}
-
-.pfc-free-care .pflege-hero--free-care .pflege-hero__shell {
-  max-width: none;
-  width: 100%;
-  margin-left: 0;
-  margin-right: 0;
-  padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
-  padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
-  box-sizing: border-box;
+/* Hero: Layout/Typo vollständig in section-pflege-hero.css (.pflege-hero--free-care) */
+.pfc-free-care__below {
+  margin-top: 0;
 }
 
 /* --- Buttons (Vorteile / Pregrid) --------------------------------------- */
