@@ -92,7 +92,7 @@
 
 .pflege-advantages-us__check {
   flex-shrink: 0;
-  width: clamp(2.76rem, 3.9vw, 3.41rem);
+  width: clamp(3.59rem, 5.07vw, 4.43rem);
   height: auto;
   margin-top: 0.1rem;
   object-fit: contain;
@@ -130,7 +130,7 @@
   }
 
   .pflege-advantages-us__check {
-    width: clamp(2.76rem, 6.5vw, 3.09rem);
+    width: clamp(3.59rem, 8.45vw, 4.02rem);
   }
 }
 
