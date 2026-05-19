@@ -37,10 +37,10 @@
       {%- if subheading != blank -%}
         <p class="pflege-hero__sub">{{ subheading | escape }}</p>
       {%- endif -%}
-      {%- if button_label != blank and button_link != blank or secondary_button_label != blank and secondary_button_link != blank -%}
+      {%- if button_label != blank or secondary_button_label != blank -%}
         <div class="pflege-hero__actions">
-          {%- if button_label != blank and button_link != blank -%}
-            <a class="pflege-hero__cta" href="{{ button_link | escape }}">
+          {%- if button_label != blank -%}
+            <a class="pflege-hero__cta" href="{{ button_link | default: '#' | escape }}">
               {{- button_label | escape -}}
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
