@@ -6,6 +6,10 @@
   {% render 'pflege-legal-widerrufsbelehrung-fallback' %}
 {%- elsif request.page_type == 'page' and page.handle == 'widerrufsrecht' -%}
   {% render 'pflege-legal-widerrufsbelehrung-fallback' %}
+{%- elsif request.page_type == 'page' and page.handle == 'datenschutz' -%}
+  {% render 'pflege-legal-datenschutz-fallback' %}
+{%- elsif request.page_type == 'page' and page.handle == 'datenschutzerklärung' -%}
+  {% render 'pflege-legal-datenschutz-fallback' %}
 {%- else -%}
 {{ 'section-main-page.css' | asset_url | stylesheet_tag }}
 

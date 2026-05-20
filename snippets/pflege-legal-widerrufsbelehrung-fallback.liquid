@@ -4,7 +4,7 @@
   assign url_widerruf = root | append: 'pages/widerrufsbelehrung'
   assign url_impressum = root | append: 'pages/impressum'
   assign url_agb = root | append: 'pages/agb'
-  assign url_datenschutz = root | append: 'pages/datenschutz'
+  assign url_datenschutz = root | append: 'pages/datenschutzerklärung'
 -%}
 {{ 'section-pflege-legal-page.css' | asset_url | stylesheet_tag }}
 {% render 'pflege-legal-page-view',
