@@ -46,9 +46,61 @@
       >{% if form.body %}{{ form.body }}{% endif %}</textarea>
 
       {%- if form.posted_successfully? -%}
+        {%- assign receipt_timestamp = 'now' | date: '%d.%m.%Y, %H:%M' -%}
         <div class="pflege-withdrawal__alert pflege-withdrawal__alert--success" role="status" tabindex="-1" data-pflege-withdrawal-success>
-          Ihr Widerruf wurde übermittelt. Sie erhalten zusätzlich eine Bestätigung per E-Mail.
+          Ihr Widerruf wurde übermittelt. Ihre Eingangsbestätigung finden Sie direkt darunter — bitte speichern oder ausdrucken.
         </div>
+
+        <article
+          class="pflege-withdrawal__receipt"
+          id="pflege-withdrawal-receipt"
+          data-pflege-withdrawal-receipt
+          aria-labelledby="pflege-withdrawal-receipt-title"
+        >
+          <h3 id="pflege-withdrawal-receipt-title" class="pflege-withdrawal__receipt-title">
+            Eingangsbestätigung Ihres Widerrufs
+          </h3>
+          <p class="pflege-withdrawal__receipt-meta">
+            <strong>deinpflegebedarf.de</strong> — V. Maucher und Philip Sonntag GbR, Alltagshilfe Süd<br>
+            Eingang am {{ receipt_timestamp }} Uhr (Shop-Zeit)
+          </p>
+          <p class="pflege-withdrawal__receipt-lead">
+            Wir bestätigen den Eingang Ihrer Widerrufserklärung. Ein Widerrufsgrund war nicht erforderlich.
+          </p>
+          <dl class="pflege-withdrawal__receipt-dl">
+            {%- if form.name != blank -%}
+              <div class="pflege-withdrawal__receipt-row">
+                <dt>Name</dt>
+                <dd>{{ form.name | escape }}</dd>
+              </div>
+            {%- endif -%}
+            {%- if form.email != blank -%}
+              <div class="pflege-withdrawal__receipt-row">
+                <dt>E-Mail</dt>
+                <dd>{{ form.email | escape }}</dd>
+              </div>
+            {%- endif -%}
+          </dl>
+          {%- if form.body != blank -%}
+            <div class="pflege-withdrawal__receipt-body">
+              <p class="pflege-withdrawal__receipt-body-label">Ihre Angaben:</p>
+              <pre class="pflege-withdrawal__receipt-pre">{{ form.body | escape }}</pre>
+            </div>
+          {%- endif -%}
+          <p class="pflege-withdrawal__receipt-hint">
+            Diese Bestätigung können Sie als Nachweis speichern (z. B. Drucken → „Als PDF speichern“).
+          </p>
+          <button type="button" class="pflege-withdrawal__print" data-pflege-withdrawal-print>
+            Bestätigung drucken / als PDF speichern
+          </button>
+        </article>
+
+        {%- if form.email != blank -%}
+          <p class="pflege-withdrawal__email-note" data-pflege-withdrawal-email-note>
+            Zusätzlich senden wir eine E-Mail-Bestätigung an <strong>{{ form.email | escape }}</strong>, sobald Ihr
+            Widerruf bei uns verarbeitet wurde.
+          </p>
+        {%- endif -%}
       {%- elsif form.errors -%}
         <div class="pflege-withdrawal__alert pflege-withdrawal__alert--error" role="alert" tabindex="-1">
           <p><strong>Bitte prüfen Sie die markierten Felder.</strong></p>

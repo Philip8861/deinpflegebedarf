@@ -199,3 +199,115 @@
 .pflege-withdrawal__field-error a {
   color: inherit;
 }
+
+/* Eingangsbestätigung nach Absenden */
+.pflege-withdrawal__receipt {
+  margin-top: 1.15rem;
+  padding: clamp(1.15rem, 2vw, 1.45rem);
+  border: 1px solid #b9d9c3;
+  border-radius: var(--pflege-radius-lg, 22px);
+  background: #fff;
+}
+
+.pflege-withdrawal__receipt-title {
+  margin: 0 0 0.65rem;
+  font-size: clamp(1.1rem, 1rem + 0.25vw, 1.25rem);
+  font-weight: 800;
+  color: var(--pflege-home-section-heading-color, #0f4f69);
+}
+
+.pflege-withdrawal__receipt-meta,
+.pflege-withdrawal__receipt-lead,
+.pflege-withdrawal__receipt-hint,
+.pflege-withdrawal__email-note {
+  margin: 0 0 0.85rem;
+  font-size: clamp(0.98rem, 0.94rem + 0.1vw, 1.05rem);
+  line-height: 1.55;
+  color: var(--pflege-navy, #0b2347);
+}
+
+.pflege-withdrawal__receipt-dl {
+  margin: 0 0 1rem;
+}
+
+.pflege-withdrawal__receipt-row {
+  display: grid;
+  grid-template-columns: minmax(5.5rem, 7rem) 1fr;
+  gap: 0.35rem 0.75rem;
+  margin-bottom: 0.45rem;
+}
+
+.pflege-withdrawal__receipt-row dt {
+  margin: 0;
+  font-weight: 700;
+  color: var(--pflege-muted, #6f7f95);
+}
+
+.pflege-withdrawal__receipt-row dd {
+  margin: 0;
+}
+
+.pflege-withdrawal__receipt-pre {
+  margin: 0;
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  background: var(--pflege-bg-softer, #f5faff);
+  font-family: inherit;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: var(--pflege-navy, #0b2347);
+}
+
+.pflege-withdrawal__print {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.65rem;
+  padding: 0.55rem 1.2rem;
+  border: 1px solid var(--pflege-home-section-heading-color, #0f4f69);
+  border-radius: 10px;
+  font-family: var(--font-body-family, inherit);
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--pflege-home-section-heading-color, #0f4f69);
+  background: #fff;
+  cursor: pointer;
+}
+
+.pflege-withdrawal__print:hover,
+.pflege-withdrawal__print:focus-visible {
+  background: var(--pflege-bg-softer, #f5faff);
+  outline: 2px solid var(--pflege-accent, #3f86d9);
+  outline-offset: 2px;
+}
+
+.pflege-withdrawal__email-note {
+  margin-top: 1rem;
+  color: var(--pflege-muted, #6f7f95);
+}
+
+@media print {
+  body.pflege-withdrawal-print-mode * {
+    visibility: hidden;
+  }
+
+  body.pflege-withdrawal-print-mode #pflege-withdrawal-receipt,
+  body.pflege-withdrawal-print-mode #pflege-withdrawal-receipt * {
+    visibility: visible;
+  }
+
+  body.pflege-withdrawal-print-mode #pflege-withdrawal-receipt {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    max-width: none;
+    border: none;
+    padding: 1rem;
+  }
+
+  body.pflege-withdrawal-print-mode .pflege-withdrawal__print {
+    display: none;
+  }
+}
