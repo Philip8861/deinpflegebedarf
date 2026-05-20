@@ -9,6 +9,7 @@
   assign lead = section.settings.lead | strip
   assign url = section.settings.external_url | strip
   assign label = section.settings.button_label | strip
+  assign body_text = section.settings.body_text | strip
 -%}
 
 <section
@@ -21,7 +22,8 @@
     heading: heading,
     lead: lead,
     url: url,
-    label: label
+    label: label,
+    body_text: body_text
   %}
 </section>
 
@@ -60,6 +62,12 @@
       "id": "button_label",
       "label": "Button-Text",
       "default": "Ratgeber ansehen"
+    },
+    {
+      "type": "textarea",
+      "id": "body_text",
+      "label": "Text unter dem Bild",
+      "default": "Unser Pflegeratgeber bietet Ihnen verständliches Wissen, praktische Tipps und wichtige Informationen rund um Pflege, Pflegehilfsmittel, Inkontinenzversorgung, Hautschutz, Pflegegrad und Unterstützung im Alltag. Einfach erklärt, alltagsnah geschrieben und darauf ausgelegt, Ihnen und Ihren Angehörigen im Pflegealltag wirklich weiterzuhelfen."
     }
   ],
   "presets": [

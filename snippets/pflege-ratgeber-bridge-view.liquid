@@ -18,6 +18,9 @@
   if label == blank
     assign label = 'Ratgeber ansehen'
   endif
+  if body_text == blank
+    assign body_text = 'Unser Pflegeratgeber bietet Ihnen verständliches Wissen, praktische Tipps und wichtige Informationen rund um Pflege, Pflegehilfsmittel, Inkontinenzversorgung, Hautschutz, Pflegegrad und Unterstützung im Alltag. Einfach erklärt, alltagsnah geschrieben und darauf ausgelegt, Ihnen und Ihren Angehörigen im Pflegealltag wirklich weiterzuhelfen.'
+  endif
 -%}
 
 <div class="pflege-ratgeber-bridge__band">
@@ -59,5 +62,17 @@
         </div>
       </div>
     </article>
+
+    <div class="pflege-ratgeber-bridge__below">
+      <p class="pflege-ratgeber-bridge__body">{{ body_text | escape }}</p>
+      <a
+        class="pflege-ratgeber-bridge__cta pflege-ratgeber-bridge__cta--below"
+        href="{{ url | escape }}"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {{ label | escape }}
+      </a>
+    </div>
   </div>
 </div>

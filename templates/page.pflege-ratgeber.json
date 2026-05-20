@@ -12,7 +12,9 @@
     "pflege_ratgeber": {
       "type": "pflege-ratgeber-bridge",
       "settings": {
+        "eyebrow": "Wissen, das entlastet",
         "heading": "Alltagshilfe-Süd Ratgeber",
+        "lead": "Praxistipps, Erklärungen und konkrete Hilfen rund um Pflege, Betreuung und Entlastung im Alltag.",
         "external_url": "https://www.alltagshilfe-sued.de/ratgeber",
         "button_label": "Ratgeber ansehen"
       }

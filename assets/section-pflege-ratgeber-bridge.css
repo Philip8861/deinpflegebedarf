@@ -147,6 +147,24 @@
   outline-offset: 3px;
 }
 
+/* Text + Button unter dem Hero-Bild */
+.pflege-ratgeber-bridge__below {
+  margin-top: clamp(1.75rem, 3.5vw, 2.5rem);
+  max-width: 52rem;
+}
+
+.pflege-ratgeber-bridge__body {
+  margin: 0 0 clamp(1.5rem, 2.5vw, 2rem);
+  font-size: clamp(1.04rem, 0.98rem + 0.25vw, 1.18rem);
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--prb-text);
+}
+
+.pflege-ratgeber-bridge__cta--below {
+  margin: 0;
+}
+
 @media screen and (min-width: 990px) {
   .pflege-ratgeber-bridge__overlay {
     padding-left: clamp(4.5rem, 12vw, 10rem);
