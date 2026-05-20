@@ -99,13 +99,18 @@
     endif
   endif
 
-  assign legal_padding_class = 'section-' | append: section.id | append: '-padding'
+  if legal_plain
+    assign legal_padding_class = 'pflege-legal--page-pad'
+  else
+    assign legal_padding_class = 'section-' | append: section.id | append: '-padding'
+  endif
 -%}
 
 {%- unless legal_plain -%}
   <script src="{{ 'pflege-legal-page.js' | asset_url }}" defer></script>
 {%- endunless -%}
 
+{%- unless legal_plain -%}
 {%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
@@ -118,6 +123,7 @@
     }
   }
 {%- endstyle -%}
+{%- endunless -%}
 
 {% render 'pflege-legal-page-view',
   padding_class: legal_padding_class,

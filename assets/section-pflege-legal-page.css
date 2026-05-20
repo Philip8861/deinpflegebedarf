@@ -1,5 +1,18 @@
 /* PflegeShop — Rechtsseiten (einheitliche Shop-Optik) */
 
+/* Abstand Shop-Header → H1: auf ALLEN Plain-Rechtseiten identisch */
+.pflege-legal--page-pad {
+  padding-top: 48px;
+  padding-bottom: 64px;
+}
+
+@media screen and (min-width: 750px) {
+  .pflege-legal--page-pad {
+    padding-top: 64px;
+    padding-bottom: 80px;
+  }
+}
+
 .pflege-legal {
   --pl-petrol: var(--pflege-home-section-heading-color, #0f4f69);
   --pl-navy: var(--pflege-navy, #0b2347);
@@ -126,11 +139,18 @@
   box-shadow: 0 2px 14px rgba(15, 45, 84, 0.06);
 }
 
-/* ───────── Einheitliche Shop-Optik (Impressum, AGB, Widerruf, Datenschutz) ───────── */
+/* ───────── Plain-Rechtstexte (Impressum, AGB, Widerruf, Versand, Datenschutz) ───────── */
 .pflege-legal--plain {
+  --pl-plain-copy-max: min(100%, 72rem);
+  --pl-plain-body-size: clamp(1.1rem, 1.02rem + 0.32vw, 1.22rem);
+  --pl-plain-heading-size: clamp(1.32rem, 1.14rem + 0.42vw, 1.52rem);
+  --pl-plain-header-gap: clamp(2rem, 3.5vw, 2.75rem);
+  --pl-plain-section-gap: clamp(2rem, 3.5vw, 2.5rem);
+  --pl-plain-block-gap: 1.15rem;
+
   font-family: var(--font-body-family, system-ui, sans-serif);
-  font-size: clamp(1.04rem, 0.96rem + 0.3vw, 1.16rem);
-  line-height: 1.65;
+  font-size: var(--pl-plain-body-size);
+  line-height: 1.68;
   color: var(--pl-text);
 }
 
@@ -139,7 +159,7 @@
   flex-direction: column;
   align-items: stretch;
   width: 100%;
-  max-width: var(--pflege-max-copy, 56rem);
+  max-width: var(--pl-plain-copy-max);
   margin: 0 auto;
   gap: 0;
 }
@@ -147,13 +167,14 @@
 .pflege-legal--plain .pflege-legal__header {
   width: 100%;
   max-width: none;
-  margin: 0 0 clamp(1.35rem, 2.5vw, 1.85rem);
+  margin: 0 0 var(--pl-plain-header-gap);
   padding: 0;
   text-align: left;
 }
 
 .pflege-legal--plain .pflege-legal__title {
   margin: 0;
+  padding: 0;
   font-family: var(--pflege-font-display, var(--font-body-family, inherit));
   font-size: var(--pflege-home-section-heading-size, clamp(1.85rem, 2.25vw + 1.15rem, 2.75rem));
   font-weight: var(--pflege-home-section-heading-weight, 800);
@@ -163,10 +184,12 @@
 }
 
 .pflege-legal--plain .pflege-legal__stand {
-  margin: clamp(0.5rem, 1vw, 0.75rem) 0 0;
-  font-size: clamp(1rem, 0.94rem + 0.2vw, 1.12rem);
+  margin: clamp(0.65rem, 1.2vw, 0.9rem) 0 0;
+  padding: 0;
+  font-family: var(--font-body-family, inherit);
+  font-size: var(--pl-plain-body-size);
   font-weight: 600;
-  line-height: 1.45;
+  line-height: 1.5;
   color: var(--pl-muted);
 }
 
@@ -175,35 +198,33 @@
   max-width: none;
   margin: 0;
   padding: 0;
+  font-size: var(--pl-plain-body-size);
+  line-height: 1.68;
   color: var(--pl-text);
 }
 
-.pflege-legal--plain .pflege-legal__content h2 {
-  margin: clamp(1.85rem, 3vw, 2.35rem) 0 0.75rem;
+/* Abschnittsüberschriften: einheitlich (h2–h4) */
+.pflege-legal--plain .pflege-legal__content h2,
+.pflege-legal--plain .pflege-legal__content h3,
+.pflege-legal--plain .pflege-legal__content h4 {
+  margin: var(--pl-plain-section-gap) 0 0.85rem;
+  padding: 0;
   font-family: var(--pflege-font-display, var(--font-body-family, inherit));
-  font-size: clamp(1.22rem, 1.05rem + 0.45vw, 1.48rem);
+  font-size: var(--pl-plain-heading-size);
   font-weight: var(--pflege-home-section-heading-weight, 800);
-  line-height: 1.28;
+  line-height: 1.3;
   letter-spacing: -0.02em;
   color: var(--pl-petrol);
 }
 
-.pflege-legal--plain .pflege-legal__content h2:first-child,
-.pflege-legal--plain .pflege-legal__content > p:first-child + h2 {
-  margin-top: clamp(1.25rem, 2vw, 1.65rem);
-}
-
-.pflege-legal--plain .pflege-legal__content h3 {
-  margin: 1.35rem 0 0.55rem;
-  font-family: var(--font-body-family, inherit);
-  font-size: clamp(1.08rem, 1rem + 0.2vw, 1.18rem);
-  font-weight: 700;
-  line-height: 1.35;
-  color: var(--pl-navy);
+.pflege-legal--plain .pflege-legal__content > :first-child {
+  margin-top: 0;
 }
 
 .pflege-legal--plain .pflege-legal__content p {
-  margin: 0 0 1rem;
+  margin: 0 0 var(--pl-plain-block-gap);
+  font-size: inherit;
+  line-height: inherit;
 }
 
 .pflege-legal--plain .pflege-legal__content p:last-child {
@@ -212,12 +233,16 @@
 
 .pflege-legal--plain .pflege-legal__content ul,
 .pflege-legal--plain .pflege-legal__content ol {
-  margin: 0 0 1rem;
-  padding-left: 1.35rem;
+  margin: 0 0 var(--pl-plain-block-gap);
+  padding-left: 1.5rem;
+  font-size: inherit;
+  line-height: inherit;
 }
 
 .pflege-legal--plain .pflege-legal__content li {
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.45rem;
+  font-size: inherit;
+  line-height: inherit;
 }
 
 .pflege-legal--plain .pflege-legal__content li:last-child {
@@ -291,7 +316,18 @@
   color: var(--pl-muted);
 }
 
+/* Widerrufsformular unter dem Text — gleicher Rhythmus */
+.pflege-legal--plain .pflege-withdrawal-form,
+.pflege-legal--plain [data-pflege-withdrawal-form] {
+  margin-top: var(--pl-plain-section-gap);
+  max-width: 100%;
+}
+
 @media screen and (max-width: 749px) {
+  .pflege-legal--plain {
+    --pl-plain-copy-max: 100%;
+  }
+
   .pflege-legal--plain .pflege-legal__title {
     font-size: clamp(1.65rem, 1.35rem + 1.2vw, 2.15rem);
   }
