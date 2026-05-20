@@ -21,23 +21,25 @@
 <div class="pflege-ratgeber-bridge__band">
   <div class="pflege-ratgeber-bridge__inner">
     <div class="pflege-ratgeber-bridge__card">
-      <div class="pflege-ratgeber-bridge__card-inner">
+      <header class="pflege-ratgeber-bridge__card-head">
         <h1 id="pflege-ratgeber-title-{{ bridge_id }}" class="pflege-ratgeber-bridge__title">
           {{ heading | escape }}
         </h1>
+      </header>
 
-        <figure class="pflege-ratgeber-bridge__figure">
-          <img
-            class="pflege-ratgeber-bridge__image"
-            src="{{ 'ratgeber.webp' | asset_url }}"
-            alt="Ratgeber — Pflegetipps und Orientierung von Alltagshilfe Süd"
-            width="1280"
-            height="720"
-            loading="lazy"
-            decoding="async"
-          >
-        </figure>
+      <figure class="pflege-ratgeber-bridge__figure">
+        <img
+          class="pflege-ratgeber-bridge__image"
+          src="{{ 'ratgeber.webp' | asset_url }}"
+          alt="Ratgeber — Pflegetipps und Orientierung von Alltagshilfe Süd"
+          width="1280"
+          height="720"
+          loading="lazy"
+          decoding="async"
+        >
+      </figure>
 
+      <div class="pflege-ratgeber-bridge__card-body">
         <p class="pflege-ratgeber-bridge__subtitle">{{ subtitle | escape }}</p>
 
         {%- if body_html != blank -%}
