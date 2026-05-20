@@ -4,7 +4,7 @@
   — pflegeratgeber → dieselbe externe URL
   — /policies/refund-policy → /pages/widerrufsbelehrung
   — /pages/widerrufsrecht → /pages/widerrufsbelehrung (alte URL)
-  — /pages/datenschutz → /pages/datenschutzerklärung (alte URL)
+  — /pages/datenschutz → /pages/datenschutzerklärung (alte URL; Handle im Admin: datenschutzerklärung)
   Admin-URL-Weiterleitung zusätzlich möglich (301).
 {%- endcomment -%}
 {%- liquid
@@ -68,7 +68,7 @@
   <script>
     window.location.replace({{ pflege_datenschutz_page_url | json }});
   </script>
-{%- elsif request.path == '/pages/datenschutz' -%}
+{%- elsif request.path == '/pages/datenschutz' or request.path == '/pages/datenschutzerklaerung' -%}
   <link rel="canonical" href="{{ pflege_datenschutz_page_url | escape }}">
   <meta http-equiv="refresh" content="0;url={{ pflege_datenschutz_page_url | escape }}">
   <script>

@@ -57,6 +57,8 @@
         assign legal_title_fallback = 'Datenschutzerklärung'
       when 'datenschutzerklärung'
         assign legal_title_fallback = 'Datenschutzerklärung'
+      when 'datenschutzerklaerung'
+        assign legal_title_fallback = 'Datenschutzerklärung'
     endcase
   endif
 
@@ -81,7 +83,7 @@
     assign show_withdrawal_form = true
   endif
   if legal_body_html == blank
-    if current_handle == 'datenschutz' or current_handle == 'datenschutzerklärung' or current_handle contains 'datenschutz'
+    if current_handle == 'datenschutz' or current_handle == 'datenschutzerklärung' or current_handle == 'datenschutzerklaerung' or current_handle contains 'datenschutz'
       assign legal_use_datenschutz_body = true
     endif
   endif
