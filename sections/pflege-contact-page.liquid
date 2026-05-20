@@ -1,4 +1,5 @@
 {{ 'section-pflege-contact-page.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'pflege-contact-success.js' | asset_url }}" defer="defer"></script>
 
 {% comment %}
   Öffentliche URL: /pages/kontakt — im Shop eine „Seite“ mit Handle kontakt anlegen und die Vorlage „kontakt“
@@ -136,9 +137,44 @@
           <input type="hidden" name="contact[subject]" value="{{ section.settings.email_subject | escape }}">
 
           {%- if form.posted_successfully? -%}
-            <div class="pflege-contact-page__alert pflege-contact-page__alert--success" role="status" tabindex="-1">
-              {{ section.settings.success_message | escape }}
-            </div>
+            <aside
+              id="pflege-contact-success"
+              class="pflege-contact-success"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="pflege-contact-success-title"
+              aria-describedby="pflege-contact-success-desc"
+              data-pflege-contact-success
+            >
+              <div class="pflege-contact-success__backdrop" data-pcs-close aria-hidden="true">
+                <span class="pflege-contact-success__backdrop-blur"></span>
+                <span class="pflege-contact-success__backdrop-dim"></span>
+              </div>
+              <div class="pflege-contact-success__panel" role="document">
+                <button
+                  type="button"
+                  class="pflege-contact-success__close"
+                  data-pcs-close
+                  aria-label="Hinweis schließen"
+                >
+                  <span class="svg-wrapper" aria-hidden="true">
+                    {{- 'icon-close.svg' | inline_asset_content -}}
+                  </span>
+                </button>
+                <span class="pflege-contact-success__icon" aria-hidden="true">
+                  {% render 'pflege-icon', icon: 'badge-check', width: 40 %}
+                </span>
+                <h2 id="pflege-contact-success-title" class="pflege-contact-success__title">
+                  {{ section.settings.success_title | default: 'Vielen Dank!' | escape }}
+                </h2>
+                <p id="pflege-contact-success-desc" class="pflege-contact-success__text">
+                  {{ section.settings.success_message | escape }}
+                </p>
+                <button type="button" class="pflege-contact-success__btn" data-pcs-close>
+                  Verstanden
+                </button>
+              </div>
+            </aside>
           {%- elsif form.errors -%}
             <div class="pflege-contact-page__alert pflege-contact-page__alert--error" role="alert" tabindex="-1">
               <p><strong>{{ section.settings.error_heading | escape }}</strong></p>
@@ -423,9 +459,15 @@
     },
     {
       "type": "text",
+      "id": "success_title",
+      "label": "Erfolgsmeldung — Titel (Pop-up)",
+      "default": "Vielen Dank!"
+    },
+    {
+      "type": "textarea",
       "id": "success_message",
-      "label": "Erfolgsmeldung",
-      "default": "Vielen Dank — Ihre Nachricht ist eingegangen. Wir melden uns schnellstmöglich."
+      "label": "Erfolgsmeldung — Text (Pop-up)",
+      "default": "Ihre Nachricht ist eingegangen. Wir melden uns schnellstmöglich bei Ihnen."
     },
     {
       "type": "text",
