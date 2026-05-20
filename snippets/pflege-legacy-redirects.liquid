@@ -61,10 +61,4 @@
   <script>
     window.location.replace({{ pflege_ratgeber_ext | json }});
   </script>
-{%- elsif request.page_type == 'page' and page.handle == 'widerrufsrecht' -%}
-  <link rel="canonical" href="{{ pflege_widerruf_page_url | escape }}">
-  <meta http-equiv="refresh" content="0;url={{ pflege_widerruf_page_url | escape }}">
-  <script>
-    window.location.replace({{ pflege_widerruf_page_url | json }});
-  </script>
 {%- endif -%}

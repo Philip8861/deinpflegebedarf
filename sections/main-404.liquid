@@ -1,23 +1,74 @@
-<style type="text/css">
-  .template-404 .title + * {
-    margin-top: 1rem;
-  }
+{%- liquid
+  assign pflege_404_path = request.path
+  assign pflege_404_legal = ''
 
-  @media screen and (min-width: 750px) {
+  case pflege_404_path
+    when '/pages/widerrufsbelehrung', '/pages/widerrufsrecht'
+      assign pflege_404_legal = 'widerrufs'
+    when '/pages/impressum'
+      assign pflege_404_legal = 'impressum'
+    when '/pages/agb'
+      assign pflege_404_legal = 'agb'
+    when '/pages/datenschutz'
+      assign pflege_404_legal = 'datenschutz'
+  endcase
+-%}
+
+{%- if pflege_404_legal != '' -%}
+  {%- case pflege_404_legal -%}
+    {%- when 'widerrufs' -%}
+      {% render 'pflege-legal-widerrufsbelehrung-fallback' %}
+    {%- when 'impressum' -%}
+      {% render 'pflege-legal-impressum-fallback' %}
+    {%- when 'agb' -%}
+      {% render 'pflege-legal-agb-fallback' %}
+    {%- when 'datenschutz' -%}
+      {{ 'section-pflege-legal-page.css' | asset_url | stylesheet_tag }}
+      {%- liquid
+        assign root = routes.root_url
+        assign url_widerruf = root | append: 'pages/widerrufsbelehrung'
+        assign url_impressum = root | append: 'pages/impressum'
+        assign url_agb = root | append: 'pages/agb'
+        assign url_datenschutz = root | append: 'pages/datenschutz'
+      -%}
+      {% render 'pflege-legal-page-view',
+        padding_class: 'section-padding',
+        color_scheme: 'scheme-1',
+        legal_meta_date: 'Mai 2026',
+        legal_title_fallback: 'Datenschutzerklärung',
+        current_handle: 'datenschutz',
+        url_impressum: url_impressum,
+        url_widerruf: url_widerruf,
+        url_agb: url_agb,
+        url_datenschutz: url_datenschutz,
+        body_html: '',
+        use_impressum_body: false,
+        use_agb_body: false,
+        legal_plain: true
+      %}
+  {%- endcase -%}
+{%- else -%}
+  <style type="text/css">
     .template-404 .title + * {
-      margin-top: 2rem;
+      margin-top: 1rem;
     }
-  }
-</style>
 
-<div class="template-404 page-width page-margin center">
-  <p>
-    {{ 'templates.404.subtext' | t }}
-  </p>
-  <h1 class="title">
-    {{ 'templates.404.title' | t }}
-  </h1>
-  <a href="{{ routes.all_products_collection_url }}" class="button">
-    {{ 'general.continue_shopping' | t }}
-  </a>
-</div>
+    @media screen and (min-width: 750px) {
+      .template-404 .title + * {
+        margin-top: 2rem;
+      }
+    }
+  </style>
+
+  <div class="template-404 page-width page-margin center">
+    <p>
+      {{ 'templates.404.subtext' | t }}
+    </p>
+    <h1 class="title">
+      {{ 'templates.404.title' | t }}
+    </h1>
+    <a href="{{ routes.all_products_collection_url }}" class="button">
+      {{ 'general.continue_shopping' | t }}
+    </a>
+  </div>
+{%- endif -%}
