@@ -1,0 +1,323 @@
+{{ 'section-pflege-legal-page.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'pflege-legal-page.js' | asset_url }}" defer></script>
+
+{%- liquid
+  assign root = routes.root_url
+
+  if shop.terms_of_service != blank and shop.terms_of_service.url != blank
+    assign url_agb = shop.terms_of_service.url
+  else
+    assign url_agb = root | append: 'pages/agb'
+  endif
+
+  if shop.privacy_policy != blank and shop.privacy_policy.url != blank
+    assign url_datenschutz = shop.privacy_policy.url
+  else
+    assign url_datenschutz = root | append: 'pages/datenschutz'
+  endif
+
+  if shop.refund_policy != blank and shop.refund_policy.url != blank
+    assign url_widerruf = shop.refund_policy.url
+  else
+    assign url_widerruf = root | append: 'pages/widerrufsrecht'
+  endif
+
+  assign url_impressum = root | append: 'pages/impressum'
+
+  assign current_handle = ''
+  if page != blank and page.handle != blank
+    assign current_handle = page.handle
+  endif
+-%}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section
+  class="pflege-legal color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding"
+  aria-labelledby="pflege-legal-heading"
+  data-pflege-legal
+>
+  <div class="pflege-legal__shell">
+    <header class="pflege-legal__header">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="pflege-legal__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      <h1 id="pflege-legal-heading" class="pflege-legal__title">
+        {%- if page != blank and page.title != blank -%}
+          {{ page.title | escape }}
+        {%- else -%}
+          {{ section.settings.title_fallback | escape }}
+        {%- endif -%}
+      </h1>
+      {%- if section.settings.subtitle != blank -%}
+        <p class="pflege-legal__subtitle">{{ section.settings.subtitle | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.meta_date != blank -%}
+        <p class="pflege-legal__meta">
+          <span class="pflege-legal__meta-label">{{ section.settings.meta_label | default: 'Stand' | escape }}:</span>
+          <span class="pflege-legal__meta-value">{{ section.settings.meta_date | escape }}</span>
+        </p>
+      {%- endif -%}
+    </header>
+
+    <div class="pflege-legal__grid{% unless section.settings.show_toc or section.settings.show_related %} pflege-legal__grid--single{% endunless %}">
+      {%- if section.settings.show_toc or section.settings.show_related -%}
+        <aside class="pflege-legal__aside" aria-label="Navigation">
+          {%- if section.settings.show_toc -%}
+            <nav
+              class="pflege-legal__toc"
+              aria-label="Inhaltsverzeichnis"
+              data-pflege-legal-toc
+              data-empty-text="{{ 'Kein Inhaltsverzeichnis verfügbar.' | escape }}"
+              hidden
+            >
+              <p class="pflege-legal__aside-title">{{ section.settings.toc_title | default: 'Inhalt' | escape }}</p>
+              <ol class="pflege-legal__toc-list" data-pflege-legal-toc-list></ol>
+            </nav>
+          {%- endif -%}
+
+          {%- if section.settings.show_related -%}
+            <nav class="pflege-legal__related" aria-label="Weitere Rechtsseiten">
+              <p class="pflege-legal__aside-title">{{ section.settings.related_title | default: 'Rechtliches' | escape }}</p>
+              <ul class="pflege-legal__related-list" role="list">
+                <li>
+                  <a
+                    class="pflege-legal__related-link{% if current_handle == 'impressum' %} is-active{% endif %}"
+                    href="{{ url_impressum }}"
+                  >
+                    Impressum
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="pflege-legal__related-link{% if current_handle contains 'widerruf' %} is-active{% endif %}"
+                    href="{{ url_widerruf }}"
+                  >
+                    Widerrufsrecht
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="pflege-legal__related-link{% if current_handle == 'agb' %} is-active{% endif %}"
+                    href="{{ url_agb }}"
+                  >
+                    AGB
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="pflege-legal__related-link{% if current_handle contains 'datenschutz' %} is-active{% endif %}"
+                    href="{{ url_datenschutz }}"
+                  >
+                    Datenschutzerklärung
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          {%- endif -%}
+        </aside>
+      {%- endif -%}
+
+      <article class="pflege-legal__article">
+        {%- if section.settings.highlight_text != blank -%}
+          <aside class="pflege-legal__notice" role="note">
+            {%- if section.settings.highlight_title != blank -%}
+              <p class="pflege-legal__notice-title">{{ section.settings.highlight_title | escape }}</p>
+            {%- endif -%}
+            <div class="pflege-legal__notice-body rte">{{ section.settings.highlight_text }}</div>
+          </aside>
+        {%- endif -%}
+
+        <div class="pflege-legal__content rte" data-pflege-legal-content>
+          {%- if page != blank and page.content != blank -%}
+            {{ page.content }}
+          {%- elsif section.settings.body_text != blank -%}
+            {{ section.settings.body_text }}
+          {%- else -%}
+            <p class="pflege-legal__empty">
+              Bitte tragen Sie den Inhalt dieser Seite im Shopify-Admin unter
+              <em>Online Shop → Seiten</em> ein oder hinterlegen Sie den Text in den
+              Einstellungen dieser Section.
+            </p>
+          {%- endif -%}
+        </div>
+
+        {%- if section.settings.contact_text != blank -%}
+          <aside class="pflege-legal__contact">
+            {%- if section.settings.contact_title != blank -%}
+              <p class="pflege-legal__contact-title">{{ section.settings.contact_title | escape }}</p>
+            {%- endif -%}
+            <div class="pflege-legal__contact-body rte">{{ section.settings.contact_text }}</div>
+          </aside>
+        {%- endif -%}
+      </article>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PflegeShop Rechtsseite",
+  "tag": "section",
+  "class": "pflege-legal-page-section section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Generische Vorlage für Impressum, Widerrufsrecht, AGB, Datenschutzerklärung usw. Inhalt aus dem Shopify-Admin (Online Shop → Seiten) wird automatisch übernommen. Alternativ Text unten eintragen."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Farbschema",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Seitenkopf"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Kleine Überzeile",
+      "info": "Optionale Mini-Überschrift über dem Titel, z. B. „Rechtliches“."
+    },
+    {
+      "type": "text",
+      "id": "title_fallback",
+      "label": "Titel (Fallback ohne Seite)",
+      "default": "Rechtliches"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Untertitel (optional)"
+    },
+    {
+      "type": "text",
+      "id": "meta_label",
+      "label": "Bezeichnung Datum",
+      "default": "Stand"
+    },
+    {
+      "type": "text",
+      "id": "meta_date",
+      "label": "Datum / Stand",
+      "info": "Wird in der Form „Stand: 20.05.2026“ angezeigt."
+    },
+    {
+      "type": "header",
+      "content": "Hinweis-Box (oberhalb Inhalt)"
+    },
+    {
+      "type": "text",
+      "id": "highlight_title",
+      "label": "Überschrift der Hinweis-Box"
+    },
+    {
+      "type": "richtext",
+      "id": "highlight_text",
+      "label": "Hinweis-Text"
+    },
+    {
+      "type": "header",
+      "content": "Seiten-Navigation"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_toc",
+      "label": "Automatisches Inhaltsverzeichnis aus Überschriften",
+      "default": true,
+      "info": "Erzeugt Links für jeden H2-Block im Seiteninhalt."
+    },
+    {
+      "type": "text",
+      "id": "toc_title",
+      "label": "Überschrift Inhaltsverzeichnis",
+      "default": "Inhalt"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_related",
+      "label": "Querverlinkung zu Impressum / Widerruf / AGB / Datenschutz",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "related_title",
+      "label": "Überschrift Querverlinkung",
+      "default": "Weitere Rechtstexte"
+    },
+    {
+      "type": "header",
+      "content": "Inhalt (Fallback)"
+    },
+    {
+      "type": "richtext",
+      "id": "body_text",
+      "label": "Inhalt",
+      "info": "Wird nur angezeigt, wenn keine Seite im Admin gepflegt ist."
+    },
+    {
+      "type": "header",
+      "content": "Kontakt-Block (unter Inhalt)"
+    },
+    {
+      "type": "text",
+      "id": "contact_title",
+      "label": "Überschrift Kontakt"
+    },
+    {
+      "type": "richtext",
+      "id": "contact_text",
+      "label": "Kontakt-Text",
+      "info": "Optional, z. B. „Fragen? Kontaktieren Sie uns unter …“"
+    },
+    {
+      "type": "header",
+      "content": "Abstand"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Abstand oben",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Abstand unten",
+      "default": 72
+    }
+  ],
+  "presets": [
+    {
+      "name": "PflegeShop Rechtsseite",
+      "settings": {
+        "eyebrow": "Rechtliches"
+      }
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,36 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "pflege_legal": {
+      "type": "pflege-legal-page",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "eyebrow": "Rechtliches",
+        "title_fallback": "Allgemeine Geschäftsbedingungen",
+        "subtitle": "AGB der Alltagshilfe Süd GmbH für den Online-Shop deinpflegebedarf.",
+        "meta_label": "Stand",
+        "meta_date": "20.05.2026",
+        "highlight_title": "Auf einen Blick",
+        "highlight_text": "<p>Diese AGB gelten für alle Bestellungen über unseren Online-Shop. Bitte lesen Sie die Bestimmungen vor Ihrer Bestellung sorgfältig durch.</p>",
+        "show_toc": true,
+        "toc_title": "Inhalt",
+        "show_related": true,
+        "related_title": "Weitere Rechtstexte",
+        "body_text": "<h2>§ 1 Geltungsbereich</h2><p>Die nachstehenden Allgemeinen Geschäftsbedingungen (AGB) gelten für alle Geschäftsbeziehungen zwischen der <strong>Alltagshilfe Süd GmbH</strong> (im Folgenden „Anbieter“) und der Kundin oder dem Kunden (im Folgenden „Kunde“), die über den Online-Shop unter dieser Domain zustande kommen.</p><h2>§ 2 Vertragspartner</h2><p>Vertragspartner ist die Alltagshilfe Süd GmbH, Musterstraße 1, 87764 Legau, Deutschland. Weitere Angaben finden Sie im <a href=\"/pages/impressum\">Impressum</a>.</p><h2>§ 3 Vertragsschluss</h2><p>Die Darstellung der Produkte im Online-Shop stellt kein rechtlich bindendes Angebot, sondern eine Aufforderung zur Bestellung dar. Durch Anklicken des Bestell-Buttons gibt der Kunde eine verbindliche Bestellung der im Warenkorb enthaltenen Waren ab. Die Bestätigung des Eingangs der Bestellung erfolgt unmittelbar nach dem Absenden. Ein Vertrag kommt mit der Annahme der Bestellung durch den Anbieter zustande, spätestens jedoch mit dem Versand der Ware.</p><h2>§ 4 Preise und Versandkosten</h2><p>Alle Preise verstehen sich in Euro inklusive der gesetzlichen Mehrwertsteuer. Eventuell anfallende Versandkosten werden im Bestellprozess gesondert ausgewiesen.</p><h2>§ 5 Zahlung</h2><p>Die Zahlung erfolgt wahlweise per Vorkasse, Rechnung, Kreditkarte, PayPal oder einem anderen im Shop angebotenen Verfahren. Die jeweils verfügbaren Zahlungsarten werden im Bestellprozess angezeigt.</p><h2>§ 6 Lieferung</h2><p>Die Lieferung erfolgt ausschließlich innerhalb Deutschlands. Die Lieferzeit beträgt in der Regel <strong>2 bis 5 Werktage</strong> nach Vertragsschluss bzw. nach Zahlungseingang bei Vorkasse.</p><h2>§ 7 Eigentumsvorbehalt</h2><p>Die gelieferte Ware bleibt bis zur vollständigen Bezahlung im Eigentum des Anbieters.</p><h2>§ 8 Widerrufsrecht</h2><p>Verbraucherinnen und Verbraucher haben ein gesetzliches Widerrufsrecht. Die Einzelheiten ergeben sich aus unserer <a href=\"/pages/widerrufsrecht\">Widerrufsbelehrung</a>.</p><h2>§ 9 Gewährleistung</h2><p>Es gelten die gesetzlichen Mängelhaftungsrechte. Mängel müssen unverzüglich nach Entdeckung schriftlich angezeigt werden, um eine schnelle Bearbeitung zu ermöglichen.</p><h2>§ 10 Haftung</h2><p>Der Anbieter haftet unbeschränkt für Vorsatz und grobe Fahrlässigkeit sowie nach dem Produkthaftungsgesetz. Bei leichter Fahrlässigkeit haftet der Anbieter nur bei Verletzung wesentlicher Vertragspflichten und begrenzt auf den vorhersehbaren, vertragstypischen Schaden.</p><h2>§ 11 Streitbeilegung</h2><p>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung bereit: <a href=\"https://ec.europa.eu/consumers/odr\" target=\"_blank\" rel=\"noopener\">https://ec.europa.eu/consumers/odr</a>. Wir sind weder bereit noch verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p><h2>§ 12 Schlussbestimmungen</h2><p>Es gilt das Recht der Bundesrepublik Deutschland unter Ausschluss des UN-Kaufrechts. Sollten einzelne Bestimmungen dieser AGB unwirksam sein oder werden, berührt dies die Wirksamkeit der übrigen Bestimmungen nicht.</p><h2>Hinweis</h2><p>Diese AGB sind ein Muster und müssen vor Veröffentlichung rechtlich geprüft und an Ihren Shop angepasst werden.</p>",
+        "contact_title": "Fragen zu unseren AGB?",
+        "contact_text": "<p>Kontaktieren Sie uns telefonisch unter <a href=\"tel:+4983349893330\">08334 / 9893330</a> oder per E-Mail an <a href=\"mailto:deinpflegebedarf@alltagshilfe-sued.de\">deinpflegebedarf@alltagshilfe-sued.de</a>.</p>",
+        "padding_top": 64,
+        "padding_bottom": 80
+      }
+    }
+  },
+  "order": ["pflege_legal"]
+}
