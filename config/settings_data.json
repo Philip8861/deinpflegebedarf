@@ -146,7 +146,7 @@
           "review_bwkjRh": {
             "type": "review",
             "settings": {
-              "review_text": "Ich freue mich, dass ich von einer so guten Organisation mit einer überaus freundlichen und kompetenten Mitarbeiterin, Frau Riegel betreut werde.",
+              "review_text": "Test1234",
               "customer_name": "Günter Bautz",
               "source_text": "Rezension aus Google · 5/5"
             }
@@ -154,7 +154,7 @@
           "ct_review_1": {
             "type": "review",
             "settings": {
-              "review_text": "Test132",
+              "review_text": "Hallo1234",
               "customer_name": "Peter Seiler",
               "source_text": "Bewertung direkt aus dem Shop · 5/5"
             }
@@ -180,6 +180,8 @@
           "button_label": "Alle [count] Kundenstimmen anzeigen",
           "button_link": "",
           "modal_heading": "Alle Kundenstimmen",
+          "show_review_form": true,
+          "review_submit_label": "Bewertung abgeben",
           "auto_rotate": true,
           "auto_rotate_seconds": 5,
           "empty_message": "Fügen Sie Kundenstimmen-Blocks hinzu.",
