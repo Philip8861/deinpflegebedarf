@@ -13,6 +13,8 @@
       assign pflege_404_legal = 'datenschutz'
     when '/pages/cookie-einstellungen'
       assign pflege_404_legal = 'cookies'
+    when '/pages/versand-zahlung'
+      assign pflege_404_legal = 'versand'
   endcase
 -%}
 
@@ -28,6 +30,8 @@
       {% render 'pflege-legal-datenschutz-fallback' %}
     {%- when 'cookies' -%}
       {% render 'pflege-cookie-settings-fallback' %}
+    {%- when 'versand' -%}
+      {% render 'pflege-legal-versand-zahlung-fallback' %}
   {%- endcase -%}
 {%- else -%}
   <style type="text/css">

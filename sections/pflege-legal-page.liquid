@@ -5,7 +5,7 @@
 
   assign url_agb = root | append: 'pages/agb'
 
-  assign url_datenschutz = root | append: 'pages/datenschutzerklärung'
+  assign url_datenschutz = root | append: 'pages/datenschutzerklaerung'
 
   assign url_widerruf = root | append: 'pages/widerrufsbelehrung'
   assign url_impressum = root | append: 'pages/impressum'
@@ -41,7 +41,11 @@
     assign legal_plain = true
   elsif current_handle == 'datenschutz' or current_handle contains 'datenschutz'
     assign legal_plain = true
+  elsif current_handle == 'versand-zahlung' or current_handle contains 'versand'
+    assign legal_plain = true
   endif
+
+  assign url_kontakt = root | append: 'pages/kontakt'
 
   if legal_title_fallback == blank
     case current_handle
@@ -59,6 +63,8 @@
         assign legal_title_fallback = 'Datenschutzerklärung'
       when 'datenschutzerklaerung'
         assign legal_title_fallback = 'Datenschutzerklärung'
+      when 'versand-zahlung'
+        assign legal_title_fallback = 'Versand & Zahlung'
     endcase
   endif
 
@@ -67,7 +73,10 @@
   assign legal_use_agb_body = false
   assign legal_use_widerrufsbelehrung_body = false
   assign legal_use_datenschutz_body = false
+  assign legal_use_versand_zahlung_body = false
   assign show_withdrawal_form = false
+  assign shipping_standard = section.settings.shipping_standard_cost
+  assign shipping_free_from = section.settings.shipping_free_from
   if legal_body_html == blank and legal_use_impressum_defaults
     assign legal_use_impressum_body = true
   endif
@@ -85,6 +94,8 @@
   if legal_body_html == blank
     if current_handle == 'datenschutz' or current_handle == 'datenschutzerklärung' or current_handle == 'datenschutzerklaerung' or current_handle contains 'datenschutz'
       assign legal_use_datenschutz_body = true
+    elsif current_handle == 'versand-zahlung'
+      assign legal_use_versand_zahlung_body = true
     endif
   endif
 
@@ -134,6 +145,10 @@
   use_agb_body: legal_use_agb_body,
   use_widerrufsbelehrung_body: legal_use_widerrufsbelehrung_body,
   use_datenschutz_body: legal_use_datenschutz_body,
+  use_versand_zahlung_body: legal_use_versand_zahlung_body,
+  shipping_standard: shipping_standard,
+  shipping_free_from: shipping_free_from,
+  url_kontakt: url_kontakt,
   show_withdrawal_form: show_withdrawal_form,
   legal_plain: legal_plain
 %}
@@ -189,6 +204,24 @@
       "id": "meta_date",
       "label": "Datum / Stand",
       "info": "Wird in der Form „Stand: 20.05.2026“ angezeigt."
+    },
+    {
+      "type": "header",
+      "content": "Versand & Zahlung (Beträge)"
+    },
+    {
+      "type": "text",
+      "id": "shipping_standard_cost",
+      "label": "Standardversand (€)",
+      "default": "4,90",
+      "info": "Nur Vorlage versand-zahlung, z. B. 4,90"
+    },
+    {
+      "type": "text",
+      "id": "shipping_free_from",
+      "label": "Versandkostenfrei ab (€)",
+      "default": "150,00",
+      "info": "Nur Vorlage versand-zahlung, z. B. 150,00"
     },
     {
       "type": "header",

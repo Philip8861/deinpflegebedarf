@@ -38,6 +38,13 @@
             {% render 'pflege-legal-widerrufsbelehrung-body' %}
           {%- elsif use_datenschutz_body -%}
             {% render 'pflege-legal-datenschutz-body' %}
+          {%- elsif use_versand_zahlung_body -%}
+            {% render 'pflege-legal-versand-zahlung-body',
+              shipping_standard: shipping_standard,
+              shipping_free_from: shipping_free_from,
+              url_widerruf: url_widerruf,
+              url_kontakt: url_kontakt
+            %}
           {%- elsif legal_page_body != blank -%}
             {{ page.content }}
           {%- else -%}

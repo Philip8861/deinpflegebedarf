@@ -14,6 +14,8 @@
   {% render 'pflege-legal-datenschutz-fallback' %}
 {%- elsif request.page_type == 'page' and page.handle == 'cookie-einstellungen' -%}
   {% render 'pflege-cookie-settings-fallback' %}
+{%- elsif request.page_type == 'page' and page.handle == 'versand-zahlung' -%}
+  {% render 'pflege-legal-versand-zahlung-fallback' %}
 {%- else -%}
 {{ 'section-main-page.css' | asset_url | stylesheet_tag }}
 
