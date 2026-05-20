@@ -9,13 +9,6 @@
   assign url_privacy = routes.root_url | append: 'pages/datenschutz'
 
   assign url_agb = routes.root_url | append: 'pages/agb'
-  assign url_widerruf = routes.root_url | append: 'pages/widerrufsbelehrung'
-
-  assign contact_email = section.settings.email | strip
-  if contact_email == blank
-    assign contact_email = 'deinpflegebedarf@alltagshilfe-sued.de'
-  endif
-  assign mailto_subject = section.settings.email_subject | default: 'Kontaktanfrage deinPflegebedarf' | url_encode
 
   assign phone_href = section.settings.phone_link | strip
   if phone_href == blank
@@ -138,41 +131,158 @@
           <p class="pflege-contact-page__form-lead">{{ section.settings.form_lead | escape }}</p>
         {%- endif -%}
 
-        <div class="pflege-contact-page__direct" role="group" aria-label="Kontaktmöglichkeiten">
-          <p class="pflege-contact-page__direct-note">
-            Für allgemeine Anfragen nutzen Sie bitte E-Mail oder Telefon. Es wird dabei <strong>keine automatische Shop-E-Mail</strong> ausgelöst — nur bei einem Widerruf über die Widerrufsbelehrung.
-          </p>
+        {%- form 'contact', id: 'PflegeContactForm', class: 'pflege-contact-page__form' -%}
+          <input type="hidden" name="contact[tags]" value="kontakt, deinpflegebedarf">
+          <input type="hidden" name="contact[subject]" value="{{ section.settings.email_subject | escape }}">
 
-          <div class="pflege-contact-page__direct-actions">
-            <a
-              class="pflege-contact-page__submit pflege-contact-page__direct-btn"
-              href="mailto:{{ contact_email }}?subject={{ mailto_subject }}"
-            >
-              {{ section.settings.submit_label | default: 'E-Mail schreiben' | escape }}
-            </a>
-            {%- if section.settings.phone != blank -%}
-              <a class="pflege-contact-page__submit pflege-contact-page__direct-btn pflege-contact-page__direct-btn--secondary" href="{{ phone_href }}">
-                {{ section.settings.phone | escape }}
-              </a>
-            {%- endif -%}
-          </div>
+          {%- if form.posted_successfully? -%}
+            <div class="pflege-contact-page__alert pflege-contact-page__alert--success" role="status" tabindex="-1">
+              {{ section.settings.success_message | escape }}
+            </div>
+          {%- elsif form.errors -%}
+            <div class="pflege-contact-page__alert pflege-contact-page__alert--error" role="alert" tabindex="-1">
+              <p><strong>{{ section.settings.error_heading | escape }}</strong></p>
+              {%- if form.errors contains 'email' -%}
+                <p class="pflege-contact-page__field-error" style="margin: 0.35rem 0 0;">
+                  <a href="#PflegeContact-email">{{ form.errors.messages.email }}</a>
+                </p>
+              {%- endif -%}
+              {%- if form.errors contains 'body' -%}
+                <p class="pflege-contact-page__field-error" style="margin: 0.35rem 0 0;">
+                  <a href="#PflegeContact-body">{{ form.errors.messages.body }}</a>
+                </p>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
 
-          <p class="pflege-contact-page__widerruf-hint">
-            <strong>Widerruf:</strong>
-            Nur über die
-            <a href="{{ url_widerruf }}">Widerrufsbelehrung</a>
-            (Button „Vertrag widerrufen“) — dort erhalten Sie die Eingangsbestätigung und wir die Shop-Benachrichtigung.
-          </p>
-        </div>
+          {%- unless form.posted_successfully? -%}
+            <div class="pflege-contact-page__fields pflege-contact-page__fields--split">
+              <div class="pflege-contact-page__field">
+                <label class="pflege-contact-page__label" for="PflegeContact-name">{{ 'templates.contact.form.name' | t }}</label>
+                <input
+                  class="pflege-contact-page__input"
+                  type="text"
+                  id="PflegeContact-name"
+                  name="contact[name]"
+                  autocomplete="name"
+                  value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+                  placeholder="{{ 'templates.contact.form.name' | t }}"
+                >
+              </div>
+              <div class="pflege-contact-page__field">
+                <label class="pflege-contact-page__label" for="PflegeContact-email">
+                  {{ 'templates.contact.form.email' | t }}
+                  <abbr title="Pflichtfeld" class="pflege-contact-page__label-hint">*</abbr>
+                </label>
+                <input
+                  class="pflege-contact-page__input"
+                  type="email"
+                  id="PflegeContact-email"
+                  name="contact[email]"
+                  autocomplete="email"
+                  spellcheck="false"
+                  autocapitalize="off"
+                  value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                  required
+                  aria-required="true"
+                  placeholder="{{ 'templates.contact.form.email' | t }}"
+                  {% if form.errors contains 'email' %}
+                    aria-invalid="true"
+                    aria-describedby="PflegeContact-email-error"
+                  {% endif %}
+                >
+                {%- if form.errors contains 'email' -%}
+                  <p class="pflege-contact-page__field-error" id="PflegeContact-email-error">
+                    {{ form.errors.messages.email }}
+                  </p>
+                {%- endif -%}
+              </div>
+            </div>
 
-        {%- if section.settings.show_privacy_note -%}
-          <p class="pflege-contact-page__privacy-note">
-            {{ section.settings.privacy_note }}
-            {%- if url_privacy != blank -%}
-              <a href="{{ url_privacy }}">{{ section.settings.privacy_link_text | escape }}</a>
-            {%- endif -%}
-          </p>
-        {%- endif -%}
+            <div class="pflege-contact-page__fields">
+              <div class="pflege-contact-page__field">
+                <label class="pflege-contact-page__label" for="PflegeContact-phone">{{ 'templates.contact.form.phone' | t }}</label>
+                <input
+                  class="pflege-contact-page__input"
+                  type="tel"
+                  id="PflegeContact-phone"
+                  name="contact[phone]"
+                  autocomplete="tel"
+                  value="{% if form.phone %}{{ form.phone }}{% elsif customer and customer.phone %}{{ customer.phone }}{% endif %}"
+                  placeholder="{{ 'templates.contact.form.phone' | t }}"
+                >
+              </div>
+
+              <div class="pflege-contact-page__field">
+                <label class="pflege-contact-page__label" for="PflegeContact-body">
+                  {{ section.settings.message_label | escape }}
+                  <abbr title="Pflichtfeld" class="pflege-contact-page__label-hint">*</abbr>
+                </label>
+                <textarea
+                  class="pflege-contact-page__textarea"
+                  id="PflegeContact-body"
+                  name="contact[body]"
+                  rows="12"
+                  required
+                  aria-required="true"
+                  placeholder="{{ section.settings.message_placeholder | escape }}"
+                  {% if form.errors contains 'body' %}
+                    aria-invalid="true"
+                  {% endif %}
+                >{{- form.body -}}</textarea>
+                {%- if form.errors contains 'body' -%}
+                  <p class="pflege-contact-page__field-error">{{ form.errors.messages.body }}</p>
+                {%- endif -%}
+              </div>
+            </div>
+
+            <div class="pflege-contact-page__consent">
+              <label class="pflege-contact-page__consent-label" for="PflegeContact-consent">
+                <input
+                  type="checkbox"
+                  class="pflege-contact-page__consent-input"
+                  id="PflegeContact-consent"
+                  name="contact[Einwilligung AGB und Datenschutz]"
+                  value="Ja"
+                  required
+                  aria-required="true"
+                >
+                <span class="pflege-contact-page__consent-box" aria-hidden="true"></span>
+                <span class="pflege-contact-page__consent-text">
+                  Ich habe die
+                  {%- if url_agb != blank -%}
+                    <a href="{{ url_agb }}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">AGB</a>
+                  {%- else -%}
+                    AGB
+                  {%- endif -%}
+                  und die
+                  {%- if url_privacy != blank -%}
+                    <a href="{{ url_privacy }}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">{{ section.settings.privacy_link_text | default: 'Datenschutzerklärung' | escape }}</a>
+                  {%- else -%}
+                    Datenschutzerklärung
+                  {%- endif -%}
+                  gelesen und akzeptiere sie.
+                  <abbr title="Pflichtfeld" class="pflege-contact-page__label-hint">*</abbr>
+                </span>
+              </label>
+            </div>
+
+            <div class="pflege-contact-page__submit-wrap">
+              <button type="submit" class="pflege-contact-page__submit" name="commit">
+                {{ section.settings.submit_label | escape }}
+              </button>
+            </div>
+          {%- endunless -%}
+
+          {%- if section.settings.show_privacy_note -%}
+            <p class="pflege-contact-page__privacy-note">
+              {{ section.settings.privacy_note }}
+              {%- if url_privacy != blank -%}
+                <a href="{{ url_privacy }}">{{ section.settings.privacy_link_text | escape }}</a>
+              {%- endif -%}
+            </p>
+          {%- endif -%}
+        {%- endform -%}
       </div>
     </div>
   </div>
@@ -189,7 +299,7 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Kontakt ohne Shopify-Kontaktformular (keine Shop-E-Mails). Nur die Widerrufsseite nutzt das Kontaktformular für Benachrichtigungen. Seite: Handle kontakt, Vorlage kontakt."
+      "content": "Kontaktformular → Benachrichtigung an den Shop (keine automatische E-Mail an den Kunden). Widerruf nur über /pages/widerrufsbelehrung. Seite: Handle kontakt, Vorlage kontakt."
     },
     {
       "type": "color_scheme",

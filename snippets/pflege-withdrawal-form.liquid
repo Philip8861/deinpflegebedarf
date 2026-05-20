@@ -93,13 +93,13 @@
         </article>
 
         <p class="pflege-withdrawal__email-note">
-          Eine gesonderte E-Mail-Bestätigung erhalten Sie, sobald wir Ihren Widerruf geprüft haben — in der Regel an
+          Sie erhalten <strong>keine automatische E-Mail</strong> von unserem Shop-System. Bei Rückfragen melden wir uns
+          manuell an
           {%- if form.email != blank -%}
             <strong>{{ form.email | escape }}</strong>.
           {%- else -%}
-            Ihre angegebene E-Mail-Adresse.
+            Ihre angegebene Adresse.
           {%- endif -%}
-          Prüfen Sie auch den Spam-Ordner.
         </p>
       {%- elsif form.errors -%}
         <div class="pflege-withdrawal__alert pflege-withdrawal__alert--error" role="alert" tabindex="-1">
