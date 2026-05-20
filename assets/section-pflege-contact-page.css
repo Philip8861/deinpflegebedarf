@@ -78,6 +78,17 @@
   }
 }
 
+/* Nur Formular (ohne Telefon/E-Mail-Karten) */
+.pflege-contact-page--form-only .pflege-contact-page__grid {
+  display: block;
+  max-width: min(44rem, 100%);
+  margin: 0 auto;
+}
+
+.pflege-contact-page--form-only .pflege-contact-page__form-card {
+  width: 100%;
+}
+
 /* Kontakt-Karten links */
 .pflege-contact-page__aside {
   display: flex;

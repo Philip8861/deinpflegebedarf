@@ -349,7 +349,7 @@
     </script>
   </head>
 
-  <body class="gradient template-{{ template.name }}{% if template.name == 'collection' or request.page_type == 'collection' %} pflege-collection-page{% endif %}{% if is_pfc_collection %} pflege-pfc-collection{% endif %}{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
+  <body class="gradient template-{{ template.name }}{% if template.suffix != blank %} template-{{ template.name }}-{{ template.suffix | handleize }}{% endif %}{% if template.name == 'collection' or request.page_type == 'collection' %} pflege-collection-page{% endif %}{% if is_pfc_collection %} pflege-pfc-collection{% endif %}{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
     {%- if template.name == 'index' -%}
       <script>
         if (!document.documentElement.classList.contains('shopify-design-mode')) {
@@ -382,10 +382,26 @@
       {{ content_for_layout }}
     </main>
 
-    {% comment %} Global vor Shop-Footer: Vorteile → Kundenstimmen → FAQ (alle Seiten) {% endcomment %}
-    {{ 'section-pflege-faq-accordion.css' | asset_url | stylesheet_tag }}
-    <script src="{{ 'pflege-faq-accordion.js' | asset_url }}" defer></script>
-    {% render 'pflege-site-footer-stack' %}
+    {%- liquid
+      assign show_pflege_footer_stack = true
+      if request.page_type == 'page'
+        assign contact_suffix = template.suffix | downcase
+        if contact_suffix == 'kontakt' or contact_suffix == 'contact'
+          assign show_pflege_footer_stack = false
+        elsif page != blank
+          assign contact_handle = page.handle | downcase
+          if contact_handle == 'kontakt' or contact_handle == 'contact'
+            assign show_pflege_footer_stack = false
+          endif
+        endif
+      endif
+    -%}
+    {%- if show_pflege_footer_stack -%}
+      {% comment %} Global vor Shop-Footer: Vorteile → Kundenstimmen → FAQ {% endcomment %}
+      {{ 'section-pflege-faq-accordion.css' | asset_url | stylesheet_tag }}
+      <script src="{{ 'pflege-faq-accordion.js' | asset_url }}" defer></script>
+      {% render 'pflege-site-footer-stack' %}
+    {%- endif -%}
 
     {%- include 'pflege-feature-flags' -%}
 
