@@ -18,7 +18,8 @@
   --prb-text: #3d556f;
   --prb-cta: var(--pflege-cta, #f89738);
   --prb-cta-hover: var(--pflege-cta-hover, #dc7a22);
-  --prb-bg: var(--pflege-bg-softer, #f5faff);
+  --prb-bg: #fafbfc;
+  --prb-hero-bg: #fafbfc;
 
   font-family: var(--font-body-family, inherit);
   color: var(--prb-navy);
@@ -43,6 +44,7 @@
   width: 100%;
   border-radius: clamp(16px, 2.5vw, 24px);
   overflow: hidden;
+  background: var(--prb-hero-bg);
   box-shadow: 0 12px 40px -16px rgba(11, 35, 71, 0.2);
 }
 
@@ -66,9 +68,9 @@
   box-sizing: border-box;
   background: linear-gradient(
     100deg,
-    rgba(245, 250, 255, 0.97) 0%,
-    rgba(245, 250, 255, 0.88) 40%,
-    rgba(245, 250, 255, 0.45) 58%,
+    rgba(250, 251, 252, 0.97) 0%,
+    rgba(250, 251, 252, 0.88) 40%,
+    rgba(250, 251, 252, 0.45) 58%,
     transparent 72%
   );
 }
@@ -188,9 +190,9 @@
     background: linear-gradient(
       180deg,
       transparent 0%,
-      rgba(245, 250, 255, 0.55) 35%,
-      rgba(245, 250, 255, 0.96) 68%,
-      rgba(245, 250, 255, 0.98) 100%
+      rgba(250, 251, 252, 0.55) 35%,
+      rgba(250, 251, 252, 0.96) 68%,
+      rgba(250, 251, 252, 0.98) 100%
     );
   }
 
