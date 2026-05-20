@@ -37,6 +37,9 @@
         </div>
         <div class="pflege-bestseller__closing-actions">
           <a class="pflege-bestseller__closing-cta-primary" href="{{ config_url | escape }}">
+            <span class="pflege-bestseller__closing-cta-gear" aria-hidden="true">
+              {% render 'pflege-icon', icon: 'settings', width: 22 %}
+            </span>
             {{ 'sections.pflege_collection_free_care.cta_configure_box' | t }}
           </a>
           <a class="pflege-bestseller__closing-cta-secondary" href="{{ info_url | escape }}">
