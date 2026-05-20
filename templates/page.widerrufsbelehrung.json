@@ -32,7 +32,5 @@
       }
     }
   },
-  "order": [
-    "pflege_legal"
-  ]
+  "order": ["pflege_legal"]
 }

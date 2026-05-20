@@ -78,7 +78,6 @@
     assign show_withdrawal_form = true
   endif
 
-  assign withdrawal_form_enabled = section.settings.withdrawal_form_enabled
 
   assign legal_padding_class = 'section-' | append: section.id | append: '-padding'
 -%}
@@ -126,7 +125,6 @@
   use_agb_body: legal_use_agb_body,
   use_widerrufsbelehrung_body: legal_use_widerrufsbelehrung_body,
   show_withdrawal_form: show_withdrawal_form,
-  withdrawal_form_enabled: withdrawal_form_enabled,
   legal_plain: legal_plain
 %}
 
@@ -249,17 +247,6 @@
       "id": "contact_text",
       "label": "Kontakt-Text",
       "info": "Optional, z. B. „Fragen? Kontaktieren Sie uns unter …“"
-    },
-    {
-      "type": "header",
-      "content": "Elektronischer Widerruf"
-    },
-    {
-      "type": "checkbox",
-      "id": "withdrawal_form_enabled",
-      "label": "Online-Widerrufsformular vorzeitig aktivieren",
-      "default": false,
-      "info": "Standard: automatisch ab 19.06.2026. Nur für Tests vorab aktivieren."
     },
     {
       "type": "header",

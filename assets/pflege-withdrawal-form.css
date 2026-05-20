@@ -1,0 +1,201 @@
+/* Elektronische Widerrufsfunktion — deinpflegebedarf.de */
+
+.pflege-withdrawal {
+  margin-top: clamp(2.5rem, 4.5vw, 3.25rem);
+  padding-top: clamp(1.75rem, 3vw, 2.25rem);
+  border-top: 1px solid var(--pflege-border, #e5eef8);
+  max-width: min(36rem, 100%);
+}
+
+.pflege-withdrawal__heading {
+  margin: 0 0 0.65rem;
+  font-family: var(--pflege-font-display, var(--font-body-family, inherit));
+  font-size: clamp(1.22rem, 1.05rem + 0.45vw, 1.48rem);
+  font-weight: 800;
+  line-height: 1.28;
+  letter-spacing: -0.02em;
+  color: var(--pflege-home-section-heading-color, #0f4f69);
+}
+
+.pflege-withdrawal__lead,
+.pflege-withdrawal__fineprint {
+  margin: 0 0 1rem;
+  font-size: clamp(1rem, 0.96rem + 0.15vw, 1.08rem);
+  line-height: 1.55;
+  color: var(--pflege-muted, #6f7f95);
+}
+
+.pflege-withdrawal__lead {
+  color: var(--pflege-navy, #0b2347);
+}
+
+.pflege-withdrawal__toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0.75rem 1.65rem;
+  border: none;
+  border-radius: var(--pflege-radius-card, 14px);
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1.02rem, 0.98rem + 0.12vw, 1.1rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: #fff;
+  background: var(--pflege-home-section-heading-color, #0f4f69);
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.pflege-withdrawal__toggle:hover,
+.pflege-withdrawal__toggle:focus-visible {
+  background: #0c3f54;
+  outline: 2px solid var(--pflege-accent, #3f86d9);
+  outline-offset: 3px;
+}
+
+.pflege-withdrawal__panel {
+  margin-top: clamp(1.25rem, 2.2vw, 1.65rem);
+}
+
+.pflege-withdrawal__panel[hidden] {
+  display: none;
+}
+
+.pflege-withdrawal__form {
+  padding: clamp(1.25rem, 2.5vw, 1.65rem);
+  border: 1px solid var(--pflege-border, #e5eef8);
+  border-radius: var(--pflege-radius-lg, 22px);
+  background: var(--pflege-bg-softer, #f5faff);
+}
+
+.pflege-withdrawal__fields {
+  display: grid;
+  gap: clamp(1rem, 1.8vw, 1.25rem);
+  margin-bottom: clamp(1.15rem, 2vw, 1.4rem);
+}
+
+@media screen and (min-width: 600px) {
+  .pflege-withdrawal__fields {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .pflege-withdrawal__field--half {
+    grid-column: span 1;
+  }
+
+  .pflege-withdrawal__field:not(.pflege-withdrawal__field--half):not(.pflege-withdrawal__field--check) {
+    grid-column: 1 / -1;
+  }
+}
+
+.pflege-withdrawal__label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: clamp(0.98rem, 0.94rem + 0.1vw, 1.05rem);
+  font-weight: 600;
+  color: var(--pflege-navy, #0b2347);
+}
+
+.pflege-withdrawal__req {
+  margin-left: 0.15rem;
+  text-decoration: none;
+  color: #b42318;
+}
+
+.pflege-withdrawal__optional {
+  font-weight: 500;
+  color: var(--pflege-muted, #6f7f95);
+}
+
+.pflege-withdrawal__input,
+.pflege-withdrawal__textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--pflege-border, #e5eef8);
+  border-radius: 10px;
+  font-family: var(--font-body-family, inherit);
+  font-size: 1rem;
+  line-height: 1.4;
+  color: var(--pflege-navy, #0b2347);
+  background: #fff;
+}
+
+.pflege-withdrawal__input:focus,
+.pflege-withdrawal__textarea:focus {
+  outline: 2px solid var(--pflege-accent, #3f86d9);
+  outline-offset: 1px;
+  border-color: var(--pflege-accent, #3f86d9);
+}
+
+.pflege-withdrawal__field--check {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  grid-column: 1 / -1;
+}
+
+.pflege-withdrawal__checkbox {
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-top: 0.2rem;
+  flex-shrink: 0;
+}
+
+.pflege-withdrawal__check-label {
+  font-size: clamp(1rem, 0.96rem + 0.1vw, 1.06rem);
+  line-height: 1.45;
+  color: var(--pflege-navy, #0b2347);
+}
+
+.pflege-withdrawal__submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.85rem;
+  padding: 0.65rem 1.5rem;
+  border: none;
+  border-radius: var(--pflege-radius-card, 14px);
+  font-family: var(--font-body-family, inherit);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--pflege-cta, #f89738);
+  cursor: pointer;
+}
+
+.pflege-withdrawal__submit:hover,
+.pflege-withdrawal__submit:focus-visible {
+  filter: brightness(0.95);
+  outline: 2px solid var(--pflege-home-section-heading-color, #0f4f69);
+  outline-offset: 3px;
+}
+
+.pflege-withdrawal__alert {
+  padding: 1rem 1.1rem;
+  border-radius: 12px;
+  margin-bottom: 1.15rem;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.pflege-withdrawal__alert--success {
+  background: #eaf5ee;
+  border: 1px solid #b9d9c3;
+  color: #1f5235;
+}
+
+.pflege-withdrawal__alert--error {
+  background: #fdecea;
+  border: 1px solid #f3c1bb;
+  color: #5c201a;
+}
+
+.pflege-withdrawal__field-error {
+  margin: 0.35rem 0 0;
+}
+
+.pflege-withdrawal__field-error a {
+  color: inherit;
+}
