@@ -36,6 +36,8 @@
             {% render 'pflege-legal-agb-body' %}
           {%- elsif use_widerrufsbelehrung_body -%}
             {% render 'pflege-legal-widerrufsbelehrung-body' %}
+          {%- elsif use_datenschutz_body -%}
+            {% render 'pflege-legal-datenschutz-body' %}
           {%- elsif legal_page_body != blank -%}
             {{ page.content }}
           {%- else -%}
