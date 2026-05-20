@@ -468,7 +468,14 @@
 }
 
 .pflege-legal--plain .pflege-legal__shell {
-  max-width: 42rem;
+  max-width: var(--pflege-hero-tile-max-width, min(100%, 1426px));
+}
+
+.pflege-legal--plain .pflege-legal__header,
+.pflege-legal--plain .pflege-legal__article {
+  max-width: var(--pflege-max-copy, 56rem);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .pflege-legal--plain .pflege-legal__header {
