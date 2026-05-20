@@ -302,65 +302,51 @@
   padding-bottom: clamp(3rem, 6vw, 5rem);
 }
 
+.pflege-faq-accordion--page {
+  --pfa-max: min(72rem, 100%);
+  --pfa-card-gap: 16px;
+  --pfa-card-pad-x: clamp(1.45rem, 3vw, 2rem);
+  --pfa-card-pad-y: clamp(1.35rem, 2.6vw, 1.65rem);
+}
+
 .pflege-faq-accordion--page .pflege-faq-accordion__inner {
-  max-width: min(52rem, 100%);
+  max-width: var(--pfa-max);
+  padding-left: clamp(1.25rem, 3vw, 2.5rem);
+  padding-right: clamp(1.25rem, 3vw, 2.5rem);
 }
 
 .pflege-faq-accordion--page .pflege-faq-accordion__head {
-  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+  max-width: min(56rem, 100%);
+  margin-bottom: clamp(2.25rem, 4.5vw, 3.25rem);
+}
+
+.pflege-faq-accordion--page .pflege-faq-accordion__title {
+  font-size: clamp(2rem, 2.4vw + 1.2rem, 3rem);
 }
 
 .pflege-faq-accordion__intro--page {
-  text-align: left;
+  text-align: center;
   margin-left: auto;
   margin-right: auto;
 }
 
-.pflege-faq-accordion__intro-lead {
-  margin: 0 0 clamp(1.5rem, 3vw, 2rem);
-  font-size: clamp(1.12rem, 1.02rem + 0.35vw, 1.28rem);
-  line-height: 1.6;
-  color: var(--pfa-text);
-}
-
-.pflege-faq-page__contact {
+.pflege-faq-accordion--page .pflege-faq-accordion__intro-lead {
   margin: 0;
-  padding: clamp(1.25rem, 2.5vw, 1.65rem) clamp(1.35rem, 2.8vw, 1.75rem);
-  border-radius: var(--pfa-card-radius);
-  border: 1px solid var(--pfa-border);
-  background: #fff;
-}
-
-.pflege-faq-page__contact-label {
-  margin: 0 0 0.65rem;
-  font-size: clamp(0.88rem, 0.82rem + 0.12vw, 0.98rem);
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--pfa-petrol);
-}
-
-.pflege-faq-page__contact-line {
-  margin: 0 0 0.45rem;
-  font-size: clamp(1.05rem, 1rem + 0.15vw, 1.14rem);
-  line-height: 1.55;
+  font-size: clamp(1.2rem, 1.05rem + 0.45vw, 1.38rem);
+  line-height: 1.62;
   color: var(--pfa-text);
 }
 
-.pflege-faq-page__contact-line:last-child {
-  margin-bottom: 0;
+.pflege-faq-accordion--page .pflege-faq-accordion__trigger {
+  font-size: clamp(1.3rem, 0.65vw + 1.18rem, 1.52rem);
 }
 
-.pflege-faq-page__contact-line a {
-  color: #2c6abf;
-  font-weight: 600;
-  text-decoration: underline;
-  text-underline-offset: 0.14em;
+.pflege-faq-accordion--page .pflege-faq-accordion__answer {
+  font-size: clamp(1.18rem, 0.5vw + 1.1rem, 1.38rem);
 }
 
-.pflege-faq-page__contact-line--hours {
-  margin-top: 0.75rem;
-  color: var(--pfa-muted);
+.pflege-faq-accordion--page .pflege-faq-accordion__category {
+  font-size: clamp(1.32rem, 1.1rem + 0.55vw, 1.58rem);
 }
 
 .pflege-faq-accordion__category {
