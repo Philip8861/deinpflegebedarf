@@ -1,5 +1,4 @@
 {{ 'section-pflege-legal-page.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'pflege-legal-page.js' | asset_url }}" defer></script>
 
 {%- liquid
   assign root = routes.root_url
@@ -17,7 +16,6 @@
   endif
 
   assign url_widerruf = root | append: 'pages/widerrufsrecht'
-
   assign url_impressum = root | append: 'pages/impressum'
 
   assign current_handle = ''
@@ -37,38 +35,29 @@
   assign legal_show_related = section.settings.show_related
   assign legal_toc_title = section.settings.toc_title
   assign legal_related_title = section.settings.related_title
+  assign legal_plain = false
   assign legal_use_impressum_defaults = false
   if current_handle == 'impressum'
     assign legal_use_impressum_defaults = true
+    assign legal_plain = true
   endif
 
-  if legal_use_impressum_defaults
-    if legal_eyebrow == blank
-      assign legal_eyebrow = 'Rechtliches'
-    endif
-    if legal_title_fallback == blank
-      assign legal_title_fallback = 'Impressum'
-    endif
-    if legal_subtitle == blank
-      assign legal_subtitle = 'Angaben gemäß § 5 DDG.'
-    endif
-    if legal_meta_date == blank
-      assign legal_meta_date = '20.05.2026'
-    endif
-    if legal_highlight_title == blank
-      assign legal_highlight_title = 'Anbieter'
-    endif
-    if legal_highlight_text == blank
-      assign legal_highlight_text = '<p><strong>V. Maucher und Philip Sonntag GbR</strong><br>Alltagshilfe Süd · Betreiber des Shopify-Shops <strong>deinpflegebedarf.de</strong></p>'
-    endif
-    if legal_contact_title == blank
-      assign legal_contact_title = 'Noch Fragen?'
-    endif
-    if legal_contact_text == blank
-      assign legal_contact_text = '<p>Bei Fragen zum Impressum erreichen Sie uns telefonisch unter <a href="tel:+4983349893330">08334 / 9893330</a> oder per E-Mail an <a href="mailto:info@alltagshilfe-sued.de">info@alltagshilfe-sued.de</a>.</p>'
-    endif
+  if legal_title_fallback == blank and current_handle == 'impressum'
+    assign legal_title_fallback = 'Impressum'
   endif
+
+  assign legal_body_html = section.settings.body_text
+  assign legal_use_impressum_body = false
+  if legal_body_html == blank and legal_use_impressum_defaults
+    assign legal_use_impressum_body = true
+  endif
+
+  assign legal_padding_class = 'section-' | append: section.id | append: '-padding'
 -%}
+
+{%- unless legal_plain -%}
+  <script src="{{ 'pflege-legal-page.js' | asset_url }}" defer></script>
+{%- endunless -%}
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -83,133 +72,31 @@
   }
 {%- endstyle -%}
 
-<section
-  class="pflege-legal color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding"
-  aria-labelledby="pflege-legal-heading"
-  data-pflege-legal
->
-  <div class="pflege-legal__shell">
-    <header class="pflege-legal__header">
-      {%- if legal_eyebrow != blank -%}
-        <p class="pflege-legal__eyebrow">{{ legal_eyebrow | escape }}</p>
-      {%- endif -%}
-      <h1 id="pflege-legal-heading" class="pflege-legal__title">
-        {%- if page != blank and page.title != blank -%}
-          {{ page.title | escape }}
-        {%- else -%}
-          {{ legal_title_fallback | escape }}
-        {%- endif -%}
-      </h1>
-      {%- if legal_subtitle != blank -%}
-        <p class="pflege-legal__subtitle">{{ legal_subtitle | escape }}</p>
-      {%- endif -%}
-      {%- if legal_meta_date != blank -%}
-        <p class="pflege-legal__meta">
-          <span class="pflege-legal__meta-label">{{ section.settings.meta_label | default: 'Stand' | escape }}:</span>
-          <span class="pflege-legal__meta-value">{{ legal_meta_date | escape }}</span>
-        </p>
-      {%- endif -%}
-    </header>
-
-    <div class="pflege-legal__grid{% unless legal_show_toc or legal_show_related %} pflege-legal__grid--single{% endunless %}">
-      {%- if legal_show_toc or legal_show_related -%}
-        <aside class="pflege-legal__aside" aria-label="Navigation">
-          {%- if legal_show_toc -%}
-            <nav
-              class="pflege-legal__toc"
-              aria-label="Inhaltsverzeichnis"
-              data-pflege-legal-toc
-              data-empty-text="{{ 'Kein Inhaltsverzeichnis verfügbar.' | escape }}"
-              hidden
-            >
-              <p class="pflege-legal__aside-title">{{ legal_toc_title | default: 'Inhalt' | escape }}</p>
-              <ol class="pflege-legal__toc-list" data-pflege-legal-toc-list></ol>
-            </nav>
-          {%- endif -%}
-
-          {%- if legal_show_related -%}
-            <nav class="pflege-legal__related" aria-label="Weitere Rechtsseiten">
-              <p class="pflege-legal__aside-title">{{ legal_related_title | default: 'Rechtliches' | escape }}</p>
-              <ul class="pflege-legal__related-list" role="list">
-                <li>
-                  <a
-                    class="pflege-legal__related-link{% if current_handle == 'impressum' %} is-active{% endif %}"
-                    href="{{ url_impressum }}"
-                  >
-                    Impressum
-                  </a>
-                </li>
-                <li>
-                  <a
-                    class="pflege-legal__related-link{% if current_handle contains 'widerruf' %} is-active{% endif %}"
-                    href="{{ url_widerruf }}"
-                  >
-                    Widerrufsrecht
-                  </a>
-                </li>
-                <li>
-                  <a
-                    class="pflege-legal__related-link{% if current_handle == 'agb' %} is-active{% endif %}"
-                    href="{{ url_agb }}"
-                  >
-                    AGB
-                  </a>
-                </li>
-                <li>
-                  <a
-                    class="pflege-legal__related-link{% if current_handle contains 'datenschutz' %} is-active{% endif %}"
-                    href="{{ url_datenschutz }}"
-                  >
-                    Datenschutzerklärung
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          {%- endif -%}
-        </aside>
-      {%- endif -%}
-
-      <article class="pflege-legal__article">
-        {%- if legal_highlight_text != blank -%}
-          <aside class="pflege-legal__notice" role="note">
-            {%- if legal_highlight_title != blank -%}
-              <p class="pflege-legal__notice-title">{{ legal_highlight_title | escape }}</p>
-            {%- endif -%}
-            <div class="pflege-legal__notice-body rte">{{ legal_highlight_text }}</div>
-          </aside>
-        {%- endif -%}
-
-        <div class="pflege-legal__content rte" data-pflege-legal-content>
-          {%- liquid
-            assign legal_page_body = page.content | strip_html | strip
-          -%}
-          {%- if section.settings.body_text != blank -%}
-            {{ section.settings.body_text }}
-          {%- elsif legal_use_impressum_defaults -%}
-            {% render 'pflege-legal-impressum-body' %}
-          {%- elsif legal_page_body != blank -%}
-            {{ page.content }}
-          {%- else -%}
-            <p class="pflege-legal__empty">
-              Bitte tragen Sie den Inhalt dieser Seite im Shopify-Admin unter
-              <em>Online Shop → Seiten</em> ein oder hinterlegen Sie den Text in den
-              Einstellungen dieser Section.
-            </p>
-          {%- endif -%}
-        </div>
-
-        {%- if legal_contact_text != blank -%}
-          <aside class="pflege-legal__contact">
-            {%- if legal_contact_title != blank -%}
-              <p class="pflege-legal__contact-title">{{ legal_contact_title | escape }}</p>
-            {%- endif -%}
-            <div class="pflege-legal__contact-body rte">{{ legal_contact_text }}</div>
-          </aside>
-        {%- endif -%}
-      </article>
-    </div>
-  </div>
-</section>
+{% render 'pflege-legal-page-view',
+  padding_class: legal_padding_class,
+  color_scheme: section.settings.color_scheme,
+  meta_label: section.settings.meta_label,
+  legal_eyebrow: legal_eyebrow,
+  legal_subtitle: legal_subtitle,
+  legal_title_fallback: legal_title_fallback,
+  legal_meta_date: legal_meta_date,
+  legal_highlight_title: legal_highlight_title,
+  legal_highlight_text: legal_highlight_text,
+  legal_contact_title: legal_contact_title,
+  legal_contact_text: legal_contact_text,
+  legal_show_toc: legal_show_toc,
+  legal_show_related: legal_show_related,
+  legal_toc_title: legal_toc_title,
+  legal_related_title: legal_related_title,
+  current_handle: current_handle,
+  url_impressum: url_impressum,
+  url_widerruf: url_widerruf,
+  url_agb: url_agb,
+  url_datenschutz: url_datenschutz,
+  body_html: legal_body_html,
+  use_impressum_body: legal_use_impressum_body,
+  legal_plain: legal_plain
+%}
 
 {% schema %}
 {

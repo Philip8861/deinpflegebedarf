@@ -1,8 +1,7 @@
 {% comment %}
-  Impressum auf Standard-Vorlage (page) — Snippet statt Section-in-Section.
+  Impressum auf Standard-Vorlage (page) — schlicht, nur Text.
 {% endcomment %}
 {{ 'section-pflege-legal-page.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'pflege-legal-page.js' | asset_url }}" defer></script>
 
 {%- liquid
   assign root = routes.root_url
@@ -22,13 +21,13 @@
 
 {%- style -%}
   .pflege-legal--fallback-padding {
-    padding-top: 48px;
-    padding-bottom: 60px;
+    padding-top: 40px;
+    padding-bottom: 56px;
   }
   @media screen and (min-width: 750px) {
     .pflege-legal--fallback-padding {
-      padding-top: 64px;
-      padding-bottom: 80px;
+      padding-top: 52px;
+      padding-bottom: 72px;
     }
   }
 {%- endstyle -%}
@@ -36,23 +35,12 @@
 {% render 'pflege-legal-page-view',
   padding_class: 'pflege-legal--fallback-padding',
   color_scheme: 'scheme-1',
-  meta_label: 'Stand',
-  legal_eyebrow: 'Rechtliches',
   legal_title_fallback: 'Impressum',
-  legal_subtitle: 'Angaben gemäß § 5 DDG.',
-  legal_meta_date: '20.05.2026',
-  legal_highlight_title: 'Anbieter',
-  legal_highlight_text: '<p><strong>V. Maucher und Philip Sonntag GbR</strong><br>Alltagshilfe Süd · Betreiber des Shopify-Shops <strong>deinpflegebedarf.de</strong></p>',
-  legal_show_toc: true,
-  legal_toc_title: 'Inhalt',
-  legal_show_related: true,
-  legal_related_title: 'Weitere Rechtstexte',
-  legal_contact_title: 'Noch Fragen?',
-  legal_contact_text: '<p>Bei Fragen zum Impressum erreichen Sie uns telefonisch unter <a href="tel:+4983349893330">08334 / 9893330</a> oder per E-Mail an <a href="mailto:info@alltagshilfe-sued.de">info@alltagshilfe-sued.de</a>.</p>',
   current_handle: 'impressum',
   url_impressum: url_impressum,
   url_widerruf: url_widerruf,
   url_agb: url_agb,
   url_datenschutz: url_datenschutz,
-  use_impressum_body: true
+  use_impressum_body: true,
+  legal_plain: true
 %}

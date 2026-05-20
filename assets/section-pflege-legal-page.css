@@ -1,0 +1,527 @@
+/* PflegeShop — Rechtsseiten (Impressum / Widerruf / AGB / Datenschutz) im Homepage-Stil */
+
+.pflege-legal {
+  --pl-petrol: var(--pflege-home-section-heading-color, #0f4f69);
+  --pl-navy: var(--pflege-navy, #0b2347);
+  --pl-text: #3d556f;
+  --pl-muted: var(--pflege-muted, #6f7f95);
+  --pl-accent: var(--pflege-accent, #3f86d9);
+  --pl-icon-bg: #e8f2fc;
+  --pl-border: var(--pflege-border, #e5eef8);
+  --pl-border-soft: var(--pflege-border-soft, #d8eafe);
+  --pl-card-bg: var(--pflege-white, #fefefe);
+  --pl-soft-bg: var(--pflege-bg-softer, #f5faff);
+  --pl-cta: var(--pflege-cta, #f89738);
+  --pl-radius-lg: var(--pflege-radius-lg, 22px);
+  --pl-radius-card: var(--pflege-radius-card, 14px);
+
+  font-family: var(--font-body-family, system-ui, sans-serif);
+  font-size: clamp(1.04rem, 0.96rem + 0.3vw, 1.16rem);
+  line-height: 1.65;
+  color: var(--pl-navy);
+  background: transparent;
+}
+
+.pflege-legal__shell {
+  width: 100%;
+  max-width: var(--pflege-hero-tile-max-width, min(100%, 1426px));
+  margin: 0 auto;
+  padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
+}
+
+/* ───────── Header ───────── */
+.pflege-legal__header {
+  max-width: var(--pflege-max-copy, 56rem);
+  margin: 0 auto clamp(2rem, 4vw, 3rem);
+  text-align: center;
+}
+
+.pflege-legal__eyebrow {
+  margin: 0 0 0.6rem;
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(0.82rem, 0.78rem + 0.08vw, 0.92rem);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--pl-accent);
+}
+
+.pflege-legal__title {
+  margin: 0 0 clamp(0.65rem, 1.5vw, 1rem);
+  font-family: var(--pflege-font-display, var(--font-body-family, inherit));
+  font-size: var(--pflege-home-section-heading-size, clamp(1.85rem, 2.25vw + 1.15rem, 2.75rem));
+  font-weight: var(--pflege-home-section-heading-weight, 800);
+  line-height: var(--pflege-home-section-heading-line-height, 1.18);
+  letter-spacing: var(--pflege-home-section-heading-letter-spacing, -0.025em);
+  color: var(--pl-petrol);
+}
+
+.pflege-legal__subtitle {
+  margin: 0;
+  font-size: clamp(1.08rem, 0.96rem + 0.4vw, 1.28rem);
+  line-height: 1.55;
+  color: var(--pl-text);
+}
+
+.pflege-legal__meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: clamp(1.1rem, 2vw, 1.45rem) 0 0;
+  padding: 0.4rem 0.95rem;
+  border-radius: 999px;
+  background: var(--pl-icon-bg);
+  border: 1px solid var(--pl-border-soft);
+  font-size: clamp(0.92rem, 0.88rem + 0.1vw, 1rem);
+  line-height: 1.3;
+  color: var(--pl-petrol);
+}
+
+.pflege-legal__meta-label {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+/* ───────── Grid ───────── */
+.pflege-legal__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.25rem);
+  align-items: start;
+}
+
+@media screen and (min-width: 990px) {
+  .pflege-legal__grid {
+    grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
+    gap: clamp(2rem, 3.5vw, 3rem);
+  }
+}
+
+.pflege-legal__grid--single {
+  display: block;
+}
+
+.pflege-legal__grid--single .pflege-legal__article {
+  max-width: min(56rem, 100%);
+  margin: 0 auto;
+}
+
+/* ───────── Sidebar ───────── */
+.pflege-legal__aside {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 2vw, 1.35rem);
+  position: relative;
+}
+
+@media screen and (min-width: 990px) {
+  .pflege-legal__aside {
+    position: sticky;
+    top: clamp(5rem, 8vw, 7rem);
+  }
+}
+
+.pflege-legal__aside-title {
+  margin: 0 0 0.8rem;
+  font-family: var(--pflege-font-display, var(--font-body-family, inherit));
+  font-size: clamp(1rem, 0.92rem + 0.18vw, 1.1rem);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--pl-petrol);
+}
+
+/* TOC */
+.pflege-legal__toc,
+.pflege-legal__related {
+  padding: clamp(1.1rem, 2vw, 1.35rem) clamp(1.15rem, 2vw, 1.4rem);
+  border: 1px solid var(--pl-border);
+  border-radius: var(--pl-radius-card);
+  background: var(--pl-card-bg);
+  box-shadow: 0 2px 10px rgba(15, 45, 84, 0.05);
+}
+
+.pflege-legal__toc[hidden] {
+  display: none;
+}
+
+.pflege-legal__toc-list {
+  margin: 0;
+  padding: 0 0 0 1.25rem;
+  list-style: decimal;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  color: var(--pl-muted);
+}
+
+.pflege-legal__toc-list li::marker {
+  color: var(--pl-accent);
+  font-weight: 600;
+}
+
+.pflege-legal__toc-list a {
+  color: var(--pl-text);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: clamp(0.96rem, 0.92rem + 0.1vw, 1.04rem);
+  line-height: 1.45;
+  transition: color 0.15s ease;
+}
+
+.pflege-legal__toc-list a:hover,
+.pflege-legal__toc-list a:focus-visible {
+  color: var(--pl-petrol);
+  text-decoration: underline;
+  text-underline-offset: 0.14em;
+}
+
+/* Related */
+.pflege-legal__related-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.pflege-legal__related-link {
+  display: block;
+  padding: 0.55rem 0.7rem;
+  border-radius: 8px;
+  font-size: clamp(0.96rem, 0.92rem + 0.1vw, 1.04rem);
+  font-weight: 600;
+  color: var(--pl-text);
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.pflege-legal__related-link:hover,
+.pflege-legal__related-link:focus-visible {
+  background: var(--pl-soft-bg);
+  color: var(--pl-petrol);
+}
+
+.pflege-legal__related-link.is-active {
+  background: var(--pl-icon-bg);
+  color: var(--pl-petrol);
+  position: relative;
+}
+
+.pflege-legal__related-link.is-active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55rem;
+  bottom: 0.55rem;
+  width: 3px;
+  background: var(--pl-petrol);
+  border-radius: 3px;
+}
+
+/* ───────── Hauptinhalt ───────── */
+.pflege-legal__article {
+  min-width: 0;
+  background: var(--pl-card-bg);
+  border: 1px solid var(--pl-border);
+  border-radius: var(--pl-radius-lg);
+  padding: clamp(1.65rem, 3.5vw, 2.75rem) clamp(1.5rem, 3.5vw, 2.85rem);
+  box-shadow: 0 4px 22px rgba(15, 45, 84, 0.06);
+  box-sizing: border-box;
+}
+
+@media screen and (min-width: 750px) {
+  .pflege-legal__article {
+    padding: clamp(2rem, 3.8vw, 3rem) clamp(2rem, 4vw, 3.25rem);
+  }
+}
+
+.pflege-legal__notice {
+  margin: 0 0 clamp(1.5rem, 3vw, 2rem);
+  padding: clamp(1rem, 2vw, 1.25rem) clamp(1.15rem, 2.2vw, 1.45rem);
+  border: 1px solid var(--pl-border-soft);
+  border-left: 3px solid var(--pl-cta);
+  border-radius: var(--pl-radius-card);
+  background: var(--pl-soft-bg);
+  color: var(--pl-navy);
+}
+
+.pflege-legal__notice-title {
+  margin: 0 0 0.35rem;
+  font-weight: 700;
+  font-size: clamp(1.02rem, 0.96rem + 0.18vw, 1.14rem);
+  color: var(--pl-petrol);
+}
+
+.pflege-legal__notice-body {
+  font-size: clamp(0.98rem, 0.94rem + 0.15vw, 1.08rem);
+  line-height: 1.55;
+}
+
+.pflege-legal__notice-body p { margin: 0; }
+.pflege-legal__notice-body p + p { margin-top: 0.5rem; }
+
+/* RTE */
+.pflege-legal__content {
+  font-size: clamp(1.04rem, 0.96rem + 0.3vw, 1.16rem);
+  line-height: 1.7;
+  color: var(--pl-text);
+}
+
+.pflege-legal__content > :first-child { margin-top: 0; }
+.pflege-legal__content > :last-child { margin-bottom: 0; }
+
+.pflege-legal__content h2 {
+  margin: clamp(1.85rem, 4vw, 2.65rem) 0 clamp(0.85rem, 1.8vw, 1.1rem);
+  padding-top: clamp(1.85rem, 4vw, 2.65rem);
+  border-top: 1px solid var(--pl-border);
+  font-family: var(--pflege-font-display, var(--font-body-family, inherit));
+  font-size: clamp(1.42rem, 1.1rem + 0.95vw, 1.85rem);
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  color: var(--pl-petrol);
+  scroll-margin-top: clamp(4rem, 8vw, 6rem);
+}
+
+.pflege-legal__content > h2:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.pflege-legal__content h3 {
+  margin: clamp(1.35rem, 2.8vw, 1.85rem) 0 0.55rem;
+  font-family: var(--pflege-font-display, var(--font-body-family, inherit));
+  font-size: clamp(1.18rem, 0.95rem + 0.55vw, 1.38rem);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--pl-petrol);
+  scroll-margin-top: clamp(4rem, 8vw, 6rem);
+}
+
+.pflege-legal__content h4 {
+  margin: clamp(1.2rem, 2.4vw, 1.55rem) 0 0.4rem;
+  font-size: clamp(1.06rem, 0.96rem + 0.18vw, 1.18rem);
+  font-weight: 700;
+  color: var(--pl-navy);
+}
+
+.pflege-legal__content p {
+  margin: 0 0 clamp(0.85rem, 1.8vw, 1.1rem);
+}
+
+.pflege-legal__content a {
+  color: var(--pl-petrol);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+  transition: color 0.15s ease;
+}
+
+.pflege-legal__content a:hover,
+.pflege-legal__content a:focus-visible {
+  color: var(--pl-accent);
+}
+
+.pflege-legal__content strong { color: var(--pl-navy); }
+.pflege-legal__content em { color: inherit; }
+
+.pflege-legal__content ul,
+.pflege-legal__content ol {
+  margin: 0 0 clamp(1rem, 2vw, 1.35rem);
+  padding-left: 1.5rem;
+}
+
+.pflege-legal__content ul { list-style: disc; }
+.pflege-legal__content ol { list-style: decimal; }
+
+.pflege-legal__content li {
+  margin-bottom: 0.45rem;
+}
+
+.pflege-legal__content li::marker {
+  color: var(--pl-accent);
+}
+
+.pflege-legal__content blockquote {
+  margin: clamp(1rem, 2vw, 1.35rem) 0;
+  padding: clamp(0.85rem, 1.8vw, 1.1rem) clamp(1rem, 2vw, 1.35rem);
+  border-left: 3px solid var(--pl-accent);
+  background: var(--pl-soft-bg);
+  border-radius: 0 var(--pl-radius-card) var(--pl-radius-card) 0;
+  font-style: italic;
+  color: var(--pl-navy);
+}
+
+.pflege-legal__content blockquote p:last-child { margin-bottom: 0; }
+
+.pflege-legal__content hr {
+  margin: clamp(1.85rem, 4vw, 2.5rem) 0;
+  border: 0;
+  border-top: 1px solid var(--pl-border);
+}
+
+.pflege-legal__content table {
+  width: 100%;
+  margin: clamp(1rem, 2vw, 1.45rem) 0;
+  border-collapse: collapse;
+  font-size: clamp(0.96rem, 0.92rem + 0.1vw, 1.04rem);
+}
+
+.pflege-legal__content th,
+.pflege-legal__content td {
+  padding: 0.65rem 0.85rem;
+  text-align: left;
+  border-bottom: 1px solid var(--pl-border);
+  vertical-align: top;
+}
+
+.pflege-legal__content th {
+  font-weight: 700;
+  color: var(--pl-petrol);
+  background: var(--pl-soft-bg);
+}
+
+.pflege-legal__content code {
+  padding: 0.1em 0.4em;
+  background: var(--pl-soft-bg);
+  border: 1px solid var(--pl-border);
+  border-radius: 5px;
+  font-size: 0.92em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+/* Empty-State */
+.pflege-legal__empty {
+  margin: 0;
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  border: 1px dashed var(--pl-border-soft);
+  border-radius: var(--pl-radius-card);
+  background: var(--pl-soft-bg);
+  color: var(--pl-muted);
+  text-align: center;
+}
+
+/* Kontakt-Block */
+.pflege-legal__contact {
+  margin-top: clamp(2rem, 4vw, 2.85rem);
+  padding: clamp(1.25rem, 2.6vw, 1.65rem) clamp(1.35rem, 2.8vw, 1.85rem);
+  border-radius: var(--pl-radius-card);
+  background: var(--pl-icon-bg);
+  border: 1px solid var(--pl-border-soft);
+}
+
+.pflege-legal__contact-title {
+  margin: 0 0 0.5rem;
+  font-family: var(--pflege-font-display, var(--font-body-family, inherit));
+  font-size: clamp(1.08rem, 0.95rem + 0.32vw, 1.24rem);
+  font-weight: 800;
+  color: var(--pl-petrol);
+}
+
+.pflege-legal__contact-body {
+  font-size: clamp(0.98rem, 0.94rem + 0.15vw, 1.08rem);
+  line-height: 1.55;
+  color: var(--pl-navy);
+}
+
+.pflege-legal__contact-body p:last-child { margin-bottom: 0; }
+
+.pflege-legal__contact-body a {
+  color: var(--pl-petrol);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+/* ───────── Mobile-Feinschliff ───────── */
+@media screen and (max-width: 749px) {
+  .pflege-legal__article {
+    border-radius: 18px;
+  }
+
+  .pflege-legal__content table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pflege-legal__related-link,
+  .pflege-legal__content a,
+  .pflege-legal__toc-list a {
+    transition: none;
+  }
+}
+
+/* ───────── Schlichtes Impressum (nur Text) ───────── */
+.pflege-legal--plain {
+  font-size: clamp(1rem, 0.95rem + 0.15vw, 1.08rem);
+  line-height: 1.7;
+  color: #2a3d52;
+}
+
+.pflege-legal--plain .pflege-legal__shell {
+  max-width: 42rem;
+}
+
+.pflege-legal--plain .pflege-legal__header {
+  margin: 0 0 1.75rem;
+  text-align: left;
+}
+
+.pflege-legal--plain .pflege-legal__title {
+  font-family: var(--font-body-family, system-ui, sans-serif);
+  font-size: clamp(1.5rem, 1.2rem + 0.6vw, 1.85rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--pl-navy);
+}
+
+.pflege-legal--plain .pflege-legal__grid--plain {
+  display: block;
+}
+
+.pflege-legal--plain .pflege-legal__article {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.pflege-legal--plain .pflege-legal__content h2 {
+  margin: 1.75rem 0 0.65rem;
+  font-family: var(--font-body-family, system-ui, sans-serif);
+  font-size: 1.12rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--pl-navy);
+}
+
+.pflege-legal--plain .pflege-legal__content h2:first-child {
+  margin-top: 0;
+}
+
+.pflege-legal--plain .pflege-legal__content p {
+  margin: 0 0 1rem;
+}
+
+.pflege-legal--plain .pflege-legal__content p:last-child {
+  margin-bottom: 0;
+}
+
+.pflege-legal--plain .pflege-legal__content a {
+  color: var(--pl-petrol);
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+}
+
+.pflege-legal--plain .pflege-legal__content a:hover {
+  color: var(--pl-accent);
+}

@@ -11,6 +11,10 @@
         assign pflege_head_redirect = true
       elsif request.page_type == 'page' and page.handle == 'pflegeratgeber'
         assign pflege_head_redirect = true
+      elsif request.page_type == 'policy' and policy != blank and policy.handle == 'refund-policy'
+        assign pflege_head_redirect = true
+      elsif request.path == '/policies/refund-policy'
+        assign pflege_head_redirect = true
       endif
     -%}
     {%- if pflege_head_redirect -%}
@@ -392,7 +396,12 @@
           assign contact_handle = page.handle | downcase
           if contact_handle == 'kontakt' or contact_handle == 'contact'
             assign show_pflege_footer_stack = false
+          elsif contact_handle == 'impressum'
+            assign show_pflege_footer_stack = false
           endif
+        endif
+        if template.suffix == 'impressum'
+          assign show_pflege_footer_stack = false
         endif
       endif
     -%}
