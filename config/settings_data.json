@@ -143,6 +143,14 @@
       "customer-testimonials-homepage-style": {
         "type": "customer-testimonials-homepage-style",
         "blocks": {
+          "review_QH6TYH": {
+            "type": "review",
+            "settings": {
+              "review_text": "Durch einen Flyer in meiner Pflegebox bin ich auf Sie aufmerksam geworden. Leider war kein Hautschutz dabei, da meine Krankenkasse diesen wohl nicht genehmigt. Die Seni Produkte kannte ich vorher noch nicht, bin damit aber bis jetzt sehr zufriden.",
+              "customer_name": "Veronika P.",
+              "source_text": "Bewertung aus dem Shop"
+            }
+          },
           "review_bwkjRh": {
             "type": "review",
             "settings": {
@@ -169,6 +177,7 @@
           }
         },
         "block_order": [
+          "review_QH6TYH",
           "review_bwkjRh",
           "ct_review_1",
           "ct_review_2"
