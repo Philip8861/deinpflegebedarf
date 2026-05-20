@@ -62,78 +62,72 @@
             {{ section.settings.sidebar_title | default: 'So erreichen Sie uns' | escape }}
           </h2>
 
-          <div class="pflege-contact-page__aside-cards">
-            {%- if section.settings.box_hours_title != blank or section.settings.box_hours_text != blank -%}
-              <div class="pflege-contact-page__info-card">
-                <div class="pflege-contact-page__info-card-head">
-                  <span class="pflege-contact-page__info-icon pflege-contact-page__info-icon--warm" aria-hidden="true">
-                    {% render 'pflege-icon', icon: 'clock', width: 26, class: 'pflege-contact-page__ic' %}
-                  </span>
-                  <h3 class="pflege-contact-page__info-card-title">
+          <ul class="pflege-contact-page__info-list" role="list">
+            {%- if section.settings.box_hours_text != blank -%}
+              <li class="pflege-contact-page__info-item">
+                <span class="pflege-contact-page__info-ic" aria-hidden="true">
+                  {% render 'pflege-icon', icon: 'clock', width: 26 %}
+                </span>
+                <div class="pflege-contact-page__info-body">
+                  <span class="pflege-contact-page__info-label">
                     {{ section.settings.box_hours_title | default: 'Erreichbarkeit' | escape }}
-                  </h3>
+                  </span>
+                  <span class="pflege-contact-page__info-value">{{ section.settings.box_hours_text | escape }}</span>
                 </div>
-                {%- if section.settings.box_hours_text != blank -%}
-                  <p class="pflege-contact-page__info-card-text">{{ section.settings.box_hours_text | escape }}</p>
-                {%- endif -%}
-              </div>
+              </li>
             {%- endif -%}
 
-            <div class="pflege-contact-page__info-card">
-              <div class="pflege-contact-page__info-card-head">
-                <span class="pflege-contact-page__info-icon pflege-contact-page__info-icon--blue" aria-hidden="true">
-                  {% render 'pflege-icon', icon: 'headset', width: 26, class: 'pflege-contact-page__ic' %}
+            {%- if section.settings.phone != blank -%}
+              <li class="pflege-contact-page__info-item">
+                <span class="pflege-contact-page__info-ic" aria-hidden="true">
+                  {% render 'pflege-icon', icon: 'phone', width: 26 %}
                 </span>
-                <h3 class="pflege-contact-page__info-card-title">
-                  {{ section.settings.box_contact_title | escape }}
-                </h3>
-              </div>
-              <ul class="pflege-contact-page__info-list" role="list">
-                {%- if section.settings.phone != blank -%}
-                  <li class="pflege-contact-page__info-item">
-                    <span class="pflege-contact-page__info-item-ic pflege-contact-page__info-item-ic--warm" aria-hidden="true">
-                      {% render 'pflege-icon', icon: 'phone', width: 24, class: 'pflege-contact-page__ic' %}
-                    </span>
-                    <span class="pflege-contact-page__info-item-body">
-                      <span class="pflege-contact-page__info-label">Telefon</span>
-                      <a href="{{ phone_href }}">{{ section.settings.phone | escape }}</a>
-                    </span>
-                  </li>
-                {%- endif -%}
-                {%- if section.settings.email != blank -%}
-                  <li class="pflege-contact-page__info-item">
-                    <span class="pflege-contact-page__info-item-ic pflege-contact-page__info-item-ic--warm" aria-hidden="true">
-                      {% render 'pflege-icon', icon: 'mail', width: 24, class: 'pflege-contact-page__ic' %}
-                    </span>
-                    <span class="pflege-contact-page__info-item-body">
-                      <span class="pflege-contact-page__info-label">E-Mail</span>
-                      <a href="mailto:{{ section.settings.email }}">{{ section.settings.email | escape }}</a>
-                    </span>
-                  </li>
-                {%- endif -%}
-                {%- if section.settings.address != blank -%}
-                  <li class="pflege-contact-page__info-item pflege-contact-page__info-item--address">
-                    <span class="pflege-contact-page__info-item-ic pflege-contact-page__info-item-ic--blue" aria-hidden="true">
-                      {% render 'pflege-icon', icon: 'package', width: 24, class: 'pflege-contact-page__ic' %}
-                    </span>
-                    <span class="pflege-contact-page__info-item-body">
-                      <span class="pflege-contact-page__info-label">Adresse</span>
-                      <span class="pflege-contact-page__info-address rte">{{ section.settings.address }}</span>
-                    </span>
-                  </li>
-                {%- endif -%}
-              </ul>
-            </div>
-
-            {%- if section.settings.box_hint != blank -%}
-              <p class="pflege-contact-page__info-hint">
-                <span class="pflege-contact-page__info-hint-ic" aria-hidden="true">
-                  {% render 'pflege-icon', icon: 'badge-check', width: 22, class: 'pflege-contact-page__ic' %}
-                </span>
-                {{ section.settings.box_hint | escape }}
-              </p>
+                <div class="pflege-contact-page__info-body">
+                  <span class="pflege-contact-page__info-label">Telefon</span>
+                  <a class="pflege-contact-page__info-value pflege-contact-page__info-link" href="{{ phone_href }}">
+                    {{- section.settings.phone | escape -}}
+                  </a>
+                </div>
+              </li>
             {%- endif -%}
-          </div>
+
+            {%- if section.settings.email != blank -%}
+              <li class="pflege-contact-page__info-item">
+                <span class="pflege-contact-page__info-ic" aria-hidden="true">
+                  {% render 'pflege-icon', icon: 'mail', width: 26 %}
+                </span>
+                <div class="pflege-contact-page__info-body">
+                  <span class="pflege-contact-page__info-label">E-Mail</span>
+                  <a class="pflege-contact-page__info-value pflege-contact-page__info-link" href="mailto:{{ section.settings.email }}">
+                    {{- section.settings.email | escape -}}
+                  </a>
+                </div>
+              </li>
+            {%- endif -%}
+
+            {%- if section.settings.address != blank -%}
+              <li class="pflege-contact-page__info-item">
+                <span class="pflege-contact-page__info-ic" aria-hidden="true">
+                  {% render 'pflege-icon', icon: 'package', width: 26 %}
+                </span>
+                <div class="pflege-contact-page__info-body">
+                  <span class="pflege-contact-page__info-label">Adresse</span>
+                  <span class="pflege-contact-page__info-value pflege-contact-page__info-value--rte rte">
+                    {{- section.settings.address -}}
+                  </span>
+                </div>
+              </li>
+            {%- endif -%}
+          </ul>
+
+          {%- if section.settings.box_hint != blank -%}
+            <p class="pflege-contact-page__info-hint">
+              <span class="pflege-contact-page__info-hint-ic" aria-hidden="true">
+                {% render 'pflege-icon', icon: 'badge-check', width: 18 %}
+              </span>
+              <span>{{ section.settings.box_hint | escape }}</span>
+            </p>
+          {%- endif -%}
         </aside>
       {%- endif -%}
 
