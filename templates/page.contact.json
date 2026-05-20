@@ -13,10 +13,11 @@
       "type": "pflege-contact-page",
       "settings": {
         "color_scheme": "scheme-1",
+        "show_sidebar": true,
+        "sidebar_title": "So erreichen Sie uns",
         "title_fallback": "Kontakt",
         "show_page_intro": false,
         "intro_text": "<p>Haben Sie Fragen zu Produkten, Versand oder zu Ihrer Bestellung? Wir sind für Sie da — schreiben Sie uns über das Formular oder erreichen Sie uns telefonisch.</p>",
-        "show_sidebar": true,
         "box_hours_title": "Erreichbarkeit",
         "box_hours_text": "Mo.–Fr. 08:30 – 16:00 Uhr (telefonisch)",
         "box_contact_title": "Direkt erreichen",
@@ -40,7 +41,5 @@
       }
     }
   },
-  "order": [
-    "pflege_contact"
-  ]
+  "order": ["pflege_contact"]
 }
