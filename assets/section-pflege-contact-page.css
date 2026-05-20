@@ -510,6 +510,69 @@
   }
 }
 
+/* Direktkontakt (ohne Shopify-Kontaktformular) */
+.pflege-contact-page__direct-note {
+  margin: 0 0 clamp(1.15rem, 2vw, 1.4rem);
+  font-size: clamp(1rem, 0.96rem + 0.12vw, 1.08rem);
+  line-height: 1.55;
+  color: var(--pfc-text);
+}
+
+.pflege-contact-page__direct-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.75rem;
+  margin-bottom: clamp(1.15rem, 2vw, 1.4rem);
+}
+
+@media screen and (min-width: 560px) {
+  .pflege-contact-page__direct-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+}
+
+.pflege-contact-page__direct-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.pflege-contact-page__direct-btn--secondary {
+  background: #fff;
+  color: var(--pfc-petrol);
+  border: 2px solid var(--pfc-petrol);
+  box-shadow: none;
+}
+
+.pflege-contact-page__direct-btn--secondary:hover {
+  background: var(--pfc-bg-softer, #f5faff);
+  filter: none;
+}
+
+.pflege-contact-page__widerruf-hint {
+  margin: 0;
+  padding: clamp(0.85rem, 1.6vw, 1rem) clamp(1rem, 1.8vw, 1.15rem);
+  font-size: clamp(0.95rem, 0.92rem + 0.1vw, 1.03rem);
+  line-height: 1.5;
+  color: var(--pfc-muted);
+  background: var(--pfc-bg-softer, #f5faff);
+  border: 1px solid var(--pfc-border);
+  border-radius: var(--pfc-radius-card, 14px);
+}
+
+.pflege-contact-page__widerruf-hint a {
+  color: var(--pfc-petrol);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+}
+
 .pflege-contact-page__privacy-note {
   margin: clamp(1rem, 2vw, 1.25rem) 0 0;
   font-size: clamp(0.92rem, 0.9rem + 0.08vw, 1rem);
