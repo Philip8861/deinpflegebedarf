@@ -51,6 +51,10 @@
           assign pflege_seo_description = 'sections.pflege_collection_free_care.meta_description' | t
         endif
       endif
+      if request.page_type == 'page' and page != blank and page.handle == 'faq'
+        assign pflege_seo_title = 'sections.pflege_faq_page.meta_title' | t
+        assign pflege_seo_description = 'sections.pflege_faq_page.meta_description' | t
+      endif
     -%}
 
     <title>
@@ -406,11 +410,11 @@
           assign contact_handle = page.handle | downcase
           if contact_handle == 'kontakt' or contact_handle == 'contact'
             assign show_pflege_footer_stack = false
-          elsif contact_handle == 'impressum' or contact_handle == 'agb' or contact_handle == 'widerrufsrecht' or contact_handle contains 'widerruf' or contact_handle == 'datenschutz' or contact_handle == 'datenschutzerklärung' or contact_handle == 'datenschutzerklaerung' or contact_handle contains 'datenschutz' or contact_handle == 'cookie-einstellungen' or contact_handle contains 'cookie' or contact_handle == 'versand-zahlung' or contact_handle contains 'versand' or contact_handle == 'pflegeratgeber' or contact_handle == 'ratgeber' or contact_handle == 'pflegewissen' or contact_handle contains 'ratgeber'
+          elsif contact_handle == 'impressum' or contact_handle == 'agb' or contact_handle == 'widerrufsrecht' or contact_handle contains 'widerruf' or contact_handle == 'datenschutz' or contact_handle == 'datenschutzerklärung' or contact_handle == 'datenschutzerklaerung' or contact_handle contains 'datenschutz' or contact_handle == 'cookie-einstellungen' or contact_handle contains 'cookie' or contact_handle == 'versand-zahlung' or contact_handle contains 'versand' or contact_handle == 'pflegeratgeber' or contact_handle == 'ratgeber' or contact_handle == 'pflegewissen' or contact_handle contains 'ratgeber' or contact_handle == 'faq'
             assign show_pflege_footer_stack = false
           endif
         endif
-        if template.suffix == 'impressum' or template.suffix == 'agb' or template.suffix == 'widerrufsrecht' or template.suffix == 'widerrufsbelehrung' or template.suffix == 'datenschutz' or template.suffix == 'datenschutzerklaerung' or template.suffix == 'cookie-einstellungen' or template.suffix == 'versand-zahlung' or template.suffix == 'pflege-ratgeber'
+        if template.suffix == 'impressum' or template.suffix == 'agb' or template.suffix == 'widerrufsrecht' or template.suffix == 'widerrufsbelehrung' or template.suffix == 'datenschutz' or template.suffix == 'datenschutzerklaerung' or template.suffix == 'cookie-einstellungen' or template.suffix == 'versand-zahlung' or template.suffix == 'pflege-ratgeber' or template.suffix == 'faq'
           assign show_pflege_footer_stack = false
         endif
       endif

@@ -18,6 +18,8 @@
   {% render 'pflege-legal-versand-zahlung-fallback' %}
 {%- elsif request.page_type == 'page' and page.handle == 'pflegeratgeber' or page.handle == 'ratgeber' -%}
   {% render 'pflege-ratgeber-bridge-fallback' %}
+{%- elsif request.page_type == 'page' and page.handle == 'faq' -%}
+  {% render 'pflege-faq-page-fallback' %}
 {%- else -%}
 {{ 'section-main-page.css' | asset_url | stylesheet_tag }}
 

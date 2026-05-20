@@ -19,6 +19,9 @@
         elsif locale_root == 'pflegeboxi'
           assign schema_q = 'pflegeboxi.faq_' | append: i | append: '_q' | t
           assign schema_a = 'pflegeboxi.faq_' | append: i | append: '_a' | t
+        elsif locale_root == 'sections.pflege_faq_page'
+          assign schema_q = 'sections.pflege_faq_page.faq_' | append: i | append: '_q' | t
+          assign schema_a = 'sections.pflege_faq_page.faq_' | append: i | append: '_a' | t
         else
           assign schema_q = 'sections.pflege_faq_accordion.faq_' | append: i | append: '_q' | t
           assign schema_a = 'sections.pflege_faq_accordion.faq_' | append: i | append: '_a' | t

@@ -296,6 +296,92 @@
   border-top: none;
 }
 
+/* FAQ-Seite /pages/faq */
+.pflege-faq-accordion--page .pflege-faq-accordion__backdrop {
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+.pflege-faq-accordion--page .pflege-faq-accordion__inner {
+  max-width: min(52rem, 100%);
+}
+
+.pflege-faq-accordion--page .pflege-faq-accordion__head {
+  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.pflege-faq-accordion__intro--page {
+  text-align: left;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pflege-faq-accordion__intro-lead {
+  margin: 0 0 clamp(1.5rem, 3vw, 2rem);
+  font-size: clamp(1.12rem, 1.02rem + 0.35vw, 1.28rem);
+  line-height: 1.6;
+  color: var(--pfa-text);
+}
+
+.pflege-faq-page__contact {
+  margin: 0;
+  padding: clamp(1.25rem, 2.5vw, 1.65rem) clamp(1.35rem, 2.8vw, 1.75rem);
+  border-radius: var(--pfa-card-radius);
+  border: 1px solid var(--pfa-border);
+  background: #fff;
+}
+
+.pflege-faq-page__contact-label {
+  margin: 0 0 0.65rem;
+  font-size: clamp(0.88rem, 0.82rem + 0.12vw, 0.98rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--pfa-petrol);
+}
+
+.pflege-faq-page__contact-line {
+  margin: 0 0 0.45rem;
+  font-size: clamp(1.05rem, 1rem + 0.15vw, 1.14rem);
+  line-height: 1.55;
+  color: var(--pfa-text);
+}
+
+.pflege-faq-page__contact-line:last-child {
+  margin-bottom: 0;
+}
+
+.pflege-faq-page__contact-line a {
+  color: #2c6abf;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.14em;
+}
+
+.pflege-faq-page__contact-line--hours {
+  margin-top: 0.75rem;
+  color: var(--pfa-muted);
+}
+
+.pflege-faq-accordion__category {
+  margin: clamp(2.25rem, 4.5vw, 3.25rem) 0 clamp(1.15rem, 2.2vw, 1.5rem);
+  padding: 0;
+  font-family: var(--pflege-font-display, var(--font-body-family));
+  font-size: clamp(1.2rem, 1.05rem + 0.45vw, 1.45rem);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--pfa-petrol);
+}
+
+.pflege-faq-accordion__category:first-of-type {
+  margin-top: 0;
+}
+
+.pflege-faq-accordion--page .pflege-faq-accordion__list + .pflege-faq-accordion__category {
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .pflege-faq-accordion__item,
   .pflege-faq-accordion__chevron,
