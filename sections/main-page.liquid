@@ -16,7 +16,7 @@
   {% render 'pflege-cookie-settings-fallback' %}
 {%- elsif request.page_type == 'page' and page.handle == 'versand-zahlung' -%}
   {% render 'pflege-legal-versand-zahlung-fallback' %}
-{%- elsif request.page_type == 'page' and page.handle == 'pflegeratgeber' -%}
+{%- elsif request.page_type == 'page' and page.handle == 'pflegeratgeber' or page.handle == 'ratgeber' -%}
   {% render 'pflege-ratgeber-bridge-fallback' %}
 {%- else -%}
 {{ 'section-main-page.css' | asset_url | stylesheet_tag }}

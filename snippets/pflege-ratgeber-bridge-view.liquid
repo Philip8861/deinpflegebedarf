@@ -27,15 +27,17 @@
         </h1>
 
         <figure class="pflege-ratgeber-bridge__figure">
-          <img
-            class="pflege-ratgeber-bridge__image"
-            src="{{ 'ratgeber.webp' | asset_url }}"
-            alt="Ratgeber — Pflegetipps und Orientierung von Alltagshilfe Süd"
-            width="640"
-            height="360"
-            loading="lazy"
-            decoding="async"
-          >
+          {{
+            'ratgeber.webp'
+            | image_url: width: 1280
+            | image_tag:
+              class: 'pflege-ratgeber-bridge__image',
+              alt: 'Ratgeber — Pflegetipps und Orientierung von Alltagshilfe Süd',
+              loading: 'lazy',
+              decoding: 'async',
+              widths: '375, 550, 750, 1100, 1280',
+              sizes: '(min-width: 750px) min(36rem, 100vw), 100vw'
+          }}
         </figure>
 
         <p class="pflege-ratgeber-bridge__subtitle">{{ subtitle | escape }}</p>
