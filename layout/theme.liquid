@@ -406,7 +406,7 @@
           assign contact_handle = page.handle | downcase
           if contact_handle == 'kontakt' or contact_handle == 'contact'
             assign show_pflege_footer_stack = false
-          elsif contact_handle == 'impressum' or contact_handle == 'agb' or contact_handle == 'widerrufsrecht' or contact_handle contains 'widerruf' or contact_handle == 'datenschutz' or contact_handle == 'datenschutzerklärung' or contact_handle == 'datenschutzerklaerung' or contact_handle contains 'datenschutz' or contact_handle == 'cookie-einstellungen' or contact_handle contains 'cookie' or contact_handle == 'versand-zahlung' or contact_handle contains 'versand' or contact_handle == 'pflegeratgeber' or contact_handle == 'pflegewissen'
+          elsif contact_handle == 'impressum' or contact_handle == 'agb' or contact_handle == 'widerrufsrecht' or contact_handle contains 'widerruf' or contact_handle == 'datenschutz' or contact_handle == 'datenschutzerklärung' or contact_handle == 'datenschutzerklaerung' or contact_handle contains 'datenschutz' or contact_handle == 'cookie-einstellungen' or contact_handle contains 'cookie' or contact_handle == 'versand-zahlung' or contact_handle contains 'versand' or contact_handle == 'pflegeratgeber' or contact_handle == 'ratgeber' or contact_handle == 'pflegewissen' or contact_handle contains 'ratgeber'
             assign show_pflege_footer_stack = false
           endif
         endif
