@@ -34,6 +34,8 @@
             {% render 'pflege-legal-impressum-body' %}
           {%- elsif use_agb_body -%}
             {% render 'pflege-legal-agb-body' %}
+          {%- elsif use_widerrufsbelehrung_body -%}
+            {% render 'pflege-legal-widerrufsbelehrung-body' %}
           {%- elsif legal_page_body != blank -%}
             {{ page.content }}
           {%- else -%}
@@ -43,6 +45,10 @@
             </p>
           {%- endif -%}
         </div>
+
+        {%- if show_withdrawal_form -%}
+          {% render 'pflege-withdrawal-form', withdrawal_form_enabled: withdrawal_form_enabled %}
+        {%- endif -%}
       </div>
     {%- else -%}
       <header class="pflege-legal__header">
@@ -100,7 +106,7 @@
                       class="pflege-legal__related-link{% if current_handle contains 'widerruf' %} is-active{% endif %}"
                       href="{{ url_widerruf }}"
                     >
-                      Widerrufsrecht
+                      Widerrufsbelehrung
                     </a>
                   </li>
                   <li>

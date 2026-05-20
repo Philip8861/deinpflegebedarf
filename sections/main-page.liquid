@@ -2,6 +2,10 @@
   {% render 'pflege-legal-impressum-fallback' %}
 {%- elsif request.page_type == 'page' and page.handle == 'agb' -%}
   {% render 'pflege-legal-agb-fallback' %}
+{%- elsif request.page_type == 'page' and page.handle == 'widerrufsbelehrung' -%}
+  {% render 'pflege-legal-widerrufsbelehrung-fallback' %}
+{%- elsif request.page_type == 'page' and page.handle == 'widerrufsrecht' -%}
+  {% render 'pflege-legal-widerrufsbelehrung-fallback' %}
 {%- else -%}
 {{ 'section-main-page.css' | asset_url | stylesheet_tag }}
 

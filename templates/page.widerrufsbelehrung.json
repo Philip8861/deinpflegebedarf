@@ -13,11 +13,20 @@
       "type": "pflege-legal-page",
       "settings": {
         "color_scheme": "scheme-1",
+        "eyebrow": "",
         "title_fallback": "Widerrufsbelehrung",
+        "subtitle": "",
+        "meta_label": "Stand",
         "meta_date": "Mai 2026",
+        "highlight_title": "",
+        "highlight_text": "",
         "show_toc": false,
+        "toc_title": "Inhalt",
         "show_related": false,
+        "related_title": "Weitere Rechtstexte",
         "body_text": "",
+        "contact_title": "",
+        "contact_text": "",
         "padding_top": 52,
         "padding_bottom": 72
       }

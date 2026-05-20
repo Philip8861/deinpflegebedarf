@@ -7,7 +7,7 @@
 
   assign url_datenschutz = root | append: 'pages/datenschutz'
 
-  assign url_widerruf = root | append: 'pages/widerrufsrecht'
+  assign url_widerruf = root | append: 'pages/widerrufsbelehrung'
   assign url_impressum = root | append: 'pages/impressum'
 
   assign current_handle = ''
@@ -37,7 +37,7 @@
   elsif current_handle == 'agb'
     assign legal_use_agb_defaults = true
     assign legal_plain = true
-  elsif current_handle == 'widerrufsrecht' or current_handle contains 'widerruf'
+  elsif current_handle == 'widerrufsbelehrung' or current_handle == 'widerrufsrecht' or current_handle contains 'widerruf'
     assign legal_plain = true
   elsif current_handle == 'datenschutz' or current_handle contains 'datenschutz'
     assign legal_plain = true
@@ -49,8 +49,10 @@
         assign legal_title_fallback = 'Impressum'
       when 'agb'
         assign legal_title_fallback = 'Allgemeine Geschäftsbedingungen'
+      when 'widerrufsbelehrung'
+        assign legal_title_fallback = 'Widerrufsbelehrung'
       when 'widerrufsrecht'
-        assign legal_title_fallback = 'Widerrufsrecht'
+        assign legal_title_fallback = 'Widerrufsbelehrung'
       when 'datenschutz'
         assign legal_title_fallback = 'Datenschutzerklärung'
     endcase
@@ -59,12 +61,24 @@
   assign legal_body_html = section.settings.body_text
   assign legal_use_impressum_body = false
   assign legal_use_agb_body = false
+  assign legal_use_widerrufsbelehrung_body = false
+  assign show_withdrawal_form = false
   if legal_body_html == blank and legal_use_impressum_defaults
     assign legal_use_impressum_body = true
   endif
   if legal_body_html == blank and legal_use_agb_defaults
     assign legal_use_agb_body = true
   endif
+  if current_handle == 'widerrufsbelehrung' and legal_body_html == blank
+    assign legal_use_widerrufsbelehrung_body = true
+    assign show_withdrawal_form = true
+  endif
+  if current_handle == 'widerrufsrecht' and legal_body_html == blank
+    assign legal_use_widerrufsbelehrung_body = true
+    assign show_withdrawal_form = true
+  endif
+
+  assign withdrawal_form_enabled = section.settings.withdrawal_form_enabled
 
   assign legal_padding_class = 'section-' | append: section.id | append: '-padding'
 -%}
@@ -110,6 +124,9 @@
   body_html: legal_body_html,
   use_impressum_body: legal_use_impressum_body,
   use_agb_body: legal_use_agb_body,
+  use_widerrufsbelehrung_body: legal_use_widerrufsbelehrung_body,
+  show_withdrawal_form: show_withdrawal_form,
+  withdrawal_form_enabled: withdrawal_form_enabled,
   legal_plain: legal_plain
 %}
 
@@ -232,6 +249,17 @@
       "id": "contact_text",
       "label": "Kontakt-Text",
       "info": "Optional, z. B. „Fragen? Kontaktieren Sie uns unter …“"
+    },
+    {
+      "type": "header",
+      "content": "Elektronischer Widerruf"
+    },
+    {
+      "type": "checkbox",
+      "id": "withdrawal_form_enabled",
+      "label": "Online-Widerrufsformular vorzeitig aktivieren",
+      "default": false,
+      "info": "Standard: automatisch ab 19.06.2026. Nur für Tests vorab aktivieren."
     },
     {
       "type": "header",
