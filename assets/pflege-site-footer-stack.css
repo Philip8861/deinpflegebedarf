@@ -55,17 +55,23 @@
 }
 
 /* ——— 3. FAQ (ganz unten vor Shop-Footer) ——— */
-.pflege-site-footer-stack .pflege-boxi-faq-strip-section .pflege-faq-strip-wrap {
+.pflege-site-footer-stack .pflege-boxi-faq-strip-section .pflege-faq-strip-wrap,
+.pflege-site-footer-stack .pflege-faq-strip-wrap--pfc {
   margin: 0;
 }
 
-.pflege-site-footer-stack .pflege-boxi-faq-strip-section .pflege-faq-strip-wrap > div {
+.pflege-site-footer-stack .pflege-boxi-faq-strip-section .pflege-faq-strip-wrap > div,
+.pflege-site-footer-stack .pflege-faq-strip-wrap--pfc .pflege-faq-strip-wrap__pad {
   padding-top: calc(var(--pfs-stack-gap) * 0.4) !important;
   padding-bottom: clamp(2.5rem, 4vw, 3.25rem) !important;
 }
 
 .pflege-site-footer-stack .pflege-faq-strip-wrap .pflege-faq-accordion__backdrop {
   padding-top: var(--pfs-stack-gap-tight);
+}
+
+.pflege-site-footer-stack .pflege-faq-strip-wrap--pfc .pflege-faq-accordion__inner {
+  padding-top: 0;
 }
 
 /* Abstand zum statischen Shop-Footer */
