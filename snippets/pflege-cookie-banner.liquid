@@ -5,11 +5,7 @@
 {{ 'component-pflege-cookie-banner.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
-  if shop.privacy_policy != blank and shop.privacy_policy.url != blank
-    assign url_privacy = shop.privacy_policy.url
-  else
-    assign url_privacy = routes.root_url | append: 'pages/datenschutz'
-  endif
+  assign url_privacy = routes.root_url | append: 'pages/datenschutz'
   assign url_cookies = routes.root_url | append: 'pages/cookie-einstellungen'
 -%}
 
