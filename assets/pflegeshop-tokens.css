@@ -59,10 +59,11 @@
   */
   --pflege-hero-tile-max-width: min(100%, 1426px);
   /*
-    Vertikaler Rhythmus Startseite: gleicher Abstand zwischen Hero ↔ Bestseller ↔ Produktfinder
-    (padding unten/oben der Sections summiert sich jeweils symmetrisch).
+    Vertikaler Rhythmus zwischen Hauptbereichen (≈ 80–128 px zwischen zwei Blöcken).
+    Summe: padding unten + padding oben der benachbarten Sections.
   */
-  --pflege-home-section-stack: clamp(1.5rem, 3vw, 2rem);
+  --pflege-section-gap: clamp(2.5rem, 5.5vw, 4rem);
+  --pflege-home-section-stack: var(--pflege-section-gap);
   /*
     Gemeinsam: Produktfinder-Backdrop & Footer (heller Verlauf, elliptischer Bogen nach oben).
     Vertikaler Ellipsen-Radius auch für Produktfinder-Bogen unten (symmetrisch zum oberen Bogen).

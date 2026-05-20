@@ -45,7 +45,7 @@
 .ct-hp__inner {
   max-width: var(--ct-hp-max);
   margin: 0 auto;
-  padding: clamp(3.25rem, 5vw, 4.35rem) clamp(1.15rem, 4vw, 1.5rem);
+  padding: clamp(3.5rem, 5.5vw, 4.75rem) clamp(1.15rem, 4vw, 1.5rem);
 }
 
 .ct-hp__head {

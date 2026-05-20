@@ -26,7 +26,7 @@
 /* Bogen nur oben — Übergang von der Section darüber */
 .pflege-faq-accordion__backdrop {
   box-sizing: border-box;
-  padding: clamp(2.25rem, 4.2vw, 3.25rem) 0 clamp(2.5rem, 5vw, 3.75rem);
+  padding: var(--pflege-section-gap, clamp(2.5rem, 5.5vw, 4rem)) 0;
   background: var(--pfa-bg);
   border-radius: var(
     --pflege-backdrop-band-radius-top,

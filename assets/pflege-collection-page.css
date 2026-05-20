@@ -381,7 +381,7 @@ body.pflege-collection-page .pflege-collection-bottom-rte.page-width {
 body.pflege-collection-page .pflege-collection-bottom-rte-inner {
   max-width: 56rem;
   margin-top: clamp(1rem, 2vw, 1.75rem);
-  padding-top: clamp(1rem, 2vw, 1.85rem);
+  padding-top: var(--pflege-section-gap, clamp(2.5rem, 5.5vw, 4rem));
   border-top: 1px solid rgba(11, 35, 71, 0.08);
   font-size: 1.5rem;
   line-height: 1.58;
