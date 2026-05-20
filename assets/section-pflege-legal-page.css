@@ -460,7 +460,7 @@
   }
 }
 
-/* ───────── Schlichtes Impressum (nur Text) ───────── */
+/* ───────── Schlichtes Impressum (nur Text, untereinander) ───────── */
 .pflege-legal--plain {
   font-size: clamp(1rem, 0.95rem + 0.15vw, 1.08rem);
   line-height: 1.7;
@@ -471,15 +471,21 @@
   max-width: var(--pflege-hero-tile-max-width, min(100%, 1426px));
 }
 
-.pflege-legal--plain .pflege-legal__header,
-.pflege-legal--plain .pflege-legal__article {
+.pflege-legal--plain .pflege-legal__plain-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
   max-width: var(--pflege-max-copy, 56rem);
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
+  gap: 0;
 }
 
 .pflege-legal--plain .pflege-legal__header {
-  margin: 0 0 1.75rem;
+  width: 100%;
+  max-width: none;
+  margin: 0 0 1.5rem;
+  padding: 0;
   text-align: left;
 }
 
@@ -491,15 +497,11 @@
   color: var(--pl-navy);
 }
 
-.pflege-legal--plain .pflege-legal__grid--plain {
-  display: block;
-}
-
-.pflege-legal--plain .pflege-legal__article {
+.pflege-legal--plain .pflege-legal__content {
+  width: 100%;
+  max-width: none;
+  margin: 0;
   padding: 0;
-  border: 0;
-  background: transparent;
-  box-shadow: none;
 }
 
 .pflege-legal--plain .pflege-legal__content h2 {
