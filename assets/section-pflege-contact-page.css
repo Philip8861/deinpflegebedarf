@@ -73,15 +73,16 @@
 
 @media screen and (min-width: 990px) {
   .pflege-contact-page__grid {
-    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.35fr);
-    gap: clamp(2.25rem, 4.5vw, 4rem);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.45fr);
+    gap: clamp(2.5rem, 4vw, 3.5rem);
+    align-items: stretch;
   }
 }
 
-/* Nur Formular (ohne Telefon/E-Mail-Karten) */
+/* Nur Formular (Sidebar aus) */
 .pflege-contact-page--form-only .pflege-contact-page__grid {
   display: block;
-  max-width: min(44rem, 100%);
+  max-width: min(52rem, 100%);
   margin: 0 auto;
 }
 
@@ -89,84 +90,191 @@
   width: 100%;
 }
 
-/* Kontakt-Karten links */
+/* Kontaktspalte — hellblau wie „Ihre Vorteile“ */
 .pflege-contact-page__aside {
   display: flex;
   flex-direction: column;
-  gap: clamp(1.15rem, 2.2vw, 1.5rem);
 }
 
-.pflege-contact-page__card {
-  background: var(--pflege-white, #fefefe);
+.pflege-contact-page__info-panel {
+  height: 100%;
+  padding: clamp(1.85rem, 3.2vw, 2.5rem) clamp(1.65rem, 3vw, 2.15rem);
   border: 1px solid var(--pfc-border);
   border-radius: var(--pfc-radius);
-  padding: clamp(1.5rem, 3vw, 2rem) clamp(1.55rem, 3.2vw, 2.15rem);
-  box-shadow: 0 10px 32px rgba(11, 35, 71, 0.07);
+  background: #f0f5fb;
+  box-shadow: 0 10px 36px rgba(11, 35, 71, 0.07);
+  box-sizing: border-box;
 }
 
-.pflege-contact-page__card-title {
-  margin: 0 0 0.9rem;
+.pflege-contact-page__info-panel-title {
+  margin: 0 0 clamp(1.35rem, 2.5vw, 1.65rem);
+  padding-bottom: clamp(0.85rem, 1.6vw, 1.1rem);
+  border-bottom: 1px solid rgba(63, 134, 217, 0.18);
   font-family: var(--pflege-font-display, var(--font-body-family, inherit));
-  font-size: clamp(1.28rem, 1.08rem + 0.55vw, 1.55rem);
+  font-size: clamp(1.35rem, 1.05rem + 0.65vw, 1.65rem);
   font-weight: var(--pflege-home-section-heading-weight, 800);
-  line-height: 1.25;
-  letter-spacing: 0.01em;
+  line-height: 1.22;
   color: var(--pfc-heading);
 }
 
-.pflege-contact-page__card-line {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.85rem;
-  margin: 0 0 0.85rem;
-  font-size: clamp(1.1rem, 1.02rem + 0.25vw, 1.22rem);
-  line-height: 1.5;
-  color: var(--pfc-muted);
+.pflege-contact-page__info-block {
+  margin-bottom: clamp(1.35rem, 2.4vw, 1.65rem);
 }
 
-.pflege-contact-page__card-line:last-child {
+.pflege-contact-page__info-block:last-of-type {
   margin-bottom: 0;
 }
 
-.pflege-contact-page__card-line .pflege-icon svg {
-  width: 1.35rem;
-  height: 1.35rem;
+.pflege-contact-page__info-block--hours {
+  padding: clamp(1rem, 2vw, 1.2rem);
+  border-radius: var(--pfc-input-radius);
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(63, 134, 217, 0.14);
 }
 
-.pflege-contact-page__card-line .pflege-icon {
+.pflege-contact-page__info-block-head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.65rem;
+}
+
+.pflege-contact-page__info-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
-  margin-top: 0.15rem;
+  width: 2.65rem;
+  height: 2.65rem;
+  border-radius: 50%;
+  background: rgba(63, 134, 217, 0.14);
   color: var(--pfc-accent);
 }
 
-.pflege-contact-page__card-line a {
-  color: var(--pfc-navy);
-  font-weight: 600;
-  font-size: clamp(1.12rem, 1.04rem + 0.28vw, 1.26rem);
-  text-decoration: none;
-  transition: color 0.2s ease;
+.pflege-contact-page__info-icon .pflege-icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
 }
 
-.pflege-contact-page__card-line a:hover {
+.pflege-contact-page__info-block-title {
+  margin: 0;
+  font-size: clamp(1.12rem, 1rem + 0.35vw, 1.28rem);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--pfc-heading);
+}
+
+.pflege-contact-page__info-text {
+  margin: 0;
+  padding-left: calc(2.65rem + 0.75rem);
+  font-size: clamp(1.08rem, 1rem + 0.2vw, 1.2rem);
+  line-height: 1.5;
+  color: var(--pfc-navy);
+  font-weight: 500;
+}
+
+.pflege-contact-page__info-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.95rem, 1.8vw, 1.2rem);
+}
+
+.pflege-contact-page__info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+
+.pflege-contact-page__info-item-ic {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-top: 0.1rem;
+  border-radius: 50%;
+  background: var(--pflege-white, #fff);
+  border: 1px solid var(--pfc-border);
+  color: var(--pfc-accent);
+  box-shadow: 0 2px 8px rgba(11, 35, 71, 0.05);
+}
+
+.pflege-contact-page__info-item-ic .pflege-icon svg {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.pflege-contact-page__info-item-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.pflege-contact-page__info-label {
+  font-size: clamp(0.88rem, 0.84rem + 0.08vw, 0.95rem);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--pfc-muted);
+}
+
+.pflege-contact-page__info-item-body a {
+  font-size: clamp(1.1rem, 1.02rem + 0.28vw, 1.28rem);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--pfc-navy);
+  text-decoration: none;
+  word-break: break-word;
+}
+
+.pflege-contact-page__info-item-body a:hover {
   color: var(--pfc-accent);
   text-decoration: underline;
-  text-underline-offset: 0.15em;
+  text-underline-offset: 0.14em;
 }
 
-.pflege-contact-page__hint {
+.pflege-contact-page__info-address {
+  font-size: clamp(1.05rem, 0.98rem + 0.18vw, 1.16rem);
+  line-height: 1.5;
+  color: var(--pfc-navy);
+}
+
+.pflege-contact-page__info-address p {
   margin: 0;
+}
+
+.pflege-contact-page__info-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  margin: clamp(1.35rem, 2.4vw, 1.65rem) 0 0;
+  padding-top: clamp(1.1rem, 2vw, 1.35rem);
+  border-top: 1px solid rgba(63, 134, 217, 0.14);
   font-size: clamp(1rem, 0.96rem + 0.12vw, 1.08rem);
   line-height: 1.5;
   color: var(--pfc-muted);
 }
 
+.pflege-contact-page__info-note-ic {
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+  color: var(--pfc-accent);
+}
+
 /* Formular */
 .pflege-contact-page__form-card {
+  height: 100%;
   background: var(--pflege-white, #fefefe);
   border: 1px solid var(--pfc-border);
   border-radius: var(--pfc-radius);
-  padding: clamp(1.85rem, 3.5vw, 2.75rem) clamp(1.75rem, 3.8vw, 2.85rem);
+  padding: clamp(2rem, 3.8vw, 3rem) clamp(1.85rem, 4vw, 3rem);
   box-shadow: 0 14px 44px rgba(11, 35, 71, 0.09);
+  box-sizing: border-box;
 }
 
 .pflege-contact-page__form-title {
@@ -215,13 +323,6 @@
   color: #7a2a22;
   text-decoration: underline;
   text-underline-offset: 0.12em;
-}
-
-.pflege-contact-page__card-ic {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
 }
 
 .pflege-contact-page__fields {
@@ -275,7 +376,7 @@
 }
 
 .pflege-contact-page__textarea {
-  min-height: clamp(13rem, 28vw, 16rem);
+  min-height: clamp(14rem, 30vw, 18rem);
   resize: vertical;
 }
 

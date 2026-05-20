@@ -16,6 +16,7 @@
         "title_fallback": "Kontakt",
         "show_page_intro": false,
         "intro_text": "<p>Haben Sie Fragen zu Produkten, Versand oder zu Ihrer Bestellung? Wir sind für Sie da — schreiben Sie uns über das Formular oder erreichen Sie uns telefonisch.</p>",
+        "show_sidebar": true,
         "box_hours_title": "Erreichbarkeit",
         "box_hours_text": "Mo.–Fr. 08:30 – 16:00 Uhr (telefonisch)",
         "box_contact_title": "Direkt erreichen",
@@ -34,8 +35,8 @@
         "show_privacy_note": true,
         "privacy_note": "Mit dem Absenden stimmen Sie der Verarbeitung Ihrer Angaben zur Bearbeitung der Anfrage zu. Details in der",
         "privacy_link_text": "Datenschutzerklärung",
-        "padding_top": 52,
-        "padding_bottom": 72
+        "padding_top": 64,
+        "padding_bottom": 80
       }
     }
   },
