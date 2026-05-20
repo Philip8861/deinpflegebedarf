@@ -1,66 +1,63 @@
 {% comment %}
-  Ratgeber-Brückenseite — Markup (Section + Fallback)
-  Erwartet: bridge_id, heading, subtitle, url, label, body_html (optional)
+  Ratgeber-Hero: Bild + Text-Overlay (wie alltagshilfe-sued.de Ratgeber)
 {% endcomment %}
 {%- liquid
   assign bridge_id = bridge_id | default: 'pflege-ratgeber'
-  if heading == blank
-    assign heading = page.title | default: 'Ratgeber'
+  if eyebrow == blank
+    assign eyebrow = 'Wissen, das entlastet'
   endif
-  if subtitle == blank
-    assign subtitle = 'Tipps, Orientierung und fundierte Texte rund um Pflege und Alltag – kuratiert von Ihrer Alltagshilfe Süd.'
+  if heading == blank
+    assign heading = 'Alltagshilfe-Süd Ratgeber'
+  endif
+  if lead == blank
+    assign lead = 'Praxistipps, Erklärungen und konkrete Hilfen rund um Pflege, Betreuung und Entlastung im Alltag.'
   endif
   if url == blank
     assign url = 'https://www.alltagshilfe-sued.de/ratgeber'
   endif
   if label == blank
-    assign label = 'Zum Ratgeber'
+    assign label = 'Ratgeber ansehen'
   endif
 -%}
 
 <div class="pflege-ratgeber-bridge__band">
   <div class="pflege-ratgeber-bridge__inner">
-    <div class="pflege-ratgeber-bridge__card">
-      <header class="pflege-ratgeber-bridge__card-head">
-        <h1 id="pflege-ratgeber-title-{{ bridge_id }}" class="pflege-ratgeber-bridge__title">
-          {{ heading | escape }}
-        </h1>
-      </header>
+    <article class="pflege-ratgeber-bridge__hero">
+      <img
+        class="pflege-ratgeber-bridge__image"
+        src="{{ 'ratgeber.webp' | asset_url }}"
+        alt=""
+        width="1280"
+        height="720"
+        loading="eager"
+        decoding="async"
+      >
 
-      <figure class="pflege-ratgeber-bridge__figure">
-        <img
-          class="pflege-ratgeber-bridge__image"
-          src="{{ 'ratgeber.webp' | asset_url }}"
-          alt="Ratgeber — Pflegetipps und Orientierung von Alltagshilfe Süd"
-          width="1280"
-          height="720"
-          loading="lazy"
-          decoding="async"
-        >
-      </figure>
+      <div class="pflege-ratgeber-bridge__overlay">
+        <div class="pflege-ratgeber-bridge__copy">
+          <p class="pflege-ratgeber-bridge__eyebrow">
+            <span class="pflege-ratgeber-bridge__eyebrow-icon" aria-hidden="true">
+              {% render 'pflege-icon', icon: 'heart', width: 18 %}
+            </span>
+            <span>{{ eyebrow | escape }}</span>
+          </p>
 
-      <div class="pflege-ratgeber-bridge__card-body">
-        <p class="pflege-ratgeber-bridge__subtitle">{{ subtitle | escape }}</p>
+          <h1 id="pflege-ratgeber-title-{{ bridge_id }}" class="pflege-ratgeber-bridge__title">
+            {{ heading | escape }}
+          </h1>
 
-        {%- if body_html != blank -%}
-          <div class="pflege-ratgeber-bridge__rte rte">{{ body_html }}</div>
-        {%- endif -%}
+          <p class="pflege-ratgeber-bridge__lead">{{ lead | escape }}</p>
 
-        <a
-          class="pflege-ratgeber-bridge__cta"
-          href="{{ url | escape }}"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <span>{{ label | escape }}</span>
-          <span class="pflege-ratgeber-bridge__cta-arrow" aria-hidden="true">→</span>
-        </a>
-
-        <p class="pflege-ratgeber-bridge__note">
-          <span class="pflege-ratgeber-bridge__host">{{ url | escape }}</span>
-          · öffnet in einem neuen Tab
-        </p>
+          <a
+            class="pflege-ratgeber-bridge__cta"
+            href="{{ url | escape }}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {{ label | escape }}
+          </a>
+        </div>
       </div>
-    </div>
+    </article>
   </div>
 </div>
