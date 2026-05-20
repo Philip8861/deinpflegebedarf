@@ -4,14 +4,14 @@
   — pflegeratgeber → dieselbe externe URL
   — /policies/refund-policy → /pages/widerrufsbelehrung
   — /pages/widerrufsrecht → /pages/widerrufsbelehrung (alte URL)
-  — /pages/datenschutz → /pages/datenschutzerklärung (alte URL; Handle im Admin: datenschutzerklärung)
+  — /pages/datenschutz und /pages/datenschutzerklärung → /pages/datenschutzerklaerung
   Admin-URL-Weiterleitung zusätzlich möglich (301).
 {%- endcomment -%}
 {%- liquid
   assign pflege_ratgeber_ext = 'https://www.alltagshilfe-sued.de/ratgeber'
   assign pflege_widerruf_page_url = routes.root_url | append: 'pages/widerrufsbelehrung'
   assign pflege_agb_page_url = routes.root_url | append: 'pages/agb'
-  assign pflege_datenschutz_page_url = routes.root_url | append: 'pages/datenschutzerklärung'
+  assign pflege_datenschutz_page_url = routes.root_url | append: 'pages/datenschutzerklaerung'
 -%}
 {%- if request.page_type == 'policy' and policy != blank and policy.handle == 'refund-policy' -%}
   <link rel="canonical" href="{{ pflege_widerruf_page_url | escape }}">
@@ -68,7 +68,13 @@
   <script>
     window.location.replace({{ pflege_datenschutz_page_url | json }});
   </script>
-{%- elsif request.path == '/pages/datenschutz' or request.path == '/pages/datenschutzerklaerung' -%}
+{%- elsif request.page_type == 'page' and page.handle == 'datenschutzerklärung' -%}
+  <link rel="canonical" href="{{ pflege_datenschutz_page_url | escape }}">
+  <meta http-equiv="refresh" content="0;url={{ pflege_datenschutz_page_url | escape }}">
+  <script>
+    window.location.replace({{ pflege_datenschutz_page_url | json }});
+  </script>
+{%- elsif request.path == '/pages/datenschutz' or request.path == '/pages/datenschutzerklärung' -%}
   <link rel="canonical" href="{{ pflege_datenschutz_page_url | escape }}">
   <meta http-equiv="refresh" content="0;url={{ pflege_datenschutz_page_url | escape }}">
   <script>
