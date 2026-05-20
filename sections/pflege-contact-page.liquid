@@ -67,7 +67,7 @@
           <h2 class="pflege-contact-page__card-title">{{ section.settings.box_contact_title | escape }}</h2>
           <div class="pflege-contact-page__card-line">
             <span class="pflege-contact-page__card-ic" aria-hidden="true">
-              {% render 'pflege-icon', icon: 'phone', width: 20 %}
+              {% render 'pflege-icon', icon: 'phone', width: 24 %}
             </span>
             <span>
               <a href="{{ phone_href }}">{{ section.settings.phone | escape }}</a>
@@ -75,7 +75,7 @@
           </div>
           <div class="pflege-contact-page__card-line">
             <span class="pflege-contact-page__card-ic" aria-hidden="true">
-              {% render 'pflege-icon', icon: 'mail', width: 20 %}
+              {% render 'pflege-icon', icon: 'mail', width: 24 %}
             </span>
             <span>
               <a href="mailto:{{ section.settings.email }}">{{ section.settings.email | escape }}</a>
@@ -84,7 +84,7 @@
           {%- if section.settings.address != blank -%}
             <div class="pflege-contact-page__card-line" style="align-items: flex-start;">
               <span class="pflege-contact-page__card-ic" aria-hidden="true">
-                {% render 'pflege-icon', icon: 'package', width: 20 %}
+                {% render 'pflege-icon', icon: 'package', width: 24 %}
               </span>
               <span class="rte" style="color: inherit;">{{ section.settings.address }}</span>
             </div>
@@ -191,7 +191,7 @@
                 class="pflege-contact-page__textarea"
                 id="PflegeContact-body"
                 name="contact[body]"
-                rows="8"
+                rows="10"
                 required
                 aria-required="true"
                 placeholder="{{ section.settings.message_placeholder | escape }}"
