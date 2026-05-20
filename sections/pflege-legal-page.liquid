@@ -24,6 +24,50 @@
   if page != blank and page.handle != blank
     assign current_handle = page.handle
   endif
+
+  assign legal_eyebrow = section.settings.eyebrow
+  assign legal_subtitle = section.settings.subtitle
+  assign legal_title_fallback = section.settings.title_fallback
+  assign legal_meta_date = section.settings.meta_date
+  assign legal_highlight_title = section.settings.highlight_title
+  assign legal_highlight_text = section.settings.highlight_text
+  assign legal_contact_title = section.settings.contact_title
+  assign legal_contact_text = section.settings.contact_text
+  assign legal_show_toc = section.settings.show_toc
+  assign legal_show_related = section.settings.show_related
+  assign legal_toc_title = section.settings.toc_title
+  assign legal_related_title = section.settings.related_title
+  assign legal_use_impressum_defaults = false
+  if current_handle == 'impressum'
+    assign legal_use_impressum_defaults = true
+  endif
+
+  if legal_use_impressum_defaults
+    if legal_eyebrow == blank
+      assign legal_eyebrow = 'Rechtliches'
+    endif
+    if legal_title_fallback == blank
+      assign legal_title_fallback = 'Impressum'
+    endif
+    if legal_subtitle == blank
+      assign legal_subtitle = 'Angaben gemäß § 5 DDG.'
+    endif
+    if legal_meta_date == blank
+      assign legal_meta_date = '20.05.2026'
+    endif
+    if legal_highlight_title == blank
+      assign legal_highlight_title = 'Anbieter'
+    endif
+    if legal_highlight_text == blank
+      assign legal_highlight_text = '<p><strong>V. Maucher und Philip Sonntag GbR</strong><br>Alltagshilfe Süd · Betreiber des Shopify-Shops <strong>deinpflegebedarf.de</strong></p>'
+    endif
+    if legal_contact_title == blank
+      assign legal_contact_title = 'Noch Fragen?'
+    endif
+    if legal_contact_text == blank
+      assign legal_contact_text = '<p>Bei Fragen zum Impressum erreichen Sie uns telefonisch unter <a href="tel:+4983349893330">08334 / 9893330</a> oder per E-Mail an <a href="mailto:info@alltagshilfe-sued.de">info@alltagshilfe-sued.de</a>.</p>'
+    endif
+  endif
 -%}
 
 {%- style -%}
@@ -46,31 +90,31 @@
 >
   <div class="pflege-legal__shell">
     <header class="pflege-legal__header">
-      {%- if section.settings.eyebrow != blank -%}
-        <p class="pflege-legal__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- if legal_eyebrow != blank -%}
+        <p class="pflege-legal__eyebrow">{{ legal_eyebrow | escape }}</p>
       {%- endif -%}
       <h1 id="pflege-legal-heading" class="pflege-legal__title">
         {%- if page != blank and page.title != blank -%}
           {{ page.title | escape }}
         {%- else -%}
-          {{ section.settings.title_fallback | escape }}
+          {{ legal_title_fallback | escape }}
         {%- endif -%}
       </h1>
-      {%- if section.settings.subtitle != blank -%}
-        <p class="pflege-legal__subtitle">{{ section.settings.subtitle | escape }}</p>
+      {%- if legal_subtitle != blank -%}
+        <p class="pflege-legal__subtitle">{{ legal_subtitle | escape }}</p>
       {%- endif -%}
-      {%- if section.settings.meta_date != blank -%}
+      {%- if legal_meta_date != blank -%}
         <p class="pflege-legal__meta">
           <span class="pflege-legal__meta-label">{{ section.settings.meta_label | default: 'Stand' | escape }}:</span>
-          <span class="pflege-legal__meta-value">{{ section.settings.meta_date | escape }}</span>
+          <span class="pflege-legal__meta-value">{{ legal_meta_date | escape }}</span>
         </p>
       {%- endif -%}
     </header>
 
-    <div class="pflege-legal__grid{% unless section.settings.show_toc or section.settings.show_related %} pflege-legal__grid--single{% endunless %}">
-      {%- if section.settings.show_toc or section.settings.show_related -%}
+    <div class="pflege-legal__grid{% unless legal_show_toc or legal_show_related %} pflege-legal__grid--single{% endunless %}">
+      {%- if legal_show_toc or legal_show_related -%}
         <aside class="pflege-legal__aside" aria-label="Navigation">
-          {%- if section.settings.show_toc -%}
+          {%- if legal_show_toc -%}
             <nav
               class="pflege-legal__toc"
               aria-label="Inhaltsverzeichnis"
@@ -78,14 +122,14 @@
               data-empty-text="{{ 'Kein Inhaltsverzeichnis verfügbar.' | escape }}"
               hidden
             >
-              <p class="pflege-legal__aside-title">{{ section.settings.toc_title | default: 'Inhalt' | escape }}</p>
+              <p class="pflege-legal__aside-title">{{ legal_toc_title | default: 'Inhalt' | escape }}</p>
               <ol class="pflege-legal__toc-list" data-pflege-legal-toc-list></ol>
             </nav>
           {%- endif -%}
 
-          {%- if section.settings.show_related -%}
+          {%- if legal_show_related -%}
             <nav class="pflege-legal__related" aria-label="Weitere Rechtsseiten">
-              <p class="pflege-legal__aside-title">{{ section.settings.related_title | default: 'Rechtliches' | escape }}</p>
+              <p class="pflege-legal__aside-title">{{ legal_related_title | default: 'Rechtliches' | escape }}</p>
               <ul class="pflege-legal__related-list" role="list">
                 <li>
                   <a
@@ -126,12 +170,12 @@
       {%- endif -%}
 
       <article class="pflege-legal__article">
-        {%- if section.settings.highlight_text != blank -%}
+        {%- if legal_highlight_text != blank -%}
           <aside class="pflege-legal__notice" role="note">
-            {%- if section.settings.highlight_title != blank -%}
-              <p class="pflege-legal__notice-title">{{ section.settings.highlight_title | escape }}</p>
+            {%- if legal_highlight_title != blank -%}
+              <p class="pflege-legal__notice-title">{{ legal_highlight_title | escape }}</p>
             {%- endif -%}
-            <div class="pflege-legal__notice-body rte">{{ section.settings.highlight_text }}</div>
+            <div class="pflege-legal__notice-body rte">{{ legal_highlight_text }}</div>
           </aside>
         {%- endif -%}
 
@@ -141,6 +185,8 @@
           -%}
           {%- if section.settings.body_text != blank -%}
             {{ section.settings.body_text }}
+          {%- elsif legal_use_impressum_defaults -%}
+            {% render 'pflege-legal-impressum-body' %}
           {%- elsif legal_page_body != blank -%}
             {{ page.content }}
           {%- else -%}
@@ -152,12 +198,12 @@
           {%- endif -%}
         </div>
 
-        {%- if section.settings.contact_text != blank -%}
+        {%- if legal_contact_text != blank -%}
           <aside class="pflege-legal__contact">
-            {%- if section.settings.contact_title != blank -%}
-              <p class="pflege-legal__contact-title">{{ section.settings.contact_title | escape }}</p>
+            {%- if legal_contact_title != blank -%}
+              <p class="pflege-legal__contact-title">{{ legal_contact_title | escape }}</p>
             {%- endif -%}
-            <div class="pflege-legal__contact-body rte">{{ section.settings.contact_text }}</div>
+            <div class="pflege-legal__contact-body rte">{{ legal_contact_text }}</div>
           </aside>
         {%- endif -%}
       </article>
