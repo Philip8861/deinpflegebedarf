@@ -1,0 +1,491 @@
+/* Cookie-Einstellungen — deinpflegebedarf.de (Optik wie Kontakt / Rechtsseiten) */
+
+.pflege-cookie-settings {
+  --pcs-petrol: var(--pflege-home-section-heading-color, #0f4f69);
+  --pcs-navy: var(--pflege-navy, #0b2347);
+  --pcs-text: #3d556f;
+  --pcs-muted: var(--pflege-muted, #6f7f95);
+  --pcs-accent: var(--pflege-accent, #3f86d9);
+  --pcs-icon-bg: #e8f2fc;
+  --pcs-border: var(--pflege-border, #e5eef8);
+  --pcs-border-soft: var(--pflege-border-soft, #d8eafe);
+  --pcs-soft: var(--pflege-bg-softer, #f5faff);
+  --pcs-panel: var(--pflege-bg-soft, #eef6ff);
+  --pcs-card: var(--pflege-white, #fefefe);
+  --pcs-cta: var(--pflege-cta, #f89738);
+  --pcs-cta-hover: var(--pflege-cta-hover, #dc7a22);
+  --pcs-radius-lg: var(--pflege-radius-lg, 22px);
+  --pcs-radius-card: var(--pflege-radius-card, 14px);
+  --pcs-copy: min(56rem, 100%);
+
+  font-family: var(--font-body-family, system-ui, sans-serif);
+  font-size: clamp(1.04rem, 0.96rem + 0.3vw, 1.16rem);
+  line-height: 1.65;
+  color: var(--pcs-text);
+  background: transparent;
+}
+
+.pflege-cookie-settings__shell {
+  width: 100%;
+  max-width: var(--pflege-hero-tile-max-width, min(100%, 1426px));
+  margin: 0 auto;
+  padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
+}
+
+/* ───────── Kopf (wie Kontaktseite) ───────── */
+.pflege-cookie-settings__header {
+  max-width: var(--pcs-copy);
+  margin: 0 auto clamp(2rem, 4vw, 3rem);
+  text-align: center;
+}
+
+.pflege-cookie-settings__eyebrow {
+  margin: 0 0 0.65rem;
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(0.82rem, 0.78rem + 0.08vw, 0.92rem);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--pcs-accent);
+}
+
+.pflege-cookie-settings__title {
+  margin: 0;
+  font-family: var(--pflege-font-display, var(--font-body-family, inherit));
+  font-size: var(--pflege-home-section-heading-size, clamp(1.85rem, 2.25vw + 1.15rem, 2.75rem));
+  font-weight: var(--pflege-home-section-heading-weight, 800);
+  line-height: var(--pflege-home-section-heading-line-height, 1.18);
+  letter-spacing: var(--pflege-home-section-heading-letter-spacing, -0.025em);
+  color: var(--pcs-petrol);
+}
+
+/* ───────── Zweispaltig: Inhalt + Sticky-Aktionen ───────── */
+.pflege-cookie-settings__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1.75rem, 3.5vw, 2.75rem);
+  align-items: start;
+}
+
+.pflege-cookie-settings__main-top,
+.pflege-cookie-settings__main-bottom {
+  min-width: 0;
+  max-width: var(--pcs-copy);
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media screen and (min-width: 990px) {
+  .pflege-cookie-settings__layout {
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 320px);
+    grid-template-areas:
+      'main-top aside'
+      'main-bottom aside';
+    gap: clamp(2.25rem, 4vw, 3.5rem);
+    max-width: min(72rem, 100%);
+    margin: 0 auto;
+  }
+
+  .pflege-cookie-settings__main-top {
+    grid-area: main-top;
+    max-width: none;
+    margin: 0;
+  }
+
+  .pflege-cookie-settings__main-bottom {
+    grid-area: main-bottom;
+    max-width: none;
+    margin: 0;
+  }
+
+  .pflege-cookie-settings__aside {
+    grid-area: aside;
+  }
+}
+
+/* Intro */
+.pflege-cookie-settings__intro {
+  margin: 0 0 clamp(1.75rem, 3vw, 2.35rem);
+  padding: clamp(1.35rem, 2.5vw, 1.85rem) clamp(1.5rem, 3vw, 2rem);
+  border-radius: var(--pcs-radius-lg);
+  border: 1px solid var(--pcs-border-soft);
+  background: linear-gradient(165deg, var(--pcs-card) 0%, var(--pcs-soft) 100%);
+  box-shadow: 0 2px 14px rgba(15, 45, 84, 0.05);
+}
+
+.pflege-cookie-settings__intro p {
+  margin: 0 0 1rem;
+  font-size: clamp(1.06rem, 0.98rem + 0.25vw, 1.2rem);
+  line-height: 1.6;
+  color: var(--pcs-text);
+}
+
+.pflege-cookie-settings__intro p:last-child {
+  margin-bottom: 0;
+}
+
+.pflege-cookie-settings__lead {
+  font-size: clamp(1.12rem, 1rem + 0.35vw, 1.28rem) !important;
+  line-height: 1.55 !important;
+  color: var(--pcs-navy) !important;
+}
+
+.pflege-cookie-settings__intro strong {
+  color: var(--pcs-navy);
+  font-weight: 700;
+}
+
+.pflege-cookie-settings__intro a {
+  color: var(--pcs-petrol);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.14em;
+}
+
+/* Status */
+.pflege-cookie-settings__status {
+  padding: clamp(1rem, 2vw, 1.2rem) clamp(1.15rem, 2.5vw, 1.4rem);
+  border-radius: var(--pcs-radius-card);
+  margin-bottom: clamp(1.5rem, 3vw, 2rem);
+  font-size: clamp(1rem, 0.96rem + 0.12vw, 1.08rem);
+  line-height: 1.55;
+}
+
+.pflege-cookie-settings__status[hidden] {
+  display: none;
+}
+
+.pflege-cookie-settings__status--success {
+  background: #eaf5ee;
+  border: 1px solid #b9d9c3;
+  color: #1f5235;
+}
+
+.pflege-cookie-settings__status--error {
+  background: #fdecea;
+  border: 1px solid #f3c1bb;
+  color: #5c201a;
+}
+
+.pflege-cookie-settings__status--info {
+  background: var(--pcs-soft);
+  border: 1px solid var(--pcs-border);
+  color: var(--pcs-navy);
+}
+
+/* Abschnitte */
+.pflege-cookie-settings__block {
+  margin-bottom: clamp(2rem, 4vw, 2.85rem);
+}
+
+.pflege-cookie-settings__section-title {
+  margin: 0 0 clamp(1.1rem, 2vw, 1.45rem);
+  font-family: var(--pflege-font-display, var(--font-body-family, inherit));
+  font-size: clamp(1.28rem, 1.1rem + 0.5vw, 1.55rem);
+  font-weight: var(--pflege-home-section-heading-weight, 800);
+  line-height: 1.28;
+  letter-spacing: -0.02em;
+  color: var(--pcs-petrol);
+}
+
+/* Kategorien-Karten */
+.pflege-cookie-settings__categories {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 2vw, 1.25rem);
+  margin: 0;
+}
+
+.pflege-cookie-settings__card {
+  padding: clamp(1.35rem, 2.5vw, 1.75rem) clamp(1.4rem, 2.8vw, 1.9rem);
+  border: 1px solid var(--pcs-border);
+  border-radius: var(--pcs-radius-lg);
+  background: var(--pcs-card);
+  box-shadow: 0 2px 14px rgba(15, 45, 84, 0.06);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pflege-cookie-settings__card:hover {
+  border-color: var(--pcs-border-soft);
+}
+
+.pflege-cookie-settings__card--locked {
+  background: linear-gradient(180deg, var(--pcs-soft) 0%, var(--pcs-panel) 100%);
+  border-color: var(--pcs-border-soft);
+  box-shadow: none;
+}
+
+.pflege-cookie-settings__card-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: clamp(1rem, 2vw, 1.35rem);
+}
+
+.pflege-cookie-settings__card-copy {
+  flex: 1 1 min(100%, 14rem);
+  min-width: 0;
+}
+
+.pflege-cookie-settings__card-title {
+  margin: 0 0 0.45rem;
+  font-family: var(--pflege-font-display, var(--font-body-family, inherit));
+  font-size: clamp(1.12rem, 1.02rem + 0.3vw, 1.28rem);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--pcs-petrol);
+}
+
+.pflege-cookie-settings__card-text {
+  margin: 0;
+  max-width: 42rem;
+  font-size: clamp(1rem, 0.96rem + 0.12vw, 1.08rem);
+  line-height: 1.58;
+  color: var(--pcs-muted);
+}
+
+.pflege-cookie-settings__badge {
+  flex-shrink: 0;
+  align-self: flex-start;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--pflege-radius-pill, 999px);
+  font-size: clamp(0.78rem, 0.74rem + 0.08vw, 0.86rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--pcs-petrol);
+  background: var(--pcs-icon-bg);
+  border: 1px solid var(--pcs-border-soft);
+}
+
+/* Schalter (PflegeShop-Stil) */
+.pflege-cookie-settings__switch {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  flex-shrink: 0;
+  cursor: pointer;
+  user-select: none;
+}
+
+.pflege-cookie-settings__switch input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.pflege-cookie-settings__switch-ui {
+  position: relative;
+  display: block;
+  width: 3.25rem;
+  height: 1.85rem;
+  border-radius: var(--pflege-radius-pill, 999px);
+  background: #c5d4e8;
+  transition: background 0.22s ease;
+}
+
+.pflege-cookie-settings__switch-ui::after {
+  content: '';
+  position: absolute;
+  top: 0.2rem;
+  left: 0.2rem;
+  width: 1.45rem;
+  height: 1.45rem;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(11, 35, 71, 0.18);
+  transition: transform 0.22s ease;
+}
+
+.pflege-cookie-settings__switch input:checked + .pflege-cookie-settings__switch-ui {
+  background: var(--pcs-petrol);
+}
+
+.pflege-cookie-settings__switch input:checked + .pflege-cookie-settings__switch-ui::after {
+  transform: translateX(1.4rem);
+}
+
+.pflege-cookie-settings__switch input:focus-visible + .pflege-cookie-settings__switch-ui {
+  outline: 2px solid var(--pcs-accent);
+  outline-offset: 3px;
+}
+
+.pflege-cookie-settings__switch-label {
+  font-size: clamp(0.82rem, 0.78rem + 0.08vw, 0.9rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--pcs-navy);
+}
+
+/* Sticky Aktionskarte */
+.pflege-cookie-settings__aside {
+  min-width: 0;
+}
+
+@media screen and (min-width: 990px) {
+  .pflege-cookie-settings__aside {
+    position: sticky;
+    top: clamp(5rem, 8vw, 7rem);
+  }
+}
+
+.pflege-cookie-settings__actions-card {
+  padding: clamp(1.35rem, 2.5vw, 1.75rem);
+  border: 1px solid var(--pcs-border);
+  border-radius: var(--pcs-radius-lg);
+  background: linear-gradient(180deg, var(--pcs-card) 0%, var(--pcs-panel) 100%);
+  box-shadow: 0 4px 22px rgba(15, 45, 84, 0.08);
+}
+
+.pflege-cookie-settings__actions-lead {
+  margin: 0 0 clamp(1.15rem, 2vw, 1.4rem);
+  font-size: clamp(1rem, 0.96rem + 0.12vw, 1.06rem);
+  line-height: 1.55;
+  color: var(--pcs-muted);
+}
+
+.pflege-cookie-settings__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.pflege-cookie-settings__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--pcs-radius-card);
+  border: none;
+  font-family: inherit;
+  font-size: clamp(1rem, 0.96rem + 0.12vw, 1.06rem);
+  font-weight: 700;
+  line-height: 1.25;
+  cursor: pointer;
+  transition: filter 0.2s ease, background 0.2s ease, transform 0.15s ease;
+}
+
+.pflege-cookie-settings__btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.pflege-cookie-settings__btn--primary {
+  color: #fff;
+  background: var(--pcs-petrol);
+  box-shadow: 0 4px 14px rgba(15, 79, 105, 0.22);
+}
+
+.pflege-cookie-settings__btn--primary:hover:not(:disabled),
+.pflege-cookie-settings__btn--primary:focus-visible {
+  filter: brightness(0.94);
+  outline: 2px solid var(--pcs-accent);
+  outline-offset: 3px;
+}
+
+.pflege-cookie-settings__btn--cta {
+  color: #fff;
+  background: var(--pcs-cta);
+  box-shadow: 0 4px 14px rgba(248, 151, 56, 0.28);
+}
+
+.pflege-cookie-settings__btn--cta:hover:not(:disabled),
+.pflege-cookie-settings__btn--cta:focus-visible {
+  background: var(--pcs-cta-hover);
+  outline: 2px solid var(--pcs-accent);
+  outline-offset: 3px;
+}
+
+.pflege-cookie-settings__btn--ghost {
+  color: var(--pcs-petrol);
+  background: var(--pcs-card);
+  border: 2px solid var(--pcs-petrol);
+}
+
+.pflege-cookie-settings__btn--ghost:hover:not(:disabled),
+.pflege-cookie-settings__btn--ghost:focus-visible {
+  background: var(--pcs-soft);
+  outline: 2px solid var(--pcs-accent);
+  outline-offset: 3px;
+}
+
+@media screen and (max-width: 989px) and (min-width: 640px) {
+  .pflege-cookie-settings__actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .pflege-cookie-settings__btn {
+    flex: 1 1 calc(50% - 0.375rem);
+    width: auto;
+  }
+
+  .pflege-cookie-settings__btn--primary {
+    flex: 1 1 100%;
+  }
+}
+
+/* FAQ */
+.pflege-cookie-settings__faq-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.2rem);
+}
+
+.pflege-cookie-settings__faq-item {
+  padding: clamp(1.2rem, 2.5vw, 1.5rem) clamp(1.3rem, 2.8vw, 1.65rem);
+  border: 1px solid var(--pcs-border);
+  border-radius: var(--pcs-radius-lg);
+  background: var(--pcs-soft);
+}
+
+.pflege-cookie-settings__faq-q {
+  margin: 0 0 0.5rem;
+  font-family: var(--pflege-font-display, var(--font-body-family, inherit));
+  font-size: clamp(1.06rem, 1rem + 0.2vw, 1.16rem);
+  font-weight: 800;
+  line-height: 1.3;
+  color: var(--pcs-petrol);
+}
+
+.pflege-cookie-settings__faq-a {
+  margin: 0;
+  font-size: clamp(1rem, 0.96rem + 0.1vw, 1.06rem);
+  line-height: 1.58;
+  color: var(--pcs-text);
+}
+
+.pflege-cookie-settings__faq-a a {
+  color: var(--pcs-petrol);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.14em;
+}
+
+.pflege-cookie-settings__fineprint {
+  margin: 0;
+  padding-top: clamp(0.5rem, 1.5vw, 1rem);
+  font-size: clamp(0.94rem, 0.9rem + 0.1vw, 1.02rem);
+  line-height: 1.58;
+  color: var(--pcs-muted);
+}
+
+.pflege-cookie-settings__fineprint a {
+  color: var(--pcs-petrol);
+  font-weight: 600;
+}

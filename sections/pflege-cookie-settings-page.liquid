@@ -1,0 +1,103 @@
+{{ 'section-pflege-cookie-settings.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'pflege-cookie-consent.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'pflege-cookie-settings.js' | asset_url }}" defer="defer"></script>
+
+{% comment %}
+  Cookie-Einstellungen: /pages/cookie-einstellungen — Admin-Seite mit Vorlage „cookie-einstellungen“.
+  Inhalt aus Theme; Seiteninhalt im Admin leer lassen.
+{% endcomment %}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section
+  class="pflege-cookie-settings color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding"
+  aria-labelledby="pflege-cookie-settings-heading"
+  data-pflege-cookie-settings
+>
+  <div class="pflege-cookie-settings__shell">
+    <header class="pflege-cookie-settings__header">
+      <p class="pflege-cookie-settings__eyebrow">Datenschutz</p>
+      <h1 id="pflege-cookie-settings-heading" class="pflege-cookie-settings__title">
+        {%- if page != blank and page.title != blank -%}
+          {{ page.title | escape }}
+        {%- else -%}
+          {{ section.settings.title_fallback | escape }}
+        {%- endif -%}
+      </h1>
+      {%- if section.settings.show_page_intro and page != blank and page.content != blank -%}
+        <div class="pflege-cookie-settings__intro rte">{{ page.content }}</div>
+      {%- endif -%}
+    </header>
+
+    {% render 'pflege-cookie-settings-content' %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cookie-Einstellungen",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Farbschema",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "title_fallback",
+      "label": "Titel (Fallback)",
+      "default": "Cookie-Einstellungen"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_page_intro",
+      "label": "Admin-Seiteninhalt oberhalb anzeigen",
+      "default": false,
+      "info": "Normalerweise leer lassen — Text kommt aus dem Theme."
+    },
+    {
+      "type": "header",
+      "content": "Abstand"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Abstand oben",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Abstand unten",
+      "default": 88
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cookie-Einstellungen"
+    }
+  ]
+}
+{% endschema %}
