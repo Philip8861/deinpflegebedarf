@@ -70,12 +70,6 @@
   <script>
     window.location.replace({{ pflege_ratgeber_ext | json }});
   </script>
-{%- elsif request.page_type == 'page' and page.handle == 'pflegeratgeber' -%}
-  <link rel="canonical" href="{{ pflege_ratgeber_ext | escape }}">
-  <meta http-equiv="refresh" content="0;url={{ pflege_ratgeber_ext | escape }}">
-  <script>
-    window.location.replace({{ pflege_ratgeber_ext | json }});
-  </script>
 {%- elsif request.page_type == 'page' and page.handle == 'datenschutz' -%}
   <link rel="canonical" href="{{ pflege_datenschutz_page_url | escape }}">
   <meta http-equiv="refresh" content="0;url={{ pflege_datenschutz_page_url | escape }}">

@@ -1,0 +1,64 @@
+{% comment %}
+  Ratgeber-Brückenseite — Markup (Section + Fallback)
+  Erwartet: bridge_id, heading, subtitle, url, label, body_html (optional)
+{% endcomment %}
+{%- liquid
+  assign bridge_id = bridge_id | default: 'pflege-ratgeber'
+  if heading == blank
+    assign heading = page.title | default: 'Ratgeber'
+  endif
+  if subtitle == blank
+    assign subtitle = 'Tipps, Orientierung und fundierte Texte rund um Pflege und Alltag – kuratiert von Ihrer Alltagshilfe Süd.'
+  endif
+  if url == blank
+    assign url = 'https://www.alltagshilfe-sued.de/ratgeber'
+  endif
+  if label == blank
+    assign label = 'Zum Ratgeber'
+  endif
+-%}
+
+<div class="pflege-ratgeber-bridge__band">
+  <div class="pflege-ratgeber-bridge__inner">
+    <div class="pflege-ratgeber-bridge__card">
+      <div class="pflege-ratgeber-bridge__card-inner">
+        <h1 id="pflege-ratgeber-title-{{ bridge_id }}" class="pflege-ratgeber-bridge__title">
+          {{ heading | escape }}
+        </h1>
+
+        <figure class="pflege-ratgeber-bridge__figure">
+          <img
+            class="pflege-ratgeber-bridge__image"
+            src="{{ 'ratgeber.webp' | asset_url }}"
+            alt="Ratgeber — Pflegetipps und Orientierung von Alltagshilfe Süd"
+            width="640"
+            height="360"
+            loading="lazy"
+            decoding="async"
+          >
+        </figure>
+
+        <p class="pflege-ratgeber-bridge__subtitle">{{ subtitle | escape }}</p>
+
+        {%- if body_html != blank -%}
+          <div class="pflege-ratgeber-bridge__rte rte">{{ body_html }}</div>
+        {%- endif -%}
+
+        <a
+          class="pflege-ratgeber-bridge__cta"
+          href="{{ url | escape }}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span>{{ label | escape }}</span>
+          <span class="pflege-ratgeber-bridge__cta-arrow" aria-hidden="true">→</span>
+        </a>
+
+        <p class="pflege-ratgeber-bridge__note">
+          <span class="pflege-ratgeber-bridge__host">{{ url | escape }}</span>
+          · öffnet in einem neuen Tab
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

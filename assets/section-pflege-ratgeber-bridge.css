@@ -1,5 +1,17 @@
 /* PflegeShop — Brückenseite zum Ratgeber alltagshilfe-sued.de */
 
+.pflege-ratgeber-bridge--page-pad {
+  padding-top: 48px;
+  padding-bottom: 64px;
+}
+
+@media screen and (min-width: 750px) {
+  .pflege-ratgeber-bridge--page-pad {
+    padding-top: 64px;
+    padding-bottom: 80px;
+  }
+}
+
 .pflege-ratgeber-bridge {
   --prb-navy: var(--pflege-navy, #0b2347);
   --prb-accent: var(--pflege-accent, #3f86d9);
@@ -23,7 +35,7 @@
 
 .pflege-ratgeber-bridge__inner {
   width: 100%;
-  max-width: min(42rem, 100%);
+  max-width: min(52rem, 100%);
   margin: 0 auto;
 }
 
@@ -57,26 +69,28 @@
   text-align: center;
 }
 
-.pflege-ratgeber-bridge__badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 4.25rem;
-  height: 4.25rem;
-  margin: 0 auto 1.25rem;
-  border-radius: 18px;
-  background: linear-gradient(145deg, rgba(63, 134, 217, 0.18), rgba(63, 134, 217, 0.06));
-  color: var(--prb-accent);
-  border: 1px solid rgba(63, 134, 217, 0.22);
-}
-
 .pflege-ratgeber-bridge__title {
-  margin: 0 0 0.65rem;
+  margin: 0 0 clamp(1rem, 2.5vw, 1.35rem);
   font-size: clamp(1.85rem, 4.2vw, 2.45rem);
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: -0.03em;
   color: var(--prb-navy);
+}
+
+.pflege-ratgeber-bridge__figure {
+  margin: 0 auto clamp(1.15rem, 2.5vw, 1.5rem);
+  max-width: min(36rem, 100%);
+}
+
+.pflege-ratgeber-bridge__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--pflege-radius-lg, 22px);
+  border: 1px solid rgba(63, 134, 217, 0.16);
+  box-shadow: 0 8px 28px -12px rgba(11, 35, 71, 0.18);
+  object-fit: cover;
 }
 
 .pflege-ratgeber-bridge__subtitle {

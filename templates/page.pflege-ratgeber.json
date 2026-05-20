@@ -1,14 +1,25 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "main": {
-      "type": "main-page",
+    "pflege_ratgeber": {
+      "type": "pflege-ratgeber-bridge",
       "settings": {
-        "padding_top": 12,
-        "padding_bottom": 12
+        "heading": "Ratgeber",
+        "subtitle": "Tipps, Orientierung und fundierte Texte rund um Pflege und Alltag – kuratiert von Ihrer Alltagshilfe Süd.",
+        "external_url": "https://www.alltagshilfe-sued.de/ratgeber",
+        "button_label": "Zum Ratgeber",
+        "padding_top": 64,
+        "padding_bottom": 80
       }
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["pflege_ratgeber"]
 }

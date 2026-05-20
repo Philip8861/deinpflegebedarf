@@ -1,88 +1,33 @@
 {%- comment -%}
-  Brückenseite: leitet Besucher freundlich zum Ratgeber auf alltagshilfe-sued.de.
-  Template: page.pflege-ratgeber — Seite im Admin anlegen, Handle z. B. „pflegeratgeber“.
+  Brückenseite: leitet Besucher zum Ratgeber auf alltagshilfe-sued.de.
+  Template: page.pflege-ratgeber — Admin-Seite Handle z. B. „pflegeratgeber“.
 {%- endcomment -%}
 {{ 'section-pflege-ratgeber-bridge.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
   assign heading = section.settings.heading | strip
-  if heading == blank
-    assign heading = page.title | default: 'Pflegeratgeber'
-  endif
-
   assign sub = section.settings.subtitle | strip
-  if sub == blank
-    assign sub = 'Tipps, Orientierung und fundierte Texte rund um Pflege und Alltag – kuratiert von Ihrer Alltagshilfe Süd.'
-  endif
-
   assign url = section.settings.external_url | strip
-  if url == blank
-    assign url = 'https://www.alltagshilfe-sued.de/ratgeber'
-  endif
-
   assign label = section.settings.button_label | strip
-  if label == blank
-    assign label = 'Zum Pflegeratgeber'
-  endif
 -%}
 
 <section
-  class="pflege-ratgeber-bridge section-{{ section.id }}-padding"
+  class="pflege-ratgeber-bridge pflege-ratgeber-bridge--page-pad"
   aria-labelledby="pflege-ratgeber-title-{{ section.id }}"
 >
-  {%- style -%}
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-    }
-    @media screen and (min-width: 750px) {
-      .section-{{ section.id }}-padding {
-        padding-top: {{ section.settings.padding_top }}px;
-        padding-bottom: {{ section.settings.padding_bottom }}px;
-      }
-    }
-  {%- endstyle -%}
-
-  <div class="pflege-ratgeber-bridge__band">
-    <div class="pflege-ratgeber-bridge__inner">
-      <div class="pflege-ratgeber-bridge__card">
-        <div class="pflege-ratgeber-bridge__card-inner">
-          <div class="pflege-ratgeber-bridge__badge" aria-hidden="true">
-            {% render 'pflege-icon', icon: 'document', width: 34 %}
-          </div>
-
-          <h1 id="pflege-ratgeber-title-{{ section.id }}" class="pflege-ratgeber-bridge__title">
-            {{ heading | escape }}
-          </h1>
-          <p class="pflege-ratgeber-bridge__subtitle">{{ sub | escape }}</p>
-
-          {%- if section.settings.body != blank -%}
-            <div class="pflege-ratgeber-bridge__rte rte">{{ section.settings.body }}</div>
-          {%- endif -%}
-
-          <a
-            class="pflege-ratgeber-bridge__cta"
-            href="{{ url | escape }}"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span>{{ label | escape }}</span>
-            <span class="pflege-ratgeber-bridge__cta-arrow" aria-hidden="true">→</span>
-          </a>
-
-          <p class="pflege-ratgeber-bridge__note">
-            <span class="pflege-ratgeber-bridge__host">{{ url | escape }}</span>
-            · öffnet in einem neuen Tab
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
+  {% render 'pflege-ratgeber-bridge-view',
+    bridge_id: section.id,
+    heading: heading,
+    subtitle: sub,
+    url: url,
+    label: label,
+    body_html: section.settings.body
+  %}
 </section>
 
 {% schema %}
 {
-  "name": "Pflegeratgeber (extern)",
+  "name": "Ratgeber (extern)",
   "tag": "section",
   "class": "section",
   "settings": [
@@ -90,7 +35,7 @@
       "type": "text",
       "id": "heading",
       "label": "Überschrift",
-      "default": "Pflegeratgeber"
+      "default": "Ratgeber"
     },
     {
       "type": "textarea",
@@ -114,7 +59,7 @@
       "type": "text",
       "id": "button_label",
       "label": "Button-Text",
-      "default": "Zum Pflegeratgeber"
+      "default": "Zum Ratgeber"
     },
     {
       "type": "header",
@@ -128,7 +73,7 @@
       "step": 4,
       "unit": "px",
       "label": "Padding oben",
-      "default": 36
+      "default": 64
     },
     {
       "type": "range",
@@ -138,12 +83,12 @@
       "step": 4,
       "unit": "px",
       "label": "Padding unten",
-      "default": 48
+      "default": 80
     }
   ],
   "presets": [
     {
-      "name": "Pflegeratgeber (extern)"
+      "name": "Ratgeber (extern)"
     }
   ]
 }

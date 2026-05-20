@@ -1,0 +1,16 @@
+{% comment %} Fallback, wenn die Seite die Standard-Vorlage „page“ nutzt. {% endcomment %}
+{{ 'section-pflege-ratgeber-bridge.css' | asset_url | stylesheet_tag }}
+
+<section
+  class="pflege-ratgeber-bridge pflege-ratgeber-bridge--page-pad"
+  aria-labelledby="pflege-ratgeber-title-fallback"
+>
+  {% render 'pflege-ratgeber-bridge-view',
+    bridge_id: 'fallback',
+    heading: 'Ratgeber',
+    subtitle: 'Tipps, Orientierung und fundierte Texte rund um Pflege und Alltag – kuratiert von Ihrer Alltagshilfe Süd.',
+    url: 'https://www.alltagshilfe-sued.de/ratgeber',
+    label: 'Zum Ratgeber',
+    body_html: ''
+  %}
+</section>
