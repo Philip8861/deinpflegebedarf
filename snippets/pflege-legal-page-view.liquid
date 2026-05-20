@@ -19,6 +19,9 @@
               {{ legal_title_fallback | escape }}
             {%- endif -%}
           </h1>
+          {%- if legal_meta_date != blank -%}
+            <p class="pflege-legal__stand">Stand: {{ legal_meta_date | escape }}</p>
+          {%- endif -%}
         </header>
 
         <div class="pflege-legal__content rte">

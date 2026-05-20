@@ -5,11 +5,7 @@
 
   assign url_agb = root | append: 'pages/agb'
 
-  if shop.privacy_policy != blank and shop.privacy_policy.url != blank
-    assign url_datenschutz = shop.privacy_policy.url
-  else
-    assign url_datenschutz = root | append: 'pages/datenschutz'
-  endif
+  assign url_datenschutz = root | append: 'pages/datenschutz'
 
   assign url_widerruf = root | append: 'pages/widerrufsrecht'
   assign url_impressum = root | append: 'pages/impressum'
@@ -33,20 +29,31 @@
   assign legal_related_title = section.settings.related_title
   assign legal_plain = false
   assign legal_use_impressum_defaults = false
+  assign legal_use_agb_defaults = false
+
   if current_handle == 'impressum'
     assign legal_use_impressum_defaults = true
     assign legal_plain = true
-  endif
-  if current_handle == 'agb'
+  elsif current_handle == 'agb'
     assign legal_use_agb_defaults = true
+    assign legal_plain = true
+  elsif current_handle == 'widerrufsrecht' or current_handle contains 'widerruf'
+    assign legal_plain = true
+  elsif current_handle == 'datenschutz' or current_handle contains 'datenschutz'
     assign legal_plain = true
   endif
 
-  if legal_title_fallback == blank and current_handle == 'impressum'
-    assign legal_title_fallback = 'Impressum'
-  endif
-  if legal_title_fallback == blank and current_handle == 'agb'
-    assign legal_title_fallback = 'Allgemeine Geschäftsbedingungen'
+  if legal_title_fallback == blank
+    case current_handle
+      when 'impressum'
+        assign legal_title_fallback = 'Impressum'
+      when 'agb'
+        assign legal_title_fallback = 'Allgemeine Geschäftsbedingungen'
+      when 'widerrufsrecht'
+        assign legal_title_fallback = 'Widerrufsrecht'
+      when 'datenschutz'
+        assign legal_title_fallback = 'Datenschutzerklärung'
+    endcase
   endif
 
   assign legal_body_html = section.settings.body_text

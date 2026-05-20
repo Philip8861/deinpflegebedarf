@@ -7,9 +7,6 @@
 
 {%- liquid
   assign url_privacy = routes.root_url | append: 'pages/datenschutz'
-  if shop.privacy_policy != blank and shop.privacy_policy.url != blank
-    assign url_privacy = shop.privacy_policy.url
-  endif
 
   assign url_agb = routes.root_url | append: 'pages/agb'
 
