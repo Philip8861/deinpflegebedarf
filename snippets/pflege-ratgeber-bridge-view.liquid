@@ -43,12 +43,7 @@
           </p>
 
           <h1 id="pflege-ratgeber-title-{{ bridge_id }}" class="pflege-ratgeber-bridge__title">
-            {%- if heading == 'Alltagshilfe-Süd Ratgeber' -%}
-              <span class="pflege-ratgeber-bridge__title-line">Alltagshilfe-Süd</span>
-              <span class="pflege-ratgeber-bridge__title-line">Ratgeber</span>
-            {%- else -%}
-              {{ heading | escape }}
-            {%- endif -%}
+            {{ heading | escape }}
           </h1>
 
           <p class="pflege-ratgeber-bridge__lead">{{ lead | escape }}</p>
