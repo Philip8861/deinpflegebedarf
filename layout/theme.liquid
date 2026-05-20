@@ -404,11 +404,11 @@
           assign contact_handle = page.handle | downcase
           if contact_handle == 'kontakt' or contact_handle == 'contact'
             assign show_pflege_footer_stack = false
-          elsif contact_handle == 'impressum' or contact_handle == 'agb' or contact_handle == 'widerrufsrecht' or contact_handle contains 'widerruf' or contact_handle == 'datenschutz' or contact_handle == 'datenschutzerklärung' or contact_handle == 'datenschutzerklaerung' or contact_handle contains 'datenschutz'
+          elsif contact_handle == 'impressum' or contact_handle == 'agb' or contact_handle == 'widerrufsrecht' or contact_handle contains 'widerruf' or contact_handle == 'datenschutz' or contact_handle == 'datenschutzerklärung' or contact_handle == 'datenschutzerklaerung' or contact_handle contains 'datenschutz' or contact_handle == 'cookie-einstellungen' or contact_handle contains 'cookie'
             assign show_pflege_footer_stack = false
           endif
         endif
-        if template.suffix == 'impressum' or template.suffix == 'agb' or template.suffix == 'widerrufsrecht' or template.suffix == 'widerrufsbelehrung' or template.suffix == 'datenschutz' or template.suffix == 'datenschutzerklaerung'
+        if template.suffix == 'impressum' or template.suffix == 'agb' or template.suffix == 'widerrufsrecht' or template.suffix == 'widerrufsbelehrung' or template.suffix == 'datenschutz' or template.suffix == 'datenschutzerklaerung' or template.suffix == 'cookie-einstellungen'
           assign show_pflege_footer_stack = false
         endif
       endif

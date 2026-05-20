@@ -1,0 +1,17 @@
+{% comment %} Fallback, wenn die Seite im Admin die Standard-Vorlage „page“ nutzt. {% endcomment %}
+{{ 'section-pflege-cookie-settings.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'pflege-cookie-consent.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'pflege-cookie-settings.js' | asset_url }}" defer="defer"></script>
+
+<section
+  class="pflege-cookie-settings color-scheme-1 gradient section-padding"
+  aria-labelledby="pflege-cookie-settings-heading"
+  data-pflege-cookie-settings
+>
+  <div class="pflege-cookie-settings__shell">
+    <header class="pflege-cookie-settings__header">
+      <h1 id="pflege-cookie-settings-heading" class="pflege-cookie-settings__title">Cookie-Einstellungen</h1>
+    </header>
+    {% render 'pflege-cookie-settings-content' %}
+  </div>
+</section>

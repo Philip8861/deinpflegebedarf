@@ -11,6 +11,8 @@
       assign pflege_404_legal = 'agb'
     when '/pages/datenschutz', '/pages/datenschutzerklärung', '/pages/datenschutzerklaerung'
       assign pflege_404_legal = 'datenschutz'
+    when '/pages/cookie-einstellungen'
+      assign pflege_404_legal = 'cookies'
   endcase
 -%}
 
@@ -24,6 +26,8 @@
       {% render 'pflege-legal-agb-fallback' %}
     {%- when 'datenschutz' -%}
       {% render 'pflege-legal-datenschutz-fallback' %}
+    {%- when 'cookies' -%}
+      {% render 'pflege-cookie-settings-fallback' %}
   {%- endcase -%}
 {%- else -%}
   <style type="text/css">

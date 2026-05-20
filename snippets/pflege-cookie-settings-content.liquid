@@ -1,0 +1,129 @@
+{% comment %}
+  Inhalt Cookie-Einstellungen — Kategorien, Toggles, Aktionen (JS: pflege-cookie-settings.js)
+{% endcomment %}
+{%- liquid
+  assign url_privacy = routes.root_url | append: 'pages/datenschutzerklaerung'
+  assign shop_name = shop.name | default: 'deinpflegebedarf.de'
+-%}
+
+<div class="pflege-cookie-settings__intro" id="pflege-cookie-settings-intro">
+  <p>
+    Auf <strong>{{ shop_name | escape }}</strong> setzen wir Cookies und vergleichbare Technologien ein. Hier können Sie
+    festlegen, welche optionalen Kategorien wir verwenden dürfen. Technisch notwendige Cookies sind für den Betrieb des
+    Shops erforderlich und lassen sich nicht deaktivieren.
+  </p>
+  <p>
+    Ihre Wahl gilt für diesen Browser bzw. dieses Gerät, bis Sie sie ändern oder Cookies löschen. Ausführliche
+    Informationen zur Verarbeitung personenbezogener Daten finden Sie in unserer
+    <a href="{{ url_privacy }}">Datenschutzerklärung</a>.
+  </p>
+</div>
+
+<div
+  class="pflege-cookie-settings__status pflege-cookie-settings__status--info"
+  data-pflege-cookie-status
+  hidden
+  tabindex="-1"
+></div>
+
+<div class="pflege-cookie-settings__categories" role="group" aria-labelledby="pflege-cookie-categories-heading">
+  <h2 id="pflege-cookie-categories-heading" class="visually-hidden">Cookie-Kategorien</h2>
+
+  <article class="pflege-cookie-settings__card pflege-cookie-settings__card--locked">
+    <div class="pflege-cookie-settings__card-head">
+      <h3 class="pflege-cookie-settings__card-title">Technisch notwendig</h3>
+      <span class="pflege-cookie-settings__badge">Immer aktiv</span>
+    </div>
+    <p class="pflege-cookie-settings__card-text">
+      Diese Cookies sind für grundlegende Funktionen erforderlich — z.&nbsp;B. Warenkorb, Checkout, Sicherheit,
+      Sprache und die Speicherung Ihrer Cookie-Einwilligung. Ohne sie ist der Shop nicht nutzbar.
+    </p>
+    <label class="pflege-cookie-settings__toggle">
+      <input type="checkbox" checked disabled aria-label="Technisch notwendige Cookies — immer aktiv">
+      <span class="pflege-cookie-settings__toggle-label">Aktiv</span>
+    </label>
+  </article>
+
+  <article class="pflege-cookie-settings__card">
+    <div class="pflege-cookie-settings__card-head">
+      <h3 class="pflege-cookie-settings__card-title">Funktional / Präferenzen</h3>
+    </div>
+    <p class="pflege-cookie-settings__card-text">
+      Diese Cookies merken sich Einstellungen und verbessern die Nutzung — z.&nbsp;B. Region, Darstellung oder
+      gespeicherte Präferenzen. Sie sind nicht zwingend erforderlich.
+    </p>
+    <label class="pflege-cookie-settings__toggle">
+      <input type="checkbox" data-pflege-cookie-preferences id="pflege-cookie-preferences">
+      <span class="pflege-cookie-settings__toggle-label">Erlauben</span>
+    </label>
+  </article>
+
+  <article class="pflege-cookie-settings__card">
+    <div class="pflege-cookie-settings__card-head">
+      <h3 class="pflege-cookie-settings__card-title">Analyse / Statistik</h3>
+    </div>
+    <p class="pflege-cookie-settings__card-text">
+      Diese Cookies helfen uns zu verstehen, wie der Shop genutzt wird (z.&nbsp;B. Seitenaufrufe, Herkunft), damit wir
+      Inhalte und Abläufe verbessern können. Daten werden in der Regel pseudonymisiert ausgewertet.
+    </p>
+    <label class="pflege-cookie-settings__toggle">
+      <input type="checkbox" data-pflege-cookie-analytics id="pflege-cookie-analytics">
+      <span class="pflege-cookie-settings__toggle-label" for="pflege-cookie-analytics">Erlauben</span>
+    </label>
+  </article>
+
+  <article class="pflege-cookie-settings__card">
+    <div class="pflege-cookie-settings__card-head">
+      <h3 class="pflege-cookie-settings__card-title">Marketing</h3>
+    </div>
+    <p class="pflege-cookie-settings__card-text">
+      Diese Cookies können für personalisierte Werbung, Remarketing oder die Messung von Werbekampagnen genutzt werden
+      — auch durch Drittanbieter, sofern eingebunden.
+    </p>
+    <label class="pflege-cookie-settings__toggle">
+      <input type="checkbox" data-pflege-cookie-marketing id="pflege-cookie-marketing">
+      <span class="pflege-cookie-settings__toggle-label">Erlauben</span>
+    </label>
+  </article>
+</div>
+
+<div class="pflege-cookie-settings__actions">
+  <button type="button" class="pflege-cookie-settings__btn pflege-cookie-settings__btn--ghost" data-pflege-cookie-essential>
+    Nur notwendige
+  </button>
+  <button type="button" class="pflege-cookie-settings__btn pflege-cookie-settings__btn--cta" data-pflege-cookie-accept-all>
+    Alle akzeptieren
+  </button>
+  <button type="button" class="pflege-cookie-settings__btn pflege-cookie-settings__btn--primary" data-pflege-cookie-save>
+    Auswahl speichern
+  </button>
+</div>
+
+<div class="pflege-cookie-settings__more">
+  <h2 class="pflege-cookie-settings__card-title">Häufige Fragen</h2>
+  <ul class="pflege-cookie-settings__faq-list">
+    <li>
+      <strong>Wie widerrufe ich meine Einwilligung?</strong>
+      Passen Sie die Schalter oben an und klicken Sie auf „Auswahl speichern“, oder wählen Sie „Nur notwendige“. Sie
+      können Ihre Einstellung jederzeit über den Link „Cookie-Einstellungen“ im Footer ändern.
+    </li>
+    <li>
+      <strong>Wie lange wird meine Wahl gespeichert?</strong>
+      Ihre Einwilligung wird für diesen Browser gespeichert, bis Sie sie ändern, Cookies löschen oder die Speicherdauer
+      abläuft (maximal etwa zwölf Monate, sofern nicht früher widerrufen).
+    </li>
+    <li>
+      <strong>Wer ist verantwortlich?</strong>
+      Verantwortlich für die Datenverarbeitung ist die in unserem Impressum genannte Stelle; Details zu Empfängern,
+      Rechtsgrundlagen und Betroffenenrechten stehen in der
+      <a href="{{ url_privacy }}">Datenschutzerklärung</a>.
+    </li>
+  </ul>
+</div>
+
+<p class="pflege-cookie-settings__fineprint">
+  Hinweis: Einige Dienste (z.&nbsp;B. Shopify als Shop-Plattform) setzen technisch notwendige Cookies unabhängig von
+  optionalen Kategorien. Ohne aktivierte Kunden-Datenschutz-Einwilligung in Shopify können Einstellungen hier ggf. nicht
+  übernommen werden — bitte wenden Sie sich dann an uns unter
+  <a href="mailto:info@alltagshilfe-sued.de">info@alltagshilfe-sued.de</a>.
+</p>
