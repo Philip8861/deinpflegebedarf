@@ -11,6 +11,11 @@
     assign url_privacy = shop.privacy_policy.url
   endif
 
+  assign url_agb = routes.root_url | append: 'pages/agb'
+  if shop.terms_of_service != blank and shop.terms_of_service.url != blank
+    assign url_agb = shop.terms_of_service.url
+  endif
+
   assign phone_href = section.settings.phone_link | strip
   if phone_href == blank
     assign phone_href = 'tel:+4983349893330'
@@ -53,33 +58,33 @@
     <div class="pflege-contact-page__grid">
       {%- if section.settings.show_sidebar -%}
         <aside class="pflege-contact-page__aside" aria-label="Kontaktdaten">
-          <div class="pflege-contact-page__info-panel">
-            <h2 class="pflege-contact-page__info-panel-title">
-              {{ section.settings.sidebar_title | default: 'So erreichen Sie uns' | escape }}
-            </h2>
+          <h2 class="pflege-contact-page__aside-title">
+            {{ section.settings.sidebar_title | default: 'So erreichen Sie uns' | escape }}
+          </h2>
 
+          <div class="pflege-contact-page__aside-cards">
             {%- if section.settings.box_hours_title != blank or section.settings.box_hours_text != blank -%}
-              <div class="pflege-contact-page__info-block pflege-contact-page__info-block--hours">
-                <div class="pflege-contact-page__info-block-head">
+              <div class="pflege-contact-page__info-card">
+                <div class="pflege-contact-page__info-card-head">
                   <span class="pflege-contact-page__info-icon" aria-hidden="true">
                     {% render 'pflege-icon', icon: 'clock', width: 22 %}
                   </span>
-                  <h3 class="pflege-contact-page__info-block-title">
+                  <h3 class="pflege-contact-page__info-card-title">
                     {{ section.settings.box_hours_title | default: 'Erreichbarkeit' | escape }}
                   </h3>
                 </div>
                 {%- if section.settings.box_hours_text != blank -%}
-                  <p class="pflege-contact-page__info-text">{{ section.settings.box_hours_text | escape }}</p>
+                  <p class="pflege-contact-page__info-card-text">{{ section.settings.box_hours_text | escape }}</p>
                 {%- endif -%}
               </div>
             {%- endif -%}
 
-            <div class="pflege-contact-page__info-block">
-              <div class="pflege-contact-page__info-block-head">
+            <div class="pflege-contact-page__info-card">
+              <div class="pflege-contact-page__info-card-head">
                 <span class="pflege-contact-page__info-icon" aria-hidden="true">
                   {% render 'pflege-icon', icon: 'headset', width: 22 %}
                 </span>
-                <h3 class="pflege-contact-page__info-block-title">
+                <h3 class="pflege-contact-page__info-card-title">
                   {{ section.settings.box_contact_title | escape }}
                 </h3>
               </div>
@@ -121,8 +126,8 @@
             </div>
 
             {%- if section.settings.box_hint != blank -%}
-              <p class="pflege-contact-page__info-note">
-                <span class="pflege-contact-page__info-note-ic" aria-hidden="true">
+              <p class="pflege-contact-page__info-hint">
+                <span class="pflege-contact-page__info-hint-ic" aria-hidden="true">
                   {% render 'pflege-icon', icon: 'badge-check', width: 18 %}
                 </span>
                 {{ section.settings.box_hint | escape }}
@@ -239,6 +244,37 @@
                 <p class="pflege-contact-page__field-error">{{ form.errors.messages.body }}</p>
               {%- endif -%}
             </div>
+          </div>
+
+          <div class="pflege-contact-page__consent">
+            <label class="pflege-contact-page__consent-label" for="PflegeContact-consent">
+              <input
+                type="checkbox"
+                class="pflege-contact-page__consent-input"
+                id="PflegeContact-consent"
+                name="contact[Einwilligung AGB und Datenschutz]"
+                value="Ja"
+                required
+                aria-required="true"
+              >
+              <span class="pflege-contact-page__consent-box" aria-hidden="true"></span>
+              <span class="pflege-contact-page__consent-text">
+                Ich habe die
+                {%- if url_agb != blank -%}
+                  <a href="{{ url_agb }}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">AGB</a>
+                {%- else -%}
+                  AGB
+                {%- endif -%}
+                und die
+                {%- if url_privacy != blank -%}
+                  <a href="{{ url_privacy }}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">{{ section.settings.privacy_link_text | default: 'Datenschutzerklärung' | escape }}</a>
+                {%- else -%}
+                  Datenschutzerklärung
+                {%- endif -%}
+                gelesen und akzeptiere sie.
+                <abbr title="Pflichtfeld" class="pflege-contact-page__label-hint">*</abbr>
+              </span>
+            </label>
           </div>
 
           <div class="pflege-contact-page__submit-wrap">
@@ -422,8 +458,9 @@
     {
       "type": "checkbox",
       "id": "show_privacy_note",
-      "label": "Hinweis zu Datenschutz anzeigen",
-      "default": true
+      "label": "Zusätzlichen Datenschutz-Hinweis unter dem Button anzeigen",
+      "default": false,
+      "info": "Die Pflicht-Checkbox mit AGB- und Datenschutz-Links ist immer aktiv."
     },
     {
       "type": "textarea",
