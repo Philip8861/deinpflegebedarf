@@ -12,9 +12,6 @@
   endif
 
   assign url_agb = routes.root_url | append: 'pages/agb'
-  if shop.terms_of_service != blank and shop.terms_of_service.url != blank
-    assign url_agb = shop.terms_of_service.url
-  endif
 
   assign phone_href = section.settings.phone_link | strip
   if phone_href == blank

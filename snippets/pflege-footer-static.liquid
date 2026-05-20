@@ -7,11 +7,7 @@
 {%- liquid
   assign root = routes.root_url
 
-  if shop.terms_of_service != blank and shop.terms_of_service.url != blank
-    assign url_agb = shop.terms_of_service.url
-  else
-    assign url_agb = root | append: 'pages/agb'
-  endif
+  assign url_agb = root | append: 'pages/agb'
 
   assign url_impressum = root | append: 'pages/impressum'
 

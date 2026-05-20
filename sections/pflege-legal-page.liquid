@@ -3,11 +3,7 @@
 {%- liquid
   assign root = routes.root_url
 
-  if shop.terms_of_service != blank and shop.terms_of_service.url != blank
-    assign url_agb = shop.terms_of_service.url
-  else
-    assign url_agb = root | append: 'pages/agb'
-  endif
+  assign url_agb = root | append: 'pages/agb'
 
   if shop.privacy_policy != blank and shop.privacy_policy.url != blank
     assign url_datenschutz = shop.privacy_policy.url
@@ -41,15 +37,26 @@
     assign legal_use_impressum_defaults = true
     assign legal_plain = true
   endif
+  if current_handle == 'agb'
+    assign legal_use_agb_defaults = true
+    assign legal_plain = true
+  endif
 
   if legal_title_fallback == blank and current_handle == 'impressum'
     assign legal_title_fallback = 'Impressum'
   endif
+  if legal_title_fallback == blank and current_handle == 'agb'
+    assign legal_title_fallback = 'Allgemeine Geschäftsbedingungen'
+  endif
 
   assign legal_body_html = section.settings.body_text
   assign legal_use_impressum_body = false
+  assign legal_use_agb_body = false
   if legal_body_html == blank and legal_use_impressum_defaults
     assign legal_use_impressum_body = true
+  endif
+  if legal_body_html == blank and legal_use_agb_defaults
+    assign legal_use_agb_body = true
   endif
 
   assign legal_padding_class = 'section-' | append: section.id | append: '-padding'
@@ -95,6 +102,7 @@
   url_datenschutz: url_datenschutz,
   body_html: legal_body_html,
   use_impressum_body: legal_use_impressum_body,
+  use_agb_body: legal_use_agb_body,
   legal_plain: legal_plain
 %}
 

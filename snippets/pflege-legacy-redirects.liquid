@@ -8,6 +8,7 @@
 {%- liquid
   assign pflege_ratgeber_ext = 'https://www.alltagshilfe-sued.de/ratgeber'
   assign pflege_widerruf_page_url = routes.root_url | append: 'pages/widerrufsrecht'
+  assign pflege_agb_page_url = routes.root_url | append: 'pages/agb'
 -%}
 {%- if request.page_type == 'policy' and policy != blank and policy.handle == 'refund-policy' -%}
   <link rel="canonical" href="{{ pflege_widerruf_page_url | escape }}">
@@ -20,6 +21,18 @@
   <meta http-equiv="refresh" content="0;url={{ pflege_widerruf_page_url | escape }}">
   <script>
     window.location.replace({{ pflege_widerruf_page_url | json }});
+  </script>
+{%- elsif request.page_type == 'policy' and policy != blank and policy.handle == 'terms-of-service' -%}
+  <link rel="canonical" href="{{ pflege_agb_page_url | escape }}">
+  <meta http-equiv="refresh" content="0;url={{ pflege_agb_page_url | escape }}">
+  <script>
+    window.location.replace({{ pflege_agb_page_url | json }});
+  </script>
+{%- elsif request.path == '/policies/terms-of-service' -%}
+  <link rel="canonical" href="{{ pflege_agb_page_url | escape }}">
+  <meta http-equiv="refresh" content="0;url={{ pflege_agb_page_url | escape }}">
+  <script>
+    window.location.replace({{ pflege_agb_page_url | json }});
   </script>
 {%- endif -%}
 {%- if request.page_type == 'page' and page.handle == 'pflegewissen' -%}

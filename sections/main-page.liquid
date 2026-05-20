@@ -1,5 +1,7 @@
 {%- if request.page_type == 'page' and page.handle == 'impressum' -%}
   {% render 'pflege-legal-impressum-fallback' %}
+{%- elsif request.page_type == 'page' and page.handle == 'agb' -%}
+  {% render 'pflege-legal-agb-fallback' %}
 {%- else -%}
 {{ 'section-main-page.css' | asset_url | stylesheet_tag }}
 

@@ -29,6 +29,8 @@
             {{ body_html }}
           {%- elsif use_impressum_body -%}
             {% render 'pflege-legal-impressum-body' %}
+          {%- elsif use_agb_body -%}
+            {% render 'pflege-legal-agb-body' %}
           {%- elsif legal_page_body != blank -%}
             {{ page.content }}
           {%- else -%}
