@@ -21,8 +21,8 @@
 }
 
 .pflege-site-footer-stack .pflege-advantages-us__backdrop {
-  padding-top: 0;
-  padding-bottom: 0;
+  padding-top: var(--pflege-advantages-us-pad-block, clamp(3.25rem, 6vw, 5.25rem));
+  padding-bottom: var(--pflege-advantages-us-pad-block, clamp(3.25rem, 6vw, 5.25rem));
 }
 
 /* ——— 2. Kundenstimmen ——— */

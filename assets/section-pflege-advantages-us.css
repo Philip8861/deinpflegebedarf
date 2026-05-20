@@ -13,7 +13,7 @@
 /* Elliptischer Übergang nur nach oben; unten gerade Kante */
 .pflege-advantages-us__backdrop {
   box-sizing: border-box;
-  padding: var(--pflege-section-gap, clamp(2.5rem, 5.5vw, 4rem)) 0;
+  padding: var(--pflege-advantages-us-pad-block, clamp(3.25rem, 6vw, 5.25rem)) 0;
   background: var(--pflege-advantages-us-bg);
   border-radius: var(
     --pflege-backdrop-band-radius-top,

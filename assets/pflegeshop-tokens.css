@@ -64,6 +64,8 @@
   */
   --pflege-section-gap: clamp(2.5rem, 5.5vw, 4rem);
   --pflege-home-section-stack: var(--pflege-section-gap);
+  /* Hellblauer Block „Ihre Vorteile bei uns“ — vertikaler Innenabstand */
+  --pflege-advantages-us-pad-block: clamp(3.25rem, 6vw, 5.25rem);
   /*
     Gemeinsam: Produktfinder-Backdrop & Footer (heller Verlauf, elliptischer Bogen nach oben).
     Vertikaler Ellipsen-Radius auch für Produktfinder-Bogen unten (symmetrisch zum oberen Bogen).
