@@ -46,7 +46,13 @@
   {%- assign faq_q = 'sections.pflege_collection_free_care.faq_15_q' | t -%}
   {%- assign faq_a = 'sections.pflege_collection_free_care.faq_15_a' | t -%}
 {%- endif -%}
-{%- assign item_id = 'pflege-faq-' | append: section_id | append: '-' | append: idx -%}
+{%- liquid
+  assign faq_a_html = faq_a
+  if faq_a_html contains '&lt;'
+    assign faq_a_html = faq_a_html | replace: '&amp;', '&' | replace: '&lt;', '<' | replace: '&gt;', '>' | replace: '&quot;', '"' | replace: '&#39;', "'"
+  endif
+  assign item_id = 'pflege-faq-' | append: section_id | append: '-' | append: idx
+-%}
 {%- assign trigger_id = item_id | append: '-trigger' -%}
 {%- assign panel_id = item_id | append: '-panel' -%}
 <div class="pflege-faq-accordion__item" role="listitem" data-faq-accordion-item id="{{ item_id }}">
@@ -72,10 +78,10 @@
     hidden
   >
     <div class="pflege-faq-accordion__answer rte">
-      {%- if faq_a contains '<' -%}
-        {{ faq_a }}
+      {%- if faq_a_html contains '<' -%}
+        {% echo faq_a_html %}
       {%- else -%}
-        <p>{{ faq_a }}</p>
+        <p>{% echo faq_a_html %}</p>
       {%- endif -%}
     </div>
   </div>

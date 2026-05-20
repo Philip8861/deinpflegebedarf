@@ -189,6 +189,27 @@
   margin-top: 0.7rem;
 }
 
+.pflege-faq-accordion__answer.rte ul,
+.pflege-faq-accordion__answer.rte ol {
+  margin: 0.65rem 0 0;
+  padding-left: 1.4rem;
+}
+
+.pflege-faq-accordion__answer.rte li + li {
+  margin-top: 0.35rem;
+}
+
+.pflege-faq-accordion__answer.rte a {
+  color: #2c6abf;
+  text-decoration: underline;
+  text-underline-offset: 0.14em;
+  font-weight: 500;
+}
+
+.pflege-faq-accordion__answer.rte a:hover {
+  color: #1f4f9a;
+}
+
 .pflege-faq-accordion__answer strong {
   font-weight: 700;
   color: var(--pfa-petrol);
