@@ -386,6 +386,8 @@
     <script src="{{ 'pflege-faq-accordion.js' | asset_url }}" defer></script>
     {% render 'pflege-site-footer-stack' %}
 
+    {%- include 'pflege-feature-flags' -%}
+
     {%- comment -%}
       Footer als Snippet — keine Shopify-Section / kein Theme-Editor-Zwang;
       Inhalt: snippets/pflege-footer-static.liquid
@@ -396,7 +398,7 @@
 
     {% render 'pflege-pflegeboxi-widget' %}
 
-    {%- if template.name == 'index' -%}
+    {%- if pflege_newsletter_popup_enabled and template.name == 'index' -%}
       {% render 'pflege-newsletter-popup' %}
     {%- endif -%}
 
