@@ -31,7 +31,7 @@
 {%- endstyle -%}
 
 <section
-  class="pflege-contact-page color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding"
+  class="pflege-contact-page color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding{% unless section.settings.show_sidebar %} pflege-contact-page--form-only{% endunless %}"
   aria-labelledby="pflege-contact-heading"
 >
   <div class="pflege-contact-page__shell">
@@ -51,6 +51,7 @@
     </header>
 
     <div class="pflege-contact-page__grid">
+      {%- if section.settings.show_sidebar -%}
       <aside class="pflege-contact-page__aside" aria-label="Kontaktdaten">
         {%- if section.settings.box_hours_title != blank or section.settings.box_hours_text != blank -%}
           <div class="pflege-contact-page__card">
@@ -95,6 +96,7 @@
           <p class="pflege-contact-page__hint">{{ section.settings.box_hint }}</p>
         {%- endif -%}
       </aside>
+      {%- endif -%}
 
       <div class="pflege-contact-page__form-card">
         <h2 class="pflege-contact-page__form-title">{{ section.settings.form_title | escape }}</h2>
@@ -266,6 +268,13 @@
       "id": "intro_text",
       "label": "Einleitung (Alternative)",
       "info": "Nur wenn kein Seiteninhalt oder oben deaktiviert."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sidebar",
+      "label": "Kontakt-Karten links anzeigen (Telefon, E-Mail, Erreichbarkeit)",
+      "default": false,
+      "info": "Aus = nur Kontaktformular (empfohlen für /pages/kontakt)."
     },
     {
       "type": "header",
