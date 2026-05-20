@@ -4,12 +4,12 @@
  */
 
 :root {
-  --pflege-section-gap: clamp(2.5rem, 5.5vw, 4rem);
+  --pflege-section-gap: clamp(2rem, 3.5vw, 2.85rem);
 }
 
-/* Abstand zwischen aufeinanderfolgenden Shopify-Sections im Hauptinhalt */
+/* Zwischenraum Sections (kleiner als Section-Padding, sonst doppelt zu viel Luft) */
 body:not(.template-cart) #MainContent > .shopify-section + .shopify-section {
-  margin-top: var(--pflege-section-gap);
+  margin-top: calc(var(--pflege-section-gap) * 0.55);
 }
 
 /* Footer-Stack (Vorteile → Kundenstimmen → FAQ) nach dem Hauptinhalt */

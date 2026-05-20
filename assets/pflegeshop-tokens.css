@@ -59,15 +59,14 @@
   */
   --pflege-hero-tile-max-width: min(100%, 1426px);
   /*
-    Vertikaler Rhythmus zwischen Hauptbereichen (≈ 80–128 px zwischen zwei Blöcken).
-    Summe: padding unten + padding oben der benachbarten Sections.
+    Vertikaler Rhythmus zwischen Hauptbereichen (Mittelwert: nicht zu eng, nicht zu weit).
   */
-  --pflege-section-gap: clamp(2.5rem, 5.5vw, 4rem);
+  --pflege-section-gap: clamp(2rem, 3.5vw, 2.85rem);
   --pflege-home-section-stack: var(--pflege-section-gap);
-  /* Hellblauer Block „Ihre Vorteile bei uns“ — vertikaler Innenabstand */
-  --pflege-advantages-us-pad-block: clamp(3.25rem, 6vw, 5.25rem);
-  /* Heller Block „Häufige Fragen“ — vertikaler Innenabstand (gleicher Rhythmus) */
-  --pflege-faq-pad-block: clamp(3.25rem, 6vw, 5.25rem);
+  /* Hellblauer Block „Ihre Vorteile bei uns“ */
+  --pflege-advantages-us-pad-block: clamp(2.35rem, 4.25vw, 3.65rem);
+  /* Heller Block „Häufige Fragen“ */
+  --pflege-faq-pad-block: clamp(2.35rem, 4.25vw, 3.65rem);
   /*
     Gemeinsam: Produktfinder-Backdrop & Footer (heller Verlauf, elliptischer Bogen nach oben).
     Vertikaler Ellipsen-Radius auch für Produktfinder-Bogen unten (symmetrisch zum oberen Bogen).
