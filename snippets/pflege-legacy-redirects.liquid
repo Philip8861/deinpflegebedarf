@@ -2,9 +2,26 @@
   PflegeShop: Weiterleitungen im &lt;head&gt; (ohne sichtbare Zwischenseite).
   — pflegewissen → https://www.alltagshilfe-sued.de/ratgeber (direkt)
   — pflegeratgeber → dieselbe externe URL
+  — /policies/refund-policy → /pages/widerrufsrecht (eigene Rechtsseite)
   Admin-URL-Weiterleitung zusätzlich möglich (301).
 {%- endcomment -%}
-{%- assign pflege_ratgeber_ext = 'https://www.alltagshilfe-sued.de/ratgeber' -%}
+{%- liquid
+  assign pflege_ratgeber_ext = 'https://www.alltagshilfe-sued.de/ratgeber'
+  assign pflege_widerruf_page_url = routes.root_url | append: 'pages/widerrufsrecht'
+-%}
+{%- if request.page_type == 'policy' and policy != blank and policy.handle == 'refund-policy' -%}
+  <link rel="canonical" href="{{ pflege_widerruf_page_url | escape }}">
+  <meta http-equiv="refresh" content="0;url={{ pflege_widerruf_page_url | escape }}">
+  <script>
+    window.location.replace({{ pflege_widerruf_page_url | json }});
+  </script>
+{%- elsif request.path == '/policies/refund-policy' -%}
+  <link rel="canonical" href="{{ pflege_widerruf_page_url | escape }}">
+  <meta http-equiv="refresh" content="0;url={{ pflege_widerruf_page_url | escape }}">
+  <script>
+    window.location.replace({{ pflege_widerruf_page_url | json }});
+  </script>
+{%- endif -%}
 {%- if request.page_type == 'page' and page.handle == 'pflegewissen' -%}
   <link rel="canonical" href="{{ pflege_ratgeber_ext | escape }}">
   <meta http-equiv="refresh" content="0;url={{ pflege_ratgeber_ext | escape }}">

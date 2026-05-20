@@ -15,11 +15,7 @@
 
   assign url_impressum = root | append: 'pages/impressum'
 
-  if shop.refund_policy != blank and shop.refund_policy.url != blank
-    assign url_widerruf = shop.refund_policy.url
-  else
-    assign url_widerruf = root | append: 'pages/widerrufsrecht'
-  endif
+  assign url_widerruf = root | append: 'pages/widerrufsrecht'
 
   if shop.privacy_policy != blank and shop.privacy_policy.url != blank
     assign url_datenschutz = shop.privacy_policy.url

@@ -16,11 +16,7 @@
     assign url_datenschutz = root | append: 'pages/datenschutz'
   endif
 
-  if shop.refund_policy != blank and shop.refund_policy.url != blank
-    assign url_widerruf = shop.refund_policy.url
-  else
-    assign url_widerruf = root | append: 'pages/widerrufsrecht'
-  endif
+  assign url_widerruf = root | append: 'pages/widerrufsrecht'
 
   assign url_impressum = root | append: 'pages/impressum'
 
@@ -140,10 +136,13 @@
         {%- endif -%}
 
         <div class="pflege-legal__content rte" data-pflege-legal-content>
-          {%- if page != blank and page.content != blank -%}
-            {{ page.content }}
-          {%- elsif section.settings.body_text != blank -%}
+          {%- liquid
+            assign legal_page_body = page.content | strip_html | strip
+          -%}
+          {%- if section.settings.body_text != blank -%}
             {{ section.settings.body_text }}
+          {%- elsif legal_page_body != blank -%}
+            {{ page.content }}
           {%- else -%}
             <p class="pflege-legal__empty">
               Bitte tragen Sie den Inhalt dieser Seite im Shopify-Admin unter
