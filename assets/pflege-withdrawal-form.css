@@ -282,6 +282,22 @@
   outline-offset: 2px;
 }
 
+.pflege-withdrawal__body-hint {
+  margin: 0 0 0.45rem;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: var(--pflege-muted, #6f7f95);
+}
+
+.pflege-withdrawal__textarea--body {
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.pflege-withdrawal__field--body {
+  grid-column: 1 / -1;
+}
+
 .pflege-withdrawal__email-note {
   margin-top: 1rem;
   color: var(--pflege-muted, #6f7f95);

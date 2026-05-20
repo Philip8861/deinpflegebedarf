@@ -1,7 +1,7 @@
 {% comment %}
-  Elektronische Widerrufsfunktion (§ 312g BGB i. V. m. Art. 246a EGBGB).
-  Shopify-Kontaktformular → Shop-Benachrichtigung; Bestätigung an Kunden per E-Mail durch den Händler.
-  Zieladresse: info@alltagshilfe-sued.de (Shopify Admin → Einstellungen → Allgemein / Benachrichtigungen).
+  Widerruf über Shopify-Kontaktformular (wie Kontaktseite: sichtliches contact[body], Pflichtfelder).
+  Shop-Benachrichtigung: Einstellungen → Benachrichtigungen → „Kontaktformular des Kunden“.
+  Kunden-Bestätigung: zusätzlich Shopify Flow (Auslöser: Kunde hat Kontaktformular gesendet).
 {% endcomment %}
 {{ 'pflege-withdrawal-form.css' | asset_url | stylesheet_tag }}
 
@@ -35,15 +35,6 @@
     {%- form 'contact', id: 'PflegeWithdrawalForm', class: 'pflege-withdrawal__form', data-pflege-withdrawal-form: '', aria-label: 'Widerrufsformular' -%}
       <input type="hidden" name="contact[tags]" value="widerruf, deinpflegebedarf">
       <input type="hidden" name="contact[subject]" value="Widerrufserklärung — deinpflegebedarf.de">
-      <textarea
-        class="visually-hidden"
-        name="contact[body]"
-        id="PflegeWithdrawal-body"
-        rows="8"
-        data-pflege-withdrawal-body
-        aria-hidden="true"
-        tabindex="-1"
-      >{% if form.body %}{{ form.body }}{% endif %}</textarea>
 
       {%- if form.posted_successfully? -%}
         {%- assign receipt_timestamp = 'now' | date: '%d.%m.%Y, %H:%M' -%}
@@ -80,6 +71,12 @@
                 <dd>{{ form.email | escape }}</dd>
               </div>
             {%- endif -%}
+            {%- if form.phone != blank -%}
+              <div class="pflege-withdrawal__receipt-row">
+                <dt>Bestellnummer</dt>
+                <dd>{{ form.phone | escape }}</dd>
+              </div>
+            {%- endif -%}
           </dl>
           {%- if form.body != blank -%}
             <div class="pflege-withdrawal__receipt-body">
@@ -95,18 +92,26 @@
           </button>
         </article>
 
-        {%- if form.email != blank -%}
-          <p class="pflege-withdrawal__email-note" data-pflege-withdrawal-email-note>
-            Zusätzlich senden wir eine E-Mail-Bestätigung an <strong>{{ form.email | escape }}</strong>, sobald Ihr
-            Widerruf bei uns verarbeitet wurde.
-          </p>
-        {%- endif -%}
+        <p class="pflege-withdrawal__email-note">
+          Eine gesonderte E-Mail-Bestätigung erhalten Sie, sobald wir Ihren Widerruf geprüft haben — in der Regel an
+          {%- if form.email != blank -%}
+            <strong>{{ form.email | escape }}</strong>.
+          {%- else -%}
+            Ihre angegebene E-Mail-Adresse.
+          {%- endif -%}
+          Prüfen Sie auch den Spam-Ordner.
+        </p>
       {%- elsif form.errors -%}
         <div class="pflege-withdrawal__alert pflege-withdrawal__alert--error" role="alert" tabindex="-1">
           <p><strong>Bitte prüfen Sie die markierten Felder.</strong></p>
           {%- if form.errors contains 'email' -%}
             <p class="pflege-withdrawal__field-error">
               <a href="#PflegeWithdrawal-email">{{ form.errors.messages.email }}</a>
+            </p>
+          {%- endif -%}
+          {%- if form.errors contains 'body' -%}
+            <p class="pflege-withdrawal__field-error">
+              <a href="#PflegeWithdrawal-body">{{ form.errors.messages.body }}</a>
             </p>
           {%- endif -%}
         </div>
@@ -162,10 +167,13 @@
               class="pflege-withdrawal__input"
               type="text"
               id="PflegeWithdrawal-order"
+              name="contact[phone]"
               autocomplete="off"
               required
               aria-required="true"
               data-pflege-withdrawal-order
+              value="{% if form.phone %}{{ form.phone }}{% endif %}"
+              placeholder="z. B. #1234"
             >
           </div>
 
@@ -234,17 +242,37 @@
               Ich möchte den Vertrag widerrufen.
             </label>
           </div>
+
+          <div class="pflege-withdrawal__field pflege-withdrawal__field--body">
+            <label class="pflege-withdrawal__label" for="PflegeWithdrawal-body">
+              Zusammenfassung für die Übermittlung
+              <abbr title="Pflichtfeld" class="pflege-withdrawal__req">*</abbr>
+            </label>
+            <p class="pflege-withdrawal__body-hint">
+              Wird beim Absenden automatisch aus Ihren Angaben erstellt. Sie können den Text bei Bedarf anpassen.
+            </p>
+            <textarea
+              class="pflege-withdrawal__textarea pflege-withdrawal__textarea--body"
+              id="PflegeWithdrawal-body"
+              name="contact[body]"
+              rows="8"
+              required
+              aria-required="true"
+              data-pflege-withdrawal-body
+              placeholder="Wird nach Ausfüllen der Felder automatisch befüllt …"
+            >{%- if form.body -%}{{ form.body }}{%- endif -%}</textarea>
+          </div>
         </div>
 
-        <button type="submit" class="pflege-withdrawal__submit">
+        <button type="submit" class="pflege-withdrawal__submit" data-pflege-withdrawal-submit>
           Widerruf absenden
         </button>
         <p class="pflege-withdrawal__fineprint">
-          Mit dem Absenden übermitteln Sie eine eindeutige Widerrufserklärung. Wir bestätigen den Eingang unverzüglich, in
-          der Regel per E-Mail an die von Ihnen angegebene Adresse.
+          Mit dem Absenden übermitteln Sie eine eindeutige Widerrufserklärung. Die Bestätigung auf dieser Seite können Sie
+          speichern oder ausdrucken.
         </p>
       {%- endunless -%}
     {%- endform -%}
   </div>
 </div>
-<script src="{{ 'pflege-withdrawal-form.js' | asset_url }}" defer></script>
+<script src="{{ 'pflege-withdrawal-form.js' | asset_url }}"></script>
