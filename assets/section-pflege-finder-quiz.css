@@ -203,27 +203,31 @@
 
 /* Karten */
 .pflege-finder-cards {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-wrap: wrap;
   gap: clamp(0.85rem, 1.5vw, 1.5rem);
-}
-
-@media (min-width: 600px) {
-  .pflege-finder-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-
-@media (min-width: 990px) {
-  .pflege-finder-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  align-items: stretch;
+  justify-content: flex-start;
 }
 
 .pflege-finder-card {
   display: flex;
   flex-direction: column;
+  flex: 1 1 18rem;
+  min-width: 0;
+  max-width: min(100%, 22rem);
   background: #fff;
   border: 1px solid var(--pflege-border, #e5eef8);
   border-radius: var(--pflege-radius-card, 14px);
   overflow: hidden;
   transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+@media (max-width: 599px) {
+  .pflege-finder-card {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
 }
 
 .pflege-finder-card:hover {
@@ -321,16 +325,15 @@
 
 /* Service-Hinweise (kompakter, ohne Bild) */
 .pflege-finder-service-list {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.75rem;
-}
-
-@media (min-width: 600px) {
-  .pflege-finder-service-list { grid-template-columns: 1fr 1fr; }
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
 }
 
 .pflege-finder-service {
+  flex: 1 1 22rem;
+  min-width: 0;
+  max-width: min(100%, 32rem);
   background: #fff;
   border: 1px dashed var(--pflege-accent, #3f86d9);
   border-radius: var(--pflege-radius-card, 14px);
