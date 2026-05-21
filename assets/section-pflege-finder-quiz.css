@@ -1,0 +1,432 @@
+/* PflegeShop Produktfinder — Wizard + Ergebnis-Layout
+ * Nutzt vorhandene Pflege-Tokens aus assets/pflegeshop-tokens.css.
+ */
+
+.pflege-finder-quiz {
+  font-family: var(--font-body-family, inherit);
+  -webkit-font-smoothing: antialiased;
+  color: var(--pflege-heading-navy, #062a55);
+  box-sizing: border-box;
+}
+
+.pflege-finder-quiz__shell {
+  width: 100%;
+  max-width: min(80rem, 96%);
+  margin: 0 auto;
+  padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
+}
+
+.pflege-finder-quiz__head,
+.pflege-finder-step {
+  max-width: 48rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pflege-finder-quiz__head {
+  text-align: center;
+  margin-bottom: clamp(1.25rem, 3vw, 2rem);
+}
+
+.pflege-finder-quiz__title {
+  font-family: var(--pflege-font-display, var(--font-body-family, inherit));
+  font-size: var(--pflege-home-section-heading-size, clamp(1.85rem, 2.25vw + 1.15rem, 2.75rem));
+  font-weight: var(--pflege-home-section-heading-weight, 800);
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  color: var(--pflege-home-section-heading-color, #0f4f69);
+  margin: 0 0 0.5rem;
+}
+
+.pflege-finder-quiz__intro {
+  margin: 0 auto;
+  max-width: 44rem;
+  font-size: clamp(1.05rem, 0.95rem + 0.4vw, 1.25rem);
+  line-height: 1.5;
+  color: #3d556f;
+}
+
+/* Progress */
+.pflege-finder-quiz__progress {
+  position: relative;
+  height: 6px;
+  width: 100%;
+  background: var(--pflege-bg-soft, #eef6ff);
+  border-radius: 999px;
+  overflow: hidden;
+  margin: clamp(1rem, 2vw, 1.5rem) 0 clamp(1.5rem, 3vw, 2rem);
+}
+
+.pflege-finder-quiz__progress-bar {
+  position: absolute;
+  inset: 0;
+  width: 0%;
+  background: linear-gradient(90deg, var(--pflege-accent, #3f86d9), var(--pflege-link-blue, #0b6edc));
+  border-radius: inherit;
+  transition: width 0.35s ease;
+}
+
+/* Viewport (Wizard + Ergebnisse) */
+.pflege-finder-quiz__viewport {
+  background: var(--pflege-bg-softer, #f5faff);
+  border: 1px solid var(--pflege-border, #e5eef8);
+  border-radius: var(--pflege-radius-lg, 22px);
+  padding: clamp(1.25rem, 3vw, 2.25rem);
+  box-shadow: 0 6px 24px rgba(11, 35, 71, 0.06);
+}
+
+.pflege-finder-quiz__nojs {
+  margin: 0;
+  color: #3d556f;
+  text-align: center;
+}
+
+/* Step */
+.pflege-finder-step__title {
+  font-size: clamp(1.35rem, 1.1rem + 0.85vw, 1.85rem);
+  font-weight: 700;
+  color: var(--pflege-heading-navy, #062a55);
+  margin: 0 0 clamp(1rem, 2vw, 1.5rem);
+  text-align: center;
+  text-wrap: balance;
+}
+
+.pflege-finder-step__options {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+@media (min-width: 600px) {
+  .pflege-finder-step__options {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.85rem;
+  }
+}
+
+.pflege-finder-option {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.75rem;
+  width: 100%;
+  min-height: 3.6rem;
+  padding: 1rem 1.15rem;
+  font: inherit;
+  font-size: clamp(1rem, 0.95rem + 0.2vw, 1.15rem);
+  font-weight: 600;
+  text-align: left;
+  color: var(--pflege-heading-navy, #062a55);
+  background: #fff;
+  border: 1.5px solid var(--pflege-border, #e5eef8);
+  border-radius: var(--pflege-radius-card, 14px);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.1s ease,
+    box-shadow 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pflege-finder-option:hover {
+  border-color: var(--pflege-accent, #3f86d9);
+  background: var(--pflege-bg-soft, #eef6ff);
+}
+
+.pflege-finder-option:focus-visible {
+  outline: 2px solid var(--pflege-accent, #3f86d9);
+  outline-offset: 3px;
+}
+
+.pflege-finder-option:active {
+  transform: translateY(1px);
+}
+
+.pflege-finder-step__nav {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: clamp(1rem, 2vw, 1.5rem);
+}
+
+.pflege-finder-back {
+  appearance: none;
+  background: transparent;
+  border: none;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--pflege-link-blue, #0b6edc);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+  padding: 0.4rem 0;
+}
+
+.pflege-finder-back:hover {
+  color: #2f73c4;
+}
+
+/* Ergebnisseite */
+.pflege-finder-results__title {
+  font-family: var(--pflege-font-display, inherit);
+  font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+  font-weight: 800;
+  color: var(--pflege-home-section-heading-color, #0f4f69);
+  margin: 0 0 clamp(1.25rem, 2.5vw, 1.85rem);
+  text-align: center;
+}
+
+.pflege-finder-group {
+  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.pflege-finder-group:last-of-type {
+  margin-bottom: 0;
+}
+
+.pflege-finder-group__head {
+  margin-bottom: clamp(0.85rem, 1.5vw, 1.15rem);
+}
+
+.pflege-finder-group__title {
+  font-size: clamp(1.2rem, 1rem + 0.6vw, 1.5rem);
+  font-weight: 700;
+  color: var(--pflege-heading-navy, #062a55);
+  margin: 0 0 0.25rem;
+}
+
+.pflege-finder-group__subtitle {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--pflege-muted, #6f7f95);
+}
+
+/* Karten */
+.pflege-finder-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(0.85rem, 1.5vw, 1.5rem);
+}
+
+@media (min-width: 600px) {
+  .pflege-finder-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 990px) {
+  .pflege-finder-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+.pflege-finder-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid var(--pflege-border, #e5eef8);
+  border-radius: var(--pflege-radius-card, 14px);
+  overflow: hidden;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.pflege-finder-card:hover {
+  border-color: var(--pflege-accent, #3f86d9);
+  box-shadow: 0 6px 18px rgba(11, 35, 71, 0.08);
+  transform: translateY(-1px);
+}
+
+.pflege-finder-card__media {
+  display: block;
+  aspect-ratio: 4 / 3;
+  background: var(--pflege-bg-softer, #f5faff);
+  overflow: hidden;
+  border-bottom: 1px solid var(--pflege-border, #e5eef8);
+}
+
+.pflege-finder-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.pflege-finder-card__media--placeholder {
+  background: linear-gradient(135deg, #eef6ff, #f5faff);
+}
+
+.pflege-finder-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.9rem 1rem 1rem;
+  flex: 1 1 auto;
+}
+
+.pflege-finder-card__title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.pflege-finder-card__title a {
+  color: var(--pflege-heading-navy, #062a55);
+  text-decoration: none;
+}
+
+.pflege-finder-card__title a:hover {
+  color: var(--pflege-link-blue, #0b6edc);
+}
+
+.pflege-finder-card__recommend {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: #3d556f;
+}
+
+.pflege-finder-card__price {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--pflege-heading-navy, #062a55);
+  margin-top: auto;
+}
+
+.pflege-finder-card__actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.pflege-finder-card__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+  min-height: 2.6rem;
+  padding: 0.5rem 1rem;
+  background: var(--pflege-accent, #3f86d9);
+  color: #fff !important;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 999px;
+  transition: background 0.15s ease;
+}
+
+.pflege-finder-card__cta:hover {
+  background: var(--pflege-link-blue, #0b6edc);
+}
+
+.pflege-finder-card__cta:focus-visible {
+  outline: 2px solid var(--pflege-accent, #3f86d9);
+  outline-offset: 3px;
+}
+
+/* Service-Hinweise (kompakter, ohne Bild) */
+.pflege-finder-service-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+@media (min-width: 600px) {
+  .pflege-finder-service-list { grid-template-columns: 1fr 1fr; }
+}
+
+.pflege-finder-service {
+  background: #fff;
+  border: 1px dashed var(--pflege-accent, #3f86d9);
+  border-radius: var(--pflege-radius-card, 14px);
+  padding: 1rem 1.15rem;
+}
+
+.pflege-finder-service__title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 0.35rem;
+}
+
+.pflege-finder-service__title a {
+  color: var(--pflege-link-blue, #0b6edc);
+  text-decoration: none;
+}
+
+.pflege-finder-service__title a:hover {
+  text-decoration: underline;
+}
+
+.pflege-finder-service__body {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #3d556f;
+}
+
+/* Hinweis bei Wunden */
+.pflege-finder-notice {
+  display: block;
+  margin: 0 0 clamp(1rem, 2vw, 1.5rem);
+  padding: 1rem 1.15rem;
+  background: #fff7ec;
+  border-left: 4px solid var(--pflege-cta, #f89738);
+  border-radius: var(--pflege-radius-card, 14px);
+  color: #5a3d18;
+}
+
+.pflege-finder-notice__title {
+  display: block;
+  font-weight: 800;
+  margin-bottom: 0.25rem;
+  color: #6c4112;
+}
+
+.pflege-finder-notice__body {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Empty / Restart */
+.pflege-finder-empty {
+  text-align: center;
+  padding: 1rem 0 1.5rem;
+}
+
+.pflege-finder-empty__title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  color: var(--pflege-heading-navy, #062a55);
+}
+
+.pflege-finder-empty__body {
+  margin: 0 auto;
+  max-width: 38rem;
+  color: #3d556f;
+  line-height: 1.5;
+}
+
+.pflege-finder-results__restart {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(1.25rem, 3vw, 2rem);
+}
+
+.pflege-finder-restart {
+  appearance: none;
+  background: transparent;
+  border: 1.5px solid var(--pflege-accent, #3f86d9);
+  color: var(--pflege-link-blue, #0b6edc);
+  font: inherit;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.7rem 1.4rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.pflege-finder-restart:hover {
+  background: var(--pflege-bg-soft, #eef6ff);
+}
+
+.pflege-finder-restart:focus-visible {
+  outline: 2px solid var(--pflege-accent, #3f86d9);
+  outline-offset: 3px;
+}
