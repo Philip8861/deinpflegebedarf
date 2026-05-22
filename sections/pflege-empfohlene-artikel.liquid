@@ -21,25 +21,7 @@
   }
 {%- endstyle -%}
 
-<section
-  class="pflege-empfohlene-artikel section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient"
-  data-pflege-empfohlene-artikel
-  aria-labelledby="pflege-empfohlene-title-{{ section.id }}"
-  {{ section.shopify_attributes }}
->
-  <div class="pflege-empfohlene-artikel__shell">
-    <noscript>
-      <p class="pflege-finder-quiz__nojs">
-        Diese Seite benötigt JavaScript. Bitte aktivieren Sie JavaScript oder starten Sie den
-        <a href="#pflege-finder-open">Produktfinder</a>.
-      </p>
-    </noscript>
-
-    <div class="pflege-empfohlene-artikel__viewport" data-pflege-empfohlene-viewport></div>
-  </div>
-
-  {% render 'pflege-finder-data' %}
-</section>
+{% render 'pflege-empfohlene-artikel-view', section_id: section.id %}
 
 {% schema %}
 {

@@ -19,6 +19,8 @@
       assign pflege_404_legal = 'ratgeber'
     when '/pages/faq'
       assign pflege_404_legal = 'faq'
+    when '/pages/empfohlene-artikel'
+      assign pflege_404_legal = 'empfohlene'
   endcase
 -%}
 
@@ -40,6 +42,8 @@
       {% render 'pflege-ratgeber-bridge-fallback' %}
     {%- when 'faq' -%}
       {% render 'pflege-faq-page-fallback' %}
+    {%- when 'empfohlene' -%}
+      {% render 'pflege-empfohlene-artikel-fallback' %}
   {%- endcase -%}
 {%- else -%}
   <style type="text/css">
