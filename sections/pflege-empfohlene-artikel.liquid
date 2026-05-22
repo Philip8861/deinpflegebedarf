@@ -21,7 +21,11 @@
   }
 {%- endstyle -%}
 
-{% render 'pflege-empfohlene-artikel-view', section_id: section.id %}
+{% render 'pflege-empfohlene-artikel-view',
+  section_id: section.id,
+  pflegebox_url: section.settings.pflegebox_url,
+  pflegehilfsmittel_url: section.settings.pflegehilfsmittel_url
+%}
 
 {% schema %}
 {
@@ -29,6 +33,18 @@
   "tag": "section",
   "class": "section",
   "settings": [
+    {
+      "type": "url",
+      "id": "pflegebox_url",
+      "label": "Link: Pflegebox konfigurieren",
+      "info": "Standard: /products/pflegebox"
+    },
+    {
+      "type": "url",
+      "id": "pflegehilfsmittel_url",
+      "label": "Link: Weitere Infos Pflegehilfsmittel",
+      "info": "Standard: /pages/pflegehilfsmittel"
+    },
     {
       "type": "color_scheme",
       "id": "color_scheme",

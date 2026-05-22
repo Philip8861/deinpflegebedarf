@@ -71,7 +71,14 @@
     }
 
     var groups = PF.buildResultGroups(products, answers);
-    var pflegegradHint = PF.getPflegegradHint ? PF.getPflegegradHint(answers) : null;
+    var pflegegradBlock = null;
+    if (PF.shouldShowPflegegradBlock && PF.shouldShowPflegegradBlock(answers)) {
+      var root = viewport.closest('[data-pflege-empfohlene-artikel]');
+      pflegegradBlock = PF.getPflegegradBlock(answers, {
+        pflegeboxUrl: (root && root.getAttribute('data-pflegebox-url')) || '/products/pflegebox',
+        infoUrl: (root && root.getAttribute('data-pflegehilfsmittel-url')) || '/pages/pflegehilfsmittel',
+      });
+    }
 
     if (!groups.length) {
       renderEmpty(
@@ -83,7 +90,7 @@
       return true;
     }
 
-    renderGroups(viewport, groups, PF, pflegegradHint);
+    renderGroups(viewport, groups, PF, pflegegradBlock);
     return true;
   }
 
@@ -123,7 +130,48 @@
     return wrap;
   }
 
-  function renderGroups(viewport, groups, PF, pflegegradHint) {
+  function renderPflegegradBlock(block, PF) {
+    var aside = PF.el('aside', {
+      class: 'pflege-finder-promo pflege-finder-promo--pflegegrad',
+      role: 'region',
+      'aria-labelledby': 'pflege-finder-promo-pflegegrad-title',
+    });
+
+    var title = PF.el('h2', {
+      class: 'pflege-finder-promo__title',
+      id: 'pflege-finder-promo-pflegegrad-title',
+    });
+    title.textContent = block.title;
+    aside.appendChild(title);
+
+    var lead = PF.el('p', { class: 'pflege-finder-promo__lead' });
+    lead.textContent = block.lead;
+    aside.appendChild(lead);
+
+    var text = PF.el('p', { class: 'pflege-finder-promo__text' });
+    text.textContent = block.text;
+    aside.appendChild(text);
+
+    var actions = PF.el('div', { class: 'pflege-finder-promo__actions' });
+    var primary = PF.el('a', {
+      class: 'pflege-finder-promo__cta pflege-finder-promo__cta--primary',
+      href: block.pflegeboxUrl,
+    });
+    primary.textContent = block.ctaPrimary;
+    actions.appendChild(primary);
+
+    var secondary = PF.el('a', {
+      class: 'pflege-finder-promo__cta pflege-finder-promo__cta--secondary',
+      href: block.infoUrl,
+    });
+    secondary.textContent = block.ctaSecondary;
+    actions.appendChild(secondary);
+
+    aside.appendChild(actions);
+    return aside;
+  }
+
+  function renderGroups(viewport, groups, PF, pflegegradBlock) {
     viewport.innerHTML = '';
     var container = PF.el('div', { class: 'pflege-finder-results' });
 
@@ -131,15 +179,8 @@
     heading.textContent = 'Ihre empfohlenen Artikel';
     container.appendChild(heading);
 
-    if (pflegegradHint) {
-      var hint = PF.el('aside', {
-        class: 'pflege-finder-notice pflege-finder-notice--pflegegrad',
-        role: 'note',
-      });
-      var hintBody = PF.el('p', { class: 'pflege-finder-notice__body' });
-      hintBody.textContent = pflegegradHint;
-      hint.appendChild(hintBody);
-      container.appendChild(hint);
+    if (pflegegradBlock) {
+      container.appendChild(renderPflegegradBlock(pflegegradBlock, PF));
     }
 
     groups.forEach(function (group) {
