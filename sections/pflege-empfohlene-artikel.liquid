@@ -5,8 +5,8 @@
 
 {{ 'section-pflege-finder-quiz.css' | asset_url | stylesheet_tag }}
 {{ 'section-pflege-empfohlene-artikel.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'pflege-finder-shared.js' | asset_url }}" defer="defer"></script>
-<script src="{{ 'pflege-empfohlene-artikel.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'pflege-finder-shared.js' | asset_url }}"></script>
+<script src="{{ 'pflege-empfohlene-artikel.js' | asset_url }}"></script>
 
 {%- style -%}
   .section-{{ section.id }}-padding {

@@ -2,8 +2,11 @@
 (function () {
   'use strict';
 
+  var BOOT_ATTEMPTS = 0;
+  var BOOT_MAX_ATTEMPTS = 120;
+
   function getPF() {
-    return window.PflegeFinder;
+    return window.PflegeFinder || null;
   }
 
   function findDataScript(root, selector) {
@@ -14,43 +17,57 @@
     return document.querySelector(selector);
   }
 
+  function showBootError(viewport, message) {
+    if (!viewport) return;
+    viewport.innerHTML =
+      '<div class="pflege-finder-empty pflege-empfohlene-empty">' +
+      '<p class="pflege-finder-empty__body">' +
+      message +
+      '</p>' +
+      '<div class="pflege-finder-results__restart">' +
+      '<button type="button" class="pflege-finder-restart" data-pflege-finder-open>Produktfinder starten</button>' +
+      '</div></div>';
+  }
+
   function init(root) {
     var PF = getPF();
-    if (!PF) return false;
+    var viewport = root && root.querySelector('[data-pflege-empfohlene-viewport]');
 
+    if (!PF) return false;
     if (!root || root.__pflegeEmpfohleneInit) return true;
+    if (!viewport) return true;
+
     root.__pflegeEmpfohleneInit = true;
 
     var configEl = findDataScript(root, 'script[data-pflege-finder-config]');
     var productsEl = findDataScript(root, 'script[data-pflege-finder-products]');
-    var viewport = root.querySelector('[data-pflege-empfohlene-viewport]');
-    if (!viewport) return true;
 
     if (!configEl || !productsEl) {
-      renderEmpty(
+      showBootError(
         viewport,
-        'Empfehlungen konnten nicht geladen werden',
-        'Die Produktdaten für den Finder sind gerade nicht verfügbar. Bitte laden Sie die Seite neu oder starten Sie den Produktfinder erneut.'
+        'Die Produktdaten konnten nicht geladen werden. Bitte laden Sie die Seite neu oder starten Sie den Produktfinder erneut.'
       );
       return true;
     }
 
     var config = PF.safeJSON(configEl.textContent, {});
     var products = PF.safeJSON(productsEl.textContent, []);
+    if (!Array.isArray(products)) products = [];
     var answers = PF.loadAnswers();
 
     if (!answers) {
-      renderNoAnswers(viewport);
-      return;
+      renderNoAnswers(viewport, PF);
+      return true;
     }
 
     if (!config.hasCollection || !products.length) {
       renderEmpty(
         viewport,
+        PF,
         'Empfehlungen sind aktuell noch nicht verfügbar',
         'Wir haben aktuell noch keine Produkte für den Finder freigegeben. Bitte schauen Sie in Kürze wieder vorbei oder stöbern Sie direkt in unserem Shop.'
       );
-      return;
+      return true;
     }
 
     var groups = PF.buildResultGroups(products, answers);
@@ -58,30 +75,29 @@
     if (!groups.length) {
       renderEmpty(
         viewport,
+        PF,
         'Keine passenden Artikel gefunden',
         'Auf Basis Ihrer Angaben konnten wir aktuell keine passenden Produkte zuordnen. Bitte starten Sie den Produktfinder erneut oder kontaktieren Sie uns für eine persönliche Beratung.'
       );
-      return;
+      return true;
     }
 
-    renderGroups(viewport, groups, config);
+    renderGroups(viewport, groups, PF);
     return true;
   }
 
-  function renderNoAnswers(viewport) {
-    var PF = getPF();
+  function renderNoAnswers(viewport, PF) {
     viewport.innerHTML = '';
     var box = PF.el('div', { class: 'pflege-finder-empty pflege-empfohlene-empty' });
     var p = PF.el('p', { class: 'pflege-finder-empty__body' });
     p.textContent =
       'Starten Sie den Produktfinder, um persönliche Empfehlungen zu erhalten.';
     box.appendChild(p);
-    box.appendChild(createStartButton());
+    box.appendChild(createStartButton(PF));
     viewport.appendChild(box);
   }
 
-  function renderEmpty(viewport, title, body) {
-    var PF = getPF();
+  function renderEmpty(viewport, PF, title, body) {
     viewport.innerHTML = '';
     var box = PF.el('div', { class: 'pflege-finder-empty' });
     var h = PF.el('h2', { class: 'pflege-finder-empty__title' });
@@ -90,11 +106,11 @@
     p.textContent = body;
     box.appendChild(h);
     box.appendChild(p);
-    box.appendChild(createStartButton());
+    box.appendChild(createStartButton(PF));
     viewport.appendChild(box);
   }
 
-  function createStartButton(config) {
+  function createStartButton(PF) {
     var wrap = PF.el('div', { class: 'pflege-finder-results__restart' });
     var btn = PF.el('button', {
       type: 'button',
@@ -106,8 +122,7 @@
     return wrap;
   }
 
-  function renderGroups(viewport, groups) {
-    var PF = getPF();
+  function renderGroups(viewport, groups, PF) {
     viewport.innerHTML = '';
     var container = PF.el('div', { class: 'pflege-finder-results' });
 
@@ -116,7 +131,7 @@
     container.appendChild(heading);
 
     groups.forEach(function (group) {
-      container.appendChild(renderGroup(group));
+      container.appendChild(renderGroup(group, PF));
     });
 
     var restartWrap = PF.el('div', { class: 'pflege-finder-results__restart' });
@@ -132,7 +147,7 @@
     viewport.appendChild(container);
   }
 
-  function renderGroup(group) {
+  function renderGroup(group, PF) {
     var section = PF.el('section', { class: 'pflege-finder-group' });
     var head = PF.el('header', { class: 'pflege-finder-group__head' });
     var title = PF.el('h2', { class: 'pflege-finder-group__title' });
@@ -153,13 +168,13 @@
 
     var grid = PF.el('div', { class: 'pflege-finder-cards' });
     group.items.forEach(function (item) {
-      grid.appendChild(renderProductCard(item));
+      grid.appendChild(renderProductCard(item, PF));
     });
     section.appendChild(grid);
     return section;
   }
 
-  function renderProductCard(p) {
+  function renderProductCard(p, PF) {
     var card = PF.el('article', { class: 'pflege-finder-card' });
 
     var media = PF.el('a', { class: 'pflege-finder-card__media', href: p.url || '#' });
@@ -207,15 +222,32 @@
   }
 
   function boot() {
-    if (!getPF()) return;
-    document.querySelectorAll('[data-pflege-empfohlene-artikel]').forEach(init);
+    var roots = document.querySelectorAll('[data-pflege-empfohlene-artikel]');
+    if (!roots.length) return true;
+    if (!getPF()) return false;
+
+    var allOk = true;
+    roots.forEach(function (root) {
+      if (!init(root)) allOk = false;
+    });
+    return allOk;
   }
 
   function bootWhenReady() {
-    if (getPF()) {
-      boot();
+    BOOT_ATTEMPTS += 1;
+
+    if (boot()) return;
+
+    if (BOOT_ATTEMPTS >= BOOT_MAX_ATTEMPTS) {
+      document.querySelectorAll('[data-pflege-empfohlene-viewport]').forEach(function (viewport) {
+        showBootError(
+          viewport,
+          'Die Empfehlungen konnten nicht geladen werden. Bitte laden Sie die Seite neu oder starten Sie den Produktfinder erneut.'
+        );
+      });
       return;
     }
+
     window.setTimeout(bootWhenReady, 50);
   }
 
