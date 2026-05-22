@@ -4,11 +4,13 @@
   font-family: var(--font-body-family, inherit);
   -webkit-font-smoothing: antialiased;
   color: var(--pflege-heading-navy, #062a55);
+  padding-top: clamp(1.5rem, 3vw, 2.25rem);
+  padding-bottom: clamp(2rem, 4vw, 3rem);
 }
 
 .pflege-empfohlene-artikel__shell {
   width: 100%;
-  max-width: min(80rem, 96%);
+  max-width: var(--pflege-hero-tile-max-width, min(100%, 1426px));
   margin: 0 auto;
   padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
   padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
@@ -18,40 +20,75 @@
 .pflege-empfohlene-artikel__loading {
   margin: 0;
   text-align: center;
-  color: #3d556f;
-  font-size: 1.05rem;
+  color: var(--pflege-muted, #6f7f95);
+  font-size: clamp(1.05rem, 1rem + 0.25vw, 1.2rem);
 }
 
 .pflege-empfohlene-empty {
   background: var(--pflege-bg-softer, #f5faff);
   border: 1px solid var(--pflege-border, #e5eef8);
   border-radius: var(--pflege-radius-lg, 22px);
-  padding: clamp(1.5rem, 4vw, 2.5rem);
+  padding: clamp(1.75rem, 4vw, 2.75rem);
   box-shadow: 0 6px 24px rgba(11, 35, 71, 0.06);
+  text-align: center;
 }
 
+.pflege-empfohlene-artikel .pflege-finder-empty__body {
+  color: var(--pflege-muted, #6f7f95);
+  font-size: clamp(1.05rem, 1rem + 0.3vw, 1.22rem);
+  line-height: 1.55;
+}
+
+/* Seitenüberschrift */
 .pflege-empfohlene-artikel .pflege-finder-results__title {
+  font-family: var(--pflege-font-display, var(--font-body-family, inherit));
+  font-size: var(--pflege-home-section-heading-size, clamp(1.85rem, 2.25vw + 1.15rem, 2.75rem));
+  font-weight: var(--pflege-home-section-heading-weight, 800);
+  line-height: var(--pflege-home-section-heading-line-height, 1.18);
+  letter-spacing: var(--pflege-home-section-heading-letter-spacing, -0.025em);
+  color: var(--pflege-home-section-heading-color, #0f4f69);
   text-align: left;
-  margin-bottom: clamp(1.5rem, 3vw, 2rem);
+  margin: 0 0 clamp(1.75rem, 3.5vw, 2.5rem);
+}
+
+/* Kategorie-Blöcke */
+.pflege-empfohlene-artikel .pflege-finder-group {
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+  padding-bottom: clamp(1.5rem, 3vw, 2rem);
+  border-bottom: 1px solid var(--pflege-border-soft, #d8eafe);
+}
+
+.pflege-empfohlene-artikel .pflege-finder-group:last-of-type {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.pflege-empfohlene-artikel .pflege-finder-group__head {
+  margin-bottom: clamp(1rem, 2vw, 1.35rem);
 }
 
 .pflege-empfohlene-artikel .pflege-finder-group__title {
-  font-size: clamp(1.25rem, 1rem + 0.75vw, 1.65rem);
+  font-family: var(--pflege-font-display, var(--font-body-family, inherit));
+  font-size: clamp(1.35rem, 1.1rem + 0.65vw, 1.75rem);
+  font-weight: var(--pflege-home-section-heading-weight, 800);
+  line-height: 1.22;
+  letter-spacing: -0.02em;
+  color: var(--pflege-home-section-heading-color, #0f4f69);
+  margin: 0;
 }
 
-.pflege-empfohlene-artikel .pflege-finder-card__price {
-  margin-top: 0;
+.pflege-empfohlene-artikel .pflege-finder-notice {
+  margin-bottom: clamp(1rem, 2vw, 1.35rem);
 }
 
-.pflege-empfohlene-artikel .pflege-finder-card__recommend {
-  margin-top: 0.25rem;
-}
-
-/* Produktkarten: 5 pro Reihe auf Desktop */
+/* Produktraster — volle Panel-Breite, 5 Spalten Desktop */
 .pflege-empfohlene-artikel .pflege-finder-cards {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: clamp(0.75rem, 1.2vw, 1.15rem);
+  width: 100%;
+  min-width: 0;
+  grid-template-columns: 1fr;
+  gap: clamp(0.85rem, 1.6vw, 1.15rem);
   align-items: stretch;
 }
 
@@ -59,45 +96,125 @@
   flex: unset;
   max-width: none;
   width: 100%;
+  min-width: 0;
+  background: var(--pflege-white, #fefefe);
+  border: 1px solid var(--pflege-border, #e5eef8);
+  border-radius: var(--pflege-radius-card, 14px);
+  box-shadow: 0 2px 10px rgba(11, 35, 71, 0.04);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
-.pflege-empfohlene-artikel .pflege-finder-card__title {
-  font-size: 0.92rem;
+.pflege-empfohlene-artikel .pflege-finder-card:hover {
+  border-color: rgba(63, 134, 217, 0.4);
+  box-shadow: 0 8px 22px rgba(11, 35, 71, 0.08);
+  transform: translateY(-2px);
 }
 
-.pflege-empfohlene-artikel .pflege-finder-card__recommend {
-  font-size: 0.82rem;
-  line-height: 1.4;
+.pflege-empfohlene-artikel .pflege-finder-card__media {
+  aspect-ratio: 1;
+  background: var(--pflege-bg-softer, #f5faff);
+  border-bottom: 1px solid var(--pflege-border, #e5eef8);
 }
 
-.pflege-empfohlene-artikel .pflege-finder-card__price {
-  font-size: 0.95rem;
-}
-
-.pflege-empfohlene-artikel .pflege-finder-card__cta {
-  min-height: 2.35rem;
-  padding: 0.45rem 0.65rem;
-  font-size: 0.88rem;
+.pflege-empfohlene-artikel .pflege-finder-card__media img {
+  padding: 0.35rem;
+  box-sizing: border-box;
 }
 
 .pflege-empfohlene-artikel .pflege-finder-card__body {
-  padding: 0.75rem 0.7rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: clamp(0.85rem, 1.2vw, 1rem) clamp(0.85rem, 1.1vw, 1.05rem) clamp(0.95rem, 1.2vw, 1.1rem);
+  flex: 1 1 auto;
 }
 
-@media (max-width: 1199px) {
-  .pflege-empfohlene-artikel .pflege-finder-cards {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
+.pflege-empfohlene-artikel .pflege-finder-card__title {
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1rem, 0.92rem + 0.22vw, 1.12rem);
+  font-weight: 700;
+  line-height: 1.35;
+  margin: 0;
 }
 
-@media (max-width: 749px) {
+.pflege-empfohlene-artikel .pflege-finder-card__title a {
+  color: var(--pflege-heading-navy, #062a55);
+  text-decoration: none;
+}
+
+.pflege-empfohlene-artikel .pflege-finder-card__title a:hover {
+  color: var(--pflege-link-blue, #0b6edc);
+}
+
+.pflege-empfohlene-artikel .pflege-finder-card__price {
+  font-size: clamp(1.02rem, 0.95rem + 0.2vw, 1.12rem);
+  font-weight: 700;
+  color: var(--pflege-heading-navy, #062a55);
+  margin-top: 0.15rem;
+}
+
+.pflege-empfohlene-artikel .pflege-finder-card__recommend {
+  margin: 0;
+  font-size: clamp(0.9rem, 0.86rem + 0.12vw, 0.98rem);
+  line-height: 1.48;
+  color: var(--pflege-muted, #6f7f95);
+  flex: 1 1 auto;
+}
+
+.pflege-empfohlene-artikel .pflege-finder-card__actions {
+  margin-top: auto;
+  padding-top: 0.35rem;
+}
+
+.pflege-empfohlene-artikel .pflege-finder-card__cta {
+  min-height: 2.55rem;
+  padding: 0.55rem 0.85rem;
+  font-size: clamp(0.92rem, 0.88rem + 0.12vw, 1rem);
+  font-weight: 700;
+  border-radius: var(--pflege-radius-pill, 999px);
+  background: var(--pflege-accent, #3f86d9);
+}
+
+.pflege-empfohlene-artikel .pflege-finder-card__cta:hover {
+  background: var(--pflege-link-blue, #0b6edc);
+}
+
+.pflege-empfohlene-artikel .pflege-finder-results__restart {
+  margin-top: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+.pflege-empfohlene-artikel .pflege-finder-restart {
+  border-color: var(--pflege-accent, #3f86d9);
+  color: var(--pflege-link-blue, #0b6edc);
+  font-weight: 700;
+}
+
+@media screen and (min-width: 480px) {
   .pflege-empfohlene-artikel .pflege-finder-cards {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 479px) {
+@media screen and (min-width: 750px) {
   .pflege-empfohlene-artikel .pflege-finder-cards {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(0.9rem, 1.4vw, 1.2rem);
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .pflege-empfohlene-artikel .pflege-finder-cards {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: clamp(0.85rem, 1.35vw, 1.25rem);
+  }
+
+  .pflege-empfohlene-artikel .pflege-finder-card__body {
+    padding: 0.95rem 1rem 1.05rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .pflege-empfohlene-artikel .pflege-finder-cards {
+    gap: clamp(1rem, 1.5vw, 1.35rem);
   }
 }
