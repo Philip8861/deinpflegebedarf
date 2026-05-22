@@ -5,12 +5,20 @@
   var PF = window.PflegeFinder;
   if (!PF) return;
 
+  function findDataScript(root, selector) {
+    if (root) {
+      var inRoot = root.querySelector(selector);
+      if (inRoot) return inRoot;
+    }
+    return document.querySelector(selector);
+  }
+
   function init(root) {
     if (!root || root.__pflegeEmpfohleneInit) return;
     root.__pflegeEmpfohleneInit = true;
 
-    var configEl = root.querySelector('script[data-pflege-finder-config]');
-    var productsEl = root.querySelector('script[data-pflege-finder-products]');
+    var configEl = findDataScript(root, 'script[data-pflege-finder-config]');
+    var productsEl = findDataScript(root, 'script[data-pflege-finder-products]');
     var viewport = root.querySelector('[data-pflege-empfohlene-viewport]');
     if (!configEl || !productsEl || !viewport) return;
 
@@ -32,7 +40,7 @@
       return;
     }
 
-    var groups = PF.buildResultGroups(products, answers, config.minScore || 8);
+    var groups = PF.buildResultGroups(products, answers);
 
     if (!groups.length) {
       renderEmpty(

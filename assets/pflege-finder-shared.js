@@ -211,16 +211,14 @@
     return s;
   }
 
-  function scoreAndFilterForCategory(products, answers, categoryId, minScore) {
+  function scoreAndFilterForCategory(products, answers, categoryId) {
     var out = [];
     for (var i = 0; i < products.length; i++) {
       var p = products[i];
       if (!isActive(p)) continue;
-      if (p.available === false) continue;
       if (!getErgebnisKategorien(p).length) continue;
       if (!productInCategory(p, categoryId)) continue;
       var s = scoreProduct(p, answers, categoryId);
-      if (s < minScore) continue;
       out.push({ p: p, score: s, prio: parsePrio(p.finder && p.finder.prioritaet) });
     }
     out.sort(function (a, b) {
@@ -236,12 +234,12 @@
     });
   }
 
-  function buildResultGroups(products, answers, minScore) {
+  function buildResultGroups(products, answers) {
     var relevant = getRelevantCategories(answers);
     var groups = [];
 
     relevant.forEach(function (cat) {
-      var scored = scoreAndFilterForCategory(products, answers, cat.id, minScore);
+      var scored = scoreAndFilterForCategory(products, answers, cat.id);
       if (!scored.length) return;
       var notice = cat.notice ? cat.notice(answers) : null;
       groups.push({

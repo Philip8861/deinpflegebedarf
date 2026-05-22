@@ -1,0 +1,21 @@
+{% comment %}
+  Gemeinsame Ansicht für Section + 404-Fallback.
+  Parameter: section_id (string)
+{% endcomment %}
+
+<section
+  class="pflege-empfohlene-artikel section-{{ section_id }}-padding color-scheme-1 gradient"
+  data-pflege-empfohlene-artikel
+  aria-labelledby="pflege-empfohlene-title-{{ section_id }}"
+>
+  <div class="pflege-empfohlene-artikel__shell">
+    <noscript>
+      <p class="pflege-finder-quiz__nojs">
+        Diese Seite benötigt JavaScript. Bitte aktivieren Sie JavaScript oder starten Sie den
+        <a href="#pflege-finder-open">Produktfinder</a>.
+      </p>
+    </noscript>
+
+    <div class="pflege-empfohlene-artikel__viewport" data-pflege-empfohlene-viewport></div>
+  </div>
+</section>
