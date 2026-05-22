@@ -211,6 +211,12 @@
       body.appendChild(rec);
     }
 
+    if (p._variantHint) {
+      var hint = PF.el('p', { class: 'pflege-finder-card__variant-hint' });
+      hint.textContent = String(p._variantHint);
+      body.appendChild(hint);
+    }
+
     var actions = PF.el('div', { class: 'pflege-finder-card__actions' });
     var link = PF.el('a', { class: 'pflege-finder-card__cta', href: p.url || '#' });
     link.textContent = 'Zum Produkt';

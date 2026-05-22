@@ -15,7 +15,6 @@
 -%}
 <script type="application/json" data-pflege-finder-config>
   {
-    "minScore": 8,
     "hasCollection": {{ has_collection | json }},
     "productCount": {{ product_count | json }},
     "resultsUrl": {{ pages['empfohlene-artikel'].url | default: '/pages/empfohlene-artikel' | json }},
@@ -49,6 +48,16 @@
             "image_url": {{ img_url | json }},
             "image_alt": {{ img_alt | json }},
             "vendor": {{ product.vendor | json }},
+            "variants": [
+              {%- for variant in product.variants -%}
+                {
+                  "title": {{ variant.title | json }},
+                  "option1": {{ variant.option1 | json }},
+                  "option2": {{ variant.option2 | json }},
+                  "option3": {{ variant.option3 | json }}
+                }{%- unless forloop.last -%},{%- endunless -%}
+              {%- endfor -%}
+            ],
             "finder": {
               "active":              {{ mf.active.value | json }},
               "ergebnis_kategorie":  {{ mf.ergebnis_kategorie.value | json }},

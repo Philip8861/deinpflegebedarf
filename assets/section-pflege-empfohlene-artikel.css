@@ -163,6 +163,14 @@
   flex: 1 1 auto;
 }
 
+.pflege-empfohlene-artikel .pflege-finder-card__variant-hint {
+  margin: 0.15rem 0 0;
+  font-size: clamp(0.82rem, 0.8rem + 0.1vw, 0.9rem);
+  line-height: 1.4;
+  color: var(--pflege-muted, #6f7f95);
+  font-style: italic;
+}
+
 .pflege-empfohlene-artikel .pflege-finder-card__actions {
   margin-top: auto;
   padding-top: 0.35rem;
