@@ -20,6 +20,8 @@
   {% render 'pflege-ratgeber-bridge-fallback' %}
 {%- elsif request.page_type == 'page' and page.handle == 'faq' -%}
   {% render 'pflege-faq-page-fallback' %}
+{%- elsif request.page_type == 'page' and page.handle == 'empfohlene-artikel' -%}
+  {% render 'pflege-empfohlene-artikel-fallback' %}
 {%- else -%}
 {{ 'section-main-page.css' | asset_url | stylesheet_tag }}
 

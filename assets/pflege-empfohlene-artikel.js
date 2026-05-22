@@ -2,8 +2,9 @@
 (function () {
   'use strict';
 
-  var PF = window.PflegeFinder;
-  if (!PF) return;
+  function getPF() {
+    return window.PflegeFinder;
+  }
 
   function findDataScript(root, selector) {
     if (root) {
@@ -14,13 +15,25 @@
   }
 
   function init(root) {
-    if (!root || root.__pflegeEmpfohleneInit) return;
+    var PF = getPF();
+    if (!PF) return false;
+
+    if (!root || root.__pflegeEmpfohleneInit) return true;
     root.__pflegeEmpfohleneInit = true;
 
     var configEl = findDataScript(root, 'script[data-pflege-finder-config]');
     var productsEl = findDataScript(root, 'script[data-pflege-finder-products]');
     var viewport = root.querySelector('[data-pflege-empfohlene-viewport]');
-    if (!configEl || !productsEl || !viewport) return;
+    if (!viewport) return true;
+
+    if (!configEl || !productsEl) {
+      renderEmpty(
+        viewport,
+        'Empfehlungen konnten nicht geladen werden',
+        'Die Produktdaten für den Finder sind gerade nicht verfügbar. Bitte laden Sie die Seite neu oder starten Sie den Produktfinder erneut.'
+      );
+      return true;
+    }
 
     var config = PF.safeJSON(configEl.textContent, {});
     var products = PF.safeJSON(productsEl.textContent, []);
@@ -52,9 +65,11 @@
     }
 
     renderGroups(viewport, groups, config);
+    return true;
   }
 
   function renderNoAnswers(viewport) {
+    var PF = getPF();
     viewport.innerHTML = '';
     var box = PF.el('div', { class: 'pflege-finder-empty pflege-empfohlene-empty' });
     var p = PF.el('p', { class: 'pflege-finder-empty__body' });
@@ -66,6 +81,7 @@
   }
 
   function renderEmpty(viewport, title, body) {
+    var PF = getPF();
     viewport.innerHTML = '';
     var box = PF.el('div', { class: 'pflege-finder-empty' });
     var h = PF.el('h2', { class: 'pflege-finder-empty__title' });
@@ -91,6 +107,7 @@
   }
 
   function renderGroups(viewport, groups) {
+    var PF = getPF();
     viewport.innerHTML = '';
     var container = PF.el('div', { class: 'pflege-finder-results' });
 
@@ -190,12 +207,21 @@
   }
 
   function boot() {
+    if (!getPF()) return;
     document.querySelectorAll('[data-pflege-empfohlene-artikel]').forEach(init);
   }
 
+  function bootWhenReady() {
+    if (getPF()) {
+      boot();
+      return;
+    }
+    window.setTimeout(bootWhenReady, 50);
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', boot);
+    document.addEventListener('DOMContentLoaded', bootWhenReady);
   } else {
-    boot();
+    bootWhenReady();
   }
 })();
