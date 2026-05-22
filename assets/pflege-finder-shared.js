@@ -68,7 +68,7 @@
     empfohlene_artikel: 5,
   };
 
-  var INKONTINENZ_TOP_BADGE_COUNT = 2;
+  var TOP_RECOMMENDED_BADGE_COUNT = 2;
 
   var MENGE_PERFECT = {
     wenig: ['tropfen', 'leicht'],
@@ -932,7 +932,7 @@
     }
 
     limited.forEach(function (p, index) {
-      if (categoryKey === 'inkontinenzversorgung' && index < INKONTINENZ_TOP_BADGE_COUNT) {
+      if (index < TOP_RECOMMENDED_BADGE_COUNT) {
         p._topRecommended = true;
       } else {
         delete p._topRecommended;
@@ -1394,7 +1394,7 @@
     CATEGORY_DEFS: CATEGORY_DEFS,
     MIN_SCORE: MIN_SCORE,
     CATEGORY_MAX: CATEGORY_MAX,
-    INKONTINENZ_TOP_BADGE_COUNT: INKONTINENZ_TOP_BADGE_COUNT,
+    TOP_RECOMMENDED_BADGE_COUNT: TOP_RECOMMENDED_BADGE_COUNT,
     applyCategoryDisplayRules: applyCategoryDisplayRules,
     normalizeValue: normalizeValue,
     normalizeAnswers: normalizeAnswers,
