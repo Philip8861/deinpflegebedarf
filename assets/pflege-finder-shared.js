@@ -16,15 +16,6 @@
     'empfohlene_artikel',
   ];
 
-  var CATEGORY_LIMITS = {
-    inkontinenzversorgung: 4,
-    koerperpflege: 4,
-    hautpflege: 4,
-    kleine_wundversorgung: 3,
-    pflegehilfsmittelbox: 2,
-    empfohlene_artikel: 5,
-  };
-
   var MIN_SCORE = {
     inkontinenzversorgung: 35,
     koerperpflege: 30,
@@ -33,9 +24,6 @@
     pflegehilfsmittelbox: 20,
     empfohlene_artikel: 25,
   };
-
-  var FALLBACK_PRIORITY_LIMIT = 3;
-  var FALLBACK_PRIORITY_LIMIT_EMPFOHLEN = 2;
 
   var MENGE_PERFECT = {
     wenig: ['tropfen', 'leicht'],
@@ -726,7 +714,7 @@
     return candidates;
   }
 
-  function selectByMinScore(candidates, minScore, limit) {
+  function selectByMinScore(candidates, minScore) {
     var scored = [];
 
     candidates.forEach(function (c) {
@@ -748,12 +736,12 @@
     });
 
     sortScoredEntries(scored);
-    return scored.slice(0, limit).map(function (e) {
+    return scored.map(function (e) {
       return e.p;
     });
   }
 
-  function buildPriorityFallback(categoryKey, candidates, limit) {
+  function buildPriorityFallback(candidates) {
     var eligible = [];
 
     candidates.forEach(function (c) {
@@ -762,21 +750,19 @@
     });
 
     sortByPriority(eligible);
-    return eligible.slice(0, limit).map(function (e) {
+    return eligible.map(function (e) {
       return e.p;
     });
   }
 
   function getRecommendedProductsForCategory(categoryKey, products, answers) {
-    var limit = CATEGORY_LIMITS[categoryKey] || 4;
     var minScore = MIN_SCORE[categoryKey] || 30;
     var candidates = collectCandidates(categoryKey, products, answers);
-    var result = selectByMinScore(candidates, minScore, limit);
-    var usedFallback = false;
+    var result = selectByMinScore(candidates, minScore);
 
     if (!result.length) {
       var lowered = minScore - 10;
-      result = selectByMinScore(candidates, lowered, limit);
+      result = selectByMinScore(candidates, lowered);
       if (result.length) {
         console.warn(
           '[PflegeFinder] Mindestscore gesenkt fuer Kategorie ' +
@@ -786,17 +772,11 @@
             ' -> ' +
             lowered
         );
-        usedFallback = true;
       }
     }
 
     if (!result.length) {
-      var fbLimit =
-        categoryKey === 'empfohlene_artikel' && !hasEmpfohleneSituation(answers)
-          ? FALLBACK_PRIORITY_LIMIT_EMPFOHLEN
-          : FALLBACK_PRIORITY_LIMIT;
-      fbLimit = Math.min(fbLimit, limit);
-      result = buildPriorityFallback(categoryKey, candidates, fbLimit);
+      result = buildPriorityFallback(candidates);
       if (result.length) {
         console.warn(
           '[PflegeFinder] Fallback genutzt fuer Kategorie ' + categoryKey,
@@ -804,16 +784,7 @@
             return p.title;
           })
         );
-        usedFallback = true;
       }
-    }
-
-    if (
-      categoryKey === 'empfohlene_artikel' &&
-      !hasEmpfohleneSituation(answers) &&
-      result.length > FALLBACK_PRIORITY_LIMIT_EMPFOHLEN
-    ) {
-      result = result.slice(0, FALLBACK_PRIORITY_LIMIT_EMPFOHLEN);
     }
 
     if (!result.length && isCategoryRelevant(categoryKey, answers)) {
@@ -1229,7 +1200,6 @@
     SESSION_KEY: SESSION_KEY,
     DEBUG: DEBUG,
     CATEGORY_DEFS: CATEGORY_DEFS,
-    CATEGORY_LIMITS: CATEGORY_LIMITS,
     MIN_SCORE: MIN_SCORE,
     normalizeValue: normalizeValue,
     normalizeAnswers: normalizeAnswers,
