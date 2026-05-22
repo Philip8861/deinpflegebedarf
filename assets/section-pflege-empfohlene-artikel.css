@@ -66,6 +66,7 @@
 
 .pflege-empfohlene-artikel .pflege-finder-group__head {
   margin-bottom: clamp(1rem, 2vw, 1.35rem);
+  text-align: center;
 }
 
 .pflege-empfohlene-artikel .pflege-finder-group__title {
@@ -76,6 +77,7 @@
   letter-spacing: -0.02em;
   color: var(--pflege-home-section-heading-color, #0f4f69);
   margin: 0;
+  text-align: center;
 }
 
 .pflege-empfohlene-artikel .pflege-finder-notice {
