@@ -79,8 +79,12 @@
   endif
 
   assign finder_modal_href = section.settings.finder_promo_button_link | strip
+  assign finder_open_popup = false
   if finder_modal_href == blank
-    assign finder_modal_href = root | append: '#produktfinder'
+    assign finder_modal_href = '#pflege-finder-open'
+    assign finder_open_popup = true
+  elsif finder_modal_href == '#pflege-finder-open'
+    assign finder_open_popup = true
   endif
 
   assign active_des = false
@@ -586,7 +590,12 @@
         <p class="pflege-category-modal__promo-copy">{{ section.settings.finder_promo_text | escape }}</p>
       {%- endif -%}
       {%- if section.settings.finder_promo_button_label != blank -%}
-        <a class="pflege-category-modal__cta" href="{{ finder_modal_href }}" data-category-modal-close>
+        <a
+          class="pflege-category-modal__cta"
+          href="{{ finder_modal_href }}"
+          data-category-modal-close
+          {% if finder_open_popup %}data-pflege-finder-open{% endif %}
+        >
           {{- section.settings.finder_promo_button_label | escape -}}
         </a>
       {%- endif -%}

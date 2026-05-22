@@ -1,29 +1,11 @@
 {% comment %}
-  PflegeShop Produktfinder — Wizard + Ergebnisanzeige.
-
-  Datenfluss:
-  1. Liest alle Produkte aus collections['produktfinder'].
-  2. Serialisiert je Produkt die finder-Metafelder als JSON in <script type="application/json" data-pflege-finder-products>.
-  3. Das JS (assets/pflege-finder-quiz.js) übernimmt Wizard, Scoring, Gruppierung und Render.
-
-  Texte (Fragen, Gruppentitel, Wunden-Hinweis) sind aktuell hartkodiert (Deutsch).
-  Lokalisierung kann später nachgezogen werden.
+  PflegeShop Produktfinder — Wizard (Vollseite, Fallback für /pages/produktfinder).
+  Ergebnisse werden auf /pages/empfohlene-artikel angezeigt.
 {% endcomment %}
 
 {{ 'section-pflege-finder-quiz.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'pflege-finder-shared.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'pflege-finder-quiz.js' | asset_url }}" defer="defer"></script>
-
-{%- liquid
-  assign finder_collection = collections['produktfinder']
-  assign has_collection = false
-  assign product_count = 0
-  if finder_collection != blank
-    assign product_count = finder_collection.products_count | plus: 0
-    if product_count > 0
-      assign has_collection = true
-    endif
-  endif
--%}
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -41,7 +23,7 @@
 <section
   class="pflege-finder-quiz section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient"
   data-pflege-finder
-  data-has-collection="{{ has_collection }}"
+  data-pflege-finder-mode="page"
   aria-labelledby="pflege-finder-title-{{ section.id }}"
   {{ section.shopify_attributes }}
 >
@@ -70,69 +52,7 @@
     </div>
   </div>
 
-  <script type="application/json" data-pflege-finder-config>
-    {
-      "minScore": 15,
-      "groupCaps": {
-        "haupt": 3,
-        "ergaenzung": 4,
-        "situation": 3,
-        "hygiene": 3,
-        "service": 2
-      },
-      "hasCollection": {{ has_collection | json }},
-      "productCount": {{ product_count | json }},
-      "currencyCodeEnabled": {{ settings.currency_code_enabled | default: false | json }}
-    }
-  </script>
-
-  <script type="application/json" data-pflege-finder-products>
-    [
-      {%- for product in finder_collection.products -%}
-        {%- assign mf = product.metafields.finder -%}
-        {%- assign price_money = product.price_min | money -%}
-        {%- if settings.currency_code_enabled -%}
-          {%- assign price_money = product.price_min | money_with_currency -%}
-        {%- endif -%}
-        {%- if product.featured_media -%}
-          {%- assign img_url = product.featured_media | image_url: width: 480 -%}
-          {%- assign img_alt = product.featured_media.alt | default: product.title -%}
-        {%- else -%}
-          {%- assign img_url = '' -%}
-          {%- assign img_alt = '' -%}
-        {%- endif -%}
-        {
-          "id": {{ product.id | json }},
-          "title": {{ product.title | json }},
-          "url": {{ product.url | json }},
-          "available": {{ product.available | json }},
-          "price_cents": {{ product.price_min | json }},
-          "price_html": {{ price_money | json }},
-          "image_url": {{ img_url | json }},
-          "image_alt": {{ img_alt | json }},
-          "vendor": {{ product.vendor | json }},
-          "finder": {
-            "active":            {{ mf.active.value | json }},
-            "kategorie":         {{ mf.kategorie.value | json }},
-            "produktrolle":      {{ mf.produktrolle.value | json }},
-            "empfehlungsebene":  {{ mf.empfehlungsebene.value | json }},
-            "bedarf":            {{ mf.bedarf.value | json }},
-            "pflegesituation":   {{ mf.pflegesituation.value | json }},
-            "mobilitaet":        {{ mf.mobilitaet.value | json }},
-            "geschlecht":        {{ mf.geschlecht.value | json }},
-            "inkontinenz_art":   {{ mf.inkontinenz_art.value | json }},
-            "menge_urinverlust": {{ mf.menge_urinverlust.value | json }},
-            "anwendung":         {{ mf.anwendung.value | json }},
-            "hautzustand":       {{ mf.hautzustand.value | json }},
-            "pflegeort":         {{ mf.pflegeort.value | json }},
-            "abrechnung":        {{ mf.abrechnung.value | json }},
-            "prioritaet":        {{ mf.prioritaet.value | json }},
-            "empfehlungstext":   {{ mf.empfehlungstext.value | json }}
-          }
-        }{%- unless forloop.last -%},{%- endunless -%}
-      {%- endfor -%}
-    ]
-  </script>
+  {% render 'pflege-finder-data' %}
 </section>
 
 {% schema %}

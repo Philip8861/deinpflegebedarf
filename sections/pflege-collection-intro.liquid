@@ -44,8 +44,12 @@
   if finder_href == blank
     assign finder_href = collection.metafields.pflege.finder_url.value | strip
   endif
+  assign finder_open_popup = false
   if finder_href == blank
-    assign finder_href = '/pages/produktfinder'
+    assign finder_href = '#pflege-finder-open'
+    assign finder_open_popup = true
+  elsif finder_href == '#pflege-finder-open'
+    assign finder_open_popup = true
   endif
 
   # Sonderfall Kollektion hautpflege: H1 Hallo123 (früher im Kollektionsbanner).
@@ -93,7 +97,11 @@
           </div>
           <h2 class="pflege-category-intro__finder-heading">{{ finder_heading | escape }}</h2>
           <p class="pflege-category-intro__finder-text">{{ finder_desc | escape }}</p>
-          <a class="pflege-category-intro__finder-cta" href="{{ finder_href | escape }}">
+          <a
+            class="pflege-category-intro__finder-cta"
+            href="{{ finder_href | escape }}"
+            {% if finder_open_popup %}data-pflege-finder-open{% endif %}
+          >
             {%- liquid
               assign finder_cta_text = section.settings.finder_cta_label | strip
               if finder_cta_text == blank
@@ -134,7 +142,7 @@
       "type": "text",
       "id": "finder_link",
       "label": "t:sections.pflege_collection_intro.settings.finder_link.label",
-      "default": "/pages/produktfinder",
+      "default": "#pflege-finder-open",
       "info": "t:sections.pflege_collection_intro.settings.finder_link.info"
     },
     {

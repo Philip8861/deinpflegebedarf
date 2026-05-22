@@ -1,7 +1,16 @@
 {{ 'section-pflege-product-finder.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
-  assign primary_href = section.settings.primary_link | default: routes.all_products_collection_url
+  # Button-Ziel:
+  # 1. Manuell gesetzter Link aus dem Theme-Editor.
+  # 2. Sonst Popup via Hash #pflege-finder-open (data-pflege-finder-open).
+  assign primary_href = section.settings.primary_link | strip
+  assign open_popup = false
+  if primary_href == blank
+    assign primary_href = '#pflege-finder-open'
+    assign open_popup = true
+  endif
+
   assign secondary_href = section.settings.secondary_link
   assign show_secondary = false
   if section.settings.secondary_label != blank and secondary_href != blank
@@ -39,7 +48,11 @@
 
             <div class="pflege-product-finder__actions pflege-product-finder__actions--center">
               {%- if section.settings.primary_label != blank -%}
-                <a class="pflege-product-finder__cta" href="{{ primary_href }}">
+                <a
+                  class="pflege-product-finder__cta"
+                  href="{{ primary_href }}"
+                  {% if open_popup %}data-pflege-finder-open{% endif %}
+                >
                   {{- section.settings.primary_label | escape -}}
                 </a>
               {%- endif -%}
@@ -95,7 +108,7 @@
       "type": "url",
       "id": "primary_link",
       "label": "Primär-Button — Link",
-      "info": "Leer = Link zur Gesamt­kollektion."
+      "info": "Leer = Produktfinder-Popup öffnen."
     },
     {
       "type": "text",
