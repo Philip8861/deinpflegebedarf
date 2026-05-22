@@ -71,6 +71,7 @@
     }
 
     var groups = PF.buildResultGroups(products, answers);
+    var pflegegradHint = PF.getPflegegradHint ? PF.getPflegegradHint(answers) : null;
 
     if (!groups.length) {
       renderEmpty(
@@ -82,7 +83,7 @@
       return true;
     }
 
-    renderGroups(viewport, groups, PF);
+    renderGroups(viewport, groups, PF, pflegegradHint);
     return true;
   }
 
@@ -122,13 +123,24 @@
     return wrap;
   }
 
-  function renderGroups(viewport, groups, PF) {
+  function renderGroups(viewport, groups, PF, pflegegradHint) {
     viewport.innerHTML = '';
     var container = PF.el('div', { class: 'pflege-finder-results' });
 
     var heading = PF.el('h1', { class: 'pflege-finder-results__title' });
     heading.textContent = 'Ihre empfohlenen Artikel';
     container.appendChild(heading);
+
+    if (pflegegradHint) {
+      var hint = PF.el('aside', {
+        class: 'pflege-finder-notice pflege-finder-notice--pflegegrad',
+        role: 'note',
+      });
+      var hintBody = PF.el('p', { class: 'pflege-finder-notice__body' });
+      hintBody.textContent = pflegegradHint;
+      hint.appendChild(hintBody);
+      container.appendChild(hint);
+    }
 
     groups.forEach(function (group) {
       container.appendChild(renderGroup(group, PF));
