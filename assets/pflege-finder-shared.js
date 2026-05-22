@@ -1,45 +1,12 @@
-/* PflegeShop Produktfinder — Kategorien, Scoring, Session, Debug. */
+/* PflegeShop Produktfinder — Kategorien, Ausschlüsse, Scoring, Session, Debug. */
 (function (global) {
   'use strict';
 
   var SESSION_KEY = 'pflegefinder_answers';
   var DEBUG = true;
 
-  var CATEGORY_BASE_SCORE = 30;
   var TIER_SCORE_GAP = 12;
   var TIER_MIN_FOR_SPLIT = 5;
-
-  var KOERPER_ROLE_BOOST = {
-    ausserhalb_bett: [
-      'dusche',
-      'bad',
-      'shampoo',
-      'duschgel',
-      'seife',
-      'waschlotion',
-      'waschemulsion',
-      'shower',
-    ],
-    teilweise_bett: [
-      'waschlappen',
-      'waschhandschuh',
-      'handschuh',
-      'shampoohaube',
-      'wasch',
-      'pflege',
-    ],
-    ueberwiegend_bett: [
-      'waschlappen',
-      'waschhandschuh',
-      'handschuh',
-      'shampoohaube',
-      'wasch',
-      'bett',
-      'pflege',
-    ],
-  };
-
-  var KOERPER_ROLE_MALUS = ['kamm', 'nagel', 'pinzette', 'zubehoer', 'accessoire'];
 
   var CATEGORY_KEYS = [
     'inkontinenzversorgung',
@@ -51,12 +18,12 @@
   ];
 
   var MIN_SCORE = {
-    inkontinenzversorgung: 35,
-    koerperpflege: 30,
-    hautpflege: 30,
-    kleine_wundversorgung: 30,
-    pflegehilfsmittelbox: 20,
-    empfohlene_artikel: 25,
+    inkontinenzversorgung: 20,
+    koerperpflege: 20,
+    hautpflege: 12,
+    kleine_wundversorgung: 20,
+    pflegehilfsmittelbox: 5,
+    empfohlene_artikel: 10,
   };
 
   var CATEGORY_MAX = {
@@ -68,7 +35,7 @@
     empfohlene_artikel: 5,
   };
 
-  var TOP_RECOMMENDED_BADGE_COUNT = 2;
+  var INKONTINENZ_TOP_BADGE_COUNT = 2;
 
   var MENGE_PERFECT = {
     wenig: ['tropfen', 'leicht'],
@@ -84,22 +51,22 @@
     sehr_viel: ['stark'],
   };
 
-  var INKONTINENZ_EINSATZ_PERFECT = {
+  var INKONTINENZ_SITUATION_PERFECT = {
     unterwegs_tag: ['tag', 'unterwegs'],
     nacht: ['nacht'],
     bett: ['bett', 'nacht'],
-  };
-
-  var INKONTINENZ_EINSATZ_NEIGHBOR = {
-    unterwegs_tag: ['tag_nacht'],
-    nacht: ['bett', 'tag_nacht'],
-    bett: ['tag_nacht'],
   };
 
   var KOERPER_PFLEGEORT_PERFECT = {
     ausserhalb_bett: ['bad', 'dusche', 'koerperpflege'],
     teilweise_bett: ['bad', 'dusche', 'bett', 'koerperpflege', 'bettpflege'],
     ueberwiegend_bett: ['bett', 'bettpflege'],
+  };
+
+  var KOERPER_PFLEGEORT_PARTIAL = {
+    ausserhalb_bett: ['koerperpflege'],
+    teilweise_bett: ['bad', 'dusche', 'bett', 'bettpflege', 'koerperpflege'],
+    ueberwiegend_bett: ['koerperpflege', 'bettpflege'],
   };
 
   var HAUT_PERFECT = {
@@ -114,11 +81,36 @@
     sehr_trocken_gereizt: ['trocken', 'hautschutz', 'sensitiv', 'mild', 'empfindlich'],
   };
 
+  var HAUT_SPEZIAL = ['sehr_trocken', 'gereizt', 'hautschutz', 'sensitiv', 'empfindlich', 'mild'];
+
+  var BETT_INKONTINENZ_TITLE = [
+    'bettschutzeinlage',
+    'bettschutz',
+    'bettauflage',
+    'krankenunterlage',
+    'bettunterlage',
+  ];
+
+  var BETT_PFLEGE_TITLE = [
+    'bettpflege',
+    'shampoohaube',
+    'bettschutzeinlage',
+    'krankenunterlage',
+    'bettunterlage',
+  ];
+
   var ANSWER_ALIASES = {
+    careLevel: 'pflegegrad',
     bodyCare: 'koerperpflege',
-    koerperliche_pflege: 'koerperpflege',
+    bodyCarePlace: 'pflegeort',
     incontinence: 'inkontinenz',
     gender: 'geschlecht',
+    urineAmount: 'menge_urin',
+    incontinenceSituation: 'inkontinenz_einsatz',
+    stoolIncontinence: 'stuhlinkontinenz',
+    skin: 'hautzustand',
+    smallWounds: 'kleine_wunden',
+    koerperliche_pflege: 'koerperpflege',
     urine_amount: 'menge_urin',
     mobility: 'inkontinenz_einsatz',
     mobilitaet: 'inkontinenz_einsatz',
@@ -141,14 +133,14 @@
       id: 'inkontinenzversorgung',
       title: 'Inkontinenzversorgung',
       isRelevant: function (a) {
-        return a.inkontinenz === 'ja';
+        return a.incontinence === 'ja' || a.inkontinenz === 'ja';
       },
     },
     {
       id: 'koerperpflege',
       title: 'Körperpflege',
       isRelevant: function (a) {
-        return a.koerperpflege === 'ja';
+        return a.bodyCare === 'ja' || a.koerperpflege === 'ja';
       },
     },
     {
@@ -162,10 +154,10 @@
       id: 'kleine_wundversorgung',
       title: 'Kleine Wundversorgung',
       isRelevant: function (a) {
-        return a.kleine_wunden === 'ja';
+        return a.smallWounds === 'ja' || a.kleine_wunden === 'ja';
       },
       notice: function (a) {
-        if (a.kleine_wunden !== 'ja') return null;
+        if (a.smallWounds !== 'ja' && a.kleine_wunden !== 'ja') return null;
         return 'Bei offenen, schlecht heilenden oder entzündeten Wunden sollte zusätzlich eine ärztliche oder pflegerische Abklärung erfolgen. Die angezeigten Artikel können die Versorgung im Alltag unterstützen, ersetzen aber keine medizinische Behandlung.';
       },
     },
@@ -173,7 +165,7 @@
       id: 'pflegehilfsmittelbox',
       title: 'Kostenfreie Pflegehilfsmittelbox',
       isRelevant: function (a) {
-        return a.pflegegrad === 'ja';
+        return a.careLevel === 'ja' || a.pflegegrad === 'ja';
       },
     },
     {
@@ -271,16 +263,6 @@
     );
   }
 
-  function productInkontinenzTypes(product) {
-    var hay = productHaystack(product);
-    var types = [];
-    if (/pants|windelhose|inkontinenzhose|fixierhose/.test(hay)) types.push('pants');
-    if (/slip|fixie/.test(hay)) types.push('slips');
-    if (/vorlage|einlage|pad|einleg/.test(hay)) types.push('vorlagen');
-    if (/bettschutz|bettschutzeinlage|molton/.test(hay)) types.push('bettschutz');
-    return types;
-  }
-
   function matchesKeyword(hay, keywords) {
     for (var i = 0; i < keywords.length; i++) {
       if (hay.indexOf(normalizeValue(keywords[i])) >= 0) return true;
@@ -296,30 +278,12 @@
     return true;
   }
 
-  function isPureMaleProduct(genders) {
-    if (!genders.length) return false;
-    var male = ['mann', 'maennlich', 'herren', 'male'];
-    var female = ['frau', 'weiblich', 'damen', 'female'];
-    return (
-      listOverlap(genders, male) &&
-      !listOverlap(genders, female) &&
-      !listOverlap(genders, ['unisex', 'neutral', 'alle'])
-    );
+  function exclusion(reason) {
+    return { excluded: true, reason: reason };
   }
 
-  function isPureFemaleProduct(genders) {
-    if (!genders.length) return false;
-    var male = ['mann', 'maennlich', 'herren', 'male'];
-    var female = ['frau', 'weiblich', 'damen', 'female'];
-    return (
-      listOverlap(genders, female) &&
-      !listOverlap(genders, male) &&
-      !listOverlap(genders, ['unisex', 'neutral', 'alle'])
-    );
-  }
-
-  function isExclusivelyStuhl(arts) {
-    return arts.length > 0 && isExclusivelyLevels(arts, ['stuhl']);
+  function notExcluded() {
+    return { excluded: false, reason: '' };
   }
 
   function mlToMengeLevel(ml) {
@@ -360,10 +324,6 @@
     return uniqueList(meta.concat(getVariantMengeLevels(product)));
   }
 
-  function getProductMobilityLevels(product) {
-    return parseMetafieldList(product.finder && product.finder.mobilitaet);
-  }
-
   function getProductGenderLevels(product) {
     return parseMetafieldList(product.finder && product.finder.geschlecht);
   }
@@ -388,63 +348,510 @@
     return parseMetafieldList(product.finder && product.finder.pflegesituation);
   }
 
+  function isPureMaleProduct(genders) {
+    if (!genders.length) return false;
+    var male = ['mann', 'maennlich', 'herren', 'male'];
+    var female = ['frau', 'weiblich', 'damen', 'female'];
+    return (
+      listOverlap(genders, male) &&
+      !listOverlap(genders, female) &&
+      !listOverlap(genders, ['unisex', 'neutral', 'alle'])
+    );
+  }
+
+  function isPureFemaleProduct(genders) {
+    if (!genders.length) return false;
+    var male = ['mann', 'maennlich', 'herren', 'male'];
+    var female = ['frau', 'weiblich', 'damen', 'female'];
+    return (
+      listOverlap(genders, female) &&
+      !listOverlap(genders, male) &&
+      !listOverlap(genders, ['unisex', 'neutral', 'alle'])
+    );
+  }
+
+  function isPureBettNachtInkontinenzProduct(product) {
+    var pflegeort = getProductPflegeort(product);
+    var anwendung = getProductAnwendung(product);
+    var hay = productHaystack(product);
+
+    if (pflegeort.length && isExclusivelyLevels(pflegeort, ['bett'])) return true;
+    if (anwendung.length && isExclusivelyLevels(anwendung, ['nacht', 'bett'])) return true;
+    if (matchesKeyword(hay, BETT_INKONTINENZ_TITLE)) return true;
+    return false;
+  }
+
+  function isPureUnterwegsTagProduct(product) {
+    var anwendung = getProductAnwendung(product);
+    if (!anwendung.length) return false;
+    return isExclusivelyLevels(anwendung, ['tag', 'unterwegs']);
+  }
+
+  function isPureBettpflegeKoerperProduct(product) {
+    var pflegeort = getProductPflegeort(product);
+    var situation = getProductPflegesituation(product);
+    var hay = productHaystack(product);
+
+    if (pflegeort.length && isExclusivelyLevels(pflegeort, ['bett'])) return true;
+    if (situation.length && isExclusivelyLevels(situation, ['bettpflege'])) return true;
+    if (matchesKeyword(hay, BETT_PFLEGE_TITLE)) return true;
+    if (/waschhandschuh/.test(hay) && /bett/.test(hay)) return true;
+    return false;
+  }
+
+  function isPureDuschBadKoerperProduct(product) {
+    var pflegeort = getProductPflegeort(product);
+    if (!pflegeort.length) return false;
+    return isExclusivelyLevels(pflegeort, ['bad', 'dusche']);
+  }
+
+  function isExclusiveHautSpezialProduct(product) {
+    var haut = getProductHautzustand(product);
+    var hay = productHaystack(product);
+    if (!haut.length) {
+      return matchesKeyword(hay, ['hautschutz', 'gereizt', 'sehr trocken', 'sehr_trocken']);
+    }
+    for (var i = 0; i < haut.length; i++) {
+      if (haut[i] === 'normal' || haut[i] === 'trocken') return false;
+    }
+    return listOverlap(haut, HAUT_SPEZIAL);
+  }
+
+  function isGeneralKoerperpflegeProduct(product) {
+    var hay = productHaystack(product);
+    return matchesKeyword(hay, [
+      'waschlotion',
+      'waschemulsion',
+      'feuchttuch',
+      'feuchttuecher',
+      'pflegelotion',
+      'pflegeoel',
+      'pflegegel',
+      'allover',
+      'wasch',
+    ]);
+  }
+
+  function isUnderwegsOrOutsideContext(answers) {
+    return (
+      answers.incontinenceSituation === 'unterwegs_tag' ||
+      answers.inkontinenz_einsatz === 'unterwegs_tag' ||
+      answers.bodyCarePlace === 'ausserhalb_bett' ||
+      answers.pflegeort === 'ausserhalb_bett'
+    );
+  }
+
+  function isBettDominantContext(answers) {
+    return (
+      answers.incontinenceSituation === 'bett' ||
+      answers.inkontinenz_einsatz === 'bett' ||
+      answers.bodyCarePlace === 'ueberwiegend_bett' ||
+      answers.pflegeort === 'ueberwiegend_bett'
+    );
+  }
+
+  /* -------------------------------------------------------- *
+   * Antworten
+   * -------------------------------------------------------- */
+
+  function syncCanonicalAnswerKeys(a) {
+    var pairs = [
+      ['pflegegrad', 'careLevel'],
+      ['koerperpflege', 'bodyCare'],
+      ['pflegeort', 'bodyCarePlace'],
+      ['inkontinenz', 'incontinence'],
+      ['geschlecht', 'gender'],
+      ['menge_urin', 'urineAmount'],
+      ['inkontinenz_einsatz', 'incontinenceSituation'],
+      ['stuhlinkontinenz', 'stoolIncontinence'],
+      ['hautzustand', 'skin'],
+      ['kleine_wunden', 'smallWounds'],
+    ];
+
+    pairs.forEach(function (pair) {
+      var de = pair[0];
+      var en = pair[1];
+      if (a[de] != null && a[en] == null) a[en] = a[de];
+      if (a[en] != null && a[de] == null) a[de] = a[en];
+    });
+  }
+
+  function normalizeAnswers(raw) {
+    if (!raw || typeof raw !== 'object') return {};
+    var a = Object.assign({}, raw);
+
+    Object.keys(ANSWER_ALIASES).forEach(function (legacyKey) {
+      var canonical = ANSWER_ALIASES[legacyKey];
+      if (a[legacyKey] != null && a[canonical] == null) {
+        a[canonical] = a[legacyKey];
+      }
+    });
+
+    delete a.zielgruppe;
+
+    if (a.inkontinenz === 'unsicher') a.inkontinenz = 'ja';
+    if (a.incontinence === 'unsicher') a.incontinence = 'ja';
+    if (a.pflegegrad === 'weiss_nicht') a.pflegegrad = 'nein';
+    if (a.careLevel === 'weiss_nicht') a.careLevel = 'nein';
+    if (a.stuhlinkontinenz === 'unsicher') a.stuhlinkontinenz = 'ja';
+    if (a.stoolIncontinence === 'unsicher') a.stoolIncontinence = 'ja';
+    if (a.geschlecht === 'egal') delete a.geschlecht;
+    if (a.gender === 'egal') delete a.gender;
+
+    if (a.hautzustand === 'sehr_trocken' || a.hautzustand === 'gereizt') {
+      a.hautzustand = 'sehr_trocken_gereizt';
+    }
+    if (a.skin === 'sehr_trocken' || a.skin === 'gereizt') {
+      a.skin = 'sehr_trocken_gereizt';
+    }
+
+    if (!a.inkontinenz_einsatz && !a.incontinenceSituation && a.mobilitaet) {
+      if (a.mobilitaet === 'mobil') a.inkontinenz_einsatz = 'unterwegs_tag';
+      else if (a.mobilitaet === 'bettlaegerig') a.inkontinenz_einsatz = 'bett';
+      else a.inkontinenz_einsatz = 'nacht';
+    }
+
+    syncCanonicalAnswerKeys(a);
+    return a;
+  }
+
+  function isCategoryRelevant(categoryKey, answers) {
+    for (var i = 0; i < CATEGORY_DEFS.length; i++) {
+      if (CATEGORY_DEFS[i].id === categoryKey) {
+        return CATEGORY_DEFS[i].isRelevant(answers);
+      }
+    }
+    return false;
+  }
+
+  function getRelevantCategories(answers) {
+    return CATEGORY_DEFS.filter(function (cat) {
+      return cat.isRelevant(answers);
+    });
+  }
+
+  /* -------------------------------------------------------- *
+   * Harte Ausschlüsse — isClearlyWrongForAnswers
+   * -------------------------------------------------------- */
+
+  function checkInkontinenzExclusions(product, answers) {
+    var genders = getProductGenderLevels(product);
+    var gender = answers.gender || answers.geschlecht;
+    var urineAmount = answers.urineAmount || answers.menge_urin;
+    var situation = answers.incontinenceSituation || answers.inkontinenz_einsatz;
+    var stool = answers.stoolIncontinence || answers.stuhlinkontinenz;
+
+    if (gender === 'weiblich' && isPureMaleProduct(genders)) {
+      return exclusion('reines Maennerprodukt bei Geschlecht weiblich');
+    }
+    if (gender === 'maennlich' && isPureFemaleProduct(genders)) {
+      return exclusion('reines Frauenprodukt bei Geschlecht maennlich');
+    }
+
+    if (urineAmount) {
+      var levels = getProductMengeLevels(product);
+      if (levels.length) {
+        if (urineAmount === 'wenig') {
+          if (isExclusivelyLevels(levels, ['sehr_stark'])) {
+            return exclusion('ausschliesslich sehr_stark bei Urinmenge wenig');
+          }
+          if (isExclusivelyLevels(levels, ['stark', 'sehr_stark'])) {
+            return exclusion('ausschliesslich stark/sehr_stark bei Urinmenge wenig');
+          }
+        }
+        if (urineAmount === 'viel' || urineAmount === 'sehr_viel') {
+          if (isExclusivelyLevels(levels, ['tropfen', 'leicht'])) {
+            return exclusion('ausschliesslich tropfen/leicht bei hoher Urinmenge');
+          }
+        }
+        if (urineAmount === 'sehr_viel' && isExclusivelyLevels(levels, ['mittel'])) {
+          return exclusion('ausschliesslich mittel bei Urinmenge sehr_viel');
+        }
+      }
+    }
+
+    if (situation === 'unterwegs_tag' && isPureBettNachtInkontinenzProduct(product)) {
+      return exclusion('reines Bett-/Nachtprodukt bei Situation unterwegs/tagsueber');
+    }
+
+    if (situation === 'bett' && isPureUnterwegsTagProduct(product)) {
+      return exclusion('reines Unterwegs-/Tagprodukt bei Situation Bett');
+    }
+
+    if (stool === 'nein') {
+      var arts = getProductInkontinenzArt(product);
+      if (arts.length && isExclusivelyLevels(arts, ['stuhl'])) {
+        return exclusion('reines Stuhlprodukt bei Stuhlinkontinenz Nein');
+      }
+    }
+
+    return notExcluded();
+  }
+
+  function checkKoerperpflegeExclusions(product, answers) {
+    var place = answers.bodyCarePlace || answers.pflegeort;
+    if (!place) return notExcluded();
+
+    if (place === 'ausserhalb_bett') {
+      if (isPureBettpflegeKoerperProduct(product) && !isGeneralKoerperpflegeProduct(product)) {
+        return exclusion('reines Bettpflegeprodukt bei Pflege ausserhalb des Bettes');
+      }
+    }
+
+    if (place === 'ueberwiegend_bett' && isPureDuschBadKoerperProduct(product)) {
+      return exclusion('reines Dusch-/Badprodukt bei ueberwiegend Bett');
+    }
+
+    return notExcluded();
+  }
+
+  function checkHautpflegeExclusions(product, answers) {
+    var skin = answers.skin || answers.hautzustand;
+    if (skin === 'normal' && isExclusiveHautSpezialProduct(product)) {
+      return exclusion('Spezial-Hautpflege (sehr trocken/gereizt/Hautschutz) bei normaler Haut');
+    }
+    return notExcluded();
+  }
+
+  function checkEmpfohleneArtikelExclusions(product, answers) {
+    if (isUnderwegsOrOutsideContext(answers)) {
+      if (isPureBettNachtInkontinenzProduct(product) || isPureBettpflegeKoerperProduct(product)) {
+        return exclusion('Bett-/Nachtartikel bei Unterwegs/ausserhalb Bett');
+      }
+    }
+
+    if (isBettDominantContext(answers) && isPureUnterwegsTagProduct(product)) {
+      return exclusion('Unterwegs-/Tagartikel bei ueberwiegend Bett');
+    }
+
+    return notExcluded();
+  }
+
+  function isClearlyWrongForAnswers(product, categoryKey, answers) {
+    if (categoryKey === 'inkontinenzversorgung') {
+      return checkInkontinenzExclusions(product, answers);
+    }
+    if (categoryKey === 'koerperpflege') {
+      return checkKoerperpflegeExclusions(product, answers);
+    }
+    if (categoryKey === 'hautpflege') {
+      return checkHautpflegeExclusions(product, answers);
+    }
+    if (categoryKey === 'empfohlene_artikel') {
+      return checkEmpfohleneArtikelExclusions(product, answers);
+    }
+    return notExcluded();
+  }
+
+  function getHardExclusionReason(product, categoryKey, answers) {
+    var check = isClearlyWrongForAnswers(product, categoryKey, answers);
+    return check.excluded ? check.reason : null;
+  }
+
+  /* -------------------------------------------------------- *
+   * Scoring
+   * -------------------------------------------------------- */
+
   function addScore(result, label, points) {
     result.score += points;
     var sign = points >= 0 ? '+' : '';
     result.reasons.push(label + ' (' + sign + points + ')');
   }
 
-  function scoreKoerperpflegeRole(product, answers, result) {
-    if (answers.koerperpflege !== 'ja' || !answers.pflegeort) return;
+  function scoreInkontinenz(product, answers, result) {
+    var urineAmount = answers.urineAmount || answers.menge_urin;
+    var situation = answers.incontinenceSituation || answers.inkontinenz_einsatz;
+    var gender = answers.gender || answers.geschlecht;
+    var stool = answers.stoolIncontinence || answers.stuhlinkontinenz;
 
-    var hay = productHaystack(product);
-    var boostKeys = KOERPER_ROLE_BOOST[answers.pflegeort] || [];
+    if (urineAmount) {
+      var levels = getProductMengeLevels(product);
+      var metaLevels = parseMetafieldList(product.finder && product.finder.menge_urinverlust);
+      var variantLevels = getVariantMengeLevels(product);
+      if (variantLevels.length && !metaLevels.length) {
+        result.variantHint = true;
+      }
+      if (levels.length) {
+        var perfect = MENGE_PERFECT[urineAmount] || [];
+        var neighbor = MENGE_NEIGHBOR[urineAmount] || [];
+        if (listOverlap(levels, perfect)) {
+          addScore(result, 'Urinmenge perfekt (' + levels.join(', ') + ')', 30);
+        } else if (listOverlap(levels, neighbor)) {
+          addScore(result, 'Urinmenge Nachbarstufe (' + levels.join(', ') + ')', 12);
+        } else {
+          addScore(result, 'Urinmenge ohne Treffer (' + levels.join(', ') + ')', 0);
+        }
+      }
+    }
 
-    if (matchesKeyword(hay, boostKeys)) {
-      var pts = answers.pflegeort === 'ueberwiegend_bett' ? 16 : 14;
-      addScore(result, 'Kernprodukt Körperpflege', pts);
+    if (situation) {
+      var anwendungen = getProductAnwendung(product);
+      var pflegeort = getProductPflegeort(product);
+      var combined = uniqueList(anwendungen.concat(pflegeort));
+      var perfectSit = INKONTINENZ_SITUATION_PERFECT[situation] || [];
+      if (combined.length && listOverlap(combined, perfectSit)) {
+        addScore(result, 'Situation perfekt (' + combined.join(', ') + ')', 25);
+      }
+    }
+
+    if (stool) {
+      var arts = getProductInkontinenzArt(product);
+      if (arts.length) {
+        if (stool === 'ja') {
+          if (listOverlap(arts, ['stuhl', 'urin_stuhl'])) {
+            addScore(result, 'Inkontinenzart stuhl/urin_stuhl', 20);
+          } else if (listOverlap(arts, ['urin'])) {
+            addScore(result, 'Inkontinenzart nur urin (Stuhl Ja)', 3);
+          }
+        } else if (listOverlap(arts, ['urin', 'urin_stuhl'])) {
+          addScore(result, 'Inkontinenzart urin/urin_stuhl', 20);
+        }
+      }
+    }
+
+    if (gender) {
+      var genders = getProductGenderLevels(product);
+      if (
+        genders.length &&
+        (listOverlap(genders, ['unisex', 'neutral', 'alle']) ||
+          (gender === 'weiblich' && listOverlap(genders, ['frau', 'weiblich', 'damen'])) ||
+          (gender === 'maennlich' && listOverlap(genders, ['mann', 'maennlich', 'herren'])))
+      ) {
+        addScore(result, 'Geschlecht passt (' + genders.join(', ') + ')', 15);
+      }
+    }
+  }
+
+  function scoreKoerperpflege(product, answers, result) {
+    var place = answers.bodyCarePlace || answers.pflegeort;
+    if (!place) return;
+
+    var pflegeortMeta = getProductPflegeort(product);
+    var situation = getProductPflegesituation(product);
+    var combined = uniqueList(pflegeortMeta.concat(situation));
+    var perfect = KOERPER_PFLEGEORT_PERFECT[place] || [];
+    var partial = KOERPER_PFLEGEORT_PARTIAL[place] || [];
+
+    if (combined.length && listOverlap(combined, perfect)) {
+      addScore(result, 'Pflegeort perfekt (' + combined.join(', ') + ')', 30);
+    } else if (combined.length && listOverlap(combined, partial)) {
+      addScore(result, 'Pflegeort teilweise passend (' + combined.join(', ') + ')', 12);
+    }
+
+    if (listOverlap(situation, ['koerperpflege', 'bettpflege'])) {
+      addScore(result, 'Pflegesituation passt', 20);
     }
 
     if (
-      (answers.pflegeort === 'teilweise_bett' || answers.pflegeort === 'ueberwiegend_bett') &&
-      matchesKeyword(hay, KOERPER_ROLE_MALUS)
+      (answers.incontinence === 'ja' || answers.inkontinenz === 'ja') &&
+      listOverlap(situation, ['inkontinenzwechsel'])
     ) {
-      addScore(result, 'Ergänzungs-/Zubehörartikel', -10);
+      addScore(result, 'Inkontinenzwechsel passend', 8);
     }
   }
 
-  function scoreInkontinenzProdukttyp(product, answers, result) {
-    if (!answers.inkontinenz_einsatz) return;
-
-    var types = productInkontinenzTypes(product);
-    if (!types.length) return;
-
-    if (answers.inkontinenz_einsatz === 'unterwegs_tag') {
-      if (types.indexOf('pants') >= 0 || types.indexOf('vorlagen') >= 0) {
-        addScore(result, 'Produkttyp für unterwegs/tagsüber', 14);
-      }
-      if (types.indexOf('slips') >= 0) {
-        addScore(result, 'Slip weniger passend unterwegs', -6);
-      }
-    } else if (answers.inkontinenz_einsatz === 'bett') {
-      if (types.indexOf('slips') >= 0 || types.indexOf('vorlagen') >= 0 || types.indexOf('bettschutz') >= 0) {
-        addScore(result, 'Produkttyp für Bett', 14);
-      }
-    } else if (answers.inkontinenz_einsatz === 'nacht') {
-      if (types.indexOf('vorlagen') >= 0 || types.indexOf('slips') >= 0 || types.indexOf('pants') >= 0) {
-        addScore(result, 'Produkttyp für Nacht', 10);
-      }
-    }
-  }
-
-  function scoreHautpflegeMalus(product, answers, result) {
-    if (answers.hautzustand !== 'normal') return;
+  function scoreHautpflege(product, answers, result) {
+    var skin = answers.skin || answers.hautzustand;
+    if (!skin) return;
 
     var haut = getProductHautzustand(product);
-    if (listOverlap(haut, ['sehr_trocken', 'gereizt'])) {
-      addScore(result, 'Hautzustand weniger passend zu normal', -8);
+    var hay = productHaystack(product);
+    var perfect = HAUT_PERFECT[skin] || [skin];
+    var neighbor = HAUT_NEIGHBOR[skin] || [];
+
+    if (haut.length) {
+      if (listOverlap(haut, perfect)) {
+        addScore(result, 'Hautzustand perfekt (' + haut.join(', ') + ')', 30);
+      } else if (listOverlap(haut, neighbor)) {
+        addScore(result, 'Hautzustand Nachbar (' + haut.join(', ') + ')', 12);
+      }
+    }
+
+    if (skin === 'sehr_trocken_gereizt') {
+      if (
+        listOverlap(haut, ['hautschutz', 'gereizt', 'sensitiv']) ||
+        matchesKeyword(hay, ['gereizt', 'empfindlich', 'sensitiv', 'hautschutz', 'schonend', 'mild'])
+      ) {
+        addScore(result, 'Hautschutz/gereizt passend', 20);
+      }
     }
   }
+
+  function scoreEmpfohleneArtikel(product, answers, result) {
+    var hay = productHaystack(product);
+    var place = answers.bodyCarePlace || answers.pflegeort;
+
+    if (
+      (answers.bodyCare === 'ja' || answers.koerperpflege === 'ja') &&
+      (place === 'teilweise_bett' || place === 'ueberwiegend_bett')
+    ) {
+      if (
+        matchesKeyword(hay, [
+          'waschlappen',
+          'waschhandschuh',
+          'shampoohaube',
+          'bettschutz',
+          'handschuh',
+          'entsorgung',
+        ])
+      ) {
+        addScore(result, 'Koerperpflege im Bett', 20);
+      }
+    }
+
+    if (answers.stoolIncontinence === 'ja' || answers.stuhlinkontinenz === 'ja') {
+      if (
+        matchesKeyword(hay, ['handschuh', 'desinfektion', 'entsorgung', 'hautschutz', 'waschlappen'])
+      ) {
+        addScore(result, 'Stuhlinkontinenz Ja', 20);
+      }
+    }
+
+    if (answers.incontinence === 'ja' || answers.inkontinenz === 'ja') {
+      if (matchesKeyword(hay, ['hygiene', 'entsorgung', 'hautschutz', 'bettschutz', 'desinfektion'])) {
+        addScore(result, 'Inkontinenz Ja', 15);
+      }
+    }
+
+    if (answers.bodyCare === 'ja' || answers.koerperpflege === 'ja') {
+      if (matchesKeyword(hay, ['handschuh', 'waschlappen', 'hautschutz'])) {
+        addScore(result, 'Koerperpflege Ja', 12);
+      }
+    }
+
+    if (answers.careLevel === 'ja' || answers.pflegegrad === 'ja') {
+      if (matchesKeyword(hay, ['pflegehilfsmittel', 'verbrauch', 'box', 'hilfsmittel'])) {
+        addScore(result, 'Pflegegrad Ja', 8);
+      }
+    }
+  }
+
+  function scoreProductForCategory(product, categoryKey, answers) {
+    var result = {
+      score: 0,
+      reasons: [],
+      variantHint: false,
+    };
+
+    if (categoryKey === 'inkontinenzversorgung') {
+      scoreInkontinenz(product, answers, result);
+    } else if (categoryKey === 'koerperpflege') {
+      scoreKoerperpflege(product, answers, result);
+    } else if (categoryKey === 'hautpflege') {
+      scoreHautpflege(product, answers, result);
+    } else if (categoryKey === 'empfohlene_artikel') {
+      scoreEmpfohleneArtikel(product, answers, result);
+    }
+
+    var prio = scorePriorityBonus(product);
+    addScore(result, prio.label, prio.points);
+
+    return result;
+  }
+
+  /* -------------------------------------------------------- *
+   * Sortierung + Auswahl
+   * -------------------------------------------------------- */
 
   function assignDisplayTier(scored) {
     if (!scored.length) return scored;
@@ -485,352 +892,6 @@
     return { items: products, topItems: topItems, moreItems: moreItems };
   }
 
-  function genderAllowedForAnswer(genders, geschlecht) {
-    if (!geschlecht) return true;
-    if (!genders.length) return true;
-    if (listOverlap(genders, ['unisex', 'neutral', 'alle'])) return true;
-    if (geschlecht === 'weiblich') {
-      return listOverlap(genders, ['frau', 'weiblich', 'damen', 'female']);
-    }
-    if (geschlecht === 'maennlich') {
-      return listOverlap(genders, ['mann', 'maennlich', 'herren', 'male']);
-    }
-    return true;
-  }
-
-  function hasEmpfohleneSituation(answers) {
-    return (
-      (answers.koerperpflege === 'ja' &&
-        (answers.pflegeort === 'teilweise_bett' || answers.pflegeort === 'ueberwiegend_bett')) ||
-      answers.stuhlinkontinenz === 'ja' ||
-      answers.inkontinenz === 'ja' ||
-      answers.pflegegrad === 'ja' ||
-      answers.koerperpflege === 'ja'
-    );
-  }
-
-  /* -------------------------------------------------------- *
-   * Antworten
-   * -------------------------------------------------------- */
-
-  function normalizeAnswers(raw) {
-    if (!raw || typeof raw !== 'object') return {};
-    var a = Object.assign({}, raw);
-
-    Object.keys(ANSWER_ALIASES).forEach(function (legacyKey) {
-      var canonical = ANSWER_ALIASES[legacyKey];
-      if (a[legacyKey] != null && a[canonical] == null) {
-        a[canonical] = a[legacyKey];
-      }
-    });
-
-    delete a.zielgruppe;
-
-    if (a.inkontinenz === 'unsicher') a.inkontinenz = 'ja';
-    if (a.pflegegrad === 'weiss_nicht') a.pflegegrad = 'nein';
-    if (a.stuhlinkontinenz === 'unsicher') a.stuhlinkontinenz = 'ja';
-    if (a.geschlecht === 'egal') delete a.geschlecht;
-
-    if (a.hautzustand === 'sehr_trocken' || a.hautzustand === 'gereizt') {
-      a.hautzustand = 'sehr_trocken_gereizt';
-    }
-
-    if (!a.inkontinenz_einsatz && a.mobilitaet) {
-      if (a.mobilitaet === 'mobil') a.inkontinenz_einsatz = 'unterwegs_tag';
-      else if (a.mobilitaet === 'bettlaegerig') a.inkontinenz_einsatz = 'bett';
-      else a.inkontinenz_einsatz = 'nacht';
-    }
-
-    return a;
-  }
-
-  function isCategoryRelevant(categoryKey, answers) {
-    for (var i = 0; i < CATEGORY_DEFS.length; i++) {
-      if (CATEGORY_DEFS[i].id === categoryKey) {
-        return CATEGORY_DEFS[i].isRelevant(answers);
-      }
-    }
-    return false;
-  }
-
-  function getRelevantCategories(answers) {
-    return CATEGORY_DEFS.filter(function (cat) {
-      return cat.isRelevant(answers);
-    });
-  }
-
-  /* -------------------------------------------------------- *
-   * Harte Ausschlüsse
-   * -------------------------------------------------------- */
-
-  function getHardExclusionReason(product, categoryKey, answers) {
-    if (categoryKey === 'inkontinenzversorgung') {
-      var genders = getProductGenderLevels(product);
-
-      if (answers.geschlecht === 'weiblich' && isPureMaleProduct(genders)) {
-        return 'reines Maennerprodukt bei Geschlecht weiblich';
-      }
-      if (answers.geschlecht === 'maennlich' && isPureFemaleProduct(genders)) {
-        return 'reines Frauenprodukt bei Geschlecht maennlich';
-      }
-      if (answers.geschlecht && genders.length && !genderAllowedForAnswer(genders, answers.geschlecht)) {
-        return 'Geschlecht passt nicht (' + genders.join(', ') + ')';
-      }
-
-      if (answers.menge_urin) {
-        var levels = getProductMengeLevels(product);
-        if (levels.length) {
-          if (
-            answers.menge_urin === 'sehr_viel' &&
-            isExclusivelyLevels(levels, ['tropfen', 'leicht'])
-          ) {
-            return 'ausschliesslich tropfen/leicht bei Urinmenge sehr_viel';
-          }
-          if (answers.menge_urin === 'wenig' && isExclusivelyLevels(levels, ['sehr_stark'])) {
-            return 'ausschliesslich sehr_stark bei Urinmenge wenig';
-          }
-        }
-      }
-
-      if (answers.stuhlinkontinenz === 'nein') {
-        var arts = getProductInkontinenzArt(product);
-        if (isExclusivelyStuhl(arts)) {
-          return 'reines Stuhlprodukt bei Stuhlinkontinenz Nein';
-        }
-      }
-    }
-
-    return null;
-  }
-
-  /* -------------------------------------------------------- *
-   * Kategorie-Scoring
-   * -------------------------------------------------------- */
-
-  function scoreMengeInkontinenz(product, answers, result) {
-    if (!answers.menge_urin) return;
-
-    var levels = getProductMengeLevels(product);
-    var perfect = MENGE_PERFECT[answers.menge_urin] || [];
-    var neighbor = MENGE_NEIGHBOR[answers.menge_urin] || [];
-    var metaLevels = parseMetafieldList(product.finder && product.finder.menge_urinverlust);
-    var variantLevels = getVariantMengeLevels(product);
-
-    if (variantLevels.length && !metaLevels.length) {
-      result.variantHint = true;
-    }
-
-    if (!levels.length) return;
-
-    if (listOverlap(levels, perfect)) {
-      addScore(result, 'Urinmenge perfekt (' + levels.join(', ') + ')', 25);
-    } else if (listOverlap(levels, neighbor)) {
-      addScore(result, 'Urinmenge Nachbarstufe (' + levels.join(', ') + ')', 10);
-    } else {
-      addScore(result, 'Urinmenge ohne Treffer (' + levels.join(', ') + ')', 0);
-    }
-  }
-
-  function scoreInkontinenzSituation(product, answers, result) {
-    if (!answers.inkontinenz_einsatz) return;
-
-    var anwendungen = getProductAnwendung(product);
-    var pflegeort = getProductPflegeort(product);
-    var perfect = INKONTINENZ_EINSATZ_PERFECT[answers.inkontinenz_einsatz] || [];
-    var neighbor = INKONTINENZ_EINSATZ_NEIGHBOR[answers.inkontinenz_einsatz] || [];
-    var combined = uniqueList(anwendungen.concat(pflegeort));
-
-    if (!combined.length) return;
-
-    if (listOverlap(combined, perfect)) {
-      addScore(result, 'Einsatzzeit perfekt (' + combined.join(', ') + ')', 15);
-    } else if (listOverlap(combined, neighbor)) {
-      addScore(result, 'Einsatzzeit Nachbar (' + combined.join(', ') + ')', 6);
-    }
-  }
-
-  function scoreGenderInkontinenz(product, answers, result) {
-    if (!answers.geschlecht) return;
-
-    var genders = getProductGenderLevels(product);
-    if (!genders.length) return;
-
-    if (
-      listOverlap(genders, ['unisex', 'neutral', 'alle']) ||
-      (answers.geschlecht === 'weiblich' && listOverlap(genders, ['frau', 'weiblich'])) ||
-      (answers.geschlecht === 'maennlich' && listOverlap(genders, ['mann', 'maennlich']))
-    ) {
-      addScore(result, 'Geschlecht passt (' + genders.join(', ') + ')', 10);
-    }
-  }
-
-  function scoreInkontinenzArt(product, answers, result) {
-    if (!answers.stuhlinkontinenz) return;
-
-    var arts = getProductInkontinenzArt(product);
-    if (!arts.length) return;
-
-    if (answers.stuhlinkontinenz === 'ja') {
-      if (listOverlap(arts, ['stuhl', 'urin_stuhl'])) {
-        addScore(result, 'Inkontinenzart stuhl/urin_stuhl', 15);
-      } else if (listOverlap(arts, ['urin'])) {
-        addScore(result, 'Inkontinenzart nur urin', 3);
-      }
-    } else if (answers.stuhlinkontinenz === 'nein') {
-      if (listOverlap(arts, ['urin', 'urin_stuhl'])) {
-        addScore(result, 'Inkontinenzart urin/urin_stuhl', 8);
-      }
-    }
-  }
-
-  function scoreHautpflege(product, answers, result) {
-    if (!answers.hautzustand) return;
-
-    var haut = getProductHautzustand(product);
-    var hay = productHaystack(product);
-    var perfect = HAUT_PERFECT[answers.hautzustand] || [answers.hautzustand];
-    var neighbor = HAUT_NEIGHBOR[answers.hautzustand] || [];
-
-    if (haut.length) {
-      if (listOverlap(haut, perfect)) {
-        addScore(result, 'Hautzustand perfekt (' + haut.join(', ') + ')', 22);
-      } else if (listOverlap(haut, neighbor)) {
-        addScore(result, 'Hautzustand Nachbar (' + haut.join(', ') + ')', 8);
-      }
-    }
-
-    if (answers.hautzustand === 'sehr_trocken_gereizt') {
-      if (
-        matchesKeyword(hay, ['gereizt', 'empfindlich', 'sensitiv', 'hautschutz', 'schonend', 'mild'])
-      ) {
-        addScore(result, 'Hautschutz/Schonende Pflege (Titel/Text)', 8);
-      }
-    }
-
-    scoreHautpflegeMalus(product, answers, result);
-  }
-
-  function scoreKoerperpflege(product, answers, result) {
-    if (answers.koerperpflege !== 'ja' || !answers.pflegeort) return;
-
-    var pflegeortMeta = getProductPflegeort(product);
-    var situation = getProductPflegesituation(product);
-    var combined = uniqueList(pflegeortMeta.concat(situation));
-    var perfect = KOERPER_PFLEGEORT_PERFECT[answers.pflegeort] || [];
-
-    if (combined.length && listOverlap(combined, perfect)) {
-      var points = answers.pflegeort === 'ueberwiegend_bett' ? 18 : 15;
-      addScore(result, 'Pflegeort perfekt (' + combined.join(', ') + ')', points);
-    } else if (combined.length && listOverlap(combined, ['koerperpflege'])) {
-      addScore(result, 'Koerperpflege allgemein', 6);
-    } else if (
-      answers.pflegeort === 'teilweise_bett' &&
-      combined.length &&
-      listOverlap(combined, ['bad', 'dusche', 'bett', 'bettpflege'])
-    ) {
-      addScore(result, 'Pflegeort Nachbar', 6);
-    }
-
-    if (listOverlap(situation, ['koerperpflege', 'bettpflege'])) {
-      addScore(result, 'Pflegesituation passt', 10);
-    }
-
-    if (answers.inkontinenz === 'ja' && listOverlap(situation, ['inkontinenzwechsel'])) {
-      addScore(result, 'Inkontinenzwechsel passend', 8);
-    }
-
-    scoreKoerperpflegeRole(product, answers, result);
-  }
-
-  function scoreEmpfohleneArtikel(product, answers, result) {
-    var hay = productHaystack(product);
-
-    if (
-      answers.koerperpflege === 'ja' &&
-      (answers.pflegeort === 'teilweise_bett' || answers.pflegeort === 'ueberwiegend_bett')
-    ) {
-      if (
-        matchesKeyword(hay, [
-          'waschlappen',
-          'waschhandschuh',
-          'shampoohaube',
-          'bettschutz',
-          'handschuh',
-          'entsorgung',
-        ])
-      ) {
-        addScore(result, 'Koerperpflege im Bett', 12);
-      }
-    }
-
-    if (answers.stuhlinkontinenz === 'ja') {
-      if (
-        matchesKeyword(hay, [
-          'handschuh',
-          'desinfektion',
-          'entsorgung',
-          'hautschutz',
-          'waschlappen',
-        ])
-      ) {
-        addScore(result, 'Stuhlinkontinenz Ja', 12);
-      }
-    }
-
-    if (answers.inkontinenz === 'ja') {
-      if (
-        matchesKeyword(hay, ['hygiene', 'entsorgung', 'hautschutz', 'bettschutz', 'desinfektion'])
-      ) {
-        addScore(result, 'Inkontinenz Ja', 8);
-      }
-    }
-
-    if (answers.koerperpflege === 'ja') {
-      if (matchesKeyword(hay, ['handschuh', 'waschlappen', 'hautschutz'])) {
-        addScore(result, 'Koerperpflege Ja', 8);
-      }
-    }
-
-    if (answers.pflegegrad === 'ja') {
-      if (matchesKeyword(hay, ['pflegehilfsmittel', 'verbrauch', 'box', 'hilfsmittel'])) {
-        addScore(result, 'Pflegegrad Ja', 5);
-      }
-    }
-  }
-
-  function scoreProductForCategory(product, categoryKey, answers) {
-    var result = {
-      score: 0,
-      reasons: [],
-      variantHint: false,
-    };
-
-    addScore(result, 'Kategorie passt', CATEGORY_BASE_SCORE);
-
-    var prio = scorePriorityBonus(product);
-    addScore(result, prio.label, prio.points);
-
-    if (categoryKey === 'inkontinenzversorgung') {
-      scoreMengeInkontinenz(product, answers, result);
-      scoreInkontinenzSituation(product, answers, result);
-      scoreGenderInkontinenz(product, answers, result);
-      scoreInkontinenzArt(product, answers, result);
-      scoreInkontinenzProdukttyp(product, answers, result);
-    } else if (categoryKey === 'koerperpflege') {
-      scoreKoerperpflege(product, answers, result);
-    } else if (categoryKey === 'hautpflege') {
-      scoreHautpflege(product, answers, result);
-    } else if (categoryKey === 'empfohlene_artikel') {
-      scoreEmpfohleneArtikel(product, answers, result);
-    }
-
-    return result;
-  }
-
-  /* -------------------------------------------------------- *
-   * Sortierung + Auswahl
-   * -------------------------------------------------------- */
-
   function sortScoredEntries(entries) {
     entries.sort(function (a, b) {
       if (b.score !== a.score) return b.score - a.score;
@@ -853,9 +914,9 @@
       var p = products[i];
       if (!isActiveProduct(p) || !productHasCategory(p, categoryKey)) continue;
 
-      var hardReason = getHardExclusionReason(p, categoryKey, answers);
-      if (hardReason) {
-        candidates.push({ p: p, hardReason: hardReason, fit: null });
+      var wrong = isClearlyWrongForAnswers(p, categoryKey, answers);
+      if (wrong.excluded) {
+        candidates.push({ p: p, hardReason: wrong.reason, fit: null });
         continue;
       }
 
@@ -904,7 +965,7 @@
 
     sortByPriority(eligible);
     return eligible.map(function (e) {
-      e.p._score = CATEGORY_BASE_SCORE;
+      e.p._score = 0;
       e.p._tier = 'more';
       return e.p;
     });
@@ -932,7 +993,7 @@
     }
 
     limited.forEach(function (p, index) {
-      if (index < TOP_RECOMMENDED_BADGE_COUNT) {
+      if (categoryKey === 'inkontinenzversorgung' && index < INKONTINENZ_TOP_BADGE_COUNT) {
         p._topRecommended = true;
       } else {
         delete p._topRecommended;
@@ -943,14 +1004,15 @@
   }
 
   function getRecommendedProductsForCategory(categoryKey, products, answers) {
-    var minScore = MIN_SCORE[categoryKey] || 30;
+    var minScore = MIN_SCORE[categoryKey] || 20;
     var candidates = collectCandidates(categoryKey, products, answers);
     var result = selectByMinScore(candidates, minScore);
 
     if (!result.length) {
       var lowered = minScore - 10;
+      if (lowered < 0) lowered = 0;
       result = selectByMinScore(candidates, lowered);
-      if (result.length) {
+      if (result.length && DEBUG) {
         console.warn(
           '[PflegeFinder] Mindestscore gesenkt fuer Kategorie ' +
             categoryKey +
@@ -964,7 +1026,7 @@
 
     if (!result.length) {
       result = buildPriorityFallback(candidates);
-      if (result.length) {
+      if (result.length && DEBUG) {
         console.warn(
           '[PflegeFinder] Fallback genutzt fuer Kategorie ' + categoryKey,
           result.map(function (p) {
@@ -988,8 +1050,8 @@
    * -------------------------------------------------------- */
 
   function productDebugRow(p, categoryKey, answers) {
-    var hardReason = getHardExclusionReason(p, categoryKey, answers);
-    var fit = hardReason ? null : scoreProductForCategory(p, categoryKey, answers);
+    var wrong = isClearlyWrongForAnswers(p, categoryKey, answers);
+    var fit = wrong.excluded ? null : scoreProductForCategory(p, categoryKey, answers);
     var f = p.finder || {};
 
     return {
@@ -998,13 +1060,13 @@
       prioritaet: getPriority(p),
       ergebnis_kategorie: f.ergebnis_kategorie,
       menge_urinverlust: f.menge_urinverlust,
-      mobilitaet: f.mobilitaet,
+      anwendung: f.anwendung,
       inkontinenz_art: f.inkontinenz_art,
       hautzustand: f.hautzustand,
       pflegeort: f.pflegeort,
       pflegesituation: f.pflegesituation,
       score_gruende: fit ? fit.reasons : [],
-      ausschlussgrund: hardReason,
+      ausschlussgrund: wrong.excluded ? wrong.reason : null,
     };
   }
 
@@ -1054,13 +1116,18 @@
     var afterActive = 0;
     var afterHard = 0;
     var rows = [];
+    var excludedRows = [];
 
     products.forEach(function (p) {
       if (!isActiveProduct(p) || !productHasCategory(p, categoryKey)) return;
       afterActive += 1;
       var row = productDebugRow(p, categoryKey, answers);
       rows.push(row);
-      if (!row.ausschlussgrund) afterHard += 1;
+      if (row.ausschlussgrund) {
+        excludedRows.push({ titel: row.titel, grund: row.ausschlussgrund });
+      } else {
+        afterHard += 1;
+      }
     });
 
     rows.sort(function (a, b) {
@@ -1071,6 +1138,16 @@
       return (a.titel || '').localeCompare(b.titel || '', 'de');
     });
 
+    var topResults = resultItems.map(function (p) {
+      var row = productDebugRow(p, categoryKey, answers);
+      return {
+        titel: row.titel,
+        score: row.score,
+        score_gruende: row.score_gruende,
+        badge: !!p._topRecommended,
+      };
+    });
+
     console.log('[PflegeFinder] Kategorie:', categoryKey, {
       relevant: isCategoryRelevant(categoryKey, answers),
       kandidaten_vor_filter: products.length,
@@ -1079,6 +1156,8 @@
       ergebnis_anzahl: resultItems.length,
       mindestscore: MIN_SCORE[categoryKey],
       kategorie_limit: CATEGORY_MAX[categoryKey],
+      ausgeschlossene_produkte: excludedRows.slice(0, 30),
+      top_ergebnisse: topResults,
       top_20: rows.slice(0, 20),
     });
   }
@@ -1129,10 +1208,9 @@
           metafelder: {
             ergebnis_kategorie: p.finder && p.finder.ergebnis_kategorie,
             menge_urinverlust: p.finder && p.finder.menge_urinverlust,
-            mobilitaet: p.finder && p.finder.mobilitaet,
+            anwendung: p.finder && p.finder.anwendung,
             inkontinenz_art: p.finder && p.finder.inkontinenz_art,
             geschlecht: p.finder && p.finder.geschlecht,
-            anwendung: p.finder && p.finder.anwendung,
             hautzustand: p.finder && p.finder.hautzustand,
             pflegeort: p.finder && p.finder.pflegeort,
             prioritaet: p.finder && p.finder.prioritaet,
@@ -1206,7 +1284,7 @@
 
   function getPflegegradBlock(answers, urls) {
     var a = normalizeAnswers(answers);
-    if (a.pflegegrad !== 'ja') return null;
+    if (a.careLevel !== 'ja' && a.pflegegrad !== 'ja') return null;
 
     return {
       title: PFLEGEGRAD_BLOCK.title,
@@ -1220,7 +1298,8 @@
   }
 
   function shouldShowPflegegradBlock(answers) {
-    return normalizeAnswers(answers).pflegegrad === 'ja';
+    var a = normalizeAnswers(answers);
+    return a.careLevel === 'ja' || a.pflegegrad === 'ja';
   }
 
   function saveAnswers(answers) {
@@ -1394,7 +1473,7 @@
     CATEGORY_DEFS: CATEGORY_DEFS,
     MIN_SCORE: MIN_SCORE,
     CATEGORY_MAX: CATEGORY_MAX,
-    TOP_RECOMMENDED_BADGE_COUNT: TOP_RECOMMENDED_BADGE_COUNT,
+    INKONTINENZ_TOP_BADGE_COUNT: INKONTINENZ_TOP_BADGE_COUNT,
     applyCategoryDisplayRules: applyCategoryDisplayRules,
     normalizeValue: normalizeValue,
     normalizeAnswers: normalizeAnswers,
@@ -1405,6 +1484,7 @@
     getPriority: getPriority,
     isCategoryRelevant: isCategoryRelevant,
     getRelevantCategories: getRelevantCategories,
+    isClearlyWrongForAnswers: isClearlyWrongForAnswers,
     getHardExclusionReason: getHardExclusionReason,
     scoreProductForCategory: scoreProductForCategory,
     getRecommendedProductsForCategory: getRecommendedProductsForCategory,
