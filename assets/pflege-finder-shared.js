@@ -6,6 +6,40 @@
   var DEBUG = true;
 
   var CATEGORY_BASE_SCORE = 30;
+  var TIER_SCORE_GAP = 12;
+  var TIER_MIN_FOR_SPLIT = 5;
+
+  var KOERPER_ROLE_BOOST = {
+    ausserhalb_bett: [
+      'dusche',
+      'bad',
+      'shampoo',
+      'duschgel',
+      'seife',
+      'waschlotion',
+      'waschemulsion',
+      'shower',
+    ],
+    teilweise_bett: [
+      'waschlappen',
+      'waschhandschuh',
+      'handschuh',
+      'shampoohaube',
+      'wasch',
+      'pflege',
+    ],
+    ueberwiegend_bett: [
+      'waschlappen',
+      'waschhandschuh',
+      'handschuh',
+      'shampoohaube',
+      'wasch',
+      'bett',
+      'pflege',
+    ],
+  };
+
+  var KOERPER_ROLE_MALUS = ['kamm', 'nagel', 'pinzette', 'zubehoer', 'accessoire'];
 
   var CATEGORY_KEYS = [
     'inkontinenzversorgung',
@@ -24,6 +58,17 @@
     pflegehilfsmittelbox: 20,
     empfohlene_artikel: 25,
   };
+
+  var CATEGORY_MAX = {
+    inkontinenzversorgung: 5,
+    koerperpflege: 8,
+    hautpflege: 5,
+    kleine_wundversorgung: 5,
+    pflegehilfsmittelbox: 2,
+    empfohlene_artikel: 5,
+  };
+
+  var INKONTINENZ_TOP_BADGE_COUNT = 2;
 
   var MENGE_PERFECT = {
     wenig: ['tropfen', 'leicht'],
@@ -226,6 +271,16 @@
     );
   }
 
+  function productInkontinenzTypes(product) {
+    var hay = productHaystack(product);
+    var types = [];
+    if (/pants|windelhose|inkontinenzhose|fixierhose/.test(hay)) types.push('pants');
+    if (/slip|fixie/.test(hay)) types.push('slips');
+    if (/vorlage|einlage|pad|einleg/.test(hay)) types.push('vorlagen');
+    if (/bettschutz|bettschutzeinlage|molton/.test(hay)) types.push('bettschutz');
+    return types;
+  }
+
   function matchesKeyword(hay, keywords) {
     for (var i = 0; i < keywords.length; i++) {
       if (hay.indexOf(normalizeValue(keywords[i])) >= 0) return true;
@@ -335,7 +390,99 @@
 
   function addScore(result, label, points) {
     result.score += points;
-    result.reasons.push(label + ' (+' + points + ')');
+    var sign = points >= 0 ? '+' : '';
+    result.reasons.push(label + ' (' + sign + points + ')');
+  }
+
+  function scoreKoerperpflegeRole(product, answers, result) {
+    if (answers.koerperpflege !== 'ja' || !answers.pflegeort) return;
+
+    var hay = productHaystack(product);
+    var boostKeys = KOERPER_ROLE_BOOST[answers.pflegeort] || [];
+
+    if (matchesKeyword(hay, boostKeys)) {
+      var pts = answers.pflegeort === 'ueberwiegend_bett' ? 16 : 14;
+      addScore(result, 'Kernprodukt Körperpflege', pts);
+    }
+
+    if (
+      (answers.pflegeort === 'teilweise_bett' || answers.pflegeort === 'ueberwiegend_bett') &&
+      matchesKeyword(hay, KOERPER_ROLE_MALUS)
+    ) {
+      addScore(result, 'Ergänzungs-/Zubehörartikel', -10);
+    }
+  }
+
+  function scoreInkontinenzProdukttyp(product, answers, result) {
+    if (!answers.inkontinenz_einsatz) return;
+
+    var types = productInkontinenzTypes(product);
+    if (!types.length) return;
+
+    if (answers.inkontinenz_einsatz === 'unterwegs_tag') {
+      if (types.indexOf('pants') >= 0 || types.indexOf('vorlagen') >= 0) {
+        addScore(result, 'Produkttyp für unterwegs/tagsüber', 14);
+      }
+      if (types.indexOf('slips') >= 0) {
+        addScore(result, 'Slip weniger passend unterwegs', -6);
+      }
+    } else if (answers.inkontinenz_einsatz === 'bett') {
+      if (types.indexOf('slips') >= 0 || types.indexOf('vorlagen') >= 0 || types.indexOf('bettschutz') >= 0) {
+        addScore(result, 'Produkttyp für Bett', 14);
+      }
+    } else if (answers.inkontinenz_einsatz === 'nacht') {
+      if (types.indexOf('vorlagen') >= 0 || types.indexOf('slips') >= 0 || types.indexOf('pants') >= 0) {
+        addScore(result, 'Produkttyp für Nacht', 10);
+      }
+    }
+  }
+
+  function scoreHautpflegeMalus(product, answers, result) {
+    if (answers.hautzustand !== 'normal') return;
+
+    var haut = getProductHautzustand(product);
+    if (listOverlap(haut, ['sehr_trocken', 'gereizt'])) {
+      addScore(result, 'Hautzustand weniger passend zu normal', -8);
+    }
+  }
+
+  function assignDisplayTier(scored) {
+    if (!scored.length) return scored;
+
+    var maxScore = scored[0].score;
+
+    scored.forEach(function (entry) {
+      entry.p._score = entry.score;
+      if (scored.length < TIER_MIN_FOR_SPLIT) {
+        entry.p._tier = 'top';
+      } else if (entry.score >= maxScore - TIER_SCORE_GAP) {
+        entry.p._tier = 'top';
+      } else {
+        entry.p._tier = 'more';
+      }
+    });
+
+    return scored;
+  }
+
+  function partitionItemsByTier(products) {
+    if (products.length < TIER_MIN_FOR_SPLIT) {
+      return { items: products, topItems: products, moreItems: [] };
+    }
+
+    var topItems = [];
+    var moreItems = [];
+
+    products.forEach(function (p) {
+      if (p._tier === 'more') moreItems.push(p);
+      else topItems.push(p);
+    });
+
+    if (!moreItems.length) {
+      return { items: products, topItems: products, moreItems: [] };
+    }
+
+    return { items: products, topItems: topItems, moreItems: moreItems };
   }
 
   function genderAllowedForAnswer(genders, geschlecht) {
@@ -559,6 +706,8 @@
         addScore(result, 'Hautschutz/Schonende Pflege (Titel/Text)', 8);
       }
     }
+
+    scoreHautpflegeMalus(product, answers, result);
   }
 
   function scoreKoerperpflege(product, answers, result) {
@@ -589,6 +738,8 @@
     if (answers.inkontinenz === 'ja' && listOverlap(situation, ['inkontinenzwechsel'])) {
       addScore(result, 'Inkontinenzwechsel passend', 8);
     }
+
+    scoreKoerperpflegeRole(product, answers, result);
   }
 
   function scoreEmpfohleneArtikel(product, answers, result) {
@@ -664,6 +815,7 @@
       scoreInkontinenzSituation(product, answers, result);
       scoreGenderInkontinenz(product, answers, result);
       scoreInkontinenzArt(product, answers, result);
+      scoreInkontinenzProdukttyp(product, answers, result);
     } else if (categoryKey === 'koerperpflege') {
       scoreKoerperpflege(product, answers, result);
     } else if (categoryKey === 'hautpflege') {
@@ -736,6 +888,7 @@
     });
 
     sortScoredEntries(scored);
+    assignDisplayTier(scored);
     return scored.map(function (e) {
       return e.p;
     });
@@ -751,8 +904,42 @@
 
     sortByPriority(eligible);
     return eligible.map(function (e) {
+      e.p._score = CATEGORY_BASE_SCORE;
+      e.p._tier = 'more';
       return e.p;
     });
+  }
+
+  function applyCategoryDisplayRules(categoryKey, items) {
+    if (!items || !items.length) return [];
+
+    var max = CATEGORY_MAX[categoryKey];
+    var limited = items;
+
+    if (max != null && max > 0 && items.length > max) {
+      limited = items.slice(0, max);
+      if (DEBUG) {
+        console.log(
+          '[PflegeFinder] Kategorie-Limit angewendet: ' +
+            categoryKey +
+            ' (' +
+            items.length +
+            ' -> ' +
+            limited.length +
+            ')'
+        );
+      }
+    }
+
+    limited.forEach(function (p, index) {
+      if (categoryKey === 'inkontinenzversorgung' && index < INKONTINENZ_TOP_BADGE_COUNT) {
+        p._topRecommended = true;
+      } else {
+        delete p._topRecommended;
+      }
+    });
+
+    return limited;
   }
 
   function getRecommendedProductsForCategory(categoryKey, products, answers) {
@@ -793,7 +980,7 @@
       );
     }
 
-    return result;
+    return applyCategoryDisplayRules(categoryKey, result);
   }
 
   /* -------------------------------------------------------- *
@@ -891,6 +1078,7 @@
       kandidaten_nach_harten_ausschluessen: afterHard,
       ergebnis_anzahl: resultItems.length,
       mindestscore: MIN_SCORE[categoryKey],
+      kategorie_limit: CATEGORY_MAX[categoryKey],
       top_20: rows.slice(0, 20),
     });
   }
@@ -999,11 +1187,15 @@
 
       if (!items.length) return;
 
+      var parts = partitionItemsByTier(items);
+
       groups.push({
         id: cat.id,
         title: cat.title,
         notice: cat.notice ? cat.notice(normalized) : null,
-        items: items,
+        items: parts.items,
+        topItems: parts.topItems,
+        moreItems: parts.moreItems,
       });
     });
 
@@ -1201,6 +1393,9 @@
     DEBUG: DEBUG,
     CATEGORY_DEFS: CATEGORY_DEFS,
     MIN_SCORE: MIN_SCORE,
+    CATEGORY_MAX: CATEGORY_MAX,
+    INKONTINENZ_TOP_BADGE_COUNT: INKONTINENZ_TOP_BADGE_COUNT,
+    applyCategoryDisplayRules: applyCategoryDisplayRules,
     normalizeValue: normalizeValue,
     normalizeAnswers: normalizeAnswers,
     parseMetafieldList: parseMetafieldList,

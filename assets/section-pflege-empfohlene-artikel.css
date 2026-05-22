@@ -146,6 +146,34 @@
   text-align: center;
 }
 
+.pflege-empfohlene-artikel .pflege-finder-group__tier {
+  margin-bottom: clamp(1.25rem, 2.5vw, 1.75rem);
+}
+
+.pflege-empfohlene-artikel .pflege-finder-group__tier--more {
+  margin-bottom: 0;
+  padding-top: clamp(0.5rem, 1vw, 0.85rem);
+  border-top: 1px dashed var(--pflege-border-soft, #d8eafe);
+}
+
+.pflege-empfohlene-artikel .pflege-finder-group__tier-title {
+  margin: 0 0 clamp(0.75rem, 1.5vw, 1rem);
+  font-size: clamp(1rem, 0.92rem + 0.25vw, 1.15rem);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--pflege-heading-navy, #062a55);
+  text-align: left;
+}
+
+.pflege-empfohlene-artikel .pflege-finder-group__tier--more .pflege-finder-group__tier-title {
+  color: var(--pflege-muted, #6f7f95);
+  font-weight: 600;
+}
+
+.pflege-empfohlene-artikel .pflege-finder-card--top {
+  border-color: rgba(63, 134, 217, 0.35);
+}
+
 .pflege-empfohlene-artikel .pflege-finder-group__title {
   font-family: var(--pflege-font-display, var(--font-body-family, inherit));
   font-size: var(--pflege-home-section-heading-size, clamp(1.85rem, 2.25vw + 1.15rem, 2.75rem));
@@ -191,9 +219,43 @@
 }
 
 .pflege-empfohlene-artikel .pflege-finder-card__media {
+  position: relative;
   aspect-ratio: 1;
   background: var(--pflege-bg-softer, #f5faff);
   border-bottom: 1px solid var(--pflege-border, #e5eef8);
+}
+
+.pflege-empfohlene-artikel .pf-product-card {
+  position: relative;
+}
+
+.pflege-empfohlene-artikel .pf-recommendation-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #c62828;
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 999px;
+  z-index: 2;
+  line-height: 1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+  max-width: calc(100% - 20px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 599px) {
+  .pflege-empfohlene-artikel .pf-recommendation-badge {
+    top: 8px;
+    left: 8px;
+    font-size: 0.68rem;
+    padding: 5px 8px;
+  }
 }
 
 .pflege-empfohlene-artikel .pflege-finder-card__media img {

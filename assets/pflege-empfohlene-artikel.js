@@ -200,6 +200,14 @@
     viewport.appendChild(container);
   }
 
+  function renderCardGrid(items, PF) {
+    var grid = PF.el('div', { class: 'pflege-finder-cards' });
+    items.forEach(function (item) {
+      grid.appendChild(renderProductCard(item, PF));
+    });
+    return grid;
+  }
+
   function renderGroup(group, PF) {
     var section = PF.el('section', { class: 'pflege-finder-group' });
     var head = PF.el('header', { class: 'pflege-finder-group__head' });
@@ -219,18 +227,45 @@
       section.appendChild(notice);
     }
 
-    var grid = PF.el('div', { class: 'pflege-finder-cards' });
-    group.items.forEach(function (item) {
-      grid.appendChild(renderProductCard(item, PF));
-    });
-    section.appendChild(grid);
+    var hasSplit =
+      group.moreItems &&
+      group.moreItems.length &&
+      group.topItems &&
+      group.topItems.length;
+
+    if (hasSplit) {
+      var topWrap = PF.el('div', { class: 'pflege-finder-group__tier' });
+      var topLabel = PF.el('h3', { class: 'pflege-finder-group__tier-title' });
+      topLabel.textContent = 'Besonders passend';
+      topWrap.appendChild(topLabel);
+      topWrap.appendChild(renderCardGrid(group.topItems, PF));
+      section.appendChild(topWrap);
+
+      var moreWrap = PF.el('div', { class: 'pflege-finder-group__tier pflege-finder-group__tier--more' });
+      var moreLabel = PF.el('h3', { class: 'pflege-finder-group__tier-title' });
+      moreLabel.textContent = 'Weitere passende Artikel';
+      moreWrap.appendChild(moreLabel);
+      moreWrap.appendChild(renderCardGrid(group.moreItems, PF));
+      section.appendChild(moreWrap);
+    } else {
+      section.appendChild(renderCardGrid(group.items || group.topItems || [], PF));
+    }
+
     return section;
   }
 
   function renderProductCard(p, PF) {
-    var card = PF.el('article', { class: 'pflege-finder-card' });
+    var cardClass = 'pflege-finder-card pf-product-card';
+    if (p._tier === 'top') cardClass += ' pflege-finder-card--top';
+    var card = PF.el('article', { class: cardClass });
 
     var media = PF.el('a', { class: 'pflege-finder-card__media', href: p.url || '#' });
+    if (p._topRecommended) {
+      var badge = PF.el('div', { class: 'pf-recommendation-badge' });
+      badge.textContent = 'Am meisten empfohlen';
+      badge.setAttribute('aria-label', 'Am meisten empfohlen');
+      media.appendChild(badge);
+    }
     if (p.image_url) {
       var img = PF.el('img', {
         src: p.image_url,
