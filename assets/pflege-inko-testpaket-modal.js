@@ -1,8 +1,5 @@
 /**
  * PflegeShop — Inkontinenz Testpaket Modal
- *
- * Sendet über natives Shopify-Kontaktformular (hCaptcha via Feld-Fokus).
- * Erfolgsansicht direkt nach gültigem Absenden — kein AJAX/fetch.
  */
 (function () {
   'use strict';
@@ -14,6 +11,7 @@
   var SUBMITTING_TEXT = 'Wird gesendet …';
   var SUBMIT_TEXT = 'Jetzt kostenlos anfragen';
   var IFRAME_NAME = 'pflege-inko-testpaket-frame';
+  var SUCCESS_CLASS = 'pflege-inko-modal--success';
 
   function isEmail(value) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || '').trim());
@@ -138,6 +136,7 @@
     var successPanel = root.querySelector('[data-pflege-inko-success]');
     var errorEl = root.querySelector('[data-pflege-inko-form-error]');
     var submitBtn = root.querySelector('[data-pflege-inko-submit]');
+    var isSubmitting = false;
 
     function showError(message) {
       if (!errorEl) return;
@@ -153,6 +152,7 @@
 
     function showSuccess() {
       hideError();
+      root.classList.add(SUCCESS_CLASS);
       if (mainPanel) mainPanel.hidden = true;
       if (successPanel) {
         successPanel.hidden = false;
@@ -166,6 +166,7 @@
     }
 
     function resetSubmitUi() {
+      isSubmitting = false;
       if (submitBtn) {
         submitBtn.disabled = false;
         submitBtn.textContent = SUBMIT_TEXT;
@@ -174,6 +175,7 @@
 
     function resetFormState() {
       hideError();
+      root.classList.remove(SUCCESS_CLASS);
       if (form) {
         form.reset();
         clearFieldErrors(form);
@@ -203,16 +205,19 @@
     }
 
     function onSubmit(e) {
+      e.preventDefault();
+      if (isSubmitting) return;
+
       hideError();
 
       var data = validateForm(form);
       if (!data) {
-        e.preventDefault();
         showError(VALIDATION_TEXT);
         return;
       }
 
       syncHiddenFields(form, data);
+      isSubmitting = true;
 
       if (submitBtn) {
         submitBtn.disabled = true;
@@ -220,13 +225,11 @@
       }
 
       form.setAttribute('target', IFRAME_NAME);
+      form.submit();
+      form.removeAttribute('target');
 
-      // Nativen Submit zulassen (Shopify hCaptcha läuft beim Klick mit)
-      window.setTimeout(function () {
-        form.removeAttribute('target');
-        resetSubmitUi();
-        showSuccess();
-      }, 400);
+      resetSubmitUi();
+      showSuccess();
     }
 
     root.addEventListener('close', function () {

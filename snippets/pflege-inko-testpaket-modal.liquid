@@ -21,16 +21,17 @@
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="M6 6l12 12"/></svg>
     </button>
 
-    <header class="pflege-inko-modal__header">
-      <h2 id="{{ modal_id }}-title" class="pflege-inko-modal__title">
-        Kostenloses Testpaket anfordern
-      </h2>
-      <p id="{{ modal_id }}-subtitle" class="pflege-inko-modal__subtitle">
-        In 3 einfachen Schritten zu Ihrer passenden Inkontinenzversorgung.
-      </p>
-    </header>
+    <div class="pflege-inko-modal__content" data-pflege-inko-main>
+      <header class="pflege-inko-modal__header">
+        <h2 id="{{ modal_id }}-title" class="pflege-inko-modal__title">
+          Kostenloses Testpaket anfordern
+        </h2>
+        <p id="{{ modal_id }}-subtitle" class="pflege-inko-modal__subtitle">
+          In 3 einfachen Schritten zu Ihrer passenden Inkontinenzversorgung.
+        </p>
+      </header>
 
-    <div class="pflege-inko-modal__body" data-pflege-inko-main>
+      <div class="pflege-inko-modal__body">
       <div class="pflege-inko-modal__steps" aria-label="Ablauf in drei Schritten">
         <article class="pflege-inko-modal__step">
           <span class="pflege-inko-modal__step-num" aria-hidden="true">1</span>
@@ -217,6 +218,7 @@
             </p>
           {%- endform -%}
         </div>
+      </div>
       </div>
     </div>
 

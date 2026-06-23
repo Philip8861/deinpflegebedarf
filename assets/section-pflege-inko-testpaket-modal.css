@@ -493,8 +493,18 @@
 }
 
 .pflege-inko-modal__body[hidden],
-[data-pflege-inko-main][hidden] {
+[data-pflege-inko-main][hidden],
+.pflege-inko-modal__content[hidden] {
   display: none !important;
+}
+
+.pflege-inko-modal--success .pflege-inko-modal__panel {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.pflege-inko-modal--success .pflege-inko-modal__success-screen {
+  min-height: 18rem;
 }
 
 button.pflege-cat-filtered__promo-cta {
