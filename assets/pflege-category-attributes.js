@@ -34,6 +34,15 @@
     });
   }
 
+  function includesWord(hay, needles) {
+    return needles.some(function (needle) {
+      var word = normalizeText(needle);
+      if (!word) return false;
+      var escaped = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return new RegExp('(?:^|[\\s\\-/_,.;(+]|)' + escaped + '(?:$|[\\s\\-/_,.;)+]|)').test(hay);
+    });
+  }
+
   function unique(values) {
     var seen = {};
     return values.filter(function (value) {
@@ -317,20 +326,18 @@
     }
     if (
       includesAny(hay, [
-        'fuss',
-        'fuß',
-        'fuesse',
-        'füße',
         'fusscreme',
         'fußcreme',
         'fusspflege',
         'fußpflege',
-        'bein',
-        'beine',
-        'beinpflege',
-        'foot',
-        'leg',
-      ])
+        'fussgel',
+        'fußgel',
+        'fussspray',
+        'fußspray',
+        'fuss-pflege',
+        'fuss pflege',
+      ]) ||
+      includesWord(hay, ['fuss', 'fuß', 'fuesse', 'füße', 'fusscreme', 'fußcreme'])
     ) {
       applicationAreas.push('fuss-pflege');
     }
