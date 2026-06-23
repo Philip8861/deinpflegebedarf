@@ -23,6 +23,7 @@
     lines.push('Vorname: ' + data.firstname);
     lines.push('Nachname: ' + data.lastname);
     lines.push('Telefon: ' + data.phone);
+    lines.push('Telefonisch erreichbar: ' + data.reachability);
     lines.push('E-Mail: ' + data.email);
     if (data.message) {
       lines.push('');
@@ -50,6 +51,7 @@
     var firstname = form.querySelector('[data-pflege-inko-field="firstname"]');
     var lastname = form.querySelector('[data-pflege-inko-field="lastname"]');
     var phone = form.querySelector('[data-pflege-inko-field="phone"]');
+    var reachability = form.querySelector('[data-pflege-inko-field="reachability"]');
     var email = form.querySelector('[data-pflege-inko-field="email"]');
     var consent = form.querySelector('[data-pflege-inko-field="consent"]');
     var message = form.querySelector('[data-pflege-inko-field="message"]');
@@ -69,6 +71,11 @@
     if (!phone || !phone.value.trim()) {
       setFieldError(phone, 'required');
       firstInvalid = firstInvalid || phone;
+      valid = false;
+    }
+    if (!reachability || !reachability.value.trim()) {
+      setFieldError(reachability, 'required');
+      firstInvalid = firstInvalid || reachability;
       valid = false;
     }
     if (!email || !email.value.trim() || !isEmail(email.value)) {
@@ -95,6 +102,7 @@
       firstname: firstname.value.trim(),
       lastname: lastname.value.trim(),
       phone: phone.value.trim(),
+      reachability: reachability.value.trim(),
       email: email.value.trim(),
       message: message ? message.value.trim() : '',
     };

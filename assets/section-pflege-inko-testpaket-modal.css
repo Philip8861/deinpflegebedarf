@@ -255,6 +255,7 @@
 }
 
 .pflege-inko-modal__input,
+.pflege-inko-modal__select,
 .pflege-inko-modal__textarea {
   width: 100%;
   box-sizing: border-box;
@@ -270,8 +271,28 @@
   transition: border-color 160ms ease, box-shadow 160ms ease;
 }
 
-.pflege-inko-modal__input {
+.pflege-inko-modal__input,
+.pflege-inko-modal__select {
   min-height: 42px;
+}
+
+.pflege-inko-modal__select {
+  appearance: none;
+  padding-right: 2.75rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 16px 16px;
+  cursor: pointer;
+}
+
+.pflege-inko-modal__select:invalid,
+.pflege-inko-modal__select option[value=''] {
+  color: var(--inko-modal-placeholder);
+}
+
+.pflege-inko-modal__select:valid {
+  color: var(--inko-modal-primary);
 }
 
 .pflege-inko-modal__textarea {
@@ -286,6 +307,7 @@
 }
 
 .pflege-inko-modal__input:focus,
+.pflege-inko-modal__select:focus,
 .pflege-inko-modal__textarea:focus {
   border-color: var(--inko-modal-blue);
   box-shadow: 0 0 0 3px rgba(47, 128, 216, 0.12);
@@ -293,6 +315,7 @@
 }
 
 .pflege-inko-modal__input.is-invalid,
+.pflege-inko-modal__select.is-invalid,
 .pflege-inko-modal__textarea.is-invalid {
   border-color: #d64545;
   box-shadow: 0 0 0 3px rgba(214, 69, 69, 0.1);

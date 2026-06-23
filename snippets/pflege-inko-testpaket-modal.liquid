@@ -142,6 +142,27 @@
             </div>
 
             <div class="pflege-inko-modal__field">
+              <label class="pflege-inko-modal__label" for="{{ modal_id }}-reachability">
+                Wann sind Sie telefonisch am besten erreichbar?
+                <span class="pflege-inko-modal__req" aria-hidden="true">*</span>
+              </label>
+              <select
+                class="pflege-inko-modal__select"
+                id="{{ modal_id }}-reachability"
+                name="contact[Erreichbarkeit]"
+                required
+                aria-required="true"
+                data-pflege-inko-field="reachability"
+              >
+                <option value="" selected disabled>Bitte wählen</option>
+                <option value="08:00 - 10:00 Uhr">08:00 - 10:00 Uhr</option>
+                <option value="10:00 - 12:00 Uhr">10:00 - 12:00 Uhr</option>
+                <option value="12:00 - 14:00 Uhr">12:00 - 14:00 Uhr</option>
+                <option value="14:00 - 16:00 Uhr">14:00 - 16:00 Uhr</option>
+              </select>
+            </div>
+
+            <div class="pflege-inko-modal__field">
               <label class="pflege-inko-modal__label" for="{{ modal_id }}-email">
                 E-Mail <span class="pflege-inko-modal__req" aria-hidden="true">*</span>
               </label>
