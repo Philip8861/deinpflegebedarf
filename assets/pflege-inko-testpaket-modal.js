@@ -235,14 +235,6 @@
       showSuccessView();
     }
 
-    function submitToShopify() {
-      if (window.Shopify && window.Shopify.captcha && typeof window.Shopify.captcha.protect === 'function') {
-        window.Shopify.captcha.protect(form, sendFormNative);
-        return;
-      }
-      sendFormNative();
-    }
-
     function onSubmit(e) {
       e.preventDefault();
 
@@ -265,7 +257,7 @@
       }
 
       try {
-        submitToShopify();
+        sendFormNative();
       } catch (err) {
         resetSubmitUi();
         showError(ERROR_TEXT);
