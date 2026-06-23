@@ -1024,6 +1024,7 @@ html.pflege-cat-drawer-open body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 0.55rem;
   min-height: 2.75rem;
   padding: 0.65rem 1.25rem;
   border-radius: 999px;
@@ -1039,6 +1040,16 @@ html.pflege-cat-drawer-open body {
 .pflege-cat-filtered__promo-cta:hover {
   background: var(--pcd-cta-hover);
   transform: translateY(-1px);
+}
+
+.pflege-cat-filtered__promo-cta-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.pflege-cat-filtered__promo--fullwidth .pflege-cat-filtered__promo-cta-icon svg {
+  width: clamp(1.15rem, 1rem + 0.45vw, 1.45rem);
+  height: clamp(1.15rem, 1rem + 0.45vw, 1.45rem);
 }
 
 .pflege-cat-filtered__promo-media {

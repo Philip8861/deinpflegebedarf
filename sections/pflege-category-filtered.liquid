@@ -178,6 +178,7 @@
               class="pflege-cat-filtered__promo-cta"
               data-pflege-inko-testpaket-open
             >
+              {% render 'pflege-icon', icon: 'gift', width: 22, class: 'pflege-cat-filtered__promo-cta-icon' %}
               {{ promo_button_label | escape }}
             </button>
           {%- endif -%}
@@ -223,7 +224,10 @@
               <p class="pflege-cat-filtered__promo-lead">{{ promo_text | escape }}</p>
             {%- endif -%}
             {%- if promo_button_label != blank -%}
-              <a class="pflege-cat-filtered__promo-cta" href="{{ promo_button_link }}">{{ promo_button_label | escape }}</a>
+              <a class="pflege-cat-filtered__promo-cta" href="{{ promo_button_link }}">
+                {% render 'pflege-icon', icon: 'gift', width: 22, class: 'pflege-cat-filtered__promo-cta-icon' %}
+                {{ promo_button_label | escape }}
+              </a>
             {%- endif -%}
           </div>
           <div class="pflege-cat-filtered__promo-media" aria-hidden="true">
