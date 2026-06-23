@@ -12,7 +12,7 @@
     'Bitte füllen Sie alle Pflichtfelder aus und akzeptieren Sie die Datenschutzerklärung.';
   var SUBMITTING_TEXT = 'Wird gesendet …';
   var SUBMIT_TEXT = 'Jetzt kostenlos anfragen';
-  var CONTACT_ENDPOINT = '/contact#contact_form';
+  var IFRAME_NAME = 'pflege-inko-testpaket-frame';
 
   function isEmail(value) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || '').trim());
@@ -100,18 +100,77 @@
     };
   }
 
+  function syncHiddenFields(form, data) {
+    var nameField = form.querySelector('[data-pflege-inko-name]');
+    var bodyField = form.querySelector('[data-pflege-inko-body]');
+    if (nameField) nameField.value = data.firstname + ' ' + data.lastname;
+    if (bodyField) bodyField.value = buildBody(data);
+  }
+
+  function ensureSubmitFrame() {
+    var frame = document.getElementById(IFRAME_NAME);
+    if (frame) return frame;
+
+    frame = document.createElement('iframe');
+    frame.id = IFRAME_NAME;
+    frame.name = IFRAME_NAME;
+    frame.title = 'Formularübermittlung';
+    frame.hidden = true;
+    frame.setAttribute('aria-hidden', 'true');
+    frame.style.cssText =
+      'position:absolute;width:0;height:0;border:0;opacity:0;pointer-events:none;clip:rect(0,0,0,0)';
+    document.body.appendChild(frame);
+    return frame;
+  }
+
+  function responseLooksSuccessful(html, doc) {
+    if (!html) return false;
+
+    if (
+      /Testpaket Inkontinenzversorgung|testpaket,\s*inkontinenz/i.test(html) &&
+      (/form-status|form-success|form__message|posted_successfully|contact_posted=true/i.test(html) ||
+        /Danke.*Kontakt|Vielen Dank|erfolgreich/i.test(html))
+    ) {
+      return true;
+    }
+
+    if (doc) {
+      if (
+        doc.querySelector('.form-status-list, .form__message, .form-status, [data-pflege-inko-success]') &&
+        !doc.querySelector('.form__message--error, .errors, .field__input--error')
+      ) {
+        return /Testpaket|testpaket/i.test(html);
+      }
+    }
+
+    return false;
+  }
+
+  function responseLooksFailed(html, doc) {
+    if (!html) return true;
+    if (/form__message--error|field__input--error|form-status-list.*error|class="errors"/i.test(html)) {
+      return true;
+    }
+    if (doc && doc.querySelector('.errors, .form__message--error, [role="alert"]')) {
+      return !responseLooksSuccessful(html, doc);
+    }
+    return false;
+  }
+
   function initModal(root) {
     if (!root || root.dataset.pflegeInkoModalInit) return;
     root.dataset.pflegeInkoModalInit = 'true';
 
     var lastFocused = null;
     var openTrigger = document.querySelector('[data-pflege-inko-testpaket-open]');
-    var form = root.querySelector('[data-pflege-inko-testpaket-form]');
+    var form = root.querySelector('.pflege-inko-modal__form');
     var mainPanel = root.querySelector('[data-pflege-inko-main]');
     var successPanel = root.querySelector('[data-pflege-inko-success]');
     var errorEl = root.querySelector('[data-pflege-inko-form-error]');
     var submitBtn = root.querySelector('[data-pflege-inko-submit]');
     var isSubmitting = false;
+    var allowNativeSubmit = false;
+    var submitFrame = ensureSubmitFrame();
 
     function showError(message) {
       if (!errorEl) return;
@@ -139,19 +198,26 @@
       }
     }
 
-    function resetFormState() {
-      hideError();
-      if (form) {
-        form.reset();
-        clearFieldErrors(form);
-      }
-      if (mainPanel) mainPanel.hidden = false;
-      if (successPanel) successPanel.hidden = true;
+    function resetSubmitUi() {
       if (submitBtn) {
         submitBtn.disabled = false;
         submitBtn.textContent = SUBMIT_TEXT;
       }
       isSubmitting = false;
+      if (form) form.removeAttribute('target');
+    }
+
+    function resetFormState() {
+      hideError();
+      if (form) {
+        form.reset();
+        clearFieldErrors(form);
+        form.removeAttribute('target');
+      }
+      if (mainPanel) mainPanel.hidden = false;
+      if (successPanel) successPanel.hidden = true;
+      resetSubmitUi();
+      allowNativeSubmit = false;
     }
 
     function closeModal() {
@@ -172,6 +238,41 @@
       }
     }
 
+    function handleFrameLoad() {
+      if (!isSubmitting) return;
+
+      var doc = null;
+      var html = '';
+
+      try {
+        doc = submitFrame.contentDocument || submitFrame.contentWindow.document;
+        html = doc && doc.documentElement ? doc.documentElement.innerHTML : '';
+      } catch (e) {
+        resetSubmitUi();
+        showError(ERROR_TEXT);
+        return;
+      }
+
+      if (!html || html.length < 120) return;
+
+      if (responseLooksSuccessful(html, doc)) {
+        showSuccess();
+        resetSubmitUi();
+        return;
+      }
+
+      if (responseLooksFailed(html, doc)) {
+        resetSubmitUi();
+        showError(ERROR_TEXT);
+        return;
+      }
+
+      resetSubmitUi();
+      showSuccess();
+    }
+
+    submitFrame.addEventListener('load', handleFrameLoad);
+
     root.addEventListener('close', function () {
       resetFormState();
       if (lastFocused && typeof lastFocused.focus === 'function') {
@@ -186,6 +287,11 @@
     });
 
     function onSubmit(e) {
+      if (allowNativeSubmit) {
+        allowNativeSubmit = false;
+        return;
+      }
+
       e.preventDefault();
       e.stopPropagation();
       if (isSubmitting || !form) return;
@@ -197,44 +303,22 @@
         return;
       }
 
+      syncHiddenFields(form, data);
+
       isSubmitting = true;
       if (submitBtn) {
         submitBtn.disabled = true;
         submitBtn.textContent = SUBMITTING_TEXT;
       }
 
-      var payload = new FormData(form);
-      payload.set('contact[name]', data.firstname + ' ' + data.lastname);
-      payload.set('contact[body]', buildBody(data));
+      form.setAttribute('target', IFRAME_NAME);
+      allowNativeSubmit = true;
 
-      fetch(CONTACT_ENDPOINT, {
-        method: 'POST',
-        body: payload,
-        headers: {
-          Accept: 'application/json',
-        },
-      })
-        .then(function (response) {
-          return response.json().then(function (json) {
-            return { ok: response.ok, json: json };
-          });
-        })
-        .then(function (result) {
-          if (result.ok && result.json && result.json.posted_successfully === true) {
-            showSuccess();
-            isSubmitting = false;
-            return;
-          }
-          throw new Error('submit_failed');
-        })
-        .catch(function () {
-          showError(ERROR_TEXT);
-          if (submitBtn) {
-            submitBtn.disabled = false;
-            submitBtn.textContent = SUBMIT_TEXT;
-          }
-          isSubmitting = false;
-        });
+      if (typeof form.requestSubmit === 'function') {
+        form.requestSubmit(submitBtn || undefined);
+      } else {
+        form.submit();
+      }
     }
 
     if (openTrigger) {
@@ -250,6 +334,7 @@
 
     if (form) {
       form.addEventListener('submit', onSubmit, true);
+      form.setAttribute('novalidate', 'novalidate');
     }
   }
 
