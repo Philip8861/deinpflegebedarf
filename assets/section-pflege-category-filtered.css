@@ -909,6 +909,7 @@ html.pflege-cat-drawer-open body {
   min-height: clamp(3rem, 2.5rem + 1.2vw, 3.5rem);
   padding: 0.8rem clamp(1.35rem, 1.1rem + 1.2vw, 2rem);
   font-size: clamp(1rem, 0.88rem + 0.45vw, 1.1875rem);
+  transform-origin: center;
   animation: pflege-inko-cta-glow 5s ease-in-out infinite;
 }
 
@@ -918,15 +919,17 @@ html.pflege-cat-drawer-open body {
   100% {
     box-shadow: 0 8px 18px rgba(242, 140, 40, 0.28);
     filter: brightness(1);
+    transform: scale(1);
   }
 
   92%,
   96% {
     box-shadow:
-      0 0 0 3px rgba(255, 210, 140, 0.55),
-      0 0 22px rgba(242, 140, 40, 0.7),
-      0 10px 26px rgba(242, 140, 40, 0.45);
-    filter: brightness(1.14);
+      0 0 0 2px rgba(255, 210, 140, 0.3),
+      0 0 10px rgba(242, 140, 40, 0.28),
+      0 10px 20px rgba(242, 140, 40, 0.3);
+    filter: brightness(1.04);
+    transform: scale(1.035);
   }
 }
 
@@ -938,6 +941,7 @@ html.pflege-cat-drawer-open body {
 
 .pflege-cat-filtered__promo--fullwidth .pflege-cat-filtered__promo-cta:hover {
   animation-play-state: paused;
+  transform: translateY(-1px) scale(1.02);
 }
 
 @media screen and (min-width: 990px) {
