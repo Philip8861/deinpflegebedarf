@@ -1,17 +1,19 @@
 /**
  * PflegeShop — Inkontinenz Testpaket Modal
+ *
+ * Sendet über natives Shopify-Kontaktformular (hCaptcha via Feld-Fokus).
+ * Erfolgsansicht direkt nach gültigem Absenden — kein AJAX/fetch.
  */
 (function () {
   'use strict';
 
   if (typeof document === 'undefined') return;
 
-  var ERROR_TEXT =
-    'Die Anfrage konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder kontaktieren Sie uns telefonisch.';
   var VALIDATION_TEXT =
     'Bitte füllen Sie alle Pflichtfelder aus und akzeptieren Sie die Datenschutzerklärung.';
   var SUBMITTING_TEXT = 'Wird gesendet …';
   var SUBMIT_TEXT = 'Jetzt kostenlos anfragen';
+  var IFRAME_NAME = 'pflege-inko-testpaket-frame';
 
   function isEmail(value) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || '').trim());
@@ -106,86 +108,28 @@
     if (bodyField) bodyField.value = buildBody(data);
   }
 
-  function getFormAction(form) {
-    var action = form.getAttribute('action') || '/contact';
-    return action.split('#')[0];
-  }
+  function ensureSubmitFrame() {
+    var frame = document.getElementById(IFRAME_NAME);
+    if (frame) return frame;
 
-  function hasFormErrors(errors) {
-    if (errors == null || errors === false) return false;
-    if (Array.isArray(errors)) return errors.length > 0;
-    if (typeof errors === 'object') return Object.keys(errors).length > 0;
-    return true;
-  }
-
-  function responseIndicatesSuccess(response, bodyText) {
-    var url = response.url || '';
-    var text = bodyText || '';
-
-    if (url.indexOf('pflege_inko_sent=1') !== -1 || url.indexOf('contact_posted=true') !== -1) {
-      return true;
-    }
-
-    if (response.status === 400 || response.status === 422 || response.status === 429) {
-      return false;
-    }
-
-    if (/data-pflege-inko-sent-marker|pflege_inko_sent=1|contact_posted=true|posted_successfully/i.test(text)) {
-      return true;
-    }
-
-    var ct = (response.headers.get('content-type') || '').toLowerCase();
-    if (ct.indexOf('json') !== -1 || text.charAt(0) === '{') {
-      try {
-        var json = JSON.parse(text);
-        if (hasFormErrors(json && json.errors)) return false;
-        if (json && (json['posted_successfully?'] || json.posted_successfully)) return true;
-      } catch (e) {}
-    }
-
-    // Shopify liefert nach erfolgreichem POST oft Redirect/HTML — kein JSON
-    if (response.ok || response.redirected) {
-      return true;
-    }
-
-    return false;
-  }
-
-  function submitContactForm(form) {
-    var action = getFormAction(form);
-
-    return fetch(action, {
-      method: 'POST',
-      body: new FormData(form),
-      credentials: 'same-origin',
-      headers: {
-        Accept: 'application/json, text/html;q=0.9, */*;q=0.8',
-      },
-    }).then(function (response) {
-      return response.text().then(function (text) {
-        return responseIndicatesSuccess(response, text);
-      });
-    });
-  }
-
-  function runWithShopifyCaptcha(form, callback) {
-    if (window.Shopify && window.Shopify.captcha && typeof window.Shopify.captcha.protect === 'function') {
-      window.Shopify.captcha.protect(form, callback);
-      return;
-    }
-    callback();
-  }
-
-  function wireShopifyCaptcha(form) {
-    if (!form || form.dataset.pflegeInkoCaptchaWired === 'true') return;
-    runWithShopifyCaptcha(form, function () {
-      form.dataset.pflegeInkoCaptchaWired = 'true';
-    });
+    frame = document.createElement('iframe');
+    frame.id = IFRAME_NAME;
+    frame.name = IFRAME_NAME;
+    frame.title = 'Formularübermittlung';
+    frame.hidden = true;
+    frame.setAttribute('aria-hidden', 'true');
+    frame.setAttribute('tabindex', '-1');
+    frame.style.cssText =
+      'position:absolute;width:0;height:0;border:0;opacity:0;pointer-events:none;clip:rect(0,0,0,0)';
+    document.body.appendChild(frame);
+    return frame;
   }
 
   function initModal(root) {
     if (!root || root.dataset.pflegeInkoModalInit) return;
     root.dataset.pflegeInkoModalInit = 'true';
+
+    ensureSubmitFrame();
 
     var lastFocused = null;
     var openTrigger = document.querySelector('[data-pflege-inko-testpaket-open]');
@@ -194,13 +138,10 @@
     var successPanel = root.querySelector('[data-pflege-inko-success]');
     var errorEl = root.querySelector('[data-pflege-inko-form-error]');
     var submitBtn = root.querySelector('[data-pflege-inko-submit]');
-    var isSubmitting = false;
-
-    wireShopifyCaptcha(form);
 
     function showError(message) {
       if (!errorEl) return;
-      errorEl.textContent = message || ERROR_TEXT;
+      errorEl.textContent = message;
       errorEl.hidden = false;
     }
 
@@ -229,7 +170,6 @@
         submitBtn.disabled = false;
         submitBtn.textContent = SUBMIT_TEXT;
       }
-      isSubmitting = false;
     }
 
     function resetFormState() {
@@ -237,20 +177,11 @@
       if (form) {
         form.reset();
         clearFieldErrors(form);
+        form.removeAttribute('target');
       }
       if (mainPanel) mainPanel.hidden = false;
       if (successPanel) successPanel.hidden = true;
       resetSubmitUi();
-    }
-
-    function finishWithError() {
-      resetSubmitUi();
-      showError(ERROR_TEXT);
-    }
-
-    function finishWithSuccess() {
-      resetSubmitUi();
-      showSuccess();
     }
 
     function closeModal() {
@@ -261,7 +192,6 @@
       if (typeof root.showModal !== 'function') return;
       lastFocused = document.activeElement;
       resetFormState();
-      wireShopifyCaptcha(form);
       root.showModal();
 
       var first = root.querySelector('.pflege-inko-modal__close');
@@ -272,37 +202,31 @@
       }
     }
 
-    function sendForm() {
-      submitContactForm(form)
-        .then(function (ok) {
-          if (ok) finishWithSuccess();
-          else finishWithError();
-        })
-        .catch(function () {
-          finishWithError();
-        });
-    }
-
     function onSubmit(e) {
-      e.preventDefault();
-      if (isSubmitting) return;
-
       hideError();
+
       var data = validateForm(form);
       if (!data) {
+        e.preventDefault();
         showError(VALIDATION_TEXT);
         return;
       }
 
       syncHiddenFields(form, data);
 
-      isSubmitting = true;
       if (submitBtn) {
         submitBtn.disabled = true;
         submitBtn.textContent = SUBMITTING_TEXT;
       }
 
-      runWithShopifyCaptcha(form, sendForm);
+      form.setAttribute('target', IFRAME_NAME);
+
+      // Nativen Submit zulassen (Shopify hCaptcha läuft beim Klick mit)
+      window.setTimeout(function () {
+        form.removeAttribute('target');
+        resetSubmitUi();
+        showSuccess();
+      }, 400);
     }
 
     root.addEventListener('close', function () {
