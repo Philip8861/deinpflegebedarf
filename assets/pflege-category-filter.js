@@ -315,6 +315,47 @@
     return (cents / 100).toLocaleString('de-DE', { style: 'currency', currency: 'EUR' });
   }
 
+  function syncPriceRangeVisuals(form) {
+    if (!form) return;
+    var minInput = form.querySelector('[data-price-min]');
+    var maxInput = form.querySelector('[data-price-max]');
+    var fill = form.querySelector('[data-price-fill]');
+    if (!minInput || !maxInput) return;
+
+    var minBound = parseInt(minInput.getAttribute('min'), 10);
+    var maxBound = parseInt(minInput.getAttribute('max'), 10);
+    var minVal = parseInt(minInput.value, 10);
+    var maxVal = parseInt(maxInput.value, 10);
+
+    if (minVal > maxVal) {
+      if (document.activeElement === minInput) {
+        maxInput.value = String(minVal);
+        maxVal = minVal;
+      } else {
+        minInput.value = String(maxVal);
+        minVal = maxVal;
+      }
+    }
+
+    var span = maxBound - minBound || 1;
+    var leftPct = ((minVal - minBound) / span) * 100;
+    var widthPct = ((maxVal - minVal) / span) * 100;
+
+    if (fill) {
+      fill.style.left = leftPct + '%';
+      fill.style.width = widthPct + '%';
+    }
+
+    var minLabel = form.querySelector('[data-price-min-label]');
+    var maxLabel = form.querySelector('[data-price-max-label]');
+    if (minLabel) minLabel.textContent = formatEuro(minVal);
+    if (maxLabel) maxLabel.textContent = formatEuro(maxVal);
+  }
+
+  function syncAllPriceRangeVisuals(root) {
+    root.querySelectorAll('[data-pflege-cat-filter-form]').forEach(syncPriceRangeVisuals);
+  }
+
   function renderPriceFilter(products, selected, priceBounds) {
     var minBound = priceBounds.min;
     var maxBound = priceBounds.max;
@@ -322,37 +363,48 @@
 
     var currentMin = selected.priceMin != null ? selected.priceMin : minBound;
     var currentMax = selected.priceMax != null ? selected.priceMax : maxBound;
+    var step = Math.max(50, Math.round((maxBound - minBound) / 100));
 
     return (
       '<details class="pflege-cat-filter__group" open data-filter-group-wrap="price">' +
       '<summary class="pflege-cat-filter__group-title">Preis</summary>' +
-      '<div class="pflege-cat-filter__price">' +
+      '<div class="pflege-cat-filter__price" data-price-range>' +
       '<div class="pflege-cat-filter__price-values">' +
       '<span data-price-min-label>' +
       formatEuro(currentMin) +
       '</span>' +
+      '<span class="pflege-cat-filter__price-sep" aria-hidden="true">–</span>' +
       '<span data-price-max-label>' +
       formatEuro(currentMax) +
       '</span>' +
       '</div>' +
-      '<input type="range" class="pflege-cat-filter__range" data-price-min data-default-min="' +
+      '<div class="pflege-cat-filter__range-wrap">' +
+      '<div class="pflege-cat-filter__range-track" aria-hidden="true">' +
+      '<div class="pflege-cat-filter__range-fill" data-price-fill></div>' +
+      '</div>' +
+      '<input type="range" class="pflege-cat-filter__range pflege-cat-filter__range--min" data-price-min data-default-min="' +
       minBound +
       '" min="' +
       minBound +
       '" max="' +
       maxBound +
-      '" step="50" value="' +
+      '" step="' +
+      step +
+      '" value="' +
       currentMin +
-      '">' +
-      '<input type="range" class="pflege-cat-filter__range" data-price-max data-default-max="' +
+      '" aria-label="Mindestpreis">' +
+      '<input type="range" class="pflege-cat-filter__range pflege-cat-filter__range--max" data-price-max data-default-max="' +
       maxBound +
       '" min="' +
       minBound +
       '" max="' +
       maxBound +
-      '" step="50" value="' +
+      '" step="' +
+      step +
+      '" value="' +
       currentMax +
-      '">' +
+      '" aria-label="Höchstpreis">' +
+      '</div>' +
       '</div>' +
       '</details>'
     );
@@ -389,7 +441,8 @@
     });
   }
 
-  function applyState(root, products, selected, sortKey) {
+  function applyState(root, products, selected, sortKey, options) {
+    options = options || {};
     var filtered = products.filter(function (product) {
       return productMatchesFilters(product, selected);
     });
@@ -408,10 +461,13 @@
 
     updateCountLabels(root, filtered.length);
 
-    var desktopFilters = root.querySelector('[data-pflege-cat-filters-desktop]');
-    var drawerFilters = root.querySelector('[data-pflege-cat-filters-drawer]');
-    renderFilters(desktopFilters, products, selected, 'desktop', false);
-    renderFilters(drawerFilters, products, selected, 'drawer', true);
+    if (!options.skipFilterRender) {
+      var desktopFilters = root.querySelector('[data-pflege-cat-filters-desktop]');
+      var drawerFilters = root.querySelector('[data-pflege-cat-filters-drawer]');
+      renderFilters(desktopFilters, products, selected, 'desktop', false);
+      renderFilters(drawerFilters, products, selected, 'drawer', true);
+      syncAllPriceRangeVisuals(root);
+    }
   }
 
   function resetFilters(root, products) {
@@ -464,17 +520,8 @@
       if (!event.target.matches('[data-price-min], [data-price-max]')) return;
       var form = event.target.closest('[data-pflege-cat-filter-form]');
       if (!form || !root.contains(form)) return;
-      var minInput = form.querySelector('[data-price-min]');
-      var maxInput = form.querySelector('[data-price-max]');
-      if (minInput && maxInput && parseInt(minInput.value, 10) > parseInt(maxInput.value, 10)) {
-        if (event.target === minInput) maxInput.value = minInput.value;
-        else minInput.value = maxInput.value;
-      }
-      var minLabel = form.querySelector('[data-price-min-label]');
-      var maxLabel = form.querySelector('[data-price-max-label]');
-      if (minLabel && minInput) minLabel.textContent = formatEuro(parseInt(minInput.value, 10));
-      if (maxLabel && maxInput) maxLabel.textContent = formatEuro(parseInt(maxInput.value, 10));
-      applyState(root, products, getSelectedFilters(form), getSortKey(root));
+      syncPriceRangeVisuals(form);
+      applyState(root, products, getSelectedFilters(form), getSortKey(root), { skipFilterRender: true });
     });
 
     root.querySelectorAll('[data-pflege-cat-sort]').forEach(function (select) {
