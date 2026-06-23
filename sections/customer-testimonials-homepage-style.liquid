@@ -244,7 +244,13 @@
         </div>
         {%- form 'contact', id: review_form_id, class: 'ct-hp__review-form' -%}
           <input type="hidden" name="contact[Betreff]" value="Kundenstimme / Bewertung">
-          {%- if form.posted_successfully? -%}
+          {%- liquid
+            assign ct_review_success = false
+            if form.posted_successfully? and form.betreff == 'Kundenstimme / Bewertung'
+              assign ct_review_success = true
+            endif
+          -%}
+          {%- if ct_review_success -%}
             <p class="ct-hp__review-status ct-hp__review-status--success" role="status" tabindex="-1">
               {{- 'sections.customer_testimonials_hp.review_success' | t -}}
             </p>

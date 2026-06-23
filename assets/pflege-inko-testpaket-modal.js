@@ -8,8 +8,11 @@
 
   var ERROR_TEXT =
     'Die Anfrage konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder kontaktieren Sie uns telefonisch.';
+  var VALIDATION_TEXT =
+    'Bitte füllen Sie alle Pflichtfelder aus und akzeptieren Sie die Datenschutzerklärung.';
   var SUBMITTING_TEXT = 'Wird gesendet …';
   var SUBMIT_TEXT = 'Jetzt kostenlos anfragen';
+  var CONTACT_ENDPOINT = '/contact#contact_form';
 
   function isEmail(value) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || '').trim());
@@ -51,30 +54,40 @@
     var consent = form.querySelector('[data-pflege-inko-field="consent"]');
     var message = form.querySelector('[data-pflege-inko-field="message"]');
     var firstInvalid = null;
+    var valid = true;
 
-    if (!firstname.value.trim()) {
+    if (!firstname || !firstname.value.trim()) {
       setFieldError(firstname, 'required');
       firstInvalid = firstInvalid || firstname;
+      valid = false;
     }
-    if (!lastname.value.trim()) {
+    if (!lastname || !lastname.value.trim()) {
       setFieldError(lastname, 'required');
       firstInvalid = firstInvalid || lastname;
+      valid = false;
     }
-    if (!phone.value.trim()) {
+    if (!phone || !phone.value.trim()) {
       setFieldError(phone, 'required');
       firstInvalid = firstInvalid || phone;
+      valid = false;
     }
-    if (!email.value.trim() || !isEmail(email.value)) {
+    if (!email || !email.value.trim() || !isEmail(email.value)) {
       setFieldError(email, 'invalid');
       firstInvalid = firstInvalid || email;
+      valid = false;
     }
-    if (!consent.checked) {
+    if (!consent || !consent.checked) {
       setFieldError(consent, 'required');
       firstInvalid = firstInvalid || consent;
+      valid = false;
     }
 
-    if (firstInvalid) {
-      firstInvalid.focus();
+    if (!valid) {
+      if (firstInvalid && typeof firstInvalid.focus === 'function') {
+        try {
+          firstInvalid.focus();
+        } catch (e) {}
+      }
       return null;
     }
 
@@ -94,7 +107,7 @@
     var lastFocused = null;
     var openTrigger = document.querySelector('[data-pflege-inko-testpaket-open]');
     var form = root.querySelector('[data-pflege-inko-testpaket-form]');
-    var formPanel = root.querySelector('[data-pflege-inko-form-panel]');
+    var mainPanel = root.querySelector('[data-pflege-inko-main]');
     var successPanel = root.querySelector('[data-pflege-inko-success]');
     var errorEl = root.querySelector('[data-pflege-inko-form-error]');
     var submitBtn = root.querySelector('[data-pflege-inko-submit]');
@@ -113,11 +126,16 @@
     }
 
     function showSuccess() {
-      if (formPanel) formPanel.hidden = true;
+      hideError();
+      if (mainPanel) mainPanel.hidden = true;
       if (successPanel) {
         successPanel.hidden = false;
         var btn = successPanel.querySelector('[data-pflege-inko-modal-close]');
-        if (btn) btn.focus();
+        if (btn && typeof btn.focus === 'function') {
+          try {
+            btn.focus();
+          } catch (e) {}
+        }
       }
     }
 
@@ -127,7 +145,7 @@
         form.reset();
         clearFieldErrors(form);
       }
-      if (formPanel) formPanel.hidden = false;
+      if (mainPanel) mainPanel.hidden = false;
       if (successPanel) successPanel.hidden = true;
       if (submitBtn) {
         submitBtn.disabled = false;
@@ -169,11 +187,15 @@
 
     function onSubmit(e) {
       e.preventDefault();
+      e.stopPropagation();
       if (isSubmitting || !form) return;
 
       hideError();
       var data = validateForm(form);
-      if (!data) return;
+      if (!data) {
+        showError(VALIDATION_TEXT);
+        return;
+      }
 
       isSubmitting = true;
       if (submitBtn) {
@@ -185,7 +207,7 @@
       payload.set('contact[name]', data.firstname + ' ' + data.lastname);
       payload.set('contact[body]', buildBody(data));
 
-      fetch('/contact#contact_form', {
+      fetch(CONTACT_ENDPOINT, {
         method: 'POST',
         body: payload,
         headers: {
@@ -193,22 +215,17 @@
         },
       })
         .then(function (response) {
-          if (!response.ok) throw new Error('submit_failed');
-          return response
-            .json()
-            .then(function (json) {
-              if (json && (json.posted_successfully === true || json.status === 'success')) {
-                return true;
-              }
-              throw new Error('submit_failed');
-            })
-            .catch(function () {
-              return true;
-            });
+          return response.json().then(function (json) {
+            return { ok: response.ok, json: json };
+          });
         })
-        .then(function () {
-          showSuccess();
-          isSubmitting = false;
+        .then(function (result) {
+          if (result.ok && result.json && result.json.posted_successfully === true) {
+            showSuccess();
+            isSubmitting = false;
+            return;
+          }
+          throw new Error('submit_failed');
         })
         .catch(function () {
           showError(ERROR_TEXT);
@@ -232,7 +249,7 @@
     });
 
     if (form) {
-      form.addEventListener('submit', onSubmit);
+      form.addEventListener('submit', onSubmit, true);
     }
   }
 

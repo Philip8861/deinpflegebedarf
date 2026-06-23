@@ -29,7 +29,7 @@
       </p>
     </header>
 
-    <div class="pflege-inko-modal__body">
+    <div class="pflege-inko-modal__body" data-pflege-inko-main>
       <div class="pflege-inko-modal__steps" aria-label="Ablauf in drei Schritten">
         <article class="pflege-inko-modal__step">
           <span class="pflege-inko-modal__step-num" aria-hidden="true">1</span>
@@ -80,7 +80,7 @@
           <form
             class="pflege-inko-modal__form"
             data-pflege-inko-testpaket-form
-            action="/contact#contact_form"
+            action="#"
             method="post"
             accept-charset="UTF-8"
             novalidate
@@ -89,6 +89,7 @@
             <input type="hidden" name="utf8" value="✓">
             <input type="hidden" name="contact[tags]" value="testpaket, inkontinenz, deinpflegebedarf">
             <input type="hidden" name="contact[subject]" value="Kostenloses Testpaket Inkontinenzversorgung">
+            <input type="hidden" name="contact[Betreff]" value="Testpaket Inkontinenzversorgung">
 
             <div class="pflege-inko-modal__fields pflege-inko-modal__fields--split">
               <div class="pflege-inko-modal__field">
@@ -218,19 +219,20 @@
             </p>
           </form>
         </div>
-
-        <div class="pflege-inko-modal__success" data-pflege-inko-success hidden role="status">
-          <span class="pflege-inko-modal__success-icon" aria-hidden="true">
-            {% render 'pflege-icon', icon: 'badge-check', width: 40 %}
-          </span>
-          <p class="pflege-inko-modal__success-text">
-            Vielen Dank! Wir haben Ihre Anfrage erhalten und melden uns an Werktagen innerhalb von 24 Stunden bei Ihnen.
-          </p>
-          <button type="button" class="pflege-inko-modal__success-btn" data-pflege-inko-modal-close>
-            Schließen
-          </button>
-        </div>
       </div>
+    </div>
+
+    <div class="pflege-inko-modal__success-screen" data-pflege-inko-success hidden role="status" aria-live="polite">
+      <span class="pflege-inko-modal__success-icon" aria-hidden="true">
+        {% render 'pflege-icon', icon: 'badge-check', width: 44 %}
+      </span>
+      <h3 class="pflege-inko-modal__success-title">Vielen Dank!</h3>
+      <p class="pflege-inko-modal__success-text">
+        Wir haben Ihre Anfrage erhalten und melden uns an Werktagen innerhalb von 24 Stunden bei Ihnen.
+      </p>
+      <button type="button" class="pflege-inko-modal__success-btn" data-pflege-inko-modal-close>
+        Schließen
+      </button>
     </div>
   </div>
 </dialog>
