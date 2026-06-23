@@ -439,6 +439,14 @@
   display: none !important;
 }
 
+.pflege-inko-modal--success [data-pflege-inko-main] {
+  display: none !important;
+}
+
+.pflege-inko-modal--success .pflege-inko-modal__success-screen {
+  display: flex !important;
+}
+
 .pflege-inko-modal__success-icon {
   display: inline-flex;
   align-items: center;
