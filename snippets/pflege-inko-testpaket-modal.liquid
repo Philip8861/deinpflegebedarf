@@ -78,7 +78,7 @@
 
       <div class="pflege-inko-modal__form-wrap">
         <div class="pflege-inko-modal__form-panel" data-pflege-inko-form-panel>
-          {%- form 'contact', id: inko_form_id, class: 'pflege-inko-modal__form' -%}
+          {%- form 'contact', id: inko_form_id, class: 'pflege-inko-modal__form', data-shopify-captcha: 'true' -%}
             <input type="hidden" name="return_to" value="{{ request.path }}?pflege_inko_sent=1">
             <input type="hidden" name="contact[tags]" value="testpaket, inkontinenz, deinpflegebedarf">
             <input type="hidden" name="contact[subject]" value="Kostenloses Testpaket Inkontinenzversorgung">

@@ -12,9 +12,6 @@
     'Bitte füllen Sie alle Pflichtfelder aus und akzeptieren Sie die Datenschutzerklärung.';
   var SUBMITTING_TEXT = 'Wird gesendet …';
   var SUBMIT_TEXT = 'Jetzt kostenlos anfragen';
-  var IFRAME_NAME = 'pflege-inko-testpaket-frame';
-  var SUCCESS_QUERY = 'pflege_inko_sent=1';
-  var SUBMIT_TIMEOUT_MS = 25000;
 
   function isEmail(value) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || '').trim());
@@ -109,53 +106,61 @@
     if (bodyField) bodyField.value = buildBody(data);
   }
 
-  function ensureSubmitFrame() {
-    var frame = document.getElementById(IFRAME_NAME);
-    if (frame) return frame;
-
-    frame = document.createElement('iframe');
-    frame.id = IFRAME_NAME;
-    frame.name = IFRAME_NAME;
-    frame.title = 'Formularübermittlung';
-    frame.hidden = true;
-    frame.setAttribute('aria-hidden', 'true');
-    frame.style.cssText =
-      'position:absolute;width:0;height:0;border:0;opacity:0;pointer-events:none;clip:rect(0,0,0,0)';
-    document.body.appendChild(frame);
-    return frame;
+  function getFormAction(form) {
+    var action = form.getAttribute('action') || '/contact';
+    return action.split('#')[0];
   }
 
-  function getFrameHref(frame) {
-    try {
-      return frame.contentWindow.location.href || '';
-    } catch (e) {
-      return '';
+  function responseIndicatesSuccess(response, bodyText) {
+    if (response.status === 400) return false;
+
+    var ct = (response.headers.get('content-type') || '').toLowerCase();
+    if (ct.indexOf('json') !== -1) {
+      try {
+        var json = JSON.parse(bodyText);
+        if (json && json.errors) return false;
+        if (json && (json['posted_successfully?'] || json.posted_successfully)) return true;
+      } catch (e) {}
     }
-  }
 
-  function frameIndicatesSuccess(frame, html) {
-    var href = getFrameHref(frame);
-    if (href.indexOf(SUCCESS_QUERY) !== -1) return true;
-    if (html && html.indexOf('data-pflege-inko-sent-marker') !== -1) return true;
-    return false;
-  }
-
-  function responseLooksSuccessful(html) {
-    if (!html) return false;
-    return (
-      /data-pflege-inko-sent-marker|pflege_inko_sent=1/i.test(html) ||
-      /form-status|form-success|posted_successfully|contact_posted=true/i.test(html) ||
-      /Danke.*Kontakt|Vielen Dank|erfolgreich übermittelt|erfolgreich gesendet/i.test(html)
-    );
-  }
-
-  function responseLooksFailed(html) {
-    if (!html) return false;
-    if (/Verifying your connection|challenge-platform|cFPWv:/i.test(html)) return true;
-    if (/form__message--error|field__input--error|class="errors"|default_errors|There was an error/i.test(html)) {
+    if (response.ok) {
+      if (/form__message--error|default_errors|There was an error/i.test(bodyText)) return false;
       return true;
     }
+
     return false;
+  }
+
+  function submitContactForm(form) {
+    var action = getFormAction(form);
+
+    return fetch(action, {
+      method: 'POST',
+      body: new FormData(form),
+      credentials: 'same-origin',
+      headers: {
+        Accept: 'application/json, text/html;q=0.9, */*;q=0.8',
+      },
+    }).then(function (response) {
+      return response.text().then(function (text) {
+        return responseIndicatesSuccess(response, text);
+      });
+    });
+  }
+
+  function runWithShopifyCaptcha(form, callback) {
+    if (window.Shopify && window.Shopify.captcha && typeof window.Shopify.captcha.protect === 'function') {
+      window.Shopify.captcha.protect(form, callback);
+      return;
+    }
+    callback();
+  }
+
+  function wireShopifyCaptcha(form) {
+    if (!form || form.dataset.pflegeInkoCaptchaWired === 'true') return;
+    runWithShopifyCaptcha(form, function () {
+      form.dataset.pflegeInkoCaptchaWired = 'true';
+    });
   }
 
   function initModal(root) {
@@ -170,8 +175,8 @@
     var errorEl = root.querySelector('[data-pflege-inko-form-error]');
     var submitBtn = root.querySelector('[data-pflege-inko-submit]');
     var isSubmitting = false;
-    var submitTimeout = null;
-    var submitFrame = ensureSubmitFrame();
+
+    wireShopifyCaptcha(form);
 
     function showError(message) {
       if (!errorEl) return;
@@ -199,21 +204,12 @@
       }
     }
 
-    function clearSubmitTimeout() {
-      if (submitTimeout) {
-        clearTimeout(submitTimeout);
-        submitTimeout = null;
-      }
-    }
-
     function resetSubmitUi() {
-      clearSubmitTimeout();
       if (submitBtn) {
         submitBtn.disabled = false;
         submitBtn.textContent = SUBMIT_TEXT;
       }
       isSubmitting = false;
-      if (form) form.removeAttribute('target');
     }
 
     function resetFormState() {
@@ -221,7 +217,6 @@
       if (form) {
         form.reset();
         clearFieldErrors(form);
-        form.removeAttribute('target');
       }
       if (mainPanel) mainPanel.hidden = false;
       if (successPanel) successPanel.hidden = true;
@@ -234,13 +229,7 @@
     }
 
     function finishWithSuccess() {
-      clearSubmitTimeout();
-      isSubmitting = false;
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.textContent = SUBMIT_TEXT;
-      }
-      if (form) form.removeAttribute('target');
+      resetSubmitUi();
       showSuccess();
     }
 
@@ -252,6 +241,7 @@
       if (typeof root.showModal !== 'function') return;
       lastFocused = document.activeElement;
       resetFormState();
+      wireShopifyCaptcha(form);
       root.showModal();
 
       var first = root.querySelector('.pflege-inko-modal__close');
@@ -262,43 +252,38 @@
       }
     }
 
-    function handleFrameLoad() {
-      if (!isSubmitting) return;
-
-      var html = '';
-      try {
-        var doc = submitFrame.contentDocument || submitFrame.contentWindow.document;
-        html = doc && doc.documentElement ? doc.documentElement.innerHTML : '';
-      } catch (e) {
-        if (frameIndicatesSuccess(submitFrame, '')) {
-          finishWithSuccess();
-        }
-        return;
-      }
-
-      if (frameIndicatesSuccess(submitFrame, html)) {
-        finishWithSuccess();
-        return;
-      }
-
-      if (!html || html.length < 80) return;
-
-      if (responseLooksFailed(html)) {
-        finishWithError();
-        return;
-      }
-
-      if (responseLooksSuccessful(html)) {
-        finishWithSuccess();
-        return;
-      }
-
-      if (html.length > 400) {
-        finishWithSuccess();
-      }
+    function sendForm() {
+      submitContactForm(form)
+        .then(function (ok) {
+          if (ok) finishWithSuccess();
+          else finishWithError();
+        })
+        .catch(function () {
+          finishWithError();
+        });
     }
 
-    submitFrame.addEventListener('load', handleFrameLoad);
+    function onSubmit(e) {
+      e.preventDefault();
+      if (isSubmitting) return;
+
+      hideError();
+      var data = validateForm(form);
+      if (!data) {
+        showError(VALIDATION_TEXT);
+        return;
+      }
+
+      syncHiddenFields(form, data);
+
+      isSubmitting = true;
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = SUBMITTING_TEXT;
+      }
+
+      runWithShopifyCaptcha(form, sendForm);
+    }
 
     root.addEventListener('close', function () {
       resetFormState();
@@ -312,36 +297,6 @@
     root.addEventListener('click', function (e) {
       if (e.target === root) closeModal();
     });
-
-    function onSubmit(e) {
-      if (isSubmitting) {
-        e.preventDefault();
-        return;
-      }
-
-      hideError();
-      var data = validateForm(form);
-      if (!data) {
-        e.preventDefault();
-        showError(VALIDATION_TEXT);
-        return;
-      }
-
-      syncHiddenFields(form, data);
-
-      isSubmitting = true;
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.textContent = SUBMITTING_TEXT;
-      }
-
-      form.setAttribute('target', IFRAME_NAME);
-
-      clearSubmitTimeout();
-      submitTimeout = setTimeout(function () {
-        if (isSubmitting) finishWithError();
-      }, SUBMIT_TIMEOUT_MS);
-    }
 
     if (openTrigger) {
       openTrigger.addEventListener('click', function (e) {
