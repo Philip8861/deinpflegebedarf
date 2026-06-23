@@ -18,7 +18,11 @@
   --inko-modal-cta-hover: #f36f10;
 
   padding: 0;
-  margin: max(40px, env(safe-area-inset-top, 0px)) auto max(40px, env(safe-area-inset-bottom, 0px));
+  margin: 0;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   border: none;
   width: min(640px, calc(100vw - 40px));
   max-width: calc(100vw - 40px);
@@ -38,7 +42,7 @@
 
 .pflege-inko-modal__panel {
   position: relative;
-  padding: 22px 27px 20px;
+  padding: 22px 27px 22px;
   box-sizing: border-box;
 }
 
@@ -218,6 +222,7 @@
   min-width: 0;
   padding-left: 22px;
   border-left: 1px solid var(--inko-modal-line);
+  padding-bottom: 2px;
 }
 
 .pflege-inko-modal__form {
@@ -530,12 +535,18 @@
 }
 
 .pflege-inko-modal--success .pflege-inko-modal__panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 18rem;
   padding-top: 2rem;
   padding-bottom: 2rem;
 }
 
 .pflege-inko-modal--success .pflege-inko-modal__success-screen {
-  min-height: 18rem;
+  min-height: 0;
+  flex: 1 1 auto;
+  padding: 0.5rem 0.75rem;
 }
 
 button.pflege-cat-filtered__promo-cta {
@@ -568,12 +579,11 @@ button.pflege-cat-filtered__promo-cta {
     width: calc(100vw - 24px);
     max-width: calc(100vw - 24px);
     max-height: calc(100dvh - 48px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
-    margin: max(24px, env(safe-area-inset-top, 0px)) auto max(24px, env(safe-area-inset-bottom, 0px));
     border-radius: 16px;
   }
 
   .pflege-inko-modal__panel {
-    padding: 18px 16px 16px;
+    padding: 18px 16px 18px;
   }
 
   .pflege-inko-modal__close {
@@ -602,6 +612,7 @@ button.pflege-cat-filtered__promo-cta {
   .pflege-inko-modal__form-wrap {
     padding-left: 0;
     padding-top: 22px;
+    padding-bottom: 4px;
     margin-top: 22px;
     border-left: 0;
     border-top: 1px solid var(--inko-modal-line);

@@ -132,42 +132,11 @@
     return frame;
   }
 
-  function appendField(targetForm, name, value) {
-    var input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = name;
-    input.value = value;
-    targetForm.appendChild(input);
-  }
-
-  function submitInBackground(sourceForm) {
-    ensureSubmitFrame();
-
-    var temp = document.createElement('form');
-    temp.method = (sourceForm.getAttribute('method') || 'post').toLowerCase();
-    temp.action = (sourceForm.getAttribute('action') || '/contact').split('#')[0];
-    temp.target = IFRAME_NAME;
-    temp.style.cssText = 'display:none';
-    temp.setAttribute('aria-hidden', 'true');
-
-    Array.prototype.forEach.call(sourceForm.elements, function (el) {
-      if (!el.name || el.disabled) return;
-      if (el.type === 'submit' || el.type === 'button' || el.type === 'file') return;
-      if ((el.type === 'checkbox' || el.type === 'radio') && !el.checked) return;
-      appendField(temp, el.name, el.value);
-    });
-
-    document.body.appendChild(temp);
-    temp.submit();
-
-    window.setTimeout(function () {
-      if (temp.parentNode) temp.parentNode.removeChild(temp);
-    }, 10000);
-  }
-
   function initModal(root) {
     if (!root || root.dataset.pflegeInkoModalInit) return;
     root.dataset.pflegeInkoModalInit = 'true';
+
+    ensureSubmitFrame();
 
     var lastFocused = null;
     var openTrigger = document.querySelector('[data-pflege-inko-testpaket-open]');
@@ -226,6 +195,7 @@
       if (form) {
         form.reset();
         clearFieldErrors(form);
+        form.removeAttribute('target');
       }
       if (mainPanel) mainPanel.removeAttribute('hidden');
       if (successPanel) successPanel.setAttribute('hidden', '');
@@ -251,19 +221,32 @@
       }
     }
 
-    function onSubmit(e) {
-      e.preventDefault();
-      if (isSubmitting || isSuccessState()) return;
+    function prepareIframeSubmit() {
+      ensureSubmitFrame();
+      form.setAttribute('target', IFRAME_NAME);
+    }
 
+    function onSubmit(e) {
       hideError();
+
+      if (isSubmitting) {
+        if (e.isTrusted) {
+          e.preventDefault();
+          return;
+        }
+        prepareIframeSubmit();
+        return;
+      }
 
       var data = validateForm(form);
       if (!data) {
+        e.preventDefault();
         showError(VALIDATION_TEXT);
         return;
       }
 
       syncHiddenFields(form, data);
+      prepareIframeSubmit();
       isSubmitting = true;
 
       if (submitBtn) {
@@ -271,8 +254,6 @@
         submitBtn.textContent = SUBMITTING_TEXT;
       }
 
-      submitInBackground(form);
-      resetSubmitUi();
       showSuccessView();
     }
 
