@@ -3,22 +3,14 @@
   assign modal_id = 'PflegeInkoTestpaketModal-' | append: section.id
 -%}
 
-<div
+<dialog
   id="{{ modal_id }}"
   class="pflege-inko-modal"
   data-pflege-inko-testpaket-modal
-  hidden
-  aria-hidden="true"
+  aria-labelledby="{{ modal_id }}-title"
+  aria-describedby="{{ modal_id }}-subtitle"
 >
-  <div class="pflege-inko-modal__overlay" data-pflege-inko-modal-close tabindex="-1" aria-hidden="true"></div>
-
-  <div
-    class="pflege-inko-modal__dialog"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="{{ modal_id }}-title"
-    aria-describedby="{{ modal_id }}-subtitle"
-  >
+  <div class="pflege-inko-modal__panel">
     <button
       type="button"
       class="pflege-inko-modal__close"
@@ -241,4 +233,4 @@
       </div>
     </div>
   </div>
-</div>
+</dialog>

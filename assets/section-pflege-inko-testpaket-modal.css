@@ -1,9 +1,4 @@
-/* PflegeShop — Inkontinenz Testpaket Modal */
-
-html.pflege-inko-modal-open,
-html.pflege-inko-modal-open body {
-  overflow: hidden;
-}
+/* PflegeShop — Inkontinenz Testpaket Modal (native dialog wie Kategorieübersicht) */
 
 .pflege-inko-modal {
   --inko-modal-primary: #003b71;
@@ -21,68 +16,30 @@ html.pflege-inko-modal-open body {
   --inko-modal-placeholder: #8a9db3;
   --inko-modal-cta: #ff7a1a;
   --inko-modal-cta-hover: #f36f10;
-  --inko-modal-overlay: rgba(10, 30, 50, 0.46);
 
-  position: fixed;
-  inset: 0;
-  z-index: 10400;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  box-sizing: border-box;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity 200ms ease, visibility 200ms ease;
-}
-
-.pflege-inko-modal[hidden] {
-  display: none !important;
-}
-
-.pflege-inko-modal.is-open {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-
-.pflege-inko-modal__overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  background: var(--inko-modal-overlay);
-  backdrop-filter: blur(1.5px);
-  -webkit-backdrop-filter: blur(1.5px);
-  cursor: pointer;
-}
-
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .pflege-inko-modal__overlay {
-    background: rgba(10, 30, 50, 0.5);
-  }
-}
-
-.pflege-inko-modal__dialog {
-  position: relative;
-  z-index: 1;
+  padding: 0;
+  margin: auto;
+  border: none;
   width: min(855px, calc(100vw - 40px));
+  max-width: calc(100vw - 40px);
   max-height: calc(100vh - 40px);
-  overflow-x: hidden;
-  overflow-y: auto;
-  padding: 30px 36px 26px;
+  overflow: auto;
   border-radius: 20px;
   background: #ffffff;
+  color: var(--inko-modal-primary);
   box-shadow: 0 24px 80px rgba(0, 35, 70, 0.22);
-  box-sizing: border-box;
-  opacity: 0;
-  transform: scale(0.98) translateY(8px);
-  transition: opacity 200ms ease, transform 200ms ease;
 }
 
-.pflege-inko-modal.is-open .pflege-inko-modal__dialog {
-  opacity: 1;
-  transform: scale(1) translateY(0);
+.pflege-inko-modal::backdrop {
+  background: var(--pflege-overlay-backdrop, rgba(11, 35, 71, 0.56));
+  -webkit-backdrop-filter: blur(var(--pflege-overlay-backdrop-blur, 4px));
+  backdrop-filter: blur(var(--pflege-overlay-backdrop-blur, 4px));
+}
+
+.pflege-inko-modal__panel {
+  position: relative;
+  padding: 30px 36px 26px;
+  box-sizing: border-box;
 }
 
 .pflege-inko-modal__close {
@@ -529,8 +486,7 @@ button.pflege-cat-filtered__promo-cta {
 }
 
 @media screen and (max-width: 989px) {
-  .pflege-inko-modal__dialog {
-    width: min(855px, calc(100vw - 32px));
+  .pflege-inko-modal__panel {
     padding: 26px 28px 24px;
   }
 
@@ -549,15 +505,14 @@ button.pflege-cat-filtered__promo-cta {
 
 @media screen and (max-width: 767px) {
   .pflege-inko-modal {
-    padding: 16px 12px;
-    align-items: center;
+    width: calc(100vw - 24px);
+    max-width: calc(100vw - 24px);
+    max-height: calc(100vh - 24px);
+    border-radius: 18px;
   }
 
-  .pflege-inko-modal__dialog {
-    width: calc(100vw - 24px);
-    max-height: calc(100vh - 24px);
+  .pflege-inko-modal__panel {
     padding: 22px 18px 20px;
-    border-radius: 18px;
   }
 
   .pflege-inko-modal__close {
@@ -613,7 +568,7 @@ button.pflege-cat-filtered__promo-cta {
 
 @media (prefers-reduced-motion: reduce) {
   .pflege-inko-modal,
-  .pflege-inko-modal__dialog {
+  .pflege-inko-modal::backdrop {
     transition: none;
   }
 }

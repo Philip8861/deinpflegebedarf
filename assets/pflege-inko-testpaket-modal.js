@@ -6,17 +6,10 @@
 
   if (typeof document === 'undefined') return;
 
-  var ROOT_OPEN_CLASS = 'pflege-inko-modal-open';
   var ERROR_TEXT =
     'Die Anfrage konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder kontaktieren Sie uns telefonisch.';
   var SUBMITTING_TEXT = 'Wird gesendet …';
   var SUBMIT_TEXT = 'Jetzt kostenlos anfragen';
-
-  function focusables(root) {
-    return root.querySelectorAll(
-      'button:not([disabled]), [href], input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
-    );
-  }
 
   function isEmail(value) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || '').trim());
@@ -95,9 +88,8 @@
   }
 
   function initModal(root) {
-    if (root.parentElement !== document.body) {
-      document.body.appendChild(root);
-    }
+    if (!root || root.dataset.pflegeInkoModalInit) return;
+    root.dataset.pflegeInkoModalInit = 'true';
 
     var lastFocused = null;
     var openTrigger = document.querySelector('[data-pflege-inko-testpaket-open]');
@@ -144,15 +136,15 @@
       isSubmitting = false;
     }
 
+    function closeModal() {
+      if (root.open) root.close();
+    }
+
     function open() {
+      if (typeof root.showModal !== 'function') return;
       lastFocused = document.activeElement;
       resetFormState();
-      root.hidden = false;
-      root.setAttribute('aria-hidden', 'false');
-      requestAnimationFrame(function () {
-        root.classList.add('is-open');
-      });
-      document.documentElement.classList.add(ROOT_OPEN_CLASS);
+      root.showModal();
 
       var first = root.querySelector('.pflege-inko-modal__close');
       if (first && typeof first.focus === 'function') {
@@ -162,48 +154,18 @@
       }
     }
 
-    function close() {
-      root.classList.remove('is-open');
-      root.setAttribute('aria-hidden', 'true');
-      document.documentElement.classList.remove(ROOT_OPEN_CLASS);
-
-      window.setTimeout(function () {
-        if (!root.classList.contains('is-open')) {
-          root.hidden = true;
-          resetFormState();
-        }
-      }, 200);
-
+    root.addEventListener('close', function () {
+      resetFormState();
       if (lastFocused && typeof lastFocused.focus === 'function') {
         try {
           lastFocused.focus();
         } catch (e) {}
       }
-    }
+    });
 
-    function onKeydown(e) {
-      if (root.hidden || !root.classList.contains('is-open')) return;
-
-      if (e.key === 'Escape' || e.keyCode === 27) {
-        e.preventDefault();
-        close();
-        return;
-      }
-
-      if (e.key === 'Tab' || e.keyCode === 9) {
-        var nodes = focusables(root);
-        if (!nodes.length) return;
-        var firstNode = nodes[0];
-        var lastNode = nodes[nodes.length - 1];
-        if (e.shiftKey && document.activeElement === firstNode) {
-          e.preventDefault();
-          lastNode.focus();
-        } else if (!e.shiftKey && document.activeElement === lastNode) {
-          e.preventDefault();
-          firstNode.focus();
-        }
-      }
-    }
+    root.addEventListener('click', function (e) {
+      if (e.target === root) closeModal();
+    });
 
     function onSubmit(e) {
       e.preventDefault();
@@ -266,18 +228,16 @@
     }
 
     root.querySelectorAll('[data-pflege-inko-modal-close]').forEach(function (el) {
-      el.addEventListener('click', close);
+      el.addEventListener('click', closeModal);
     });
 
     if (form) {
       form.addEventListener('submit', onSubmit);
     }
-
-    document.addEventListener('keydown', onKeydown);
   }
 
   function start() {
-    document.querySelectorAll('[data-pflege-inko-testpaket-modal]').forEach(initModal);
+    document.querySelectorAll('dialog[data-pflege-inko-testpaket-modal]').forEach(initModal);
   }
 
   if (document.readyState === 'loading') {
