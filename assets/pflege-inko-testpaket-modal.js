@@ -13,7 +13,8 @@
   var SUBMITTING_TEXT = 'Wird gesendet …';
   var SUBMIT_TEXT = 'Jetzt kostenlos anfragen';
   var IFRAME_NAME = 'pflege-inko-testpaket-frame';
-  var SUBMIT_TIMEOUT_MS = 20000;
+  var SUCCESS_QUERY = 'pflege_inko_sent=1';
+  var SUBMIT_TIMEOUT_MS = 25000;
 
   function isEmail(value) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || '').trim());
@@ -124,20 +125,37 @@
     return frame;
   }
 
+  function getFrameHref(frame) {
+    try {
+      return frame.contentWindow.location.href || '';
+    } catch (e) {
+      return '';
+    }
+  }
+
+  function frameIndicatesSuccess(frame, html) {
+    var href = getFrameHref(frame);
+    if (href.indexOf(SUCCESS_QUERY) !== -1) return true;
+    if (html && html.indexOf('data-pflege-inko-sent-marker') !== -1) return true;
+    return false;
+  }
+
   function responseLooksSuccessful(html) {
     if (!html) return false;
     return (
-      /form-status|form-success|form__message|posted_successfully|contact_posted=true/i.test(html) ||
+      /data-pflege-inko-sent-marker|pflege_inko_sent=1/i.test(html) ||
+      /form-status|form-success|posted_successfully|contact_posted=true/i.test(html) ||
       /Danke.*Kontakt|Vielen Dank|erfolgreich übermittelt|erfolgreich gesendet/i.test(html)
     );
   }
 
   function responseLooksFailed(html) {
     if (!html) return false;
-    return (
-      /form__message--error|field__input--error|class="errors"|default_errors|There was an error/i.test(html) ||
-      /Verifying your connection|challenge-platform|hcaptcha/i.test(html)
-    );
+    if (/Verifying your connection|challenge-platform|cFPWv:/i.test(html)) return true;
+    if (/form__message--error|field__input--error|class="errors"|default_errors|There was an error/i.test(html)) {
+      return true;
+    }
+    return false;
   }
 
   function initModal(root) {
@@ -252,7 +270,14 @@
         var doc = submitFrame.contentDocument || submitFrame.contentWindow.document;
         html = doc && doc.documentElement ? doc.documentElement.innerHTML : '';
       } catch (e) {
-        finishWithError();
+        if (frameIndicatesSuccess(submitFrame, '')) {
+          finishWithSuccess();
+        }
+        return;
+      }
+
+      if (frameIndicatesSuccess(submitFrame, html)) {
+        finishWithSuccess();
         return;
       }
 
@@ -289,7 +314,10 @@
     });
 
     function onSubmit(e) {
-      if (isSubmitting) return;
+      if (isSubmitting) {
+        e.preventDefault();
+        return;
+      }
 
       hideError();
       var data = validateForm(form);
@@ -313,8 +341,6 @@
       submitTimeout = setTimeout(function () {
         if (isSubmitting) finishWithError();
       }, SUBMIT_TIMEOUT_MS);
-
-      // Native Submit zulassen (Shopify hCaptcha / Bot-Schutz)
     }
 
     if (openTrigger) {
