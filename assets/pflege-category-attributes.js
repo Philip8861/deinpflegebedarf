@@ -80,7 +80,10 @@
     var v = normalizeText(vendor);
     if (!v) return '';
     if (v.indexOf('meditrade') !== -1) return 'meditrade';
-    if (v.indexOf('seni') !== -1) return 'seni-care';
+    if (v.indexOf('seni') !== -1) return 'seni';
+    if (v.indexOf('molicare') !== -1 || v.indexOf('molcare') !== -1) return 'molicare';
+    if (v.indexOf('tena') !== -1) return 'tena';
+    if (v === 'id' || v.indexOf('id-') === 0 || v.indexOf(' id ') !== -1) return 'id';
     if (v.indexOf('alcoman') !== -1) return 'alcoman';
     if (v.indexOf('ethasept') !== -1) return 'ethasept';
     if (v.indexOf('medizid') !== -1) return 'medizid';
@@ -98,6 +101,86 @@
   function isHautpflegeCategory(slug) {
     var s = normalizeText(slug);
     return s === 'hautpflege' || s === 'hautschutz-hautpflege' || s === 'hauschutz-hautpflege';
+  }
+
+  function isInkontinenzCategory(slug) {
+    var s = normalizeText(slug);
+    return s === 'inkontinenzversorgung' || s === 'inkontinenz';
+  }
+
+  function mlToAbsorbencyLevel(ml) {
+    if (ml <= 0 || !isFinite(ml)) return '';
+    if (ml <= 500) return 'leicht';
+    if (ml <= 1000) return 'mittel';
+    if (ml <= 1800) return 'stark';
+    return 'extra-stark';
+  }
+
+  function extractAbsorbencyLevels(hay, optionValues) {
+    var levels = [];
+    var sources = [hay].concat(optionValues || []).map(normalizeText);
+
+    sources.forEach(function (source) {
+      var mlMatches = source.match(/(\d+(?:[.,]\d+)?)\s*ml/g);
+      if (mlMatches) {
+        mlMatches.forEach(function (match) {
+          var ml = parseFloat(match.replace(/ml/g, '').replace(',', '.').trim());
+          var level = mlToAbsorbencyLevel(ml);
+          if (level) levels.push(level);
+        });
+      }
+    });
+
+    if (includesAny(hay, ['sehr stark', 'sehr_stark', 'extra stark', 'extra-stark', 'maxi', 'ultimate', 'premium super'])) {
+      levels.push('extra-stark');
+    } else if (includesAny(hay, ['super', 'stark', 'heavy', 'plus', 'extra plus'])) {
+      levels.push('stark');
+    }
+    if (includesAny(hay, ['mittel', 'medium', 'regular', 'normal'])) {
+      levels.push('mittel');
+    }
+    if (includesAny(hay, ['mini', 'leicht', 'light', 'tropfen', 'extra mini', 'small'])) {
+      levels.push('leicht');
+    }
+
+    return unique(levels);
+  }
+
+  function extractClothingSizes(hay, optionValues) {
+    var sizes = [];
+    var sources = [hay].concat(optionValues || []).map(normalizeText);
+    var order = { xs: 1, s: 2, m: 3, l: 4, xl: 5, xxl: 6 };
+
+    sources.forEach(function (source) {
+      var re = /\b(2xl|3xl|xxl|xl|xs|[sml])\b/g;
+      var match;
+      while ((match = re.exec(source)) !== null) {
+        var token = match[1];
+        if (token === '2xl' || token === '3xl') token = 'xxl';
+        sizes.push(token);
+      }
+    });
+
+    return unique(sizes).sort(function (a, b) {
+      return (order[a] || 99) - (order[b] || 99);
+    });
+  }
+
+  function extractGenders(hay) {
+    var genders = [];
+    if (includesAny(hay, ['damen', 'frau', 'weiblich', 'female', 'lady', 'women', 'for her'])) {
+      genders.push('damen');
+    }
+    if (includesAny(hay, ['herren', 'mann', 'maennlich', 'male', 'men', 'for him'])) {
+      genders.push('herren');
+    }
+    if (includesAny(hay, ['unisex', 'neutral', 'alle', 'universal'])) {
+      genders.push('unisex');
+    }
+    if (!genders.length && includesAny(hay, ['seni active', 'seni san', 'seni soft'])) {
+      genders.push('unisex');
+    }
+    return unique(genders);
   }
 
   function deriveDesinfektionAttributes(product) {
@@ -405,7 +488,110 @@
     };
   }
 
+  function deriveInkontinenzAttributes(product) {
+    var hay = buildHaystack(product);
+    var productTypes = [];
+    var absorbency = [];
+    var clothingSizes = [];
+    var genders = [];
+    var properties = [];
+
+    if (
+      includesAny(hay, [
+        'inkontinenzslip',
+        'inkontinenz slip',
+        'incontinence slip',
+        ' all in one slip',
+        ' seni active',
+        ' active classic',
+        ' active super',
+      ]) ||
+      (includesWord(hay, ['slip']) && !includesAny(hay, ['bettschutz', 'einlage', 'vorlage']))
+    ) {
+      productTypes.push('inkontinenzslips');
+    }
+
+    if (
+      includesAny(hay, [
+        'inkontinenzpants',
+        'inkontinenz pants',
+        'incontinence pants',
+        'pull-up',
+        'pull up',
+        'pullup',
+        ' pant ',
+        ' pants',
+        ' unterhose',
+        ' fix pants',
+      ])
+    ) {
+      productTypes.push('inkontinenzpants');
+    }
+
+    if (
+      !includesAny(hay, ['bettschutz', 'krankenunterlage', 'bettunterlage', 'bettunterlage']) &&
+      (includesWord(hay, ['einlage', 'einlagen']) ||
+        includesAny(hay, [' seni soft', ' seni super', ' seni normal', 'insert pad', 'insert']))
+    ) {
+      productTypes.push('einlagen');
+    }
+
+    if (includesWord(hay, ['vorlage', 'vorlagen']) || includesAny(hay, ['anatomisch', ' shaped pad'])) {
+      productTypes.push('vorlagen');
+    }
+
+    if (
+      includesAny(hay, [
+        'bettschutz',
+        'bettschutzeinlage',
+        'krankenunterlage',
+        'bettunterlage',
+        'bettauflage',
+        'unterlage waschbar',
+      ])
+    ) {
+      productTypes.push('bettschutzeinlagen');
+    }
+
+    absorbency = extractAbsorbencyLevels(hay, product.optionValues);
+    clothingSizes = extractClothingSizes(hay, product.optionValues);
+    genders = extractGenders(hay);
+
+    if (includesAny(hay, ['rezept', 'rezeptfaehig', 'rezeptfähig', 'prescription', 'hilfsmittel'])) {
+      properties.push('rezeptfaehig');
+    }
+    if (includesAny(hay, ['beliebt', 'bestseller', 'top seller', 'empfohlen'])) {
+      properties.push('beliebt');
+    }
+    if (includesAny(hay, ['atmungsaktiv', 'atmungsaktive', 'breathable', ' breathable'])) {
+      properties.push('atmungsaktiv');
+    }
+    if (includesAny(hay, ['diskret', 'discreet', 'unauffaellig', 'unauffällig'])) {
+      properties.push('diskret');
+    }
+
+    if (!productTypes.length && includesAny(hay, ['inkontinenz', 'inko', 'incontinence'])) {
+      productTypes.push('inkontinenzprodukt');
+    }
+
+    return {
+      categorySlug: product.categorySlug || 'inkontinenzversorgung',
+      productTypes: unique(productTypes),
+      absorbency: unique(absorbency),
+      clothingSizes: unique(clothingSizes),
+      genders: unique(genders),
+      brand: normalizeBrand(product.vendor),
+      sizes: extractSizes(hay, product.optionValues),
+      properties: unique(properties),
+      priceMin: product.priceMin || 0,
+      priceMax: product.priceMax || product.priceMin || 0,
+    };
+  }
+
   function deriveProductAttributes(product) {
+    if (isInkontinenzCategory(product.categorySlug)) {
+      return deriveInkontinenzAttributes(product);
+    }
     if (isHautpflegeCategory(product.categorySlug)) {
       return deriveHautpflegeAttributes(product);
     }
@@ -420,6 +606,7 @@
   global.PflegeCategoryAttributes = {
     normalizeText: normalizeText,
     isHautpflegeCategory: isHautpflegeCategory,
+    isInkontinenzCategory: isInkontinenzCategory,
     deriveProductAttributes: deriveProductAttributes,
     enrichProduct: enrichProduct,
   };

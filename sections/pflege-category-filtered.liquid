@@ -6,11 +6,31 @@
   endif
   assign category_slug = collection.handle | default: 'desinfektion'
   if cat_description == blank
-    if category_slug == 'hautpflege' or category_slug == 'hautschutz-hautpflege' or category_slug == 'hauschutz-hautpflege'
+    if category_slug == 'inkontinenzversorgung' or category_slug == 'inkontinenz'
+      assign cat_description = 'Unsere Inkontinenzprodukte bieten diskreten und zuverlässigen Schutz im Alltag – für Zuhause, unterwegs und nachts. Wählen Sie zwischen Inkontinenzslips, Pants, Einlagen, Vorlagen und Bettschutzeinlagen in passender Saugstärke und Größe.'
+    elsif category_slug == 'hautpflege' or category_slug == 'hautschutz-hautpflege' or category_slug == 'hauschutz-hautpflege'
       assign cat_description = 'Pflegende Cremes, Lotionen, Waschprodukte und Hautschutz für den Alltag in Pflege, Haushalt und Praxis. Finden Sie passende Produkte für normale, trockene, sensible oder gereizte Haut – von der Körperpflege bis zur Wund- und Inkontinenzversorgung.'
     else
       assign cat_description = 'Unsere Desinfektionsprodukte bieten zuverlässigen Schutz für Hände und Oberflächen – für Pflege, Haushalt, Praxis und Alltag. Wählen Sie zwischen Händedesinfektion, Flächendesinfektion, Körperdesinfektion, Tüchern, Gelen und Sprays.'
     endif
+  endif
+
+  assign show_promo_banner = section.settings.show_promo_banner
+  if category_slug == 'inkontinenzversorgung' or category_slug == 'inkontinenz'
+    if section.settings.show_promo_banner == nil
+      assign show_promo_banner = true
+    endif
+  else
+    assign show_promo_banner = false
+  endif
+
+  assign promo_heading = section.settings.promo_heading | default: 'Inkontinenzversorgung auch mit Rezeptabrechnung möglich'
+  assign promo_text = section.settings.promo_text | default: 'Jetzt kostenloses Testpaket erhalten und das perfekte passende Produkt erhalten'
+  assign promo_button_label = section.settings.promo_button_label | default: 'Kostenloses Testpaket erhalten'
+  assign promo_button_link = section.settings.promo_button_link | default: '#'
+  assign promo_image = section.settings.promo_image
+  if promo_image == blank
+    assign promo_image_asset = 'Inkontinenzversorgung_start.webp'
   endif
 -%}
 
@@ -106,6 +126,45 @@
   aria-labelledby="PflegeCatHeading-{{ section.id }}"
 >
   <div class="pflege-cat-filtered__shell">
+    {%- if show_promo_banner -%}
+      <div class="pflege-cat-filtered__promo">
+        <div class="pflege-cat-filtered__promo-inner">
+          <div class="pflege-cat-filtered__promo-copy">
+            <h2 class="pflege-cat-filtered__promo-title">{{ promo_heading | escape }}</h2>
+            {%- if promo_text != blank -%}
+              <p class="pflege-cat-filtered__promo-lead">{{ promo_text | escape }}</p>
+            {%- endif -%}
+            {%- if promo_button_label != blank -%}
+              <a class="pflege-cat-filtered__promo-cta" href="{{ promo_button_link }}">{{ promo_button_label | escape }}</a>
+            {%- endif -%}
+          </div>
+          <div class="pflege-cat-filtered__promo-media" aria-hidden="true">
+            {%- if promo_image != blank -%}
+              {{
+                promo_image
+                | image_url: width: 1400
+                | image_tag:
+                  class: 'pflege-cat-filtered__promo-img',
+                  loading: 'eager',
+                  widths: '700, 900, 1200, 1400',
+                  sizes: '(min-width: 990px) 52vw, 100vw',
+                  alt: ''
+              }}
+            {%- else -%}
+              <img
+                class="pflege-cat-filtered__promo-img"
+                src="{{ promo_image_asset | asset_url }}"
+                alt=""
+                loading="eager"
+                width="1400"
+                height="420"
+              >
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    {%- endif -%}
+
     <header class="pflege-cat-filtered__header">
       <div class="pflege-cat-filtered__intro">
         <h1 class="pflege-cat-filtered__title" id="PflegeCatHeading-{{ section.id }}">{{ cat_heading | escape }}</h1>
@@ -244,6 +303,44 @@
       "id": "description",
       "label": "Beschreibung",
       "default": "Unsere Desinfektionsprodukte bieten zuverlässigen Schutz für Hände und Oberflächen – für Pflege, Haushalt, Praxis und Alltag. Wählen Sie zwischen Händedesinfektion, Flächendesinfektion, Körperdesinfektion, Tüchern, Gelen und Sprays."
+    },
+    {
+      "type": "header",
+      "content": "Inkontinenz-Banner"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_promo_banner",
+      "label": "Promo-Banner anzeigen (Inkontinenz)",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "promo_heading",
+      "label": "Banner-Überschrift",
+      "default": "Inkontinenzversorgung auch mit Rezeptabrechnung möglich"
+    },
+    {
+      "type": "textarea",
+      "id": "promo_text",
+      "label": "Banner-Text",
+      "default": "Jetzt kostenloses Testpaket erhalten und das perfekte passende Produkt erhalten"
+    },
+    {
+      "type": "text",
+      "id": "promo_button_label",
+      "label": "Banner-Button",
+      "default": "Kostenloses Testpaket erhalten"
+    },
+    {
+      "type": "url",
+      "id": "promo_button_link",
+      "label": "Banner-Button-Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "promo_image",
+      "label": "Banner-Bild (optional, sonst Theme-Asset)"
     },
     {
       "type": "color_scheme",

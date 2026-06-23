@@ -8,6 +8,10 @@
 
   var BRAND_LABELS = {
     meditrade: 'Meditrade',
+    seni: 'Seni',
+    molicare: 'MoliCare',
+    tena: 'TENA',
+    id: 'iD',
     'seni-care': 'Seni Care',
     alcoman: 'Alcoman',
     ethasept: 'Ethasept',
@@ -38,6 +42,10 @@
     hautschutzfilm: 'Hautschutzfilm',
     lanolin: 'Mit Lanolin',
     vegan: 'Vegan',
+    rezeptfaehig: 'Rezeptfähig',
+    beliebt: 'Beliebt',
+    atmungsaktiv: 'Atmungsaktiv',
+    diskret: 'Diskret',
   };
 
   var FILTER_CONFIGS = {
@@ -113,10 +121,71 @@
       ],
       badges: ['parfuemfrei', 'vegan'],
     },
+    inkontinenzversorgung: {
+      groups: [
+        {
+          id: 'productTypes',
+          label: 'Produkttyp',
+          options: [
+            { value: 'inkontinenzslips', label: 'Inkontinenzslips' },
+            { value: 'inkontinenzpants', label: 'Inkontinenzpants' },
+            { value: 'einlagen', label: 'Einlagen' },
+            { value: 'vorlagen', label: 'Vorlagen' },
+            { value: 'bettschutzeinlagen', label: 'Bettschutzeinlagen' },
+          ],
+        },
+        {
+          id: 'absorbency',
+          label: 'Saugstärke',
+          options: [
+            { value: 'leicht', label: 'Leicht', drops: 1 },
+            { value: 'mittel', label: 'Mittel', drops: 2 },
+            { value: 'stark', label: 'Stark', drops: 3 },
+            { value: 'extra-stark', label: 'Extra stark', drops: 4 },
+          ],
+        },
+        {
+          id: 'clothingSizes',
+          label: 'Größe',
+          layout: 'columns',
+          options: [
+            { value: 'xs', label: 'XS' },
+            { value: 's', label: 'S' },
+            { value: 'm', label: 'M' },
+            { value: 'l', label: 'L' },
+            { value: 'xl', label: 'XL' },
+            { value: 'xxl', label: 'XXL' },
+          ],
+        },
+        {
+          id: 'genders',
+          label: 'Geschlecht',
+          options: [
+            { value: 'damen', label: 'Für Damen' },
+            { value: 'herren', label: 'Für Herren' },
+            { value: 'unisex', label: 'Unisex' },
+          ],
+        },
+        {
+          id: 'brand',
+          label: 'Marke',
+          options: [
+            { value: 'seni', label: 'Seni' },
+            { value: 'molicare', label: 'MoliCare' },
+            { value: 'tena', label: 'TENA' },
+            { value: 'id', label: 'iD' },
+          ],
+        },
+      ],
+      badges: ['rezeptfaehig', 'beliebt', 'atmungsaktiv', 'diskret'],
+    },
   };
 
   function resolveCategoryKey(handle) {
     var h = String(handle || '').toLowerCase();
+    if (h === 'inkontinenzversorgung' || h === 'inkontinenz') {
+      return 'inkontinenzversorgung';
+    }
     if (h === 'hautpflege' || h === 'hautschutz-hautpflege' || h === 'hauschutz-hautpflege') {
       return 'hautpflege';
     }
@@ -233,7 +302,10 @@
     var badges = [];
     (product.properties || []).forEach(function (prop) {
       if (badgeKeys.indexOf(prop) !== -1) {
-        badges.push(PROPERTY_LABELS[prop] || prop);
+        badges.push({
+          key: prop,
+          label: PROPERTY_LABELS[prop] || prop,
+        });
       }
     });
     if (!badges.length) return '';
@@ -242,7 +314,14 @@
       badges
         .slice(0, 2)
         .map(function (badge) {
-          return '<span class="pflege-cat-card__badge">' + escapeHtml(badge) + '</span>';
+          var modifier = badge.key === 'rezeptfaehig' ? ' pflege-cat-card__badge--blue' : '';
+          return (
+            '<span class="pflege-cat-card__badge' +
+            modifier +
+            '">' +
+            escapeHtml(badge.label) +
+            '</span>'
+          );
         })
         .join('') +
       '</div>'
@@ -348,12 +427,26 @@
       });
   }
 
+  function renderDropIcons(count) {
+    var html = '<span class="pflege-cat-filter__drops" aria-hidden="true">';
+    var i;
+    for (i = 0; i < count; i++) {
+      html +=
+        '<svg class="pflege-cat-filter__drop" xmlns="http://www.w3.org/2000/svg" width="12" height="14" viewBox="0 0 12 14" fill="currentColor">' +
+        '<path d="M6 0C4.2 3.1 1 6.4 1 9.2 1 11.7 3 13.5 6 13.5s5-1.8 5-4.3C11 6.4 7.8 3.1 6 0Z"/>' +
+        '</svg>';
+    }
+    html += '</span>';
+    return html;
+  }
+
   function renderFilterGroup(group, products, selected, prefix, collapsible, filterGroups) {
     var options = group.options ? group.options.slice() : [];
     if (group.dynamic) options = buildDynamicOptions(products, group.id);
     if (!options.length) return '';
 
     var openAttr = collapsible ? '' : ' open';
+    var listClass = group.layout === 'columns' ? ' pflege-cat-filter__list--columns' : '';
     var html =
       '<details class="pflege-cat-filter__group"' +
       openAttr +
@@ -363,12 +456,15 @@
       '<summary class="pflege-cat-filter__group-title">' +
       escapeHtml(group.label) +
       '</summary>' +
-      '<ul class="pflege-cat-filter__list">';
+      '<ul class="pflege-cat-filter__list' +
+      listClass +
+      '">';
 
     options.forEach(function (option) {
       var count = countForOption(products, selected, group.id, option.value, filterGroups);
       var checked = (selected[group.id] || []).indexOf(option.value) !== -1;
       var disabled = count === 0 && !checked;
+      var labelPrefix = option.drops ? renderDropIcons(option.drops) : '';
       html +=
         '<li class="pflege-cat-filter__item">' +
         '<label class="pflege-cat-filter__label' +
@@ -387,6 +483,7 @@
         (disabled ? ' disabled' : '') +
         '>' +
         '<span class="pflege-cat-filter__label-text">' +
+        labelPrefix +
         escapeHtml(option.label) +
         '</span>' +
         '<span class="pflege-cat-filter__count">(' +

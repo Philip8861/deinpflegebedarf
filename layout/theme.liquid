@@ -51,9 +51,12 @@
           assign pflege_seo_title = 'sections.pflege_collection_free_care.meta_title' | t
           assign pflege_seo_description = 'sections.pflege_collection_free_care.meta_description' | t
         endif
-        if template.suffix == 'desinfektion' or template.suffix == 'haende-und-flaechendesinfektion' or template.suffix == 'hautpflege' or col_h == 'desinfektion' or col_h == 'haende-und-flaechendesinfektion' or col_h == 'hautpflege' or col_h == 'hautschutz-hautpflege' or col_h == 'hauschutz-hautpflege'
+        if template.suffix == 'desinfektion' or template.suffix == 'haende-und-flaechendesinfektion' or template.suffix == 'hautpflege' or template.suffix == 'inkontinenzversorgung' or col_h == 'desinfektion' or col_h == 'haende-und-flaechendesinfektion' or col_h == 'hautpflege' or col_h == 'hautschutz-hautpflege' or col_h == 'hauschutz-hautpflege' or col_h == 'inkontinenzversorgung' or col_h == 'inkontinenz'
           assign is_category_filtered = true
-          if col_h == 'hautpflege' or col_h == 'hautschutz-hautpflege' or col_h == 'hauschutz-hautpflege' or template.suffix == 'hautpflege'
+          if col_h == 'inkontinenzversorgung' or col_h == 'inkontinenz' or template.suffix == 'inkontinenzversorgung'
+            assign pflege_seo_title = 'sections.pflege_category_filtered.inkontinenzversorgung.meta_title' | t
+            assign pflege_seo_description = 'sections.pflege_category_filtered.inkontinenzversorgung.meta_description' | t
+          elsif col_h == 'hautpflege' or col_h == 'hautschutz-hautpflege' or col_h == 'hauschutz-hautpflege' or template.suffix == 'hautpflege'
             assign pflege_seo_title = 'sections.pflege_category_filtered.hautpflege.meta_title' | t
             assign pflege_seo_description = 'sections.pflege_category_filtered.hautpflege.meta_description' | t
           else

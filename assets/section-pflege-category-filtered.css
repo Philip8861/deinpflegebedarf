@@ -820,6 +820,125 @@ html.pflege-cat-drawer-open body {
   cursor: pointer;
 }
 
+/* --- Inkontinenz Promo-Banner -------------------------------------------- */
+.pflege-cat-filtered__promo {
+  margin-bottom: clamp(1.25rem, 2.5vw, 1.75rem);
+  border-radius: calc(var(--pcd-radius) + 4px);
+  overflow: hidden;
+  background: linear-gradient(135deg, #eef5ff 0%, #f7fbff 52%, #edf3ff 100%);
+  border: 1px solid var(--pcd-border);
+  box-shadow: 0 8px 28px rgba(0, 59, 112, 0.06);
+}
+
+.pflege-cat-filtered__promo-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  min-height: clamp(10rem, 24vw, 15rem);
+}
+
+@media screen and (min-width: 750px) {
+  .pflege-cat-filtered__promo-inner {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  }
+}
+
+.pflege-cat-filtered__promo-copy {
+  padding: clamp(1.25rem, 2.5vw, 2rem);
+  z-index: 1;
+}
+
+.pflege-cat-filtered__promo-title {
+  margin: 0 0 0.75rem;
+  max-width: 22rem;
+  font-family: var(--pflege-font-display, var(--font-body-family, inherit));
+  font-size: clamp(1.125rem, 0.95rem + 0.8vw, 1.75rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--pcd-navy);
+}
+
+.pflege-cat-filtered__promo-lead {
+  margin: 0 0 1rem;
+  max-width: 24rem;
+  font-size: clamp(0.875rem, 0.82rem + 0.2vw, 1rem);
+  line-height: 1.55;
+  color: var(--pcd-muted);
+}
+
+.pflege-cat-filtered__promo-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: 999px;
+  background: var(--pcd-cta);
+  color: #ffffff;
+  font-size: 0.9375rem;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 8px 18px rgba(242, 140, 40, 0.28);
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.pflege-cat-filtered__promo-cta:hover {
+  background: var(--pcd-cta-hover);
+  transform: translateY(-1px);
+}
+
+.pflege-cat-filtered__promo-media {
+  position: relative;
+  min-height: 10rem;
+}
+
+.pflege-cat-filtered__promo-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: clamp(10rem, 24vw, 15rem);
+  object-fit: cover;
+  object-position: center right;
+}
+
+@media screen and (max-width: 749px) {
+  .pflege-cat-filtered__promo-media {
+    order: -1;
+  }
+
+  .pflege-cat-filtered__promo-img {
+    min-height: 9rem;
+    object-position: center;
+  }
+}
+
+/* --- Filter: Saugstärke-Tropfen + Größen-Spalten ------------------------- */
+.pflege-cat-filter__drops {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.1rem;
+  margin-right: 0.35rem;
+  color: var(--pcd-blue);
+  vertical-align: middle;
+}
+
+.pflege-cat-filter__drop {
+  display: block;
+  flex: 0 0 auto;
+}
+
+.pflege-cat-filter__list--columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.45rem 0.75rem;
+}
+
+.pflege-cat-card__badge--blue {
+  background: #e8f2ff;
+  color: #0b74d1;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .pflege-cat-card__inner,
   .pflege-cat-card__cart,
