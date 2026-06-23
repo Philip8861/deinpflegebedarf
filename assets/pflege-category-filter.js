@@ -24,6 +24,11 @@
     bepanthen: 'Bepanthen',
     eucerin: 'Eucerin',
     doppelherz: 'Doppelherz',
+    beesana: 'BeeSana',
+    hartmann: 'Hartmann',
+    gazofix: 'Gazofix',
+    octenisan: 'Octenisan',
+    merci: 'Merci',
   };
 
   var PROPERTY_LABELS = {
@@ -46,6 +51,13 @@
     beliebt: 'Beliebt',
     atmungsaktiv: 'Atmungsaktiv',
     diskret: 'Diskret',
+    einweg: 'Einweg',
+    latexfrei: 'Latexfrei',
+    steril: 'Steril',
+    pflegebox: 'Pflegebox',
+    hautfreundlich: 'Hautfreundlich',
+    alkoholfrei: 'Alkoholfrei',
+    puderfrei: 'Puderfrei',
   };
 
   var FILTER_CONFIGS = {
@@ -179,6 +191,134 @@
       ],
       badges: ['rezeptfaehig', 'beliebt', 'atmungsaktiv', 'diskret'],
     },
+    verbrauchsartikel: {
+      groups: [
+        {
+          id: 'productTypes',
+          label: 'Produkttyp',
+          options: [
+            { value: 'bettschutzeinlagen', label: 'Bettschutzeinlagen' },
+            { value: 'schutzschuerzen', label: 'Schutzschürzen' },
+            { value: 'mundschutz-masken', label: 'Mundschutz & Masken' },
+            { value: 'abfall-entsorgung', label: 'Abfall & Entsorgung' },
+            { value: 'tuecher-papier', label: 'Tücher & Papier' },
+          ],
+        },
+        {
+          id: 'applicationAreas',
+          label: 'Anwendungsbereich',
+          options: [
+            { value: 'bett', label: 'Bett & Liege' },
+            { value: 'hygiene', label: 'Hygiene & Schutz' },
+            { value: 'praxis', label: 'Praxis & Klinik' },
+            { value: 'alltag', label: 'Alltag & Haushalt' },
+          ],
+        },
+        {
+          id: 'properties',
+          label: 'Eigenschaften',
+          options: [
+            { value: 'einweg', label: 'Einweg' },
+            { value: 'latexfrei', label: 'Latexfrei' },
+            { value: 'steril', label: 'Steril' },
+            { value: 'pflegebox', label: 'Für Pflegebox' },
+          ],
+        },
+        { id: 'brand', label: 'Marke', dynamic: true },
+        { id: 'sizes', label: 'Größe / Gebinde', dynamic: true },
+      ],
+      badges: ['einweg', 'pflegebox'],
+    },
+    koerperpflege: {
+      groups: [
+        {
+          id: 'productTypes',
+          label: 'Produkttyp',
+          options: [
+            { value: 'waschutensilien', label: 'Waschhandschuhe & Waschutensilien' },
+            { value: 'shampoo-haare', label: 'Shampoo & Haarpflege' },
+            { value: 'dusch-bade', label: 'Dusch- & Badeprodukte' },
+            { value: 'zahn-mund', label: 'Zahn- & Mundpflege' },
+            { value: 'deodorant', label: 'Deodorant' },
+            { value: 'rasur', label: 'Rasur' },
+          ],
+        },
+        {
+          id: 'applicationAreas',
+          label: 'Anwendungsbereich',
+          options: [
+            { value: 'bett', label: 'Bett & Liege' },
+            { value: 'bad', label: 'Bad & Dusche' },
+            { value: 'haare', label: 'Haare' },
+            { value: 'mund', label: 'Mund' },
+            { value: 'koerper', label: 'Körper' },
+            { value: 'haende', label: 'Hände' },
+          ],
+        },
+        {
+          id: 'properties',
+          label: 'Eigenschaften',
+          options: [
+            { value: 'parfuemfrei', label: 'Parfümfrei' },
+            { value: 'hautfreundlich', label: 'Hautfreundlich' },
+            { value: 'alkoholfrei', label: 'Alkoholfrei' },
+          ],
+        },
+        { id: 'brand', label: 'Marke', dynamic: true },
+        { id: 'sizes', label: 'Größe / Gebinde', dynamic: true },
+      ],
+      badges: ['parfuemfrei', 'hautfreundlich'],
+    },
+    'schutz-handschuhe': {
+      groups: [
+        {
+          id: 'productTypes',
+          label: 'Produkttyp',
+          options: [
+            { value: 'einmalhandschuhe', label: 'Einmalhandschuhe' },
+            { value: 'schutzmasken', label: 'Schutzmasken' },
+            { value: 'schutzbrillen', label: 'Schutzbrillen' },
+            { value: 'schutzschuerzen', label: 'Schutzschürzen' },
+            { value: 'ueberschuhe', label: 'Überschuhe' },
+            { value: 'schutzbekleidung', label: 'Schutzbekleidung' },
+          ],
+        },
+        {
+          id: 'materials',
+          label: 'Material',
+          options: [
+            { value: 'nitril', label: 'Nitril' },
+            { value: 'latex', label: 'Latex' },
+            { value: 'vinyl', label: 'Vinyl' },
+            { value: 'vlies', label: 'Vlies' },
+          ],
+        },
+        {
+          id: 'clothingSizes',
+          label: 'Größe',
+          layout: 'columns',
+          options: [
+            { value: 'xs', label: 'XS' },
+            { value: 's', label: 'S' },
+            { value: 'm', label: 'M' },
+            { value: 'l', label: 'L' },
+            { value: 'xl', label: 'XL' },
+            { value: 'xxl', label: 'XXL' },
+          ],
+        },
+        {
+          id: 'properties',
+          label: 'Eigenschaften',
+          options: [
+            { value: 'latexfrei', label: 'Latexfrei' },
+            { value: 'puderfrei', label: 'Puderfrei' },
+            { value: 'steril', label: 'Steril' },
+          ],
+        },
+        { id: 'brand', label: 'Marke', dynamic: true },
+      ],
+      badges: ['latexfrei', 'puderfrei'],
+    },
   };
 
   function resolveCategoryKey(handle) {
@@ -188,6 +328,15 @@
     }
     if (h === 'hautpflege' || h === 'hautschutz-hautpflege' || h === 'hauschutz-hautpflege') {
       return 'hautpflege';
+    }
+    if (h === 'verbrauchsartikel') {
+      return 'verbrauchsartikel';
+    }
+    if (h === 'koerperpflege' || h === 'korperpflege') {
+      return 'koerperpflege';
+    }
+    if (h === 'schutz-handschuhe' || h === 'schutz-und-handschuhe' || h === 'handschuhe') {
+      return 'schutz-handschuhe';
     }
     return 'desinfektion';
   }

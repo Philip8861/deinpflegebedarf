@@ -413,6 +413,21 @@
         "promo_heading": "Incontinence care with prescription billing available",
         "promo_text": "Request our free sample pack and find the product that truly fits your needs – with no obligation.",
         "promo_button_label": "Request free sample pack"
+      },
+      "verbrauchsartikel": {
+        "meta_title": "Buy consumables online | Disposable care supplies",
+        "meta_description": "Consumables for care and home: bed protection pads, aprons, masks, tissues and disposal bags. Filter by type and order online.",
+        "description": "Disposable items and consumables for care, home and practice – from bed protection pads to aprons and disposal bags. Filter by product type, application area and brand."
+      },
+      "koerperpflege": {
+        "meta_title": "Buy body care online | Wash mitts & care products",
+        "meta_description": "Body care for daily care: wash mitts, shampoo, shower gel, oral care and more. Filter by product type and application area.",
+        "description": "Wash mitts, shampoo, shower gel, oral care and more for everyday care – in bed, in the bath or on the go. Filter by product type, application area and properties."
+      },
+      "schutz_handschuhe": {
+        "meta_title": "Buy protection & gloves online | Disposable gloves",
+        "meta_description": "Disposable gloves, face masks, aprons and protective clothing for care and practice. Filter by material, size and brand.",
+        "description": "Disposable gloves, face masks, aprons and protective clothing for care, practice and home. Filter by product type, material, size and brand."
       }
     },
     "pflege_collection_free_care": {

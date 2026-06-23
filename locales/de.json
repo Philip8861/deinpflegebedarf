@@ -396,7 +396,8 @@
       },
       "hautpflege": {
         "meta_title": "Hautpflege online kaufen | Cremes, Lotionen & Hautschutz",
-        "meta_description": "Hautpflege für Pflege & Alltag: Cremes, Lotionen, Waschprodukte und Barriercremes bei trockener, sensibler oder gereizter Haut. Filtern und bequem bestellen."
+        "meta_description": "Hautpflege für Pflege & Alltag: Cremes, Lotionen, Waschprodukte und Barriercremes bei trockener, sensibler oder gereizter Haut. Filtern und bequem bestellen.",
+        "description": "Pflegende Cremes, Lotionen, Waschprodukte und Hautschutz für den Alltag in Pflege, Haushalt und Praxis. Finden Sie passende Produkte für normale, trockene, sensible oder gereizte Haut – von der Körperpflege bis zur Wund- und Inkontinenzversorgung."
       },
       "inkontinenzversorgung": {
         "meta_title": "Inkontinenzversorgung online kaufen | Slips, Pants & Einlagen",
@@ -406,6 +407,21 @@
         "promo_heading": "Sparen Sie Geld: Inkontinenzversorgung mit Rezeptabrechnung möglich!",
         "promo_text": "Fordern Sie unser kostenloses Testpaket an und finden Sie unverbindlich das Produkt, das wirklich zu Ihnen passt. Wir übernehmen die Organisation und Abrechnung für Sie!",
         "promo_button_label": "Kostenloses Testpaket erhalten"
+      },
+      "verbrauchsartikel": {
+        "meta_title": "Verbrauchsartikel online kaufen | Einweg & Pflegebedarf",
+        "meta_description": "Verbrauchsartikel für Pflege und Haushalt: Bettschutzeinlagen, Schutzschürzen, Masken, Tücher und Entsorgung. Nach Typ filtern und bequem bestellen.",
+        "description": "Einwegartikel und Verbrauchsmaterial für Pflege, Haushalt und Praxis – von Bettschutzeinlagen über Schutzschürzen bis zu Entsorgungsbeuteln. Filtern Sie nach Produkttyp, Anwendungsbereich und Marke."
+      },
+      "koerperpflege": {
+        "meta_title": "Körperpflege online kaufen | Waschutensilien & Pflegeprodukte",
+        "meta_description": "Körperpflege für den Pflegealltag: Waschhandschuhe, Shampoo, Duschgel, Zahnpflege und mehr. Nach Produkttyp und Anwendungsbereich filtern.",
+        "description": "Waschhandschuhe, Shampoo, Duschgel, Zahnpflege und mehr für den Pflegealltag – bei Bettlägerigkeit, im Bad oder unterwegs. Filtern Sie nach Produkttyp, Anwendungsbereich und Eigenschaften."
+      },
+      "schutz_handschuhe": {
+        "meta_title": "Schutz & Handschuhe online kaufen | Einmalhandschuhe & Schutz",
+        "meta_description": "Einmalhandschuhe, Schutzmasken, Schürzen und Schutzbekleidung für Pflege und Praxis. Nach Material, Größe und Marke filtern.",
+        "description": "Einmalhandschuhe, Schutzmasken, Schürzen und Schutzbekleidung für Pflege, Praxis und Haushalt. Filtern Sie nach Produkttyp, Material, Größe und Marke."
       }
     },
     "pflege_collection_free_care": {

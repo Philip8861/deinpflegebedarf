@@ -12,7 +12,13 @@
     if category_slug == 'inkontinenzversorgung' or category_slug == 'inkontinenz'
       assign cat_description = 'sections.pflege_category_filtered.inkontinenzversorgung.description' | t
     elsif category_slug == 'hautpflege' or category_slug == 'hautschutz-hautpflege' or category_slug == 'hauschutz-hautpflege'
-      assign cat_description = 'Pflegende Cremes, Lotionen, Waschprodukte und Hautschutz für den Alltag in Pflege, Haushalt und Praxis. Finden Sie passende Produkte für normale, trockene, sensible oder gereizte Haut – von der Körperpflege bis zur Wund- und Inkontinenzversorgung.'
+      assign cat_description = 'sections.pflege_category_filtered.hautpflege.description' | t
+    elsif category_slug == 'verbrauchsartikel'
+      assign cat_description = 'sections.pflege_category_filtered.verbrauchsartikel.description' | t
+    elsif category_slug == 'koerperpflege' or category_slug == 'korperpflege'
+      assign cat_description = 'sections.pflege_category_filtered.koerperpflege.description' | t
+    elsif category_slug == 'schutz-handschuhe' or category_slug == 'schutz-und-handschuhe' or category_slug == 'handschuhe'
+      assign cat_description = 'sections.pflege_category_filtered.schutz_handschuhe.description' | t
     else
       assign cat_description = 'Unsere Desinfektionsprodukte bieten zuverlässigen Schutz für Hände und Oberflächen – für Pflege, Haushalt, Praxis und Alltag. Wählen Sie zwischen Händedesinfektion, Flächendesinfektion, Körperdesinfektion, Tüchern, Gelen und Sprays.'
     endif

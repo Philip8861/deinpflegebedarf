@@ -95,7 +95,26 @@
     if (v.indexOf('bepanthen') !== -1) return 'bepanthen';
     if (v.indexOf('eucerin') !== -1) return 'eucerin';
     if (v.indexOf('doppelherz') !== -1) return 'doppelherz';
+    if (v.indexOf('beesana') !== -1) return 'beesana';
+    if (v.indexOf('hartmann') !== -1) return 'hartmann';
+    if (v.indexOf('gazofix') !== -1) return 'gazofix';
+    if (v.indexOf('octenisan') !== -1) return 'octenisan';
+    if (v.indexOf('merci') !== -1) return 'merci';
     return v.replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  }
+
+  function isVerbrauchsartikelCategory(slug) {
+    return normalizeText(slug) === 'verbrauchsartikel';
+  }
+
+  function isKoerperpflegeCategory(slug) {
+    var s = normalizeText(slug);
+    return s === 'koerperpflege' || s === 'korperpflege';
+  }
+
+  function isSchutzHandschuheCategory(slug) {
+    var s = normalizeText(slug);
+    return s === 'schutz-handschuhe' || s === 'schutz-und-handschuhe' || s === 'handschuhe';
   }
 
   function isHautpflegeCategory(slug) {
@@ -588,9 +607,278 @@
     };
   }
 
+  function deriveVerbrauchsartikelAttributes(product) {
+    var hay = buildHaystack(product);
+    var productTypes = [];
+    var applicationAreas = [];
+    var properties = [];
+
+    if (
+      includesAny(hay, [
+        'bettschutz',
+        'bettschutzeinlage',
+        'krankenunterlage',
+        'bettunterlage',
+        'bettauflage',
+        'comcell',
+      ])
+    ) {
+      productTypes.push('bettschutzeinlagen');
+      applicationAreas.push('bett');
+    }
+
+    if (includesAny(hay, ['schutzschuerze', 'schürze', 'schuerze', 'kittel', 'schutzkittel', 'latzschuerze'])) {
+      productTypes.push('schutzschuerzen');
+      applicationAreas.push('hygiene');
+    }
+
+    if (
+      includesAny(hay, [
+        'mundschutz',
+        'ffp2',
+        'ffp3',
+        'atemschutz',
+        'op-maske',
+        'op maske',
+        'maske',
+        'masken',
+      ])
+    ) {
+      productTypes.push('mundschutz-masken');
+      applicationAreas.push('hygiene');
+    }
+
+    if (
+      includesAny(hay, [
+        'abfallbeutel',
+        'muellbeutel',
+        'müllbeutel',
+        'entsorgung',
+        'medizinische abfall',
+        'abfall',
+        'sweep',
+      ])
+    ) {
+      productTypes.push('abfall-entsorgung');
+    }
+
+    if (
+      includesAny(hay, [
+        'tissue',
+        'taschentuch',
+        'papierhandtuch',
+        'putztuch',
+        'handtuch',
+        'tuch',
+        'tuecher',
+        'tücher',
+      ])
+    ) {
+      productTypes.push('tuecher-papier');
+    }
+
+    if (includesAny(hay, ['einmal', 'disposable', 'single use', 'einsatz', 'verbrauch'])) {
+      properties.push('einweg');
+    }
+    if (includesAny(hay, ['latexfrei', 'latex frei', 'latex-free'])) {
+      properties.push('latexfrei');
+    }
+    if (includesAny(hay, ['steril', 'sterile'])) {
+      properties.push('steril');
+    }
+    if (includesAny(hay, ['pflegebox', 'pflegehilfsmittel', '42 euro', '42€', 'hilfsmittel'])) {
+      properties.push('pflegebox');
+    }
+
+    if (includesAny(hay, ['bett', 'bettpflege', 'liege'])) {
+      applicationAreas.push('bett');
+    }
+    if (includesAny(hay, ['praxis', 'klinik', 'medizin'])) {
+      applicationAreas.push('praxis');
+    }
+    if (includesAny(hay, ['haushalt', 'alltag', 'pflege'])) {
+      applicationAreas.push('alltag');
+    }
+
+    if (!productTypes.length && includesAny(hay, ['verbrauch', 'einweg', 'hygiene'])) {
+      productTypes.push('verbrauchsartikel');
+    }
+
+    return {
+      categorySlug: product.categorySlug || 'verbrauchsartikel',
+      productTypes: unique(productTypes),
+      applicationAreas: unique(applicationAreas),
+      brand: normalizeBrand(product.vendor),
+      sizes: extractSizes(hay, product.optionValues),
+      properties: unique(properties),
+      priceMin: product.priceMin || 0,
+      priceMax: product.priceMax || product.priceMin || 0,
+    };
+  }
+
+  function deriveKoerperpflegeAttributes(product) {
+    var hay = buildHaystack(product);
+    var productTypes = [];
+    var applicationAreas = [];
+    var properties = [];
+
+    if (
+      includesAny(hay, [
+        'waschhandschuh',
+        'waschlappen',
+        'waschutensil',
+        'waschhandschuhe',
+        'einmalwasch',
+        'waschtuch',
+        'waschtuecher',
+      ])
+    ) {
+      productTypes.push('waschutensilien');
+      applicationAreas.push('bett');
+      applicationAreas.push('koerper');
+    }
+
+    if (includesAny(hay, ['shampoo', 'haarpflege', 'haarshampoo', 'conditioner', 'haarwasch'])) {
+      productTypes.push('shampoo-haare');
+      applicationAreas.push('haare');
+    }
+
+    if (includesAny(hay, ['duschgel', 'dusch', 'badezusatz', 'pflegebad', 'badepflege', 'waschbad', 'bad')) {
+      productTypes.push('dusch-bade');
+      applicationAreas.push('bad');
+    }
+
+    if (
+      includesAny(hay, [
+        'zahnpasta',
+        'zahnpflege',
+        'zahnbuerste',
+        'zahnbürste',
+        'mundpflege',
+        'mouth care',
+        'mundwasser',
+      ])
+    ) {
+      productTypes.push('zahn-mund');
+      applicationAreas.push('mund');
+    }
+
+    if (includesAny(hay, ['deodorant', 'deo ', 'antitranspirant'])) {
+      productTypes.push('deodorant');
+      applicationAreas.push('koerper');
+    }
+
+    if (includesAny(hay, ['rasur', 'rasier', 'shaving'])) {
+      productTypes.push('rasur');
+      applicationAreas.push('koerper');
+    }
+
+    if (includesAny(hay, ['parfuemfrei', 'parfümfrei', 'unparfuemiert', 'ohne parfum'])) {
+      properties.push('parfuemfrei');
+    }
+    if (includesAny(hay, ['hautfreundlich', 'sanft', 'mild', 'sensitiv', 'hautneutral'])) {
+      properties.push('hautfreundlich');
+    }
+    if (includesAny(hay, ['alkoholfrei', 'ohne alkohol'])) {
+      properties.push('alkoholfrei');
+    }
+
+    if (includesAny(hay, ['bett', 'bettpflege', 'liege'])) {
+      applicationAreas.push('bett');
+    }
+    if (includesAny(hay, ['hand', 'haende', 'hände'])) {
+      applicationAreas.push('haende');
+    }
+
+    if (!productTypes.length && includesAny(hay, ['koerperpflege', 'koerper', 'pflege', 'hygiene'])) {
+      productTypes.push('koerperpflege-allgemein');
+    }
+
+    return {
+      categorySlug: product.categorySlug || 'koerperpflege',
+      productTypes: unique(productTypes),
+      applicationAreas: unique(applicationAreas),
+      brand: normalizeBrand(product.vendor),
+      sizes: extractSizes(hay, product.optionValues),
+      properties: unique(properties),
+      priceMin: product.priceMin || 0,
+      priceMax: product.priceMax || product.priceMin || 0,
+    };
+  }
+
+  function deriveSchutzHandschuheAttributes(product) {
+    var hay = buildHaystack(product);
+    var productTypes = [];
+    var materials = [];
+    var clothingSizes = [];
+    var properties = [];
+
+    if (includesAny(hay, ['handschuh', 'handschuhe', 'untersuchungshandschuh', 'einmalhandschuh'])) {
+      productTypes.push('einmalhandschuhe');
+    }
+
+    if (includesAny(hay, ['ffp2', 'ffp3', 'mundschutz', 'atemschutz', 'op-maske', 'maske', 'masken'])) {
+      productTypes.push('schutzmasken');
+    }
+
+    if (includesAny(hay, ['schutzbrille', 'visier', 'face shield', 'brille'])) {
+      productTypes.push('schutzbrillen');
+    }
+
+    if (includesAny(hay, ['schutzschuerze', 'schürze', 'schuerze', 'kittel', 'schutzkittel'])) {
+      productTypes.push('schutzschuerzen');
+    }
+
+    if (includesAny(hay, ['ueberschuh', 'überschuh', 'galosh', 'schuhueberzieher', 'schuhüberzieher'])) {
+      productTypes.push('ueberschuhe');
+    }
+
+    if (includesAny(hay, ['schutzanzug', 'overall', 'schutzkleidung', 'schutzbeutel', 'schutzhaube'])) {
+      productTypes.push('schutzbekleidung');
+    }
+
+    if (includesAny(hay, ['nitril', 'nitrile'])) materials.push('nitril');
+    if (includesAny(hay, ['latex']) && !includesAny(hay, ['latexfrei', 'latex frei', 'latex-free'])) {
+      materials.push('latex');
+    }
+    if (includesAny(hay, ['vinyl', 'pvc'])) materials.push('vinyl');
+    if (includesAny(hay, ['vlies', 'non-woven', 'nonwoven'])) materials.push('vlies');
+
+    clothingSizes = extractClothingSizes(hay, product.optionValues);
+
+    if (includesAny(hay, ['latexfrei', 'latex frei', 'latex-free'])) properties.push('latexfrei');
+    if (includesAny(hay, ['puderfrei', 'puder frei', 'powder free', 'puderfrei'])) properties.push('puderfrei');
+    if (includesAny(hay, ['steril', 'sterile'])) properties.push('steril');
+
+    if (!productTypes.length && includesAny(hay, ['schutz', 'handschuh', 'hygiene'])) {
+      productTypes.push('schutzprodukt');
+    }
+
+    return {
+      categorySlug: product.categorySlug || 'schutz-handschuhe',
+      productTypes: unique(productTypes),
+      materials: unique(materials),
+      clothingSizes: unique(clothingSizes),
+      brand: normalizeBrand(product.vendor),
+      sizes: extractSizes(hay, product.optionValues),
+      properties: unique(properties),
+      priceMin: product.priceMin || 0,
+      priceMax: product.priceMax || product.priceMin || 0,
+    };
+  }
+
   function deriveProductAttributes(product) {
     if (isInkontinenzCategory(product.categorySlug)) {
       return deriveInkontinenzAttributes(product);
+    }
+    if (isSchutzHandschuheCategory(product.categorySlug)) {
+      return deriveSchutzHandschuheAttributes(product);
+    }
+    if (isKoerperpflegeCategory(product.categorySlug)) {
+      return deriveKoerperpflegeAttributes(product);
+    }
+    if (isVerbrauchsartikelCategory(product.categorySlug)) {
+      return deriveVerbrauchsartikelAttributes(product);
     }
     if (isHautpflegeCategory(product.categorySlug)) {
       return deriveHautpflegeAttributes(product);
