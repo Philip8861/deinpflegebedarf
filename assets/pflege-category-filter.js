@@ -118,18 +118,11 @@
           label: 'Eigenschaften',
           options: [
             { value: 'parfuemfrei', label: 'Parfümfrei' },
-            { value: 'ph-hautneutral', label: 'pH-hautneutral' },
-            { value: 'hypoallergen', label: 'Hypoallergen' },
-            { value: 'mit-duft', label: 'Mit Duft' },
-            { value: 'dermatologisch-getestet', label: 'Dermatologisch getestet' },
-            { value: 'sehr-trockene-haut', label: 'Für sehr trockene Haut' },
-            { value: 'hautschutzfilm', label: 'Hautschutzfilm' },
-            { value: 'lanolin', label: 'Mit Lanolin' },
             { value: 'vegan', label: 'Vegan' },
           ],
         },
       ],
-      badges: ['parfuemfrei', 'ph-hautneutral', 'hypoallergen', 'hautschutzfilm'],
+      badges: ['parfuemfrei', 'vegan'],
     },
   };
 
