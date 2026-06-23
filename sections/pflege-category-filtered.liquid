@@ -44,6 +44,13 @@
   if promo_image == blank
     assign promo_image_asset = 'Inkontinenzversorgung_start.webp'
   endif
+
+  assign hide_category_intro = false
+  assign promo_fullwidth = false
+  if category_slug == 'inkontinenzversorgung' or category_slug == 'inkontinenz'
+    assign hide_category_intro = true
+    assign promo_fullwidth = true
+  endif
 -%}
 
 {{ 'section-pflege-category-filtered.css' | asset_url | stylesheet_tag }}
@@ -61,6 +68,16 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+  {%- if promo_fullwidth -%}
+  .section-{{ section.id }}-padding {
+    padding-top: 12px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: 16px;
+    }
+  }
+  {%- endif -%}
 {%- endstyle -%}
 
 {%- capture cat_products_json -%}
@@ -132,13 +149,52 @@
 {%- endcapture -%}
 
 <section
-  class="pflege-cat-filtered section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}"
+  class="pflege-cat-filtered section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}{% if promo_fullwidth %} pflege-cat-filtered--inko{% endif %}"
   id="PflegeCategoryFiltered-{{ section.id }}"
   data-pflege-category-filtered
   aria-labelledby="PflegeCatHeading-{{ section.id }}"
 >
+  {%- if show_promo_banner and promo_fullwidth -%}
+    <div class="pflege-cat-filtered__promo pflege-cat-filtered__promo--fullwidth">
+      <div class="pflege-cat-filtered__promo-inner">
+        <div class="pflege-cat-filtered__promo-copy">
+          <h2 class="pflege-cat-filtered__promo-title">{{ promo_heading | escape }}</h2>
+          {%- if promo_text != blank -%}
+            <p class="pflege-cat-filtered__promo-lead">{{ promo_text | escape }}</p>
+          {%- endif -%}
+          {%- if promo_button_label != blank -%}
+            <a class="pflege-cat-filtered__promo-cta" href="{{ promo_button_link }}">{{ promo_button_label | escape }}</a>
+          {%- endif -%}
+        </div>
+        <div class="pflege-cat-filtered__promo-media" aria-hidden="true">
+          {%- if promo_image != blank -%}
+            {{
+              promo_image
+              | image_url: width: 1600
+              | image_tag:
+                class: 'pflege-cat-filtered__promo-img',
+                loading: 'eager',
+                widths: '800, 1000, 1200, 1600',
+                sizes: '100vw',
+                alt: ''
+            }}
+          {%- else -%}
+            <img
+              class="pflege-cat-filtered__promo-img"
+              src="{{ promo_image_asset | asset_url }}"
+              alt=""
+              loading="eager"
+              width="1600"
+              height="480"
+            >
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+
   <div class="pflege-cat-filtered__shell">
-    {%- if show_promo_banner -%}
+    {%- if show_promo_banner and promo_fullwidth == false -%}
       <div class="pflege-cat-filtered__promo">
         <div class="pflege-cat-filtered__promo-inner">
           <div class="pflege-cat-filtered__promo-copy">
@@ -178,10 +234,14 @@
     {%- endif -%}
 
     <header class="pflege-cat-filtered__header">
-      <div class="pflege-cat-filtered__intro">
-        <h1 class="pflege-cat-filtered__title" id="PflegeCatHeading-{{ section.id }}">{{ cat_heading | escape }}</h1>
-        <p class="pflege-cat-filtered__lead">{{ cat_description | escape }}</p>
-      </div>
+      {%- unless hide_category_intro -%}
+        <div class="pflege-cat-filtered__intro">
+          <h1 class="pflege-cat-filtered__title" id="PflegeCatHeading-{{ section.id }}">{{ cat_heading | escape }}</h1>
+          <p class="pflege-cat-filtered__lead">{{ cat_description | escape }}</p>
+        </div>
+      {%- else -%}
+        <h1 class="visually-hidden" id="PflegeCatHeading-{{ section.id }}">{{ cat_heading | escape }}</h1>
+      {%- endunless -%}
 
       <div class="pflege-cat-filtered__toolbar pflege-cat-filtered__toolbar--desktop">
         <p class="pflege-cat-filtered__count" data-product-count>
