@@ -110,7 +110,6 @@
             { value: 'haende', label: 'Hände' },
             { value: 'intimbereich', label: 'Intimbereich' },
             { value: 'wund-schutz', label: 'Wund- & Schutzpflege' },
-            { value: 'inkontinenz', label: 'Inkontinenz-Pflege' },
           ],
         },
         {
