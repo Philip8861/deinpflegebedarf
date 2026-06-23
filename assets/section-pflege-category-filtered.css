@@ -1047,9 +1047,14 @@ html.pflege-cat-drawer-open body {
   flex-shrink: 0;
 }
 
+.pflege-cat-filtered__promo-cta-icon svg {
+  width: 1.65rem;
+  height: 1.65rem;
+}
+
 .pflege-cat-filtered__promo--fullwidth .pflege-cat-filtered__promo-cta-icon svg {
-  width: clamp(1.15rem, 1rem + 0.45vw, 1.45rem);
-  height: clamp(1.15rem, 1rem + 0.45vw, 1.45rem);
+  width: clamp(1.65rem, 1.35rem + 0.85vw, 2.15rem);
+  height: clamp(1.65rem, 1.35rem + 0.85vw, 2.15rem);
 }
 
 .pflege-cat-filtered__promo-media {
