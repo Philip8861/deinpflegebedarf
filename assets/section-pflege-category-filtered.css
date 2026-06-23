@@ -73,8 +73,16 @@ body.pflege-category-filtered-page.template-collection .gradient {
 
 .pflege-cat-filtered__count {
   margin: 0;
-  font-size: 0.9375rem;
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  font-weight: 600;
   color: var(--pcd-muted);
+}
+
+.pflege-cat-filtered__count--mobile {
+  flex: 1 1 100%;
+  order: 3;
+  width: 100%;
+  margin-top: 0.15rem;
 }
 
 .pflege-cat-filtered__sort-wrap {
@@ -84,8 +92,9 @@ body.pflege-category-filtered-page.template-collection .gradient {
 }
 
 .pflege-cat-filtered__sort-label {
-  font-size: 0.9375rem;
-  color: var(--pcd-muted);
+  font-size: clamp(0.9375rem, 0.9rem + 0.2vw, 1rem);
+  font-weight: 800;
+  color: var(--pcd-text);
   white-space: nowrap;
 }
 
@@ -156,7 +165,7 @@ body.pflege-category-filtered-page.template-collection .gradient {
   color: var(--pcd-blue);
   font: inherit;
   font-size: 0.9375rem;
-  font-weight: 700;
+  font-weight: 800;
   cursor: pointer;
 }
 
@@ -210,7 +219,7 @@ body.pflege-category-filtered-page.template-collection .gradient {
   align-items: center;
   gap: 0.55rem;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--pcd-text);
   cursor: pointer;
 }
@@ -235,7 +244,7 @@ body.pflege-category-filtered-page.template-collection .gradient {
 
 .pflege-cat-filter__count {
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--pcd-muted);
 }
 
@@ -243,7 +252,7 @@ body.pflege-category-filtered-page.template-collection .gradient {
   display: flex;
   justify-content: space-between;
   font-size: 0.9375rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--pcd-muted);
   margin-bottom: 0.55rem;
 }
@@ -490,8 +499,8 @@ body.pflege-category-filtered-page.template-collection .gradient {
 
 /* --- Trust bar ----------------------------------------------------------- */
 .pflege-cat-trust {
-  margin-top: 2.5rem;
-  padding: 1.25rem 1rem;
+  margin-top: clamp(1.75rem, 4vw, 2.5rem);
+  padding: clamp(1rem, 2.5vw, 1.35rem) clamp(0.85rem, 2vw, 1.25rem);
   background: var(--pcd-bg-soft);
   border: 1px solid var(--pcd-border);
   border-radius: var(--pcd-radius);
@@ -502,44 +511,65 @@ body.pflege-category-filtered-page.template-collection .gradient {
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 1rem;
+  gap: clamp(0.85rem, 2vw, 1.15rem);
   grid-template-columns: 1fr;
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 560px) {
   .pflege-cat-trust__list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem 1.25rem;
   }
 }
 
 @media screen and (min-width: 990px) {
   .pflege-cat-trust__list {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
   }
 }
 
 .pflege-cat-trust__item {
   display: flex;
-  align-items: flex-start;
-  gap: 0.65rem;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
 }
 
 .pflege-cat-trust__icon {
   flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.65rem;
+  height: 2.65rem;
+  border-radius: 50%;
+  background: #e8f2fc;
   color: var(--pcd-blue);
+}
+
+.pflege-cat-trust__icon svg {
+  display: block;
+  width: 1.35rem;
+  height: 1.35rem;
+  flex-shrink: 0;
 }
 
 .pflege-cat-trust__text {
   display: flex;
   flex-direction: column;
-  gap: 0.1rem;
-  font-size: 0.8125rem;
+  gap: 0.12rem;
+  min-width: 0;
+  font-size: clamp(0.8125rem, 0.78rem + 0.2vw, 0.875rem);
+  line-height: 1.35;
   color: var(--pcd-muted);
 }
 
 .pflege-cat-trust__text strong {
-  font-size: 0.875rem;
+  font-size: clamp(0.875rem, 0.84rem + 0.25vw, 0.9375rem);
+  font-weight: 800;
   color: var(--pcd-navy);
+  line-height: 1.3;
 }
 
 /* --- Mobile drawer ------------------------------------------------------- */
@@ -556,6 +586,8 @@ html.pflege-cat-drawer-open body {
   .pflege-cat-filtered__toolbar--mobile {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
+    gap: 0.65rem 0.75rem;
   }
 
   .pflege-cat-filtered__filter-btn {
@@ -569,17 +601,25 @@ html.pflege-cat-drawer-open body {
     background: #ffffff;
     color: var(--pcd-navy);
     font: inherit;
-    font-size: 0.875rem;
-    font-weight: 700;
+    font-size: 0.9375rem;
+    font-weight: 800;
     cursor: pointer;
   }
 
   .pflege-cat-filtered__sort-wrap--mobile {
     margin-left: auto;
+    flex: 1 1 auto;
+    justify-content: flex-end;
   }
 
   .pflege-cat-filtered__sort-wrap--mobile .pflege-cat-filtered__sort {
-    min-width: 9rem;
+    min-width: 9.5rem;
+    font-weight: 600;
+  }
+
+  .pflege-cat-filtered__drawer-title {
+    font-size: 1.125rem;
+    font-weight: 800;
   }
 }
 
