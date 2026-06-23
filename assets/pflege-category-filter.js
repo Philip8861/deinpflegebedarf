@@ -332,7 +332,7 @@
     var cartHtml = '';
     if (product.available && product.variantId && product.variantsCount <= 1) {
       cartHtml =
-        '<button type="button" class="pflege-cat-card__cart pflege-bestseller-card__cart" data-variant-id="' +
+        '<button type="button" class="pflege-cat-card__cart" data-variant-id="' +
         escapeHtml(String(product.variantId)) +
         '">' +
         '<span class="pflege-cat-card__cart-icon" aria-hidden="true">' +

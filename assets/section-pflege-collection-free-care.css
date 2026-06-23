@@ -65,6 +65,25 @@
   margin-right: auto;
 }
 
+/* Kein Bestseller-Kreis-Button in Kategorie-Karten */
+.pfc-free-care__box-products .pflege-cat-card__inner {
+  position: relative;
+}
+
+.pfc-free-care__box-products .pflege-cat-card__cart,
+.pfc-free-care__box-products .pflege-cat-card__cart--link {
+  position: static;
+  right: auto;
+  bottom: auto;
+  width: 100%;
+  min-height: 2.65rem;
+  margin-top: auto;
+  padding: 0.55rem 0.75rem;
+  border-radius: 11px;
+  background: #ffffff;
+  box-shadow: none;
+}
+
 .pfc-free-care__below {
   margin-top: 0;
 }
