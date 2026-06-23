@@ -15,6 +15,7 @@
   var IFRAME_NAME = 'pflege-inko-testpaket-frame';
   var SUCCESS_CLASS = 'pflege-inko-modal--success';
   var STATE_SUCCESS = 'success';
+  var SUBMIT_TIMEOUT_MS = 20000;
 
   function isEmail(value) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || '').trim());
@@ -117,20 +118,33 @@
     if (bodyField) bodyField.value = buildBody(data);
   }
 
-  function getFormAction(form) {
-    var action = form.getAttribute('action') || '/contact';
-    return action.split('#')[0] || '/contact';
-  }
-
   function isSuccessHtml(html) {
     if (!html) return false;
-    if (html.indexOf('/challenge') !== -1 || html.indexOf('h-captcha-response') !== -1) return false;
+    if (html.indexOf('/challenge') !== -1 || html.indexOf('shopify-challenge') !== -1) return false;
     if (html.indexOf('data-pflege-contact-success') !== -1) return true;
     if (html.indexOf('pflege-contact-page__alert--error') !== -1) return false;
     if (html.indexOf('form-status-list') !== -1 && html.indexOf('form-status caption-large text-body') === -1) {
       return true;
     }
     return false;
+  }
+
+  function isSuccessDocument(doc) {
+    if (!doc || !doc.documentElement) return false;
+
+    var url = '';
+    try {
+      url = doc.defaultView && doc.defaultView.location ? String(doc.defaultView.location.href) : '';
+    } catch (e) {}
+
+    if (url.indexOf('/challenge') !== -1) return false;
+    if (doc.querySelector('[data-pflege-contact-success], .pflege-contact-success')) return true;
+    if (doc.querySelector('.pflege-contact-page__alert--error, .form-status.caption-large.text-body')) {
+      return false;
+    }
+    if (doc.querySelector('h2.form-status.form-status-list.form__message')) return true;
+
+    return isSuccessHtml(doc.documentElement.innerHTML || '');
   }
 
   function ensureSubmitFrame() {
@@ -164,6 +178,8 @@
     var errorEl = root.querySelector('[data-pflege-inko-form-error]');
     var submitBtn = root.querySelector('[data-pflege-inko-submit]');
     var isSubmitting = false;
+    var submitTimeoutId = null;
+    var pendingFrameLoad = null;
 
     function isSuccessState() {
       return root.dataset.pflegeInkoState === STATE_SUCCESS;
@@ -198,8 +214,20 @@
       }
     }
 
+    function clearSubmitWatchers() {
+      if (submitTimeoutId) {
+        window.clearTimeout(submitTimeoutId);
+        submitTimeoutId = null;
+      }
+      if (pendingFrameLoad) {
+        pendingFrameLoad.frame.removeEventListener('load', pendingFrameLoad.handler);
+        pendingFrameLoad = null;
+      }
+    }
+
     function resetSubmitUi() {
       isSubmitting = false;
+      clearSubmitWatchers();
       if (form) form.removeAttribute('target');
       if (submitBtn) {
         submitBtn.disabled = false;
@@ -242,48 +270,42 @@
 
     function handleSubmitResult(success) {
       if (!isSubmitting) return;
+      clearSubmitWatchers();
+      if (form) form.removeAttribute('target');
+
       if (success) {
         isSubmitting = false;
-        if (form) form.removeAttribute('target');
         showSuccessView();
         return;
       }
+
       resetSubmitUi();
       showError(ERROR_TEXT);
     }
 
-    function submitViaFetch() {
-      var action = getFormAction(form);
-      var params = new URLSearchParams();
+    function submitViaNativeIframe() {
+      var frame = ensureSubmitFrame();
 
-      Array.prototype.forEach.call(form.elements, function (el) {
-        if (!el.name || el.disabled) return;
-        if ((el.type === 'checkbox' || el.type === 'radio') && !el.checked) return;
-        if (el.type === 'file') return;
-        params.append(el.name, el.value);
-      });
+      function onFrameLoad() {
+        if (!isSubmitting) return;
 
-      fetch(action, {
-        method: 'POST',
-        body: params.toString(),
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-          Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-          'X-Requested-With': 'XMLHttpRequest',
-        },
-      })
-        .then(function (response) {
-          if (response.status === 429) throw new Error('rate_limit');
-          if (response.url && response.url.indexOf('/challenge') !== -1) throw new Error('captcha');
-          return response.text();
-        })
-        .then(function (html) {
-          handleSubmitResult(isSuccessHtml(html));
-        })
-        .catch(function () {
+        try {
+          handleSubmitResult(isSuccessDocument(frame.contentDocument));
+        } catch (e) {
           handleSubmitResult(false);
-        });
+        }
+      }
+
+      clearSubmitWatchers();
+      pendingFrameLoad = { frame: frame, handler: onFrameLoad };
+      frame.addEventListener('load', onFrameLoad);
+
+      submitTimeoutId = window.setTimeout(function () {
+        handleSubmitResult(false);
+      }, SUBMIT_TIMEOUT_MS);
+
+      form.setAttribute('target', IFRAME_NAME);
+      form.submit();
     }
 
     function onSubmit(e) {
@@ -310,7 +332,7 @@
         submitBtn.textContent = SUBMITTING_TEXT;
       }
 
-      submitViaFetch();
+      submitViaNativeIframe();
     }
 
     root.addEventListener('close', function () {
