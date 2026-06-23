@@ -54,6 +54,10 @@
 -%}
 
 {{ 'section-pflege-category-filtered.css' | asset_url | stylesheet_tag }}
+{%- if promo_fullwidth -%}
+  {{ 'section-pflege-inko-testpaket-modal.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'pflege-inko-testpaket-modal.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
 <script src="{{ 'pflege-category-attributes.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'pflege-category-filter.js' | asset_url }}" defer="defer"></script>
 
@@ -163,7 +167,13 @@
             <p class="pflege-cat-filtered__promo-lead">{{ promo_text | escape }}</p>
           {%- endif -%}
           {%- if promo_button_label != blank -%}
-            <a class="pflege-cat-filtered__promo-cta" href="{{ promo_button_link }}">{{ promo_button_label | escape }}</a>
+            <button
+              type="button"
+              class="pflege-cat-filtered__promo-cta"
+              data-pflege-inko-testpaket-open
+            >
+              {{ promo_button_label | escape }}
+            </button>
           {%- endif -%}
         </div>
         <div class="pflege-cat-filtered__promo-media" aria-hidden="true">
@@ -191,6 +201,10 @@
         </div>
       </div>
     </div>
+  {%- endif -%}
+
+  {%- if show_promo_banner and promo_fullwidth -%}
+    {% render 'pflege-inko-testpaket-modal', section: section %}
   {%- endif -%}
 
   <div class="pflege-cat-filtered__shell">
