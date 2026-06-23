@@ -20,7 +20,7 @@
     '.pflege-hero--free-care .pflege-hero__asset-photo',
     '.pfc-free-care__box-products .pflege-bestseller__title',
     '.pfc-free-care__box-products .pflege-bestseller__intro',
-    '.pfc-free-care__box-products .pflege-bestseller-card',
+    '.pfc-free-care__box-products .pflege-cat-card',
     '.pflege-advantages-us__title',
     '.pflege-advantages-us__subtitle',
     '.pflege-advantages-us__item',

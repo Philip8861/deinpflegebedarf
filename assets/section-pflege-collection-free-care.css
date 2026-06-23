@@ -27,6 +27,44 @@
   padding-bottom: var(--pflege-home-section-stack, clamp(1.5rem, 3vw, 2rem));
 }
 
+.pfc-free-care__box-products {
+  --pcd-navy: #003b70;
+  --pcd-blue: #0b74d1;
+  --pcd-bg-soft: #f3f8ff;
+  --pcd-border: #d8e8f8;
+  --pcd-text: #0f2747;
+  --pcd-muted: #607089;
+  --pcd-cta: #f28c28;
+  --pcd-cta-hover: #dc7a22;
+  --pcd-badge-bg: #eaf8e5;
+  --pcd-badge-text: #2e7d32;
+  --pcd-max: min(100%, var(--pflege-hero-tile-max-width, 1426px));
+  --pcd-card-gap: 20px;
+  --pcd-radius: 16px;
+}
+
+.pfc-free-care__product-grid-shell.pflege-cat-filtered__shell {
+  padding-top: var(--pflege-home-section-stack, clamp(1.5rem, 3vw, 2rem));
+  padding-bottom: var(--pflege-home-section-stack, clamp(1.5rem, 3vw, 2rem));
+  padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
+}
+
+.pfc-free-care__product-grid-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(0.85rem, 2.2vw, 1.35rem);
+  margin-bottom: clamp(1.35rem, 3vw, 2rem);
+}
+
+.pfc-free-care__product-grid-head .pflege-bestseller__title,
+.pfc-free-care__product-grid-head .pflege-bestseller__intro {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .pfc-free-care__below {
   margin-top: 0;
 }

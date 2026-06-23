@@ -1,8 +1,9 @@
-﻿{% comment %}
+{% comment %}
   Kategorie „Kostenfreie Pflegehilfsmittel“ — Hero (wie Startseite), Vorteile, Hinweis vor Produktliste.
 {% endcomment %}
 {{ 'section-pflege-hero.css' | asset_url | stylesheet_tag }}
 {{ 'section-pflege-collection-free-care.css' | asset_url | stylesheet_tag }}
+{{ 'section-pflege-category-filtered.css' | asset_url | stylesheet_tag }}
 {{ 'section-pflege-bestseller-row.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
@@ -91,7 +92,7 @@
     assign hero_title_id = 'pfc-free-care-hero-title-' | append: section.id
     assign box_products_title = 'sections.pflege_collection_free_care.box_products_title' | t
     assign box_products_intro = 'sections.pflege_collection_free_care.box_products_intro' | t
-    assign box_products_limit = section.settings.box_products_count | default: 5
+    assign box_products_limit = section.settings.box_products_count | default: 11
   -%}
 
   <div class="pfc-free-care" id="pfc-free-care-top-{{ section.id }}">
@@ -114,16 +115,11 @@
     </section>
 
     <div class="pfc-free-care__box-products" id="pfc-box-products-{{ section.id }}">
-      {% render 'pflege-bestseller-block',
-        data_source: 'collection',
+      {% render 'pflege-cat-product-grid-block',
         title: box_products_title,
         intro: box_products_intro,
         collection: collection,
-        products_limit: box_products_limit,
-        columns_desktop: 5,
-        show_collection_rating: true,
-        view_all_label: '',
-        view_all_href: collection.url
+        products_limit: box_products_limit
       %}
     </div>
 
@@ -212,12 +208,12 @@
     {
       "type": "range",
       "id": "box_products_count",
-      "min": 5,
+      "min": 4,
       "max": 50,
       "step": 1,
-      "default": 5,
+      "default": 11,
       "label": "Pflegebox-Artikel (Anzahl Karten)",
-      "info": "Produktreihe direkt unter dem Hero: 5 Karten in einer Reihe (Desktop)."
+      "info": "Produktreihe direkt unter dem Hero: 4 Karten pro Reihe (Desktop), wie Hautpflege-Kategorieseiten."
     },
     {
       "type": "range",
