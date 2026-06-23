@@ -7,7 +7,7 @@
     'click',
     function (event) {
       const btn = event.target.closest(
-        'button.pflege-bestseller-card__cart[data-variant-id], button.pflege-pflegesets__cart[data-variant-id]'
+        'button.pflege-bestseller-card__cart[data-variant-id], button.pflege-pflegesets__cart[data-variant-id], button.pflege-cat-card__cart[data-variant-id]'
       );
       if (!btn) return;
       if (btn.getAttribute('aria-disabled') === 'true') return;

@@ -43,12 +43,16 @@
       assign pflege_seo_title = blank
       assign pflege_seo_description = blank
       assign is_pfc_collection = false
+      assign is_category_filtered = false
       if request.page_type == 'collection' and collection != blank
         assign col_h = collection.handle | downcase
         if col_h == 'kostenfreie-pflegehilfsmittel' or col_h == 'pflegehilfsmittel-kostenfrei'
           assign is_pfc_collection = true
           assign pflege_seo_title = 'sections.pflege_collection_free_care.meta_title' | t
           assign pflege_seo_description = 'sections.pflege_collection_free_care.meta_description' | t
+        endif
+        if template.suffix == 'desinfektion' or template.suffix == 'haende-und-flaechendesinfektion' or col_h == 'desinfektion' or col_h == 'haende-und-flaechendesinfektion'
+          assign is_category_filtered = true
         endif
       endif
       if request.page_type == 'page' and page != blank and page.handle == 'faq'
@@ -367,7 +371,7 @@
     </script>
   </head>
 
-  <body class="gradient template-{{ template.name }}{% if template.suffix != blank %} template-{{ template.name }}-{{ template.suffix | handleize }}{% endif %}{% if template.name == 'collection' or request.page_type == 'collection' %} pflege-collection-page{% endif %}{% if is_pfc_collection %} pflege-pfc-collection{% endif %}{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
+  <body class="gradient template-{{ template.name }}{% if template.suffix != blank %} template-{{ template.name }}-{{ template.suffix | handleize }}{% endif %}{% if template.name == 'collection' or request.page_type == 'collection' %} pflege-collection-page{% endif %}{% if is_category_filtered %} pflege-category-filtered-page{% endif %}{% if is_pfc_collection %} pflege-pfc-collection{% endif %}{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
     {% render 'pflege-finder-data' %}
     {%- if template.name == 'index' -%}
       <script>
