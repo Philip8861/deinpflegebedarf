@@ -16,17 +16,20 @@
   --inko-modal-placeholder: #8a9db3;
   --inko-modal-cta: #ff7a1a;
   --inko-modal-cta-hover: #f36f10;
+  --inko-modal-inset-x: 32px;
+  --inko-modal-inset-y: 56px;
+  --inko-modal-max-width: 780px;
 
   padding: 0;
-  margin: 0;
+  margin: auto;
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  inset: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px)
+    env(safe-area-inset-left, 0px);
   border: none;
-  width: min(640px, calc(100vw - 40px));
-  max-width: calc(100vw - 40px);
-  max-height: calc(100dvh - 80px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+  width: min(var(--inko-modal-max-width), calc(100vw - (var(--inko-modal-inset-x) * 2)));
+  max-width: calc(100vw - (var(--inko-modal-inset-x) * 2));
+  height: fit-content;
+  max-height: calc(100% - (var(--inko-modal-inset-y) * 2));
   overflow: auto;
   border-radius: 18px;
   background: #ffffff;
@@ -557,6 +560,12 @@ button.pflege-cat-filtered__promo-cta {
 }
 
 @media screen and (max-width: 989px) {
+  .pflege-inko-modal {
+    --inko-modal-inset-x: 24px;
+    --inko-modal-inset-y: 44px;
+    --inko-modal-max-width: 720px;
+  }
+
   .pflege-inko-modal__panel {
     padding: 26px 28px 24px;
   }
@@ -576,9 +585,9 @@ button.pflege-cat-filtered__promo-cta {
 
 @media screen and (max-width: 767px) {
   .pflege-inko-modal {
-    width: calc(100vw - 24px);
-    max-width: calc(100vw - 24px);
-    max-height: calc(100dvh - 48px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+    --inko-modal-inset-x: 16px;
+    --inko-modal-inset-y: 32px;
+    --inko-modal-max-width: 100%;
     border-radius: 16px;
   }
 
