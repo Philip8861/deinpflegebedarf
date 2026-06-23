@@ -1,0 +1,619 @@
+/* PflegeShop — Inkontinenz Testpaket Modal */
+
+html.pflege-inko-modal-open,
+html.pflege-inko-modal-open body {
+  overflow: hidden;
+}
+
+.pflege-inko-modal {
+  --inko-modal-primary: #003b71;
+  --inko-modal-subtitle: #365474;
+  --inko-modal-blue: #2f80d8;
+  --inko-modal-blue-icon: #1774c8;
+  --inko-modal-blue-bg: #eaf4ff;
+  --inko-modal-line: #d9e8f6;
+  --inko-modal-line-step: #dbe8f5;
+  --inko-modal-step-text: #5d748d;
+  --inko-modal-consent: #5a7088;
+  --inko-modal-trust: #6b7f95;
+  --inko-modal-trust-icon: #6f87a1;
+  --inko-modal-input-border: #cfe0f2;
+  --inko-modal-placeholder: #8a9db3;
+  --inko-modal-cta: #ff7a1a;
+  --inko-modal-cta-hover: #f36f10;
+  --inko-modal-overlay: rgba(10, 30, 50, 0.36);
+
+  position: fixed;
+  inset: 0;
+  z-index: 10400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 200ms ease, visibility 200ms ease;
+}
+
+.pflege-inko-modal[hidden] {
+  display: none !important;
+}
+
+.pflege-inko-modal.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.pflege-inko-modal__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: var(--inko-modal-overlay);
+  backdrop-filter: blur(1.5px);
+  -webkit-backdrop-filter: blur(1.5px);
+  cursor: pointer;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .pflege-inko-modal__overlay {
+    background: rgba(10, 30, 50, 0.4);
+  }
+}
+
+.pflege-inko-modal__dialog {
+  position: relative;
+  z-index: 1;
+  width: min(855px, calc(100vw - 40px));
+  max-height: calc(100vh - 40px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 30px 36px 26px;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 24px 80px rgba(0, 35, 70, 0.22);
+  box-sizing: border-box;
+  opacity: 0;
+  transform: scale(0.98) translateY(8px);
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.pflege-inko-modal.is-open .pflege-inko-modal__dialog {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.pflege-inko-modal__close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--inko-modal-primary);
+  cursor: pointer;
+  transition: background 160ms ease;
+}
+
+.pflege-inko-modal__close svg {
+  width: 22px;
+  height: 22px;
+}
+
+.pflege-inko-modal__close:hover,
+.pflege-inko-modal__close:focus-visible {
+  background: rgba(47, 128, 216, 0.12);
+  outline: none;
+}
+
+.pflege-inko-modal__header {
+  max-width: 34rem;
+  margin: 0 auto 26px;
+  padding: 0 2.75rem 0 0.5rem;
+  text-align: center;
+}
+
+.pflege-inko-modal__title {
+  margin: 0;
+  font-family: var(--pflege-font-display, var(--font-body-family, inherit));
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--inko-modal-primary);
+}
+
+.pflege-inko-modal__subtitle {
+  margin: 10px 0 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--inko-modal-subtitle);
+}
+
+.pflege-inko-modal__body {
+  display: grid;
+  grid-template-columns: minmax(0, 44%) minmax(0, 56%);
+  gap: 30px;
+  align-items: start;
+}
+
+.pflege-inko-modal__steps {
+  min-width: 0;
+}
+
+.pflege-inko-modal__step {
+  display: grid;
+  grid-template-columns: 32px 72px minmax(0, 1fr);
+  gap: 0.85rem 1rem;
+  align-items: start;
+  padding: 21px 0;
+  border-top: 1px solid var(--inko-modal-line-step);
+}
+
+.pflege-inko-modal__step:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.pflege-inko-modal__step:last-of-type {
+  padding-bottom: 0;
+}
+
+.pflege-inko-modal__step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin-top: 20px;
+  border-radius: 999px;
+  background: var(--inko-modal-blue);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.pflege-inko-modal__step-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 999px;
+  background: var(--inko-modal-blue-bg);
+  color: var(--inko-modal-blue-icon);
+  flex-shrink: 0;
+}
+
+.pflege-inko-modal__step-icon .pflege-icon,
+.pflege-inko-modal__step-icon svg {
+  display: block;
+}
+
+.pflege-inko-modal__step-copy {
+  min-width: 0;
+  padding-top: 0.5rem;
+}
+
+.pflege-inko-modal__step-title {
+  margin: 0 0 0.5rem;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--inko-modal-primary);
+}
+
+.pflege-inko-modal__step-text {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--inko-modal-step-text);
+}
+
+.pflege-inko-modal__secure {
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+  margin-top: 22px;
+  padding: 17px;
+  border-radius: 14px;
+  background: #eef7ff;
+}
+
+.pflege-inko-modal__secure-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+  color: #2c7ed6;
+}
+
+.pflege-inko-modal__secure-title {
+  margin: 0 0 0.3rem;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.3;
+  color: var(--inko-modal-primary);
+}
+
+.pflege-inko-modal__secure-text {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--inko-modal-step-text);
+}
+
+.pflege-inko-modal__form-wrap {
+  min-width: 0;
+  padding-left: 30px;
+  border-left: 1px solid var(--inko-modal-line);
+}
+
+.pflege-inko-modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.pflege-inko-modal__fields {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.pflege-inko-modal__fields--split {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 0.85rem;
+}
+
+.pflege-inko-modal__field {
+  display: flex;
+  flex-direction: column;
+}
+
+.pflege-inko-modal__label {
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--inko-modal-primary);
+}
+
+.pflege-inko-modal__req {
+  color: var(--inko-modal-blue);
+}
+
+.pflege-inko-modal__input,
+.pflege-inko-modal__textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--inko-modal-input-border);
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 12px 16px;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--inko-modal-primary);
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.pflege-inko-modal__input {
+  min-height: 48px;
+}
+
+.pflege-inko-modal__textarea {
+  min-height: 112px;
+  resize: vertical;
+}
+
+.pflege-inko-modal__input::placeholder,
+.pflege-inko-modal__textarea::placeholder {
+  color: var(--inko-modal-placeholder);
+  opacity: 1;
+}
+
+.pflege-inko-modal__input:focus,
+.pflege-inko-modal__textarea:focus {
+  border-color: var(--inko-modal-blue);
+  box-shadow: 0 0 0 3px rgba(47, 128, 216, 0.12);
+  outline: none;
+}
+
+.pflege-inko-modal__input.is-invalid,
+.pflege-inko-modal__textarea.is-invalid {
+  border-color: #d64545;
+  box-shadow: 0 0 0 3px rgba(214, 69, 69, 0.1);
+}
+
+.pflege-inko-modal__consent {
+  margin-top: 0.35rem;
+}
+
+.pflege-inko-modal__consent-label {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.7rem;
+  align-items: start;
+  cursor: pointer;
+}
+
+.pflege-inko-modal__consent-input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+.pflege-inko-modal__consent-box {
+  display: inline-flex;
+  width: 1.125rem;
+  height: 1.125rem;
+  margin-top: 0.12rem;
+  border: 1.5px solid #b8cfe6;
+  border-radius: 5px;
+  background: #ffffff;
+  box-sizing: border-box;
+  transition: border-color 160ms ease, background 160ms ease, box-shadow 160ms ease;
+}
+
+.pflege-inko-modal__consent-input:focus-visible + .pflege-inko-modal__consent-box {
+  box-shadow: 0 0 0 3px rgba(47, 128, 216, 0.12);
+}
+
+.pflege-inko-modal__consent-input:checked + .pflege-inko-modal__consent-box {
+  border-color: var(--inko-modal-blue);
+  background: var(--inko-modal-blue);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.pflege-inko-modal__consent-input.is-invalid + .pflege-inko-modal__consent-box {
+  border-color: #d64545;
+}
+
+.pflege-inko-modal__consent-text {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--inko-modal-consent);
+}
+
+.pflege-inko-modal__consent-text a {
+  color: var(--inko-modal-blue);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.pflege-inko-modal__form-error {
+  margin: 0;
+  padding: 0.65rem 0.75rem;
+  border-radius: 10px;
+  background: #fff3f3;
+  border: 1px solid #f3caca;
+  color: #9b2c2c;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.pflege-inko-modal__submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 56px;
+  margin-top: 0.25rem;
+  padding: 0.75rem 1.25rem;
+  border: 0;
+  border-radius: 14px;
+  background: var(--inko-modal-cta);
+  color: #ffffff;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.2;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(255, 122, 26, 0.22);
+  transition: background 160ms ease, opacity 160ms ease;
+}
+
+.pflege-inko-modal__submit:hover:not(:disabled) {
+  background: var(--inko-modal-cta-hover);
+}
+
+.pflege-inko-modal__submit:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 122, 26, 0.25), 0 8px 18px rgba(255, 122, 26, 0.22);
+}
+
+.pflege-inko-modal__submit:disabled {
+  opacity: 0.72;
+  cursor: wait;
+}
+
+.pflege-inko-modal__trust {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  margin: 15px 0 0;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--inko-modal-trust);
+}
+
+.pflege-inko-modal__trust-icon {
+  display: inline-flex;
+  color: var(--inko-modal-trust-icon);
+}
+
+.pflege-inko-modal__success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  min-height: 18rem;
+  padding: 1rem 0.5rem;
+  text-align: center;
+}
+
+.pflege-inko-modal__success[hidden] {
+  display: none !important;
+}
+
+.pflege-inko-modal__success-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 999px;
+  background: var(--inko-modal-blue-bg);
+  color: var(--inko-modal-blue);
+}
+
+.pflege-inko-modal__success-text {
+  margin: 0;
+  max-width: 24rem;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.55;
+  color: var(--inko-modal-subtitle);
+}
+
+.pflege-inko-modal__success-btn {
+  min-height: 48px;
+  padding: 0.65rem 1.35rem;
+  border: 0;
+  border-radius: 12px;
+  background: var(--inko-modal-blue);
+  color: #ffffff;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.pflege-inko-modal__success-btn:hover,
+.pflege-inko-modal__success-btn:focus-visible {
+  background: #2574c9;
+  outline: none;
+}
+
+button.pflege-cat-filtered__promo-cta {
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: center;
+}
+
+@media screen and (max-width: 989px) {
+  .pflege-inko-modal__dialog {
+    width: min(855px, calc(100vw - 32px));
+    padding: 26px 28px 24px;
+  }
+
+  .pflege-inko-modal__body {
+    gap: 24px;
+  }
+
+  .pflege-inko-modal__form-wrap {
+    padding-left: 24px;
+  }
+
+  .pflege-inko-modal__title {
+    font-size: clamp(1.5rem, 2.5vw + 1rem, 28px);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .pflege-inko-modal {
+    padding: 16px 12px;
+    align-items: center;
+  }
+
+  .pflege-inko-modal__dialog {
+    width: calc(100vw - 24px);
+    max-height: calc(100vh - 24px);
+    padding: 22px 18px 20px;
+    border-radius: 18px;
+  }
+
+  .pflege-inko-modal__close {
+    top: 16px;
+    right: 16px;
+  }
+
+  .pflege-inko-modal__header {
+    margin-bottom: 22px;
+    padding-right: 2.25rem;
+  }
+
+  .pflege-inko-modal__title {
+    font-size: 22px;
+  }
+
+  .pflege-inko-modal__subtitle {
+    font-size: 15px;
+  }
+
+  .pflege-inko-modal__body {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .pflege-inko-modal__form-wrap {
+    padding-left: 0;
+    padding-top: 22px;
+    margin-top: 22px;
+    border-left: 0;
+    border-top: 1px solid var(--inko-modal-line);
+  }
+
+  .pflege-inko-modal__fields--split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pflege-inko-modal__step {
+    grid-template-columns: 32px 64px minmax(0, 1fr);
+    gap: 0.75rem 0.85rem;
+    padding: 18px 0;
+  }
+
+  .pflege-inko-modal__step-icon {
+    width: 64px;
+    height: 64px;
+  }
+
+  .pflege-inko-modal__step-num {
+    margin-top: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pflege-inko-modal,
+  .pflege-inko-modal__dialog {
+    transition: none;
+  }
+}

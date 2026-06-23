@@ -25,7 +25,7 @@
       data-pflege-inko-modal-close
       aria-label="Modal schließen"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="M6 6l12 12"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="M6 6l12 12"/></svg>
     </button>
 
     <header class="pflege-inko-modal__header">
@@ -42,7 +42,7 @@
         <article class="pflege-inko-modal__step">
           <span class="pflege-inko-modal__step-num" aria-hidden="true">1</span>
           <span class="pflege-inko-modal__step-icon" aria-hidden="true">
-            {% render 'pflege-icon', icon: 'file-text', width: 28 %}
+            {% render 'pflege-icon', icon: 'file-text', width: 32 %}
           </span>
           <div class="pflege-inko-modal__step-copy">
             <h3 class="pflege-inko-modal__step-title">Daten ausfüllen</h3>
@@ -53,7 +53,7 @@
         <article class="pflege-inko-modal__step">
           <span class="pflege-inko-modal__step-num" aria-hidden="true">2</span>
           <span class="pflege-inko-modal__step-icon" aria-hidden="true">
-            {% render 'pflege-icon', icon: 'headset', width: 28 %}
+            {% render 'pflege-icon', icon: 'headset', width: 32 %}
           </span>
           <div class="pflege-inko-modal__step-copy">
             <h3 class="pflege-inko-modal__step-title">Wir melden uns an Werktagen innerhalb von 24 Stunden bei Ihnen</h3>
@@ -64,7 +64,7 @@
         <article class="pflege-inko-modal__step">
           <span class="pflege-inko-modal__step-num" aria-hidden="true">3</span>
           <span class="pflege-inko-modal__step-icon pflege-inko-modal__step-icon--gift" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C9 3 12 8 12 8"/><path d="M16.5 8a2.5 2.5 0 0 0 0-5C15 3 12 8 12 8"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C9 3 12 8 12 8"/><path d="M16.5 8a2.5 2.5 0 0 0 0-5C15 3 12 8 12 8"/></svg>
           </span>
           <div class="pflege-inko-modal__step-copy">
             <h3 class="pflege-inko-modal__step-title">Perfektes Produkt besprechen und Gratis-Muster zusenden</h3>
@@ -74,7 +74,7 @@
 
         <aside class="pflege-inko-modal__secure" aria-label="Datenschutzhinweis">
           <span class="pflege-inko-modal__secure-icon" aria-hidden="true">
-            {% render 'pflege-icon', icon: 'shield', width: 22 %}
+            {% render 'pflege-icon', icon: 'shield', width: 18 %}
           </span>
           <div class="pflege-inko-modal__secure-copy">
             <p class="pflege-inko-modal__secure-title">Ihre Daten sind bei uns sicher</p>
@@ -170,7 +170,7 @@
             </div>
 
             <div class="pflege-inko-modal__field">
-              <label class="pflege-inko-modal__label" for="{{ modal_id }}-message">Nachricht</label>
+              <label class="pflege-inko-modal__label" for="{{ modal_id }}-message">Nachricht (optional)</label>
               <textarea
                 class="pflege-inko-modal__textarea"
                 id="{{ modal_id }}-message"
@@ -195,7 +195,13 @@
                 >
                 <span class="pflege-inko-modal__consent-box" aria-hidden="true"></span>
                 <span class="pflege-inko-modal__consent-text">
-                  Ich stimme der Verarbeitung meiner Daten gemäß der Datenschutzerklärung zu. Weitere Informationen finden Sie in unserer
+                  Ich stimme der Verarbeitung meiner Daten gemäß der
+                  {%- if url_privacy != blank -%}
+                    <a href="{{ url_privacy }}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Datenschutzerklärung</a>
+                  {%- else -%}
+                    Datenschutzerklärung
+                  {%- endif -%}
+                  zu. Weitere Informationen finden Sie in unserer
                   {%- if url_privacy != blank -%}
                     <a href="{{ url_privacy }}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Datenschutzerklärung</a>
                   {%- else -%}
