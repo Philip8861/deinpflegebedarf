@@ -21,7 +21,7 @@ html.pflege-inko-modal-open body {
   --inko-modal-placeholder: #8a9db3;
   --inko-modal-cta: #ff7a1a;
   --inko-modal-cta-hover: #f36f10;
-  --inko-modal-overlay: rgba(10, 30, 50, 0.36);
+  --inko-modal-overlay: rgba(10, 30, 50, 0.46);
 
   position: fixed;
   inset: 0;
@@ -59,7 +59,7 @@ html.pflege-inko-modal-open body {
 
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .pflege-inko-modal__overlay {
-    background: rgba(10, 30, 50, 0.4);
+    background: rgba(10, 30, 50, 0.5);
   }
 }
 
