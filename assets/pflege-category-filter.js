@@ -320,8 +320,8 @@
 
   function countForOption(products, selected, groupId, optionValue, filterGroups) {
     var testSelected = JSON.parse(JSON.stringify(selected));
-    if (!testSelected[groupId]) testSelected[groupId] = [];
-    if (testSelected[groupId].indexOf(optionValue) === -1) testSelected[groupId].push(optionValue);
+    // Facetten-Zählung: andere Gruppen behalten, in dieser Gruppe nur die eine Option testen.
+    testSelected[groupId] = [optionValue];
     return products.filter(function (product) {
       return productMatchesFilters(product, testSelected, filterGroups);
     }).length;
