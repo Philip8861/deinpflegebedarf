@@ -90,7 +90,7 @@
       "variantId": {{ card_variant.id | json }},
       "variantsCount": {{ product.variants.size }},
       "categorySlug": {{ category_slug | json }},
-      "image": {% if product.featured_media %}{{ product.featured_media | image_url: width: 720 | json }}{% else %}""{% endif %},
+      "image": {% if product.featured_media %}{{ product.featured_media | image_url: width: 960 | json }}{% else %}""{% endif %},
       "imageAlt": {{ product.featured_media.alt | default: product.title | json }},
       "optionValues": {{ option_values_arr | json }}
     }{% unless forloop.last %},{% endunless %}

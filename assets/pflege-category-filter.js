@@ -333,7 +333,7 @@
           escapeHtml(product.image) +
           '" alt="' +
           escapeHtml(product.imageAlt || product.title) +
-          '" loading="lazy" width="360" height="360"></a>'
+          '" loading="lazy" width="480" height="480"></a>'
         : '<a href="' +
           escapeHtml(product.url) +
           '" class="pflege-cat-card__media-link pflege-cat-card__media-link--placeholder"><span class="pflege-cat-card__placeholder">Produktbild</span></a>') +
