@@ -315,6 +315,25 @@
     if (includesAny(hay, ['hand', 'haende', 'hände', 'handpflege'])) {
       applicationAreas.push('haende');
     }
+    if (
+      includesAny(hay, [
+        'fuss',
+        'fuß',
+        'fuesse',
+        'füße',
+        'fusscreme',
+        'fußcreme',
+        'fusspflege',
+        'fußpflege',
+        'bein',
+        'beine',
+        'beinpflege',
+        'foot',
+        'leg',
+      ])
+    ) {
+      applicationAreas.push('beine-fuesse');
+    }
     if (includesAny(hay, ['intim', 'perineal', 'perinealbereich', 'damenbereich'])) {
       applicationAreas.push('intimbereich');
     }

@@ -98,6 +98,7 @@
             { value: 'koerper', label: 'Körper' },
             { value: 'gesicht', label: 'Gesicht' },
             { value: 'haende', label: 'Hände' },
+            { value: 'beine-fuesse', label: 'Beine & Füße' },
             { value: 'intimbereich', label: 'Intimbereich' },
             { value: 'wund-schutz', label: 'Wund- & Schutzpflege' },
           ],
