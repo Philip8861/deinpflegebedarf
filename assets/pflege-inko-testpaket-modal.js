@@ -8,6 +8,8 @@
 
   var VALIDATION_TEXT =
     'Bitte füllen Sie alle Pflichtfelder aus und akzeptieren Sie die Datenschutzerklärung.';
+  var ERROR_TEXT =
+    'Die Anfrage konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder kontaktieren Sie uns telefonisch.';
   var SUBMITTING_TEXT = 'Wird gesendet …';
   var SUBMIT_TEXT = 'Jetzt kostenlos anfragen';
   var IFRAME_NAME = 'pflege-inko-testpaket-frame';
@@ -153,7 +155,7 @@
 
     function showError(message) {
       if (!errorEl) return;
-      errorEl.textContent = message;
+      errorEl.textContent = message || ERROR_TEXT;
       errorEl.hidden = false;
     }
 
@@ -226,27 +228,35 @@
       form.setAttribute('target', IFRAME_NAME);
     }
 
-    function onSubmit(e) {
-      hideError();
+    function sendFormNative() {
+      prepareIframeSubmit();
+      form.submit();
+      form.removeAttribute('target');
+      showSuccessView();
+    }
 
-      if (isSubmitting) {
-        if (e.isTrusted) {
-          e.preventDefault();
-          return;
-        }
-        prepareIframeSubmit();
+    function submitToShopify() {
+      if (window.Shopify && window.Shopify.captcha && typeof window.Shopify.captcha.protect === 'function') {
+        window.Shopify.captcha.protect(form, sendFormNative);
         return;
       }
+      sendFormNative();
+    }
+
+    function onSubmit(e) {
+      e.preventDefault();
+
+      if (isSubmitting || isSuccessState()) return;
+
+      hideError();
 
       var data = validateForm(form);
       if (!data) {
-        e.preventDefault();
         showError(VALIDATION_TEXT);
         return;
       }
 
       syncHiddenFields(form, data);
-      prepareIframeSubmit();
       isSubmitting = true;
 
       if (submitBtn) {
@@ -254,7 +264,12 @@
         submitBtn.textContent = SUBMITTING_TEXT;
       }
 
-      showSuccessView();
+      try {
+        submitToShopify();
+      } catch (err) {
+        resetSubmitUi();
+        showError(ERROR_TEXT);
+      }
     }
 
     root.addEventListener('close', function () {
