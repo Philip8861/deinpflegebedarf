@@ -396,6 +396,16 @@
       "view_details_aria": "{{ title }} — Open product details",
       "usp_list_label": "Category highlights"
     },
+    "pflege_category_filtered": {
+      "desinfektion": {
+        "meta_title": "Buy hand & surface disinfectant online | Disinfection products",
+        "meta_description": "Hand disinfectant, surface disinfectant, wipes, gels and sprays for care, practice and home. Filter by type, compare and order online with discreet delivery."
+      },
+      "hautpflege": {
+        "meta_title": "Buy skin care online | Creams, lotions & skin protection",
+        "meta_description": "Skin care for daily and professional care: creams, lotions, wash products and barrier creams for dry, sensitive or irritated skin. Filter and order online."
+      }
+    },
     "pflege_collection_free_care": {
       "meta_title": "Free care aids from care grade 1 | Configure care box",
       "meta_description": "Get care consumables worth up to €42 per month free from care grade 1. Configure your box, we handle the application and delivery.",
@@ -458,6 +468,15 @@
       "closing_text": "Use your statutory entitlement and configure your care box online step by step.",
       "testimonials_cta_title": "Receive your care box free of charge",
       "testimonials_cta_text": "From care grade 1, you are entitled to care consumables worth up to €42 per month. Choose your products conveniently online and let us guide you step by step through assembling your box."
+    },
+    "pflege_faq_page": {
+      "meta_title": "FAQ | Frequently asked questions about care supplies, shipping & payment",
+      "meta_description": "Answers to common questions about deinpflegebedarf.de: ordering, shipping, payment, care products, incontinence products, care aids, returns, withdrawal and customer service.",
+      "heading": "Frequently asked questions",
+      "intro_lead": "Here you will find answers to the most important questions about ordering, shipping, payment, returns and our care products. If your question is not answered, please contact us personally.",
+      "contact_phone": "08334 / 9893330",
+      "contact_email": "deinpflegebedarf@alltagshilfe-sued.de",
+      "contact_hours": "Monday to Friday: 08:30 – 16:00"
     },
     "pflege_faq_accordion": {
       "heading": "Frequently asked questions",

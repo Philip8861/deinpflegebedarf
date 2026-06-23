@@ -53,6 +53,13 @@
         endif
         if template.suffix == 'desinfektion' or template.suffix == 'haende-und-flaechendesinfektion' or template.suffix == 'hautpflege' or col_h == 'desinfektion' or col_h == 'haende-und-flaechendesinfektion' or col_h == 'hautpflege' or col_h == 'hautschutz-hautpflege' or col_h == 'hauschutz-hautpflege'
           assign is_category_filtered = true
+          if col_h == 'hautpflege' or col_h == 'hautschutz-hautpflege' or col_h == 'hauschutz-hautpflege' or template.suffix == 'hautpflege'
+            assign pflege_seo_title = 'sections.pflege_category_filtered.hautpflege.meta_title' | t
+            assign pflege_seo_description = 'sections.pflege_category_filtered.hautpflege.meta_description' | t
+          else
+            assign pflege_seo_title = 'sections.pflege_category_filtered.desinfektion.meta_title' | t
+            assign pflege_seo_description = 'sections.pflege_category_filtered.desinfektion.meta_description' | t
+          endif
         endif
       endif
       if request.page_type == 'page' and page != blank and page.handle == 'faq'
@@ -78,7 +85,7 @@
       <meta name="description" content="{{ page_description | escape }}">
     {%- endif -%}
 
-    {% render 'meta-tags' %}
+    {% render 'meta-tags', seo_title: pflege_seo_title, seo_description: pflege_seo_description %}
 
     <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
