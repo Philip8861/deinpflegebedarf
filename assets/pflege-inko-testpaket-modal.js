@@ -111,20 +111,40 @@
     return action.split('#')[0];
   }
 
+  function hasFormErrors(errors) {
+    if (errors == null || errors === false) return false;
+    if (Array.isArray(errors)) return errors.length > 0;
+    if (typeof errors === 'object') return Object.keys(errors).length > 0;
+    return true;
+  }
+
   function responseIndicatesSuccess(response, bodyText) {
-    if (response.status === 400) return false;
+    var url = response.url || '';
+    var text = bodyText || '';
+
+    if (url.indexOf('pflege_inko_sent=1') !== -1 || url.indexOf('contact_posted=true') !== -1) {
+      return true;
+    }
+
+    if (response.status === 400 || response.status === 422 || response.status === 429) {
+      return false;
+    }
+
+    if (/data-pflege-inko-sent-marker|pflege_inko_sent=1|contact_posted=true|posted_successfully/i.test(text)) {
+      return true;
+    }
 
     var ct = (response.headers.get('content-type') || '').toLowerCase();
-    if (ct.indexOf('json') !== -1) {
+    if (ct.indexOf('json') !== -1 || text.charAt(0) === '{') {
       try {
-        var json = JSON.parse(bodyText);
-        if (json && json.errors) return false;
+        var json = JSON.parse(text);
+        if (hasFormErrors(json && json.errors)) return false;
         if (json && (json['posted_successfully?'] || json.posted_successfully)) return true;
       } catch (e) {}
     }
 
-    if (response.ok) {
-      if (/form__message--error|default_errors|There was an error/i.test(bodyText)) return false;
+    // Shopify liefert nach erfolgreichem POST oft Redirect/HTML — kein JSON
+    if (response.ok || response.redirected) {
       return true;
     }
 
