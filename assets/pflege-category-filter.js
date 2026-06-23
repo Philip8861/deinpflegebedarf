@@ -6,39 +6,168 @@
 
   if (typeof PflegeCategoryAttributes === 'undefined') return;
 
-  var FILTER_GROUPS = [
-    {
-      id: 'productTypes',
-      label: 'Produkttyp',
-      options: [
-        { value: 'haendedesinfektion', label: 'Händedesinfektion' },
-        { value: 'flaechendesinfektion', label: 'Flächendesinfektion' },
-        { value: 'desinfektionstuecher', label: 'Desinfektionstücher' },
-        { value: 'desinfektionsgel', label: 'Desinfektionsgel' },
-        { value: 'spray', label: 'Spray' },
-        { value: 'kanister', label: 'Kanister / Nachfüllung' },
+  var BRAND_LABELS = {
+    meditrade: 'Meditrade',
+    'seni-care': 'Seni Care',
+    alcoman: 'Alcoman',
+    ethasept: 'Ethasept',
+    medizid: 'Medizid',
+    sensiderm: 'Sensiderm',
+    tiga: 'Tiga Soft',
+    sebamed: 'Sebamed',
+    linola: 'Linola',
+    excipial: 'Excipial',
+    bepanthen: 'Bepanthen',
+    eucerin: 'Eucerin',
+    doppelherz: 'Doppelherz',
+  };
+
+  var PROPERTY_LABELS = {
+    'vah-gelistet': 'VAH-gelistet',
+    parfuemfrei: 'Parfümfrei',
+    gebrauchsfertig: 'Gebrauchsfertig',
+    viruzid: 'Viruzid',
+    bakterizid: 'Bakterizid',
+    alkoholfrei: 'Alkoholfrei',
+    'medizinprodukte-geeignet': 'Medizinprodukt',
+    'ph-hautneutral': 'pH-hautneutral',
+    hypoallergen: 'Hypoallergen',
+    'mit-duft': 'Mit Duft',
+    'dermatologisch-getestet': 'Dermatologisch getestet',
+    'sehr-trockene-haut': 'Für sehr trockene Haut',
+    hautschutzfilm: 'Hautschutzfilm',
+    lanolin: 'Mit Lanolin',
+    vegan: 'Vegan',
+  };
+
+  var FILTER_CONFIGS = {
+    desinfektion: {
+      groups: [
+        {
+          id: 'productTypes',
+          label: 'Produkttyp',
+          options: [
+            { value: 'haendedesinfektion', label: 'Händedesinfektion' },
+            { value: 'flaechendesinfektion', label: 'Flächendesinfektion' },
+            { value: 'desinfektionstuecher', label: 'Desinfektionstücher' },
+            { value: 'desinfektionsgel', label: 'Desinfektionsgel' },
+            { value: 'spray', label: 'Spray' },
+            { value: 'kanister', label: 'Kanister / Nachfüllung' },
+          ],
+        },
+        {
+          id: 'applicationAreas',
+          label: 'Anwendungsbereich',
+          options: [
+            { value: 'hand', label: 'Hände' },
+            { value: 'surface', label: 'Flächen' },
+          ],
+        },
+        {
+          id: 'forms',
+          label: 'Darreichungsform',
+          options: [
+            { value: 'gel', label: 'Gel' },
+            { value: 'fluessigkeit', label: 'Flüssigkeit' },
+            { value: 'tuecher', label: 'Tücher' },
+            { value: 'spray', label: 'Spray' },
+            { value: 'kanister', label: 'Kanister' },
+          ],
+        },
       ],
+      badges: ['vah-gelistet', 'parfuemfrei', 'gebrauchsfertig'],
     },
-    {
-      id: 'applicationAreas',
-      label: 'Anwendungsbereich',
-      options: [
-        { value: 'hand', label: 'Hände' },
-        { value: 'surface', label: 'Flächen' },
+    hautpflege: {
+      groups: [
+        {
+          id: 'productTypes',
+          label: 'Produkttyp',
+          options: [
+            { value: 'creme', label: 'Creme' },
+            { value: 'lotion', label: 'Lotion' },
+            { value: 'gel', label: 'Gel / Waschgel' },
+            { value: 'oel', label: 'Öl' },
+            { value: 'salbe-paste', label: 'Salbe / Paste' },
+            { value: 'wasch-reinigung', label: 'Wasch- & Reinigungsprodukt' },
+            { value: 'hautschutz', label: 'Hautschutz / Barriercreme' },
+            { value: 'feuchttuecher', label: 'Feuchttücher / Pflegetücher' },
+            { value: 'schaum', label: 'Schaum / Mousse' },
+            { value: 'spray', label: 'Spray' },
+            { value: 'hautpflege-allgemein', label: 'Allgemeine Hautpflege' },
+          ],
+        },
+        {
+          id: 'skinConditions',
+          label: 'Hautzustand',
+          options: [
+            { value: 'normal', label: 'Normale Haut' },
+            { value: 'trocken', label: 'Trockene Haut' },
+            { value: 'sehr_trocken_gereizt', label: 'Sehr trocken / gereizt' },
+            { value: 'sensitiv', label: 'Sensitiv / empfindlich' },
+            { value: 'hautschutz', label: 'Hautschutz / Barriere' },
+          ],
+        },
+        {
+          id: 'applicationAreas',
+          label: 'Anwendungsbereich',
+          options: [
+            { value: 'koerper', label: 'Körper' },
+            { value: 'gesicht', label: 'Gesicht' },
+            { value: 'haende', label: 'Hände' },
+            { value: 'intimbereich', label: 'Intimbereich' },
+            { value: 'wund-schutz', label: 'Wund- & Schutzpflege' },
+            { value: 'inkontinenz', label: 'Inkontinenz-Pflege' },
+            { value: 'bett', label: 'Bett- & Liegepflege' },
+          ],
+        },
+        {
+          id: 'forms',
+          label: 'Darreichungsform',
+          options: [
+            { value: 'creme', label: 'Creme' },
+            { value: 'lotion', label: 'Lotion' },
+            { value: 'gel', label: 'Gel' },
+            { value: 'oel', label: 'Öl' },
+            { value: 'salbe', label: 'Salbe / Paste' },
+            { value: 'waschprodukt', label: 'Waschprodukt' },
+            { value: 'tuecher', label: 'Tücher' },
+            { value: 'schaum', label: 'Schaum' },
+            { value: 'spray', label: 'Spray' },
+          ],
+        },
+        { id: 'brand', label: 'Marke', dynamic: true },
+        { id: 'sizes', label: 'Inhalt / Größe', dynamic: true },
+        {
+          id: 'properties',
+          label: 'Eigenschaften',
+          options: [
+            { value: 'parfuemfrei', label: 'Parfümfrei' },
+            { value: 'ph-hautneutral', label: 'pH-hautneutral' },
+            { value: 'hypoallergen', label: 'Hypoallergen' },
+            { value: 'mit-duft', label: 'Mit Duft' },
+            { value: 'dermatologisch-getestet', label: 'Dermatologisch getestet' },
+            { value: 'sehr-trockene-haut', label: 'Für sehr trockene Haut' },
+            { value: 'hautschutzfilm', label: 'Hautschutzfilm' },
+            { value: 'lanolin', label: 'Mit Lanolin' },
+            { value: 'vegan', label: 'Vegan' },
+          ],
+        },
       ],
+      badges: ['parfuemfrei', 'ph-hautneutral', 'hypoallergen', 'hautschutzfilm'],
     },
-    {
-      id: 'forms',
-      label: 'Darreichungsform',
-      options: [
-        { value: 'gel', label: 'Gel' },
-        { value: 'fluessigkeit', label: 'Flüssigkeit' },
-        { value: 'tuecher', label: 'Tücher' },
-        { value: 'spray', label: 'Spray' },
-        { value: 'kanister', label: 'Kanister' },
-      ],
-    },
-  ];
+  };
+
+  function resolveCategoryKey(handle) {
+    var h = String(handle || '').toLowerCase();
+    if (h === 'hautpflege' || h === 'hautschutz-hautpflege' || h === 'hauschutz-hautpflege') {
+      return 'hautpflege';
+    }
+    return 'desinfektion';
+  }
+
+  function getFilterConfig(handle) {
+    return FILTER_CONFIGS[resolveCategoryKey(handle)] || FILTER_CONFIGS.desinfektion;
+  }
 
   function parseConfig(root) {
     var node = root.querySelector('[data-pflege-cat-config]');
@@ -51,9 +180,9 @@
     }
   }
 
-  function getSelectedFilters(form) {
+  function getSelectedFilters(form, filterGroups) {
     var selected = {};
-    FILTER_GROUPS.forEach(function (group) {
+    filterGroups.forEach(function (group) {
       selected[group.id] = [];
     });
     selected.priceMin = null;
@@ -79,9 +208,9 @@
     return selected;
   }
 
-  function productMatchesFilters(product, selected) {
-    for (var i = 0; i < FILTER_GROUPS.length; i++) {
-      var groupId = FILTER_GROUPS[i].id;
+  function productMatchesFilters(product, selected, filterGroups) {
+    for (var i = 0; i < filterGroups.length; i++) {
+      var groupId = filterGroups[i].id;
       var values = selected[groupId] || [];
       if (!values.length) continue;
 
@@ -142,11 +271,13 @@
       .replace(/"/g, '&quot;');
   }
 
-  function renderBadges(product) {
+  function renderBadges(product, badgeKeys) {
     var badges = [];
-    if ((product.properties || []).indexOf('vah-gelistet') !== -1) badges.push('VAH-gelistet');
-    if ((product.properties || []).indexOf('parfuemfrei') !== -1) badges.push('parfümfrei');
-    if ((product.properties || []).indexOf('gebrauchsfertig') !== -1) badges.push('gebrauchsfertig');
+    (product.properties || []).forEach(function (prop) {
+      if (badgeKeys.indexOf(prop) !== -1) {
+        badges.push(PROPERTY_LABELS[prop] || prop);
+      }
+    });
     if (!badges.length) return '';
     return (
       '<div class="pflege-cat-card__badges">' +
@@ -160,7 +291,7 @@
     );
   }
 
-  function renderCard(product) {
+  function renderCard(product, badgeKeys) {
     var cartHtml = '';
     if (product.available && product.variantId && product.variantsCount <= 1) {
       cartHtml =
@@ -194,7 +325,7 @@
       '<li class="pflege-cat-card">' +
       '<article class="pflege-cat-card__inner">' +
       '<div class="pflege-cat-card__media">' +
-      renderBadges(product) +
+      renderBadges(product, badgeKeys) +
       (product.image
         ? '<a href="' +
           escapeHtml(product.url) +
@@ -229,12 +360,12 @@
     );
   }
 
-  function countForOption(products, selected, groupId, optionValue) {
+  function countForOption(products, selected, groupId, optionValue, filterGroups) {
     var testSelected = JSON.parse(JSON.stringify(selected));
     if (!testSelected[groupId]) testSelected[groupId] = [];
     if (testSelected[groupId].indexOf(optionValue) === -1) testSelected[groupId].push(optionValue);
     return products.filter(function (product) {
-      return productMatchesFilters(product, testSelected);
+      return productMatchesFilters(product, testSelected, filterGroups);
     }).length;
   }
 
@@ -252,15 +383,15 @@
     });
     return Object.keys(map)
       .sort(function (a, b) {
-        return map[a].localeCompare(map[b], 'de');
+        return map[a].localeCompare(map[b], 'de', { numeric: true });
       })
       .map(function (value) {
         return { value: value, label: map[value] };
       });
   }
 
-  function renderFilterGroup(group, products, selected, prefix, collapsible) {
-    var options = group.options.slice();
+  function renderFilterGroup(group, products, selected, prefix, collapsible, filterGroups) {
+    var options = group.options ? group.options.slice() : [];
     if (group.dynamic) options = buildDynamicOptions(products, group.id);
     if (!options.length) return '';
 
@@ -277,7 +408,7 @@
       '<ul class="pflege-cat-filter__list">';
 
     options.forEach(function (option) {
-      var count = countForOption(products, selected, group.id, option.value);
+      var count = countForOption(products, selected, group.id, option.value, filterGroups);
       var checked = (selected[group.id] || []).indexOf(option.value) !== -1;
       var disabled = count === 0 && !checked;
       html +=
@@ -410,7 +541,7 @@
     );
   }
 
-  function renderFilters(container, products, selected, prefix, collapsible) {
+  function renderFilters(container, products, selected, prefix, collapsible, filterGroups) {
     if (!container) return;
     var priceBounds = {
       min: Math.min.apply(
@@ -428,8 +559,8 @@
     };
 
     var html = '';
-    FILTER_GROUPS.forEach(function (group) {
-      html += renderFilterGroup(group, products, selected, prefix, collapsible);
+    filterGroups.forEach(function (group) {
+      html += renderFilterGroup(group, products, selected, prefix, collapsible, filterGroups);
     });
     html += renderPriceFilter(products, selected, priceBounds);
     container.innerHTML = html;
@@ -441,10 +572,13 @@
     });
   }
 
-  function applyState(root, products, selected, sortKey, options) {
+  function applyState(root, products, selected, sortKey, filterConfig, options) {
     options = options || {};
+    var filterGroups = filterConfig.groups;
+    var badgeKeys = filterConfig.badges;
+
     var filtered = products.filter(function (product) {
-      return productMatchesFilters(product, selected);
+      return productMatchesFilters(product, selected, filterGroups);
     });
     filtered = sortProducts(filtered, sortKey);
 
@@ -452,7 +586,9 @@
     var empty = root.querySelector('[data-pflege-cat-empty]');
 
     if (grid) {
-      grid.innerHTML = filtered.map(renderCard).join('');
+      grid.innerHTML = filtered.map(function (product) {
+        return renderCard(product, badgeKeys);
+      }).join('');
     }
 
     if (empty) {
@@ -464,17 +600,17 @@
     if (!options.skipFilterRender) {
       var desktopFilters = root.querySelector('[data-pflege-cat-filters-desktop]');
       var drawerFilters = root.querySelector('[data-pflege-cat-filters-drawer]');
-      renderFilters(desktopFilters, products, selected, 'desktop', false);
-      renderFilters(drawerFilters, products, selected, 'drawer', true);
+      renderFilters(desktopFilters, products, selected, 'desktop', false, filterGroups);
+      renderFilters(drawerFilters, products, selected, 'drawer', true, filterGroups);
       syncAllPriceRangeVisuals(root);
     }
   }
 
-  function resetFilters(root, products) {
+  function resetFilters(root, products, filterConfig) {
     root.querySelectorAll('[data-pflege-cat-sort]').forEach(function (select) {
       select.value = 'manual';
     });
-    applyState(root, products, getSelectedFilters(null), 'manual');
+    applyState(root, products, getSelectedFilters(null, filterConfig.groups), 'manual', filterConfig);
   }
 
   function openDrawer(root) {
@@ -497,9 +633,17 @@
     if (toggle) toggle.setAttribute('aria-expanded', 'false');
   }
 
+  function getSortKey(root) {
+    var sort = root.querySelector('[data-pflege-cat-sort]');
+    return sort ? sort.value : 'manual';
+  }
+
   function initRoot(root) {
     var config = parseConfig(root);
     if (!config || !config.products) return;
+
+    var filterConfig = getFilterConfig(config.collectionHandle);
+    var filterGroups = filterConfig.groups;
 
     var products = config.products.map(function (product, index) {
       var enriched = PflegeCategoryAttributes.enrichProduct(product);
@@ -507,13 +651,13 @@
       return enriched;
     });
 
-    applyState(root, products, getSelectedFilters(null), 'manual');
+    applyState(root, products, getSelectedFilters(null, filterGroups), 'manual', filterConfig);
 
     root.addEventListener('change', function (event) {
       var form = event.target.closest('[data-pflege-cat-filter-form]');
       if (!form || !root.contains(form)) return;
       if (!event.target.matches('[data-filter-group], [data-price-min], [data-price-max]')) return;
-      applyState(root, products, getSelectedFilters(form), getSortKey(root));
+      applyState(root, products, getSelectedFilters(form, filterGroups), getSortKey(root), filterConfig);
     });
 
     root.addEventListener('input', function (event) {
@@ -521,7 +665,9 @@
       var form = event.target.closest('[data-pflege-cat-filter-form]');
       if (!form || !root.contains(form)) return;
       syncPriceRangeVisuals(form);
-      applyState(root, products, getSelectedFilters(form), getSortKey(root), { skipFilterRender: true });
+      applyState(root, products, getSelectedFilters(form, filterGroups), getSortKey(root), filterConfig, {
+        skipFilterRender: true,
+      });
     });
 
     root.querySelectorAll('[data-pflege-cat-sort]').forEach(function (select) {
@@ -530,14 +676,14 @@
           other.value = select.value;
         });
         var desktopForm = root.querySelector('[data-pflege-cat-filters-desktop]');
-        applyState(root, products, getSelectedFilters(desktopForm), select.value);
+        applyState(root, products, getSelectedFilters(desktopForm, filterGroups), select.value, filterConfig);
       });
     });
 
     root.querySelectorAll('[data-pflege-cat-reset]').forEach(function (btn) {
       btn.addEventListener('click', function (event) {
         event.preventDefault();
-        resetFilters(root, products);
+        resetFilters(root, products, filterConfig);
       });
     });
 
@@ -559,7 +705,7 @@
     if (drawerApply) {
       drawerApply.addEventListener('click', function () {
         var drawerForm = root.querySelector('[data-pflege-cat-filters-drawer]');
-        applyState(root, products, getSelectedFilters(drawerForm), getSortKey(root));
+        applyState(root, products, getSelectedFilters(drawerForm, filterGroups), getSortKey(root), filterConfig);
         closeDrawer(root);
       });
     }
@@ -567,11 +713,6 @@
     document.addEventListener('keydown', function (event) {
       if (event.key === 'Escape') closeDrawer(root);
     });
-  }
-
-  function getSortKey(root) {
-    var sort = root.querySelector('[data-pflege-cat-sort]');
-    return sort ? sort.value : 'manual';
   }
 
   function start() {

@@ -4,11 +4,14 @@
   if cat_description == blank
     assign cat_description = collection.description | strip_html | strip
   endif
-  if cat_description == blank
-    assign cat_description = 'Unsere Desinfektionsprodukte bieten zuverlässigen Schutz für Hände und Oberflächen – für Pflege, Haushalt, Praxis und Alltag. Wählen Sie zwischen Händedesinfektion, Flächendesinfektion, Körperdesinfektion, Tüchern, Gelen und Sprays.'
-  endif
-
   assign category_slug = collection.handle | default: 'desinfektion'
+  if cat_description == blank
+    if category_slug == 'hautpflege' or category_slug == 'hautschutz-hautpflege' or category_slug == 'hauschutz-hautpflege'
+      assign cat_description = 'Pflegende Cremes, Lotionen, Waschprodukte und Hautschutz für den Alltag in Pflege, Haushalt und Praxis. Finden Sie passende Produkte für normale, trockene, sensible oder gereizte Haut – von der Körperpflege bis zur Wund- und Inkontinenzversorgung.'
+    else
+      assign cat_description = 'Unsere Desinfektionsprodukte bieten zuverlässigen Schutz für Hände und Oberflächen – für Pflege, Haushalt, Praxis und Alltag. Wählen Sie zwischen Händedesinfektion, Flächendesinfektion, Körperdesinfektion, Tüchern, Gelen und Sprays.'
+    endif
+  endif
 -%}
 
 {{ 'section-pflege-category-filtered.css' | asset_url | stylesheet_tag }}
