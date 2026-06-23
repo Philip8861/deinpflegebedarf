@@ -13,6 +13,7 @@
   var SUBMITTING_TEXT = 'Wird gesendet …';
   var SUBMIT_TEXT = 'Jetzt kostenlos anfragen';
   var IFRAME_NAME = 'pflege-inko-testpaket-frame';
+  var SUBMIT_TIMEOUT_MS = 20000;
 
   function isEmail(value) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || '').trim());
@@ -123,38 +124,20 @@
     return frame;
   }
 
-  function responseLooksSuccessful(html, doc) {
+  function responseLooksSuccessful(html) {
     if (!html) return false;
-
-    if (
-      /Testpaket Inkontinenzversorgung|testpaket,\s*inkontinenz/i.test(html) &&
-      (/form-status|form-success|form__message|posted_successfully|contact_posted=true/i.test(html) ||
-        /Danke.*Kontakt|Vielen Dank|erfolgreich/i.test(html))
-    ) {
-      return true;
-    }
-
-    if (doc) {
-      if (
-        doc.querySelector('.form-status-list, .form__message, .form-status, [data-pflege-inko-success]') &&
-        !doc.querySelector('.form__message--error, .errors, .field__input--error')
-      ) {
-        return /Testpaket|testpaket/i.test(html);
-      }
-    }
-
-    return false;
+    return (
+      /form-status|form-success|form__message|posted_successfully|contact_posted=true/i.test(html) ||
+      /Danke.*Kontakt|Vielen Dank|erfolgreich übermittelt|erfolgreich gesendet/i.test(html)
+    );
   }
 
-  function responseLooksFailed(html, doc) {
-    if (!html) return true;
-    if (/form__message--error|field__input--error|form-status-list.*error|class="errors"/i.test(html)) {
-      return true;
-    }
-    if (doc && doc.querySelector('.errors, .form__message--error, [role="alert"]')) {
-      return !responseLooksSuccessful(html, doc);
-    }
-    return false;
+  function responseLooksFailed(html) {
+    if (!html) return false;
+    return (
+      /form__message--error|field__input--error|class="errors"|default_errors|There was an error/i.test(html) ||
+      /Verifying your connection|challenge-platform|hcaptcha/i.test(html)
+    );
   }
 
   function initModal(root) {
@@ -169,7 +152,7 @@
     var errorEl = root.querySelector('[data-pflege-inko-form-error]');
     var submitBtn = root.querySelector('[data-pflege-inko-submit]');
     var isSubmitting = false;
-    var allowNativeSubmit = false;
+    var submitTimeout = null;
     var submitFrame = ensureSubmitFrame();
 
     function showError(message) {
@@ -198,7 +181,15 @@
       }
     }
 
+    function clearSubmitTimeout() {
+      if (submitTimeout) {
+        clearTimeout(submitTimeout);
+        submitTimeout = null;
+      }
+    }
+
     function resetSubmitUi() {
+      clearSubmitTimeout();
       if (submitBtn) {
         submitBtn.disabled = false;
         submitBtn.textContent = SUBMIT_TEXT;
@@ -217,7 +208,22 @@
       if (mainPanel) mainPanel.hidden = false;
       if (successPanel) successPanel.hidden = true;
       resetSubmitUi();
-      allowNativeSubmit = false;
+    }
+
+    function finishWithError() {
+      resetSubmitUi();
+      showError(ERROR_TEXT);
+    }
+
+    function finishWithSuccess() {
+      clearSubmitTimeout();
+      isSubmitting = false;
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = SUBMIT_TEXT;
+      }
+      if (form) form.removeAttribute('target');
+      showSuccess();
     }
 
     function closeModal() {
@@ -241,34 +247,30 @@
     function handleFrameLoad() {
       if (!isSubmitting) return;
 
-      var doc = null;
       var html = '';
-
       try {
-        doc = submitFrame.contentDocument || submitFrame.contentWindow.document;
+        var doc = submitFrame.contentDocument || submitFrame.contentWindow.document;
         html = doc && doc.documentElement ? doc.documentElement.innerHTML : '';
       } catch (e) {
-        resetSubmitUi();
-        showError(ERROR_TEXT);
+        finishWithError();
         return;
       }
 
-      if (!html || html.length < 120) return;
+      if (!html || html.length < 80) return;
 
-      if (responseLooksSuccessful(html, doc)) {
-        showSuccess();
-        resetSubmitUi();
+      if (responseLooksFailed(html)) {
+        finishWithError();
         return;
       }
 
-      if (responseLooksFailed(html, doc)) {
-        resetSubmitUi();
-        showError(ERROR_TEXT);
+      if (responseLooksSuccessful(html)) {
+        finishWithSuccess();
         return;
       }
 
-      resetSubmitUi();
-      showSuccess();
+      if (html.length > 400) {
+        finishWithSuccess();
+      }
     }
 
     submitFrame.addEventListener('load', handleFrameLoad);
@@ -287,18 +289,12 @@
     });
 
     function onSubmit(e) {
-      if (allowNativeSubmit) {
-        allowNativeSubmit = false;
-        return;
-      }
-
-      e.preventDefault();
-      e.stopPropagation();
-      if (isSubmitting || !form) return;
+      if (isSubmitting) return;
 
       hideError();
       var data = validateForm(form);
       if (!data) {
+        e.preventDefault();
         showError(VALIDATION_TEXT);
         return;
       }
@@ -312,13 +308,13 @@
       }
 
       form.setAttribute('target', IFRAME_NAME);
-      allowNativeSubmit = true;
 
-      if (typeof form.requestSubmit === 'function') {
-        form.requestSubmit(submitBtn || undefined);
-      } else {
-        form.submit();
-      }
+      clearSubmitTimeout();
+      submitTimeout = setTimeout(function () {
+        if (isSubmitting) finishWithError();
+      }, SUBMIT_TIMEOUT_MS);
+
+      // Native Submit zulassen (Shopify hCaptcha / Bot-Schutz)
     }
 
     if (openTrigger) {
@@ -333,7 +329,7 @@
     });
 
     if (form) {
-      form.addEventListener('submit', onSubmit, true);
+      form.addEventListener('submit', onSubmit);
       form.setAttribute('novalidate', 'novalidate');
     }
   }
