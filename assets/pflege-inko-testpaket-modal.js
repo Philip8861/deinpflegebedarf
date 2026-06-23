@@ -117,6 +117,22 @@
     if (bodyField) bodyField.value = buildBody(data);
   }
 
+  function getFormAction(form) {
+    var action = form.getAttribute('action') || '/contact';
+    return action.split('#')[0] || '/contact';
+  }
+
+  function isSuccessHtml(html) {
+    if (!html) return false;
+    if (html.indexOf('/challenge') !== -1 || html.indexOf('h-captcha-response') !== -1) return false;
+    if (html.indexOf('data-pflege-contact-success') !== -1) return true;
+    if (html.indexOf('pflege-contact-page__alert--error') !== -1) return false;
+    if (html.indexOf('form-status-list') !== -1 && html.indexOf('form-status caption-large text-body') === -1) {
+      return true;
+    }
+    return false;
+  }
+
   function ensureSubmitFrame() {
     var frame = document.getElementById(IFRAME_NAME);
     if (frame) return frame;
@@ -184,6 +200,7 @@
 
     function resetSubmitUi() {
       isSubmitting = false;
+      if (form) form.removeAttribute('target');
       if (submitBtn) {
         submitBtn.disabled = false;
         submitBtn.textContent = SUBMIT_TEXT;
@@ -223,32 +240,69 @@
       }
     }
 
-    function prepareIframeSubmit() {
-      ensureSubmitFrame();
-      form.setAttribute('target', IFRAME_NAME);
+    function handleSubmitResult(success) {
+      if (!isSubmitting) return;
+      if (success) {
+        isSubmitting = false;
+        if (form) form.removeAttribute('target');
+        showSuccessView();
+        return;
+      }
+      resetSubmitUi();
+      showError(ERROR_TEXT);
     }
 
-    function sendFormNative() {
-      prepareIframeSubmit();
-      form.submit();
-      form.removeAttribute('target');
-      showSuccessView();
+    function submitViaFetch() {
+      var action = getFormAction(form);
+      var params = new URLSearchParams();
+
+      Array.prototype.forEach.call(form.elements, function (el) {
+        if (!el.name || el.disabled) return;
+        if ((el.type === 'checkbox' || el.type === 'radio') && !el.checked) return;
+        if (el.type === 'file') return;
+        params.append(el.name, el.value);
+      });
+
+      fetch(action, {
+        method: 'POST',
+        body: params.toString(),
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+          Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+          'X-Requested-With': 'XMLHttpRequest',
+        },
+      })
+        .then(function (response) {
+          if (response.status === 429) throw new Error('rate_limit');
+          if (response.url && response.url.indexOf('/challenge') !== -1) throw new Error('captcha');
+          return response.text();
+        })
+        .then(function (html) {
+          handleSubmitResult(isSuccessHtml(html));
+        })
+        .catch(function () {
+          handleSubmitResult(false);
+        });
     }
 
     function onSubmit(e) {
-      e.preventDefault();
-
-      if (isSubmitting || isSuccessState()) return;
+      if (isSubmitting || isSuccessState()) {
+        e.preventDefault();
+        return;
+      }
 
       hideError();
 
       var data = validateForm(form);
       if (!data) {
+        e.preventDefault();
         showError(VALIDATION_TEXT);
         return;
       }
 
       syncHiddenFields(form, data);
+      e.preventDefault();
       isSubmitting = true;
 
       if (submitBtn) {
@@ -256,12 +310,7 @@
         submitBtn.textContent = SUBMITTING_TEXT;
       }
 
-      try {
-        sendFormNative();
-      } catch (err) {
-        resetSubmitUi();
-        showError(ERROR_TEXT);
-      }
+      submitViaFetch();
     }
 
     root.addEventListener('close', function () {
