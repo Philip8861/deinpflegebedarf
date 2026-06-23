@@ -332,7 +332,7 @@
         'leg',
       ])
     ) {
-      applicationAreas.push('beine-fuesse');
+      applicationAreas.push('fuss-pflege');
     }
     if (includesAny(hay, ['intim', 'perineal', 'perinealbereich', 'damenbereich'])) {
       applicationAreas.push('intimbereich');
