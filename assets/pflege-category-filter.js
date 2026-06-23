@@ -92,16 +92,6 @@
           ],
         },
         {
-          id: 'skinConditions',
-          label: 'Hautzustand',
-          options: [
-            { value: 'normal', label: 'Normale Haut' },
-            { value: 'trocken', label: 'Trockene Haut' },
-            { value: 'sehr_trocken_gereizt', label: 'Sehr trocken / gereizt' },
-            { value: 'sensitiv', label: 'Sensitiv / empfindlich' },
-          ],
-        },
-        {
           id: 'applicationAreas',
           label: 'Anwendungsbereich',
           options: [
