@@ -240,19 +240,6 @@
   color: var(--pdesc-navy) !important;
 }
 
-.product-description-content .product-description-list-heading::before,
-.product-description-content p.product-description-list-heading::before {
-  content: '';
-  display: inline-block;
-  width: 0.45rem;
-  height: 0.45rem;
-  margin-right: 0.55rem;
-  border-radius: 999px;
-  background: var(--pdesc-orange);
-  box-shadow: 0 0 0 3px rgba(248, 151, 56, 0.16);
-  vertical-align: 0.12em;
-}
-
 .product-description-content :is(
     .product-description-list-heading:last-child,
     p.product-description-list-heading:last-child,
