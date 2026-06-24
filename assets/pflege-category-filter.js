@@ -878,9 +878,15 @@
     var empty = root.querySelector('[data-pflege-cat-empty]');
 
     if (grid) {
-      grid.innerHTML = filtered.map(function (product) {
-        return renderCard(product, badgeKeys);
-      }).join('');
+      grid.innerHTML = filtered
+        .map(function (product) {
+          return renderCard(product, badgeKeys);
+        })
+        .join('');
+
+      if (root.dataset.pflegeCatAnimReady === 'true') {
+        document.dispatchEvent(new CustomEvent('pflege:category-grid-updated', { detail: { root: root } }));
+      }
     }
 
     if (empty) {
@@ -1005,6 +1011,8 @@
     document.addEventListener('keydown', function (event) {
       if (event.key === 'Escape') closeDrawer(root);
     });
+
+    root.dataset.pflegeCatAnimReady = 'true';
   }
 
   function start() {
