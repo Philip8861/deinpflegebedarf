@@ -35,6 +35,16 @@
         if (dialog.open) dialog.close();
       });
     });
+
+    dialog.querySelectorAll('a[href]').forEach(function (link) {
+      link.addEventListener(
+        'click',
+        function () {
+          if (dialog.open) dialog.close();
+        },
+        { capture: true }
+      );
+    });
   }
 
   document.querySelectorAll('dialog.pflege-category-modal').forEach(init);
