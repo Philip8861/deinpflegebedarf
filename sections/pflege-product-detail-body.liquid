@@ -210,7 +210,13 @@
     assign reviews_count_disp = product.metafields.reviews.rating_count | metafield_text | strip
   endif
 
-  assign reviews_show_tab = true
+  assign reviews_show_tab = false
+  if reviews_count_disp != blank
+    assign reviews_count_num = reviews_count_disp | plus: 0
+    if reviews_count_num > 0
+      assign reviews_show_tab = true
+    endif
+  endif
 
   assign has_tab_strip = false
   if show_legacy_tabs or reviews_show_tab
@@ -295,6 +301,33 @@
       {%- endif -%}
 
       <div class="pflege-pdp-detail__layout{% unless has_main_col %} pflege-pdp-detail__layout--facts-only{% endunless %}">
+        {%- if show_facts_panel -%}
+          <aside
+            class="pflege-pdp-detail__aside{% unless has_main_col %} pflege-pdp-detail__aside--full{% endunless %}"
+            aria-labelledby="PflegePDP-{{ section.id }}-facts"
+          >
+            {% render 'pflege-product-body-facts',
+              section_id: section.id,
+              product: product,
+              mf_pzn: mf_pzn,
+              mf_vol: mf_vol,
+              mf_ptype: mf_ptype,
+              mf_skin: mf_skin,
+              mf_del: mf_del,
+              mf_fs: mf_fs,
+              heading: section.settings.facts_heading,
+              lbl_pzn: section.settings.lbl_pzn,
+              lbl_type: section.settings.lbl_type,
+              lbl_skin: section.settings.lbl_skin,
+              lbl_del: section.settings.lbl_delivery,
+              lbl_fs: section.settings.lbl_shipping_hint,
+              lbl_brand: section.settings.lbl_brand,
+              lbl_content: section.settings.lbl_content,
+              omit_pzn_in_facts: omit_pzn_in_facts
+            %}
+          </aside>
+        {%- endif -%}
+
         <div class="pflege-pdp-detail__main-col">
           {%- if has_unified_block -%}
             {% render 'pflege-product-unified-info',
@@ -305,6 +338,7 @@
               has_hilf_line: has_hilf_line,
               has_pdf: has_pdf,
               show_placeholders: show_unified_placeholders,
+              show_extras: section.settings.show_unified_extras,
               mf_beschreibung: mf_beschreibung,
               mf_anwendung: mf_anwendung,
               mf_produkteigenschaften: mf_produkteigenschaften,
@@ -341,33 +375,6 @@
             %}
           {%- endif -%}
         </div>
-
-        {%- if show_facts_panel -%}
-          <aside
-            class="pflege-pdp-detail__aside{% unless has_main_col %} pflege-pdp-detail__aside--full{% endunless %}"
-            aria-labelledby="PflegePDP-{{ section.id }}-facts"
-          >
-            {% render 'pflege-product-body-facts',
-              section_id: section.id,
-              product: product,
-              mf_pzn: mf_pzn,
-              mf_vol: mf_vol,
-              mf_ptype: mf_ptype,
-              mf_skin: mf_skin,
-              mf_del: mf_del,
-              mf_fs: mf_fs,
-              heading: section.settings.facts_heading,
-              lbl_pzn: section.settings.lbl_pzn,
-              lbl_type: section.settings.lbl_type,
-              lbl_skin: section.settings.lbl_skin,
-              lbl_del: section.settings.lbl_delivery,
-              lbl_fs: section.settings.lbl_shipping_hint,
-              lbl_brand: section.settings.lbl_brand,
-              lbl_content: section.settings.lbl_content,
-              omit_pzn_in_facts: omit_pzn_in_facts
-            %}
-          </aside>
-        {%- endif -%}
       </div>
     </div>
     {% render 'pflege-pdp-service-foot' %}
@@ -375,6 +382,31 @@
   {%- if needs_tab_js -%}
     <script src="{{ 'pflege-pdp-horizontal-tabs.js' | asset_url }}" defer="defer"></script>
   {%- endif -%}
+  <script>
+    (function () {
+      function openPdpPanelFromHash() {
+        var hash = window.location.hash;
+        if (!hash || hash.length < 2) return;
+        var panel = document.querySelector(hash);
+        if (panel && panel.tagName === 'DETAILS') {
+          panel.open = true;
+          panel.scrollIntoView({ block: 'start', behavior: 'smooth' });
+        }
+      }
+
+      document.addEventListener('click', function (event) {
+        var link = event.target.closest('a[href^="#pflege-pdp-panel-"]');
+        if (!link) return;
+        var panel = document.querySelector(link.getAttribute('href'));
+        if (panel && panel.tagName === 'DETAILS') {
+          panel.open = true;
+        }
+      });
+
+      document.addEventListener('DOMContentLoaded', openPdpPanelFromHash);
+      window.addEventListener('hashchange', openPdpPanelFromHash);
+    })();
+  </script>
 {%- endunless -%}
 
 {% schema %}
@@ -395,7 +427,14 @@
       "id": "show_unified_placeholders",
       "label": "Platzhalter für alle Informationsbereiche anzeigen",
       "info": "Wenn kein Metafeld befüllt ist, erscheint vordefinierter Text. Nach Befüllung der Felder deaktivieren.",
-      "default": true
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_unified_extras",
+      "label": "Hilfsmittel & PDF unter Accordions",
+      "info": "Zusätzlich zum Meta-Strip unter dem Hero. Standard: aus.",
+      "default": false
     },
     {
       "type": "checkbox",
