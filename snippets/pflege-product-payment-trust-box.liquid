@@ -1,13 +1,21 @@
 {% comment %}
-  PDP – Payment-/Trust-Box unterhalb der Vorteilszeilen in der Kaufbox.
+  PDP – Payment-/Trust-Bereich (eigenständig oder eingebettet in trust-unified).
+  Accepts: merged (boolean) — ohne eigene Box-Rahmen, fließt in trust-unified
 {% endcomment %}
-<section
-  class="pflege-payment-trust-box"
+{% liquid
+  assign is_merged = merged | default: false
+  assign box_class = 'pflege-payment-trust-box'
+  if is_merged
+    assign box_class = box_class | append: ' pflege-payment-trust-box--merged'
+  endif
+%}
+<div
+  class="{{ box_class }}"
   aria-label="{{ 'products.product.pflege_cart.pay_trust_aria' | t }}"
 >
   <div class="pflege-payment-trust-box__header">
     <span class="pflege-payment-trust-box__icon" aria-hidden="true">
-      {% render 'pflege-icon', icon: 'shield', width: 20 %}
+      {% render 'pflege-icon', icon: 'shield', width: 24 %}
     </span>
     <div class="pflege-payment-trust-box__copy">
       <p class="pflege-payment-trust-box__title">{{ 'products.product.pflege_cart.pay_trust_title' | t }}</p>
@@ -27,4 +35,4 @@
   </div>
 
   {% render 'pflege-payment-badges', layout: 'pdp-grid' %}
-</section>
+</div>

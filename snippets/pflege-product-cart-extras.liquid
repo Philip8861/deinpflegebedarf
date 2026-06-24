@@ -1,8 +1,8 @@
 {% comment %}
-  Pflege PDP – hellblauer Vertrauensblock unterhalb der Kaufzeile (Mockup).
+  Pflege PDP – einheitlicher Vertrauensblock unterhalb der Kaufzeile.
 {% endcomment %}
 <div class="pflege-product__cart-extras pflege-product__cart-extras--mockup-only">
-  <div class="pflege-product__trust-panel" role="presentation">
+  <div class="pflege-product__trust-unified" role="presentation">
     <div class="pflege-product__trust-panel-row">
       {% render 'pflege-icon', icon: 'truck', width: 22 %}
       <span class="pflege-product__trust-copy">
@@ -19,7 +19,9 @@
         {% if _tq != blank %}<span class="pflege-product__trust-panel-sub">{{ _tq }}</span>{% endif %}
       </span>
     </div>
-  </div>
 
-  {% render 'pflege-product-payment-trust-box' %}
+    <div class="pflege-product__trust-unified-divider" aria-hidden="true"></div>
+
+    {% render 'pflege-product-payment-trust-box', merged: true %}
+  </div>
 </div>
