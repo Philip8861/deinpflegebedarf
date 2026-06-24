@@ -160,6 +160,10 @@
         "trust_payment_title": "Secure payment",
         "trust_quality_title": "100 % verified quality",
         "trust_quality_sub": "Carefully selected products",
+        "trust_discrete_title": "100 % discreet shipping",
+        "trust_discrete_sub": "Neutral packaging, delivered discreetly",
+        "pay_methods_label": "Pay securely with",
+        "pay_methods_aria": "Accepted payment methods",
         "trust_care_title": "Von Pflegekräften empfohlen",
         "trust_care_sub": "Vertrauen, das zählt"
       },
