@@ -462,19 +462,19 @@ body.pflege-category-filtered-page.template-collection .gradient {
   z-index: 1;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.35rem;
+  gap: 0.4rem;
   max-width: calc(100% - 1rem);
 }
 
 .pflege-cat-card__badge {
   display: inline-block;
-  padding: 0.2rem 0.55rem;
+  padding: 0.32rem 0.72rem;
   border-radius: 999px;
   background: var(--pcd-badge-bg);
   color: var(--pcd-badge-text);
-  font-size: 0.6875rem;
+  font-size: 0.875rem;
   font-weight: 700;
-  line-height: 1.3;
+  line-height: 1.35;
 }
 
 .pflege-cat-card__body {
