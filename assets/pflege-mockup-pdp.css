@@ -851,12 +851,13 @@
   margin-bottom: 0;
 }
 
-/* Einheitliche Trust-/Payment-Box */
+/* Einheitliche Trust-/Payment-Box — eine Fläche, flache Zeilen */
 .pflege-product-page .pflege-product__trust-unified {
-  --pf-trust-title: clamp(1.12rem, 1rem + 0.45vw, 1.28rem);
-  --pf-trust-sub: clamp(0.98rem, 0.92rem + 0.25vw, 1.08rem);
-  --pf-trust-icon: clamp(2.75rem, 2.5rem + 0.6vw, 3.1rem);
-  padding: clamp(1.1rem, 2.5vw, 1.35rem) clamp(1.05rem, 2.2vw, 1.25rem);
+  --pf-trust-title: clamp(1.08rem, 1rem + 0.35vw, 1.22rem);
+  --pf-trust-sub: clamp(0.94rem, 0.88rem + 0.2vw, 1.02rem);
+  --pf-trust-icon: clamp(2.65rem, 2.4rem + 0.5vw, 2.9rem);
+  --pf-trust-chip: clamp(0.92rem, 0.86rem + 0.18vw, 1rem);
+  padding: clamp(1rem, 2.2vw, 1.25rem);
   border-radius: var(--pflege-pdp-radius-sm);
   background: linear-gradient(
     180deg,
@@ -867,12 +868,53 @@
   box-shadow: 0 8px 24px rgba(0, 32, 80, 0.045);
 }
 
-.pflege-product-page .pflege-product__trust-unified-extras {
-  margin-top: 0.35rem;
-  padding: clamp(0.95rem, 2vw, 1.15rem);
-  border-radius: 0.9rem;
-  background: rgba(255, 255, 255, 0.78);
-  border: 1px solid rgba(15, 79, 105, 0.08);
+.pflege-product-page .pflege-product__trust-footer {
+  margin: 0;
+  padding: 0;
+}
+
+.pflege-product-page .pflege-product__trust-footer > .pflege-product__trust-panel-row--stacked {
+  align-items: flex-start;
+  padding-top: 0.85rem;
+  padding-bottom: 0.85rem;
+  border-top: 1px solid rgba(15, 79, 105, 0.085);
+  border-bottom: none;
+}
+
+.pflege-product-page .pflege-product__trust-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem 1.15rem;
+  margin: 0;
+  padding: 0 0 0.85rem;
+  list-style: none;
+  border-bottom: 1px solid rgba(15, 79, 105, 0.07);
+}
+
+.pflege-product-page .pflege-product__trust-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  font-size: var(--pf-trust-chip, 0.96rem) !important;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #14345d;
+  background: none;
+  border: none;
+}
+
+.pflege-product-page .pflege-product__trust-chip__check {
+  color: var(--pflege-cta, #f89738);
+  font-size: 1.02rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.pflege-product-page .pflege-product__trust-footer .pflege-pay-badges--pdp-strip {
+  padding-top: 0.9rem;
 }
 
 .pflege-product-page .pflege-product__trust-panel {
@@ -886,25 +928,16 @@
   border: 1px solid rgba(15, 79, 105, 0.12);
 }
 
-.pflege-product-page .pflege-product__trust-unified > .pflege-product__trust-panel-row,
-.pflege-product-page .pflege-payment-trust-box--merged > .pflege-product__trust-panel-row {
+.pflege-product-page .pflege-product__trust-unified > .pflege-product__trust-panel-row {
   display: flex;
   align-items: center;
-  gap: 0.9rem;
-  padding: 0.82rem 0;
+  gap: 0.85rem;
+  padding: 0.78rem 0;
   border-bottom: 1px solid rgba(15, 79, 105, 0.085);
 }
 
-.pflege-product-page .pflege-product__trust-unified > .pflege-product__trust-panel-row:first-child,
-.pflege-product-page .pflege-payment-trust-box--merged > .pflege-product__trust-panel-row:first-child {
+.pflege-product-page .pflege-product__trust-unified > .pflege-product__trust-panel-row:first-child {
   padding-top: 0;
-}
-
-.pflege-product-page .pflege-product__trust-unified > .pflege-product__trust-panel-row--stacked,
-.pflege-product-page .pflege-payment-trust-box--merged > .pflege-product__trust-panel-row--stacked {
-  align-items: flex-start;
-  border-bottom: none;
-  padding-bottom: 0.15rem;
 }
 
 .pflege-product-page .pflege-product__trust-panel-row {
@@ -935,9 +968,27 @@
   padding-bottom: 0.15rem;
 }
 
-.pflege-product-page .pflege-product__trust-unified > .pflege-product__trust-panel-row:last-child,
-.pflege-product-page .pflege-payment-trust-box--merged > .pflege-product__trust-panel-row:last-child {
+.pflege-product-page .pflege-product__trust-unified > .pflege-product__trust-panel-row:last-of-type {
   border-bottom: none;
+}
+
+@media screen and (max-width: 749px) {
+  .pflege-product-page .pflege-product__trust-chips {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.45rem;
+  }
+
+  .pflege-product-page .pflege-product__trust-footer > .pflege-product__trust-panel-row--stacked {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+}
+
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .pflege-product-page .pflege-product__trust-unified {
+    padding: 1.05rem 1.1rem;
+  }
 }
 
 .pflege-product-page .pflege-product__trust-panel-row:first-child {
