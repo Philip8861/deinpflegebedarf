@@ -1,0 +1,34 @@
+{%- comment -%}
+  ProductDescriptionSection — zentrale, wiederverwendbare Beschreibungskarte für alle Produkte.
+  Quelle: ausschließlich product.description (Shopify body_html), keine hardcodierten Produkttexte.
+  Parameter: product (required), heading (optional)
+{%- endcomment -%}
+{%- liquid
+  assign desc_html = product.description
+  if desc_html == blank
+    assign show_description = false
+  else
+    assign show_description = true
+  endif
+
+  assign section_heading = heading | strip
+  if section_heading == blank
+    assign section_heading = 'products.product.description' | t
+  endif
+-%}
+{%- if show_description -%}
+  <div class="pflege-product-description-section" id="pflege-product-description">
+    <article class="pflege-product-description-section__card">
+      <header class="pflege-product-description-section__header">
+        <h2 class="pflege-product-description-section__title">{{ section_heading | escape }}</h2>
+        <span class="pflege-product-description-section__accent" aria-hidden="true"></span>
+      </header>
+      <div
+        class="product-description-content rte pflege-product-description-section__content"
+        data-pflege-product-description
+      >
+        {{ desc_html }}
+      </div>
+    </article>
+  </div>
+{%- endif -%}
