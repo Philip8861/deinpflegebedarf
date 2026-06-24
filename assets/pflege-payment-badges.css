@@ -88,6 +88,12 @@
   list-style: none;
 }
 
+.pflege-product-page .pflege-pay-badges__grid {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  flex-direction: row !important;
+}
+
 .pflege-pay-badges__pill {
   display: flex;
   align-items: center;
@@ -122,6 +128,13 @@
   width: auto;
   max-width: 4.25rem;
   object-fit: contain;
+}
+
+.pflege-product-page .pflege-pay-badges__logo {
+  width: auto !important;
+  max-width: 4.25rem !important;
+  height: auto !important;
+  max-height: 1.625rem !important;
 }
 
 .pflege-pay-badges__logo--wide {
