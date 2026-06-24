@@ -48,7 +48,7 @@
   width: auto !important;
   height: auto !important;
   max-width: 100% !important;
-  max-height: clamp(1.55rem, 1.4rem + 0.3vw, 1.85rem) !important;
+  max-height: clamp(1.65rem, 1.5rem + 0.35vw, 1.95rem) !important;
   object-fit: contain;
 }
 

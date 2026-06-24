@@ -851,13 +851,16 @@
   margin-bottom: 0;
 }
 
-/* Einheitliche Trust-/Payment-Box — eine Fläche, flache Zeilen */
+/* Einheitliche Trust-/Payment-Box — eine Fläche, saubere Zeilen */
 .pflege-product-page .pflege-product__trust-unified {
-  --pf-trust-title: clamp(1.08rem, 1rem + 0.35vw, 1.22rem);
-  --pf-trust-sub: clamp(0.94rem, 0.88rem + 0.2vw, 1.02rem);
-  --pf-trust-icon: clamp(2.65rem, 2.4rem + 0.5vw, 2.9rem);
-  --pf-trust-chip: clamp(0.92rem, 0.86rem + 0.18vw, 1rem);
-  padding: clamp(1rem, 2.2vw, 1.25rem);
+  --pf-trust-title: clamp(1.14rem, 1.04rem + 0.42vw, 1.3rem);
+  --pf-trust-sub: clamp(1rem, 0.93rem + 0.24vw, 1.1rem);
+  --pf-trust-icon: 2.85rem;
+  --pf-trust-icon-gap: 1rem;
+  --pf-trust-chip: clamp(0.98rem, 0.92rem + 0.2vw, 1.08rem);
+  --pf-trust-row-pad: 1rem;
+  --pf-trust-text-indent: calc(var(--pf-trust-icon) + var(--pf-trust-icon-gap));
+  padding: 1.15rem 1.15rem 1.2rem;
   border-radius: var(--pflege-pdp-radius-sm);
   background: linear-gradient(
     180deg,
@@ -869,15 +872,42 @@
 }
 
 .pflege-product-page .pflege-product__trust-footer {
-  margin: 0;
-  padding: 0;
+  margin: 0.35rem 0 0;
+  padding: 1.1rem 0 0;
+  border-top: 1px solid rgba(15, 79, 105, 0.085);
+}
+
+.pflege-product-page .pflege-product__trust-unified > .pflege-product__trust-panel-row,
+.pflege-product-page .pflege-product__trust-footer > .pflege-product__trust-panel-row {
+  display: grid;
+  grid-template-columns: var(--pf-trust-icon) minmax(0, 1fr);
+  column-gap: var(--pf-trust-icon-gap);
+  align-items: center;
+  padding: var(--pf-trust-row-pad) 0;
+  border-bottom: 1px solid rgba(15, 79, 105, 0.08);
+}
+
+.pflege-product-page .pflege-product__trust-unified > .pflege-product__trust-panel-row:first-child,
+.pflege-product-page .pflege-product__trust-footer > .pflege-product__trust-panel-row:first-child {
+  padding-top: 0;
+}
+
+.pflege-product-page .pflege-product__trust-panel-row--stacked {
+  align-items: start;
+}
+
+.pflege-product-page .pflege-product__trust-panel-row--stacked .pflege-product__trust-panel-row__icon {
+  margin-top: 0.1rem;
+}
+
+.pflege-product-page .pflege-product__trust-unified > .pflege-product__trust-panel-row--stacked:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
 }
 
 .pflege-product-page .pflege-product__trust-footer > .pflege-product__trust-panel-row--stacked {
-  align-items: flex-start;
-  padding-top: 0.85rem;
+  padding-top: 0;
   padding-bottom: 0.85rem;
-  border-top: 1px solid rgba(15, 79, 105, 0.085);
   border-bottom: none;
 }
 
@@ -885,9 +915,9 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.55rem 1.15rem;
-  margin: 0;
-  padding: 0 0 0.85rem;
+  gap: 0.6rem 1.25rem;
+  margin: 0 0 0 var(--pf-trust-text-indent);
+  padding: 0 0 1rem;
   list-style: none;
   border-bottom: 1px solid rgba(15, 79, 105, 0.07);
 }
@@ -895,26 +925,25 @@
 .pflege-product-page .pflege-product__trust-chip {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.42rem;
   margin: 0;
   padding: 0;
-  font-size: var(--pf-trust-chip, 0.96rem) !important;
+  font-size: var(--pf-trust-chip, 1rem) !important;
   font-weight: 600;
-  line-height: 1.35;
+  line-height: 1.4;
   color: #14345d;
-  background: none;
-  border: none;
 }
 
 .pflege-product-page .pflege-product__trust-chip__check {
   color: var(--pflege-cta, #f89738);
-  font-size: 1.02rem;
+  font-size: 1.06rem;
   font-weight: 700;
   line-height: 1;
 }
 
 .pflege-product-page .pflege-product__trust-footer .pflege-pay-badges--pdp-strip {
-  padding-top: 0.9rem;
+  padding-top: 1rem;
+  margin-left: var(--pf-trust-text-indent);
 }
 
 .pflege-product-page .pflege-product__trust-panel {
@@ -928,66 +957,51 @@
   border: 1px solid rgba(15, 79, 105, 0.12);
 }
 
-.pflege-product-page .pflege-product__trust-unified > .pflege-product__trust-panel-row {
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-  padding: 0.78rem 0;
-  border-bottom: 1px solid rgba(15, 79, 105, 0.085);
-}
-
-.pflege-product-page .pflege-product__trust-unified > .pflege-product__trust-panel-row:first-child {
-  padding-top: 0;
-}
-
-.pflege-product-page .pflege-product__trust-panel-row {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.68rem 0;
-  border-bottom: 1px solid rgba(15, 79, 105, 0.085);
-}
-
 .pflege-product-page .pflege-product__trust-copy {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.18rem;
+  gap: 0.28rem;
   min-width: 0;
+  grid-column: 2;
+  grid-row: 1;
 }
 
 .pflege-product-page .pflege-product__trust-panel-sub {
   font-size: var(--pf-trust-sub, 1.05rem) !important;
   font-weight: 500;
-  line-height: 1.5;
-  color: rgba(20, 52, 93, 0.68);
-}
-
-.pflege-product-page .pflege-product__trust-panel-row:last-child {
-  border-bottom: none;
-  padding-bottom: 0.15rem;
-}
-
-.pflege-product-page .pflege-product__trust-unified > .pflege-product__trust-panel-row:last-of-type {
-  border-bottom: none;
+  line-height: 1.52;
+  color: rgba(20, 52, 93, 0.7);
 }
 
 @media screen and (max-width: 749px) {
+  .pflege-product-page .pflege-product__trust-unified {
+    --pf-trust-row-pad: 0.9rem;
+    padding: 1rem;
+  }
+
+  .pflege-product-page .pflege-product__trust-footer {
+    margin-top: 0.25rem;
+    padding-top: 1rem;
+  }
+
   .pflege-product-page .pflege-product__trust-chips {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.45rem;
+    gap: 0.5rem;
+    margin-left: 0;
+    padding-left: var(--pf-trust-text-indent);
   }
 
-  .pflege-product-page .pflege-product__trust-footer > .pflege-product__trust-panel-row--stacked {
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
+  .pflege-product-page .pflege-product__trust-footer .pflege-pay-badges--pdp-strip {
+    margin-left: 0;
+    padding-left: var(--pf-trust-text-indent);
   }
 }
 
 @media screen and (min-width: 750px) and (max-width: 989px) {
   .pflege-product-page .pflege-product__trust-unified {
-    padding: 1.05rem 1.1rem;
+    padding: 1.1rem 1.12rem 1.15rem;
   }
 }
 
@@ -1016,12 +1030,8 @@
   box-sizing: border-box;
   background: rgba(88, 145, 215, 0.12);
   color: #2c6abf;
-}
-
-.pflege-product-page .pflege-product__trust-panel-row__icon .pflege-icon,
-.pflege-product-page .pflege-product__trust-panel-row .pflege-icon {
-  width: var(--pf-trust-icon, 2.85rem);
-  height: var(--pf-trust-icon, 2.85rem);
+  grid-column: 1;
+  grid-row: 1;
 }
 
 .pflege-product-page .pflege-product__trust-panel-row__icon .pflege-icon svg,
