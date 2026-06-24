@@ -743,7 +743,7 @@
       applicationAreas.push('haare');
     }
 
-    if (includesAny(hay, ['duschgel', 'dusch', 'badezusatz', 'pflegebad', 'badepflege', 'waschbad', 'bad')) {
+    if (includesAny(hay, ['duschgel', 'dusch', 'badezusatz', 'pflegebad', 'badepflege', 'waschbad', 'bad'])) {
       productTypes.push('dusch-bade');
       applicationAreas.push('bad');
     }
