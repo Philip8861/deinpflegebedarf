@@ -239,8 +239,11 @@ class PredictiveSearch extends SearchForm {
   }
 
   getResultsMaxHeight() {
-    this.resultsMaxHeight =
-      window.innerHeight - document.querySelector('.section-header')?.getBoundingClientRect().bottom;
+    const viewportPadding = 16;
+    const searchHostBottom = this.getBoundingClientRect().bottom;
+    const headerBottom = document.querySelector('.section-header')?.getBoundingClientRect().bottom ?? 0;
+    const anchorBottom = Math.max(searchHostBottom, headerBottom);
+    this.resultsMaxHeight = Math.max(240, window.innerHeight - anchorBottom - viewportPadding);
     return this.resultsMaxHeight;
   }
 

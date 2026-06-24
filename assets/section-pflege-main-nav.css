@@ -244,7 +244,10 @@
   box-shadow:
     0 0 0 1px rgba(88, 145, 215, 0.06),
     0 12px 32px rgba(11, 35, 71, 0.1);
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
 
 .pflege-main-nav-section .pflege-main-nav__predictive-panel .predictive-search__results-groups-wrapper {
