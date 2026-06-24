@@ -124,7 +124,7 @@
   position: absolute;
   top: clamp(0.9rem, 1.6vw, 1.2rem);
   left: clamp(1.05rem, 2.2vw, 1.45rem);
-  font-size: clamp(2.35rem, 1.8rem + 1.5vw, 3.15rem);
+  font-size: clamp(4.7rem, 3.6rem + 3vw, 6.3rem);
   line-height: 1;
   font-weight: 700;
   color: rgba(63, 134, 217, 0.34);
