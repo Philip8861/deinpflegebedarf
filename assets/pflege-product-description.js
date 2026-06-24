@@ -1,7 +1,5 @@
 /**
  * ProductDescriptionSection — Ausgabe-Hilfen für Shopify product.description.
- * Entfernt optional Legacy-Abschnitte (nur exakte Überschriften).
- * Wrappt erkannte h2/h3-Abschnitte generisch in optische Blöcke.
  */
 (function () {
   var REMOVE_HEADINGS = ['auf einen blick', 'anwendung', 'produkteigenschaften'];
@@ -14,13 +12,62 @@
 
   function normalize(text) {
     return String(text || '')
+      .replace(/\u00a0/g, ' ')
       .replace(/\s+/g, ' ')
       .trim()
       .toLowerCase();
   }
 
+  function plainText(html) {
+    var tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    return String(tmp.textContent || '')
+      .replace(/\u00a0/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
   function headingLevel(node) {
     return parseInt(node.tagName.charAt(1), 10);
+  }
+
+  function endsWithColon(text) {
+    if (!text) return false;
+    var last = text.charAt(text.length - 1);
+    return last === ':' || last === '\uFF1A';
+  }
+
+  function isLikelyListHeadingText(text) {
+    var t = normalize(text);
+    if (!t || t.length < 8) return false;
+    if (endsWithColon(t)) return t.length <= 140;
+    if (t.length <= 90) {
+      return (
+        /einsatzbereiche|highlights|technische daten|eigenschaften|anwendung|vorteile|merkmale|herstellerinformationen/.test(
+          t
+        ) || /^(die |vielseitige |kinderleichte )/.test(t)
+      );
+    }
+    return false;
+  }
+
+  function markListHeading(node) {
+    if (!node || node.classList.contains('product-description-list-heading')) return;
+
+    if (/^H[1-6]$/.test(node.tagName)) {
+      node.classList.add('product-description-section-heading');
+      return;
+    }
+
+    if (node.tagName === 'P') {
+      node.classList.add('product-description-list-heading');
+      return;
+    }
+
+    var heading = document.createElement('p');
+    heading.className = 'product-description-list-heading';
+    heading.innerHTML = node.innerHTML;
+    node.parentNode.replaceChild(heading, node);
   }
 
   function isUnwantedSectionHeading(node) {
@@ -168,41 +215,127 @@
     return null;
   }
 
-  function isPromotableListHeading(node) {
-    if (!node) return false;
-    if (/^H[1-6]$/.test(node.tagName)) return true;
-    if (node.tagName !== 'P' && node.tagName !== 'DIV') return false;
+  function wrapBareTextBeforeList(list) {
+    var parent = list.parentElement;
+    if (!parent) return;
 
-    var text = normalize(node.textContent);
-    if (!text) return false;
-    if (text.charAt(text.length - 1) === ':') return true;
+    var node = list.previousSibling;
+    var nodesToRemove = [];
+    var chunks = [];
 
-    var strongEl = node.querySelector('strong, b');
-    if (strongEl && normalize(strongEl.textContent) === text) return true;
-
-    if (node.children.length === 1) {
-      var child = node.children[0];
-      if (/^(STRONG|B|SPAN|EM)$/i.test(child.tagName) && normalize(child.textContent) === text) {
-        return true;
+    while (node) {
+      if (node.nodeType === 3) {
+        var t = String(node.textContent || '')
+          .replace(/\u00a0/g, ' ')
+          .replace(/\s+/g, ' ')
+          .trim();
+        if (t) chunks.unshift(t);
+        nodesToRemove.unshift(node);
+        node = node.previousSibling;
+      } else if (node.nodeType === 1 && /^BR$/i.test(node.tagName)) {
+        nodesToRemove.unshift(node);
+        node = node.previousSibling;
+      } else {
+        break;
       }
     }
 
-    return false;
+    if (!chunks.length) return;
+
+    var text = chunks.join(' ').replace(/\s+/g, ' ').trim();
+    if (!isLikelyListHeadingText(text)) return;
+
+    var heading = document.createElement('p');
+    heading.className = 'product-description-list-heading';
+    heading.textContent = text;
+    nodesToRemove.forEach(function (n) {
+      n.remove();
+    });
+    parent.insertBefore(heading, list);
   }
 
-  function promoteListSectionHeadings(container) {
+  function splitHeadingParagraphBeforeList(list) {
+    var prev = list.previousElementSibling;
+    if (!prev || prev.tagName !== 'P' || prev.classList.contains('product-description-list-heading')) {
+      return;
+    }
+
+    var html = prev.innerHTML;
+    var segments = html.split(/(?:<br\s*\/?>\s*){1,}/i);
+    if (segments.length < 2) return;
+
+    var lastSegment = plainText(segments[segments.length - 1]);
+    if (!isLikelyListHeadingText(lastSegment)) return;
+
+    var introHtml = segments.slice(0, -1).join('<br><br>');
+    prev.innerHTML = introHtml;
+
+    if (!normalize(prev.textContent)) {
+      prev.remove();
+    }
+
+    var heading = document.createElement('p');
+    heading.className = 'product-description-list-heading';
+    heading.textContent = lastSegment;
+    list.parentNode.insertBefore(heading, list);
+  }
+
+  function promoteElementBeforeList(list) {
+    var prev = previousMeaningfulSibling(list);
+    if (!prev || prev.classList.contains('product-description-list-heading')) return;
+
+    if (/^H[1-6]$/.test(prev.tagName)) {
+      markListHeading(prev);
+      return;
+    }
+
+    var text = plainText(prev.innerHTML || prev.textContent);
+    if (!isLikelyListHeadingText(text)) return;
+
+    if (/^(P|DIV|SPAN|FONT|STRONG|B)$/i.test(prev.tagName)) {
+      markListHeading(prev);
+    }
+  }
+
+  function processAllListHeadings(container) {
     container.querySelectorAll('ul, ol').forEach(function (list) {
-      var prev = previousMeaningfulSibling(list);
-      if (!prev || prev.classList.contains('product-description-list-heading')) return;
+      wrapBareTextBeforeList(list);
+      splitHeadingParagraphBeforeList(list);
+      promoteElementBeforeList(list);
+    });
+  }
 
-      if (!isPromotableListHeading(prev)) return;
+  function isSectionHeading(node) {
+    if (!node || node.nodeType !== 1) return false;
+    if (node.classList.contains('product-description-list-heading')) return true;
+    if (node.classList.contains('product-description-section-heading')) return true;
+    return /^H[2-6]$/.test(node.tagName);
+  }
 
-      if (/^H[1-6]$/.test(prev.tagName)) {
-        prev.classList.add('product-description-section-heading');
-        return;
+  function wrapLeadSection(container) {
+    if (container.querySelector('.product-description-lead')) return;
+
+    var scopes = container.querySelectorAll('.product-description-block--intro');
+    if (!scopes.length) scopes = [container];
+
+    scopes.forEach(function (scope) {
+      var children = Array.from(scope.children);
+      var leadNodes = [];
+
+      for (var i = 0; i < children.length; i++) {
+        var node = children[i];
+        if (isSectionHeading(node) || /^UL|OL|TABLE$/i.test(node.tagName)) break;
+        leadNodes.push(node);
       }
 
-      prev.classList.add('product-description-list-heading');
+      if (!leadNodes.length) return;
+
+      var lead = document.createElement('div');
+      lead.className = 'product-description-lead';
+      scope.insertBefore(lead, leadNodes[0]);
+      leadNodes.forEach(function (node) {
+        lead.appendChild(node);
+      });
     });
   }
 
@@ -226,18 +359,24 @@
   }
 
   function enhanceProductDescription(container) {
-    if (!container || container.getAttribute('data-pflege-description-ready') === 'true') return;
+    if (!container) return;
+    if (container.getAttribute('data-pflege-description-ready') === 'true') return;
 
     normalizeInlineTypography(container);
     cleanUnwantedSections(container);
-    promoteListSectionHeadings(container);
+    processAllListHeadings(container);
     wrapTopLevelSections(container);
+    processAllListHeadings(container);
+    wrapLeadSection(container);
     wrapTables(container);
-    promoteListSectionHeadings(container);
     normalizeInlineTypography(container);
 
     container.setAttribute('data-pflege-description-ready', 'true');
   }
+
+  window.PflegeProductDescription = {
+    enhance: enhanceProductDescription,
+  };
 
   function init() {
     document.querySelectorAll('[data-pflege-product-description]').forEach(enhanceProductDescription);
