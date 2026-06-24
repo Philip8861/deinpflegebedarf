@@ -276,6 +276,7 @@
     var errorEl = root.querySelector('[data-pflege-inko-form-error]');
     var submitBtn = root.querySelector('[data-pflege-inko-submit]');
     var isSubmitting = false;
+    var submitSettled = false;
     var submitTimeoutId = null;
     var pendingFrameLoad = null;
 
@@ -337,6 +338,7 @@
       hideError();
       root.classList.remove(SUCCESS_CLASS);
       root.dataset.pflegeInkoState = '';
+      submitSettled = false;
       if (form) {
         form.reset();
         clearFieldErrors(form);
@@ -367,16 +369,21 @@
     }
 
     function handleSubmitResult(success) {
-      if (!isSubmitting) return;
+      if (!isSubmitting || submitSettled) return;
+      submitSettled = true;
       clearSubmitWatchers();
       if (form) form.removeAttribute('target');
 
       if (success) {
         isSubmitting = false;
         showSuccessView();
+        if (!root.open && typeof root.showModal === 'function') {
+          root.showModal();
+        }
         return;
       }
 
+      submitSettled = false;
       resetSubmitUi();
       showError(ERROR_TEXT);
     }
@@ -406,6 +413,7 @@
       syncHiddenFields(form, data);
       e.preventDefault();
       isSubmitting = true;
+      submitSettled = false;
 
       if (submitBtn) {
         submitBtn.disabled = true;
@@ -416,6 +424,9 @@
     }
 
     root.addEventListener('close', function () {
+      if (isSuccessState()) {
+        resetFormState();
+      }
       if (lastFocused && typeof lastFocused.focus === 'function') {
         try {
           lastFocused.focus();
@@ -424,11 +435,12 @@
     });
 
     root.addEventListener('cancel', function (e) {
-      if (isSuccessState()) e.preventDefault();
+      e.preventDefault();
     });
 
     root.addEventListener('click', function (e) {
-      if (e.target === root && !isSuccessState()) userClose();
+      if (e.target !== root || isSuccessState() || isSubmitting) return;
+      userClose();
     });
 
     if (openTrigger) {
@@ -439,7 +451,9 @@
     }
 
     root.querySelectorAll('[data-pflege-inko-modal-close]').forEach(function (el) {
-      el.addEventListener('click', userClose);
+      el.addEventListener('click', function () {
+        userClose();
+      });
     });
 
     if (form) {

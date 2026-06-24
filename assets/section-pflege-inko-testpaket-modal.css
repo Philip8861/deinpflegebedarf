@@ -456,6 +456,10 @@
   color: var(--inko-modal-trust-icon);
 }
 
+.pflege-inko-modal--success .pflege-inko-modal__close {
+  display: none;
+}
+
 .pflege-inko-modal__success-screen {
   display: flex;
   flex-direction: column;
