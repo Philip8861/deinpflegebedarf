@@ -55,12 +55,15 @@
 
 .product-description-content,
 .pflege-product-description-section__content {
+  --pdesc-body: 1.0625rem;
+  --pdesc-heading: 1.1875rem;
   min-width: 0;
   max-width: 100%;
   overflow-wrap: anywhere;
   word-break: break-word;
   font-family: inherit;
-  font-size: clamp(0.9375rem, 1.55vw, 1.0625rem);
+  font-size: var(--pdesc-body);
+  font-weight: 400;
   line-height: 1.7;
   color: var(--pdesc-text);
 }
@@ -130,11 +133,37 @@
   margin-bottom: 0;
 }
 
+/* Einheitliche Schriftgrößen — überschreibt Shopify-Inline-Styles (font-size aus dem Admin) */
+.product-description-content :is(
+    p,
+    li,
+    td,
+    th,
+    blockquote,
+    a,
+    span,
+    div,
+    font,
+    em,
+    i,
+    label,
+    small
+  ) {
+  font-family: inherit !important;
+  font-size: var(--pdesc-body) !important;
+  line-height: 1.7 !important;
+}
+
+.product-description-content :is(p, li, td, th, blockquote, span, div, font, em, i) {
+  font-weight: 400;
+}
+
 .product-description-content :where(h1, h2, h3, h4, h5, h6) {
   margin: 1.75em 0 0.6em;
-  font-family: inherit;
-  font-weight: 700;
-  line-height: 1.35;
+  font-family: inherit !important;
+  font-size: var(--pdesc-heading) !important;
+  font-weight: 700 !important;
+  line-height: 1.4 !important;
   letter-spacing: -0.02em;
   color: var(--pdesc-navy);
 }
@@ -147,7 +176,6 @@
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  font-size: clamp(1.22rem, 2vw, 1.48rem);
 }
 
 .product-description-content :where(h2)::before {
@@ -164,7 +192,6 @@
   display: flex;
   align-items: center;
   gap: 0.55rem;
-  font-size: clamp(1.08rem, 1.75vw, 1.28rem);
 }
 
 .product-description-content :where(h3)::before {
@@ -181,8 +208,10 @@
   box-shadow: 0 0 0 3px rgba(248, 151, 56, 0.15);
 }
 
-.product-description-content :where(h4, h5, h6) {
-  font-size: clamp(1rem, 1.55vw, 1.12rem);
+.product-description-content :where(strong, b) {
+  font-weight: 700 !important;
+  font-size: inherit !important;
+  color: var(--pdesc-navy);
 }
 
 /* Orangene Check-Listen */
@@ -254,11 +283,6 @@
   color: var(--pdesc-navy);
 }
 
-.product-description-content :where(strong, b) {
-  font-weight: 700;
-  color: var(--pdesc-navy);
-}
-
 .product-description-content :where(blockquote) {
   margin: 1.15em 0;
   padding: 0.9em 1.15em;
@@ -318,7 +342,6 @@
 
   .product-description-content :where(table) {
     min-width: 22rem;
-    font-size: 0.94rem;
   }
 
   .product-description-content :where(ul > li) {

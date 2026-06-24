@@ -149,12 +149,33 @@
     });
   }
 
+  function normalizeInlineTypography(container) {
+    container.querySelectorAll('[style]').forEach(function (el) {
+      if (!el.style) return;
+      el.style.removeProperty('font-size');
+      el.style.removeProperty('font-size-adjust');
+      el.style.removeProperty('line-height');
+      el.style.removeProperty('font-family');
+      el.style.removeProperty('font-weight');
+      if (!el.getAttribute('style') || !el.getAttribute('style').trim()) {
+        el.removeAttribute('style');
+      }
+    });
+
+    container.querySelectorAll('font').forEach(function (el) {
+      el.removeAttribute('size');
+      el.removeAttribute('face');
+    });
+  }
+
   function enhanceProductDescription(container) {
     if (!container || container.getAttribute('data-pflege-description-ready') === 'true') return;
 
+    normalizeInlineTypography(container);
     cleanUnwantedSections(container);
     wrapTopLevelSections(container);
     wrapTables(container);
+    normalizeInlineTypography(container);
 
     container.setAttribute('data-pflege-description-ready', 'true');
   }
