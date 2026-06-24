@@ -611,6 +611,10 @@
     var hay = buildHaystack(product);
     var productTypes = [];
     var applicationAreas = [];
+    var materials = [];
+    var absorbency = [];
+    var formats = [];
+    var packUnits = [];
     var properties = [];
 
     if (
@@ -677,6 +681,87 @@
       productTypes.push('tuecher-papier');
     }
 
+    if (includesAny(hay, ['unterleger', 'saugeinlage', 'saug einlage', 'sauger', 'saugmatte'])) {
+      productTypes.push('unterleger-einlagen');
+      applicationAreas.push('bett');
+    }
+
+    if (
+      includesAny(hay, [
+        'toilettenpapier',
+        'feuchttuch',
+        'feuchttuecher',
+        'wc ',
+        'toilette',
+        'urinal',
+        'toilettensitz',
+      ])
+    ) {
+      productTypes.push('wc-hygiene');
+      applicationAreas.push('hygiene');
+    }
+
+    if (includesAny(hay, ['vlies', 'non-woven', 'nonwoven', 'vliesstoff'])) {
+      materials.push('vlies');
+    }
+    if (includesAny(hay, ['polyethylen', ' pe ', 'kunststoff', 'plastic', 'polypropylen', ' pp '])) {
+      materials.push('kunststoff');
+    }
+    if (includesAny(hay, ['papier', 'zellstoff', 'cellulose', 'tissue'])) {
+      materials.push('papier');
+    }
+    if (includesAny(hay, ['latex']) && !includesAny(hay, ['latexfrei', 'latex frei', 'latex-free'])) {
+      materials.push('latex');
+    }
+    if (includesAny(hay, ['nitril', 'nitrile'])) {
+      materials.push('nitril');
+    }
+
+    if (includesAny(hay, ['sehr stark', 'extra stark', 'extra-stark', 'maxi', 'super saug'])) {
+      absorbency.push('extra-stark');
+    } else if (includesAny(hay, ['stark', 'heavy', 'plus', 'hoch saug'])) {
+      absorbency.push('stark');
+    }
+    if (includesAny(hay, ['mittel', 'medium', 'normal', 'regular'])) {
+      absorbency.push('mittel');
+    }
+    if (includesAny(hay, ['leicht', 'light', 'mini', 'tropfen'])) {
+      absorbency.push('leicht');
+    }
+
+    if (includesAny(hay, ['fluessigkeitsdicht', 'flüssigkeitsdicht', 'wasserdicht', 'pe folie', 'rückseite folie'])) {
+      formats.push('fluessigkeitsdicht');
+    }
+    if (includesAny(hay, ['flach', 'flat', 'liegeformat'])) {
+      formats.push('flach');
+    }
+    if (includesAny(hay, ['mehrlagig', '3-lagig', '4-lagig', '5-lagig', 'multi layer'])) {
+      formats.push('mehrlagig');
+    }
+    if (includesAny(hay, ['anatomisch', 'anatom', 'geformt', 'shaped'])) {
+      formats.push('anatomisch');
+    }
+    if (includesAny(hay, ['selbstklebend', 'klebestreifen', 'fixier', 'haftend'])) {
+      formats.push('selbstklebend');
+    }
+
+    if (includesAny(hay, ['100 st', '100er', '120 st', '150 st', '200 st', '250 st'])) {
+      packUnits.push('pack-100');
+    } else if (includesAny(hay, ['50 st', '50er', '60 st', '75 st'])) {
+      packUnits.push('pack-50');
+    } else if (includesAny(hay, ['25 st', '25er', '30 st', '30er', '20 st', '20er'])) {
+      packUnits.push('pack-25');
+    }
+    if (includesAny(hay, ['rolle', 'roll', 'perforiert'])) {
+      packUnits.push('rolle');
+    }
+    if (includesAny(hay, ['karton', 'gebinde', 'bulk', 'spende'])) {
+      packUnits.push('karton');
+    }
+    if (includesAny(hay, ['einzel', 'single', '1 st', '1er'])) {
+      packUnits.push('einzelpack');
+    }
+
     if (includesAny(hay, ['einmal', 'disposable', 'single use', 'einsatz', 'verbrauch'])) {
       properties.push('einweg');
     }
@@ -689,6 +774,9 @@
     if (includesAny(hay, ['pflegebox', 'pflegehilfsmittel', '42 euro', '42€', 'hilfsmittel'])) {
       properties.push('pflegebox');
     }
+    if (includesAny(hay, ['saugfaehig', 'saugfähig', 'saugstark', 'hoch saugfaehig', 'hoch saugfähig'])) {
+      properties.push('saugfaehig');
+    }
 
     if (includesAny(hay, ['bett', 'bettpflege', 'liege'])) {
       applicationAreas.push('bett');
@@ -699,6 +787,9 @@
     if (includesAny(hay, ['haushalt', 'alltag', 'pflege'])) {
       applicationAreas.push('alltag');
     }
+    if (includesAny(hay, ['inkontinenz', 'inko', 'urin', 'stuhl'])) {
+      applicationAreas.push('inkontinenz');
+    }
 
     if (!productTypes.length && includesAny(hay, ['verbrauch', 'einweg', 'hygiene'])) {
       productTypes.push('verbrauchsartikel');
@@ -708,6 +799,10 @@
       categorySlug: product.categorySlug || 'verbrauchsartikel',
       productTypes: unique(productTypes),
       applicationAreas: unique(applicationAreas),
+      materials: unique(materials),
+      absorbency: unique(absorbency),
+      formats: unique(formats),
+      packUnits: unique(packUnits),
       brand: normalizeBrand(product.vendor),
       sizes: extractSizes(hay, product.optionValues),
       properties: unique(properties),

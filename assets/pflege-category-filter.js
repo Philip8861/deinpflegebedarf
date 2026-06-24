@@ -56,6 +56,7 @@
     steril: 'Steril',
     pflegebox: 'Pflegebox',
     hautfreundlich: 'Hautfreundlich',
+    saugfaehig: 'Saugfähig',
     alkoholfrei: 'Alkoholfrei',
     puderfrei: 'Puderfrei',
   };
@@ -198,10 +199,12 @@
           label: 'Produkttyp',
           options: [
             { value: 'bettschutzeinlagen', label: 'Bettschutzeinlagen' },
-            { value: 'schutzschuerzen', label: 'Schutzschürzen' },
+            { value: 'schutzschuerzen', label: 'Schutzschürzen & Kittel' },
             { value: 'mundschutz-masken', label: 'Mundschutz & Masken' },
             { value: 'abfall-entsorgung', label: 'Abfall & Entsorgung' },
             { value: 'tuecher-papier', label: 'Tücher & Papier' },
+            { value: 'unterleger-einlagen', label: 'Unterleger & Saugeinlagen' },
+            { value: 'wc-hygiene', label: 'WC- & Hygieneartikel' },
           ],
         },
         {
@@ -212,6 +215,51 @@
             { value: 'hygiene', label: 'Hygiene & Schutz' },
             { value: 'praxis', label: 'Praxis & Klinik' },
             { value: 'alltag', label: 'Alltag & Haushalt' },
+            { value: 'inkontinenz', label: 'Inkontinenz & Pflege' },
+          ],
+        },
+        {
+          id: 'materials',
+          label: 'Material',
+          options: [
+            { value: 'vlies', label: 'Vlies' },
+            { value: 'kunststoff', label: 'Kunststoff / PE' },
+            { value: 'papier', label: 'Papier / Zellstoff' },
+            { value: 'latex', label: 'Latex' },
+            { value: 'nitril', label: 'Nitril' },
+          ],
+        },
+        {
+          id: 'absorbency',
+          label: 'Saugstärke',
+          options: [
+            { value: 'leicht', label: 'Leicht', drops: 1 },
+            { value: 'mittel', label: 'Mittel', drops: 2 },
+            { value: 'stark', label: 'Stark', drops: 3 },
+            { value: 'extra-stark', label: 'Extra stark', drops: 4 },
+          ],
+        },
+        {
+          id: 'formats',
+          label: 'Format / Ausführung',
+          options: [
+            { value: 'flach', label: 'Flach' },
+            { value: 'fluessigkeitsdicht', label: 'Flüssigkeitsdicht' },
+            { value: 'mehrlagig', label: 'Mehrlagig' },
+            { value: 'anatomisch', label: 'Anatomisch geformt' },
+            { value: 'selbstklebend', label: 'Selbstklebend' },
+          ],
+        },
+        {
+          id: 'packUnits',
+          label: 'Verpackung',
+          options: [
+            { value: 'einzelpack', label: 'Einzelpack / lose' },
+            { value: 'pack-25', label: 'ca. 25 Stück' },
+            { value: 'pack-50', label: 'ca. 50 Stück' },
+            { value: 'pack-100', label: '100+ Stück' },
+            { value: 'rolle', label: 'Rolle' },
+            { value: 'karton', label: 'Karton / Gebinde' },
           ],
         },
         {
@@ -222,12 +270,13 @@
             { value: 'latexfrei', label: 'Latexfrei' },
             { value: 'steril', label: 'Steril' },
             { value: 'pflegebox', label: 'Für Pflegebox' },
+            { value: 'saugfaehig', label: 'Saugfähig' },
           ],
         },
         { id: 'brand', label: 'Marke', dynamic: true },
-        { id: 'sizes', label: 'Größe / Gebinde', dynamic: true },
+        { id: 'sizes', label: 'Maße / Größe', dynamic: true },
       ],
-      badges: ['einweg', 'pflegebox'],
+      badges: ['einweg', 'pflegebox', 'saugfaehig'],
     },
     koerperpflege: {
       groups: [
