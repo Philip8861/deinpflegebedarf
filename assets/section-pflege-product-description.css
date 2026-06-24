@@ -58,7 +58,7 @@
   --pdesc-body: 1.075rem;
   --pdesc-heading-h2: clamp(1.35rem, 1.18rem + 0.65vw, 1.625rem);
   --pdesc-heading-h3: clamp(1.2rem, 1.08rem + 0.45vw, 1.375rem);
-  --pdesc-list-heading: clamp(1.38rem, 1.22rem + 0.7vw, 1.55rem);
+  --pdesc-list-heading: clamp(1.42rem, 1.25rem + 0.75vw, 1.65rem);
   min-width: 0;
   max-width: 100%;
   overflow-wrap: anywhere;
@@ -189,38 +189,56 @@
   font-weight: 700 !important;
 }
 
-/* Abschnittsüberschriften direkt über Listen — CSS :has() + JS-Klasse */
+/* Abschnittsüberschriften direkt über Listen */
+.product-description-content .product-description-list-heading,
+.product-description-content p.product-description-list-heading,
 .product-description-content :is(
     p.product-description-list-heading,
     p:has(+ ul),
     p:has(+ ol),
     .product-description-section-heading
   ) {
-  margin: 1.65em 0 0.65em;
+  display: block;
+  margin: 1.75em 0 0.7em;
   font-family: inherit !important;
   font-size: var(--pdesc-list-heading) !important;
   font-weight: 800 !important;
   line-height: 1.35 !important;
   letter-spacing: -0.025em;
-  color: var(--pdesc-navy);
+  color: var(--pdesc-navy) !important;
+}
+
+.product-description-content .product-description-list-heading::before,
+.product-description-content p.product-description-list-heading::before {
+  content: '';
+  display: inline-block;
+  width: 0.45rem;
+  height: 0.45rem;
+  margin-right: 0.55rem;
+  border-radius: 999px;
+  background: var(--pdesc-orange);
+  box-shadow: 0 0 0 3px rgba(248, 151, 56, 0.16);
+  vertical-align: 0.12em;
 }
 
 .product-description-content :is(
+    .product-description-list-heading:last-child,
     p.product-description-list-heading:last-child,
     p:has(+ ul):last-child,
     p:has(+ ol):last-child
   ) {
-  margin-bottom: 0.65em;
+  margin-bottom: 0.7em;
 }
 
 .product-description-content :is(
+    .product-description-list-heading,
     p.product-description-list-heading,
     p:has(+ ul),
     p:has(+ ol)
-  ) :where(strong, b, span) {
+  ) :where(strong, b, span, font) {
   font-size: inherit !important;
   font-weight: inherit !important;
-  color: inherit;
+  color: inherit !important;
 }
 
 .product-description-content :where(h1:first-child, h2:first-child, h3:first-child, h4:first-child) {
@@ -408,7 +426,7 @@
     --pdesc-body: 1.05rem;
     --pdesc-heading-h2: 1.28rem;
     --pdesc-heading-h3: 1.16rem;
-    --pdesc-list-heading: 1.28rem;
+    --pdesc-list-heading: 1.34rem;
   }
 
   .product-description-content :where(table) {
