@@ -83,8 +83,10 @@
             <input type="hidden" name="contact[tags]" value="testpaket, inkontinenz, deinpflegebedarf">
             <input type="hidden" name="contact[subject]" value="Kostenloses Testpaket Inkontinenzversorgung">
             <input type="hidden" name="contact[Betreff]" value="Testpaket Inkontinenzversorgung">
-            {%- if form.posted_successfully? and form.betreff == 'Testpaket Inkontinenzversorgung' -%}
+            {%- if form.posted_successfully? -%}
               <span hidden data-pflege-inko-sent-marker></span>
+            {%- elsif form.errors -%}
+              <span hidden data-pflege-inko-sent-error></span>
             {%- endif -%}
             <input type="hidden" name="contact[name]" value="" data-pflege-inko-name>
             <input type="hidden" name="contact[body]" value="" data-pflege-inko-body>

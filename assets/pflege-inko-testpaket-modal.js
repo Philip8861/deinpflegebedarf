@@ -121,12 +121,28 @@
   function isSuccessHtml(html) {
     if (!html) return false;
     if (html.indexOf('/challenge') !== -1 || html.indexOf('shopify-challenge') !== -1) return false;
+    if (html.indexOf('data-pflege-inko-sent-error') !== -1) return false;
+    if (html.indexOf('data-pflege-inko-sent-marker') !== -1) return true;
     if (html.indexOf('data-pflege-contact-success') !== -1) return true;
+    if (html.indexOf('contact_posted=true') !== -1) return true;
     if (html.indexOf('pflege-contact-page__alert--error') !== -1) return false;
     if (html.indexOf('form-status-list') !== -1 && html.indexOf('form-status caption-large text-body') === -1) {
       return true;
     }
     return false;
+  }
+
+  function getFrameHref(frame) {
+    if (!frame || !frame.contentWindow) return '';
+    try {
+      return String(frame.contentWindow.location.href || '');
+    } catch (e) {
+      return '';
+    }
+  }
+
+  function isChallengeUrl(url) {
+    return url.indexOf('/challenge') !== -1 || url.indexOf('shopify-challenge') !== -1;
   }
 
   function isSuccessDocument(doc) {
@@ -137,14 +153,31 @@
       url = doc.defaultView && doc.defaultView.location ? String(doc.defaultView.location.href) : '';
     } catch (e) {}
 
-    if (url.indexOf('/challenge') !== -1) return false;
-    if (doc.querySelector('[data-pflege-contact-success], .pflege-contact-success')) return true;
-    if (doc.querySelector('.pflege-contact-page__alert--error, .form-status.caption-large.text-body')) {
+    if (isChallengeUrl(url)) return false;
+    if (url.indexOf('contact_posted=true') !== -1) return true;
+    if (doc.querySelector('[data-pflege-inko-sent-error]')) return false;
+    if (doc.querySelector('[data-pflege-inko-sent-marker], [data-pflege-contact-success], .pflege-contact-success')) {
+      return true;
+    }
+    if (doc.querySelector('.pflege-contact-page__alert--error')) return false;
+    if (doc.querySelector('.pflege-inko-modal__form .form-status.caption-large.text-body[role="alert"]')) {
       return false;
     }
     if (doc.querySelector('h2.form-status.form-status-list.form__message')) return true;
 
     return isSuccessHtml(doc.documentElement.innerHTML || '');
+  }
+
+  function isSuccessFrame(frame) {
+    var href = getFrameHref(frame);
+    if (isChallengeUrl(href)) return false;
+    if (href.indexOf('contact_posted=true') !== -1) return true;
+
+    try {
+      return isSuccessDocument(frame.contentDocument);
+    } catch (e) {
+      return false;
+    }
   }
 
   function ensureSubmitFrame() {
@@ -289,10 +322,13 @@
       function onFrameLoad() {
         if (!isSubmitting) return;
 
+        var href = getFrameHref(frame);
+        if (!href || href === 'about:blank') return;
+
         try {
-          handleSubmitResult(isSuccessDocument(frame.contentDocument));
+          handleSubmitResult(isSuccessFrame(frame));
         } catch (e) {
-          handleSubmitResult(false);
+          handleSubmitResult(href.indexOf('contact_posted=true') !== -1);
         }
       }
 
