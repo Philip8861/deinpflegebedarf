@@ -1,5 +1,5 @@
 {% comment %}
-  Kundenstimmen / Google-Rezensionen — Homepage-Vorbild (clean, Blocks für Zitate).
+  HomepageReviewsSection — Kundenbewertungen / Kundenstimmen (neutral, ohne Google-Bezug).
 {% endcomment %}
 {{ 'section-customer-testimonials-homepage-style.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'customer-testimonials-homepage-style.js' | asset_url }}" defer="defer"></script>
@@ -8,17 +8,27 @@
   assign review_blocks = section.blocks | where: 'type', 'review'
   assign review_count = review_blocks.size
 
-  assign dot_count = 0
-  if review_count > 0
-    assign dot_count = review_count
-    if dot_count > 20
-      assign dot_count = 20
+  assign average_rating = section.settings.average_rating | default: '4.5' | replace: ',', '.' | plus: 0.0
+  if average_rating < 0
+    assign average_rating = 0
+  elsif average_rating > 5
+    assign average_rating = 5
+  endif
+
+  assign display_count = section.settings.total_review_count | default: 0 | plus: 0
+  if display_count == 0
+    if review_count > 0
+      assign display_count = review_count
+    else
+      assign display_count = 4
     endif
   endif
 
-  assign eyebrow = section.settings.eyebrow_text | strip
-  if eyebrow == blank
-    assign eyebrow = 'Google-Rezensionen · 5,0 Sterne'
+  assign rating_de = average_rating | round: 1 | replace: '.', ','
+
+  assign summary_line = section.settings.summary_text | strip
+  if summary_line == blank
+    assign summary_line = 'Kundenbewertungen · ' | append: rating_de | append: ' von 5 Sternen · Basierend auf ' | append: display_count | append: ' Bewertungen'
   endif
 
   assign head = section.settings.heading | strip
@@ -26,14 +36,19 @@
     assign head = 'Das sagen unsere Kund*innen'
   endif
 
+  assign subline = section.settings.subheading | strip
+  if subline == blank
+    assign subline = 'Echte Erfahrungen mit unserem Service'
+  endif
+
   assign btn_label_t = section.settings.button_label | strip
   if btn_label_t == blank
     assign btn_label_t = 'Alle [count] Kundenstimmen anzeigen'
   endif
-  assign btn_label_t = btn_label_t | replace: '[count]', review_count
+  assign btn_label_t = btn_label_t | replace: '[count]', display_count
 
-  assign pad_top = section.settings.padding_top | default: 64
-  assign pad_bot = section.settings.padding_bottom | default: 68
+  assign pad_top = section.settings.padding_top | default: 56
+  assign pad_bot = section.settings.padding_bottom | default: 56
   assign auto_on = section.settings.auto_rotate
   assign auto_sec = section.settings.auto_rotate_seconds | default: 5
   if auto_sec < 3
@@ -44,12 +59,22 @@
 
   assign stars_aria = section.settings.stars_aria_label | strip
   if stars_aria == blank
-    assign stars_aria = '5 von 5 Sternen'
+    assign stars_aria = rating_de | append: ' von 5 Sternen'
   endif
 
   assign modal_head = section.settings.modal_heading | strip
   if modal_head == blank
     assign modal_head = 'Alle Kundenstimmen'
+  endif
+
+  assign source_default = 'sections.customer_testimonials_hp.source_label' | t
+
+  assign dot_count = review_count
+  if dot_count == 0
+    assign dot_count = display_count
+  endif
+  if dot_count > 20
+    assign dot_count = 20
   endif
 -%}
 
@@ -79,45 +104,71 @@
 >
   <div class="ct-hp__inner">
     <header class="ct-hp__head">
-      <div class="ct-hp__stars" role="img" aria-label="{{ stars_aria | escape }}">
-        {%- for _ in (1..5) -%}
-          <span class="ct-hp__star" aria-hidden="true">★</span>
-        {%- endfor -%}
-      </div>
-      <p class="ct-hp__eyebrow">{{ eyebrow | escape }}</p>
+      {% render 'pflege-rating-stars', rating: average_rating, max: 5, aria_label: stars_aria %}
+      <p class="ct-hp__summary">{{ summary_line | escape }}</p>
       <h2 class="ct-hp__title" id="ct-title-{{ section.id }}">{{ head | escape }}</h2>
+      <p class="ct-hp__subline">{{ subline | escape }}</p>
     </header>
 
-    <div class="ct-hp__body" aria-live="polite">
-      {%- if review_count > 0 -%}
-        {%- for block in review_blocks -%}
-          <article
-            class="ct-hp__panel{% if forloop.first %} is-active{% endif %}"
-            id="ct-panel-{{ section.id }}-{{ forloop.index0 }}"
-            data-ct-panel
-            data-block-id="{{ block.id }}"
-            aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}"
-            {{ block.shopify_attributes }}
-            {% unless forloop.first %}
-              hidden
-            {% endunless %}
-          >
-            <p class="ct-hp__quote">
-              „{{ block.settings.review_text | strip | escape }}“
-            </p>
-            <span class="ct-hp__name">{{ block.settings.customer_name | strip | escape }}</span>
-            {% render 'ct-hp-verified-buyer' %}
-            <span class="ct-hp__source">
-              {{- block.settings.source_text | strip | default: 'Rezension aus Google · 5/5' | escape -}}
-            </span>
+    <div class="ct-hp__card" data-ct-card>
+      <span class="ct-hp__quote-mark" aria-hidden="true">&ldquo;</span>
+
+      <div class="ct-hp__body" aria-live="polite">
+        {%- if review_count > 0 -%}
+          {%- for block in review_blocks -%}
+            <article
+              class="ct-hp__panel{% if forloop.first %} is-active{% endif %}"
+              id="ct-panel-{{ section.id }}-{{ forloop.index0 }}"
+              data-ct-panel
+              data-block-id="{{ block.id }}"
+              aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}"
+              {{ block.shopify_attributes }}
+              {% unless forloop.first %}
+                hidden
+              {% endunless %}
+            >
+              <p class="ct-hp__quote">
+                {{ block.settings.review_text | strip | escape }}
+              </p>
+              <div class="ct-hp__author">
+                <span class="ct-hp__avatar" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" focusable="false">
+                    <circle cx="12" cy="8.25" r="3.75"/>
+                    <path d="M5.5 19.5c.65-3.05 3.05-5 6.5-5s5.85 1.95 6.5 5"/>
+                  </svg>
+                </span>
+                <div class="ct-hp__author-meta">
+                  <span class="ct-hp__name">{{ block.settings.customer_name | strip | default: 'Kundin/Kunde' | escape }}</span>
+                  {% render 'ct-hp-verified-buyer' %}
+                  <span class="ct-hp__source">
+                    {{- block.settings.source_text | strip | default: source_default | escape -}}
+                  </span>
+                </div>
+              </div>
+            </article>
+          {%- endfor -%}
+        {%- else -%}
+          <article class="ct-hp__panel is-active" data-ct-panel aria-hidden="false">
+            <p class="ct-hp__quote">{{ section.settings.fallback_quote | default: 'Sehr guter Service und schnelle Lieferung!' | escape }}</p>
+            <div class="ct-hp__author">
+              <span class="ct-hp__avatar" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false">
+                  <circle cx="12" cy="8.25" r="3.75"/>
+                  <path d="M5.5 19.5c.65-3.05 3.05-5 6.5-5s5.85 1.95 6.5 5"/>
+                </svg>
+              </span>
+              <div class="ct-hp__author-meta">
+                <span class="ct-hp__name">{{ section.settings.fallback_author | default: 'Kundin/Kunde' | escape }}</span>
+                {% render 'ct-hp-verified-buyer' %}
+                <span class="ct-hp__source">{{ source_default | escape }}</span>
+              </div>
+            </div>
           </article>
-        {%- endfor -%}
-      {%- else -%}
-        <p class="ct-hp__empty">{{ section.settings.empty_message | escape }}</p>
-      {%- endif -%}
+        {%- endif -%}
+      </div>
     </div>
 
-    {%- if review_count > 0 -%}
+    {%- if dot_count > 1 -%}
       <ul class="ct-hp__dots" role="list" aria-label="{{ 'sections.customer_testimonials_hp.dots_label' | t }}">
         {%- for i in (1..dot_count) -%}
           {%- assign dot_idx = forloop.index0 -%}
@@ -131,11 +182,7 @@
               {% if forloop.first %}
                 aria-current="true"
               {% endif %}
-            >
-              <svg class="ct-hp__dot-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path class="ct-hp__dot-check" d="M6 12.5L10 16.5L18 8.5"/>
-              </svg>
-            </button>
+            ></button>
           </li>
         {%- endfor -%}
       </ul>
@@ -143,13 +190,13 @@
 
     <div class="ct-hp__cta-wrap">
       {%- if section.settings.button_link != blank -%}
-        <a class="ct-hp__cta" href="{{ section.settings.button_link }}">
+        <a class="ct-hp__cta ct-hp__cta--primary" href="{{ section.settings.button_link }}">
           {{- btn_label_t | escape -}}
         </a>
       {%- elsif review_count > 0 -%}
         <button
           type="button"
-          class="ct-hp__cta ct-hp__cta--toggle"
+          class="ct-hp__cta ct-hp__cta--primary ct-hp__cta--toggle"
           data-ct-toggle-expand
           aria-expanded="false"
           aria-controls="ct-expand-{{ section.id }}"
@@ -157,10 +204,10 @@
           data-ct-label-less="{{ 'sections.customer_testimonials_hp.show_less' | t | escape }}"
         >
           <span data-ct-expand-label>{{ btn_label_t | escape }}</span>
-          <span class="ct-hp__cta-chevron" aria-hidden="true">{{- 'sections.customer_testimonials_hp.chevron_down' | t -}}</span>
         </button>
       {%- else -%}
-        <span class="ct-hp__cta ct-hp__cta--inactive">{{ btn_label_t | escape }}</span>
+        {%- comment -%} TODO: Link zu Bewertungsübersicht einsetzen, falls keine Blocks vorhanden. {%- endcomment -%}
+        <span class="ct-hp__cta ct-hp__cta--primary ct-hp__cta--inactive">{{ btn_label_t | escape }}</span>
       {%- endif -%}
 
       {%- unless section.settings.show_review_form == false -%}
@@ -170,12 +217,15 @@
         {%- endif -%}
         <button
           type="button"
-          class="ct-hp__cta ct-hp__cta--review"
+          class="ct-hp__cta ct-hp__cta--secondary"
           data-ct-review-open
           aria-haspopup="dialog"
           aria-expanded="false"
           aria-controls="ct-review-modal-{{ section.id }}"
         >
+          <svg class="ct-hp__cta-star" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M12 3.2l2.55 5.17 5.7.83-4.12 4.02.97 5.68L12 16.9l-5.1 2.68.97-5.68-4.12-4.02 5.7-.83L12 3.2z"/>
+          </svg>
           {{- review_btn | escape -}}
         </button>
       {%- endunless -%}
@@ -183,11 +233,7 @@
   </div>
 
   {%- if review_count > 0 and section.settings.button_link == blank -%}
-    <div
-      class="ct-hp__expand-wrap"
-      data-ct-expand-wrap
-      aria-hidden="true"
-    >
+    <div class="ct-hp__expand-wrap" data-ct-expand-wrap aria-hidden="true">
       <div class="ct-hp__expand-inner">
         <div
           class="ct-hp__expand-panel"
@@ -199,14 +245,14 @@
           <div class="ct-hp__expand-list">
             {%- for block in review_blocks -%}
               <article class="ct-hp__expand-review" {{ block.shopify_attributes }}>
-                <p class="ct-hp__quote ct-hp__quote--expand">
-                  „{{ block.settings.review_text | strip | escape }}“
-                </p>
-                <span class="ct-hp__name">{{ block.settings.customer_name | strip | escape }}</span>
-                {% render 'ct-hp-verified-buyer' %}
-                <span class="ct-hp__source">
-                  {{- block.settings.source_text | strip | default: 'Rezension aus Google · 5/5' | escape -}}
-                </span>
+                <p class="ct-hp__quote ct-hp__quote--expand">{{ block.settings.review_text | strip | escape }}</p>
+                <div class="ct-hp__author ct-hp__author--expand">
+                  <span class="ct-hp__name">{{ block.settings.customer_name | strip | escape }}</span>
+                  {% render 'ct-hp-verified-buyer' %}
+                  <span class="ct-hp__source">
+                    {{- block.settings.source_text | strip | default: source_default | escape -}}
+                  </span>
+                </div>
               </article>
             {%- endfor -%}
           </div>
@@ -353,13 +399,27 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Mehrere Kundenstimmen als Blocks. Marker-Anzahl = Bewertungs-Slots; bei weniger Texten werden Zitate zyklisch zugeordnet."
+      "content": "Neutraler Kundenbewertungs-Bereich ohne Google-Bezug. Sterne und Summary-Zeile werden aus der Durchschnittsbewertung berechnet."
     },
     {
       "type": "text",
-      "id": "eyebrow_text",
-      "label": "Zeile unter den Sternen",
-      "default": "Google-Rezensionen · 5,0 Sterne"
+      "id": "average_rating",
+      "label": "Durchschnittsbewertung (0–5)",
+      "default": "4.5",
+      "info": "Dezimalwerte möglich, z. B. 4.5 für 4 volle und 1 halben Stern."
+    },
+    {
+      "type": "number",
+      "id": "total_review_count",
+      "label": "Anzahl Bewertungen (Anzeige)",
+      "default": 4,
+      "info": "Wird in Summary-Zeile und Button-Text verwendet."
+    },
+    {
+      "type": "text",
+      "id": "summary_text",
+      "label": "Zeile unter den Sternen (optional)",
+      "info": "Leer lassen für automatische Zeile: Kundenbewertungen · X von 5 Sternen · Basierend auf N Bewertungen"
     },
     {
       "type": "text",
@@ -369,28 +429,49 @@
     },
     {
       "type": "text",
+      "id": "subheading",
+      "label": "Subline",
+      "default": "Echte Erfahrungen mit unserem Service"
+    },
+    {
+      "type": "text",
       "id": "stars_aria_label",
-      "label": "Sterne (Barrierefreiheit)",
-      "default": "5 von 5 Sternen"
+      "label": "Sterne (Barrierefreiheit, optional)"
     },
     {
       "type": "text",
       "id": "button_label",
       "label": "Button-Text",
       "default": "Alle [count] Kundenstimmen anzeigen",
-      "info": "[count] wird durch die Anzahl der Kundenstimmen-Blocks ersetzt. Die orangefarbenen Marker entsprechen dieser Anzahl (höchstens 20)."
+      "info": "[count] = Anzahl Bewertungen (Anzeige)."
     },
     {
       "type": "url",
       "id": "button_link",
       "label": "Button-Link (z. B. Kundenstimmen-Seite)",
-      "info": "Ohne Link klappt darunter auf der Seite ein Bereich mit allen Stimmen auf (und wieder zu)."
+      "info": "Ohne Link klappt darunter ein Bereich mit allen Stimmen auf."
     },
     {
       "type": "text",
       "id": "modal_heading",
       "label": "Überschrift über der aufklappbaren Liste",
       "default": "Alle Kundenstimmen"
+    },
+    {
+      "type": "header",
+      "content": "Fallback ohne Blocks"
+    },
+    {
+      "type": "textarea",
+      "id": "fallback_quote",
+      "label": "Beispiel-Zitat",
+      "default": "Sehr guter Service und schnelle Lieferung!"
+    },
+    {
+      "type": "text",
+      "id": "fallback_author",
+      "label": "Beispiel-Name",
+      "default": "Kundin/Kunde"
     },
     {
       "type": "header",
@@ -412,8 +493,7 @@
       "type": "checkbox",
       "id": "auto_rotate",
       "label": "Automatisch wechseln",
-      "default": true,
-      "info": "Wechselt Zitat und Marker (bei mehreren Stimmen)."
+      "default": true
     },
     {
       "type": "range",
@@ -443,7 +523,7 @@
       "step": 4,
       "unit": "px",
       "label": "Oben",
-      "default": 64
+      "default": 56
     },
     {
       "type": "range",
@@ -453,7 +533,7 @@
       "step": 4,
       "unit": "px",
       "label": "Unten",
-      "default": 68
+      "default": 56
     }
   ],
   "blocks": [
@@ -464,25 +544,37 @@
         {
           "type": "textarea",
           "id": "review_text",
-          "label": "Zitat"
+          "label": "Zitat",
+          "default": "Sehr guter Service und schnelle Lieferung!"
         },
         {
           "type": "text",
           "id": "customer_name",
-          "label": "Name"
+          "label": "Name",
+          "default": "Kundin/Kunde"
         },
         {
           "type": "text",
           "id": "source_text",
           "label": "Quellenzeile",
-          "info": "Leer lassen für „Rezension aus Google · 5/5“."
+          "default": "Kundenstimme"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Kundenstimmen (Homepage)"
+      "name": "Kundenstimmen (Homepage)",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "review_text": "Sehr guter Service und schnelle Lieferung!",
+            "customer_name": "Kundin/Kunde",
+            "source_text": "Kundenstimme"
+          }
+        }
+      ]
     }
   ]
 }
