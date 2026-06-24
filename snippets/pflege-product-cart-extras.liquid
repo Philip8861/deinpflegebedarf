@@ -35,8 +35,5 @@
     </div>
   </div>
 
-  <div class="pflege-product__pay-methods" aria-label="{{ 'products.product.pflege_cart.pay_methods_aria' | t }}">
-    <p class="pflege-product__pay-methods-label">{{ 'products.product.pflege_cart.pay_methods_label' | t }}</p>
-    {% render 'pflege-payment-badges', compact: true %}
-  </div>
+  {% render 'pflege-product-payment-trust-box' %}
 </div>

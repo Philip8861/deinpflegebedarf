@@ -1,0 +1,30 @@
+{% comment %}
+  PDP – Payment-/Trust-Box unterhalb der Vorteilszeilen in der Kaufbox.
+{% endcomment %}
+<section
+  class="pflege-payment-trust-box"
+  aria-label="{{ 'products.product.pflege_cart.pay_trust_aria' | t }}"
+>
+  <div class="pflege-payment-trust-box__header">
+    <span class="pflege-payment-trust-box__icon" aria-hidden="true">
+      {% render 'pflege-icon', icon: 'shield', width: 20 %}
+    </span>
+    <div class="pflege-payment-trust-box__copy">
+      <p class="pflege-payment-trust-box__title">{{ 'products.product.pflege_cart.pay_trust_title' | t }}</p>
+      <p class="pflege-payment-trust-box__desc">{{ 'products.product.pflege_cart.pay_trust_desc' | t }}</p>
+    </div>
+  </div>
+
+  <div class="pflege-payment-trust-box__badges">
+    <span class="pflege-payment-trust-box__badge">
+      <span class="pflege-payment-trust-box__check" aria-hidden="true">✓</span>
+      {{ 'products.product.pflege_cart.pay_trust_badge_ssl' | t }}
+    </span>
+    <span class="pflege-payment-trust-box__badge">
+      <span class="pflege-payment-trust-box__check" aria-hidden="true">✓</span>
+      {{ 'products.product.pflege_cart.pay_trust_badge_packaging' | t }}
+    </span>
+  </div>
+
+  {% render 'pflege-payment-badges', layout: 'pdp-grid' %}
+</section>
