@@ -1,0 +1,19 @@
+{% comment %}
+  Neutrale Quellenzeile — filtert Google-Bezüge aus gespeicherten Block-Texten.
+  Parameter: text (optional)
+{% endcomment %}
+{%- liquid
+  assign neutral = 'sections.customer_testimonials_hp.source_label' | t
+  assign raw = text | strip
+
+  if raw == blank
+    echo neutral
+  else
+    assign raw_down = raw | downcase
+    if raw_down contains 'google'
+      echo neutral
+    else
+      echo raw | escape
+    endif
+  endif
+-%}

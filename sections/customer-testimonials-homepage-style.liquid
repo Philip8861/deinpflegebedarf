@@ -47,8 +47,8 @@
   endif
   assign btn_label_t = btn_label_t | replace: '[count]', display_count
 
-  assign pad_top = section.settings.padding_top | default: 56
-  assign pad_bot = section.settings.padding_bottom | default: 56
+  assign pad_top = section.settings.padding_top | default: 64
+  assign pad_bot = section.settings.padding_bottom | default: 64
   assign auto_on = section.settings.auto_rotate
   assign auto_sec = section.settings.auto_rotate_seconds | default: 5
   if auto_sec < 3
@@ -67,7 +67,6 @@
     assign modal_head = 'Alle Kundenstimmen'
   endif
 
-  assign source_default = 'sections.customer_testimonials_hp.source_label' | t
 
   assign dot_count = display_count
   if review_count > dot_count
@@ -110,7 +109,8 @@
       <p class="ct-hp__subline">{{ subline | escape }}</p>
     </header>
 
-    <div class="ct-hp__card" data-ct-card>
+    <div class="ct-hp__showcase">
+      <div class="ct-hp__card" data-ct-card>
       <span class="ct-hp__quote-mark" aria-hidden="true">&ldquo;</span>
 
       <div class="ct-hp__body" aria-live="polite">
@@ -141,7 +141,7 @@
                   <span class="ct-hp__name">{{ block.settings.customer_name | strip | default: 'Kundin/Kunde' | escape }}</span>
                   {% render 'ct-hp-verified-buyer' %}
                   <span class="ct-hp__source">
-                    {{- block.settings.source_text | strip | default: source_default | escape -}}
+                    {%- render 'ct-hp-source-line', text: block.settings.source_text -%}
                   </span>
                 </div>
               </div>
@@ -160,33 +160,34 @@
               <div class="ct-hp__author-meta">
                 <span class="ct-hp__name">{{ section.settings.fallback_author | default: 'Kundin/Kunde' | escape }}</span>
                 {% render 'ct-hp-verified-buyer' %}
-                <span class="ct-hp__source">{{ source_default | escape }}</span>
+                <span class="ct-hp__source">{% render 'ct-hp-source-line' %}</span>
               </div>
             </div>
           </article>
         {%- endif -%}
       </div>
-    </div>
+      </div>
 
-    {%- if dot_count > 1 -%}
-      <ul class="ct-hp__dots" role="list" aria-label="{{ 'sections.customer_testimonials_hp.dots_label' | t }}">
-        {%- for i in (1..dot_count) -%}
-          {%- assign dot_idx = forloop.index0 -%}
-          <li role="listitem">
-            <button
-              type="button"
-              class="ct-hp__dot{% if forloop.first %} is-active{% endif %}"
-              data-ct-dot
-              data-ct-dot-index="{{ dot_idx }}"
-              aria-label="{{ 'sections.customer_testimonials_hp.dot_aria' | t: index: forloop.index }}"
-              {% if forloop.first %}
-                aria-current="true"
-              {% endif %}
-            ></button>
-          </li>
-        {%- endfor -%}
-      </ul>
-    {%- endif -%}
+      {%- if dot_count > 1 -%}
+        <ul class="ct-hp__dots" role="list" aria-label="{{ 'sections.customer_testimonials_hp.dots_label' | t }}">
+          {%- for i in (1..dot_count) -%}
+            {%- assign dot_idx = forloop.index0 -%}
+            <li role="listitem">
+              <button
+                type="button"
+                class="ct-hp__dot{% if forloop.first %} is-active{% endif %}"
+                data-ct-dot
+                data-ct-dot-index="{{ dot_idx }}"
+                aria-label="{{ 'sections.customer_testimonials_hp.dot_aria' | t: index: forloop.index }}"
+                {% if forloop.first %}
+                  aria-current="true"
+                {% endif %}
+              ></button>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
 
     <div class="ct-hp__cta-wrap">
       {%- if section.settings.button_link != blank -%}
@@ -250,7 +251,7 @@
                   <span class="ct-hp__name">{{ block.settings.customer_name | strip | escape }}</span>
                   {% render 'ct-hp-verified-buyer' %}
                   <span class="ct-hp__source">
-                    {{- block.settings.source_text | strip | default: source_default | escape -}}
+                    {%- render 'ct-hp-source-line', text: block.settings.source_text -%}
                   </span>
                 </div>
               </article>
@@ -523,7 +524,7 @@
       "step": 4,
       "unit": "px",
       "label": "Oben",
-      "default": 56
+      "default": 64
     },
     {
       "type": "range",
@@ -533,7 +534,7 @@
       "step": 4,
       "unit": "px",
       "label": "Unten",
-      "default": 56
+      "default": 64
     }
   ],
   "blocks": [
@@ -557,7 +558,7 @@
           "type": "text",
           "id": "source_text",
           "label": "Quellenzeile",
-          "default": "Kundenstimme"
+          "default": "Bewertung aus dem Shop"
         }
       ]
     }
@@ -571,7 +572,7 @@
           "settings": {
             "review_text": "Sehr guter Service und schnelle Lieferung!",
             "customer_name": "Kundin/Kunde",
-            "source_text": "Kundenstimme"
+            "source_text": "Bewertung aus dem Shop"
           }
         }
       ]
