@@ -122,6 +122,65 @@
         btn.setAttribute('aria-expanded', 'false');
       }
     });
+
+    setupReviewRatingPicker(dialog);
+  }
+
+  function setupReviewRatingPicker(dialog) {
+    dialog.querySelectorAll('[data-ct-review-stars]').forEach(function (group) {
+      if (group._ctStarsBound) return;
+      group._ctStarsBound = true;
+
+      var hidden = group.querySelector('[data-ct-review-rating-value]');
+      var buttons = Array.from(group.querySelectorAll('[data-ct-review-star]'));
+      if (!hidden || !buttons.length) return;
+
+      function paintStars(value) {
+        buttons.forEach(function (btn, index) {
+          var on = index < value;
+          btn.classList.toggle('is-active', on);
+          btn.setAttribute('aria-checked', on ? 'true' : 'false');
+        });
+      }
+
+      function setRating(value) {
+        hidden.value = String(value);
+        group.setAttribute('data-ct-review-rating', String(value));
+        paintStars(value);
+      }
+
+      buttons.forEach(function (btn) {
+        btn.setAttribute('role', 'radio');
+        btn.setAttribute('aria-checked', 'false');
+        btn.setAttribute('tabindex', '-1');
+
+        btn.addEventListener('click', function () {
+          var value = parseInt(btn.getAttribute('data-ct-review-star'), 10);
+          if (!isNaN(value)) setRating(value);
+        });
+
+        btn.addEventListener('mouseenter', function () {
+          var hover = parseInt(btn.getAttribute('data-ct-review-star'), 10);
+          if (!isNaN(hover)) paintStars(hover);
+        });
+      });
+
+      group.addEventListener('mouseleave', function () {
+        var current = parseInt(hidden.value, 10);
+        paintStars(isNaN(current) ? 0 : current);
+      });
+
+      group.addEventListener('keydown', function (e) {
+        var current = parseInt(hidden.value, 10) || 0;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          setRating(Math.min(5, current + 1 || 1));
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
+          e.preventDefault();
+          setRating(Math.max(1, current - 1 || 1));
+        }
+      });
+    });
   }
 
   function setupExpand(root) {
