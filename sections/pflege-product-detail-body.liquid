@@ -1,5 +1,5 @@
 {% comment %}
-  PflegeShop — Unterer Produktbereich: ProductDescriptionSection + Service-Leiste.
+  PflegeShop — Unterer Produktbereich: ProductDescriptionSection.
   Obere PDP (Galerie, Kaufspalte) bleibt in main-product unverändert.
 {% endcomment %}
 {{ 'section-pflege-product-detail-body.css' | asset_url | stylesheet_tag }}
@@ -29,7 +29,6 @@
       heading: section.settings.description_heading
     %}
   </div>
-  {% render 'pflege-pdp-service-foot' %}
 </section>
 
 <script src="{{ 'pflege-product-description.js' | asset_url }}" defer="defer"></script>
