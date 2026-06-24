@@ -149,6 +149,31 @@
     });
   }
 
+  function promoteListSectionHeadings(container) {
+    container.querySelectorAll('ul, ol').forEach(function (list) {
+      var prev = list.previousElementSibling;
+      if (!prev || prev.classList.contains('product-description-list-heading')) return;
+
+      if (/^H[1-6]$/.test(prev.tagName)) {
+        prev.classList.add('product-description-section-heading');
+        return;
+      }
+
+      if (prev.tagName !== 'P') return;
+
+      var text = normalize(prev.textContent);
+      if (!text) return;
+
+      var strongEl = prev.querySelector('strong, b');
+      if (!strongEl) return;
+
+      var strongText = normalize(strongEl.textContent);
+      if (strongText === text || text.charAt(text.length - 1) === ':') {
+        prev.classList.add('product-description-list-heading');
+      }
+    });
+  }
+
   function normalizeInlineTypography(container) {
     container.querySelectorAll('[style]').forEach(function (el) {
       if (!el.style) return;
@@ -173,8 +198,10 @@
 
     normalizeInlineTypography(container);
     cleanUnwantedSections(container);
+    promoteListSectionHeadings(container);
     wrapTopLevelSections(container);
     wrapTables(container);
+    promoteListSectionHeadings(container);
     normalizeInlineTypography(container);
 
     container.setAttribute('data-pflege-description-ready', 'true');
