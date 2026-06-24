@@ -118,6 +118,32 @@
     if (bodyField) bodyField.value = buildBody(data);
   }
 
+  function hasExplicitError(html) {
+    if (!html) return false;
+    if (html.indexOf('data-pflege-inko-sent-error') !== -1) return true;
+    if (html.indexOf('pflege-contact-page__alert--error') !== -1) return true;
+    if (
+      html.indexOf('pflege-inko-modal__form') !== -1 &&
+      html.indexOf('form-status caption-large text-body') !== -1 &&
+      html.indexOf('role="alert"') !== -1
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  function evaluateSubmitResponse(result) {
+    var html = result.html || '';
+    var url = result.url || '';
+
+    if (isChallengeUrl(url) || html.indexOf('shopify-challenge') !== -1) return false;
+    if (hasExplicitError(html)) return false;
+    if (url.indexOf('contact_posted=true') !== -1) return true;
+    if (isSuccessHtml(html)) return true;
+    if (result.ok && html.indexOf('pflege-inko-modal__form') !== -1) return true;
+    return false;
+  }
+
   function isSuccessHtml(html) {
     if (!html) return false;
     if (html.indexOf('/challenge') !== -1 || html.indexOf('shopify-challenge') !== -1) return false;
@@ -180,6 +206,47 @@
     }
   }
 
+  function submitContactForm(form, onComplete) {
+    var action = form.getAttribute('action') || form.action || '/contact';
+    var controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    var timedOut = false;
+    var timeoutId = window.setTimeout(function () {
+      timedOut = true;
+      if (controller) controller.abort();
+      onComplete(false);
+    }, SUBMIT_TIMEOUT_MS);
+
+    fetch(action, {
+      method: 'POST',
+      body: new FormData(form),
+      credentials: 'same-origin',
+      redirect: 'follow',
+      signal: controller ? controller.signal : undefined,
+      headers: {
+        Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+      },
+    })
+      .then(function (response) {
+        return response.text().then(function (html) {
+          return {
+            ok: response.ok,
+            url: response.url || '',
+            html: html,
+          };
+        });
+      })
+      .then(function (result) {
+        if (timedOut) return;
+        window.clearTimeout(timeoutId);
+        onComplete(evaluateSubmitResponse(result));
+      })
+      .catch(function () {
+        if (timedOut) return;
+        window.clearTimeout(timeoutId);
+        onComplete(false);
+      });
+  }
+
   function ensureSubmitFrame() {
     var frame = document.getElementById(IFRAME_NAME);
     if (frame) return frame;
@@ -200,8 +267,6 @@
   function initModal(root) {
     if (!root || root.dataset.pflegeInkoModalInit) return;
     root.dataset.pflegeInkoModalInit = 'true';
-
-    ensureSubmitFrame();
 
     var lastFocused = null;
     var openTrigger = document.querySelector('[data-pflege-inko-testpaket-open]');
@@ -316,32 +381,11 @@
       showError(ERROR_TEXT);
     }
 
-    function submitViaNativeIframe() {
-      var frame = ensureSubmitFrame();
-
-      function onFrameLoad() {
-        if (!isSubmitting) return;
-
-        var href = getFrameHref(frame);
-        if (!href || href === 'about:blank') return;
-
-        try {
-          handleSubmitResult(isSuccessFrame(frame));
-        } catch (e) {
-          handleSubmitResult(href.indexOf('contact_posted=true') !== -1);
-        }
-      }
-
+    function submitViaFetch() {
       clearSubmitWatchers();
-      pendingFrameLoad = { frame: frame, handler: onFrameLoad };
-      frame.addEventListener('load', onFrameLoad);
-
-      submitTimeoutId = window.setTimeout(function () {
-        handleSubmitResult(false);
-      }, SUBMIT_TIMEOUT_MS);
-
-      form.setAttribute('target', IFRAME_NAME);
-      form.submit();
+      submitContactForm(form, function (success) {
+        handleSubmitResult(success);
+      });
     }
 
     function onSubmit(e) {
@@ -368,7 +412,7 @@
         submitBtn.textContent = SUBMITTING_TEXT;
       }
 
-      submitViaNativeIframe();
+      submitViaFetch();
     }
 
     root.addEventListener('close', function () {
