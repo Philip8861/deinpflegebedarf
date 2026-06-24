@@ -2,8 +2,8 @@
   Fakten-Karte (Mockup: hellblauer Kasten). Metafeld custom.content_volume = z. B. „75 ml“.
   SKU bleibt in der Kaufspalte.
 {%- endcomment -%}
-<div class="pflege-pdp-facts" id="PflegePDP-{{ section_id }}-facts">
-  <h3 class="pflege-pdp-facts__title">{{ heading | escape }}</h3>
+<div class="pflege-pdp-facts" id="pflege-pdp-facts">
+  <h3 class="pflege-pdp-facts__title" id="PflegePDP-{{ section_id }}-facts">{{ heading | escape }}</h3>
   <dl class="pflege-pdp-facts__list">
     {%- if product.vendor != blank -%}
       <div class="pflege-pdp-facts__row">

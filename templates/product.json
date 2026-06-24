@@ -83,8 +83,6 @@
         "mobile_thumbnails": "show",
         "hide_variants": true,
         "enable_video_looping": false,
-        "padding_top": 36,
-        "padding_bottom": 12,
         "show_pdp_breadcrumb": true,
         "breadcrumb_home": "Startseite",
         "breadcrumb_sep": "›",
@@ -92,32 +90,34 @@
         "show_bestseller_badge": true,
         "bestseller_tag": "bestseller",
         "show_meta_field_strip": true,
-        "show_meta_strip_placeholders": true
+        "show_meta_strip_placeholders": true,
+        "padding_top": 36,
+        "padding_bottom": 12
       }
     },
     "pflege_product_detail_body": {
       "type": "pflege-product-detail-body",
       "settings": {
+        "show_unified_placeholders": true,
         "show_breadcrumb": false,
-        "show_trust_strip": false,
-        "show_facts_card": true,
         "breadcrumb_home": "Startseite",
         "breadcrumb_sep": "›",
         "breadcrumb_aria_label": "Brotkrumen",
+        "show_trust_strip": false,
         "trust_line_1": "Persönlicher Kundenservice",
         "trust_line_2": "Sicherer Versand",
         "trust_line_3": "Qualitätsprodukte",
         "intro_heading": "",
         "section_aria_label": "Produktdetail und Merkmale",
+        "unified_label_beschreibung": "Beschreibung",
+        "unified_label_anwendung": "Anwendung",
+        "unified_label_produkteigenschaften": "Produkteigenschaften",
         "tab_description": "Beschreibung",
         "tab_application": "Anwendung",
         "tab_ingredients": "Inhaltsstoffe",
         "tab_features": "Merkmale & Hinweise",
         "tab_reviews": "Bewertungen",
-        "show_unified_placeholders": true,
-        "unified_label_beschreibung": "Beschreibung",
-        "unified_label_anwendung": "Anwendung",
-        "unified_label_produkteigenschaften": "Produkteigenschaften",
+        "show_facts_card": true,
         "facts_heading": "Auf einen Blick",
         "lbl_pzn": "PZN",
         "lbl_type": "Produkttyp",
@@ -154,5 +154,9 @@
       }
     }
   },
-  "order": ["main", "pflege_product_detail_body", "related_pflege"]
+  "order": [
+    "main",
+    "pflege_product_detail_body",
+    "related_pflege"
+  ]
 }

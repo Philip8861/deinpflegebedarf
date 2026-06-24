@@ -151,7 +151,7 @@
         -%}
         <li class="pflege-pdp-top-claims__item pflege-pdp-meta-strip__item" role="listitem">
           <a
-            href="#pflege-pdp-unified-detail"
+            href="#pflege-pdp-panel-beschreibung"
             class="pflege-pdp-meta-strip__card"
           >
             <span class="pflege-pdp-meta-strip__iconwrap" aria-hidden="true">
@@ -173,7 +173,7 @@
           endif
         -%}
         <li class="pflege-pdp-top-claims__item pflege-pdp-meta-strip__item" role="listitem">
-          <a href="#pflege-pdp-unified-detail" class="pflege-pdp-meta-strip__card">
+          <a href="#pflege-pdp-panel-anwendung" class="pflege-pdp-meta-strip__card">
             <span class="pflege-pdp-meta-strip__iconwrap" aria-hidden="true">
               {%- render 'pflege-icon', icon: 'droplet', width: 20 -%}
             </span>
@@ -193,9 +193,7 @@
           endif
         -%}
         <li class="pflege-pdp-top-claims__item pflege-pdp-meta-strip__item" role="listitem">
-          <a href="#pflege-pdp-unified-detail" class="pflege-pdp-meta-strip__card">
-            <span class="pflege-pdp-meta-strip__iconwrap" aria-hidden="true">
-              {%- render 'pflege-icon', icon: 'list-bullet', width: 20 -%}
+          <a href="#pflege-pdp-panel-eigenschaften" class="pflege-pdp-meta-strip__card">
             </span>
             <span class="pflege-pdp-meta-strip__copy">
               <span class="pflege-pdp-meta-strip__title">{{ 'products.product.pflege_pdp.meta_strip_title_eigenschaften' | t }}</span>
@@ -207,7 +205,7 @@
 
       {%- if show_h_card -%}
         <li class="pflege-pdp-top-claims__item pflege-pdp-meta-strip__item" role="listitem">
-          <a href="#pflege-pdp-unified-detail" class="pflege-pdp-meta-strip__card">
+          <a href="#pflege-pdp-facts" class="pflege-pdp-meta-strip__card">
             <span class="pflege-pdp-meta-strip__iconwrap" aria-hidden="true">
               {%- render 'pflege-icon', icon: 'hash', width: 20 -%}
             </span>

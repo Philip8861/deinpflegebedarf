@@ -3,14 +3,17 @@
 {%- endcomment -%}
 {%- liquid
   assign show_placeholders = show_placeholders | default: false
-  assign open_first = true
+  assign show_extras = show_extras | default: false
+  assign open_first = false
   assign any_accordion = false
   if has_beschr or has_anw or has_prop or show_placeholders
     assign any_accordion = true
   endif
-  assign show_extras = false
-  if has_hilf_line or has_pdf or show_placeholders
-    assign show_extras = true
+  assign show_extras_block = false
+  if show_extras
+    if has_hilf_line or has_pdf or show_placeholders
+      assign show_extras_block = true
+    endif
   endif
 -%}
 <div
@@ -22,6 +25,7 @@
     <div class="pflege-pdp-tabs">
       {%- if has_beschr or show_placeholders -%}
         <details
+          id="pflege-pdp-panel-beschreibung"
           class="pflege-pdp-tabs__panel"
           {% if open_first %}
             open
@@ -46,6 +50,7 @@
 
       {%- if has_anw or show_placeholders -%}
         <details
+          id="pflege-pdp-panel-anwendung"
           class="pflege-pdp-tabs__panel"
           {% if open_first %}
             open
@@ -70,6 +75,7 @@
 
       {%- if has_prop or show_placeholders -%}
         <details
+          id="pflege-pdp-panel-eigenschaften"
           class="pflege-pdp-tabs__panel"
           {% if open_first %}
             open
@@ -95,8 +101,8 @@
     </div>
   {%- endif -%}
 
-  {%- if show_extras -%}
-    <div class="pflege-pdp-unified__extras">
+  {%- if show_extras_block -%}
+    <div class="pflege-pdp-unified__extras" id="pflege-pdp-panel-extras">
       {%- if has_hilf_line -%}
         <p class="pflege-pdp-unified__hilf">
           <span class="pflege-pdp-unified__hilf-label">{{ 'products.product.pflege_pdp.hilfsmittelnummer_label' | t }}</span>
