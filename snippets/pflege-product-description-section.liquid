@@ -33,10 +33,47 @@
       </header>
       <div
         class="product-description-content pflege-product-description-section__content"
+        id="pflege-product-desc-{{ product.id }}"
         data-pflege-product-description
       >
         {{ desc_html }}
       </div>
     </article>
   </section>
+  {%- style -%}
+    /* Überschriften vor Listen — inline, damit es unabhängig vom Asset-Cache greift */
+    #pflege-product-desc-{{ product.id }} .product-description-list-heading,
+    #pflege-product-desc-{{ product.id }} p.product-description-list-heading {
+      display: block;
+      margin: 1.75em 0 0.7em !important;
+      font-family: inherit !important;
+      font-size: clamp(1.42rem, 1.25rem + 0.75vw, 1.65rem) !important;
+      font-weight: 800 !important;
+      line-height: 1.35 !important;
+      letter-spacing: -0.025em;
+      color: #0b2347 !important;
+    }
+
+    #pflege-product-desc-{{ product.id }} .product-description-list-heading :where(strong, b, span, font) {
+      font-size: inherit !important;
+      font-weight: inherit !important;
+      color: inherit !important;
+    }
+  {%- endstyle -%}
+  <script>
+    (function () {
+      var id = 'pflege-product-desc-{{ product.id }}';
+      function boot() {
+        if (window.PflegeProductDescription && window.PflegeProductDescription.enhance) {
+          var el = document.getElementById(id);
+          if (el) window.PflegeProductDescription.enhance(el);
+        }
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', boot);
+      } else {
+        boot();
+      }
+    })();
+  </script>
 {%- endif -%}
