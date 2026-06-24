@@ -872,9 +872,9 @@
 }
 
 .pflege-product-page .pflege-product__trust-footer {
-  margin: 0.35rem 0 0;
+  margin: 0;
   padding: 1.1rem 0 0;
-  border-top: 1px solid rgba(15, 79, 105, 0.085);
+  border-top: none;
 }
 
 .pflege-product-page .pflege-product__trust-unified > .pflege-product__trust-panel-row,
@@ -898,11 +898,6 @@
 
 .pflege-product-page .pflege-product__trust-panel-row--stacked .pflege-product__trust-panel-row__icon {
   margin-top: 0.1rem;
-}
-
-.pflege-product-page .pflege-product__trust-unified > .pflege-product__trust-panel-row--stacked:last-of-type {
-  border-bottom: none;
-  padding-bottom: 0;
 }
 
 .pflege-product-page .pflege-product__trust-footer > .pflege-product__trust-panel-row--stacked {
@@ -981,7 +976,6 @@
   }
 
   .pflege-product-page .pflege-product__trust-footer {
-    margin-top: 0.25rem;
     padding-top: 1rem;
   }
 
