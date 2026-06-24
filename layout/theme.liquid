@@ -347,6 +347,9 @@
       {%- if is_pfc_collection -%}
         {{ 'pflege-pfc-entrance.css' | asset_url | stylesheet_tag }}
       {%- endif -%}
+      {%- if is_category_filtered -%}
+        {{ 'pflege-category-entrance.css' | asset_url | stylesheet_tag }}
+      {%- endif -%}
     {%- endif -%}
     <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
 
@@ -403,6 +406,13 @@
       <script>
         if (!document.documentElement.classList.contains('shopify-design-mode')) {
           document.documentElement.classList.add('pflege-pfc-entrance-prep');
+        }
+      </script>
+    {%- endif -%}
+    {%- if is_category_filtered -%}
+      <script>
+        if (!document.documentElement.classList.contains('shopify-design-mode')) {
+          document.documentElement.classList.add('pflege-cat-entrance-prep');
         }
       </script>
     {%- endif -%}
