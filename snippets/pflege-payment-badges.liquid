@@ -1,17 +1,17 @@
 {% comment %}
   Zahlungsarten-Logos (Visa, Mastercard, PayPal, Google Pay, Klarna).
-  Accepts: compact (boolean) — kleinere Darstellung für PDP-Kaufbox
+  Accepts: layout (string) — "pdp-grid" für kompakte Kaufbox-Darstellung
 {% endcomment %}
 {% liquid
-  assign compact = compact | default: false
+  assign layout_mode = layout | default: 'default'
   assign badge_class = 'pflege-pay-badges'
-  if compact
-    assign badge_class = badge_class | append: ' pflege-pay-badges--compact'
+  if layout_mode == 'pdp-grid'
+    assign badge_class = badge_class | append: ' pflege-pay-badges--pdp-grid'
   endif
 %}
 <div class="{{ badge_class }}">
-  <ul class="pflege-pay-badges__list" role="list">
-    <li class="pflege-pay-badges__item">
+  <div class="pflege-pay-badges__grid" role="list" aria-label="{{ 'products.product.pflege_cart.pay_methods_aria' | t }}">
+    <div class="pflege-pay-badges__pill" role="listitem">
       <img
         src="{{ 'Visa_logo.webp' | asset_url }}"
         alt="Visa"
@@ -21,8 +21,8 @@
         loading="lazy"
         decoding="async"
       >
-    </li>
-    <li class="pflege-pay-badges__item">
+    </div>
+    <div class="pflege-pay-badges__pill" role="listitem">
       <img
         src="{{ 'Mastercard.webp' | asset_url }}"
         alt="Mastercard"
@@ -32,8 +32,8 @@
         loading="lazy"
         decoding="async"
       >
-    </li>
-    <li class="pflege-pay-badges__item">
+    </div>
+    <div class="pflege-pay-badges__pill" role="listitem">
       <a
         href="https://www.paypal.com/de/webapps/mpp/paypal-popup"
         target="_blank"
@@ -52,8 +52,8 @@
           decoding="async"
         >
       </a>
-    </li>
-    <li class="pflege-pay-badges__item">
+    </div>
+    <div class="pflege-pay-badges__pill" role="listitem">
       <img
         src="{{ 'google-pay.svg' | asset_url }}"
         alt="Google Pay"
@@ -63,8 +63,8 @@
         loading="lazy"
         decoding="async"
       >
-    </li>
-    <li class="pflege-pay-badges__item">
+    </div>
+    <div class="pflege-pay-badges__pill" role="listitem">
       <img
         src="{{ 'klarna.svg' | asset_url }}"
         alt="Klarna"
@@ -74,6 +74,6 @@
         loading="lazy"
         decoding="async"
       >
-    </li>
-  </ul>
+    </div>
+  </div>
 </div>
