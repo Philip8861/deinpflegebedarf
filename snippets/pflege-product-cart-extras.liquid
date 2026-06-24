@@ -12,25 +12,11 @@
       </span>
     </div>
     <div class="pflege-product__trust-panel-row">
-      {% render 'pflege-icon', icon: 'lock', width: 22 %}
-      <span class="pflege-product__trust-copy">
-        <span class="pflege-product__trust-panel-text">{{ 'products.product.pflege_cart.trust_payment_title' | t }}</span>
-      </span>
-    </div>
-    <div class="pflege-product__trust-panel-row">
       {% render 'pflege-icon', icon: 'badge-check', width: 22 %}
       <span class="pflege-product__trust-copy">
         <span class="pflege-product__trust-panel-text">{{ 'products.product.pflege_cart.trust_quality_title' | t }}</span>
         {% assign _tq = 'products.product.pflege_cart.trust_quality_sub' | t %}
         {% if _tq != blank %}<span class="pflege-product__trust-panel-sub">{{ _tq }}</span>{% endif %}
-      </span>
-    </div>
-    <div class="pflege-product__trust-panel-row">
-      {% render 'pflege-icon', icon: 'package', width: 22 %}
-      <span class="pflege-product__trust-copy">
-        <span class="pflege-product__trust-panel-text">{{ 'products.product.pflege_cart.trust_discrete_title' | t }}</span>
-        {% assign _td = 'products.product.pflege_cart.trust_discrete_sub' | t %}
-        {% if _td != blank %}<span class="pflege-product__trust-panel-sub">{{ _td }}</span>{% endif %}
       </span>
     </div>
   </div>
