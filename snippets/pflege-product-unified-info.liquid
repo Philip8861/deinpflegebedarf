@@ -4,7 +4,8 @@
 {%- liquid
   assign show_placeholders = show_placeholders | default: false
   assign show_extras = show_extras | default: false
-  assign open_first = false
+  assign beschr_from_product = beschr_from_product | default: false
+  assign open_first = has_beschr
   assign any_accordion = false
   if has_beschr or has_anw or has_prop or show_placeholders
     assign any_accordion = true
@@ -39,7 +40,11 @@
           </summary>
           <div class="pflege-pdp-tabs__body rte">
             {%- if has_beschr -%}
-              {{- mf_beschreibung | metafield_tag -}}
+              {%- if beschr_from_product -%}
+                {{ product.description }}
+              {%- else -%}
+                {{- mf_beschreibung | metafield_tag -}}
+              {%- endif -%}
             {%- elsif show_placeholders -%}
               <p class="pflege-pdp-placeholder">{{ 'products.product.pflege_pdp.unified_placeholder_beschreibung' | t }}</p>
             {%- endif -%}

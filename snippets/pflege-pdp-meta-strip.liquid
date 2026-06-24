@@ -20,6 +20,12 @@
     endif
   endif
 
+  assign beschr_from_product = false
+  if has_beschr == false and product.description != blank
+    assign has_beschr = true
+    assign beschr_from_product = true
+  endif
+
   assign has_anw = false
   if mf_anwendung.value != blank
     assign has_anw = true
@@ -144,7 +150,11 @@
     <ul class="pflege-pdp-top-claims__list pflege-pdp-meta-strip__list" role="list">
       {%- if show_b_card -%}
         {%- liquid
-          assign ex_b = mf_beschreibung | metafield_text | strip_html | strip | truncate: 92
+          if beschr_from_product
+            assign ex_b = product.description | strip_html | strip | truncate: 92
+          else
+            assign ex_b = mf_beschreibung | metafield_text | strip_html | strip | truncate: 92
+          endif
           if has_beschr == false and show_ph
             assign ex_b = 'products.product.pflege_pdp.meta_strip_placeholder_body' | t
           endif
