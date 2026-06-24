@@ -355,8 +355,8 @@ button.ct-hp__cta {
 }
 
 .ct-hp__cta-star {
-  width: 0.95rem;
-  height: 0.95rem;
+  width: clamp(1.2rem, 1.05rem + 0.35vw, 1.45rem);
+  height: clamp(1.2rem, 1.05rem + 0.35vw, 1.45rem);
   flex-shrink: 0;
 }
 
