@@ -43,6 +43,7 @@
     '.ct-hp__summary',
     '.ct-hp h2.ct-hp__title',
     '.ct-hp__subline',
+    '.ct-hp__showcase',
     '.ct-hp__card',
     '.ct-hp__panel.is-active .ct-hp__quote',
     '.ct-hp__panel.is-active .ct-hp__author',
