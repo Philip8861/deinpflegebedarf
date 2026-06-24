@@ -853,20 +853,23 @@
 
 /* Einheitliche Trust-/Payment-Box */
 .pflege-product-page .pflege-product__trust-unified {
-  padding: 1rem 1.08rem;
+  padding: 1.05rem 1.12rem 1.12rem;
   border-radius: var(--pflege-pdp-radius-sm);
   background: linear-gradient(
     180deg,
-    rgba(249, 252, 255, 0.94) 0%,
-    rgba(240, 247, 255, 0.88) 100%
+    rgba(249, 252, 255, 0.96) 0%,
+    rgba(240, 247, 255, 0.9) 100%
   );
   border: 1px solid rgba(15, 79, 105, 0.12);
   box-shadow: 0 8px 24px rgba(0, 32, 80, 0.045);
 }
 
-.pflege-product-page .pflege-product__trust-unified-divider {
-  margin: 0.85rem 0 0.95rem;
-  border-top: 1px solid rgba(15, 79, 105, 0.085);
+.pflege-product-page .pflege-product__trust-unified-extras {
+  margin-top: 0.15rem;
+  padding: 0.9rem 0.85rem;
+  border-radius: 0.85rem;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(15, 79, 105, 0.07);
 }
 
 .pflege-product-page .pflege-product__trust-panel {
@@ -878,6 +881,27 @@
     rgba(240, 247, 255, 0.88) 100%
   );
   border: 1px solid rgba(15, 79, 105, 0.12);
+}
+
+.pflege-product-page .pflege-product__trust-unified > .pflege-product__trust-panel-row,
+.pflege-product-page .pflege-payment-trust-box--merged > .pflege-product__trust-panel-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.72rem 0;
+  border-bottom: 1px solid rgba(15, 79, 105, 0.085);
+}
+
+.pflege-product-page .pflege-product__trust-unified > .pflege-product__trust-panel-row:first-child,
+.pflege-product-page .pflege-payment-trust-box--merged > .pflege-product__trust-panel-row:first-child {
+  padding-top: 0;
+}
+
+.pflege-product-page .pflege-product__trust-unified > .pflege-product__trust-panel-row--stacked,
+.pflege-product-page .pflege-payment-trust-box--merged > .pflege-product__trust-panel-row--stacked {
+  align-items: flex-start;
+  border-bottom: none;
+  padding-bottom: 0.15rem;
 }
 
 .pflege-product-page .pflege-product__trust-panel-row {
@@ -897,15 +921,20 @@
 }
 
 .pflege-product-page .pflege-product__trust-panel-sub {
-  font-size: 1.08rem !important;
-  font-weight: 600;
-  line-height: 1.38;
-  color: rgba(20, 52, 93, 0.58);
+  font-size: 0.98rem !important;
+  font-weight: 500;
+  line-height: 1.45;
+  color: rgba(20, 52, 93, 0.62);
 }
 
 .pflege-product-page .pflege-product__trust-panel-row:last-child {
   border-bottom: none;
   padding-bottom: 0.15rem;
+}
+
+.pflege-product-page .pflege-product__trust-unified > .pflege-product__trust-panel-row:last-child,
+.pflege-product-page .pflege-payment-trust-box--merged > .pflege-product__trust-panel-row:last-child {
+  border-bottom: none;
 }
 
 .pflege-product-page .pflege-product__trust-panel-row:first-child {
@@ -914,16 +943,17 @@
 
 .pflege-product-page .pflege-product__trust-panel-text {
   font-family: inherit;
-  font-size: 1.18rem !important;
-  font-weight: 600;
-  line-height: 1.34;
+  font-size: 1.06rem !important;
+  font-weight: 700;
+  line-height: 1.35;
   color: #14345d;
 }
 
+.pflege-product-page .pflege-product__trust-panel-row__icon,
 .pflege-product-page .pflege-product__trust-panel-row .pflege-icon {
   flex-shrink: 0;
-  width: 2.58rem;
-  height: 2.58rem;
+  width: 2.5rem;
+  height: 2.5rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -934,6 +964,13 @@
   color: #2c6abf;
 }
 
+.pflege-product-page .pflege-product__trust-panel-row__icon .pflege-icon,
+.pflege-product-page .pflege-product__trust-panel-row .pflege-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.pflege-product-page .pflege-product__trust-panel-row__icon .pflege-icon svg,
 .pflege-product-page .pflege-product__trust-panel-row .pflege-icon svg {
   display: block;
   flex-shrink: 0;
