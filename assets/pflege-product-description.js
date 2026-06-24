@@ -149,28 +149,60 @@
     });
   }
 
+  function previousMeaningfulSibling(node) {
+    var prev = node.previousElementSibling;
+    while (prev) {
+      if (/^BR|HR$/i.test(prev.tagName)) {
+        prev = prev.previousElementSibling;
+        continue;
+      }
+
+      var text = normalize(prev.textContent);
+      if (!text && !prev.querySelector('img, table, ul, ol, iframe, video')) {
+        prev = prev.previousElementSibling;
+        continue;
+      }
+
+      return prev;
+    }
+    return null;
+  }
+
+  function isPromotableListHeading(node) {
+    if (!node) return false;
+    if (/^H[1-6]$/.test(node.tagName)) return true;
+    if (node.tagName !== 'P' && node.tagName !== 'DIV') return false;
+
+    var text = normalize(node.textContent);
+    if (!text) return false;
+    if (text.charAt(text.length - 1) === ':') return true;
+
+    var strongEl = node.querySelector('strong, b');
+    if (strongEl && normalize(strongEl.textContent) === text) return true;
+
+    if (node.children.length === 1) {
+      var child = node.children[0];
+      if (/^(STRONG|B|SPAN|EM)$/i.test(child.tagName) && normalize(child.textContent) === text) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   function promoteListSectionHeadings(container) {
     container.querySelectorAll('ul, ol').forEach(function (list) {
-      var prev = list.previousElementSibling;
+      var prev = previousMeaningfulSibling(list);
       if (!prev || prev.classList.contains('product-description-list-heading')) return;
+
+      if (!isPromotableListHeading(prev)) return;
 
       if (/^H[1-6]$/.test(prev.tagName)) {
         prev.classList.add('product-description-section-heading');
         return;
       }
 
-      if (prev.tagName !== 'P') return;
-
-      var text = normalize(prev.textContent);
-      if (!text) return;
-
-      var strongEl = prev.querySelector('strong, b');
-      if (!strongEl) return;
-
-      var strongText = normalize(strongEl.textContent);
-      if (strongText === text || text.charAt(text.length - 1) === ':') {
-        prev.classList.add('product-description-list-heading');
-      }
+      prev.classList.add('product-description-list-heading');
     });
   }
 

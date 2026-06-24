@@ -58,7 +58,7 @@
   --pdesc-body: 1.075rem;
   --pdesc-heading-h2: clamp(1.35rem, 1.18rem + 0.65vw, 1.625rem);
   --pdesc-heading-h3: clamp(1.2rem, 1.08rem + 0.45vw, 1.375rem);
-  --pdesc-list-heading: clamp(1.2rem, 1.08rem + 0.45vw, 1.375rem);
+  --pdesc-list-heading: clamp(1.38rem, 1.22rem + 0.7vw, 1.55rem);
   min-width: 0;
   max-width: 100%;
   overflow-wrap: anywhere;
@@ -137,7 +137,7 @@
 
 /* Einheitliche Schriftgrößen — überschreibt Shopify-Inline-Styles (font-size aus dem Admin) */
 .product-description-content :is(
-    p,
+    p:not(.product-description-list-heading):not(:has(+ ul)):not(:has(+ ol)),
     li,
     td,
     th,
@@ -156,7 +156,18 @@
   line-height: 1.7 !important;
 }
 
-.product-description-content :is(p, li, td, th, blockquote, span, div, font, em, i) {
+.product-description-content :is(
+    p:not(.product-description-list-heading):not(:has(+ ul)):not(:has(+ ol)),
+    li,
+    td,
+    th,
+    blockquote,
+    span,
+    div,
+    font,
+    em,
+    i
+  ) {
   font-weight: 400;
 }
 
@@ -178,7 +189,13 @@
   font-weight: 700 !important;
 }
 
-.product-description-content :where(.product-description-list-heading) {
+/* Abschnittsüberschriften direkt über Listen — CSS :has() + JS-Klasse */
+.product-description-content :is(
+    p.product-description-list-heading,
+    p:has(+ ul),
+    p:has(+ ol),
+    .product-description-section-heading
+  ) {
   margin: 1.65em 0 0.65em;
   font-family: inherit !important;
   font-size: var(--pdesc-list-heading) !important;
@@ -188,17 +205,29 @@
   color: var(--pdesc-navy);
 }
 
-.product-description-content :where(.product-description-list-heading:last-child) {
+.product-description-content :is(
+    p.product-description-list-heading:last-child,
+    p:has(+ ul):last-child,
+    p:has(+ ol):last-child
+  ) {
   margin-bottom: 0.65em;
 }
 
-.product-description-content :where(.product-description-list-heading strong, .product-description-list-heading b) {
+.product-description-content :is(
+    p.product-description-list-heading,
+    p:has(+ ul),
+    p:has(+ ol)
+  ) :where(strong, b, span) {
   font-size: inherit !important;
   font-weight: inherit !important;
   color: inherit;
 }
 
-.product-description-content :where(h1:first-child, h2:first-child, h3:first-child, h4:first-child, .product-description-list-heading:first-child) {
+.product-description-content :where(h1:first-child, h2:first-child, h3:first-child, h4:first-child) {
+  margin-top: 0;
+}
+
+.product-description-block :is(p.product-description-list-heading:first-child, p:has(+ ul):first-child, p:has(+ ol):first-child) {
   margin-top: 0;
 }
 
@@ -379,7 +408,7 @@
     --pdesc-body: 1.05rem;
     --pdesc-heading-h2: 1.28rem;
     --pdesc-heading-h3: 1.16rem;
-    --pdesc-list-heading: 1.16rem;
+    --pdesc-list-heading: 1.28rem;
   }
 
   .product-description-content :where(table) {
