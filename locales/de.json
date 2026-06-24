@@ -216,11 +216,6 @@
         "trust_discrete_sub": "Neutrale Verpackung, unauffällig zugestellt",
         "pay_methods_label": "Sicher bezahlen mit",
         "pay_methods_aria": "Akzeptierte Zahlungsarten",
-        "pay_trust_title": "100 % sichere Bezahlung & diskreter Versand",
-        "pay_trust_desc": "Zahle bequem mit den bekannten Zahlungsarten. Deine Bestellung wird neutral verpackt und unauffällig zugestellt.",
-        "pay_trust_badge_ssl": "SSL-verschlüsselt",
-        "pay_trust_badge_packaging": "Neutrale Verpackung",
-        "pay_trust_aria": "Sichere Bezahlung und diskreter Versand",
         "trust_care_title": "Von Pflegekräften empfohlen",
         "trust_care_sub": "Vertrauen, das zählt"
       },

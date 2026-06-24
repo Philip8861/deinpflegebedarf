@@ -164,6 +164,11 @@
         "trust_discrete_sub": "Neutral packaging, delivered discreetly",
         "pay_methods_label": "Pay securely with",
         "pay_methods_aria": "Accepted payment methods",
+        "pay_trust_title": "100 % secure payment & discreet shipping",
+        "pay_trust_desc": "Pay conveniently with familiar payment methods. Your order is packed neutrally and delivered discreetly.",
+        "pay_trust_badge_ssl": "SSL encrypted",
+        "pay_trust_badge_packaging": "Neutral packaging",
+        "pay_trust_aria": "Secure payment and discreet shipping",
         "trust_care_title": "Von Pflegekräften empfohlen",
         "trust_care_sub": "Vertrauen, das zählt"
       },
