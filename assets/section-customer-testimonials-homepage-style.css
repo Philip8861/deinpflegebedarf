@@ -43,26 +43,28 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(0.45rem, 0.7vw, 0.75rem);
+  gap: clamp(0.85rem, 1.5vw, 1.35rem);
   margin: 0 auto;
 }
 
 @keyframes ct-hp-rating-pulse {
   0%,
-  86%,
+  78%,
   100% {
     transform: scale(1);
-    filter: drop-shadow(0 0 0 transparent);
+    filter: drop-shadow(0 0 4px rgba(245, 166, 35, 0.42));
   }
 
-  90% {
-    transform: scale(1.18);
-    filter: drop-shadow(0 0 14px rgba(245, 166, 35, 0.78));
+  86% {
+    transform: scale(1.24);
+    filter: drop-shadow(0 0 26px rgba(245, 166, 35, 0.98))
+      drop-shadow(0 0 10px rgba(255, 210, 90, 0.72));
   }
 
-  94% {
-    transform: scale(1.1);
-    filter: drop-shadow(0 0 8px rgba(245, 166, 35, 0.52));
+  92% {
+    transform: scale(1.14);
+    filter: drop-shadow(0 0 16px rgba(245, 166, 35, 0.82))
+      drop-shadow(0 0 6px rgba(255, 200, 80, 0.55));
   }
 }
 
@@ -74,6 +76,26 @@
   flex-shrink: 0;
   transform-origin: center center;
   animation: ct-hp-rating-pulse 5s ease-in-out infinite;
+}
+
+.ct-hp-rating__star:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.ct-hp-rating__star:nth-child(2) {
+  animation-delay: 0.12s;
+}
+
+.ct-hp-rating__star:nth-child(3) {
+  animation-delay: 0.24s;
+}
+
+.ct-hp-rating__star:nth-child(4) {
+  animation-delay: 0.36s;
+}
+
+.ct-hp-rating__star:nth-child(5) {
+  animation-delay: 0.48s;
 }
 
 .ct-hp-rating__icon {
@@ -694,6 +716,7 @@ button.ct-hp__cta {
 @media (prefers-reduced-motion: reduce) {
   .ct-hp-rating__star {
     animation: none;
+    filter: none;
   }
 
   .ct-hp__dot,
