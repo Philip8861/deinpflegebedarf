@@ -55,8 +55,10 @@
 
 .product-description-content,
 .pflege-product-description-section__content {
-  --pdesc-body: 1.0625rem;
-  --pdesc-heading: 1.1875rem;
+  --pdesc-body: 1.075rem;
+  --pdesc-heading-h2: clamp(1.35rem, 1.18rem + 0.65vw, 1.625rem);
+  --pdesc-heading-h3: clamp(1.2rem, 1.08rem + 0.45vw, 1.375rem);
+  --pdesc-list-heading: clamp(1.2rem, 1.08rem + 0.45vw, 1.375rem);
   min-width: 0;
   max-width: 100%;
   overflow-wrap: anywhere;
@@ -159,16 +161,48 @@
 }
 
 .product-description-content :where(h1, h2, h3, h4, h5, h6) {
-  margin: 1.75em 0 0.6em;
+  margin: 1.85em 0 0.75em;
   font-family: inherit !important;
-  font-size: var(--pdesc-heading) !important;
-  font-weight: 700 !important;
-  line-height: 1.4 !important;
-  letter-spacing: -0.02em;
+  font-weight: 800 !important;
+  line-height: 1.35 !important;
+  letter-spacing: -0.025em;
   color: var(--pdesc-navy);
 }
 
-.product-description-content :where(h1:first-child, h2:first-child, h3:first-child, h4:first-child) {
+.product-description-content :where(h1, h2) {
+  font-size: var(--pdesc-heading-h2) !important;
+}
+
+.product-description-content :where(h3, h4, h5, h6) {
+  font-size: var(--pdesc-heading-h3) !important;
+  font-weight: 700 !important;
+}
+
+.product-description-content :where(.product-description-list-heading) {
+  margin: 1.65em 0 0.65em;
+  font-family: inherit !important;
+  font-size: var(--pdesc-list-heading) !important;
+  font-weight: 800 !important;
+  line-height: 1.35 !important;
+  letter-spacing: -0.025em;
+  color: var(--pdesc-navy);
+}
+
+.product-description-content :where(.product-description-list-heading:last-child) {
+  margin-bottom: 0.65em;
+}
+
+.product-description-content :where(.product-description-list-heading strong, .product-description-list-heading b) {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  color: inherit;
+}
+
+.product-description-content :where(h1:first-child, h2:first-child, h3:first-child, h4:first-child, .product-description-list-heading:first-child) {
+  margin-top: 0;
+}
+
+.product-description-block > :where(h2:first-child) {
   margin-top: 0;
 }
 
@@ -223,18 +257,18 @@
 
 .product-description-content :where(ul > li) {
   position: relative;
-  margin: 0.7em 0;
-  padding-left: 2rem;
-  line-height: 1.65;
+  margin: 0.75em 0;
+  padding-left: 2.15rem;
+  line-height: 1.68;
 }
 
 .product-description-content :where(ul > li)::before {
   content: '✓';
   position: absolute;
   left: 0;
-  top: 0.18em;
-  width: 1.125rem;
-  height: 1.125rem;
+  top: 0.22em;
+  width: 1.2rem;
+  height: 1.2rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -338,6 +372,14 @@
   .product-description-card,
   .pflege-product-description-section__card {
     padding: 1.2rem 1rem 1.35rem;
+  }
+
+  .product-description-content,
+  .pflege-product-description-section__content {
+    --pdesc-body: 1.05rem;
+    --pdesc-heading-h2: 1.28rem;
+    --pdesc-heading-h3: 1.16rem;
+    --pdesc-list-heading: 1.16rem;
   }
 
   .product-description-content :where(table) {
