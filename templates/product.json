@@ -30,10 +30,6 @@
             "text_style": "subtitle"
           }
         },
-        "rating_pflege": {
-          "type": "rating",
-          "settings": {}
-        },
         "price": {
           "type": "price",
           "settings": {}
@@ -68,7 +64,6 @@
         "vendor",
         "title",
         "caption",
-        "rating_pflege",
         "price",
         "variant_picker",
         "inventory_pflege",
