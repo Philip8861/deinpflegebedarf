@@ -1,8 +1,8 @@
 {% comment %}
-  PDP – Payment-/Trust-Bereich innerhalb trust-unified.
+  PDP – Payment-/Trust-Footer innerhalb trust-unified (ohne verschachtelte Boxen).
 {% endcomment %}
 <div
-  class="pflege-payment-trust-box pflege-payment-trust-box--merged"
+  class="pflege-product__trust-footer"
   aria-label="{{ 'products.product.pflege_cart.pay_trust_aria' | t }}"
 >
   <div class="pflege-product__trust-panel-row pflege-product__trust-panel-row--stacked">
@@ -15,18 +15,16 @@
     </span>
   </div>
 
-  <div class="pflege-product__trust-unified-extras">
-    <div class="pflege-payment-trust-box__badges">
-      <span class="pflege-payment-trust-box__badge">
-        <span class="pflege-payment-trust-box__check" aria-hidden="true">✓</span>
-        {{ 'products.product.pflege_cart.pay_trust_badge_ssl' | t }}
-      </span>
-      <span class="pflege-payment-trust-box__badge">
-        <span class="pflege-payment-trust-box__check" aria-hidden="true">✓</span>
-        {{ 'products.product.pflege_cart.pay_trust_badge_packaging' | t }}
-      </span>
-    </div>
+  <ul class="pflege-product__trust-chips" role="list">
+    <li class="pflege-product__trust-chip" role="listitem">
+      <span class="pflege-product__trust-chip__check" aria-hidden="true">✓</span>
+      {{ 'products.product.pflege_cart.pay_trust_badge_ssl' | t }}
+    </li>
+    <li class="pflege-product__trust-chip" role="listitem">
+      <span class="pflege-product__trust-chip__check" aria-hidden="true">✓</span>
+      {{ 'products.product.pflege_cart.pay_trust_badge_packaging' | t }}
+    </li>
+  </ul>
 
-    {% render 'pflege-payment-badges', layout: 'pdp-grid' %}
-  </div>
+  {% render 'pflege-payment-badges', layout: 'pdp-strip' %}
 </div>
