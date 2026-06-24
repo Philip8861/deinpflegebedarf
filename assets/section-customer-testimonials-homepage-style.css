@@ -47,12 +47,33 @@
   margin: 0 auto;
 }
 
+@keyframes ct-hp-rating-pulse {
+  0%,
+  86%,
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 0 transparent);
+  }
+
+  90% {
+    transform: scale(1.18);
+    filter: drop-shadow(0 0 14px rgba(245, 166, 35, 0.78));
+  }
+
+  94% {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 8px rgba(245, 166, 35, 0.52));
+  }
+}
+
 .ct-hp-rating__star {
   position: relative;
   display: inline-block;
   width: var(--ct-hp-star-size);
   height: var(--ct-hp-star-size);
   flex-shrink: 0;
+  transform-origin: center center;
+  animation: ct-hp-rating-pulse 5s ease-in-out infinite;
 }
 
 .ct-hp-rating__icon {
@@ -227,9 +248,60 @@
 }
 
 .ct-hp__source {
-  font-size: clamp(0.78rem, 0.74rem + 0.1vw, 0.86rem);
-  line-height: 1.35;
-  color: var(--ct-hp-source);
+  display: none;
+}
+
+/* ——— Bewertung abgeben: Sterne-Auswahl ——— */
+.ct-hp__review-stars-picker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.35rem;
+}
+
+.ct-hp__review-star-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.65rem;
+  height: 2.65rem;
+  padding: 0;
+  border: none;
+  border-radius: 0.35rem;
+  background: transparent;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    filter 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ct-hp__review-star-btn svg {
+  width: 2.1rem;
+  height: 2.1rem;
+  display: block;
+}
+
+.ct-hp__review-star-btn path {
+  fill: var(--ct-hp-star-empty);
+  transition: fill 0.15s ease;
+}
+
+.ct-hp__review-star-btn.is-active path,
+.ct-hp__review-star-btn.is-hover path {
+  fill: var(--ct-hp-star);
+}
+
+.ct-hp__review-star-btn:hover,
+.ct-hp__review-star-btn:focus-visible {
+  transform: scale(1.08);
+  outline: none;
+}
+
+.ct-hp__review-star-btn:focus-visible {
+  box-shadow: 0 0 0 2px var(--ct-hp-blue);
 }
 
 /* ——— Slider-Dots ——— */
@@ -620,9 +692,14 @@ button.ct-hp__cta {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .ct-hp-rating__star {
+    animation: none;
+  }
+
   .ct-hp__dot,
   .ct-hp__cta,
-  .ct-hp__expand-wrap {
+  .ct-hp__expand-wrap,
+  .ct-hp__review-star-btn {
     transition: none;
   }
 

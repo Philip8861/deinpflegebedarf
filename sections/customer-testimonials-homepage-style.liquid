@@ -146,9 +146,6 @@
                 <div class="ct-hp__author-meta">
                   <span class="ct-hp__name">{{ block.settings.customer_name | strip | default: 'Kundin/Kunde' | escape }}</span>
                   {% render 'ct-hp-verified-buyer' %}
-                  <span class="ct-hp__source">
-                    {%- render 'ct-hp-source-line', text: block.settings.source_text -%}
-                  </span>
                 </div>
               </div>
             </article>
@@ -166,7 +163,6 @@
               <div class="ct-hp__author-meta">
                 <span class="ct-hp__name">{{ section.settings.fallback_author | default: 'Kundin/Kunde' | escape }}</span>
                 {% render 'ct-hp-verified-buyer' %}
-                <span class="ct-hp__source">{% render 'ct-hp-source-line' %}</span>
               </div>
             </div>
           </article>
@@ -256,9 +252,6 @@
                 <div class="ct-hp__author ct-hp__author--expand">
                   <span class="ct-hp__name">{{ block.settings.customer_name | strip | escape }}</span>
                   {% render 'ct-hp-verified-buyer' %}
-                  <span class="ct-hp__source">
-                    {%- render 'ct-hp-source-line', text: block.settings.source_text -%}
-                  </span>
                 </div>
               </article>
             {%- endfor -%}
@@ -351,6 +344,39 @@
                   aria-required="true"
                   value="{{ form.Vorname }}"
                 >
+              </div>
+              <div class="ct-hp__review-field ct-hp__review-field--full">
+                <span class="ct-hp__review-label" id="{{ review_form_id }}-stars-label">
+                  {{- 'sections.customer_testimonials_hp.review_stars' | t -}}
+                  <span class="ct-hp__review-required" aria-hidden="true">*</span>
+                </span>
+                <div
+                  class="ct-hp__review-stars-picker"
+                  role="radiogroup"
+                  aria-labelledby="{{ review_form_id }}-stars-label"
+                  data-ct-review-stars
+                >
+                  <input
+                    type="hidden"
+                    name="contact[Sterne]"
+                    value=""
+                    data-ct-review-rating-value
+                    required
+                    aria-required="true"
+                  >
+                  {%- for star_n in (1..5) -%}
+                    <button
+                      type="button"
+                      class="ct-hp__review-star-btn"
+                      data-ct-review-star="{{ star_n }}"
+                      aria-label="{{ 'sections.customer_testimonials_hp.review_star_aria' | t: count: star_n }}"
+                    >
+                      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M12 3.2l2.55 5.17 5.7.83-4.12 4.02.97 5.68L12 16.9l-5.1 2.68.97-5.68-4.12-4.02 5.7-.83L12 3.2z"/>
+                      </svg>
+                    </button>
+                  {%- endfor -%}
+                </div>
               </div>
               <div class="ct-hp__review-field ct-hp__review-field--full">
                 <label class="ct-hp__review-label" for="{{ review_form_id }}-message">
@@ -559,12 +585,6 @@
           "id": "customer_name",
           "label": "Name",
           "default": "Kundin/Kunde"
-        },
-        {
-          "type": "text",
-          "id": "source_text",
-          "label": "Quellenzeile",
-          "default": "Bewertung aus dem Shop"
         }
       ]
     }
@@ -577,8 +597,7 @@
           "type": "review",
           "settings": {
             "review_text": "Sehr guter Service und schnelle Lieferung!",
-            "customer_name": "Kundin/Kunde",
-            "source_text": "Bewertung aus dem Shop"
+            "customer_name": "Kundin/Kunde"
           }
         }
       ]
