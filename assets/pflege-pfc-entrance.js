@@ -17,7 +17,6 @@
     '.pflege-hero--free-care .pflege-hero__title',
     '.pflege-hero--free-care .pflege-hero__sub',
     '.pflege-hero--free-care .pflege-hero__actions .pflege-hero__cta',
-    '.pflege-hero--free-care .pflege-hero__asset-photo',
     '.pfc-free-care__box-products .pflege-bestseller__title',
     '.pfc-free-care__box-products .pflege-bestseller__intro',
     '.pfc-free-care__box-products .pflege-cat-card',

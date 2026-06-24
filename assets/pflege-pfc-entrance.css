@@ -1,0 +1,49 @@
+/* Kostenfreie Pflegehilfsmittel: gestaffelte Text-/Element-Einblendung (s. pflege-pfc-entrance.js) */
+
+@keyframes pflege-pfc-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 1.15rem, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.pflege-pfc-entrance-prep body.pflege-pfc-collection .pflege-pfc-entrance-el {
+    opacity: 0;
+    transform: translate3d(0, 1.15rem, 0);
+    animation: none;
+  }
+
+  html.pflege-pfc-entrance-ready body.pflege-pfc-collection .pflege-pfc-entrance-el {
+    animation: pflege-pfc-rise 0.68s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: var(--pfc-entrance-delay, 0s);
+  }
+
+  /* Kopfbilder/Promo-Bilder nicht einblenden — vermeidet kurzes Abdunkeln beim Kategoriewechsel */
+  html.pflege-pfc-entrance-prep body.pflege-pfc-collection .pflege-hero__asset-photo,
+  html.pflege-pfc-entrance-ready body.pflege-pfc-collection .pflege-hero__asset-photo,
+  html.pflege-pfc-entrance-prep body.pflege-category-filtered-page .pflege-cat-filtered__promo-img,
+  html.pflege-pfc-entrance-ready body.pflege-category-filtered-page .pflege-cat-filtered__promo-img {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  /* Kein Doppel-Effekt mit Theme-Scroll-Animation */
+  html.pflege-pfc-entrance-prep body.pflege-pfc-collection #MainContent .scroll-trigger {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.pflege-pfc-entrance-prep body.pflege-pfc-collection .pflege-pfc-entrance-el {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
