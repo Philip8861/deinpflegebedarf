@@ -851,6 +851,24 @@
   margin-bottom: 0;
 }
 
+/* Einheitliche Trust-/Payment-Box */
+.pflege-product-page .pflege-product__trust-unified {
+  padding: 1rem 1.08rem;
+  border-radius: var(--pflege-pdp-radius-sm);
+  background: linear-gradient(
+    180deg,
+    rgba(249, 252, 255, 0.94) 0%,
+    rgba(240, 247, 255, 0.88) 100%
+  );
+  border: 1px solid rgba(15, 79, 105, 0.12);
+  box-shadow: 0 8px 24px rgba(0, 32, 80, 0.045);
+}
+
+.pflege-product-page .pflege-product__trust-unified-divider {
+  margin: 0.85rem 0 0.95rem;
+  border-top: 1px solid rgba(15, 79, 105, 0.085);
+}
+
 .pflege-product-page .pflege-product__trust-panel {
   padding: 1rem 1.08rem;
   border-radius: var(--pflege-pdp-radius-sm);
@@ -919,26 +937,6 @@
 .pflege-product-page .pflege-product__trust-panel-row .pflege-icon svg {
   display: block;
   flex-shrink: 0;
-}
-
-.pflege-product-page .pflege-product__pay-methods {
-  margin-top: clamp(0.85rem, 2vw, 1.15rem);
-  padding-top: clamp(0.75rem, 1.8vw, 0.95rem);
-  border-top: 1px solid rgba(15, 79, 105, 0.08);
-}
-
-.pflege-product-page .pflege-product__pay-methods-label {
-  margin: 0 0 0.58rem;
-  font-size: 0.98rem !important;
-  font-weight: 600;
-  line-height: 1.35;
-  letter-spacing: 0.01em;
-  text-align: center;
-  color: rgba(20, 52, 93, 0.58);
-}
-
-.pflege-product-page .pflege-product__pay-methods .pflege-pay-badges--compact {
-  width: 100%;
 }
 
 .template-product .pflege-pdp-top-claims {
