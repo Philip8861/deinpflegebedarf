@@ -76,13 +76,15 @@
         "buy_buttons"
       ],
       "settings": {
-        "enable_sticky_info": true,
+        "enable_sticky_info": false,
         "media_size": "medium",
         "constrain_to_viewport": true,
         "gallery_layout": "thumbnail",
         "mobile_thumbnails": "show",
         "hide_variants": true,
         "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 12,
         "show_pdp_breadcrumb": true,
         "breadcrumb_home": "Startseite",
         "breadcrumb_sep": "›",
@@ -90,14 +92,13 @@
         "show_bestseller_badge": true,
         "bestseller_tag": "bestseller",
         "show_meta_field_strip": false,
-        "show_meta_strip_placeholders": false,
-        "padding_top": 36,
-        "padding_bottom": 12
+        "show_meta_strip_placeholders": false
       }
     },
     "pflege_product_detail_body": {
       "type": "pflege-product-detail-body",
       "settings": {
+        "description_heading": "Beschreibung",
         "section_aria_label": "Produktbeschreibung",
         "color_scheme": "scheme-1",
         "padding_top": 52,
@@ -127,9 +128,5 @@
       }
     }
   },
-  "order": [
-    "main",
-    "pflege_product_detail_body",
-    "related_pflege"
-  ]
+  "order": ["main", "pflege_product_detail_body", "related_pflege"]
 }

@@ -1113,14 +1113,15 @@
 }
 
 /*
- * PDP Sticky: Nur die Kaufspalte (.product__info-container) bleibt sticky — die Galerie nicht
- * (doppeltes Sticky in einer Zeile erzeugt Layout-Neuverläufe / „Hängen“).
- * top orientiert sich an --header-height (sticky-header setzt per JS), statt fester 3rem.
+ * PDP: Kaufspalte nicht sticky — verhindert „Hängen“ beim Scrollen
+ * (sticky + loslassen am Ende des product-info-Blocks erzeugt ruckartiges Weiterscrollen).
  */
 @media screen and (min-width: 750px) {
   .template-product .pflege-product-page .product__column-sticky {
-    top: max(1rem, calc(env(safe-area-inset-top, 0px) + var(--header-height, 0px) + 0.45rem));
-    align-self: flex-start;
+    position: static;
+    top: auto;
+    z-index: auto;
+    align-self: stretch;
   }
 }
 
