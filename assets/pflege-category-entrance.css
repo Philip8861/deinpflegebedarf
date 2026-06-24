@@ -1,0 +1,68 @@
+/* Gefilterte Kategorieseiten: gestaffelte Einblendung (s. pflege-category-entrance.js) */
+
+@keyframes pflege-cat-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 1.05rem, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes pflege-cat-rise-card {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0.85rem, 0) scale(0.992);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.pflege-cat-entrance-prep body.pflege-category-filtered-page .pflege-cat-entrance-el {
+    opacity: 0;
+    transform: translate3d(0, 1.05rem, 0);
+    animation: none;
+  }
+
+  html.pflege-cat-entrance-prep body.pflege-category-filtered-page .pflege-cat-entrance-el--card {
+    transform: translate3d(0, 0.85rem, 0) scale(0.992);
+  }
+
+  html.pflege-cat-entrance-ready body.pflege-category-filtered-page .pflege-cat-entrance-el {
+    animation: pflege-cat-rise 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: var(--pce-delay, 0s);
+  }
+
+  html.pflege-cat-entrance-ready body.pflege-category-filtered-page .pflege-cat-entrance-el--card {
+    animation-name: pflege-cat-rise-card;
+    animation-duration: 0.36s;
+  }
+
+  /* Promo-Bild sofort sichtbar — kein Abdunkeln beim Kategoriewechsel */
+  html.pflege-cat-entrance-prep body.pflege-category-filtered-page .pflege-cat-filtered__promo-img,
+  html.pflege-cat-entrance-ready body.pflege-category-filtered-page .pflege-cat-filtered__promo-img {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  html.pflege-cat-entrance-prep body.pflege-category-filtered-page #MainContent .scroll-trigger {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.pflege-cat-entrance-prep body.pflege-category-filtered-page .pflege-cat-entrance-el {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
