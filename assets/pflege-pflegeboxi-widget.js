@@ -1,6 +1,7 @@
 (function () {
-  const NUDGE_MS = 10000;
+  const NUDGE_MS = 5000;
   const STORAGE_DISMISS = 'pflegeboxi-dismissed';
+  const DESKTOP_MQ = '(min-width: 750px)';
 
   function init() {
     const root = document.getElementById('pflege-pflegeboxi-root');
@@ -10,9 +11,19 @@
     const modal = document.getElementById('pflege-pflegeboxi-dialog');
     if (!launcher || !modal) return;
 
+    const desktopMq = window.matchMedia(DESKTOP_MQ);
+
+    function isDesktop() {
+      return desktopMq.matches;
+    }
+
     if (window.sessionStorage.getItem(STORAGE_DISMISS) === '1') {
       root.hidden = true;
       return;
+    }
+
+    if (!isDesktop()) {
+      root.hidden = true;
     }
 
     const dismissBtn = root.querySelector('[data-pflegeboxi-dismiss]');
@@ -135,9 +146,37 @@
       launcher.classList.remove('pflege-pflegeboxi-widget__launcher--nudge');
     });
 
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    function startNudgeInterval() {
+      if (
+        nudgeIntervalId != null ||
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+        !isDesktop()
+      ) {
+        return;
+      }
       nudgeIntervalId = window.setInterval(nudge, NUDGE_MS);
     }
+
+    function stopNudgeInterval() {
+      if (nudgeIntervalId == null) return;
+      window.clearInterval(nudgeIntervalId);
+      nudgeIntervalId = null;
+    }
+
+    startNudgeInterval();
+
+    desktopMq.addEventListener('change', (e) => {
+      if (e.matches) {
+        if (window.sessionStorage.getItem(STORAGE_DISMISS) !== '1') {
+          root.hidden = false;
+        }
+        startNudgeInterval();
+      } else {
+        closeModal();
+        root.hidden = true;
+        stopNudgeInterval();
+      }
+    });
   }
 
   if (document.readyState === 'loading') {

@@ -542,6 +542,12 @@ a.pflege-pflegeboxi-modal__footer-link {
 }
 
 @media screen and (max-width: 749px) {
+  /* Pflegeboxi-Launcher + Modal auf Mobilgeräten ausblenden */
+  #pflege-pflegeboxi-root,
+  .pflege-pflegeboxi-modal {
+    display: none !important;
+  }
+
   .pflege-pflegeboxi-modal {
     align-items: flex-end;
     padding-bottom: max(1rem, env(safe-area-inset-bottom));
