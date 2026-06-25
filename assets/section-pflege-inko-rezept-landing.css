@@ -364,7 +364,7 @@
   height: clamp(5.75rem, 8vw, 7rem);
   margin-bottom: clamp(1.35rem, 2.5vw, 1.65rem);
   border-radius: var(--pflege-radius-pill, 999px);
-  background: color-mix(in srgb, var(--pflege-accent, #3f86d9) 8%, var(--pflege-bg-soft, #eef6ff));
+  background: #88c8fb;
   border: 1px solid color-mix(in srgb, var(--pflege-accent, #3f86d9) 22%, transparent);
   color: var(--pflege-heading-navy, #062a55);
   line-height: 0;
