@@ -453,13 +453,15 @@
       "image_alt": "Incontinence care on prescription",
       "phone_intro": "We are also happy to advise you by phone:",
       "phone_number": "08334 / 9893330",
-      "steps_title": "3 steps to the right incontinence product",
-      "step_1_title": "Fill in your details",
+      "phone_hint": "We advise you personally and free of charge on the right incontinence care.",
+      "steps_title": "In 3 simple steps to the right incontinence product",
+      "steps_subtitle": "We advise you personally, clarify your needs and send free samples on request.",
+      "step_1_title": "Submit your request",
       "step_1_text": "Share your contact details and preferences with us.",
-      "step_2_title": "We will contact you on working days within 24 hours",
-      "step_2_text": "Our team will get in touch with you as soon as possible.",
-      "step_3_title": "Discuss the perfect product and send a free sample",
-      "step_3_text": "Together we find the right solution for you."
+      "step_2_title": "We will contact you personally",
+      "step_2_text": "Our team will reach out on working days within 24 hours.",
+      "step_3_title": "Discuss product & receive samples",
+      "step_3_text": "Together we find the right solution and send free samples on request."
     },
     "pflege_collection_free_care": {
       "meta_title": "Free care aids from care grade 1 | Configure care box",

@@ -6,12 +6,16 @@
   assign phone_intro = ''
   assign phone_number = ''
   assign phone_href = ''
+  assign phone_hint = ''
   assign steps_title = ''
+  assign steps_subtitle = ''
   if section != blank
     assign phone_intro = section.settings.phone_intro | strip
     assign phone_number = section.settings.phone_number | strip
     assign phone_href = section.settings.phone_link | strip
+    assign phone_hint = section.settings.phone_hint | strip
     assign steps_title = section.settings.steps_title | strip
+    assign steps_subtitle = section.settings.steps_subtitle | strip
   endif
   if phone_intro == blank
     assign phone_intro = 'sections.pflege_inko_rezept_landing.phone_intro' | t
@@ -22,33 +26,51 @@
   if phone_href == blank
     assign phone_href = 'tel:+4983349893330'
   endif
+  if phone_hint == blank
+    assign phone_hint = 'sections.pflege_inko_rezept_landing.phone_hint' | t
+  endif
   if steps_title == blank
     assign steps_title = 'sections.pflege_inko_rezept_landing.steps_title' | t
+  endif
+  if steps_subtitle == blank
+    assign steps_subtitle = 'sections.pflege_inko_rezept_landing.steps_subtitle' | t
   endif
 -%}
 
 <div class="pflege-inko-rezept-below">
   <div class="pflege-inko-rezept-below__shell">
-    <a class="pflege-inko-rezept-phone" href="{{ phone_href | escape }}">
+    <div class="pflege-inko-rezept-phone">
       <span class="pflege-inko-rezept-phone__icon" aria-hidden="true">
-        {% render 'pflege-icon', icon: 'phone', width: 34 %}
+        {% render 'pflege-icon', icon: 'phone', width: 22 %}
       </span>
-      <span class="pflege-inko-rezept-phone__copy">
-        <span class="pflege-inko-rezept-phone__label">{{ phone_intro | escape }}</span>
-        <span class="pflege-inko-rezept-phone__number">{{ phone_number | escape }}</span>
-      </span>
-      <span class="pflege-inko-rezept-phone__cta" aria-hidden="true">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </span>
-    </a>
+      <div class="pflege-inko-rezept-phone__copy">
+        {%- if phone_intro != blank -%}
+          <p class="pflege-inko-rezept-phone__label">{{ phone_intro | escape }}</p>
+        {%- endif -%}
+        <a class="pflege-inko-rezept-phone__number" href="{{ phone_href | escape }}">
+          {{ phone_number | escape }}
+        </a>
+        {%- if phone_hint != blank -%}
+          <p class="pflege-inko-rezept-phone__hint">{{ phone_hint | escape }}</p>
+        {%- endif -%}
+      </div>
+    </div>
 
-    <section class="pflege-inko-rezept-steps" aria-labelledby="pflege-inko-rezept-steps-title-{{ section.id | default: 'fallback' }}">
-      <h2
-        id="pflege-inko-rezept-steps-title-{{ section.id | default: 'fallback' }}"
-        class="pflege-inko-rezept-steps__title"
-      >
-        {{ steps_title | escape }}
-      </h2>
+    <section
+      class="pflege-inko-rezept-steps"
+      aria-labelledby="pflege-inko-rezept-steps-title-{{ section.id | default: 'fallback' }}"
+    >
+      <header class="pflege-inko-rezept-steps__head">
+        <h2
+          id="pflege-inko-rezept-steps-title-{{ section.id | default: 'fallback' }}"
+          class="pflege-inko-rezept-steps__title"
+        >
+          {{ steps_title | escape }}
+        </h2>
+        {%- if steps_subtitle != blank -%}
+          <p class="pflege-inko-rezept-steps__subtitle">{{ steps_subtitle | escape }}</p>
+        {%- endif -%}
+      </header>
 
       <ol class="pflege-inko-rezept-steps__list">
         {%- if section != blank and section.blocks.size > 0 -%}
@@ -59,11 +81,13 @@
                   <span class="pflege-inko-rezept-steps__num" aria-hidden="true">{{ forloop.index }}</span>
                   <span class="pflege-inko-rezept-steps__icon" aria-hidden="true">
                     {%- if block.settings.icon == 'headset' -%}
-                      {% render 'pflege-icon', icon: 'headset', width: 34 %}
+                      {% render 'pflege-icon', icon: 'headset', width: 36 %}
                     {%- elsif block.settings.icon == 'gift' -%}
-                      <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C9 3 12 8 12 8"/><path d="M16.5 8a2.5 2.5 0 0 0 0-5C15 3 12 8 12 8"/></svg>
+                      {% render 'pflege-icon', icon: 'gift', width: 36 %}
+                    {%- elsif block.settings.icon == 'package' -%}
+                      {% render 'pflege-icon', icon: 'package', width: 36 %}
                     {%- else -%}
-                      {% render 'pflege-icon', icon: 'file-text', width: 34 %}
+                      {% render 'pflege-icon', icon: 'file-text', width: 36 %}
                     {%- endif -%}
                   </span>
                   <div class="pflege-inko-rezept-steps__copy">
@@ -81,7 +105,7 @@
             <article class="pflege-inko-rezept-steps__card">
               <span class="pflege-inko-rezept-steps__num" aria-hidden="true">1</span>
               <span class="pflege-inko-rezept-steps__icon" aria-hidden="true">
-                {% render 'pflege-icon', icon: 'file-text', width: 34 %}
+                {% render 'pflege-icon', icon: 'file-text', width: 36 %}
               </span>
               <div class="pflege-inko-rezept-steps__copy">
                 <h3 class="pflege-inko-rezept-steps__card-title">{{ 'sections.pflege_inko_rezept_landing.step_1_title' | t }}</h3>
@@ -93,7 +117,7 @@
             <article class="pflege-inko-rezept-steps__card">
               <span class="pflege-inko-rezept-steps__num" aria-hidden="true">2</span>
               <span class="pflege-inko-rezept-steps__icon" aria-hidden="true">
-                {% render 'pflege-icon', icon: 'headset', width: 34 %}
+                {% render 'pflege-icon', icon: 'headset', width: 36 %}
               </span>
               <div class="pflege-inko-rezept-steps__copy">
                 <h3 class="pflege-inko-rezept-steps__card-title">{{ 'sections.pflege_inko_rezept_landing.step_2_title' | t }}</h3>
@@ -105,7 +129,7 @@
             <article class="pflege-inko-rezept-steps__card">
               <span class="pflege-inko-rezept-steps__num" aria-hidden="true">3</span>
               <span class="pflege-inko-rezept-steps__icon" aria-hidden="true">
-                <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C9 3 12 8 12 8"/><path d="M16.5 8a2.5 2.5 0 0 0 0-5C15 3 12 8 12 8"/></svg>
+                {% render 'pflege-icon', icon: 'gift', width: 36 %}
               </span>
               <div class="pflege-inko-rezept-steps__copy">
                 <h3 class="pflege-inko-rezept-steps__card-title">{{ 'sections.pflege_inko_rezept_landing.step_3_title' | t }}</h3>

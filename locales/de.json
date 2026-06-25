@@ -446,13 +446,15 @@
       "image_alt": "Inkontinenzversorgung auf Rezept",
       "phone_intro": "Gerne beraten wir Sie auch telefonisch unter:",
       "phone_number": "08334 / 9893330",
-      "steps_title": "3 Schritte zum passenden Inkontinenzprodukt",
-      "step_1_title": "Daten ausfüllen",
+      "phone_hint": "Wir beraten Sie persönlich und kostenlos zur passenden Inkontinenzversorgung.",
+      "steps_title": "In 3 einfachen Schritten zum passenden Inkontinenzprodukt",
+      "steps_subtitle": "Wir beraten Sie persönlich, klären Ihren Bedarf und senden auf Wunsch kostenlose Muster zu.",
+      "step_1_title": "Anfrage ausfüllen",
       "step_1_text": "Teilen Sie uns Ihre Kontaktdaten und Wünsche mit.",
-      "step_2_title": "Wir melden uns an Werktagen innerhalb von 24 Stunden bei Ihnen",
-      "step_2_text": "Unser Team setzt sich schnellstmöglich mit Ihnen in Verbindung.",
-      "step_3_title": "Perfektes Produkt besprechen und Gratis-Muster zusenden",
-      "step_3_text": "Wir finden gemeinsam die passende Lösung für Sie."
+      "step_2_title": "Wir melden uns persönlich",
+      "step_2_text": "Unser Team kontaktiert Sie werktags innerhalb von 24 Stunden.",
+      "step_3_title": "Produkt besprechen & Muster erhalten",
+      "step_3_text": "Wir finden gemeinsam die passende Lösung und senden auf Wunsch kostenlose Muster zu."
     },
     "pflege_collection_free_care": {
       "meta_title": "Kostenfreie Pflegehilfsmittel ab Pflegegrad 1 | Pflegebox konfigurieren",

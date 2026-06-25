@@ -8,7 +8,7 @@
           "type": "step",
           "settings": {
             "icon": "file-text",
-            "title": "Daten ausfüllen",
+            "title": "Anfrage ausfüllen",
             "text": "Teilen Sie uns Ihre Kontaktdaten und Wünsche mit."
           }
         },
@@ -16,16 +16,16 @@
           "type": "step",
           "settings": {
             "icon": "headset",
-            "title": "Wir melden uns an Werktagen innerhalb von 24 Stunden bei Ihnen",
-            "text": "Unser Team setzt sich schnellstmöglich mit Ihnen in Verbindung."
+            "title": "Wir melden uns persönlich",
+            "text": "Unser Team kontaktiert Sie werktags innerhalb von 24 Stunden."
           }
         },
         "step_3": {
           "type": "step",
           "settings": {
             "icon": "gift",
-            "title": "Perfektes Produkt besprechen und Gratis-Muster zusenden",
-            "text": "Wir finden gemeinsam die passende Lösung für Sie."
+            "title": "Produkt besprechen & Muster erhalten",
+            "text": "Wir finden gemeinsam die passende Lösung und senden auf Wunsch kostenlose Muster zu."
           }
         }
       },
@@ -43,7 +43,9 @@
         "phone_intro": "Gerne beraten wir Sie auch telefonisch unter:",
         "phone_number": "08334 / 9893330",
         "phone_link": "tel:+4983349893330",
-        "steps_title": "3 Schritte zum passenden Inkontinenzprodukt"
+        "phone_hint": "Wir beraten Sie persönlich und kostenlos zur passenden Inkontinenzversorgung.",
+        "steps_title": "In 3 einfachen Schritten zum passenden Inkontinenzprodukt",
+        "steps_subtitle": "Wir beraten Sie persönlich, klären Ihren Bedarf und senden auf Wunsch kostenlose Muster zu."
       }
     }
   },
