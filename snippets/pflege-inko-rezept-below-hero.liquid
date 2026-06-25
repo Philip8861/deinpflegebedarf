@@ -56,11 +56,13 @@
   <div class="pflege-inko-rezept-below__backdrop">
     <div class="pflege-inko-rezept-below__shell">
     <div class="pflege-inko-rezept-phone">
-      {% render 'pflege-contact-portrait', class: 'pflege-contact-portrait--phone', decorative: true %}
       <div class="pflege-inko-rezept-phone__copy">
         {%- if phone_intro != blank -%}
           <p class="pflege-inko-rezept-phone__label">{{ phone_intro | escape }}</p>
         {%- endif -%}
+        <div class="pflege-inko-rezept-phone__portrait-wrap">
+          {% render 'pflege-contact-portrait', class: 'pflege-contact-portrait--phone', decorative: true %}
+        </div>
         <a class="pflege-inko-rezept-phone__number" href="{{ phone_href | escape }}">
           {{ phone_number | escape }}
         </a>

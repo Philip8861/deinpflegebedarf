@@ -2,15 +2,15 @@
 
 .pflege-contact-portrait {
   --pflege-portrait-ring: var(--pflege-home-section-heading-color, #0f4f69);
-  --pflege-portrait-size: clamp(4.75rem, 8vw, 6.25rem);
+  --pflege-portrait-size: clamp(9rem, 16vw, 12.5rem);
   flex-shrink: 0;
   width: var(--pflege-portrait-size);
   height: var(--pflege-portrait-size);
   border-radius: var(--pflege-radius-pill, 999px);
-  border: 3px solid var(--pflege-portrait-ring);
+  border: 4px solid var(--pflege-portrait-ring);
   box-shadow:
-    0 0 0 4px color-mix(in srgb, var(--pflege-portrait-ring) 14%, transparent),
-    0 10px 28px color-mix(in srgb, var(--pflege-portrait-ring) 18%, transparent);
+    0 0 0 5px color-mix(in srgb, var(--pflege-portrait-ring) 14%, transparent),
+    0 14px 36px color-mix(in srgb, var(--pflege-portrait-ring) 20%, transparent);
   overflow: hidden;
   background: var(--pflege-white, #fefefe);
   box-sizing: border-box;
@@ -18,11 +18,11 @@
 }
 
 .pflege-contact-portrait--phone {
-  --pflege-portrait-size: clamp(4.75rem, 8.5vw, 6.5rem);
+  --pflege-portrait-size: clamp(9.5rem, 17vw, 13rem);
 }
 
 .pflege-contact-portrait--aside {
-  --pflege-portrait-size: clamp(5.5rem, 10vw, 7.5rem);
+  --pflege-portrait-size: clamp(10rem, 18vw, 15rem);
 }
 
 .pflege-contact-portrait__img {
@@ -36,10 +36,20 @@
 
 @media screen and (max-width: 749px) {
   .pflege-contact-portrait--phone {
-    --pflege-portrait-size: clamp(4.5rem, 18vw, 5.75rem);
+    --pflege-portrait-size: clamp(8.5rem, 38vw, 11rem);
   }
 
   .pflege-contact-portrait--aside {
-    --pflege-portrait-size: clamp(5rem, 22vw, 6.75rem);
+    --pflege-portrait-size: clamp(9rem, 42vw, 12.5rem);
+  }
+}
+
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .pflege-contact-portrait--phone {
+    --pflege-portrait-size: clamp(10rem, 20vw, 12rem);
+  }
+
+  .pflege-contact-portrait--aside {
+    --pflege-portrait-size: clamp(11rem, 22vw, 14rem);
   }
 }
