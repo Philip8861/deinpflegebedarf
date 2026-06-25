@@ -22,6 +22,8 @@
   {% render 'pflege-faq-page-fallback' %}
 {%- elsif request.page_type == 'page' and page.handle == 'empfohlene-artikel' -%}
   {% render 'pflege-empfohlene-artikel-fallback' %}
+{%- elsif request.page_type == 'page' and page.handle == 'inkontinenzversorgung-auf-rezept' or page.handle == 'inkontinenzversrogung-auf-rezept' -%}
+  {% render 'pflege-inko-rezept-landing-fallback' %}
 {%- else -%}
 {{ 'section-main-page.css' | asset_url | stylesheet_tag }}
 
