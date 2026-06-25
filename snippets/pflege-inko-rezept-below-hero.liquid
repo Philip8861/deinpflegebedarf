@@ -56,19 +56,21 @@
   <div class="pflege-inko-rezept-below__backdrop">
     <div class="pflege-inko-rezept-below__shell">
     <div class="pflege-inko-rezept-phone">
-      <div class="pflege-inko-rezept-phone__copy">
-        {%- if phone_intro != blank -%}
-          <p class="pflege-inko-rezept-phone__label">{{ phone_intro | escape }}</p>
-        {%- endif -%}
-        <div class="pflege-inko-rezept-phone__portrait-wrap">
-          {% render 'pflege-contact-portrait', class: 'pflege-contact-portrait--phone', decorative: true %}
+      <div class="pflege-inko-rezept-phone__portrait-wrap">
+        {% render 'pflege-contact-portrait', class: 'pflege-contact-portrait--phone', decorative: true %}
+      </div>
+      <div class="pflege-inko-rezept-phone__panel">
+        <div class="pflege-inko-rezept-phone__copy">
+          {%- if phone_intro != blank -%}
+            <p class="pflege-inko-rezept-phone__label">{{ phone_intro | escape }}</p>
+          {%- endif -%}
+          <a class="pflege-inko-rezept-phone__number" href="{{ phone_href | escape }}">
+            {{ phone_number | escape }}
+          </a>
+          {%- if phone_hint != blank -%}
+            <p class="pflege-inko-rezept-phone__hint">{{ phone_hint | escape }}</p>
+          {%- endif -%}
         </div>
-        <a class="pflege-inko-rezept-phone__number" href="{{ phone_href | escape }}">
-          {{ phone_number | escape }}
-        </a>
-        {%- if phone_hint != blank -%}
-          <p class="pflege-inko-rezept-phone__hint">{{ phone_hint | escape }}</p>
-        {%- endif -%}
       </div>
     </div>
 

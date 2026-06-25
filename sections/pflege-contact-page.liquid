@@ -54,21 +54,23 @@
     <div class="pflege-contact-page__grid">
       {%- if section.settings.show_sidebar -%}
         <aside class="pflege-contact-page__aside" aria-label="Kontaktdaten">
-          <h2 class="pflege-contact-page__aside-title">
-            {{ section.settings.sidebar_title | default: 'So erreichen Sie uns' | escape }}
-          </h2>
+          <div class="pflege-contact-page__aside-hero">
+            <h2 class="pflege-contact-page__aside-title">
+              {{ section.settings.sidebar_title | default: 'So erreichen Sie uns' | escape }}
+            </h2>
 
-          <div class="pflege-contact-page__aside-portrait-wrap">
-            {%- liquid
-              assign portrait_alt_text = section.settings.portrait_alt | strip
-              if portrait_alt_text == blank
-                assign portrait_alt_text = 'Ihr Ansprechpartner bei deinpflegebedarf'
-              endif
-            -%}
-            {% render 'pflege-contact-portrait',
-              class: 'pflege-contact-portrait--aside',
-              alt: portrait_alt_text
-            %}
+            <div class="pflege-contact-page__aside-portrait-wrap">
+              {%- liquid
+                assign portrait_alt_text = section.settings.portrait_alt | strip
+                if portrait_alt_text == blank
+                  assign portrait_alt_text = 'Ihr Ansprechpartner bei deinpflegebedarf'
+                endif
+              -%}
+              {% render 'pflege-contact-portrait',
+                class: 'pflege-contact-portrait--aside',
+                alt: portrait_alt_text
+              %}
+            </div>
           </div>
 
           <ul class="pflege-contact-page__info-list" role="list">

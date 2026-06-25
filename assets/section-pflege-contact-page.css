@@ -100,34 +100,38 @@
   overflow: visible;
 }
 
+.pflege-contact-page__aside-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  margin-bottom: clamp(0.35rem, 1vw, 0.55rem);
+}
+
 .pflege-contact-page__aside-title {
   margin: 0;
   font-family: var(--pflege-font-display, var(--font-body-family, inherit));
-  font-size: clamp(1.18rem, 0.95rem + 0.5vw, 1.42rem);
+  font-size: clamp(1.38rem, 1.05rem + 0.75vw, 1.72rem);
   font-weight: 800;
-  line-height: 1.25;
+  line-height: 1.22;
   letter-spacing: -0.015em;
   color: var(--pfc-petrol);
   text-align: center;
-}
-
-@media screen and (min-width: 750px) {
-  .pflege-contact-page__aside-title {
-    text-align: left;
-  }
+  width: 100%;
 }
 
 .pflege-contact-page__aside-portrait-wrap {
   display: flex;
   justify-content: center;
   width: 100%;
-  margin: clamp(0.75rem, 2.5vw, 1.25rem) auto clamp(0.85rem, 2.5vw, 1.35rem);
+  margin: clamp(0.85rem, 2.5vw, 1.35rem) auto 0;
   position: relative;
   z-index: 1;
 }
 
 .pflege-contact-page__aside-portrait-wrap .pflege-contact-portrait--aside {
-  margin-top: clamp(-0.75rem, -2vw, 0);
+  margin-top: 0;
 }
 
 .pflege-contact-page__info-list {
