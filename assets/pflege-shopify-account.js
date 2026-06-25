@@ -3,6 +3,42 @@
 
   var SIGNIN_TITLE = 'E-Mail angeben und direkt einloggen';
 
+  var ACCOUNT_ICONS = {
+    package:
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 16-7.43-5-7.43 5"/><path d="M3 16V8a2 2 0 0 1 1.07-1.76l7.43-4a2 2 0 0 1 1.86 0l7.43 4A2 2 0 0 1 21 8v8"/><path d="m12 4-8.57 5"/><path d="m12 12 9-5"/><path d="M12 12v10"/></svg>',
+    user:
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+    'log-out':
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>',
+    chevron:
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M8.537.808a.5.5 0 0 1 .817-.162l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 1 1-.708-.708L11.793 5.5H1a.5.5 0 0 1 0-1h10.793L8.646 1.354a.5.5 0 0 1-.109-.546" clip-rule="evenodd"/></svg>'
+  };
+
+  function buildAccountLink(url, label, iconKey, extraClass, rel) {
+    var icon = ACCOUNT_ICONS[iconKey] || '';
+    var className = 'pflege-account-sheet-link' + (extraClass ? ' ' + extraClass : '');
+    var relAttr = rel ? ' rel="' + rel + '"' : '';
+    return (
+      '<a href="' +
+      url +
+      '" class="' +
+      className +
+      '"' +
+      relAttr +
+      '>' +
+      '<span class="pflege-account-sheet-link__icon">' +
+      icon +
+      '</span>' +
+      '<span class="pflege-account-sheet-link__label">' +
+      label +
+      '</span>' +
+      '<span class="pflege-account-sheet-link__chevron">' +
+      ACCOUNT_ICONS.chevron +
+      '</span>' +
+      '</a>'
+    );
+  }
+
   function getAccountButton(accountEl) {
     if (!accountEl) return null;
     if (accountEl.shadowRoot) {
@@ -46,15 +82,90 @@
 
   function injectSheetStyles(accountEl) {
     if (!accountEl.shadowRoot) return;
-    if (accountEl.shadowRoot.getElementById('pflege-account-sheet-style')) return;
+    if (accountEl.shadowRoot.getElementById('pflege-account-sheet-style-v2')) return;
     var style = document.createElement('style');
-    style.id = 'pflege-account-sheet-style';
+    style.id = 'pflege-account-sheet-style-v2';
     style.textContent =
       'nav:not(#pflege-account-links), [role="navigation"]:not(#pflege-account-links) { display: none !important; }' +
-      '.pflege-account-sheet-links { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--shopify-account-color-border, #d7e1ec); display: flex; flex-direction: column; gap: 0.35rem; }' +
-      '.pflege-account-sheet-links a { display: block; padding: 0.65rem 0.75rem; border-radius: 8px; color: var(--shopify-account-color-text, #062a55); font-size: 15px; font-weight: 700; text-decoration: none; line-height: 1.35; }' +
-      '.pflege-account-sheet-links a:hover, .pflege-account-sheet-links a:focus-visible { background: var(--shopify-account-color-background-subdued, #f4f9ff); outline: none; }' +
-      '.pflege-account-sheet-links a.pflege-account-sheet-links__logout { color: var(--shopify-account-color-text-subdued, #66758d); font-weight: 600; }';
+      '.pflege-account-sheet-links {' +
+      'margin-top: 1.25rem;' +
+      'padding: 0.65rem;' +
+      'border: 1px solid rgba(216, 226, 238, 0.65);' +
+      'border-radius: 14px;' +
+      'background: #ffffff;' +
+      'box-shadow: 0 10px 28px rgba(20, 73, 110, 0.06);' +
+      'display: flex;' +
+      'flex-direction: column;' +
+      'gap: 0.2rem;' +
+      '}' +
+      '.pflege-account-sheet-link {' +
+      'display: flex;' +
+      'align-items: center;' +
+      'gap: 0.85rem;' +
+      'padding: 0.55rem 0.65rem;' +
+      'border-radius: 10px;' +
+      'color: #062a55;' +
+      'font-size: 15px;' +
+      'font-weight: 700;' +
+      'text-decoration: none;' +
+      'line-height: 1.35;' +
+      'transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;' +
+      '}' +
+      '.pflege-account-sheet-link:hover, .pflege-account-sheet-link:focus-visible {' +
+      'background: #f4f9ff;' +
+      'outline: none;' +
+      'transform: translateX(1px);' +
+      '}' +
+      '.pflege-account-sheet-link__icon {' +
+      'flex: 0 0 auto;' +
+      'display: inline-flex;' +
+      'align-items: center;' +
+      'justify-content: center;' +
+      'width: 40px;' +
+      'height: 40px;' +
+      'border-radius: 999px;' +
+      'background: #f4f9ff;' +
+      'color: #075f84;' +
+      '}' +
+      '.pflege-account-sheet-link__icon svg {' +
+      'width: 20px;' +
+      'height: 20px;' +
+      'display: block;' +
+      '}' +
+      '.pflege-account-sheet-link__label {' +
+      'flex: 1 1 auto;' +
+      'letter-spacing: 0.01em;' +
+      '}' +
+      '.pflege-account-sheet-link__chevron {' +
+      'flex: 0 0 auto;' +
+      'display: inline-flex;' +
+      'align-items: center;' +
+      'justify-content: center;' +
+      'color: #0b6edc;' +
+      'opacity: 0.5;' +
+      'transition: opacity 0.18s ease, transform 0.18s ease;' +
+      '}' +
+      '.pflege-account-sheet-link__chevron svg {' +
+      'width: 14px;' +
+      'height: 10px;' +
+      'display: block;' +
+      '}' +
+      '.pflege-account-sheet-link:hover .pflege-account-sheet-link__chevron, .pflege-account-sheet-link:focus-visible .pflege-account-sheet-link__chevron {' +
+      'opacity: 0.85;' +
+      'transform: translateX(2px);' +
+      '}' +
+      '.pflege-account-sheet-link--logout {' +
+      'color: #66758d;' +
+      'font-weight: 600;' +
+      '}' +
+      '.pflege-account-sheet-link--logout .pflege-account-sheet-link__icon {' +
+      'background: #f8fbff;' +
+      'color: #66758d;' +
+      '}' +
+      '.pflege-account-sheet-link--logout .pflege-account-sheet-link__chevron {' +
+      'color: #66758d;' +
+      'opacity: 0.4;' +
+      '}';
     accountEl.shadowRoot.appendChild(style);
   }
 
@@ -80,21 +191,9 @@
     wrap.setAttribute('aria-label', 'Kundenbereich');
 
     wrap.innerHTML =
-      '<a href="' +
-      ordersUrl +
-      '">' +
-      ordersLabel +
-      '</a>' +
-      '<a href="' +
-      profileUrl +
-      '">' +
-      profileLabel +
-      '</a>' +
-      '<a href="' +
-      logoutUrl +
-      '" class="pflege-account-sheet-links__logout" rel="nofollow">' +
-      logoutLabel +
-      '</a>';
+      buildAccountLink(ordersUrl, ordersLabel, 'package') +
+      buildAccountLink(profileUrl, profileLabel, 'user') +
+      buildAccountLink(logoutUrl, logoutLabel, 'log-out', 'pflege-account-sheet-link--logout', 'nofollow');
 
     sheet.appendChild(wrap);
   }
