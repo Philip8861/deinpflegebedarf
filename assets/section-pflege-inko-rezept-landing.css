@@ -1,5 +1,11 @@
 /* Inkontinenz-Rezept-Landing — Telefon + 3 Schritte unter dem Hero */
 
+.pflege-inko-rezept-landing-section,
+.pflege-inko-rezept-landing-section .pflege-hero,
+.pflege-inko-rezept-below {
+  font-family: var(--font-body-family), system-ui, sans-serif;
+}
+
 .pflege-inko-rezept-landing__trail {
   padding-bottom: clamp(1.75rem, 3.5vw, 2.75rem);
 }
@@ -75,7 +81,7 @@
 
 .pflege-inko-rezept-phone__number {
   font-size: clamp(1.45rem, 0.55vw + 1.28rem, 1.85rem);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.02em;
   color: #0f4f69;
@@ -108,9 +114,9 @@
 
 .pflege-inko-rezept-steps__title {
   margin: 0 0 clamp(1.15rem, 2.5vw, 1.65rem);
-  font-family: var(--pflege-font-display, var(--font-body-family));
+  font-family: var(--font-body-family), system-ui, sans-serif;
   font-size: var(--pflege-home-section-heading-size, clamp(1.65rem, 1.85vw + 1rem, 2.35rem));
-  font-weight: var(--pflege-home-section-heading-weight, 800);
+  font-weight: 700;
   line-height: var(--pflege-home-section-heading-line-height, 1.18);
   letter-spacing: var(--pflege-home-section-heading-letter-spacing, -0.025em);
   color: var(--pflege-home-section-heading-color, #0f4f69);
@@ -198,7 +204,7 @@
 .pflege-inko-rezept-steps__card-title {
   margin: 0 0 0.45rem;
   font-size: clamp(1.08rem, 0.35vw + 1rem, 1.28rem);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.28;
   color: #003b71;
 }

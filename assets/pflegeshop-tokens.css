@@ -39,11 +39,10 @@
   --pflege-radius-pill: 999px;
   --pflege-font-display: var(--font-body-family);
   /*
-   * Startseite: gleiche Überschriften-Ebene wie „Das sagen unsere Kundinnen und Kunden“
-   * (Größe) und Farbe wie .pflege-hero__title (#0f4f69).
+   * Überschriften: gleiche Familie wie Fließtext (Nunito), kräftig aber ohne synthetisches 800.
    */
   --pflege-home-section-heading-size: clamp(1.85rem, 2.25vw + 1.15rem, 2.75rem);
-  --pflege-home-section-heading-weight: 800;
+  --pflege-home-section-heading-weight: 700;
   --pflege-home-section-heading-line-height: 1.18;
   --pflege-home-section-heading-letter-spacing: -0.025em;
   --pflege-home-section-heading-color: #0f4f69;

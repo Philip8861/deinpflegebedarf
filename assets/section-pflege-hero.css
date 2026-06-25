@@ -6,6 +6,12 @@ body.template-index .pflege-hero,
   padding-bottom: clamp(1rem, 2vw, 1.5rem);
 }
 
+.pflege-hero--inko-rezept .pflege-hero__title,
+.pflege-hero--free-care .pflege-hero__title {
+  font-family: var(--font-body-family), system-ui, sans-serif;
+  font-weight: 400;
+}
+
 .pflege-hero {
   padding-bottom: var(--pflege-home-section-stack, clamp(1.5rem, 3vw, 2rem));
 }
