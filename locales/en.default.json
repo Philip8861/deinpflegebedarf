@@ -638,6 +638,7 @@
         "service_phone": "Persönliche Beratung 08334 / 9893330",
         "service_quality": "100% geprüfte Qualität",
         "free_shipping_title": "Kostenloser Versand ab 150 €",
+        "free_shipping_subline": "ab 150 € Bestellwert",
         "free_shipping_remaining": "Noch {{ amount }} bis zum kostenlosen Versand.",
         "free_shipping_qualified": "Sie erhalten kostenlosen Versand.",
         "trust_pay_title": "Sicher bezahlen",

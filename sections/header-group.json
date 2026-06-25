@@ -18,7 +18,8 @@
           "type": "item",
           "settings": {
             "icon": "truck",
-            "text": "Schneller Versand in 1–2 Tagen"
+            "text": "Kostenloser Versand ab 150 €",
+            "subtext": "Schneller Versand in 1–2 Tagen"
           }
         },
         "svc_phone": {
@@ -58,7 +59,7 @@
         "logo_width": 220,
         "logo_height": 48,
         "account_heading": "Mein Konto",
-        "account_sub_guest": "Anmelden",
+        "account_sub_guest": "E-Mail angeben und direkt einloggen",
         "cart_heading": "Warenkorb"
       }
     }
