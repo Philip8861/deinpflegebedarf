@@ -21,6 +21,8 @@
       assign pflege_404_legal = 'faq'
     when '/pages/empfohlene-artikel'
       assign pflege_404_legal = 'empfohlene'
+    when '/pages/inkontinenzversrogung-auf-rezept', '/inkontinenzversrogung-auf-rezept'
+      assign pflege_404_legal = 'inko_rezept'
   endcase
 -%}
 
@@ -44,6 +46,8 @@
       {% render 'pflege-faq-page-fallback' %}
     {%- when 'empfohlene' -%}
       {% render 'pflege-empfohlene-artikel-fallback' %}
+    {%- when 'inko_rezept' -%}
+      {% render 'pflege-inko-rezept-landing-fallback' %}
   {%- endcase -%}
 {%- else -%}
   <style type="text/css">
@@ -59,14 +63,15 @@
   </style>
 
   <div class="template-404 page-width page-margin center">
-    <p>
-      {{ 'templates.404.subtext' | t }}
-    </p>
+    <p class="template-404__code">404</p>
     <h1 class="title">
       {{ 'templates.404.title' | t }}
     </h1>
-    <a href="{{ routes.all_products_collection_url }}" class="button">
-      {{ 'general.continue_shopping' | t }}
+    <p class="template-404__lead">
+      {{ 'templates.404.subtext' | t }}
+    </p>
+    <a href="{{ routes.root_url }}" class="button">
+      {{ 'templates.404.cta' | t }}
     </a>
   </div>
 {%- endif -%}

@@ -356,8 +356,9 @@
       }
     },
     "404": {
-      "title": "in Arbeit",
-      "subtext": "404"
+      "title": "Seite nicht gefunden",
+      "subtext": "Die angeforderte Seite existiert nicht oder wurde verschoben.",
+      "cta": "Zurück zum Shop"
     }
   },
   "sections": {

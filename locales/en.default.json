@@ -356,8 +356,9 @@
       }
     },
     "404": {
-      "title": "Seite nicht gefunden",
-      "subtext": "404"
+      "title": "Page not found",
+      "subtext": "The page you requested does not exist or may have been moved.",
+      "cta": "Back to shop"
     }
   },
   "sections": {

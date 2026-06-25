@@ -1,7 +1,14 @@
 {%- liquid
+  assign modal_suffix = modal_suffix | default: ''
+  if modal_suffix == blank and section != blank
+    assign modal_suffix = section.id
+  endif
+  if modal_suffix == blank
+    assign modal_suffix = 'default'
+  endif
   assign url_privacy = routes.root_url | append: 'pages/datenschutzerklaerung'
-  assign modal_id = 'PflegeInkoTestpaketModal-' | append: section.id
-  assign inko_form_id = 'PflegeInkoTestpaketForm-' | append: section.id
+  assign modal_id = 'PflegeInkoTestpaketModal-' | append: modal_suffix
+  assign inko_form_id = 'PflegeInkoTestpaketForm-' | append: modal_suffix
 -%}
 
 <dialog
