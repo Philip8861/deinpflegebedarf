@@ -1,0 +1,17 @@
+{%- comment -%}
+  Shopify Account Component (<shopify-account>) für neue Kundenkonten.
+  Accepts: menu (optional, default customer-account-main-menu)
+{%- endcomment -%}
+{%- liquid
+  assign account_menu = menu | default: 'customer-account-main-menu'
+  if account_menu == blank
+    assign account_menu = 'customer-account-main-menu'
+  endif
+-%}
+<shopify-account menu="{{ account_menu | escape }}">
+  <div slot="signed-out-avatar" class="pflege-shopify-account__signed-out">
+    <span class="pflege-main-nav__action-icon" aria-hidden="true">
+      <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
+    </span>
+  </div>
+</shopify-account>

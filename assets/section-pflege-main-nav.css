@@ -327,6 +327,74 @@
   height: 2.2rem;
 }
 
+/* Shopify Account Component (<shopify-account>) */
+.pflege-main-nav-section shopify-account {
+  --shopify-account-signed-in-avatar-size: var(--pflege-action-icon-box, 2.75rem);
+  --shopify-account-signed-in-avatar-color-background: #eef6ff;
+  --shopify-account-signed-in-avatar-color-text: var(--pflege-heading-navy, #062a55);
+  --shopify-account-color-accent: #ff841a;
+  --shopify-account-color-accent-hover: #f97316;
+  --shopify-account-color-background: #ffffff;
+  --shopify-account-color-text: var(--pflege-heading-navy, #062a55);
+  --shopify-account-radius-base: 10px;
+  --shopify-account-radius-dialog: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pflege-main-nav-section shopify-account::part(signed-out-avatar) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--pflege-action-icon-box, 2.75rem);
+  height: var(--pflege-action-icon-box, 2.75rem);
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 0.75rem;
+  color: var(--pflege-heading-navy, #062a55);
+}
+
+.pflege-main-nav-section shopify-account::part(signed-out-avatar):hover,
+.pflege-main-nav-section shopify-account::part(signed-out-avatar):focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(11, 119, 165, 0.15);
+}
+
+.pflege-main-nav-section .pflege-main-nav__action--shopify-account {
+  gap: 0.935rem;
+  cursor: default;
+}
+
+.pflege-main-nav-section .pflege-shopify-account__signed-out {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+.pflege-main-nav-section .menu-drawer__account--shopify {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+}
+
+.pflege-main-nav-section .menu-drawer__account--shopify .menu-drawer__account-label {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--pflege-heading-navy, #062a55);
+}
+
+.pflege-main-nav-section .menu-drawer__account--shopify shopify-account::part(signed-out-avatar) {
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
 /* Konto + Warenkorb */
 .pflege-main-nav-section .pflege-main-nav__actions {
   flex: 0 0 auto;

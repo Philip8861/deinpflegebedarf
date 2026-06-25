@@ -1,0 +1,8 @@
+{%- comment -%}
+  Outputs "true" wenn neue Shopify-Kundenkonten aktiv sind.
+{%- endcomment -%}
+{%- if routes.account_login_url contains 'shopify.com' or routes.account_login_url contains 'customer_authentication' -%}
+true
+{%- else -%}
+false
+{%- endif -%}

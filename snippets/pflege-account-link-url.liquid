@@ -1,26 +1,16 @@
 {%- comment -%}
   Konto-Link für Gäste vs. eingeloggte Kunden.
-  Gäste → Theme Account-Landing (pages.mein-konto, Fallback pages.anmelden).
-  Eingeloggte Kunden → Shopify-Kundenbereich (routes.account_url).
-  Accepts: login_page_url (optional, aus Section-Settings)
+  Neue Kundenkonten: routes.account_login_url / routes.account_url (kein Theme-Landing).
+  Accepts: login_page_url (optional, nur klassische Konten / Override)
 {%- endcomment -%}
 {%- if customer -%}
   {{ routes.account_url }}
 {%- else -%}
   {%- liquid
     assign guest_login_url = routes.account_login_url
-    if login_page_url != blank
+    assign is_new_accounts = render 'pflege-customer-accounts-mode' | strip
+    if login_page_url != blank and is_new_accounts != 'true'
       assign guest_login_url = login_page_url
-    elsif guest_login_url contains 'shopify.com' or guest_login_url contains 'customer_authentication'
-      if pages['mein-konto'] != blank
-        assign guest_login_url = pages['mein-konto'].url
-      elsif pages['mein-konto-1'] != blank
-        assign guest_login_url = pages['mein-konto-1'].url
-      elsif pages.anmelden != blank
-        assign guest_login_url = pages.anmelden.url
-      else
-        assign guest_login_url = '/pages/mein-konto'
-      endif
     endif
   -%}
   {{ guest_login_url }}
