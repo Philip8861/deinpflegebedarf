@@ -1,0 +1,236 @@
+/* Inkontinenz-Rezept-Landing — Telefon + 3 Schritte unter dem Hero */
+
+.pflege-inko-rezept-landing__trail {
+  padding-bottom: clamp(1.75rem, 3.5vw, 2.75rem);
+}
+
+.pflege-inko-rezept-below__shell {
+  width: 100%;
+  max-width: var(--pflege-hero-tile-max-width, min(100%, 1426px));
+  margin-inline: auto;
+  padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
+}
+
+/* --- Telefon-Beratung ---------------------------------------------------- */
+
+.pflege-inko-rezept-phone {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.85rem, 2vw, 1.35rem);
+  margin-top: clamp(0.85rem, 2vw, 1.25rem);
+  padding: clamp(1rem, 2.2vw, 1.35rem) clamp(1.1rem, 2.5vw, 1.65rem);
+  border-radius: var(--pflege-radius-lg, 22px);
+  border: 1px solid var(--pflege-border, #e5eef8);
+  background: linear-gradient(135deg, #f5faff 0%, #eef6ff 48%, #e8f2fc 100%);
+  color: var(--pflege-navy, #0b2347);
+  text-decoration: none;
+  box-shadow: 0 4px 18px rgba(11, 35, 71, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pflege-inko-rezept-phone:hover,
+.pflege-inko-rezept-phone:focus-visible {
+  transform: translateY(-2px);
+  border-color: #c5dcf5;
+  box-shadow: 0 8px 28px rgba(47, 128, 216, 0.14);
+  outline: none;
+}
+
+.pflege-inko-rezept-phone__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: clamp(3.5rem, 7vw, 4.25rem);
+  height: clamp(3.5rem, 7vw, 4.25rem);
+  border-radius: 50%;
+  background: #5891d7;
+  color: #ffffff;
+  line-height: 0;
+  box-shadow: 0 4px 14px rgba(47, 128, 216, 0.35);
+}
+
+.pflege-inko-rezept-phone__icon .pflege-icon svg {
+  width: 1.65rem;
+  height: 1.65rem;
+}
+
+.pflege-inko-rezept-phone__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.pflege-inko-rezept-phone__label {
+  font-size: clamp(1.05rem, 0.35vw + 0.98rem, 1.28rem);
+  font-weight: 500;
+  line-height: 1.45;
+  color: #3d556f;
+}
+
+.pflege-inko-rezept-phone__number {
+  font-size: clamp(1.45rem, 0.55vw + 1.28rem, 1.85rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #0f4f69;
+}
+
+.pflege-inko-rezept-phone__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(47, 128, 216, 0.22);
+  color: #2f80d8;
+}
+
+@media screen and (max-width: 549px) {
+  .pflege-inko-rezept-phone__cta {
+    display: none;
+  }
+}
+
+/* --- 3 Schritte ---------------------------------------------------------- */
+
+.pflege-inko-rezept-steps {
+  margin-top: clamp(1.75rem, 3.5vw, 2.65rem);
+}
+
+.pflege-inko-rezept-steps__title {
+  margin: 0 0 clamp(1.15rem, 2.5vw, 1.65rem);
+  font-family: var(--pflege-font-display, var(--font-body-family));
+  font-size: var(--pflege-home-section-heading-size, clamp(1.65rem, 1.85vw + 1rem, 2.35rem));
+  font-weight: var(--pflege-home-section-heading-weight, 800);
+  line-height: var(--pflege-home-section-heading-line-height, 1.18);
+  letter-spacing: var(--pflege-home-section-heading-letter-spacing, -0.025em);
+  color: var(--pflege-home-section-heading-color, #0f4f69);
+  text-align: center;
+}
+
+.pflege-inko-rezept-steps__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(0.85rem, 2vw, 1.15rem);
+}
+
+@media screen and (min-width: 750px) {
+  .pflege-inko-rezept-steps__list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1rem, 2vw, 1.35rem);
+  }
+}
+
+.pflege-inko-rezept-steps__item {
+  min-width: 0;
+}
+
+.pflege-inko-rezept-steps__card {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  gap: 0.65rem 0.85rem;
+  align-items: start;
+  padding: clamp(1.1rem, 2.2vw, 1.45rem);
+  border-radius: var(--pflege-radius-card, 14px);
+  border: 1px solid var(--pflege-border, #e5eef8);
+  background: #fefefe;
+  box-shadow: 0 2px 12px rgba(11, 35, 71, 0.05);
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.pflege-inko-rezept-steps__num {
+  grid-column: 1;
+  grid-row: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.65rem;
+  height: 1.65rem;
+  border-radius: 999px;
+  background: #2f80d8;
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.pflege-inko-rezept-steps__icon {
+  grid-column: 1;
+  grid-row: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(3rem, 5vw, 3.5rem);
+  height: clamp(3rem, 5vw, 3.5rem);
+  border-radius: 50%;
+  background: #eaf4ff;
+  color: #1774c8;
+  line-height: 0;
+}
+
+.pflege-inko-rezept-steps__icon .pflege-icon svg,
+.pflege-inko-rezept-steps__icon svg {
+  display: block;
+}
+
+.pflege-inko-rezept-steps__copy {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  min-width: 0;
+  padding-top: 0.1rem;
+}
+
+.pflege-inko-rezept-steps__card-title {
+  margin: 0 0 0.45rem;
+  font-size: clamp(1.08rem, 0.35vw + 1rem, 1.28rem);
+  font-weight: 800;
+  line-height: 1.28;
+  color: #003b71;
+}
+
+.pflege-inko-rezept-steps__card-text {
+  margin: 0;
+  font-size: clamp(0.98rem, 0.25vw + 0.92rem, 1.12rem);
+  font-weight: 500;
+  line-height: 1.5;
+  color: #5d748d;
+}
+
+@media screen and (min-width: 750px) {
+  .pflege-inko-rezept-steps__card {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 0.75rem;
+    text-align: center;
+    padding: clamp(1.25rem, 2.5vw, 1.65rem) clamp(1rem, 2vw, 1.25rem);
+  }
+
+  .pflege-inko-rezept-steps__num {
+    margin: 0 auto;
+  }
+
+  .pflege-inko-rezept-steps__icon {
+    margin: 0 auto;
+  }
+
+  .pflege-inko-rezept-steps__copy {
+    grid-column: 1;
+    grid-row: auto;
+    padding-top: 0;
+  }
+}

@@ -3,6 +3,7 @@
 {% endcomment %}
 {{ 'section-pflege-hero.css' | asset_url | stylesheet_tag }}
 {{ 'section-pflege-collection-free-care.css' | asset_url | stylesheet_tag }}
+{{ 'section-pflege-inko-rezept-landing.css' | asset_url | stylesheet_tag }}
 {{ 'section-pflege-inko-testpaket-modal.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'pflege-inko-testpaket-modal.js' | asset_url }}" defer="defer"></script>
 
@@ -64,6 +65,10 @@
       button_opens_testpaket: true,
       title_id: hero_title_id
     %}
+  </div>
+
+  <div class="pflege-inko-rezept-landing__trail">
+    {% render 'pflege-inko-rezept-below-hero', section: section %}
   </div>
 </section>
 
@@ -140,11 +145,99 @@
       "unit": "px",
       "label": "Abstand unten",
       "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Telefon-Beratung"
+    },
+    {
+      "type": "text",
+      "id": "phone_intro",
+      "label": "Telefon-Einleitung",
+      "default": "Gerne beraten wir Sie auch telefonisch unter:"
+    },
+    {
+      "type": "text",
+      "id": "phone_number",
+      "label": "Telefonnummer (Anzeige)",
+      "default": "08334 / 9893330"
+    },
+    {
+      "type": "text",
+      "id": "phone_link",
+      "label": "Telefon-Link",
+      "default": "tel:+4983349893330"
+    },
+    {
+      "type": "header",
+      "content": "3 Schritte"
+    },
+    {
+      "type": "text",
+      "id": "steps_title",
+      "label": "Überschrift Schritte",
+      "default": "3 Schritte zum passenden Inkontinenzprodukt"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Schritt",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "file-text", "label": "Formular" },
+            { "value": "headset", "label": "Beratung" },
+            { "value": "gift", "label": "Geschenk" }
+          ],
+          "default": "file-text"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titel",
+          "default": "Schritt"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
     }
   ],
   "presets": [
     {
-      "name": "Inkontinenz Rezept Landing"
+      "name": "Inkontinenz Rezept Landing",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "icon": "file-text",
+            "title": "Daten ausfüllen",
+            "text": "Teilen Sie uns Ihre Kontaktdaten und Wünsche mit."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "icon": "headset",
+            "title": "Wir melden uns an Werktagen innerhalb von 24 Stunden bei Ihnen",
+            "text": "Unser Team setzt sich schnellstmöglich mit Ihnen in Verbindung."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "icon": "gift",
+            "title": "Perfektes Produkt besprechen und Gratis-Muster zusenden",
+            "text": "Wir finden gemeinsam die passende Lösung für Sie."
+          }
+        }
+      ]
     }
   ]
 }
