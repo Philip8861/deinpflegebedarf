@@ -146,7 +146,7 @@
           "review_L6arpz": {
             "type": "review",
             "settings": {
-              "review_text": "Hallo,\n\nIch kannte die Seni Produkte noch nicht, bin aber damit sehr zufrieden! Gibt es die auch im Abo Model?\n\nVG Susanne",
+              "review_text": "Hallo,\n\nIch kannte die Seni Produkte noch nicht, bin aber damit sehr zufrieden. Gibt es die auch im Abo Model?\n\nVG Susanne",
               "customer_name": "Susanne G."
             }
           },
@@ -160,7 +160,7 @@
           "review_1": {
             "type": "review",
             "settings": {
-              "review_text": "„Hab über die Alltagshilfe-Süd Homepage davon erfahren. Hab zwar nicht viel bestellt, war war aber sehr zufrieden.",
+              "review_text": "Hab über die Alltagshilfe-Süd Homepage davon erfahren. Hab zwar nicht viel bestellt, war war aber sehr zufrieden.",
               "customer_name": "Cordula A."
             }
           }
