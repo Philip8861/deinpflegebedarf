@@ -1,8 +1,19 @@
 /* PflegeShop — Hero */
 body.template-index .pflege-hero,
-.pflege-hero--free-care {
+.pflege-hero--free-care,
+.pflege-hero--inko-rezept {
   padding-top: clamp(0.35rem, 1.15vw, 0.9rem);
   padding-bottom: clamp(1rem, 2vw, 1.5rem);
+}
+
+/*
+ * Inkontinenz-Landing: gleiche Kachelgröße wie PHM-Hero (1901×649 @ zoom 0.75),
+ * obwohl Landing_page_inko.webp nur 1280×426 px ist — nur hier, PHM bleibt unverändert.
+ */
+@media screen and (min-width: 750px) {
+  .pflege-hero--inko-rezept .pflege-hero__asset-zoom {
+    zoom: calc(0.75 * 1901 / 1280);
+  }
 }
 
 .pflege-hero {

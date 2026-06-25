@@ -16,34 +16,7 @@
   max-width: min(100%, var(--pflege-hero-tile-max-width, 1426px));
 }
 
-/* Hero: Layout/Typo in section-pflege-hero.css; volle Shell-Breite wie Kategorie-Leiste */
-.pflege-hero--free-care .pflege-hero__shell {
-  max-width: var(--pflege-hero-tile-max-width, min(100%, 1426px));
-  margin-inline: auto;
-}
-
-.pflege-hero--free-care .pflege-hero__panel--asset-bg {
-  width: 100%;
-  max-width: 100%;
-  margin-inline: 0;
-  box-sizing: border-box;
-}
-
-@media screen and (min-width: 750px) {
-  .pflege-hero--free-care .pflege-hero__asset-zoom {
-    zoom: 1;
-    width: 100%;
-    max-width: 100%;
-    margin-inline: 0;
-  }
-
-  .pflege-hero--free-care .pflege-hero__asset-photo {
-    width: 100%;
-    height: auto;
-    max-width: 100%;
-  }
-}
-
+/* Hero: Layout/Typo vollständig in section-pflege-hero.css (.pflege-hero--free-care) */
 .pflege-hero--free-care .pflege-hero__sub {
   font-size: clamp(1.42rem, 0.45vw + 1.28rem, 1.68rem);
   line-height: 1.58;
