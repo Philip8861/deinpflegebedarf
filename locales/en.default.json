@@ -446,8 +446,9 @@
     "pflege_inko_rezept_landing": {
       "meta_title": "Incontinence care on prescription | Free sample pack",
       "meta_description": "Save on incontinence care with prescription billing. Request our free sample pack and find the right product with no obligation — we handle organisation and billing.",
+      "hero_badge": "We handle the organisation and you save money",
       "heading_line1": "Save money: incontinence care on prescription",
-      "heading_line2": "Get a free sample pack from us",
+      "hero_sub": "Get a free sample pack from us and find the product that truly fits you, with no obligation.",
       "button_label": "Request free sample pack",
       "image_alt": "Incontinence care on prescription"
     },

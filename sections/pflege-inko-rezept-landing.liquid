@@ -25,13 +25,18 @@
 {%- endstyle -%}
 
 {%- liquid
+  assign hero_badge = section.settings.badge | strip
+  if hero_badge == blank
+    assign hero_badge = 'sections.pflege_inko_rezept_landing.hero_badge' | t
+  endif
   assign hero_line1 = section.settings.heading_line1
   if hero_line1 == blank
     assign hero_line1 = 'sections.pflege_inko_rezept_landing.heading_line1' | t
   endif
-  assign hero_line2 = section.settings.heading_line2
-  if hero_line2 == blank
-    assign hero_line2 = 'sections.pflege_inko_rezept_landing.heading_line2' | t
+  assign hero_line2 = ''
+  assign hero_sub = section.settings.subheading
+  if hero_sub == blank
+    assign hero_sub = 'sections.pflege_inko_rezept_landing.hero_sub' | t
   endif
   assign hero_btn_label = section.settings.button_label
   if hero_btn_label == blank
@@ -51,10 +56,10 @@
     {% render 'pflege-hero-asset-panel',
       asset_file: hero_asset,
       image_alt: hero_img_alt,
-      badge: section.settings.badge,
+      badge: hero_badge,
       heading_line1: hero_line1,
       heading_line2: hero_line2,
-      subheading: section.settings.subheading,
+      subheading: hero_sub,
       button_label: hero_btn_label,
       button_opens_testpaket: true,
       title_id: hero_title_id
@@ -82,24 +87,20 @@
     {
       "type": "text",
       "id": "badge",
-      "label": "Badge (optional)"
+      "label": "Badge",
+      "default": "Wir übernehmen die Organisation und Sie sparen Geld"
     },
     {
       "type": "text",
       "id": "heading_line1",
-      "label": "Überschrift Zeile 1",
+      "label": "Überschrift",
       "default": "Geld sparen: Inkontinenzversorgung auf Rezept"
-    },
-    {
-      "type": "text",
-      "id": "heading_line2",
-      "label": "Überschrift Zeile 2",
-      "default": "Erhalten Sie bei uns ein kostenloses Testpaket"
     },
     {
       "type": "textarea",
       "id": "subheading",
-      "label": "Unterzeile (optional)"
+      "label": "Unterzeile",
+      "default": "Erhalten Sie bei uns ein kostenloses Testpaket und finden Sie unverbindlich das Produkt, das wirklich zu Ihnen passt."
     },
     {
       "type": "text",

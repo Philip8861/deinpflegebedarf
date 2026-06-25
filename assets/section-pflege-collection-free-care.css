@@ -112,6 +112,21 @@
   gap: 0.75rem;
 }
 
+.pflege-hero--free-care .pflege-hero__cta--testpaket {
+  gap: 0.75rem;
+}
+
+.pflege-hero--free-care .pflege-hero__cta-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  line-height: 0;
+}
+
+.pflege-hero--free-care .pflege-hero__cta-icon .pflege-icon svg {
+  width: 1.35em;
+  height: 1.35em;
+}
+
 .pflege-hero--free-care .pflege-hero__cta-gear {
   display: inline-flex;
   flex-shrink: 0;

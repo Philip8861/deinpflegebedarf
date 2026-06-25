@@ -8,8 +8,9 @@
 
 {%- liquid
   assign hero_title_id = 'pflege-inko-rezept-hero-title-fallback'
+  assign hero_badge = 'sections.pflege_inko_rezept_landing.hero_badge' | t
   assign hero_line1 = 'sections.pflege_inko_rezept_landing.heading_line1' | t
-  assign hero_line2 = 'sections.pflege_inko_rezept_landing.heading_line2' | t
+  assign hero_sub = 'sections.pflege_inko_rezept_landing.hero_sub' | t
   assign hero_btn_label = 'sections.pflege_inko_rezept_landing.button_label' | t
   assign hero_img_alt = 'sections.pflege_inko_rezept_landing.image_alt' | t
 -%}
@@ -22,10 +23,10 @@
     {% render 'pflege-hero-asset-panel',
       asset_file: 'Landing_page_inko.webp',
       image_alt: hero_img_alt,
-      badge: '',
+      badge: hero_badge,
       heading_line1: hero_line1,
-      heading_line2: hero_line2,
-      subheading: '',
+      heading_line2: '',
+      subheading: hero_sub,
       button_label: hero_btn_label,
       button_opens_testpaket: true,
       title_id: hero_title_id

@@ -439,8 +439,9 @@
     "pflege_inko_rezept_landing": {
       "meta_title": "Inkontinenzversorgung auf Rezept | Kostenloses Testpaket",
       "meta_description": "Sparen Sie bei Inkontinenzversorgung auf Rezept. Fordern Sie unser kostenloses Testpaket an und finden Sie unverbindlich das passende Produkt — wir übernehmen Organisation und Abrechnung.",
+      "hero_badge": "Wir übernehmen die Organisation und Sie sparen Geld",
       "heading_line1": "Geld sparen: Inkontinenzversorgung auf Rezept",
-      "heading_line2": "Erhalten Sie bei uns ein kostenloses Testpaket",
+      "hero_sub": "Erhalten Sie bei uns ein kostenloses Testpaket und finden Sie unverbindlich das Produkt, das wirklich zu Ihnen passt.",
       "button_label": "Kostenloses Testpaket erhalten",
       "image_alt": "Inkontinenzversorgung auf Rezept"
     },
