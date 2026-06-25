@@ -325,7 +325,7 @@
   align-items: stretch;
 }
 
-/* Gutschein-Karte Desktop: unter Artikeltabelle (linke Spalte), wie zuvor */
+/* Gutschein-Karte Desktop: unter Artikeltabelle (linke Spalte) */
 .template-cart .pflege-cart-stack-card > .pflege-cart-promo--under-table .pflege-cart-promo.pflege-cart-card {
   margin-top: 1.35rem;
   border: 1px solid rgba(88, 145, 215, 0.26);
@@ -359,7 +359,7 @@
   display: none !important;
 }
 
-/* Gutschein Mobil: unter Bestellübersicht */
+/* Versand-Fortschritt Mobil: unter Bestellübersicht */
 .template-cart #main-cart-footer .js-contents > .pflege-cart-stack-below-summary > .pflege-cart-promo--under-summary .pflege-cart-promo.pflege-cart-card {
   margin-top: 1.35rem;
   border: 1px solid rgba(88, 145, 215, 0.26);
@@ -654,13 +654,21 @@
     gap: 0.4rem;
   }
 
-  .template-cart .pflege-cart-promo__title--coupon,
   .template-cart .pflege-cart-promo__title--shipping {
     font-size: 1.36rem;
   }
 
   .template-cart .pflege-cart-promo__shipping-text {
     font-size: 1.22rem;
+  }
+
+  .template-cart .pflege-cart-shipping-progress__labels {
+    font-size: 1.05rem;
+  }
+
+  .template-cart .pflege-cart-shipping-progress__goal-icon {
+    width: 2.5rem;
+    height: 2.5rem;
   }
 
   .template-cart .pflege-cart-summary {
@@ -1062,11 +1070,19 @@
   box-sizing: border-box;
 }
 
+.template-cart .pflege-cart-promo--shipping-only .pflege-cart-promo__inner--shipping {
+  padding: 1.15rem 1.35rem 1.25rem;
+}
+
 @media screen and (min-width: 750px) {
   .template-cart .pflege-cart-promo__inner {
     flex-direction: row;
     align-items: stretch;
     padding: 0.95rem 1.35rem;
+  }
+
+  .template-cart .pflege-cart-promo--shipping-only .pflege-cart-promo__inner--shipping {
+    padding: 1.2rem 1.5rem 1.3rem;
   }
 }
 
@@ -1237,17 +1253,21 @@
 }
 
 .template-cart .pflege-cart-promo__shipping {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: 0.55rem;
-  flex: 1 1 42%;
+  display: block;
+  width: 100%;
   min-width: 0;
   padding: 0;
   margin: 0;
   border: none;
   border-radius: 0;
   background: transparent;
+}
+
+.template-cart .pflege-cart-promo__shipping-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
 }
 
 .template-cart .pflege-cart-promo__shipping--qualified .pflege-cart-promo__icon--ship {
@@ -1294,9 +1314,6 @@
 
 @media screen and (max-width: 749px) {
   .template-cart .pflege-cart-promo__shipping {
-    margin-top: 0.85rem;
-    padding-top: 0.85rem;
-    border-top: 1px solid rgba(88, 145, 215, 0.18);
     flex: none;
   }
 }
@@ -1322,7 +1339,7 @@
 
 /* --- Versand-Fortschritt (kostenloser Versand ab 150 €) --- */
 .template-cart .pflege-cart-shipping-progress {
-  margin-top: 0.65rem;
+  margin-top: 0;
 }
 
 .template-cart .pflege-cart-shipping-progress__labels {
@@ -1330,14 +1347,16 @@
   justify-content: space-between;
   align-items: center;
   gap: 0.75rem;
-  margin-bottom: 0.45rem;
-  font-size: 0.95rem;
-  line-height: 1.2;
-  font-weight: 700;
-  color: rgba(11, 35, 71, 0.62);
+  margin-bottom: 0.55rem;
+  font-size: 1rem;
+  line-height: 1.25;
+  font-weight: 600;
+  color: rgba(11, 35, 71, 0.58);
 }
 
+.template-cart .pflege-cart-shipping-progress__amount-label strong,
 .template-cart .pflege-cart-shipping-progress__amount {
+  font-weight: 800;
   color: var(--pflege-cart-sky);
 }
 
@@ -1345,16 +1364,24 @@
   color: var(--pflege-cart-green);
 }
 
-.template-cart .pflege-cart-shipping-progress__goal {
-  font-weight: 600;
-  color: rgba(11, 35, 71, 0.45);
+.template-cart .pflege-cart-shipping-progress__goal-label {
+  font-weight: 700;
+  color: rgba(11, 35, 71, 0.42);
+}
+
+.template-cart .pflege-cart-shipping-progress__rail {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
 }
 
 .template-cart .pflege-cart-shipping-progress__track {
   position: relative;
-  height: 0.72rem;
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 0.85rem;
   border-radius: 999px;
-  background: linear-gradient(180deg, rgba(88, 145, 215, 0.14) 0%, rgba(88, 145, 215, 0.08) 100%);
+  background: linear-gradient(180deg, rgba(88, 145, 215, 0.16) 0%, rgba(88, 145, 215, 0.08) 100%);
   box-shadow: inset 0 1px 2px rgba(11, 35, 71, 0.08);
   overflow: visible;
 }
@@ -1415,30 +1442,53 @@
   pointer-events: none;
 }
 
-.template-cart .pflege-cart-shipping-progress__pin {
-  position: absolute;
-  top: 50%;
-  right: -0.15rem;
-  transform: translateY(-50%);
+.template-cart .pflege-cart-shipping-progress__goal-badge {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.28rem;
+  min-width: 3.25rem;
+}
+
+.template-cart .pflege-cart-shipping-progress__goal-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.55rem;
-  height: 1.55rem;
+  width: 2.75rem;
+  height: 2.75rem;
   border-radius: 999px;
-  background: #ffffff;
+  background: linear-gradient(145deg, #ffffff 0%, #f4f9ff 100%);
+  border: 2px solid rgba(88, 145, 215, 0.42);
+  box-shadow:
+    0 4px 16px rgba(11, 110, 220, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
   color: var(--pflege-cart-sky);
-  border: 1px solid rgba(88, 145, 215, 0.35);
-  box-shadow: 0 2px 8px rgba(11, 35, 71, 0.1);
 }
 
-.template-cart .pflege-cart-shipping-progress__pin .pflege-icon svg {
+.template-cart .pflege-cart-shipping-progress__goal-icon .pflege-icon svg {
   display: block;
 }
 
-.template-cart .pflege-cart-shipping-progress--complete .pflege-cart-shipping-progress__pin {
+.template-cart .pflege-cart-shipping-progress--complete .pflege-cart-shipping-progress__goal-icon {
+  border-color: rgba(30, 143, 90, 0.5);
   color: var(--pflege-cart-green);
-  border-color: rgba(30, 143, 90, 0.35);
+  background: linear-gradient(145deg, #ffffff 0%, #eef9f3 100%);
+  box-shadow:
+    0 4px 16px rgba(30, 143, 90, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92);
+}
+
+.template-cart .pflege-cart-shipping-progress__goal-amount {
+  font-size: 0.78rem;
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: rgba(11, 35, 71, 0.55);
+}
+
+.template-cart .pflege-cart-shipping-progress--complete .pflege-cart-shipping-progress__goal-amount {
+  color: var(--pflege-cart-green);
 }
 
 /* --- Bestellübersicht + CTAs in einer Card (~10 % größer + kräftigere Typo) --- */
