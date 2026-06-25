@@ -49,7 +49,7 @@
   assign promo_image = section.settings.promo_image
   if promo_image == blank
     if category_slug == 'inkontinenzversorgung' or category_slug == 'inkontinenz'
-      assign promo_image_asset = 'Inkontinenzversorgung_produkte.png'
+      assign promo_image_asset = 'Inkontinenzversorgung_start.webp'
     else
       assign promo_image_asset = 'Inkontinenzversorgung_start.webp'
     endif
@@ -206,8 +206,8 @@
               src="{{ promo_image_asset | asset_url }}"
               alt=""
               loading="eager"
-              width="1024"
-              height="146"
+              width="1629"
+              height="289"
             >
           {%- endif -%}
         </div>
