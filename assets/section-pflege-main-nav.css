@@ -375,6 +375,14 @@
   cursor: default;
 }
 
+.pflege-main-nav-section .pflege-main-nav__action--shopify-account .pflege-main-nav__stack--account-label {
+  cursor: pointer;
+}
+
+.pflege-main-nav-section .menu-drawer__account--shopify {
+  cursor: pointer;
+}
+
 .pflege-main-nav-section .pflege-shopify-account__signed-out {
   display: inline-flex;
   align-items: center;

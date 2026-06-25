@@ -496,8 +496,13 @@
 
     <div class="pflege-main-nav__actions">
       {%- if shop.customer_accounts_enabled -%}
-        <div class="pflege-main-nav__action pflege-main-nav__action--account pflege-main-nav__action--shopify-account">
-          {% render 'pflege-shopify-account', menu: section.settings.customer_account_menu %}
+        <div
+          class="pflege-main-nav__action pflege-main-nav__action--account pflege-main-nav__action--shopify-account"
+          data-pflege-account-trigger
+          role="group"
+          aria-label="{{ section.settings.account_heading | escape }}"
+        >
+          {% render 'pflege-shopify-account', menu: section.settings.customer_account_menu, hide_menu: true %}
           <span class="pflege-main-nav__stack pflege-main-nav__stack--account-label">
             <strong class="pflege-main-nav__stack-title">{{ section.settings.account_heading | escape }}</strong>
             <span class="pflege-main-nav__stack-sub">
@@ -719,7 +724,7 @@
       "type": "text",
       "id": "account_sub_guest",
       "label": "Konto Unterzeile (Gast)",
-      "default": "Anmelden"
+      "default": "E-Mail angeben und direkt einloggen"
     },
     {
       "type": "url",

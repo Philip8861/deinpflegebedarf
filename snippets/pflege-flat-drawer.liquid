@@ -91,8 +91,13 @@
           </nav>
           <div class="menu-drawer__utility-links">
             {%- if shop.customer_accounts_enabled -%}
-              <div class="menu-drawer__account menu-drawer__account--shopify">
-                {% render 'pflege-shopify-account', menu: section.settings.customer_account_menu %}
+              <div
+                class="menu-drawer__account menu-drawer__account--shopify"
+                data-pflege-account-trigger
+                role="group"
+                aria-label="{{ section.settings.account_heading | escape }}"
+              >
+                {% render 'pflege-shopify-account', menu: section.settings.customer_account_menu, hide_menu: true %}
                 <span class="menu-drawer__account-label">
                   {%- liquid
                     if customer
