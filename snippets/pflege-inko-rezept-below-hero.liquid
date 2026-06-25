@@ -31,7 +31,7 @@
   <div class="pflege-inko-rezept-below__shell">
     <a class="pflege-inko-rezept-phone" href="{{ phone_href | escape }}">
       <span class="pflege-inko-rezept-phone__icon" aria-hidden="true">
-        {% render 'pflege-icon', icon: 'phone', width: 28 %}
+        {% render 'pflege-icon', icon: 'phone', width: 34 %}
       </span>
       <span class="pflege-inko-rezept-phone__copy">
         <span class="pflege-inko-rezept-phone__label">{{ phone_intro | escape }}</span>
@@ -59,11 +59,11 @@
                   <span class="pflege-inko-rezept-steps__num" aria-hidden="true">{{ forloop.index }}</span>
                   <span class="pflege-inko-rezept-steps__icon" aria-hidden="true">
                     {%- if block.settings.icon == 'headset' -%}
-                      {% render 'pflege-icon', icon: 'headset', width: 28 %}
+                      {% render 'pflege-icon', icon: 'headset', width: 34 %}
                     {%- elsif block.settings.icon == 'gift' -%}
-                      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C9 3 12 8 12 8"/><path d="M16.5 8a2.5 2.5 0 0 0 0-5C15 3 12 8 12 8"/></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C9 3 12 8 12 8"/><path d="M16.5 8a2.5 2.5 0 0 0 0-5C15 3 12 8 12 8"/></svg>
                     {%- else -%}
-                      {% render 'pflege-icon', icon: 'file-text', width: 28 %}
+                      {% render 'pflege-icon', icon: 'file-text', width: 34 %}
                     {%- endif -%}
                   </span>
                   <div class="pflege-inko-rezept-steps__copy">
@@ -81,7 +81,7 @@
             <article class="pflege-inko-rezept-steps__card">
               <span class="pflege-inko-rezept-steps__num" aria-hidden="true">1</span>
               <span class="pflege-inko-rezept-steps__icon" aria-hidden="true">
-                {% render 'pflege-icon', icon: 'file-text', width: 28 %}
+                {% render 'pflege-icon', icon: 'file-text', width: 34 %}
               </span>
               <div class="pflege-inko-rezept-steps__copy">
                 <h3 class="pflege-inko-rezept-steps__card-title">{{ 'sections.pflege_inko_rezept_landing.step_1_title' | t }}</h3>
@@ -93,7 +93,7 @@
             <article class="pflege-inko-rezept-steps__card">
               <span class="pflege-inko-rezept-steps__num" aria-hidden="true">2</span>
               <span class="pflege-inko-rezept-steps__icon" aria-hidden="true">
-                {% render 'pflege-icon', icon: 'headset', width: 28 %}
+                {% render 'pflege-icon', icon: 'headset', width: 34 %}
               </span>
               <div class="pflege-inko-rezept-steps__copy">
                 <h3 class="pflege-inko-rezept-steps__card-title">{{ 'sections.pflege_inko_rezept_landing.step_2_title' | t }}</h3>
@@ -105,7 +105,7 @@
             <article class="pflege-inko-rezept-steps__card">
               <span class="pflege-inko-rezept-steps__num" aria-hidden="true">3</span>
               <span class="pflege-inko-rezept-steps__icon" aria-hidden="true">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C9 3 12 8 12 8"/><path d="M16.5 8a2.5 2.5 0 0 0 0-5C15 3 12 8 12 8"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C9 3 12 8 12 8"/><path d="M16.5 8a2.5 2.5 0 0 0 0-5C15 3 12 8 12 8"/></svg>
               </span>
               <div class="pflege-inko-rezept-steps__copy">
                 <h3 class="pflege-inko-rezept-steps__card-title">{{ 'sections.pflege_inko_rezept_landing.step_3_title' | t }}</h3>
