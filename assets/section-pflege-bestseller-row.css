@@ -336,6 +336,8 @@
   margin: 0;
   padding: 0;
   padding-right: clamp(4.25rem, 38%, 5.5rem);
+  min-height: calc(3 * 1.32em);
+  flex: 0 0 auto;
 }
 
 .pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__desc {
@@ -343,6 +345,7 @@
   line-height: 1.4;
   -webkit-line-clamp: 1;
   min-height: 0;
+  flex: 0 0 auto;
 }
 
 .pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__desc--empty {
@@ -413,6 +416,7 @@
 
 .pflege-bestseller--cols-5 .pflege-cat-card--horizontal .pflege-cat-card__title {
   font-size: clamp(0.95rem, 0.88rem + 0.28vw, 1.08rem);
+  min-height: calc(3 * 1.32em);
 }
 
 .pflege-bestseller--cols-5 .pflege-cat-card--horizontal .pflege-cat-card__price {
