@@ -1,11 +1,11 @@
 {
   "sections": {
-    "main": {
+    "pflege_login": {
       "type": "pflege-customer-login",
       "settings": {}
     }
   },
   "order": [
-    "main"
+    "pflege_login"
   ]
 }

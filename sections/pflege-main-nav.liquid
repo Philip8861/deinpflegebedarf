@@ -500,7 +500,7 @@
     <div class="pflege-main-nav__actions">
       {%- if shop.customer_accounts_enabled -%}
         <a
-          href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
+          href="{% render 'pflege-account-link-url', login_page_url: section.settings.login_page_url %}"
           class="pflege-main-nav__action pflege-main-nav__action--account link focus-inset"
           rel="nofollow"
         >
@@ -719,6 +719,12 @@
       "id": "account_sub_guest",
       "label": "Konto Unterzeile (Gast)",
       "default": "Anmelden"
+    },
+    {
+      "type": "url",
+      "id": "login_page_url",
+      "label": "Anmeldeseite (Theme)",
+      "info": "Optional: Seite mit Vorlage „anmelden“ (z. B. /pages/anmelden). Wird bei neuen Kundenkonten automatisch genutzt, wenn leer."
     },
     {
       "type": "text",

@@ -1,0 +1,19 @@
+{%- comment -%}
+  Konto-Link für Gäste vs. eingeloggte Kunden.
+  Bei „Neuen Kundenkonten“ zeigt routes.account_login_url die Shopify-Hosted-Seite —
+  dann Fallback auf Theme-Anmeldeseite (/pages/anmelden).
+  Accepts: login_page_url (optional, aus Section-Settings)
+{%- endcomment -%}
+{%- if customer -%}
+  {{ routes.account_url }}
+{%- else -%}
+  {%- liquid
+    assign guest_login_url = routes.account_login_url
+    if login_page_url != blank
+      assign guest_login_url = login_page_url
+    elsif guest_login_url contains 'shopify.com' or guest_login_url contains 'customer_authentication'
+      assign guest_login_url = '/pages/anmelden'
+    endif
+  -%}
+  {{ guest_login_url }}
+{%- endif -%}
