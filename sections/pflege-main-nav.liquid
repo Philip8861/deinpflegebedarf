@@ -503,17 +503,11 @@
           aria-label="{{ section.settings.account_heading | escape }}"
         >
           {% render 'pflege-shopify-account' %}
-          <span class="pflege-main-nav__stack pflege-main-nav__stack--account-label">
+            <span class="pflege-main-nav__stack pflege-main-nav__stack--account-label">
             <strong class="pflege-main-nav__stack-title">{{ section.settings.account_heading | escape }}</strong>
-            <span class="pflege-main-nav__stack-sub">
-              {%- liquid
-                if customer
-                  echo 'customer.account_fallback' | t
-                else
-                  echo section.settings.account_sub_guest | escape
-                endif
-              -%}
-            </span>
+            {%- if customer -%}
+              <span class="pflege-main-nav__stack-sub">{{ 'customer.account_fallback' | t }}</span>
+            {%- endif -%}
           </span>
         </div>
       {%- endif -%}
@@ -724,7 +718,7 @@
       "type": "text",
       "id": "account_sub_guest",
       "label": "Konto Unterzeile (Gast)",
-      "default": "E-Mail angeben und direkt einloggen"
+      "default": "Anmelden"
     },
     {
       "type": "url",
