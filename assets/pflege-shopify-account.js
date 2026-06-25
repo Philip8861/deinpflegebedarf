@@ -59,14 +59,17 @@
     if (!accountEl) return;
     if (typeof accountEl.show === 'function') {
       accountEl.show();
+      scheduleMobileDialogCenter(accountEl);
       return;
     }
     if (typeof accountEl.open === 'function') {
       accountEl.open();
+      scheduleMobileDialogCenter(accountEl);
       return;
     }
     var btn = getAccountButton(accountEl);
     if (btn) btn.click();
+    scheduleMobileDialogCenter(accountEl);
   }
 
   function getSheetRoot(accountEl) {
@@ -80,134 +83,237 @@
     );
   }
 
+  function isMobileAccountSheet() {
+    return window.matchMedia('(max-width: 989px)').matches;
+  }
+
+  function getAccountDialog(accountEl) {
+    if (!accountEl.shadowRoot) return null;
+    return (
+      accountEl.shadowRoot.querySelector('dialog.dialog[open]') ||
+      accountEl.shadowRoot.querySelector('dialog[open]') ||
+      accountEl.shadowRoot.querySelector('dialog.dialog') ||
+      accountEl.shadowRoot.querySelector('dialog')
+    );
+  }
+
+  function centerMobileDialog(accountEl) {
+    if (!isMobileAccountSheet()) return;
+    var dialog = getAccountDialog(accountEl);
+    if (!dialog) return;
+
+    var sheetWidth = 'min(calc(100vw - 2rem), 360px)';
+    var props = [
+      ['position', 'fixed'],
+      ['top', '0'],
+      ['left', '0'],
+      ['right', '0'],
+      ['bottom', '0'],
+      ['margin', 'auto'],
+      ['inset', 'unset'],
+      ['inset-block-start', 'unset'],
+      ['inset-block-end', 'unset'],
+      ['inset-inline-start', 'unset'],
+      ['inset-inline-end', 'unset'],
+      ['transform', 'none'],
+      ['width', sheetWidth],
+      ['max-width', sheetWidth],
+      ['height', 'fit-content'],
+      ['max-height', 'min(90dvh, 100vh)'],
+      ['border-radius', '14px'],
+      ['border-top-left-radius', '14px'],
+      ['border-top-right-radius', '14px'],
+      ['animation', 'none'],
+      ['opacity', '1']
+    ];
+
+    props.forEach(function (entry) {
+      dialog.style.setProperty(entry[0], entry[1], 'important');
+    });
+    dialog.classList.add('pflege-account-dialog-centered');
+  }
+
+  function scheduleMobileDialogCenter(accountEl) {
+    centerMobileDialog(accountEl);
+    [0, 16, 50, 120, 250, 500, 900].forEach(function (ms) {
+      setTimeout(function () {
+        centerMobileDialog(accountEl);
+      }, ms);
+    });
+    requestAnimationFrame(function () {
+      centerMobileDialog(accountEl);
+      requestAnimationFrame(function () {
+        centerMobileDialog(accountEl);
+      });
+    });
+  }
+
+  function bindDialogPosition(accountEl) {
+    if (accountEl.dataset.pflegeDialogBound) return;
+    accountEl.dataset.pflegeDialogBound = 'true';
+
+    function watchShadow() {
+      var root = accountEl.shadowRoot;
+      if (!root) return;
+
+      var observer = new MutationObserver(function () {
+        if (root.querySelector('dialog[open]')) scheduleMobileDialogCenter(accountEl);
+      });
+      observer.observe(root, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['open', 'class']
+      });
+
+      var dialog = root.querySelector('dialog');
+      if (dialog && !dialog.dataset.pflegeCenterBound) {
+        dialog.dataset.pflegeCenterBound = 'true';
+        dialog.addEventListener('animationend', function () {
+          centerMobileDialog(accountEl);
+        });
+      }
+    }
+
+    customElements.whenDefined('shopify-account').then(watchShadow);
+    watchShadow();
+
+    accountEl.addEventListener('open', function () {
+      scheduleMobileDialogCenter(accountEl);
+    });
+
+    window.addEventListener('resize', function () {
+      if (accountEl.shadowRoot && accountEl.shadowRoot.querySelector('dialog[open]')) {
+        centerMobileDialog(accountEl);
+      }
+    });
+  }
+
   function injectSheetStyles(accountEl) {
     if (!accountEl.shadowRoot) return;
-    if (accountEl.shadowRoot.getElementById('pflege-account-sheet-style-v3')) return;
-    var style = document.createElement('style');
-    style.id = 'pflege-account-sheet-style-v3';
-    style.textContent =
-      'nav:not(#pflege-account-links), [role="navigation"]:not(#pflege-account-links) { display: none !important; }' +
-      '@media (max-width: 750px) {' +
-      '.dialog {' +
-      'position: fixed !important;' +
-      'top: 50% !important;' +
-      'left: 50% !important;' +
-      'right: auto !important;' +
-      'bottom: auto !important;' +
-      'inset: auto !important;' +
-      'transform: translate(-50%, -50%) !important;' +
-      'width: min(calc(100vw - 2rem), 360px) !important;' +
-      'max-width: min(calc(100vw - 2rem), 360px) !important;' +
-      'max-height: min(90dvh, 100dvh) !important;' +
-      'border-radius: 14px !important;' +
-      'border-top-left-radius: 14px !important;' +
-      'border-top-right-radius: 14px !important;' +
-      '--dialog-drawer-opening-animation: none;' +
-      '--dialog-drawer-closing-animation: none;' +
-      '}' +
-      '.dialog[open] {' +
-      'animation: pflege-account-dialog-in 0.28s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;' +
-      'transform: translate(-50%, -50%) !important;' +
-      '}' +
-      '.dialog.closing {' +
-      'animation: pflege-account-dialog-out 0.22s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;' +
-      '}' +
-      '.dialog .account, .account {' +
-      'max-height: min(85dvh, 100dvh) !important;' +
-      '}' +
-      '}' +
-      '@keyframes pflege-account-dialog-in {' +
-      'from { opacity: 0; transform: translate(-50%, calc(-50% + 14px)); }' +
-      'to { opacity: 1; transform: translate(-50%, -50%); }' +
-      '}' +
-      '@keyframes pflege-account-dialog-out {' +
-      'from { opacity: 1; transform: translate(-50%, -50%); }' +
-      'to { opacity: 0; transform: translate(-50%, calc(-50% + 10px)); }' +
-      '}' +
-      '@media (max-width: 750px) and (prefers-reduced-motion: reduce) {' +
-      '.dialog[open], .dialog.closing { animation: none !important; opacity: 1 !important; }' +
-      '.dialog.closing { opacity: 0 !important; }' +
-      '}' +
-      '.pflege-account-sheet-links {' +
-      'margin-top: 1.25rem;' +
-      'padding: 0.65rem;' +
-      'border: 1px solid rgba(216, 226, 238, 0.65);' +
-      'border-radius: 14px;' +
-      'background: #ffffff;' +
-      'box-shadow: 0 10px 28px rgba(20, 73, 110, 0.06);' +
-      'display: flex;' +
-      'flex-direction: column;' +
-      'gap: 0.2rem;' +
-      '}' +
-      '.pflege-account-sheet-link {' +
-      'display: flex;' +
-      'align-items: center;' +
-      'gap: 0.85rem;' +
-      'padding: 0.55rem 0.65rem;' +
-      'border-radius: 10px;' +
-      'color: #062a55;' +
-      'font-size: 15px;' +
-      'font-weight: 700;' +
-      'text-decoration: none;' +
-      'line-height: 1.35;' +
-      'transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;' +
-      '}' +
-      '.pflege-account-sheet-link:hover, .pflege-account-sheet-link:focus-visible {' +
-      'background: #f4f9ff;' +
-      'outline: none;' +
-      'transform: translateX(1px);' +
-      '}' +
-      '.pflege-account-sheet-link__icon {' +
-      'flex: 0 0 auto;' +
-      'display: inline-flex;' +
-      'align-items: center;' +
-      'justify-content: center;' +
-      'width: 40px;' +
-      'height: 40px;' +
-      'border-radius: 999px;' +
-      'background: #f4f9ff;' +
-      'color: #075f84;' +
-      '}' +
-      '.pflege-account-sheet-link__icon svg {' +
-      'width: 20px;' +
-      'height: 20px;' +
-      'display: block;' +
-      '}' +
-      '.pflege-account-sheet-link__label {' +
-      'flex: 1 1 auto;' +
-      'letter-spacing: 0.01em;' +
-      '}' +
-      '.pflege-account-sheet-link__chevron {' +
-      'flex: 0 0 auto;' +
-      'display: inline-flex;' +
-      'align-items: center;' +
-      'justify-content: center;' +
-      'color: #0b6edc;' +
-      'opacity: 0.5;' +
-      'transition: opacity 0.18s ease, transform 0.18s ease;' +
-      '}' +
-      '.pflege-account-sheet-link__chevron svg {' +
-      'width: 14px;' +
-      'height: 10px;' +
-      'display: block;' +
-      '}' +
-      '.pflege-account-sheet-link:hover .pflege-account-sheet-link__chevron, .pflege-account-sheet-link:focus-visible .pflege-account-sheet-link__chevron {' +
-      'opacity: 0.85;' +
-      'transform: translateX(2px);' +
-      '}' +
-      '.pflege-account-sheet-link--logout {' +
-      'color: #66758d;' +
-      'font-weight: 600;' +
-      '}' +
-      '.pflege-account-sheet-link--logout .pflege-account-sheet-link__icon {' +
-      'background: #f8fbff;' +
-      'color: #66758d;' +
-      '}' +
-      '.pflege-account-sheet-link--logout .pflege-account-sheet-link__chevron {' +
-      'color: #66758d;' +
-      'opacity: 0.4;' +
-      '}';
-    accountEl.shadowRoot.appendChild(style);
+    var root = accountEl.shadowRoot;
+    var styleId = 'pflege-account-sheet-style-v4';
+    var style = root.getElementById(styleId);
+    if (!style) {
+      style = document.createElement('style');
+      style.id = styleId;
+      style.textContent =
+        'nav:not(#pflege-account-links), [role="navigation"]:not(#pflege-account-links) { display: none !important; }' +
+        '@media (max-width: 989px) {' +
+        '.wrapper .dialog, dialog.dialog, dialog[part="dialog"], dialog.pflege-account-dialog-centered {' +
+        'position: fixed !important;' +
+        'top: 0 !important;' +
+        'left: 0 !important;' +
+        'right: 0 !important;' +
+        'bottom: 0 !important;' +
+        'margin: auto !important;' +
+        'inset: unset !important;' +
+        'inset-block-start: unset !important;' +
+        'inset-block-end: unset !important;' +
+        'inset-inline-start: unset !important;' +
+        'inset-inline-end: unset !important;' +
+        'transform: none !important;' +
+        'width: min(calc(100vw - 2rem), 360px) !important;' +
+        'max-width: min(calc(100vw - 2rem), 360px) !important;' +
+        'height: fit-content !important;' +
+        'max-height: min(90dvh, 100vh) !important;' +
+        'border-radius: 14px !important;' +
+        'border-top-left-radius: 14px !important;' +
+        'border-top-right-radius: 14px !important;' +
+        'animation: none !important;' +
+        '--dialog-drawer-opening-animation: none !important;' +
+        '--dialog-drawer-closing-animation: none !important;' +
+        '}' +
+        '.dialog[open], .dialog.closing {' +
+        'animation: none !important;' +
+        'transform: none !important;' +
+        '}' +
+        '.dialog .account, .account {' +
+        'max-height: min(85dvh, 100vh) !important;' +
+        '}' +
+        '}' +
+        '.pflege-account-sheet-links {' +
+        'margin-top: 1.25rem;' +
+        'padding: 0.65rem;' +
+        'border: 1px solid rgba(216, 226, 238, 0.65);' +
+        'border-radius: 14px;' +
+        'background: #ffffff;' +
+        'box-shadow: 0 10px 28px rgba(20, 73, 110, 0.06);' +
+        'display: flex;' +
+        'flex-direction: column;' +
+        'gap: 0.2rem;' +
+        '}' +
+        '.pflege-account-sheet-link {' +
+        'display: flex;' +
+        'align-items: center;' +
+        'gap: 0.85rem;' +
+        'padding: 0.55rem 0.65rem;' +
+        'border-radius: 10px;' +
+        'color: #062a55;' +
+        'font-size: 15px;' +
+        'font-weight: 700;' +
+        'text-decoration: none;' +
+        'line-height: 1.35;' +
+        'transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;' +
+        '}' +
+        '.pflege-account-sheet-link:hover, .pflege-account-sheet-link:focus-visible {' +
+        'background: #f4f9ff;' +
+        'outline: none;' +
+        'transform: translateX(1px);' +
+        '}' +
+        '.pflege-account-sheet-link__icon {' +
+        'flex: 0 0 auto;' +
+        'display: inline-flex;' +
+        'align-items: center;' +
+        'justify-content: center;' +
+        'width: 40px;' +
+        'height: 40px;' +
+        'border-radius: 999px;' +
+        'background: #f4f9ff;' +
+        'color: #075f84;' +
+        '}' +
+        '.pflege-account-sheet-link__icon svg {' +
+        'width: 20px;' +
+        'height: 20px;' +
+        'display: block;' +
+        '}' +
+        '.pflege-account-sheet-link__label {' +
+        'flex: 1 1 auto;' +
+        'letter-spacing: 0.01em;' +
+        '}' +
+        '.pflege-account-sheet-link__chevron {' +
+        'flex: 0 0 auto;' +
+        'display: inline-flex;' +
+        'align-items: center;' +
+        'justify-content: center;' +
+        'color: #0b6edc;' +
+        'opacity: 0.5;' +
+        'transition: opacity 0.18s ease, transform 0.18s ease;' +
+        '}' +
+        '.pflege-account-sheet-link__chevron svg {' +
+        'width: 14px;' +
+        'height: 10px;' +
+        'display: block;' +
+        '}' +
+        '.pflege-account-sheet-link:hover .pflege-account-sheet-link__chevron, .pflege-account-sheet-link:focus-visible .pflege-account-sheet-link__chevron {' +
+        'opacity: 0.85;' +
+        'transform: translateX(2px);' +
+        '}' +
+        '.pflege-account-sheet-link--logout {' +
+        'color: #66758d;' +
+        'font-weight: 600;' +
+        '}' +
+        '.pflege-account-sheet-link--logout .pflege-account-sheet-link__icon {' +
+        'background: #f8fbff;' +
+        'color: #66758d;' +
+        '}' +
+        '.pflege-account-sheet-link--logout .pflege-account-sheet-link__chevron {' +
+        'color: #66758d;' +
+        'opacity: 0.4;' +
+        '}';
+      root.appendChild(style);
+    }
+    root.appendChild(style);
   }
 
   function injectAccountLinks(accountEl, host) {
@@ -259,6 +365,7 @@
     });
 
     injectAccountLinks(accountEl, host);
+    scheduleMobileDialogCenter(accountEl);
   }
 
   function bindTrigger(trigger) {
@@ -267,6 +374,8 @@
     var accountEl = trigger.querySelector('shopify-account');
     if (!accountEl) return;
     var host = trigger.querySelector('.pflege-shopify-account-host') || trigger;
+
+    bindDialogPosition(accountEl);
 
     function ensureStyles() {
       if (accountEl.shadowRoot) injectSheetStyles(accountEl);
@@ -278,6 +387,7 @@
     accountEl.addEventListener('open', function () {
       ensureStyles();
       customizeSheet(accountEl, host);
+      scheduleMobileDialogCenter(accountEl);
       setTimeout(function () { customizeSheet(accountEl, host); }, 100);
       setTimeout(function () { customizeSheet(accountEl, host); }, 350);
     });
@@ -298,6 +408,7 @@
 
   function init() {
     document.querySelectorAll('[data-pflege-account-trigger]').forEach(bindTrigger);
+    document.querySelectorAll('shopify-account').forEach(bindDialogPosition);
   }
 
   if (document.readyState === 'loading') {
