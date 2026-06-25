@@ -91,7 +91,10 @@
           </nav>
           <div class="menu-drawer__utility-links">
             {%- if shop.customer_accounts_enabled -%}
-              {%- assign is_new_customer_accounts = render 'pflege-customer-accounts-mode' | strip -%}
+              {%- capture is_new_customer_accounts -%}
+                {% render 'pflege-customer-accounts-mode' %}
+              {%- endcapture -%}
+              {%- assign is_new_customer_accounts = is_new_customer_accounts | strip -%}
               {%- if is_new_customer_accounts == 'true' -%}
                 <div class="menu-drawer__account menu-drawer__account--shopify">
                   {% render 'pflege-shopify-account', menu: section.settings.customer_account_menu %}

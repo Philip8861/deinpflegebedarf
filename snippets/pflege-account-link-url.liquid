@@ -8,7 +8,10 @@
 {%- else -%}
   {%- liquid
     assign guest_login_url = routes.account_login_url
-    assign is_new_accounts = render 'pflege-customer-accounts-mode' | strip
+    capture is_new_accounts
+      render 'pflege-customer-accounts-mode'
+    endcapture
+    assign is_new_accounts = is_new_accounts | strip
     if login_page_url != blank and is_new_accounts != 'true'
       assign guest_login_url = login_page_url
     endif
