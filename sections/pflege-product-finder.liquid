@@ -42,6 +42,9 @@
                   class="pflege-product-finder__cta pflege-product-finder__cta--pulse pflege-hero__cta--testpaket"
                   data-pflege-inko-testpaket-open
                 >
+                  <span class="pflege-product-finder__cta-icon" aria-hidden="true">
+                    {% render 'pflege-icon', icon: 'gift', width: 24 %}
+                  </span>
                   {{- section.settings.primary_label | escape -}}
                 </button>
               {%- endif -%}

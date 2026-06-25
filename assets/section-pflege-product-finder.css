@@ -203,24 +203,53 @@
 
 .pflege-product-finder__cta:hover {
   background: var(--pflege-cta-hover, #dc7a22);
+  transform: scale(1.02);
+}
+
+.pflege-product-finder__cta--pulse:hover {
+  animation-play-state: paused;
 }
 
 .pflege-product-finder__cta--pulse {
   cursor: pointer;
   font-family: inherit;
-  animation: pflege-product-finder-cta-pulse 2.5s ease-in-out infinite;
+  transform: scale(1);
+  animation: pflege-product-finder-cta-pulse 4.5s ease-in-out infinite;
+}
+
+.pflege-product-finder__cta-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  line-height: 0;
+}
+
+.pflege-product-finder__cta-icon .pflege-icon svg {
+  width: 1.35em;
+  height: 1.35em;
 }
 
 @keyframes pflege-product-finder-cta-pulse {
   0%,
+  78%,
   100% {
+    transform: scale(1);
     box-shadow: 0 3px 14px rgba(0, 0, 0, 0.15);
   }
 
-  50% {
+  86% {
+    transform: scale(1.07);
     box-shadow:
-      0 0 0 6px rgba(248, 151, 56, 0.28),
-      0 8px 26px rgba(248, 151, 56, 0.42);
+      0 0 0 10px rgba(248, 151, 56, 0.34),
+      0 14px 38px rgba(248, 151, 56, 0.52);
+  }
+
+  92% {
+    transform: scale(1.04);
+    box-shadow:
+      0 0 0 5px rgba(248, 151, 56, 0.22),
+      0 8px 24px rgba(248, 151, 56, 0.38);
   }
 }
 
