@@ -48,7 +48,11 @@
   assign promo_button_link = section.settings.promo_button_link | default: '#'
   assign promo_image = section.settings.promo_image
   if promo_image == blank
-    assign promo_image_asset = 'Inkontinenzversorgung_start.webp'
+    if category_slug == 'inkontinenzversorgung' or category_slug == 'inkontinenz'
+      assign promo_image_asset = 'Inkontinenzversorgung_produkte.png'
+    else
+      assign promo_image_asset = 'Inkontinenzversorgung_start.webp'
+    endif
   endif
 
   assign hide_category_intro = false
@@ -202,8 +206,8 @@
               src="{{ promo_image_asset | asset_url }}"
               alt=""
               loading="eager"
-              width="1600"
-              height="480"
+              width="1024"
+              height="146"
             >
           {%- endif -%}
         </div>
