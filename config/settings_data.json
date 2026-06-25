@@ -143,6 +143,13 @@
       "customer-testimonials-homepage-style": {
         "type": "customer-testimonials-homepage-style",
         "blocks": {
+          "review_L6arpz": {
+            "type": "review",
+            "settings": {
+              "review_text": "Hallo,\n\nIch kannte die Seni Produkte noch nicht, bin aber damit sehr zufrieden! Gibt es die auch im Abo Model?\n\nVG Susanne",
+              "customer_name": "Susanne G."
+            }
+          },
           "review_wbFA3B": {
             "type": "review",
             "settings": {
@@ -159,6 +166,7 @@
           }
         },
         "block_order": [
+          "review_L6arpz",
           "review_wbFA3B",
           "review_1"
         ],
