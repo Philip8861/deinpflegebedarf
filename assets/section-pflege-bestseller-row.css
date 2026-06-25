@@ -242,6 +242,33 @@
   box-shadow: 0 2px 8px rgba(0, 59, 112, 0.04);
   transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
   box-sizing: border-box;
+  position: relative;
+}
+
+.pflege-bestseller .pflege-cat-card__corner-badges {
+  position: absolute;
+  top: clamp(0.45rem, 1.2vw, 0.6rem);
+  right: clamp(0.45rem, 1.2vw, 0.6rem);
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.35rem;
+  max-width: calc(100% - 1rem);
+  pointer-events: none;
+}
+
+.pflege-bestseller .pflege-cat-card__badge--tip {
+  display: inline-block;
+  padding: 0.28rem 0.62rem;
+  border-radius: 999px;
+  background: var(--pcd-cta);
+  color: #ffffff;
+  font-size: clamp(0.68rem, 0.64rem + 0.12vw, 0.78rem);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+  box-shadow: 0 2px 8px rgba(242, 140, 40, 0.35);
 }
 
 @media screen and (min-width: 990px) {
@@ -288,7 +315,8 @@
   flex: 1 1 auto;
   min-width: 0;
   min-height: 0;
-  gap: 0.35rem;
+  gap: 0.25rem;
+  padding-top: 0.15rem;
 }
 
 .pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__title {
@@ -300,6 +328,7 @@
   -webkit-line-clamp: 3;
   overflow: hidden;
   min-height: calc(3 * 1.35em);
+  padding-right: clamp(4.5rem, 28%, 5.75rem);
 }
 
 .pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__desc {
@@ -315,13 +344,15 @@
 }
 
 .pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__price-row {
-  margin-top: 0.1rem;
+  margin-top: 0;
+  margin-bottom: 0.1rem;
 }
 
 .pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__price {
-  font-size: clamp(1rem, 0.92rem + 0.28vw, 1.2rem);
+  font-size: clamp(1.18rem, 1.05rem + 0.42vw, 1.42rem);
   font-weight: 800;
   color: var(--pcd-navy);
+  line-height: 1.2;
 }
 
 .pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__unit {
@@ -361,7 +392,7 @@
 }
 
 .pflege-bestseller--cols-5 .pflege-cat-card--horizontal .pflege-cat-card__price {
-  font-size: clamp(0.95rem, 0.88rem + 0.18vw, 1.08rem);
+  font-size: clamp(1.08rem, 0.98rem + 0.32vw, 1.25rem);
 }
 
 /* Legacy Bestseller-Karten (falls noch manuell ohne Produkt) */

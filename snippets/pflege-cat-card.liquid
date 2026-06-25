@@ -5,6 +5,7 @@
   - card_product: Produkt
   - card_layout: optional „horizontal“ (Startseite Bestseller)
   - list_item: optional, Standard true (<li>); false für <div> im Raster
+  - show_tip_badge: optional, „Unser Tipp!“ oben auf der Karte (Bestseller)
 {% endcomment %}
 {%- liquid
   assign p = card_product
@@ -17,6 +18,7 @@
   if use_li == nil
     assign use_li = true
   endif
+  assign show_tip = show_tip_badge
 
   assign subtitle = p.metafields.pflege.card_subtitle.value | strip
   if subtitle == blank
@@ -57,6 +59,11 @@
 <div class="{{ card_classes }}">
 {%- endif -%}
   <article class="pflege-cat-card__inner">
+    {%- if show_tip -%}
+      <div class="pflege-cat-card__corner-badges" aria-hidden="true">
+        <span class="pflege-cat-card__badge pflege-cat-card__badge--tip">Unser Tipp!</span>
+      </div>
+    {%- endif -%}
     <div class="pflege-cat-card__media">
       {%- if show_rezept_badge -%}
         <div class="pflege-cat-card__badges">

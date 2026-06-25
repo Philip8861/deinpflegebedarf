@@ -64,7 +64,8 @@
               {% render 'pflege-cat-card',
                 card_product: card_product,
                 card_layout: 'horizontal',
-                list_item: false
+                list_item: false,
+                show_tip_badge: true
               %}
             {%- endfor -%}
           {%- else -%}
@@ -73,7 +74,8 @@
                 {% render 'pflege-cat-card',
                   card_product: block.settings.product,
                   card_layout: 'horizontal',
-                  list_item: false
+                  list_item: false,
+                  show_tip_badge: true
                 %}
               {%- endif -%}
             {%- endfor -%}
