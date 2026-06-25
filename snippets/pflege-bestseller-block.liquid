@@ -85,7 +85,8 @@
                 card_product: card_product,
                 card_layout: 'horizontal',
                 list_item: false,
-                show_tip_badge: true
+                promo_badge_label: 'Meist Gekauft!',
+                promo_badge_variant: 'bestseller'
               %}
             {%- endfor -%}
           {%- else -%}
@@ -95,7 +96,8 @@
                   card_product: block.settings.product,
                   card_layout: 'horizontal',
                   list_item: false,
-                  show_tip_badge: true
+                  promo_badge_label: 'Meist Gekauft!',
+                  promo_badge_variant: 'bestseller'
                 %}
               {%- endif -%}
             {%- endfor -%}
@@ -111,7 +113,8 @@
                   card_product: card_product,
                   card_layout: 'horizontal',
                   list_item: false,
-                  show_tip_badge: true
+                  promo_badge_label: 'Unser Tipp!',
+                  promo_badge_variant: 'tip'
                 %}
               {%- endfor -%}
             {%- else -%}
@@ -121,7 +124,8 @@
                     card_product: block.settings.product,
                     card_layout: 'horizontal',
                     list_item: false,
-                    show_tip_badge: true
+                    promo_badge_label: 'Unser Tipp!',
+                    promo_badge_variant: 'tip'
                   %}
                 {%- endif -%}
               {%- endfor -%}

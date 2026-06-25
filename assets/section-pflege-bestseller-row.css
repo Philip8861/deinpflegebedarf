@@ -356,17 +356,27 @@
   pointer-events: none;
 }
 
-.pflege-bestseller .pflege-cat-card__badge--tip {
+.pflege-bestseller .pflege-cat-card__badge--tip,
+.pflege-bestseller .pflege-cat-card__badge--bestseller {
   display: inline-block;
   padding: 0.3rem 0.68rem;
   border-radius: 999px;
-  background: var(--pcd-cta);
-  color: #ffffff;
   font-size: clamp(0.72rem, 0.68rem + 0.14vw, 0.82rem);
   font-weight: 800;
   line-height: 1.25;
   letter-spacing: 0.02em;
+}
+
+.pflege-bestseller .pflege-cat-card__badge--tip {
+  background: var(--pcd-cta);
+  color: #ffffff;
   box-shadow: 0 2px 8px rgba(242, 140, 40, 0.32);
+}
+
+.pflege-bestseller .pflege-cat-card__badge--bestseller {
+  background: var(--pcd-navy);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 59, 112, 0.28);
 }
 
 .pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__title {

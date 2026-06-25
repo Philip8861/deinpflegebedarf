@@ -5,7 +5,9 @@
   - card_product: Produkt
   - card_layout: optional „horizontal“ (Startseite Bestseller)
   - list_item: optional, Standard true (<li>); false für <div> im Raster
-  - show_tip_badge: optional, „Unser Tipp!“ oben auf der Karte (Bestseller)
+  - show_tip_badge: optional, „Unser Tipp!“ (Legacy)
+  - promo_badge_label: optional Badge-Text
+  - promo_badge_variant: optional „tip“ (orange) oder „bestseller“ (navy)
 {% endcomment %}
 {%- liquid
   assign p = card_product
@@ -18,7 +20,13 @@
   if use_li == nil
     assign use_li = true
   endif
-  assign show_tip = show_tip_badge
+
+  assign promo_label = promo_badge_label | strip
+  assign promo_variant = promo_badge_variant | default: 'tip'
+  if promo_label == blank and show_tip_badge
+    assign promo_label = 'Unser Tipp!'
+    assign promo_variant = 'tip'
+  endif
 
   assign subtitle = p.metafields.pflege.card_subtitle.value | strip
   if subtitle == blank
@@ -85,9 +93,9 @@
       {%- endif -%}
     </div>
     <div class="pflege-cat-card__body">
-      {%- if show_tip -%}
+      {%- if promo_label != blank -%}
         <div class="pflege-cat-card__tip-row" aria-hidden="true">
-          <span class="pflege-cat-card__badge pflege-cat-card__badge--tip">Unser Tipp!</span>
+          <span class="pflege-cat-card__badge pflege-cat-card__badge--{{ promo_variant }}">{{ promo_label | escape }}</span>
         </div>
       {%- endif -%}
       <h3 class="pflege-cat-card__title">
