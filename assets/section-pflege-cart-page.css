@@ -1435,9 +1435,11 @@
   margin-left: -0.47rem;
   transform: translateY(-50%);
   border-radius: 999px;
-  background: #ffffff;
-  border: 2px solid #0b6edc;
-  box-shadow: 0 0 0 3px rgba(11, 110, 220, 0.18), 0 2px 8px rgba(11, 35, 71, 0.18);
+  background: linear-gradient(145deg, #ffb04a 0%, var(--pflege-cart-cta, #f89738) 55%, #e87828 100%);
+  border: 2px solid #ffffff;
+  box-shadow:
+    0 0 0 2px rgba(248, 151, 56, 0.45),
+    0 2px 8px rgba(220, 122, 34, 0.35);
   transition: left 0.45s cubic-bezier(0.22, 1, 0.36, 1);
   pointer-events: none;
 }
