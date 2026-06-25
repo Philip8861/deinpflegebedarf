@@ -110,14 +110,14 @@
   font-weight: var(--pflege-home-section-heading-weight, 700);
   line-height: 1.08;
   letter-spacing: -0.03em;
-  color: var(--pflege-heading-navy, #062a55);
+  color: var(--pflege-home-section-heading-color, #0f4f69);
   text-decoration: none;
   transition: color 0.18s ease;
 }
 
 .pflege-inko-rezept-phone__number:hover,
 .pflege-inko-rezept-phone__number:focus-visible {
-  color: var(--pflege-accent, #3f86d9);
+  color: color-mix(in srgb, var(--pflege-home-section-heading-color, #0f4f69) 78%, var(--pflege-heading-navy, #062a55));
   outline: none;
 }
 
@@ -330,12 +330,12 @@
   width: clamp(3.25rem, 5vw, 4rem);
   height: clamp(3.25rem, 5vw, 4rem);
   border-radius: var(--pflege-radius-pill, 999px);
-  background: var(--pflege-heading-navy, #062a55);
+  background: var(--pflege-home-section-heading-color, #0f4f69);
   color: var(--pflege-white, #fefefe);
   font-size: clamp(1.35rem, 1vw + 1.1rem, 1.75rem);
   font-weight: var(--pflege-home-section-heading-weight, 700);
   line-height: 1;
-  box-shadow: 0 8px 20px rgba(6, 42, 85, 0.22);
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--pflege-home-section-heading-color, #0f4f69) 28%, transparent);
   z-index: 2;
 }
 
