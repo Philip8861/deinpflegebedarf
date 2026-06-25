@@ -12,13 +12,6 @@ body.template-index .pflege-hero,
   font-weight: 400;
 }
 
-/* Inko-Hero: gleiche sichtbare Breite wie PHM (1901 px @ 0.75), Asset Inkontinenzversorgung_start.webp 1738 px breit */
-@media screen and (min-width: 750px) {
-  .pflege-hero--inko-rezept .pflege-hero__asset-zoom {
-    zoom: calc(0.75 * 1901 / 1738);
-  }
-}
-
 .pflege-hero {
   padding-bottom: var(--pflege-home-section-stack, clamp(1.5rem, 3vw, 2rem));
 }
