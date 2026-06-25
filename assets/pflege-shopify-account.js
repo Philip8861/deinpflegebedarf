@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var SIGNIN_TITLE = 'E-Mail angeben und direkt einloggen';
+  var SIGNIN_TITLE = 'Mein Konto';
 
   var ACCOUNT_ICONS = {
     orders:
