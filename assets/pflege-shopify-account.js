@@ -57,8 +57,20 @@
     return null;
   }
 
+  function closeNavigationOverlays() {
+    document.querySelectorAll('header-drawer').forEach(function (drawer) {
+      if (typeof drawer.closeMenuDrawer === 'function') {
+        drawer.closeMenuDrawer();
+      }
+    });
+    document.querySelectorAll('.menu-drawer-container details[open]').forEach(function (details) {
+      details.removeAttribute('open');
+    });
+  }
+
   function openAccountSheet(accountEl) {
     if (!accountEl) return;
+    closeNavigationOverlays();
     if (typeof accountEl.showModal === 'function') {
       accountEl.showModal();
       return;
@@ -73,44 +85,23 @@
 
   function getSheetRoot(accountEl) {
     if (!accountEl.shadowRoot) return null;
-    return (
-      accountEl.shadowRoot.querySelector('dialog[open] .account') ||
-      accountEl.shadowRoot.querySelector('dialog[open]') ||
-      accountEl.shadowRoot.querySelector('[role="dialog"]') ||
-      accountEl.shadowRoot.querySelector('.account')
-    );
+    var dialog = accountEl.shadowRoot.querySelector('dialog[open]');
+    if (!dialog) return null;
+    return dialog.querySelector('.account') || dialog;
   }
 
   function injectSheetStyles(accountEl) {
     if (!accountEl.shadowRoot) return;
-    if (accountEl.shadowRoot.getElementById('pflege-account-sheet-style-v5')) return;
+    if (accountEl.shadowRoot.getElementById('pflege-account-sheet-style-v6')) return;
 
     var style = document.createElement('style');
-    style.id = 'pflege-account-sheet-style-v5';
+    style.id = 'pflege-account-sheet-style-v6';
     style.textContent =
       'nav:not(#pflege-account-links), [role="navigation"]:not(#pflege-account-links) { display: none !important; }' +
       '@media (max-width: 989px) {' +
       '.dialog[open] {' +
-      'position: fixed !important;' +
-      'top: 0 !important;' +
-      'left: 0 !important;' +
-      'right: 0 !important;' +
-      'bottom: 0 !important;' +
-      'margin: auto !important;' +
-      'inset: unset !important;' +
-      'inset-block: unset !important;' +
-      'inset-inline: unset !important;' +
-      'transform: none !important;' +
-      'width: min(calc(100vw - 2rem), 360px) !important;' +
-      'max-width: min(calc(100vw - 2rem), 360px) !important;' +
-      'height: fit-content !important;' +
-      'max-height: min(90dvh, 100vh) !important;' +
-      'border-radius: 14px !important;' +
-      '--dialog-drawer-opening-animation: account-popover-slide-in;' +
-      '--dialog-drawer-closing-animation: account-popover-slide-out;' +
-      '}' +
-      '.dialog[open] .account, .dialog[open].account {' +
-      'max-height: min(85dvh, 100vh) !important;' +
+      'border-top-left-radius: 14px !important;' +
+      'border-top-right-radius: 14px !important;' +
       '}' +
       '}' +
       '.pflege-account-sheet-links {' +
@@ -261,15 +252,18 @@
     });
 
     accountEl.addEventListener('open', function () {
-      customizeSheet(accountEl, host);
       window.setTimeout(function () {
         customizeSheet(accountEl, host);
-      }, 150);
+      }, 80);
+      window.setTimeout(function () {
+        customizeSheet(accountEl, host);
+      }, 350);
     });
 
     trigger.addEventListener('click', function (e) {
       if (e.target.closest('shopify-account')) return;
       e.preventDefault();
+      e.stopPropagation();
       openAccountSheet(accountEl);
     });
 
