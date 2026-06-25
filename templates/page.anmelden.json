@@ -9,12 +9,12 @@
  */
 {
   "sections": {
-    "pflege_login": {
-      "type": "pflege-customer-login",
+    "main": {
+      "type": "pflege-account-landing",
       "settings": {}
     }
   },
   "order": [
-    "pflege_login"
+    "main"
   ]
 }
