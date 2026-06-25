@@ -36,6 +36,14 @@
     assign steps_subtitle = 'sections.pflege_inko_rezept_landing.steps_subtitle' | t
   endif
 
+  assign steps_cta_label = ''
+  if section != blank
+    assign steps_cta_label = section.settings.button_label | strip
+  endif
+  if steps_cta_label == blank
+    assign steps_cta_label = 'sections.pflege_inko_rezept_landing.button_label' | t
+  endif
+
   assign title_suffix = 'passenden Inkontinenzprodukt'
   assign title_has_break = false
   if steps_title contains title_suffix
@@ -45,7 +53,8 @@
 -%}
 
 <div class="pflege-inko-rezept-below">
-  <div class="pflege-inko-rezept-below__shell">
+  <div class="pflege-inko-rezept-below__backdrop">
+    <div class="pflege-inko-rezept-below__shell">
     <div class="pflege-inko-rezept-phone">
       <span class="pflege-inko-rezept-phone__icon" aria-hidden="true">
         {% render 'pflege-icon', icon: 'phone', width: 32 %}
@@ -155,6 +164,22 @@
           {%- endif -%}
         </ol>
       </div>
+
+      {%- if steps_cta_label != blank -%}
+        <div class="pflege-inko-rezept-steps__actions">
+          <button
+            type="button"
+            class="pflege-hero__cta pflege-hero__cta--testpaket pflege-inko-rezept-steps__cta"
+            data-pflege-inko-testpaket-open
+          >
+            <span class="pflege-hero__cta-icon" aria-hidden="true">
+              {% render 'pflege-icon', icon: 'gift', width: 22 %}
+            </span>
+            {{ steps_cta_label | escape }}
+          </button>
+        </div>
+      {%- endif -%}
     </section>
+    </div>
   </div>
 </div>
