@@ -1,8 +1,15 @@
 {%- comment -%}
-  Outputs "true" wenn neue Shopify-Kundenkonten aktiv sind.
+  Outputs "true" wenn neue Shopify-Kundenkonten aktiv sind (nicht klassisch /account/login).
 {%- endcomment -%}
-{%- if routes.account_login_url contains 'shopify.com' or routes.account_login_url contains 'customer_authentication' -%}
-true
-{%- else -%}
+{%- liquid
+  assign login_route = routes.account_login_url | downcase
+  assign is_classic = false
+  if login_route contains '/account/login' or login_route contains '/account/register'
+    assign is_classic = true
+  endif
+-%}
+{%- if is_classic -%}
 false
+{%- else -%}
+true
 {%- endif -%}

@@ -344,6 +344,11 @@
   flex-shrink: 0;
 }
 
+.pflege-main-nav-section shopify-account:not(:defined) {
+  min-width: var(--pflege-action-icon-box, 2.75rem);
+  min-height: var(--pflege-action-icon-box, 2.75rem);
+}
+
 .pflege-main-nav-section shopify-account::part(signed-out-avatar) {
   display: inline-flex;
   align-items: center;

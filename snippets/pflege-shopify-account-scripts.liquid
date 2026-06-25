@@ -1,0 +1,12 @@
+{%- comment -%}
+  Skripte für Shopify Account Component (<shopify-account>).
+  Nur bei neuen Kundenkonten — nicht bei klassischem /account/login.
+{%- endcomment -%}
+{%- capture pflege_new_accounts_flag -%}
+  {% render 'pflege-customer-accounts-mode' %}
+{%- endcapture -%}
+{%- assign pflege_new_accounts_flag = pflege_new_accounts_flag | strip -%}
+{%- if shop.customer_accounts_enabled and pflege_new_accounts_flag == 'true' -%}
+  <script type="module" src="https://cdn.shopify.com/storefront/web-components.js" defer></script>
+  <script type="module" src="https://cdn.shopify.com/storefront/web-components/account.js" defer></script>
+{%- endif -%}

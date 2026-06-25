@@ -496,49 +496,21 @@
 
     <div class="pflege-main-nav__actions">
       {%- if shop.customer_accounts_enabled -%}
-        {%- capture is_new_customer_accounts -%}
-          {% render 'pflege-customer-accounts-mode' %}
-        {%- endcapture -%}
-        {%- assign is_new_customer_accounts = is_new_customer_accounts | strip -%}
-        {%- if is_new_customer_accounts == 'true' -%}
-          <div class="pflege-main-nav__action pflege-main-nav__action--account pflege-main-nav__action--shopify-account">
-            {% render 'pflege-shopify-account', menu: section.settings.customer_account_menu %}
-            <span class="pflege-main-nav__stack pflege-main-nav__stack--account-label">
-              <strong class="pflege-main-nav__stack-title">{{ section.settings.account_heading | escape }}</strong>
-              <span class="pflege-main-nav__stack-sub">
-                {%- liquid
-                  if customer
-                    echo 'customer.account_fallback' | t
-                  else
-                    echo section.settings.account_sub_guest | escape
-                  endif
-                -%}
-              </span>
+        <div class="pflege-main-nav__action pflege-main-nav__action--account pflege-main-nav__action--shopify-account">
+          {% render 'pflege-shopify-account', menu: section.settings.customer_account_menu %}
+          <span class="pflege-main-nav__stack pflege-main-nav__stack--account-label">
+            <strong class="pflege-main-nav__stack-title">{{ section.settings.account_heading | escape }}</strong>
+            <span class="pflege-main-nav__stack-sub">
+              {%- liquid
+                if customer
+                  echo 'customer.account_fallback' | t
+                else
+                  echo section.settings.account_sub_guest | escape
+                endif
+              -%}
             </span>
-          </div>
-        {%- else -%}
-          <a
-            href="{% render 'pflege-account-link-url', login_page_url: section.settings.login_page_url %}"
-            class="pflege-main-nav__action pflege-main-nav__action--account link focus-inset"
-            rel="nofollow"
-          >
-            <span class="pflege-main-nav__action-icon">
-              <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
-            </span>
-            <span class="pflege-main-nav__stack">
-              <strong class="pflege-main-nav__stack-title">{{ section.settings.account_heading | escape }}</strong>
-              <span class="pflege-main-nav__stack-sub">
-                {%- liquid
-                  if customer
-                    echo 'customer.account_fallback' | t
-                  else
-                    echo section.settings.account_sub_guest | escape
-                  endif
-                -%}
-              </span>
-            </span>
-          </a>
-        {%- endif -%}
+          </span>
+        </div>
       {%- endif -%}
 
       <div class="pflege-main-nav__action pflege-main-nav__action--cart">
