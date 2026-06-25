@@ -1,0 +1,146 @@
+{{ 'pflege-customer-shared.css' | asset_url | stylesheet_tag }}
+{{ 'section-pflege-customer-login.css' | asset_url | stylesheet_tag }}
+{{ 'section-pflege-customer-account.css' | asset_url | stylesheet_tag }}
+
+<section class="pflege-customer-account-page customer order" aria-labelledby="pflege-order-title">
+  <div class="pflege-customer-account-page__backdrop">
+    <div class="pflege-customer-account-page__inner">
+      <a href="{{ routes.account_url }}" class="pflege-customer-account-page__back">
+        ← {{ 'customer.account.return' | t }}
+      </a>
+
+      <header class="pflege-customer-account-page__order-header">
+        <h1 id="pflege-order-title">{{ 'customer.order.title' | t: name: order.name }}</h1>
+        {%- assign order_date = order.created_at | time_tag: format: 'date_at_time' -%}
+        <p>{{ 'customer.order.date_html' | t: date: order_date }}</p>
+        {%- if order.cancelled -%}
+          {%- assign cancelled_at = order.cancelled_at | time_tag: format: 'date_at_time' -%}
+          <p>{{ 'customer.order.cancelled_html' | t: date: cancelled_at }}</p>
+          <p>{{ 'customer.order.cancelled_reason' | t: reason: order.cancel_reason_label }}</p>
+        {%- endif -%}
+      </header>
+
+      <div class="pflege-customer-account-page__order-layout">
+        <div class="pflege-customer-account-page__panel">
+          <h2 class="pflege-customer-account-page__panel-title">{{ 'customer.order.product' | t }}</h2>
+
+          <div class="pflege-customer-account-page__line-items">
+            {%- for line_item in order.line_items -%}
+              <div class="pflege-customer-account-page__line-item">
+                <div class="pflege-customer-account-page__line-item-title">
+                  {%- if line_item.url != blank -%}
+                    <a href="{{ line_item.url }}">{{ line_item.title | escape }}</a>
+                  {%- else -%}
+                    {{ line_item.title | escape }}
+                  {%- endif -%}
+                </div>
+                <div class="pflege-customer-account-page__line-item-price">
+                  {{ line_item.final_line_price | money }}
+                </div>
+                <div class="pflege-customer-account-page__line-item-meta">
+                  {%- unless line_item.product.has_only_default_variant -%}
+                    <span>{{ line_item.variant.title | escape }}</span>
+                  {%- endunless -%}
+                  {%- if line_item.sku != blank -%}
+                    <span>{{ 'customer.order.sku' | t }}: {{ line_item.sku }}</span>
+                  {%- endif -%}
+                  <span>{{ 'customer.order.quantity' | t }}: {{ line_item.quantity }}</span>
+                  <span>{{ line_item.final_price | money }} / Stück</span>
+
+                  {%- assign property_size = line_item.properties | size -%}
+                  {%- if property_size != 0 -%}
+                    {%- for property in line_item.properties -%}
+                      {% assign property_first_char = property.first | slice: 0 %}
+                      {%- if property.last != blank and property_first_char != '_' -%}
+                        <span>{{ property.first }}: {{ property.last }}</span>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  {%- endif -%}
+
+                  {%- if line_item.fulfillment -%}
+                    <span>
+                      {%- assign created_at = line_item.fulfillment.created_at | time_tag: format: 'date' -%}
+                      {{ 'customer.order.fulfilled_at_html' | t: date: created_at }}
+                      {%- if line_item.fulfillment.tracking_url -%}
+                        — <a href="{{ line_item.fulfillment.tracking_url }}">{{ 'customer.order.track_shipment' | t }}</a>
+                      {%- endif -%}
+                    </span>
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+
+          <div class="pflege-customer-account-page__totals">
+            <div class="pflege-customer-account-page__total-row">
+              <span>{{ 'customer.order.subtotal' | t }}</span>
+              <span>{{ order.line_items_subtotal_price | money }}</span>
+            </div>
+            {%- for discount_application in order.cart_level_discount_applications -%}
+              <div class="pflege-customer-account-page__total-row">
+                <span>{{ 'customer.order.discount' | t }} ({{ discount_application.title | escape }})</span>
+                <span>-{{ discount_application.total_allocated_amount | money }}</span>
+              </div>
+            {%- endfor -%}
+            {%- for shipping_method in order.shipping_methods -%}
+              <div class="pflege-customer-account-page__total-row">
+                <span>{{ 'customer.order.shipping' | t }} ({{ shipping_method.title | escape }})</span>
+                <span>{{ shipping_method.price | money }}</span>
+              </div>
+            {%- endfor -%}
+            {%- for tax_line in order.tax_lines -%}
+              <div class="pflege-customer-account-page__total-row">
+                <span>{{ 'customer.order.tax' | t }} ({{ tax_line.title | escape }} {{ tax_line.rate | times: 100 }}%)</span>
+                <span>{{ tax_line.price | money }}</span>
+              </div>
+            {%- endfor -%}
+            {%- if order.total_duties -%}
+              <div class="pflege-customer-account-page__total-row">
+                <span>{{ 'customer.order.total_duties' | t }}</span>
+                <span>{{ order.total_duties | money }}</span>
+              </div>
+            {%- endif -%}
+            {%- if order.total_refunded_amount > 0 -%}
+              <div class="pflege-customer-account-page__total-row">
+                <span>{{ 'customer.order.total_refunded' | t }}</span>
+                <span>-{{ order.total_refunded_amount | money_with_currency }}</span>
+              </div>
+            {%- endif -%}
+            <div class="pflege-customer-account-page__total-row pflege-customer-account-page__total-row--grand">
+              <span>{{ 'customer.order.total' | t }}</span>
+              <span>{{ order.total_net_amount | money_with_currency }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="pflege-customer-account-page__address-panels">
+          <div class="pflege-customer-account-page__panel pflege-customer-account-page__address-panel">
+            <h2>{{ 'customer.order.billing_address' | t }}</h2>
+            <p>
+              <strong>{{ 'customer.order.payment_status' | t }}:</strong>
+              {{ order.financial_status_label }}
+            </p>
+            <p class="pflege-customer-account-page__address-text">{{ order.billing_address | format_address }}</p>
+          </div>
+          <div class="pflege-customer-account-page__panel pflege-customer-account-page__address-panel">
+            <h2>{{ 'customer.order.shipping_address' | t }}</h2>
+            <p>
+              <strong>{{ 'customer.order.fulfillment_status' | t }}:</strong>
+              {{ order.fulfillment_status_label }}
+            </p>
+            <p class="pflege-customer-account-page__address-text">{{ order.shipping_address | format_address }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Pflege Bestelldetail",
+  "tag": "section",
+  "class": "section-pflege-customer-order",
+  "settings": []
+}
+{% endschema %}

@@ -36,6 +36,52 @@
   gap: clamp(1.5rem, 3vw, 3rem);
 }
 
+.pflege-customer-login__wrapper--single {
+  max-width: 540px;
+  margin: 0 auto;
+  flex-direction: column;
+}
+
+.pflege-customer-login__wrapper--single .pflege-customer-login__card--login {
+  max-width: 100%;
+}
+
+.pflege-customer-login__wrapper--login-benefits {
+  max-width: 1120px;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: stretch;
+}
+
+@media screen and (min-width: 901px) {
+  .pflege-customer-login__wrapper--login-benefits {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .pflege-customer-login__wrapper--login-benefits .pflege-customer-login__card--login {
+    flex: 1 1 0;
+    max-width: 520px;
+  }
+
+  .pflege-customer-login__wrapper--login-benefits .pflege-customer-login__card--benefits {
+    flex: 1 1 0;
+    max-width: 480px;
+    min-height: auto;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .pflege-customer-login__wrapper--login-benefits {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .pflege-customer-login__wrapper--login-benefits .pflege-customer-login__card--benefits {
+    min-height: 0;
+    max-width: 540px;
+  }
+}
+
 .pflege-customer-login__card--login,
 .pflege-customer-login__card--register {
   flex: 1 1 0;

@@ -214,7 +214,7 @@
     );
   }
 
-  document.querySelectorAll('[data-pflege-customer-login]').forEach(function (root) {
+  document.querySelectorAll('[data-pflege-customer-login], [data-pflege-customer-auth]').forEach(function (root) {
     initPasswordToggles(root);
     initPanels(root);
     initAuthForms(root);

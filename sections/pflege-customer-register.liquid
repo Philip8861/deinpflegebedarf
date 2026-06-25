@@ -1,0 +1,305 @@
+{{ 'pflege-customer-shared.css' | asset_url | stylesheet_tag }}
+{{ 'section-pflege-customer-login.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'pflege-customer-login.js' | asset_url }}" defer="defer"></script>
+
+{%- if customer -%}
+  <script>
+    window.location.replace('{{ routes.account_url }}');
+  </script>
+{%- endif -%}
+
+{%- liquid
+  assign is_new_customer_accounts = false
+  assign account_login_route = routes.account_login_url
+  if account_login_route contains 'shopify.com' or account_login_route contains 'customer_authentication'
+    assign is_new_customer_accounts = true
+  endif
+  assign auth_return_to = routes.account_url | url_encode
+  assign customer_auth_login_url = '/customer_authentication/login?return_to=' | append: auth_return_to
+-%}
+
+<section
+  class="pflege-customer-login"
+  data-pflege-customer-auth
+  data-account-url="{{ routes.account_url }}"
+  aria-labelledby="pflege-customer-register-title"
+>
+  <div class="pflege-customer-login__backdrop">
+    <div class="pflege-customer-login__logo-wrap">
+      <a href="{{ routes.root_url }}" class="pflege-customer-login__logo-link">
+        {% render 'pflege-logo-webp',
+          img_class: 'pflege-customer-login__logo-img',
+          logo_width: 200,
+          logo_height: 44
+        %}
+      </a>
+    </div>
+
+    <div class="pflege-customer-login__wrapper pflege-customer-login__wrapper--single">
+      <div class="pflege-customer-login__card pflege-customer-login__card--login">
+        <h1 id="pflege-customer-register-title" class="pflege-customer-login__title">
+          {{ section.settings.title | escape }}
+        </h1>
+        <p class="pflege-customer-login__subtitle">
+          {{ section.settings.subtitle | escape }}
+        </p>
+
+        {%- if is_new_customer_accounts -%}
+          <div class="pflege-customer-login__panel-inner pflege-customer-login__panel">
+            <p class="pflege-customer-login__new-hint">
+              {{ section.settings.new_account_hint | escape }}
+            </p>
+            <a
+              href="{{ customer_auth_login_url }}"
+              class="pflege-customer-login__btn pflege-customer-login__btn--primary"
+            >
+              {% render 'pflege-icon', icon: 'user-plus', width: 18 %}
+              {{ section.settings.submit_label | escape }}
+            </a>
+          </div>
+        {%- else -%}
+          {%- form 'create_customer', novalidate: 'novalidate', class: 'pflege-customer-login__form pflege-customer-login__form--register' -%}
+            <div class="pflege-customer-login__errors" data-pflege-auth-error hidden></div>
+
+            {%- if form.errors -%}
+              <div class="pflege-customer-login__errors" tabindex="-1">
+                <ul class="pflege-customer-login__error-list">
+                  {%- for field in form.errors -%}
+                    <li>
+                      {%- if field == 'form' -%}
+                        {{ form.errors.messages[field] }}
+                      {%- else -%}
+                        {{ form.errors.translated_fields[field] | capitalize }}
+                        {{ form.errors.messages[field] }}
+                      {%- endif -%}
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+            {%- endif -%}
+
+            <div class="pflege-customer-login__field">
+              <label class="pflege-customer-login__label" for="RegisterForm-FirstName">
+                {{ section.settings.first_name_label | escape }}
+              </label>
+              <div class="pflege-customer-login__input-wrap">
+                <span class="pflege-customer-login__input-icon">
+                  {% render 'pflege-icon', icon: 'user', width: 20 %}
+                </span>
+                <input
+                  type="text"
+                  name="customer[first_name]"
+                  id="RegisterForm-FirstName"
+                  class="pflege-customer-login__input"
+                  autocomplete="given-name"
+                  placeholder="{{ section.settings.first_name_placeholder | escape }}"
+                  {% if form.first_name %}
+                    value="{{ form.first_name }}"
+                  {% endif %}
+                >
+              </div>
+            </div>
+
+            <div class="pflege-customer-login__field">
+              <label class="pflege-customer-login__label" for="RegisterForm-LastName">
+                {{ section.settings.last_name_label | escape }}
+              </label>
+              <div class="pflege-customer-login__input-wrap">
+                <span class="pflege-customer-login__input-icon">
+                  {% render 'pflege-icon', icon: 'user', width: 20 %}
+                </span>
+                <input
+                  type="text"
+                  name="customer[last_name]"
+                  id="RegisterForm-LastName"
+                  class="pflege-customer-login__input"
+                  autocomplete="family-name"
+                  placeholder="{{ section.settings.last_name_placeholder | escape }}"
+                  {% if form.last_name %}
+                    value="{{ form.last_name }}"
+                  {% endif %}
+                >
+              </div>
+            </div>
+
+            <div class="pflege-customer-login__field">
+              <label class="pflege-customer-login__label" for="RegisterForm-email">
+                {{ section.settings.email_label | escape }}
+              </label>
+              <div class="pflege-customer-login__input-wrap">
+                <span class="pflege-customer-login__input-icon">
+                  {% render 'pflege-icon', icon: 'mail', width: 20 %}
+                </span>
+                <input
+                  type="email"
+                  name="customer[email]"
+                  id="RegisterForm-email"
+                  class="pflege-customer-login__input"
+                  spellcheck="false"
+                  autocapitalize="off"
+                  autocomplete="email"
+                  placeholder="{{ section.settings.email_placeholder | escape }}"
+                  {% if form.email %}
+                    value="{{ form.email }}"
+                  {% endif %}
+                  aria-required="true"
+                  {% if form.errors contains 'email' %}
+                    aria-invalid="true"
+                  {% endif %}
+                  required
+                >
+              </div>
+            </div>
+
+            <div class="pflege-customer-login__field">
+              <label class="pflege-customer-login__label" for="RegisterForm-password">
+                {{ section.settings.password_label | escape }}
+              </label>
+              <div class="pflege-customer-login__input-wrap">
+                <span class="pflege-customer-login__input-icon">
+                  {% render 'pflege-icon', icon: 'lock', width: 20 %}
+                </span>
+                <input
+                  type="password"
+                  name="customer[password]"
+                  id="RegisterForm-password"
+                  class="pflege-customer-login__input"
+                  autocomplete="new-password"
+                  placeholder="{{ section.settings.password_placeholder | escape }}"
+                  aria-required="true"
+                  {% if form.errors contains 'password' %}
+                    aria-invalid="true"
+                  {% endif %}
+                  required
+                >
+                <button
+                  type="button"
+                  class="pflege-customer-login__password-toggle"
+                  data-pflege-login-password-toggle
+                  data-target="RegisterForm-password"
+                  aria-label="{{ section.settings.show_password_label | escape }}"
+                  aria-pressed="false"
+                >
+                  {% render 'pflege-icon', icon: 'eye', width: 20 %}
+                </button>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              class="pflege-customer-login__btn pflege-customer-login__btn--primary"
+              data-pflege-auth-submit
+            >
+              {% render 'pflege-icon', icon: 'user-plus', width: 18 %}
+              <span data-pflege-auth-submit-text>{{ section.settings.submit_label | escape }}</span>
+            </button>
+          {%- endform -%}
+        {%- endif -%}
+
+        <p class="pflege-customer-login__secure">
+          {% render 'pflege-icon', icon: 'shield-check', width: 18 %}
+          <span>{{ section.settings.secure_note | escape }}</span>
+        </p>
+
+        <p class="pflege-customer-login__register-link">
+          Bereits ein Konto?
+          <a href="{{ routes.account_login_url }}">Zum Login</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Pflege Registrierung",
+  "tag": "section",
+  "class": "section-pflege-customer-register",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titel",
+      "default": "Konto erstellen"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Untertitel",
+      "default": "Erstellen Sie Ihr kostenloses Kundenkonto und verwalten Sie Bestellungen und Adressen ganz einfach online."
+    },
+    {
+      "type": "text",
+      "id": "submit_label",
+      "label": "Button-Text",
+      "default": "Konto erstellen"
+    },
+    {
+      "type": "text",
+      "id": "secure_note",
+      "label": "Vertrauenshinweis",
+      "default": "Sicher, einfach und kostenlos."
+    },
+    {
+      "type": "text",
+      "id": "new_account_hint",
+      "label": "Hinweis (neue Kundenkonten)",
+      "default": "Sie erhalten einen sicheren Anmeldecode per E-Mail — kein Passwort nötig."
+    },
+    {
+      "type": "text",
+      "id": "first_name_label",
+      "label": "Vorname Label",
+      "default": "Vorname"
+    },
+    {
+      "type": "text",
+      "id": "first_name_placeholder",
+      "label": "Vorname Platzhalter",
+      "default": "Ihr Vorname"
+    },
+    {
+      "type": "text",
+      "id": "last_name_label",
+      "label": "Nachname Label",
+      "default": "Nachname"
+    },
+    {
+      "type": "text",
+      "id": "last_name_placeholder",
+      "label": "Nachname Platzhalter",
+      "default": "Ihr Nachname"
+    },
+    {
+      "type": "text",
+      "id": "email_label",
+      "label": "E-Mail Label",
+      "default": "E-Mail"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "E-Mail Platzhalter",
+      "default": "Ihre E-Mail-Adresse"
+    },
+    {
+      "type": "text",
+      "id": "password_label",
+      "label": "Passwort Label",
+      "default": "Passwort"
+    },
+    {
+      "type": "text",
+      "id": "password_placeholder",
+      "label": "Passwort Platzhalter",
+      "default": "Ihr Passwort"
+    },
+    {
+      "type": "text",
+      "id": "show_password_label",
+      "label": "Passwort anzeigen (ARIA)",
+      "default": "Passwort anzeigen"
+    }
+  ]
+}
+{% endschema %}

@@ -1,3 +1,4 @@
+{{ 'pflege-customer-shared.css' | asset_url | stylesheet_tag }}
 {{ 'section-pflege-customer-login.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'pflege-customer-login.js' | asset_url }}" defer="defer"></script>
 
@@ -21,16 +22,33 @@
   endif
   assign auth_return_to = routes.account_url | url_encode
   assign customer_auth_login_url = '/customer_authentication/login?return_to=' | append: auth_return_to
+  assign layout_split = false
+  if section.settings.layout_mode == 'split'
+    assign layout_split = true
+  endif
 -%}
 
 <section
   class="pflege-customer-login"
   data-pflege-customer-login
+  data-pflege-customer-auth
   data-account-url="{{ routes.account_url }}"
   aria-labelledby="pflege-customer-login-title"
 >
   <div class="pflege-customer-login__backdrop">
-    <div class="pflege-customer-login__wrapper pflege-customer-login__wrapper--split">
+    <div class="pflege-customer-login__logo-wrap">
+      <a href="{{ routes.root_url }}" class="pflege-customer-login__logo-link">
+        {% render 'pflege-logo-webp',
+          img_class: 'pflege-customer-login__logo-img',
+          logo_width: 200,
+          logo_height: 44
+        %}
+      </a>
+    </div>
+
+    <div
+      class="pflege-customer-login__wrapper{% if layout_split %} pflege-customer-login__wrapper--split{% else %} pflege-customer-login__wrapper--login-benefits{% endif %}"
+    >
       <div class="pflege-customer-login__card pflege-customer-login__card--login">
         <h1 id="pflege-customer-login-title" class="pflege-customer-login__title">
           {{ section.settings.login_title | escape }}
@@ -252,6 +270,13 @@
             <span>{{ section.settings.secure_note | escape }}</span>
           </p>
 
+          {%- unless layout_split -%}
+            <p class="pflege-customer-login__register-link">
+              Noch kein Konto?
+              <a href="{{ routes.account_register_url }}">Konto erstellen</a>
+            </p>
+          {%- endunless -%}
+
           {%- if shop.checkout.guest_login and is_new_customer_accounts == false -%}
             <div class="pflege-customer-login__guest">
               <p class="pflege-customer-login__guest-title">{{ 'customer.login_page.guest_title' | t }}</p>
@@ -265,6 +290,11 @@
         </div>
       </div>
 
+      {%- unless layout_split -%}
+        {% render 'pflege-customer-benefits', title: section.settings.benefits_title %}
+      {%- endunless -%}
+
+      {%- if layout_split -%}
       <div class="pflege-customer-login__card pflege-customer-login__card--register">
         <h2 class="pflege-customer-login__title pflege-customer-login__title--register">
           {{ section.settings.register_title | escape }}
@@ -430,6 +460,7 @@
           <span>{{ section.settings.secure_note | escape }}</span>
         </p>
       </div>
+      {%- endif -%}
     </div>
   </div>
 </section>
@@ -447,6 +478,16 @@
       "default": true
     },
     {
+      "type": "select",
+      "id": "layout_mode",
+      "label": "Layout",
+      "options": [
+        { "value": "login_benefits", "label": "Login + Vorteile (für /account/login)" },
+        { "value": "split", "label": "Login und Registrierung nebeneinander" }
+      ],
+      "default": "login_benefits"
+    },
+    {
       "type": "header",
       "content": "Login"
     },
@@ -460,7 +501,13 @@
       "type": "textarea",
       "id": "login_subtitle",
       "label": "Untertitel",
-      "default": "Melden Sie sich an, um auf Ihre Bestellungen, Rezepte und alle Funktionen Ihres Kontos zuzugreifen."
+      "default": "Melde dich an, um deine Bestellungen und Daten zu verwalten."
+    },
+    {
+      "type": "text",
+      "id": "benefits_title",
+      "label": "Vorteilsbox Titel",
+      "default": "Ihre Vorteile mit einem Konto"
     },
     {
       "type": "header",
@@ -570,7 +617,7 @@
       "type": "text",
       "id": "secure_note",
       "label": "Sicherer Login Hinweis",
-      "default": "Sicherer Login – Ihre Daten sind bei uns geschützt."
+      "default": "Sicher, einfach und kostenlos."
     }
   ]
 }
