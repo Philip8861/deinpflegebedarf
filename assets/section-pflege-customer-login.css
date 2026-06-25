@@ -31,15 +31,36 @@
 
 /* --- Login-Karte --------------------------------------------------------- */
 
-.pflege-customer-login__card--login {
-  flex: 0 0 540px;
+.pflege-customer-login__wrapper--split {
+  max-width: 1120px;
+  gap: clamp(1.5rem, 3vw, 3rem);
+}
+
+.pflege-customer-login__card--login,
+.pflege-customer-login__card--register {
+  flex: 1 1 0;
   width: 100%;
   max-width: 540px;
-  min-height: 630px;
+  min-height: 0;
   background: #ffffff;
   border: 1px solid rgba(216, 226, 238, 0.45);
   box-shadow: 0 22px 55px rgba(20, 73, 110, 0.08);
   padding: 42px 50px 40px;
+}
+
+.pflege-customer-login__title--register {
+  font-size: 26px;
+  line-height: 32px;
+}
+
+.pflege-customer-login__error-list {
+  margin: 0;
+  padding-left: 1.15rem;
+}
+
+.pflege-customer-login__form--login,
+.pflege-customer-login__form--register {
+  margin: 0;
 }
 
 .pflege-customer-login__title {
@@ -495,69 +516,36 @@
 /* --- Responsive ---------------------------------------------------------- */
 
 @media screen and (max-width: 1024px) {
-  .pflege-customer-login__wrapper {
-    gap: 32px;
+  .pflege-customer-login__wrapper--split {
+    gap: 28px;
   }
 
-  .pflege-customer-login__card--login {
-    flex: 1 1 52%;
-    max-width: 52%;
-  }
-
-  .pflege-customer-login__card--benefits {
-    flex: 1 1 40%;
-    max-width: 40%;
+  .pflege-customer-login__card--login,
+  .pflege-customer-login__card--register {
+    max-width: 100%;
   }
 }
 
 @media screen and (max-width: 900px) {
-  .pflege-customer-login__wrapper {
+  .pflege-customer-login__wrapper--split {
     flex-direction: column;
     align-items: center;
     gap: 28px;
   }
 
   .pflege-customer-login__card--login,
-  .pflege-customer-login__card--benefits {
+  .pflege-customer-login__card--register {
     flex: none;
     width: 100%;
     max-width: 540px;
-    min-height: 0;
-  }
-
-  .pflege-customer-login__card--login {
-    padding: 32px 24px;
-  }
-
-  .pflege-customer-login__card--benefits {
     padding: 32px 24px;
   }
 }
 
 @media screen and (max-width: 480px) {
-  .pflege-customer-login__title {
+  .pflege-customer-login__title,
+  .pflege-customer-login__title--register {
     font-size: 24px;
     line-height: 30px;
-  }
-
-  .pflege-customer-login__benefits-title {
-    font-size: 20px;
-    line-height: 26px;
-  }
-
-  .pflege-customer-login__benefit {
-    gap: 16px;
-    margin-bottom: 28px;
-  }
-
-  .pflege-customer-login__benefit-icon {
-    width: 56px;
-    height: 56px;
-  }
-
-  .pflege-customer-login__benefit-icon .pflege-icon svg,
-  .pflege-customer-login__benefit-icon svg {
-    width: 28px;
-    height: 28px;
   }
 }
