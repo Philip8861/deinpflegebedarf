@@ -1195,3 +1195,21 @@
   color: var(--pflege-link-blue, #0b6edc);
 }
 
+/* Orange Punkte bei geöffnetem Inkontinenz-Untermenü */
+.pflege-category-modal__item--has-submenu.is-open .pflege-category-modal__sublink {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.95rem 1.15rem 0.95rem 2.65rem;
+}
+
+.pflege-category-modal__item--has-submenu.is-open .pflege-category-modal__sublink::before {
+  content: '';
+  flex: 0 0 auto;
+  width: 0.62rem;
+  height: 0.62rem;
+  border-radius: 50%;
+  background: var(--pflege-cta, #f89738);
+  box-shadow: 0 0 0 3px rgba(248, 151, 56, 0.22);
+}
+
