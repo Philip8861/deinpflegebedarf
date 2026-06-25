@@ -49,7 +49,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(1rem, 2.5vw, 1.25rem);
+  gap: clamp(1rem, 2.5vw, 1.35rem);
   width: 100%;
   max-width: min(100%, 42rem);
   margin: 0 auto;
@@ -65,25 +65,6 @@
   color: var(--pflege-heading-navy, #062a55);
   box-shadow: 0 10px 32px rgba(11, 35, 71, 0.06);
   box-sizing: border-box;
-}
-
-.pflege-inko-rezept-phone__icon {
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: clamp(4.5rem, 8vw, 5.75rem);
-  height: clamp(4.5rem, 8vw, 5.75rem);
-  border-radius: var(--pflege-radius-pill, 999px);
-  background: var(--pflege-header-pill-hover-bg, #eaf4ff);
-  border: 1px solid color-mix(in srgb, var(--pflege-accent, #3f86d9) 28%, transparent);
-  color: var(--pflege-heading-navy, #062a55);
-  line-height: 0;
-}
-
-.pflege-inko-rezept-phone__icon .pflege-icon svg {
-  width: clamp(1.75rem, 3vw, 2.25rem);
-  height: clamp(1.75rem, 3vw, 2.25rem);
 }
 
 .pflege-inko-rezept-phone__copy {
@@ -136,8 +117,12 @@
     align-items: center;
     text-align: left;
     max-width: min(100%, 47.5rem);
-    gap: clamp(1.25rem, 2.5vw, 1.75rem);
+    gap: clamp(1.35rem, 2.8vw, 1.85rem);
     padding: clamp(1.5rem, 2.5vw, 2rem) clamp(1.75rem, 3vw, 2.25rem);
+  }
+
+  .pflege-inko-rezept-phone .pflege-contact-portrait--phone {
+    align-self: center;
   }
 
   .pflege-inko-rezept-phone__copy {

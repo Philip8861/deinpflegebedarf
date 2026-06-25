@@ -56,9 +56,7 @@
   <div class="pflege-inko-rezept-below__backdrop">
     <div class="pflege-inko-rezept-below__shell">
     <div class="pflege-inko-rezept-phone">
-      <span class="pflege-inko-rezept-phone__icon" aria-hidden="true">
-        {% render 'pflege-icon', icon: 'phone', width: 32 %}
-      </span>
+      {% render 'pflege-contact-portrait', class: 'pflege-contact-portrait--phone', decorative: true %}
       <div class="pflege-inko-rezept-phone__copy">
         {%- if phone_intro != blank -%}
           <p class="pflege-inko-rezept-phone__label">{{ phone_intro | escape }}</p>
