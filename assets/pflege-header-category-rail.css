@@ -156,6 +156,19 @@
   z-index: 12;
 }
 
+.pflege-cat-rail--header-row .pflege-cat-rail__bar.is-submenu-open .pflege-cat-rail__list {
+  overflow: visible;
+}
+
+.pflege-main-nav-section .pflege-main-nav__cat-rail-row:has(.pflege-cat-rail__bar.is-submenu-open) {
+  overflow: visible;
+  z-index: 15;
+}
+
+.pflege-main-nav-section.section-header:has(.pflege-cat-rail__bar.is-submenu-open) {
+  z-index: 50;
+}
+
 .pflege-cat-rail--header-row .pflege-cat-rail__cell--has-submenu {
   position: relative;
   z-index: 13;
@@ -183,7 +196,7 @@
   position: absolute;
   top: calc(100% + 4px);
   left: 0;
-  min-width: 100%;
+  min-width: max(100%, 13.5rem);
   margin: 0;
   padding: 0.35rem 0;
   list-style: none;
@@ -191,8 +204,12 @@
   background: #fefefe;
   border: 1px solid #e2e6ec;
   box-shadow: 0 12px 32px rgba(11, 35, 71, 0.14);
-  z-index: 20;
+  z-index: 30;
   box-sizing: border-box;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__cell--has-submenu.is-open .pflege-cat-rail__submenu {
+  display: block;
 }
 
 .pflege-cat-rail--header-row .pflege-cat-rail__submenu[hidden] {

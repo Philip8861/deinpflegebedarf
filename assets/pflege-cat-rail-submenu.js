@@ -10,7 +10,7 @@
 
   function closeAllIn(root) {
     root.querySelectorAll('[data-pflege-cat-submenu-item].is-open').forEach(closeItem);
-    var bar = root.closest('.pflege-cat-rail__bar');
+    var bar = root.querySelector('.pflege-cat-rail__bar') || root.closest('.pflege-cat-rail__bar');
     if (bar) bar.classList.remove('is-submenu-open');
   }
 
@@ -19,10 +19,10 @@
     if (!item) return;
     var panel = item.querySelector('[data-pflege-cat-submenu]');
     var isOpen = btn.getAttribute('aria-expanded') === 'true';
-    var root = item.closest('.pflege-cat-rail--header-row') || item.closest('.pflege-category-modal');
+    var scope = item.closest('.pflege-cat-rail--header-row') || item.closest('.pflege-category-modal');
 
-    if (root) {
-      root.querySelectorAll('[data-pflege-cat-submenu-item].is-open').forEach(function (other) {
+    if (scope) {
+      scope.querySelectorAll('[data-pflege-cat-submenu-item].is-open').forEach(function (other) {
         if (other !== item) closeItem(other);
       });
     }
@@ -37,26 +37,23 @@
     }
   }
 
-  function bindSubmenus(root) {
-    root.querySelectorAll('[data-pflege-cat-submenu-toggle]').forEach(function (btn) {
-      if (btn.dataset.pflegeCatSubmenuBound) return;
-      btn.dataset.pflegeCatSubmenuBound = 'true';
-      btn.addEventListener('click', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        toggleItem(btn);
-      });
-    });
-  }
+  function bindRail(rail) {
+    if (!rail || rail.dataset.pflegeCatRailSubmenuInit) return;
+    rail.dataset.pflegeCatRailSubmenuInit = 'true';
 
-  function initRail() {
-    var rail = document.querySelector('.pflege-cat-rail--header-row');
-    if (!rail) return;
-    bindSubmenus(rail);
+    rail.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-pflege-cat-submenu-toggle]');
+      if (!btn || !rail.contains(btn)) return;
+      e.preventDefault();
+      e.stopPropagation();
+      toggleItem(btn);
+    });
 
     document.addEventListener('click', function (e) {
-      if (e.target.closest('[data-pflege-cat-submenu-item]')) return;
-      closeAllIn(rail);
+      window.setTimeout(function () {
+        if (e.target.closest('[data-pflege-cat-submenu-item]')) return;
+        closeAllIn(rail);
+      }, 0);
     });
 
     document.addEventListener('keydown', function (e) {
@@ -64,13 +61,13 @@
     });
   }
 
-  function start() {
-    initRail();
+  function init() {
+    document.querySelectorAll('.pflege-cat-rail--header-row').forEach(bindRail);
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', start);
+    document.addEventListener('DOMContentLoaded', init);
   } else {
-    start();
+    init();
   }
 })();

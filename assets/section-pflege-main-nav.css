@@ -1149,6 +1149,10 @@
   transition: transform 0.2s ease;
 }
 
+.pflege-category-modal__item--has-submenu.is-open .pflege-category-modal__submenu {
+  display: block;
+}
+
 .pflege-category-modal__item--has-submenu.is-open .pflege-category-modal__submenu-chevron {
   transform: rotate(180deg);
 }
