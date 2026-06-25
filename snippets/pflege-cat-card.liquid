@@ -59,11 +59,6 @@
 <div class="{{ card_classes }}">
 {%- endif -%}
   <article class="pflege-cat-card__inner">
-    {%- if show_tip -%}
-      <div class="pflege-cat-card__corner-badges" aria-hidden="true">
-        <span class="pflege-cat-card__badge pflege-cat-card__badge--tip">Unser Tipp!</span>
-      </div>
-    {%- endif -%}
     <div class="pflege-cat-card__media">
       {%- if show_rezept_badge -%}
         <div class="pflege-cat-card__badges">
@@ -90,6 +85,11 @@
       {%- endif -%}
     </div>
     <div class="pflege-cat-card__body">
+      {%- if show_tip -%}
+        <div class="pflege-cat-card__tip-row" aria-hidden="true">
+          <span class="pflege-cat-card__badge pflege-cat-card__badge--tip">Unser Tipp!</span>
+        </div>
+      {%- endif -%}
       <h3 class="pflege-cat-card__title">
         <a href="{{ p.url }}">{{ p.title | escape }}</a>
       </h3>
