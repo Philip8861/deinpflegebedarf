@@ -97,7 +97,7 @@
                 role="group"
                 aria-label="{{ section.settings.account_heading | escape }}"
               >
-                {% render 'pflege-shopify-account', menu: section.settings.customer_account_menu, hide_menu: true %}
+                {% render 'pflege-shopify-account' %}
                 <span class="menu-drawer__account-label">
                   {%- liquid
                     if customer

@@ -1,19 +1,21 @@
 {%- comment -%}
   Shopify Account Component (<shopify-account>) für neue Kundenkonten.
-  Accepts: menu (optional), hide_menu (boolean — kein Orders/Profil-Menü)
+  Menü-Links (Bestellungen, Profil, Abmelden) werden per JS eingefügt.
 {%- endcomment -%}
-{%- liquid
-  assign account_menu = menu
-  if hide_menu
-    assign account_menu = blank
-  elsif account_menu == blank
-    assign account_menu = 'customer-account-main-menu'
-  endif
--%}
-<shopify-account{% if account_menu != blank %} menu="{{ account_menu | escape }}"{% endif %}>
-  <div slot="signed-out-avatar" class="pflege-shopify-account__signed-out">
-    <span class="pflege-main-nav__action-icon" aria-hidden="true">
-      <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
-    </span>
-  </div>
-</shopify-account>
+<div
+  class="pflege-shopify-account-host"
+  data-pflege-account-orders-url="{{ routes.account_url }}"
+  data-pflege-account-profile-url="{{ routes.account_profile_url }}"
+  data-pflege-account-logout-url="{{ routes.account_logout_url }}"
+  data-pflege-account-orders-label="Bestellungen"
+  data-pflege-account-profile-label="Profil"
+  data-pflege-account-logout-label="Abmelden"
+>
+  <shopify-account>
+    <div slot="signed-out-avatar" class="pflege-shopify-account__signed-out">
+      <span class="pflege-main-nav__action-icon" aria-hidden="true">
+        <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
+      </span>
+    </div>
+  </shopify-account>
+</div>
