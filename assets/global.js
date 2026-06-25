@@ -1165,7 +1165,7 @@ class ProductRecommendations extends HTMLElement {
           this.remove();
         }
 
-        if (html.querySelector('.grid__item')) {
+        if (html.querySelector('.grid__item') || html.querySelector('.pflege-cat-card')) {
           this.classList.add('product-recommendations--loaded');
         }
       })

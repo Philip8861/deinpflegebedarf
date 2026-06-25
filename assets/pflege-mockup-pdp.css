@@ -32,8 +32,8 @@
   font-style: var(--font-body-style, normal);
 }
 
-.template-product product-recommendations.related-products.pflege-related-pdp,
-.template-product product-recommendations.related-products.pflege-related-pdp * {
+.template-product .pflege-related-products,
+.template-product .pflege-related-products * {
   font-family: var(--pflege-pdp-font);
   font-style: var(--font-body-style, normal);
 }
@@ -1175,49 +1175,6 @@
   color: rgba(15, 45, 84, 0.5);
 }
 
-.template-product product-recommendations.related-products.pflege-related-pdp.isolate .related-products__header {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 0.75rem 1.25rem;
-  margin-bottom: 1.35rem;
-}
-
-.template-product product-recommendations.related-products.pflege-related-pdp.isolate .related-products__heading.inline-richtext {
-  flex: 1 1 auto;
-  min-width: min(280px, 100%);
-  font-family: var(--font-body-family), sans-serif !important;
-  letter-spacing: -0.015em;
-  font-weight: 600;
-  font-size: clamp(1.52rem, 1.06rem + 1.06vw, 2rem);
-  margin: 0;
-}
-
-.template-product product-recommendations.related-products.pflege-related-pdp.isolate .related-products__view-all.link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-family: var(--font-body-family), sans-serif !important;
-  font-size: 1.38rem !important;
-  font-weight: 600;
-  letter-spacing: 0.015em;
-  color: rgba(15, 45, 84, 0.78);
-  white-space: nowrap;
-}
-
-.template-product product-recommendations.related-products.pflege-related-pdp.isolate .related-products__view-all svg {
-  width: 1.08em;
-  height: 1.08em;
-  flex-shrink: 0;
-}
-
-.template-product product-recommendations.related-products.pflege-related-pdp.isolate .product-card-wrapper {
-  border-radius: 20px;
-  border: 1px solid var(--pflege-pdp-card-border);
-  overflow: hidden;
-}
-
 .pflege-mock-pdp__stars-muted {
   letter-spacing: 0.08em;
   font-size: 1.22rem;
@@ -1294,11 +1251,6 @@
 
   .template-product .pflege-pdp-detail__shell {
     max-width: min(calc(100vw - 3rem), calc(var(--page-width) + 22rem));
-  }
-
-  .template-product .related-products.pflege-related-pdp.page-width {
-    max-width: min(calc(100vw - 3rem), calc(var(--page-width) + 22rem));
-    width: 100%;
   }
 }
 

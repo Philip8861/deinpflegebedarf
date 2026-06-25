@@ -103,7 +103,7 @@
     "related_pflege": {
       "type": "related-products",
       "settings": {
-        "enable_mini_cart_icon": true,
+        "enable_mini_cart_icon": false,
         "show_view_all_link": true,
         "view_all_label": "Alle anzeigen →",
         "view_all_link": "",
