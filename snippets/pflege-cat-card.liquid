@@ -3,10 +3,20 @@
 
   Parameter:
   - card_product: Produkt
+  - card_layout: optional „horizontal“ (Startseite Bestseller)
+  - list_item: optional, Standard true (<li>); false für <div> im Raster
 {% endcomment %}
 {%- liquid
   assign p = card_product
   assign card_variant = p.selected_or_first_available_variant
+  assign is_horizontal = false
+  if card_layout == 'horizontal'
+    assign is_horizontal = true
+  endif
+  assign use_li = list_item
+  if use_li == nil
+    assign use_li = true
+  endif
 
   assign subtitle = p.metafields.pflege.card_subtitle.value | strip
   if subtitle == blank
@@ -35,8 +45,17 @@
   if tags_joined contains 'rezept' or tags_joined contains 'pflegebox' or tags_joined contains 'pflegehilfsmittel'
     assign show_rezept_badge = true
   endif
+
+  assign card_classes = 'pflege-cat-card'
+  if is_horizontal
+    assign card_classes = card_classes | append: ' pflege-cat-card--horizontal'
+  endif
 -%}
-<li class="pflege-cat-card">
+{%- if use_li -%}
+<li class="{{ card_classes }}">
+{%- else -%}
+<div class="{{ card_classes }}">
+{%- endif -%}
   <article class="pflege-cat-card__inner">
     <div class="pflege-cat-card__media">
       {%- if show_rezept_badge -%}
@@ -53,7 +72,7 @@
               class: 'pflege-cat-card__img',
               loading: 'lazy',
               widths: '320, 480, 640, 960',
-              sizes: '(min-width: 1380px) calc((1320px - 60px) / 4), (min-width: 990px) calc((100vw - 80px) / 3), (min-width: 750px) calc((100vw - 60px) / 2), calc((100vw - 40px) / 2)',
+              sizes: '(min-width: 990px) 368px, (min-width: 600px) 55vw, 68vw',
               alt: p.featured_media.alt | default: p.title | escape
           }}
         </a>
@@ -99,4 +118,8 @@
       {%- endif -%}
     </div>
   </article>
+{%- if use_li -%}
 </li>
+{%- else -%}
+</div>
+{%- endif -%}

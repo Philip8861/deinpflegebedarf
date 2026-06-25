@@ -1,6 +1,15 @@
 /* PflegeShop — Bestseller (gleiche horizontale Kanten wie Hero / Hauptleiste) */
 .pflege-bestseller {
-  /* Grundschrift wie Theme-Body; Überschriften/Namen separat mit Display-Serif wie Hero */
+  /* Kategorie-Karten-Design (wie pflege-cat-card) */
+  --pcd-navy: #003b70;
+  --pcd-blue: #0b74d1;
+  --pcd-border: #d8e8f8;
+  --pcd-muted: #607089;
+  --pcd-cta: #f28c28;
+  --pcd-cta-hover: #dc7a22;
+  --pcd-badge-bg: #eaf8e5;
+  --pcd-badge-text: #2e7d32;
+  --pcd-radius: 16px;
   font-family: var(--font-body-family, inherit);
   font-style: var(--font-body-style, normal);
   padding-top: var(--pflege-home-section-stack, clamp(1.5rem, 3vw, 2rem));
@@ -116,17 +125,225 @@
     grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: clamp(0.65rem, 1.35vw, 1rem);
   }
+}
 
-  .pflege-bestseller--cols-5 .pflege-bestseller-card__name {
-    font-size: clamp(1.05rem, 0.9rem + 0.25vw, 1.18rem);
-  }
+/* --- Horizontale Kategorie-Karten (Startseite / Warenkorb-Empfehlungen) --- */
+.pflege-bestseller .pflege-cat-card {
+  min-width: 0;
+}
 
-  .pflege-bestseller--cols-5 .pflege-bestseller-card__meta,
-  .pflege-bestseller--cols-5 .pflege-bestseller-card__price {
-    font-size: clamp(0.95rem, 0.88rem + 0.15vw, 1.05rem);
+.pflege-bestseller .pflege-cat-card__media {
+  position: relative;
+}
+
+.pflege-bestseller .pflege-cat-card__media-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.pflege-bestseller .pflege-cat-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.pflege-bestseller .pflege-cat-card__placeholder {
+  font-size: 0.875rem;
+  color: var(--pcd-muted);
+}
+
+.pflege-bestseller .pflege-cat-card__badges {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  max-width: calc(100% - 1rem);
+}
+
+.pflege-bestseller .pflege-cat-card__badge {
+  display: inline-block;
+  padding: 0.32rem 0.72rem;
+  border-radius: 999px;
+  background: var(--pcd-badge-bg);
+  color: var(--pcd-badge-text);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.pflege-bestseller .pflege-cat-card__title {
+  margin: 0;
+  font-weight: 700;
+}
+
+.pflege-bestseller .pflege-cat-card__title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.pflege-bestseller .pflege-cat-card__title a:hover {
+  text-decoration: underline;
+}
+
+.pflege-bestseller .pflege-cat-card__desc {
+  margin: 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.45;
+  color: var(--pcd-muted);
+}
+
+.pflege-bestseller .pflege-cat-card__cart,
+.pflege-bestseller .pflege-cat-card__cart--link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+
+.pflege-bestseller .pflege-cat-card__cart:focus-visible,
+.pflege-bestseller .pflege-cat-card__cart--link:focus-visible {
+  outline: 2px solid var(--pcd-blue);
+  outline-offset: 2px;
+}
+
+.pflege-bestseller .pflege-cat-card__cart-icon {
+  display: inline-flex;
+}
+
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__inner {
+  display: grid;
+  grid-template-columns:
+    clamp(12.7rem, 32%, 20rem)
+    minmax(0, 1fr);
+  gap: clamp(0.65rem, 1.6vw, 1rem);
+  align-items: stretch;
+  height: auto;
+  min-height: clamp(10.5rem, 13vw, 13.5rem);
+  padding: clamp(0.75rem, 1.8vw, 1rem);
+  background: #ffffff;
+  border: 1px solid var(--pcd-border);
+  border-radius: var(--pcd-radius);
+  box-shadow: 0 2px 8px rgba(0, 59, 112, 0.04);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+@media screen and (min-width: 990px) {
+  .pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__inner {
+    grid-template-columns:
+      clamp(13.7rem, 38%, 22.5rem)
+      minmax(0, 1fr);
+    padding: 0.85rem 1rem;
+    min-height: clamp(11.5rem, 12vw, 14.5rem);
   }
 }
 
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__inner:hover,
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__inner:focus-within {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(0, 59, 112, 0.1);
+  border-color: rgba(11, 116, 209, 0.22);
+}
+
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__media {
+  margin-bottom: 0;
+  align-self: stretch;
+  min-height: 0;
+}
+
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__media-link {
+  height: 100%;
+  min-height: 0;
+  aspect-ratio: auto;
+  background: #fafcff;
+  border-radius: 12px;
+}
+
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__img {
+  padding: 0.35rem;
+}
+
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  gap: 0.4rem;
+}
+
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__title {
+  font-size: clamp(1.05rem, 0.92rem + 0.28vw, 1.22rem);
+  line-height: 1.35;
+  color: var(--pcd-navy);
+}
+
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__desc {
+  font-size: clamp(0.92rem, 0.86rem + 0.15vw, 1rem);
+  min-height: 0;
+  -webkit-line-clamp: 2;
+}
+
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__price-row {
+  margin-top: 0.1rem;
+}
+
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__price {
+  font-size: clamp(1.15rem, 1rem + 0.35vw, 1.375rem);
+  font-weight: 800;
+  color: var(--pcd-navy);
+}
+
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__unit {
+  font-size: 0.82rem;
+  color: var(--pcd-muted);
+}
+
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__cart,
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__cart--link {
+  width: 100%;
+  min-height: 2.5rem;
+  margin-top: auto;
+  padding: 0.5rem 0.7rem;
+  border: 1.5px solid var(--pcd-cta);
+  border-radius: 11px;
+  background: #ffffff;
+  color: var(--pcd-cta);
+  font-size: clamp(0.92rem, 0.86rem + 0.12vw, 1rem);
+  font-weight: 700;
+}
+
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__cart:hover,
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__cart--link:hover {
+  background: var(--pcd-cta);
+  color: #ffffff;
+  border-color: var(--pcd-cta);
+}
+
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__badge {
+  font-size: 0.78rem;
+  padding: 0.28rem 0.62rem;
+}
+
+.pflege-bestseller--cols-5 .pflege-cat-card--horizontal .pflege-cat-card__title {
+  font-size: clamp(1rem, 0.88rem + 0.22vw, 1.12rem);
+}
+
+.pflege-bestseller--cols-5 .pflege-cat-card--horizontal .pflege-cat-card__price {
+  font-size: clamp(1.05rem, 0.95rem + 0.2vw, 1.2rem);
+}
+
+/* Legacy Bestseller-Karten (falls noch manuell ohne Produkt) */
 .pflege-bestseller-card {
   position: relative;
   display: grid;

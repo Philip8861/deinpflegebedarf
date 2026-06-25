@@ -61,16 +61,20 @@
         <div class="pflege-bestseller__grid">
           {%- if _ds == 'collection' -%}
             {%- for card_product in collection.products limit: _limit -%}
-              {% render 'pflege-bestseller-card',
-                card_context: 'collection',
+              {% render 'pflege-cat-card',
                 card_product: card_product,
-                show_collection_rating: _show_stars
+                card_layout: 'horizontal',
+                list_item: false
               %}
             {%- endfor -%}
           {%- else -%}
             {%- for block in blocks -%}
               {%- if block.settings.product != blank -%}
-                {% render 'pflege-bestseller-card', card_context: 'manual_block', block: block %}
+                {% render 'pflege-cat-card',
+                  card_product: block.settings.product,
+                  card_layout: 'horizontal',
+                  list_item: false
+                %}
               {%- endif -%}
             {%- endfor -%}
           {%- endif -%}
