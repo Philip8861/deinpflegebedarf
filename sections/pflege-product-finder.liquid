@@ -1,3 +1,4 @@
+{{ 'section-pflege-hero.css' | asset_url | stylesheet_tag }}
 {{ 'section-pflege-product-finder.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
@@ -37,16 +38,18 @@
 
             <div class="pflege-product-finder__actions pflege-product-finder__actions--center">
               {%- if section.settings.primary_label != blank -%}
-                <button
-                  type="button"
-                  class="pflege-product-finder__cta pflege-product-finder__cta--pulse pflege-hero__cta--testpaket"
-                  data-pflege-inko-testpaket-open
-                >
-                  <span class="pflege-product-finder__cta-icon" aria-hidden="true">
-                    {% render 'pflege-icon', icon: 'gift', width: 24 %}
-                  </span>
-                  {{- section.settings.primary_label | escape -}}
-                </button>
+                <div class="pflege-product-finder__cta-wrap">
+                  <button
+                    type="button"
+                    class="pflege-product-finder__cta pflege-hero__cta--testpaket pflege-cta--soft-pulse"
+                    data-pflege-inko-testpaket-open
+                  >
+                    <span class="pflege-hero__cta-icon pflege-product-finder__cta-icon" aria-hidden="true">
+                      {% render 'pflege-icon', icon: 'gift', width: 24 %}
+                    </span>
+                    {{- section.settings.primary_label | escape -}}
+                  </button>
+                </div>
               {%- endif -%}
             </div>
           </div>

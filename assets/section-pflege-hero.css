@@ -271,6 +271,46 @@ body.template-index .pflege-hero,
   font-family: inherit;
 }
 
+/* Dezentes Aufleuchten + leichtes Wachsen (alle ~5s) — ohne harten Glow-Ring */
+.pflege-cta--soft-pulse {
+  transform: scale(1);
+  animation: pflege-cta-soft-pulse 5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  will-change: transform, box-shadow, filter;
+}
+
+.pflege-cta--soft-pulse:hover {
+  animation-play-state: paused;
+}
+
+@keyframes pflege-cta-soft-pulse {
+  0%,
+  84%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 3px 14px rgba(11, 35, 71, 0.1);
+    filter: brightness(1);
+  }
+
+  91% {
+    transform: scale(1.035);
+    box-shadow: 0 10px 32px rgba(248, 151, 56, 0.22);
+    filter: brightness(1.05);
+  }
+
+  96% {
+    transform: scale(1.02);
+    box-shadow: 0 5px 20px rgba(248, 151, 56, 0.14);
+    filter: brightness(1.02);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pflege-cta--soft-pulse {
+    animation: none;
+    filter: none;
+  }
+}
+
 .pflege-hero__usps {
   display: flex;
   flex-direction: column;

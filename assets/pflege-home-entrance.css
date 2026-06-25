@@ -83,7 +83,7 @@
     #MainContent
     > .shopify-section:not(.pflege-home-in-view)
     .pflege-product-finder
-    .pflege-product-finder__cta,
+    .pflege-product-finder__cta-wrap,
   html.pflege-home-entrance-prep body.template-index
     #MainContent
     > .shopify-section:not(.pflege-home-in-view)
@@ -187,7 +187,7 @@
     #MainContent
     > .shopify-section.pflege-home-in-view
     .pflege-product-finder
-    .pflege-product-finder__cta,
+    .pflege-product-finder__cta-wrap,
   html.pflege-home-entrance-prep body.template-index
     #MainContent
     > .shopify-section.pflege-home-in-view
@@ -398,7 +398,7 @@
     #MainContent
     > .shopify-section.pflege-home-in-view
     .pflege-product-finder
-    .pflege-product-finder__cta {
+    .pflege-product-finder__cta-wrap {
     animation-delay: 0.26s;
   }
 
@@ -535,7 +535,7 @@
     .pflege-product-finder__intro,
   html.pflege-home-entrance-prep body.template-index
     #MainContent
-    .pflege-product-finder__cta,
+    .pflege-product-finder__cta-wrap,
   html.pflege-home-entrance-prep body.template-index
     #MainContent
     .pflege-product-finder__link-secondary,

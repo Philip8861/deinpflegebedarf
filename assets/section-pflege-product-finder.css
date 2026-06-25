@@ -180,6 +180,23 @@
   width: 100%;
 }
 
+.pflege-product-finder__cta-wrap {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.pflege-product-finder__cta-icon,
+.pflege-product-finder__cta-icon .pflege-icon {
+  color: #fff;
+}
+
+.pflege-product-finder__cta-icon .pflege-icon svg {
+  width: 1.35em;
+  height: 1.35em;
+  stroke: currentColor;
+}
+
 /* Orange wie Theme-CTA (Hero / Footer) */
 .pflege-product-finder__cta {
   display: inline-flex;
@@ -203,54 +220,6 @@
 
 .pflege-product-finder__cta:hover {
   background: var(--pflege-cta-hover, #dc7a22);
-  transform: scale(1.02);
-}
-
-.pflege-product-finder__cta--pulse:hover {
-  animation-play-state: paused;
-}
-
-.pflege-product-finder__cta--pulse {
-  cursor: pointer;
-  font-family: inherit;
-  transform: scale(1);
-  animation: pflege-product-finder-cta-pulse 4.5s ease-in-out infinite;
-}
-
-.pflege-product-finder__cta-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  line-height: 0;
-}
-
-.pflege-product-finder__cta-icon .pflege-icon svg {
-  width: 1.35em;
-  height: 1.35em;
-}
-
-@keyframes pflege-product-finder-cta-pulse {
-  0%,
-  78%,
-  100% {
-    transform: scale(1);
-    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.15);
-  }
-
-  86% {
-    transform: scale(1.07);
-    box-shadow:
-      0 0 0 10px rgba(248, 151, 56, 0.34),
-      0 14px 38px rgba(248, 151, 56, 0.52);
-  }
-
-  92% {
-    transform: scale(1.04);
-    box-shadow:
-      0 0 0 5px rgba(248, 151, 56, 0.22),
-      0 8px 24px rgba(248, 151, 56, 0.38);
-  }
 }
 
 .pflege-product-finder__cta:focus-visible {
@@ -274,12 +243,6 @@
 
 .pflege-product-finder__link-secondary:hover {
   color: #2f73c4;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .pflege-product-finder__cta--pulse {
-    animation: none;
-  }
 }
 
 @media screen and (max-width: 599px) {
