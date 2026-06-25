@@ -32,7 +32,7 @@
         "products_to_show": 4,
         "columns_desktop": "4",
         "show_collection_rating": true,
-        "view_all_label": "Zur gesamten Auswahl →",
+        "view_all_label": "",
         "view_all_link": ""
       }
     },
