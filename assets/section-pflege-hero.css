@@ -3,6 +3,108 @@ body.template-index .pflege-hero,
 .pflege-hero--free-care,
 .pflege-hero--inko-rezept {
   padding-top: clamp(0.35rem, 1.15vw, 0.9rem);
+  padding-bottom: clamp(1rem, 2vw, 1.5rem);
+}
+
+/* Inkontinenz-Landing: Banner 100 % Breite, Text links im freien Bildbereich */
+.pflege-hero--inko-rezept .pflege-hero__shell {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.pflege-hero--inko-rezept .pflege-hero__panel--fullwidth {
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  border-radius: 0;
+  border-left: none;
+  border-right: none;
+}
+
+.pflege-hero--inko-rezept .pflege-hero__panel--fullwidth .pflege-hero__asset-zoom {
+  zoom: 1;
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+}
+
+.pflege-hero--inko-rezept .pflege-hero__panel--fullwidth .pflege-hero__asset-photo {
+  width: 100%;
+  height: auto;
+  max-width: none;
+  display: block;
+}
+
+.pflege-hero--inko-rezept .pflege-hero__panel--fullwidth .pflege-hero__grid--asset-bg {
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: clamp(1rem, 3vw, 2rem);
+  padding-bottom: clamp(1rem, 3vw, 2rem);
+  padding-left: clamp(1.25rem, 4.5vw, 5.5%);
+  padding-right: 42%;
+}
+
+.pflege-hero--inko-rezept .pflege-hero__panel--fullwidth .pflege-hero__grid--asset-bg .pflege-hero__content {
+  max-width: min(36rem, 100%);
+}
+
+.pflege-hero--inko-rezept .pflege-hero__title {
+  font-size: clamp(1.55rem, 2.4vw + 0.45rem, 2.65rem);
+  line-height: 1.18;
+  margin-bottom: 0.85rem;
+  color: #0a3d5c;
+}
+
+.pflege-hero--inko-rezept .pflege-hero__title span {
+  font-size: clamp(1.28rem, 1.85vw + 0.35rem, 2rem);
+  line-height: 1.22;
+  font-weight: 500;
+  display: block;
+  margin-top: 0.4rem;
+}
+
+.pflege-hero--inko-rezept .pflege-hero__cta {
+  font-size: clamp(1.05rem, 0.35vw + 0.95rem, 1.28rem);
+  padding: 0.85rem 1.45rem;
+  max-width: 22rem;
+}
+
+@media screen and (min-width: 990px) {
+  .pflege-hero--inko-rezept .pflege-hero__panel--fullwidth .pflege-hero__grid--asset-bg {
+    padding-left: clamp(2rem, 5.5vw, 6.5%);
+    padding-right: 48%;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .pflege-hero--inko-rezept .pflege-hero__panel--fullwidth .pflege-hero__grid--asset-bg {
+    padding-left: max(1rem, env(safe-area-inset-left, 0px));
+    padding-right: max(1rem, env(safe-area-inset-right, 0px));
+    padding-top: clamp(1.25rem, 5vw, 2rem);
+    padding-bottom: clamp(1rem, 4vw, 1.5rem);
+    align-items: flex-start;
+  }
+
+  .pflege-hero--inko-rezept .pflege-hero__panel--fullwidth .pflege-hero__grid--asset-bg .pflege-hero__content {
+    max-width: 100%;
+    padding: 0.85rem 1rem;
+    background: rgba(255, 255, 255, 0.88);
+    border-radius: 14px;
+    box-shadow: 0 4px 20px rgba(11, 35, 71, 0.08);
+  }
+
+  .pflege-hero--inko-rezept .pflege-hero__title {
+    font-size: clamp(1.35rem, 5vw, 1.75rem);
+  }
+
+  .pflege-hero--inko-rezept .pflege-hero__title span {
+    font-size: clamp(1.1rem, 4.2vw, 1.45rem);
+  }
+
+  .pflege-hero--inko-rezept .pflege-hero__cta {
+    width: 100%;
+    max-width: none;
+  }
 }
 
 .pflege-hero {

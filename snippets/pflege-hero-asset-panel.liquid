@@ -3,7 +3,7 @@
   Parameter: asset_file, image_alt, badge, heading_line1, heading_line2, subheading,
   button_label, button_link, secondary_button_label, secondary_button_link, title_id
 {% endcomment %}
-<div class="pflege-hero__panel pflege-hero__panel--asset-bg">
+<div class="pflege-hero__panel pflege-hero__panel--asset-bg{% if full_width %} pflege-hero__panel--fullwidth{% endif %}">
   <div class="pflege-hero__asset-zoom">
     <img
       class="pflege-hero__asset-photo"
