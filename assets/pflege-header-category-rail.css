@@ -151,6 +151,78 @@
   }
 }
 
+.pflege-cat-rail--header-row .pflege-cat-rail__bar.is-submenu-open {
+  overflow: visible;
+  z-index: 12;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__cell--has-submenu {
+  position: relative;
+  z-index: 13;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__link--submenu-toggle {
+  cursor: pointer;
+  width: 100%;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__submenu-chevron {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #0f4f69;
+  transition: transform 0.2s ease;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__cell--has-submenu.is-open .pflege-cat-rail__submenu-chevron {
+  transform: rotate(180deg);
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__submenu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 100%;
+  margin: 0;
+  padding: 0.35rem 0;
+  list-style: none;
+  border-radius: 14px;
+  background: #fefefe;
+  border: 1px solid #e2e6ec;
+  box-shadow: 0 12px 32px rgba(11, 35, 71, 0.14);
+  z-index: 20;
+  box-sizing: border-box;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__submenu[hidden] {
+  display: none;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__sublink {
+  display: block;
+  padding: 0.65rem 1rem;
+  text-decoration: none;
+  font-size: clamp(0.82rem, 0.7rem + 0.35vw, 0.98rem);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--pflege-heading-navy, #062a55);
+  white-space: nowrap;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__sublink:hover,
+.pflege-cat-rail--header-row .pflege-cat-rail__sublink:focus-visible {
+  background: #f0f7ff;
+  color: #0f4f69;
+  outline: none;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__sublink.is-active {
+  background: #f0f7ff;
+  color: var(--pflege-heading-navy, #062a55);
+}
+
 @media screen and (max-width: 749px) {
   /* Gleiche Links in der Kategorienübersicht (Dialog); keine doppelte Leiste im Header. */
   .pflege-main-nav-section .pflege-main-nav__cat-rail-row {

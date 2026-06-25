@@ -1,0 +1,146 @@
+{% comment %}
+  Landingpage: Inkontinenzversorgung auf Rezept — Hero wie Startseite + Testpaket-Popup.
+{% endcomment %}
+{{ 'section-pflege-hero.css' | asset_url | stylesheet_tag }}
+{{ 'section-pflege-inko-testpaket-modal.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'pflege-inko-testpaket-modal.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign hero_asset = section.settings.hero_asset | default: 'Landing_page_inko.webp'
+  assign hero_title_id = 'pflege-inko-rezept-hero-title-' | append: section.id
+-%}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign hero_line1 = section.settings.heading_line1
+  if hero_line1 == blank
+    assign hero_line1 = 'sections.pflege_inko_rezept_landing.heading_line1' | t
+  endif
+  assign hero_line2 = section.settings.heading_line2
+  if hero_line2 == blank
+    assign hero_line2 = 'sections.pflege_inko_rezept_landing.heading_line2' | t
+  endif
+  assign hero_btn_label = section.settings.button_label
+  if hero_btn_label == blank
+    assign hero_btn_label = 'sections.pflege_inko_rezept_landing.button_label' | t
+  endif
+  assign hero_img_alt = section.settings.image_alt
+  if hero_img_alt == blank
+    assign hero_img_alt = 'sections.pflege_inko_rezept_landing.image_alt' | t
+  endif
+-%}
+
+<section
+  class="pflege-hero pflege-hero--inko-rezept section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient"
+  aria-labelledby="{{ hero_title_id }}"
+>
+  <div class="pflege-hero__shell">
+    {% render 'pflege-hero-asset-panel',
+      asset_file: hero_asset,
+      image_alt: hero_img_alt,
+      badge: section.settings.badge,
+      heading_line1: hero_line1,
+      heading_line2: hero_line2,
+      subheading: section.settings.subheading,
+      button_label: hero_btn_label,
+      button_opens_testpaket: true,
+      title_id: hero_title_id
+    %}
+  </div>
+</section>
+
+{% render 'pflege-inko-testpaket-modal', section: section %}
+
+{% schema %}
+{
+  "name": "Inkontinenz Rezept Landing",
+  "tag": "section",
+  "class": "pflege-inko-rezept-landing-section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Farbschema",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge (optional)"
+    },
+    {
+      "type": "text",
+      "id": "heading_line1",
+      "label": "Überschrift Zeile 1",
+      "default": "Geld sparen: Inkontinenzversorgung auf Rezept"
+    },
+    {
+      "type": "text",
+      "id": "heading_line2",
+      "label": "Überschrift Zeile 2",
+      "default": "Erhalten Sie bei uns ein kostenloses Testpaket"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Unterzeile (optional)"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button-Text",
+      "default": "Kostenloses Testpaket erhalten"
+    },
+    {
+      "type": "text",
+      "id": "hero_asset",
+      "label": "Theme-Asset Dateiname",
+      "default": "Landing_page_inko.webp",
+      "info": "Bild aus dem Theme-Ordner assets/ (wie startseite_main.webp auf der Startseite)."
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Alt-Text Bild",
+      "default": "Inkontinenzversorgung auf Rezept"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Abstand oben",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Abstand unten",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "Inkontinenz Rezept Landing"
+    }
+  ]
+}
+{% endschema %}

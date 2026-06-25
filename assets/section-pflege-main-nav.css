@@ -1122,3 +1122,69 @@
   transform: scale(0.99);
 }
 
+/* Inkontinenz-Untermenü in der Kategorienübersicht */
+.pflege-category-modal__item--has-submenu {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.pflege-category-modal__link--submenu-toggle {
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  border: none;
+  font: inherit;
+  appearance: none;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+}
+
+.pflege-category-modal__submenu-chevron {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--pflege-link-blue, #0b6edc);
+  transition: transform 0.2s ease;
+}
+
+.pflege-category-modal__item--has-submenu.is-open .pflege-category-modal__submenu-chevron {
+  transform: rotate(180deg);
+}
+
+.pflege-category-modal__submenu {
+  margin: 0;
+  padding: 0.35rem 0 0.5rem 0;
+  list-style: none;
+}
+
+.pflege-category-modal__submenu[hidden] {
+  display: none;
+}
+
+.pflege-category-modal__sublink {
+  display: block;
+  padding: 0.72rem 1rem 0.72rem 3.35rem;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--pflege-heading-navy, #062a55);
+  text-decoration: none;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pflege-category-modal__sublink:hover,
+  .pflege-category-modal__sublink:focus-visible {
+    background: rgba(11, 110, 220, 0.08);
+    color: var(--pflege-link-blue, #0b6edc);
+    outline: none;
+  }
+}
+
+.pflege-category-modal__sublink.is-active {
+  background: rgba(11, 110, 220, 0.1);
+  color: var(--pflege-link-blue, #0b6edc);
+}
+

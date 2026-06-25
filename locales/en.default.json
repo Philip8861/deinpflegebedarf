@@ -383,6 +383,8 @@
       "nav_aria": "Product categories",
       "cat_free_care": "Free care aids",
       "cat_ink": "Incontinence care",
+      "cat_ink_products": "Incontinence products",
+      "cat_ink_rezept": "Redeem prescription",
       "cat_body": "Body care",
       "cat_skin": "Skin care",
       "cat_gloves": "Protection & gloves",
@@ -439,6 +441,14 @@
         "meta_description": "Disposable gloves, face masks, aprons and protective clothing for care, practice and home. Filter by material, size, protection class and brand.",
         "description": "Disposable gloves in nitrile, latex and vinyl, plus masks, aprons, overshoes and protective clothing for care, practice and home. Filter by product type, material, glove size, protection class, packaging and brand."
       }
+    },
+    "pflege_inko_rezept_landing": {
+      "meta_title": "Incontinence care on prescription | Free sample pack",
+      "meta_description": "Save on incontinence care with prescription billing. Request our free sample pack and find the right product with no obligation — we handle organisation and billing.",
+      "heading_line1": "Save money: incontinence care on prescription",
+      "heading_line2": "Get a free sample pack from us",
+      "button_label": "Request free sample pack",
+      "image_alt": "Incontinence care on prescription"
     },
     "pflege_collection_free_care": {
       "meta_title": "Free care aids from care grade 1 | Configure care box",
@@ -544,6 +554,8 @@
       "show_less": "Show less",
       "chevron_down": "▼",
       "verified_buyer": "Verified buyer",
+      "review_stars": "Your rating (1–5 stars)",
+      "review_star_aria": "{{ count }} of 5 stars",
       "review_submit": "Submit a review",
       "review_lastname": "Last name",
       "review_firstname": "First name",

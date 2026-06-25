@@ -143,59 +143,35 @@
       "customer-testimonials-homepage-style": {
         "type": "customer-testimonials-homepage-style",
         "blocks": {
-          "review_QH6TYH": {
-            "type": "review",
-            "settings": {
-              "review_text": "Durch einen Flyer in meiner Pflegebox bin ich auf sie aufmerksam geworden. Leider war kein Hautschutz dabei, da meine Krankenkasse diesen wohl nicht genehmigt. Die Seni Produkte kannte ich vorher noch nicht, bin damit aber bis jetzt sehr zufriden.",
-              "customer_name": "Veronika P.",
-              "source_text": "Bewertung aus dem Shop"
-            }
-          },
-          "review_bwkjRh": {
-            "type": "review",
-            "settings": {
-              "review_text": "Test1234",
-              "customer_name": "Günter Bautz",
-              "source_text": "Rezension aus Google · 5/5"
-            }
-          },
-          "ct_review_1": {
-            "type": "review",
-            "settings": {
-              "review_text": "Hallo1234",
-              "customer_name": "Peter Seiler",
-              "source_text": "Bewertung direkt aus dem Shop · 5/5"
-            }
-          },
-          "ct_review_2": {
+          "review_1": {
             "type": "review",
             "settings": {
               "review_text": "Sehr guter Service und schnelle Lieferung!",
               "customer_name": "Kundin/Kunde",
-              "source_text": "Rezension aus Google · 5/5"
+              "source_text": "Bewertung aus dem Shop"
             }
           }
         },
-        "block_order": [
-          "review_QH6TYH",
-          "review_bwkjRh",
-          "ct_review_1",
-          "ct_review_2"
-        ],
+        "block_order": ["review_1"],
         "settings": {
-          "eyebrow_text": "Google-Rezensionen · 5,0 Sterne",
+          "average_rating": "5",
+          "total_review_count": 4,
+          "summary_text": "",
           "heading": "Das sagen unsere Kund*innen",
-          "stars_aria_label": "5 von 5 Sternen",
+          "subheading": "Echte Erfahrungen mit unserem Service",
+          "stars_aria_label": "",
           "button_label": "Alle [count] Kundenstimmen anzeigen",
           "button_link": "",
           "modal_heading": "Alle Kundenstimmen",
+          "fallback_quote": "Sehr guter Service und schnelle Lieferung!",
+          "fallback_author": "Kundin/Kunde",
           "show_review_form": true,
           "review_submit_label": "Bewertung abgeben",
           "auto_rotate": true,
           "auto_rotate_seconds": 5,
           "empty_message": "Fügen Sie Kundenstimmen-Blocks hinzu.",
-          "padding_top": 64,
-          "padding_bottom": 68
+          "padding_top": 56,
+          "padding_bottom": 56
         }
       },
       "pflege-boxi-faq-strip": {
@@ -452,48 +428,27 @@
         },
         "customer-testimonials-homepage-style": {
           "type": "customer-testimonials-homepage-style",
-          "blocks": {
-            "ct_review_a": {
-              "type": "review",
-              "settings": {
-                "review_text": "Ich freue mich, dass ich von einer so guten Organisation mit einer überaus freundlichen und kompetenten Mitarbeiterin, Frau Riegel betreut werde.",
-                "customer_name": "Günter Bautz",
-                "source_text": "Rezension aus Google · 5/5"
-              }
-            },
-            "ct_review_b": {
-              "type": "review",
-              "settings": {
-                "review_text": "Alles bestens, top Service.",
-                "customer_name": "E. A.",
-                "source_text": "Rezension aus Google · 5/5"
-              }
-            },
-            "ct_review_c": {
-              "type": "review",
-              "settings": {
-                "review_text": "Unkomplizierte Bestellung und freundlicher Support am Telefon.",
-                "customer_name": "Marion S.",
-                "source_text": "Rezension aus Google · 5/5"
-              }
-            }
-          },
-          "block_order": [
-            "ct_review_a",
-            "ct_review_b",
-            "ct_review_c"
-          ],
+          "blocks": {},
+          "block_order": [],
           "settings": {
-            "eyebrow_text": "Google-Rezensionen · 5,0 Sterne",
+            "average_rating": "5",
+            "total_review_count": 4,
+            "summary_text": "",
             "heading": "Das sagen unsere Kund*innen",
-            "stars_aria_label": "5 von 5 Sternen",
+            "subheading": "Echte Erfahrungen mit unserem Service",
+            "stars_aria_label": "",
             "button_label": "Alle [count] Kundenstimmen anzeigen",
             "button_link": "",
+            "modal_heading": "Alle Kundenstimmen",
+            "fallback_quote": "Sehr guter Service und schnelle Lieferung!",
+            "fallback_author": "Kundin/Kunde",
+            "show_review_form": true,
+            "review_submit_label": "Bewertung abgeben",
             "auto_rotate": true,
             "auto_rotate_seconds": 5,
             "empty_message": "Fügen Sie Kundenstimmen-Blocks hinzu.",
-            "padding_top": 64,
-            "padding_bottom": 68
+            "padding_top": 56,
+            "padding_bottom": 56
           }
         }
       }

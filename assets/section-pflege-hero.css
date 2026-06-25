@@ -1,6 +1,7 @@
 /* PflegeShop — Hero */
 body.template-index .pflege-hero,
-.pflege-hero--free-care {
+.pflege-hero--free-care,
+.pflege-hero--inko-rezept {
   padding-top: clamp(0.35rem, 1.15vw, 0.9rem);
 }
 
@@ -238,6 +239,19 @@ body.template-index .pflege-hero,
 
 .pflege-hero__cta svg {
   flex-shrink: 0;
+}
+
+.pflege-hero__cta-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  line-height: 0;
+}
+
+.pflege-hero__cta--testpaket {
+  border: none;
+  font-family: inherit;
 }
 
 .pflege-hero__usps {

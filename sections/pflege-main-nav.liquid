@@ -9,6 +9,7 @@
 
 <script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'pflege-category-modal.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'pflege-cat-rail-submenu.js' | asset_url }}" defer="defer"></script>
 
 {{ 'section-pflege-main-nav.css' | asset_url | stylesheet_tag }}
 
@@ -44,6 +45,12 @@
     assign url_ink = collections['inkontinenz'].url
   else
     assign url_ink = root | append: 'collections/inkontinenzversorgung'
+  endif
+
+  if pages['inkontinenzversrogung-auf-rezept'] != blank
+    assign url_ink_rezept = pages['inkontinenzversrogung-auf-rezept'].url
+  else
+    assign url_ink_rezept = root | append: 'pages/inkontinenzversrogung-auf-rezept'
   endif
 
   if collections['koerperpflege'] != blank
@@ -92,6 +99,7 @@
   assign active_hh = false
   assign active_ver = false
   assign active_ink = false
+  assign active_ink_rezept = false
   assign active_body = false
   assign active_skin = false
   assign active_gloves = false
@@ -120,6 +128,10 @@
       when 'kostenfreie-pflegehilfsmittel', 'pflegehilfsmittel-kostenfrei'
         assign active_free_care = true
     endcase
+  endif
+
+  if request.page_type == 'page' and page != blank and page.handle == 'inkontinenzversrogung-auf-rezept'
+    assign active_ink_rezept = true
   endif
 
   if request.page_type == 'product' and product != blank
@@ -205,7 +217,7 @@
   endif
 
   assign category_nav_active = false
-  if active_des or active_pf or active_hh or active_ver or active_ink or active_body or active_skin or active_gloves or active_free_care
+  if active_des or active_pf or active_hh or active_ver or active_ink or active_ink_rezept or active_body or active_skin or active_gloves or active_free_care
     assign category_nav_active = true
   endif
 -%}
@@ -528,6 +540,7 @@
     {% render 'pflege-header-category-rail',
       url_free_care: url_free_care,
       url_ink: url_ink,
+      url_ink_rezept: url_ink_rezept,
       url_body: url_body,
       url_skin: url_skin,
       url_gloves: url_gloves,
@@ -535,6 +548,7 @@
       url_ver: url_ver,
       active_free_care: active_free_care,
       active_ink: active_ink,
+      active_ink_rezept: active_ink_rezept,
       active_body: active_body,
       active_skin: active_skin,
       active_gloves: active_gloves,
@@ -570,6 +584,7 @@
         variant: 'modal',
         url_free_care: url_free_care,
         url_ink: url_ink,
+        url_ink_rezept: url_ink_rezept,
         url_body: url_body,
         url_skin: url_skin,
         url_gloves: url_gloves,
@@ -577,6 +592,7 @@
         url_ver: url_ver,
         active_free_care: active_free_care,
         active_ink: active_ink,
+        active_ink_rezept: active_ink_rezept,
         active_body: active_body,
         active_skin: active_skin,
         active_gloves: active_gloves,

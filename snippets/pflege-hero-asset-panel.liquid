@@ -40,12 +40,25 @@
       {%- if button_label != blank or secondary_button_label != blank -%}
         <div class="pflege-hero__actions">
           {%- if button_label != blank -%}
-            <a class="pflege-hero__cta pflege-hero__cta--configure" href="{{ button_link | default: '#' | escape }}">
-              <span class="pflege-hero__cta-gear" aria-hidden="true">
-                {% render 'pflege-icon', icon: 'settings', width: 22 %}
-              </span>
-              {{- button_label | escape -}}
-            </a>
+            {%- if button_opens_testpaket -%}
+              <button
+                type="button"
+                class="pflege-hero__cta pflege-hero__cta--testpaket"
+                data-pflege-inko-testpaket-open
+              >
+                <span class="pflege-hero__cta-icon" aria-hidden="true">
+                  {% render 'pflege-icon', icon: 'gift', width: 22 %}
+                </span>
+                {{- button_label | escape -}}
+              </button>
+            {%- else -%}
+              <a class="pflege-hero__cta pflege-hero__cta--configure" href="{{ button_link | default: '#' | escape }}">
+                <span class="pflege-hero__cta-gear" aria-hidden="true">
+                  {% render 'pflege-icon', icon: 'settings', width: 22 %}
+                </span>
+                {{- button_label | escape -}}
+              </a>
+            {%- endif -%}
           {%- endif -%}
           {%- if secondary_button_label != blank -%}
             <a class="pflege-hero__cta pflege-hero__cta--secondary" href="{{ secondary_button_link | default: '#' | escape }}">

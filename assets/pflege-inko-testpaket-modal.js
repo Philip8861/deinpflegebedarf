@@ -269,7 +269,7 @@
     root.dataset.pflegeInkoModalInit = 'true';
 
     var lastFocused = null;
-    var openTrigger = document.querySelector('[data-pflege-inko-testpaket-open]');
+    var sectionRoot = root.closest('.shopify-section') || document.body;
     var form = root.querySelector('.pflege-inko-modal__form');
     var mainPanel = root.querySelector('[data-pflege-inko-main]');
     var successPanel = root.querySelector('[data-pflege-inko-success]');
@@ -443,12 +443,14 @@
       userClose();
     });
 
-    if (openTrigger) {
+    sectionRoot.querySelectorAll('[data-pflege-inko-testpaket-open]').forEach(function (openTrigger) {
+      if (openTrigger.dataset.pflegeInkoOpenBound) return;
+      openTrigger.dataset.pflegeInkoOpenBound = 'true';
       openTrigger.addEventListener('click', function (e) {
         e.preventDefault();
         open();
       });
-    }
+    });
 
     root.querySelectorAll('[data-pflege-inko-modal-close]').forEach(function (el) {
       el.addEventListener('click', function () {
