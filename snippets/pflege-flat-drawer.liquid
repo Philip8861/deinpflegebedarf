@@ -92,7 +92,7 @@
           <div class="menu-drawer__utility-links">
             {%- if shop.customer_accounts_enabled -%}
               <a
-                href="{% render 'pflege-account-link-url' %}"
+                href="{% render 'pflege-account-link-url', login_page_url: section.settings.login_page_url %}"
                 class="menu-drawer__account link focus-inset h5 medium-hide large-up-hide"
                 rel="nofollow"
               >
