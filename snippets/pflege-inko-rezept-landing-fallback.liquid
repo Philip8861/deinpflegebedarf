@@ -2,6 +2,7 @@
   Fallback für Inkontinenz-Rezept-Landing, wenn die Seite im Admin noch nicht angelegt ist (404).
 {% endcomment %}
 {{ 'section-pflege-hero.css' | asset_url | stylesheet_tag }}
+{{ 'section-pflege-collection-free-care.css' | asset_url | stylesheet_tag }}
 {{ 'section-pflege-inko-testpaket-modal.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'pflege-inko-testpaket-modal.js' | asset_url }}" defer="defer"></script>
 
@@ -14,7 +15,7 @@
 -%}
 
 <section
-  class="pflege-hero pflege-hero--inko-rezept pflege-hero--inko-rezept-fallback color-scheme-1 gradient"
+  class="pflege-hero pflege-hero--free-care pflege-hero--inko-rezept-fallback color-scheme-1 gradient"
   aria-labelledby="{{ hero_title_id }}"
 >
   <div class="pflege-hero__shell">
@@ -27,8 +28,7 @@
       subheading: '',
       button_label: hero_btn_label,
       button_opens_testpaket: true,
-      title_id: hero_title_id,
-      full_width: true
+      title_id: hero_title_id
     %}
   </div>
 </section>
