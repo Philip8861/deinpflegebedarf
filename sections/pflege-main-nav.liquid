@@ -88,12 +88,9 @@
   endif
 
   assign finder_modal_href = section.settings.finder_promo_button_link | strip
-  assign finder_open_popup = false
+  assign finder_open_testpaket = false
   if finder_modal_href == blank
-    assign finder_modal_href = '#pflege-finder-open'
-    assign finder_open_popup = true
-  elsif finder_modal_href == '#pflege-finder-open'
-    assign finder_open_popup = true
+    assign finder_open_testpaket = true
   endif
 
   assign active_des = false
@@ -610,14 +607,24 @@
         <p class="pflege-category-modal__promo-copy">{{ section.settings.finder_promo_text | escape }}</p>
       {%- endif -%}
       {%- if section.settings.finder_promo_button_label != blank -%}
-        <a
-          class="pflege-category-modal__cta"
-          href="{{ finder_modal_href }}"
-          data-category-modal-close
-          {% if finder_open_popup %}data-pflege-finder-open{% endif %}
-        >
-          {{- section.settings.finder_promo_button_label | escape -}}
-        </a>
+        {%- if finder_open_testpaket -%}
+          <button
+            type="button"
+            class="pflege-category-modal__cta"
+            data-category-modal-close
+            data-pflege-inko-testpaket-open
+          >
+            {{- section.settings.finder_promo_button_label | escape -}}
+          </button>
+        {%- else -%}
+          <a
+            class="pflege-category-modal__cta"
+            href="{{ finder_modal_href }}"
+            data-category-modal-close
+          >
+            {{- section.settings.finder_promo_button_label | escape -}}
+          </a>
+        {%- endif -%}
       {%- endif -%}
     </div>
   </div>
@@ -673,20 +680,20 @@
     {
       "type": "textarea",
       "id": "finder_promo_text",
-      "label": "Hinweistext Produktfinder im Popup",
-      "default": "Kein langes suchen? Nutzen Sie unseren Produktfinder"
+      "label": "Hinweistext im Kategorien-Popup",
+      "default": "Inkontinenzversorgung auf Rezept möglich — kostenlose Musterprodukte zum Testen."
     },
     {
       "type": "text",
       "id": "finder_promo_button_label",
-      "label": "Produktfinder-Button Beschriftung",
-      "default": "Jetzt passende Produkte anzeigen"
+      "label": "Button-Beschriftung im Kategorien-Popup",
+      "default": "Kostenlose Musterprodukte erhalten"
     },
     {
       "type": "url",
       "id": "finder_promo_button_link",
-      "label": "Produktfinder-Link",
-      "info": "Leer lassen = Startseite mit Anker #produktfinder (Block „Produktfinder“ muss Anker id=produktfinder haben)."
+      "label": "Button-Link (optional)",
+      "info": "Leer lassen = Testpaket-Popup öffnen."
     },
     {
       "type": "range",

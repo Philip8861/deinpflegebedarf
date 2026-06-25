@@ -84,12 +84,13 @@
   id="PflegeCollectionIntro-{{ section.id }}"
 >
   <div class="pflege-category-intro__shell page-width">
-    <div class="pflege-category-intro__hero-grid">
+    <div class="pflege-category-intro__hero-grid{% unless section.settings.show_finder_card %} pflege-category-intro__hero-grid--no-finder{% endunless %}">
       <header class="pflege-category-intro__main">
         <h1 class="pflege-category-intro__title">{{ pflege_intro_heading | escape }}</h1>
         <p class="pflege-category-intro__lead">{{ hero_intro | escape }}</p>
       </header>
 
+      {%- if section.settings.show_finder_card -%}
       <aside class="pflege-category-intro__finder" aria-label="{{ 'sections.pflege_collection.finder_heading' | t }}">
         <div class="pflege-category-intro__finder-card">
           <div class="pflege-category-intro__finder-icon-wrap" aria-hidden="true">
@@ -113,6 +114,7 @@
           </a>
         </div>
       </aside>
+      {%- endif -%}
     </div>
   </div>
 </section>
@@ -127,6 +129,13 @@
     {
       "type": "paragraph",
       "content": "t:sections.pflege_collection_intro.settings.paragraph_metafields.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_finder_card",
+      "label": "Produktfinder-Karte anzeigen",
+      "default": false,
+      "info": "Der Produktfinder ist derzeit deaktiviert — Karte standardmäßig ausblenden."
     },
     {
       "type": "text",

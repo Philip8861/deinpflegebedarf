@@ -35,6 +35,11 @@ body.pflege-collection-page.template-collection .gradient {
   .pflege-category-intro__hero-grid {
     grid-template-columns: minmax(0, 1.12fr) minmax(260px, 0.82fr);
   }
+
+  .pflege-category-intro__hero-grid--no-finder {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: min(100%, 52rem);
+  }
 }
 
 .pflege-category-intro__title {

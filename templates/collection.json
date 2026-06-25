@@ -30,10 +30,11 @@
     "pflege_intro": {
       "type": "pflege-collection-intro",
       "settings": {
+        "show_finder_card": false,
         "finder_heading_override": "",
         "finder_body_override": "",
-        "finder_link": "#pflege-finder-open",
-        "finder_cta_label": "Produktfinder starten",
+        "finder_link": "",
+        "finder_cta_label": "",
         "color_scheme": "scheme-1",
         "padding_top": 44,
         "padding_bottom": 24

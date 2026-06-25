@@ -398,7 +398,6 @@
   </head>
 
   <body class="gradient template-{{ template.name }}{% if template.suffix != blank %} template-{{ template.name }}-{{ template.suffix | handleize }}{% endif %}{% if template.name == 'collection' or request.page_type == 'collection' %} pflege-collection-page{% endif %}{% if is_category_filtered %} pflege-category-filtered-page{% endif %}{% if is_pfc_collection %} pflege-pfc-collection{% endif %}{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
-    {% render 'pflege-finder-data' %}
     {%- if template.name == 'index' -%}
       <script>
         if (!document.documentElement.classList.contains('shopify-design-mode')) {
@@ -482,7 +481,9 @@
       {% render 'pflege-newsletter-popup' %}
     {%- endif -%}
 
-    {% render 'pflege-finder-popup' %}
+    {{ 'section-pflege-inko-testpaket-modal.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'pflege-inko-testpaket-modal.js' | asset_url }}" defer="defer"></script>
+    {% render 'pflege-inko-testpaket-modal', modal_suffix: 'global' %}
 
     <ul hidden>
       <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>

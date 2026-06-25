@@ -1,22 +1,6 @@
 {{ 'section-pflege-product-finder.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
-  # Button-Ziel:
-  # 1. Manuell gesetzter Link aus dem Theme-Editor.
-  # 2. Sonst Popup via Hash #pflege-finder-open (data-pflege-finder-open).
-  assign primary_href = section.settings.primary_link | strip
-  assign open_popup = false
-  if primary_href == blank
-    assign primary_href = '#pflege-finder-open'
-    assign open_popup = true
-  endif
-
-  assign secondary_href = section.settings.secondary_link
-  assign show_secondary = false
-  if section.settings.secondary_label != blank and secondary_href != blank
-    assign show_secondary = true
-  endif
-
   assign finder_bg_url = 'produktfinder1.webp' | asset_url
   assign finder_bg_cb = section.settings.bg_refresh_token | strip
   if finder_bg_cb != blank
@@ -28,7 +12,7 @@
   endif
 -%}
 
-<section id="produktfinder" class="pflege-product-finder" {{ section.shopify_attributes }}>
+<section id="inkontinenz-auf-rezept-promo" class="pflege-product-finder" {{ section.shopify_attributes }}>
   <div class="pflege-product-finder__backdrop">
     <div class="pflege-product-finder__shell">
       <div
@@ -44,22 +28,22 @@
               {%- if section.settings.intro != blank -%}
                 <p class="pflege-product-finder__intro">{{ section.settings.intro | escape }}</p>
               {%- endif -%}
+              {%- if section.settings.intro_secondary != blank -%}
+                <p class="pflege-product-finder__intro pflege-product-finder__intro--secondary">
+                  {{ section.settings.intro_secondary | escape }}
+                </p>
+              {%- endif -%}
             </div>
 
             <div class="pflege-product-finder__actions pflege-product-finder__actions--center">
               {%- if section.settings.primary_label != blank -%}
-                <a
-                  class="pflege-product-finder__cta"
-                  href="{{ primary_href }}"
-                  {% if open_popup %}data-pflege-finder-open{% endif %}
+                <button
+                  type="button"
+                  class="pflege-product-finder__cta pflege-product-finder__cta--pulse pflege-hero__cta--testpaket"
+                  data-pflege-inko-testpaket-open
                 >
                   {{- section.settings.primary_label | escape -}}
-                </a>
-              {%- endif -%}
-              {%- if show_secondary -%}
-                <a class="pflege-product-finder__link-secondary" href="{{ secondary_href }}">
-                  {{- section.settings.secondary_label | escape -}}
-                </a>
+                </button>
               {%- endif -%}
             </div>
           </div>
@@ -71,7 +55,7 @@
 
 {% schema %}
 {
-  "name": "PflegeShop Produktfinder",
+  "name": "Inkontinenz auf Rezept Promo",
   "tag": "section",
   "class": "pflege-product-finder-section",
   "settings": [
@@ -90,42 +74,30 @@
       "type": "text",
       "id": "heading",
       "label": "Hauptüberschrift",
-      "default": "Nutzen Sie unseren Produktfinder"
+      "default": "Inkontinenzversorgung auf Rezept möglich."
     },
     {
       "type": "textarea",
       "id": "intro",
-      "label": "Text im Kasten (über dem Button)",
-      "default": "Beantworten Sie ein paar Fragen und erhalten Sie sofort passende Pflegeprodukte für Ihre Situation – ganz ohne langes Suchen."
+      "label": "Text Zeile 1",
+      "default": "Kontaktieren Sie uns und erhalten Sie kostenlose Musterprodukte zum Testen."
+    },
+    {
+      "type": "textarea",
+      "id": "intro_secondary",
+      "label": "Text Zeile 2",
+      "default": "Wir beraten Sie persönlich und finden gemeinsam das passende Produkt für Ihre Bedürfnisse."
     },
     {
       "type": "text",
       "id": "primary_label",
-      "label": "Primär-Button — Text",
-      "default": "Jetzt das passende Produkt finden"
-    },
-    {
-      "type": "url",
-      "id": "primary_link",
-      "label": "Primär-Button — Link",
-      "info": "Leer = Produktfinder-Popup öffnen."
-    },
-    {
-      "type": "text",
-      "id": "secondary_label",
-      "label": "Sekundär — Text",
-      "default": "Mehr erfahren"
-    },
-    {
-      "type": "url",
-      "id": "secondary_link",
-      "label": "Sekundär — Link",
-      "info": "Ohne Link ausgefüllt wird der Textlink ausgeblendet."
+      "label": "Button — Text",
+      "default": "Kostenlose Musterprodukte erhalten"
     }
   ],
   "presets": [
     {
-      "name": "PflegeShop Produktfinder"
+      "name": "Inkontinenz auf Rezept Promo"
     }
   ]
 }

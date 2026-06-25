@@ -39,8 +39,10 @@
       "type": "pflege-product-finder",
       "settings": {
         "bg_refresh_token": "2",
-        "intro": "Beantworten Sie ein paar Fragen und erhalten Sie sofort passende Pflegeprodukte für Ihre Situation – ganz ohne langes Suchen.",
-        "primary_label": "Jetzt das passende Produkt finden"
+        "heading": "Inkontinenzversorgung auf Rezept möglich.",
+        "intro": "Kontaktieren Sie uns und erhalten Sie kostenlose Musterprodukte zum Testen.",
+        "intro_secondary": "Wir beraten Sie persönlich und finden gemeinsam das passende Produkt für Ihre Bedürfnisse.",
+        "primary_label": "Kostenlose Musterprodukte erhalten"
       }
     },
     "pflege_pflegesets": {

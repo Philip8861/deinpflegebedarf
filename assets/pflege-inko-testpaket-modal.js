@@ -269,7 +269,7 @@
     root.dataset.pflegeInkoModalInit = 'true';
 
     var lastFocused = null;
-    var sectionRoot = root.closest('.shopify-section') || document.body;
+    var sectionRoot = document.body;
     var form = root.querySelector('.pflege-inko-modal__form');
     var mainPanel = root.querySelector('[data-pflege-inko-main]');
     var successPanel = root.querySelector('[data-pflege-inko-success]');
