@@ -7,6 +7,19 @@
   assign sub_cents = cart.items_subtotal_price
   assign fs_remaining_cents = fs_threshold_cents | minus: sub_cents
   assign promo_id_suffix = promo_suffix | default: ''
+  assign fs_percent = 0
+  if fs_threshold_cents > 0
+    assign fs_percent = sub_cents | times: 100 | divided_by: fs_threshold_cents
+  endif
+  if fs_percent > 100
+    assign fs_percent = 100
+  endif
+  assign fs_qualified = false
+  if fs_remaining_cents <= 0
+    assign fs_qualified = true
+  endif
+  assign fs_threshold_money = fs_threshold_cents | money
+  assign fs_subtotal_money = sub_cents | money
 -%}
 
 <div class="pflege-cart-promo pflege-cart-card">
@@ -40,13 +53,13 @@
 
     <span class="pflege-cart-promo__divider" aria-hidden="true"></span>
 
-    <div class="pflege-cart-promo__shipping">
+    <div class="pflege-cart-promo__shipping{% if fs_qualified %} pflege-cart-promo__shipping--qualified{% endif %}">
       <span class="pflege-cart-promo__icon pflege-cart-promo__icon--ship" aria-hidden="true">
         {% render 'pflege-icon', icon: 'truck', width: 26 %}
       </span>
       <div class="pflege-cart-promo__shipping-copy">
         <h3 class="pflege-cart-promo__title pflege-cart-promo__title--shipping">{{ 'sections.cart.pflege.free_shipping_title' | t }}</h3>
-        {%- if fs_remaining_cents <= 0 -%}
+        {%- if fs_qualified -%}
           <p class="pflege-cart-promo__shipping-text">{{ 'sections.cart.pflege.free_shipping_qualified' | t }}</p>
         {%- else -%}
           {%- assign fs_remaining_money = fs_remaining_cents | money -%}
@@ -54,6 +67,29 @@
             {{ 'sections.cart.pflege.free_shipping_remaining' | t: amount: fs_remaining_money }}
           </p>
         {%- endif -%}
+
+        <div
+          class="pflege-cart-shipping-progress{% if fs_qualified %} pflege-cart-shipping-progress--complete{% endif %}"
+          role="progressbar"
+          aria-valuemin="0"
+          aria-valuemax="{{ fs_threshold_cents }}"
+          aria-valuenow="{{ sub_cents }}"
+          aria-label="{{ 'sections.cart.pflege.free_shipping_title' | t }}"
+        >
+          <div class="pflege-cart-shipping-progress__labels">
+            <span class="pflege-cart-shipping-progress__amount">{{ fs_subtotal_money }}</span>
+            <span class="pflege-cart-shipping-progress__goal">{{ fs_threshold_money }}</span>
+          </div>
+          <div class="pflege-cart-shipping-progress__track">
+            <div class="pflege-cart-shipping-progress__fill" style="width: {{ fs_percent }}%;"></div>
+            {%- unless fs_qualified -%}
+              <span class="pflege-cart-shipping-progress__marker" style="left: {{ fs_percent }}%;" aria-hidden="true"></span>
+            {%- endunless -%}
+            <span class="pflege-cart-shipping-progress__pin" aria-hidden="true">
+              {% render 'pflege-icon', icon: 'package', width: 14 %}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
