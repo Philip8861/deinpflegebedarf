@@ -4,8 +4,8 @@
   var SIGNIN_TITLE = 'E-Mail angeben und direkt einloggen';
 
   var ACCOUNT_ICONS = {
-    package:
-      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 16-7.43-5-7.43 5"/><path d="M3 16V8a2 2 0 0 1 1.07-1.76l7.43-4a2 2 0 0 1 1.86 0l7.43 4A2 2 0 0 1 21 8v8"/><path d="m12 4-8.57 5"/><path d="m12 12 9-5"/><path d="M12 12v10"/></svg>',
+    orders:
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 8h6"/><path d="M9 12h6"/><path d="M9 16h4"/></svg>',
     user:
       '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
     'log-out':
@@ -191,7 +191,7 @@
     wrap.setAttribute('aria-label', 'Kundenbereich');
 
     wrap.innerHTML =
-      buildAccountLink(ordersUrl, ordersLabel, 'package') +
+      buildAccountLink(ordersUrl, ordersLabel, 'orders') +
       buildAccountLink(profileUrl, profileLabel, 'user') +
       buildAccountLink(logoutUrl, logoutLabel, 'log-out', 'pflege-account-sheet-link--logout', 'nofollow');
 
