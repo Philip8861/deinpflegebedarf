@@ -2,14 +2,13 @@
 {{ 'section-pflege-related-products.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
+  assign products_limit = section.settings.products_to_show | default: 4
+  assign intro_text = section.settings.intro | strip
   assign view_all_href = section.settings.view_all_link
   if view_all_href == blank
     assign view_all_href = routes.all_products_collection_url
   endif
   assign view_all_text = section.settings.view_all_label | strip
-  if view_all_text == blank
-    assign view_all_text = 'sections.related_products.view_all' | t
-  endif
 -%}
 
 {%- style -%}
@@ -29,7 +28,7 @@
 <div class="color-{{ section.settings.color_scheme }} gradient pflege-related-products-wrap">
   <product-recommendations
     class="pflege-related-products section-{{ section.id }}-padding{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-    data-url="{{ routes.product_recommendations_url }}?limit={{ section.settings.products_to_show }}"
+    data-url="{{ routes.product_recommendations_url }}?limit={{ products_limit }}"
     data-section-id="{{ section.id }}"
     data-product-id="{{ product.id }}"
   >
@@ -45,19 +44,24 @@
                 <h2 id="PflegeRelatedHeading-{{ section.id }}" class="pflege-bestseller__title">
                   {{- section.settings.heading -}}
                 </h2>
+                {%- if intro_text != blank -%}
+                  <p class="pflege-bestseller__intro">{{ intro_text | escape | newline_to_br }}</p>
+                {%- endif -%}
               </div>
-              {%- if section.settings.show_view_all_link -%}
+              {%- if section.settings.show_view_all_link and view_all_text != blank -%}
                 <a class="pflege-bestseller__view-all" href="{{ view_all_href }}">
                   {{- view_all_text | escape -}}
                 </a>
               {%- endif -%}
             </header>
             <div class="pflege-bestseller__grid">
-              {% for recommendation in recommendations.products %}
+              {% for recommendation in recommendations.products limit: products_limit %}
                 {% render 'pflege-cat-card',
                   card_product: recommendation,
                   card_layout: 'horizontal',
-                  list_item: false
+                  list_item: false,
+                  promo_badge_label: 'Unser Tipp!',
+                  promo_badge_variant: 'tip'
                 %}
               {% endfor %}
             </div>
@@ -82,9 +86,22 @@
       "content": "t:sections.related-products.settings.paragraph__1.content"
     },
     {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "t:sections.related-products.settings.paragraph__1.default",
+      "label": "t:sections.related-products.settings.heading.label"
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Einleitung unter der Überschrift",
+      "info": "Optional. Gleiche Typografie wie „Beliebte Pflegeprodukte“ auf der Startseite.",
+      "default": "Passende Ergänzungen und Alternativen zu Ihrer aktuellen Auswahl."
+    },
+    {
       "type": "checkbox",
       "id": "show_view_all_link",
-      "default": true,
+      "default": false,
       "label": "t:sections.related-products.settings.show_view_all_link.label"
     },
     {
@@ -101,16 +118,10 @@
       "info": "t:sections.related-products.settings.view_all_link.info"
     },
     {
-      "type": "inline_richtext",
-      "id": "heading",
-      "default": "t:sections.related-products.settings.paragraph__1.default",
-      "label": "t:sections.related-products.settings.heading.label"
-    },
-    {
       "type": "range",
       "id": "products_to_show",
       "min": 2,
-      "max": 10,
+      "max": 4,
       "step": 1,
       "default": 4,
       "label": "t:sections.related-products.settings.products_to_show.label"
