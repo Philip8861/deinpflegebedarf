@@ -245,21 +245,6 @@
     z-index: 0;
   }
 
-  .pflege-inko-rezept-steps__item:not(:last-child)::before {
-    content: '';
-    position: absolute;
-    top: 42%;
-    left: calc(100% + var(--inko-step-gap) - 0.55rem);
-    width: 8px;
-    height: 8px;
-    transform: translate(-100%, -50%);
-    border-radius: var(--pflege-radius-pill, 999px);
-    background: var(--pflege-accent, #3f86d9);
-    opacity: 0.5;
-    pointer-events: none;
-    z-index: 0;
-  }
-
   .pflege-inko-rezept-steps__item:not(:last-child) .pflege-inko-rezept-steps__card::after {
     content: '';
     position: absolute;
