@@ -289,6 +289,7 @@
   box-shadow: 0 2px 8px rgba(0, 59, 112, 0.04);
   transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
   box-sizing: border-box;
+  position: relative;
 }
 
 @media screen and (min-width: 990px) {
@@ -296,6 +297,17 @@
     grid-template-columns: 11.5rem minmax(0, 1fr);
     gap: 1rem;
     padding: 1rem;
+  }
+
+  .pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__tip-row {
+    top: 0.65rem;
+    right: 0.95rem;
+    max-width: calc(100% - 11.5rem - 1.95rem);
+  }
+
+  .pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__title {
+    padding-top: 2.05rem;
+    min-height: calc(3 * 1.32em + 2.05rem);
   }
 }
 
@@ -341,7 +353,21 @@
   gap: 0.55rem;
   padding: 0;
   text-align: left;
-  position: relative;
+  position: static;
+}
+
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__tip-row {
+  position: absolute;
+  top: clamp(0.5rem, 0.85vw, 0.72rem);
+  right: clamp(0.6rem, 1vw, 0.9rem);
+  left: auto;
+  z-index: 2;
+  display: flex;
+  justify-content: flex-end;
+  margin: 0;
+  flex: 0 0 auto;
+  pointer-events: none;
+  max-width: calc(100% - clamp(7.5rem, 36%, 10.5rem) - clamp(1.35rem, 2.6vw, 1.9rem));
 }
 
 .pflege-bestseller .pflege-cat-card__tip-row {
@@ -365,6 +391,7 @@
   font-weight: 800;
   line-height: 1.25;
   letter-spacing: 0.02em;
+  white-space: nowrap;
 }
 
 .pflege-bestseller .pflege-cat-card__badge--tip {
@@ -390,9 +417,8 @@
   -webkit-line-clamp: 3;
   overflow: hidden;
   margin: 0;
-  padding: 0;
-  padding-right: clamp(4.25rem, 38%, 5.5rem);
-  min-height: calc(3 * 1.32em);
+  padding: clamp(1.85rem, 1.45rem + 0.9vw, 2.15rem) 0 0;
+  min-height: calc(3 * 1.32em + clamp(1.85rem, 1.45rem + 0.9vw, 2.15rem));
   flex: 0 0 auto;
 }
 
