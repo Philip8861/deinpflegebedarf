@@ -194,16 +194,16 @@
 
 .pflege-cat-rail--header-row .pflege-cat-rail__submenu {
   position: absolute;
-  top: calc(100% + 4px);
+  top: calc(100% + 6px);
   left: 0;
-  min-width: max(100%, 13.5rem);
+  min-width: max(100%, 17.5rem);
   margin: 0;
-  padding: 0.35rem 0;
+  padding: 0.55rem 0;
   list-style: none;
   border-radius: 14px;
   background: #fefefe;
-  border: 1px solid #e2e6ec;
-  box-shadow: 0 12px 32px rgba(11, 35, 71, 0.14);
+  border: 1px solid #d8e3ef;
+  box-shadow: 0 14px 36px rgba(11, 35, 71, 0.16);
   z-index: 30;
   box-sizing: border-box;
 }
@@ -218,14 +218,20 @@
 
 .pflege-cat-rail--header-row .pflege-cat-rail__sublink {
   display: block;
-  padding: 0.65rem 1rem;
+  padding: 0.9rem 1.25rem;
   text-decoration: none;
-  font-size: clamp(0.82rem, 0.7rem + 0.35vw, 0.98rem);
+  font-size: clamp(1.02rem, 0.9rem + 0.45vw, 1.2rem);
   font-weight: 700;
-  line-height: 1.3;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
   color: var(--pflege-heading-navy, #062a55);
+  -webkit-text-fill-color: var(--pflege-heading-navy, #062a55);
   white-space: nowrap;
   transition: background 0.18s ease, color 0.18s ease;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__submenu li + li .pflege-cat-rail__sublink {
+  border-top: 1px solid #eef2f7;
 }
 
 .pflege-cat-rail--header-row .pflege-cat-rail__sublink:hover,
