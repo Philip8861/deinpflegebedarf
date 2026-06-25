@@ -1,4 +1,29 @@
 (function () {
+  function openInkSubmenuIfActive(dialog) {
+    var inkItem = dialog.querySelector('[data-pflege-cat-submenu-item].is-active-context');
+    if (!inkItem) return;
+    var inkBtn = inkItem.querySelector('[data-pflege-cat-submenu-toggle]');
+    var inkPanel = inkItem.querySelector('[data-pflege-cat-submenu]');
+    if (inkBtn && inkPanel) {
+      inkBtn.setAttribute('aria-expanded', 'true');
+      inkPanel.hidden = false;
+      inkItem.classList.add('is-open');
+    }
+  }
+
+  function syncTriggerExpanded(dialog, open) {
+    var tid = dialog.getAttribute('data-trigger-id');
+    var trigger = tid ? document.getElementById(tid) : null;
+    if (trigger) trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+
+  function openCategoryModal(dialog) {
+    if (!dialog || typeof dialog.showModal !== 'function') return;
+    dialog.showModal();
+    syncTriggerExpanded(dialog, true);
+    openInkSubmenuIfActive(dialog);
+  }
+
   function init(dialog) {
     if (!dialog || dialog.dataset.pflegeCategoryModalInit) return;
     dialog.dataset.pflegeCategoryModalInit = 'true';
@@ -6,29 +31,12 @@
     var trigger = tid ? document.getElementById(tid) : null;
     if (!trigger) return;
 
-    function syncExpanded(open) {
-      trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
-    }
-
     trigger.addEventListener('click', function () {
-      if (typeof dialog.showModal === 'function') {
-        dialog.showModal();
-        syncExpanded(true);
-        var inkItem = dialog.querySelector('[data-pflege-cat-submenu-item].is-active-context');
-        if (inkItem) {
-          var inkBtn = inkItem.querySelector('[data-pflege-cat-submenu-toggle]');
-          var inkPanel = inkItem.querySelector('[data-pflege-cat-submenu]');
-          if (inkBtn && inkPanel) {
-            inkBtn.setAttribute('aria-expanded', 'true');
-            inkPanel.hidden = false;
-            inkItem.classList.add('is-open');
-          }
-        }
-      }
+      openCategoryModal(dialog);
     });
 
     dialog.addEventListener('close', function () {
-      syncExpanded(false);
+      syncTriggerExpanded(dialog, false);
       dialog.querySelectorAll('[data-pflege-cat-submenu-item].is-open').forEach(closeItem);
       try {
         trigger.focus({ preventScroll: true });
@@ -97,5 +105,26 @@
     });
   }
 
-  document.querySelectorAll('dialog.pflege-category-modal').forEach(init);
+  function bindExternalOpeners() {
+    document.querySelectorAll('[data-pflege-category-modal-open]').forEach(function (btn) {
+      if (btn.dataset.pflegeCategoryModalOpenBound) return;
+      btn.dataset.pflegeCategoryModalOpenBound = 'true';
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        var dialog = document.querySelector('dialog.pflege-category-modal');
+        openCategoryModal(dialog);
+      });
+    });
+  }
+
+  function start() {
+    document.querySelectorAll('dialog.pflege-category-modal').forEach(init);
+    bindExternalOpeners();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start);
+  } else {
+    start();
+  }
 })();

@@ -35,10 +35,21 @@
             <p class="pflege-hero__sub">{{ section.settings.subheading | escape }}</p>
           {%- endif -%}
           {%- if section.settings.button_label != blank -%}
-            <a class="pflege-hero__cta" href="{{ section.settings.button_link | default: routes.collections_url }}">
-              {{- section.settings.button_label | escape -}}
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
+            {%- if section.settings.button_opens_category_modal -%}
+              <button
+                type="button"
+                class="pflege-hero__cta pflege-hero__cta--category-modal"
+                data-pflege-category-modal-open
+              >
+                {{- section.settings.button_label | escape -}}
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            {%- else -%}
+              <a class="pflege-hero__cta" href="{{ section.settings.button_link | default: routes.collections_url }}">
+                {{- section.settings.button_label | escape -}}
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            {%- endif -%}
           {%- endif -%}
           {%- if section.blocks.size > 0 -%}
             <ul class="pflege-hero__usps">
@@ -101,7 +112,7 @@
       "type": "textarea",
       "id": "subheading",
       "label": "Unterzeile",
-      "default": "Ohne langes Suchen zu den passenden Pflegeprodukten.\nVertrauen Sie auf unsere Erfahrung: Beantworten Sie ein paar kurze Fragen und wir zeigen Ihnen Produkte, die zu Ihrer persönlichen Pflegesituation passen."
+      "default": "Ohne langes Suchen zu den passenden Pflegeprodukten.\nVertrauen Sie auf unsere Erfahrung und lassen Sie sich persönlich beraten. Wir helfen Ihnen dabei, die Produkte zu finden, die zu Ihrer Pflegesituation passen."
     },
     {
       "type": "text",
@@ -110,9 +121,16 @@
       "default": "Jetzt passende Produkte anzeigen"
     },
     {
+      "type": "checkbox",
+      "id": "button_opens_category_modal",
+      "label": "Button öffnet Kategorienübersicht (Pop-up)",
+      "default": false
+    },
+    {
       "type": "url",
       "id": "button_link",
-      "label": "Button-Link"
+      "label": "Button-Link",
+      "info": "Nur wenn „Kategorienübersicht (Pop-up)“ deaktiviert ist."
     },
     {
       "type": "image_picker",

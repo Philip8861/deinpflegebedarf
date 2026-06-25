@@ -15,9 +15,10 @@
         "badge": "Pflegeprodukte, die den Pflegealltag erleichtern",
         "heading_line1": "Pflegeprodukte",
         "heading_line2": "für jeden Bedarf",
-        "subheading": "Ohne langes Suchen zu den passenden Pflegeprodukten.\nVertrauen Sie auf unsere Erfahrung: Beantworten Sie ein paar kurze Fragen und wir zeigen Ihnen Produkte, die zu Ihrer persönlichen Pflegesituation passen.",
+        "subheading": "Ohne langes Suchen zu den passenden Pflegeprodukten.\nVertrauen Sie auf unsere Erfahrung und lassen Sie sich persönlich beraten. Wir helfen Ihnen dabei, die Produkte zu finden, die zu Ihrer Pflegesituation passen.",
         "button_label": "Jetzt passende Produkte anzeigen",
-        "button_link": "shopify://collections/all",
+        "button_opens_category_modal": true,
+        "button_link": "",
         "image_alt": "Pflegeprodukte Auswahl"
       }
     },

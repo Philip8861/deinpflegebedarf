@@ -271,6 +271,11 @@ body.template-index .pflege-hero,
   font-family: inherit;
 }
 
+.pflege-hero__cta--category-modal {
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
 /* Dezentes Aufleuchten + leichtes Wachsen (alle ~5s) — ohne harten Glow-Ring */
 .pflege-cta--soft-pulse {
   transform: scale(1);
