@@ -128,6 +128,26 @@
   }
 }
 
+/* Feine Trennlinie zwischen erster und zweiter Reihe */
+.pflege-bestseller__row-divider {
+  margin: clamp(1.35rem, 2.8vw, 2rem) 0;
+  height: 1px;
+  border: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--pcd-border) 35%, transparent) 12%,
+    color-mix(in srgb, var(--pcd-border) 90%, #b8cfe8) 50%,
+    color-mix(in srgb, var(--pcd-border) 35%, transparent) 88%,
+    transparent 100%
+  );
+  opacity: 0.95;
+}
+
+.pflege-bestseller__grid--row-2 {
+  margin-top: 0;
+}
+
 /* --- Horizontale Kategorie-Karten (Startseite / Warenkorb-Empfehlungen) --- */
 .pflege-bestseller .pflege-cat-card {
   min-width: 0;

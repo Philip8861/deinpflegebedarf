@@ -32,6 +32,8 @@
     intro: section.settings.intro,
     collection: section.settings.collection,
     products_limit: limit_products,
+    enable_second_row: section.settings.enable_second_row,
+    second_row_products_limit: section.settings.second_row_products_to_show,
     view_all_label: section.settings.view_all_label,
     view_all_href: view_all_href,
     show_collection_rating: section.settings.show_collection_rating,
@@ -89,8 +91,24 @@
       "max": 50,
       "step": 1,
       "default": 4,
-      "label": "Anzahl Produkte",
+      "label": "Anzahl Produkte (erste Reihe)",
       "info": "Nur bei „Aus Kollektion“. Bei 5 Spalten: z. B. 10 für zwei Reihen à 5."
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_second_row",
+      "label": "Zweite Produktreihe anzeigen",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "second_row_products_to_show",
+      "min": 2,
+      "max": 50,
+      "step": 1,
+      "default": 4,
+      "label": "Anzahl Produkte (zweite Reihe)",
+      "info": "Folgt in der Kollektion nach der ersten Reihe. Mit feiner Trennlinie dazwischen."
     },
     {
       "type": "select",
@@ -127,7 +145,7 @@
       "info": "Leer = bei Kollektion die Kollektions-URL, sonst Alle Produkte."
     }
   ],
-  "max_blocks": 4,
+  "max_blocks": 8,
   "blocks": [
     {
       "type": "product",
