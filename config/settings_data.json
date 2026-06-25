@@ -143,6 +143,13 @@
       "customer-testimonials-homepage-style": {
         "type": "customer-testimonials-homepage-style",
         "blocks": {
+          "review_xRWkiC": {
+            "type": "review",
+            "settings": {
+              "review_text": "Ich bin noch neu in der Pflege meiner Mutter und mir wurde das L-Set empfohlen. vor Ort wurde mir vieles gezeigt, was für die tägliche Pflege hilfreich ist. Mit der Zusammenstellung bin ich sehr zufrieden. Lagerungsmaterial wäre noch Gut gewesen, aber sonst wirklich eine gute Hilfe.",
+              "customer_name": "Petra Z."
+            }
+          },
           "review_L6arpz": {
             "type": "review",
             "settings": {
@@ -166,6 +173,7 @@
           }
         },
         "block_order": [
+          "review_xRWkiC",
           "review_L6arpz",
           "review_wbFA3B",
           "review_1"
