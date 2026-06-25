@@ -143,6 +143,13 @@
       "customer-testimonials-homepage-style": {
         "type": "customer-testimonials-homepage-style",
         "blocks": {
+          "review_wbFA3B": {
+            "type": "review",
+            "settings": {
+              "review_text": "Neu eröffnet, deswegen noch nicht alles perfekt, aber sehr sympatisch und bemüht. Viel Erfolg!",
+              "customer_name": "Martin P."
+            }
+          },
           "review_1": {
             "type": "review",
             "settings": {
@@ -152,6 +159,7 @@
           }
         },
         "block_order": [
+          "review_wbFA3B",
           "review_1"
         ],
         "settings": {
