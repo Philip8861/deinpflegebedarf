@@ -78,7 +78,7 @@
         assign pflege_seo_title = 'sections.pflege_faq_page.meta_title' | t
         assign pflege_seo_description = 'sections.pflege_faq_page.meta_description' | t
       endif
-      if request.page_type == 'page' and page != blank and page.handle == 'inkontinenzversrogung-auf-rezept'
+      if request.page_type == 'page' and page != blank and page.handle == 'inkontinenzversorgung-auf-rezept' or request.page_type == 'page' and page != blank and page.handle == 'inkontinenzversrogung-auf-rezept'
         assign pflege_seo_title = 'sections.pflege_inko_rezept_landing.meta_title' | t
         assign pflege_seo_description = 'sections.pflege_inko_rezept_landing.meta_description' | t
       endif

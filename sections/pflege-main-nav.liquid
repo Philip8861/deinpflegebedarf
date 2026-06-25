@@ -47,10 +47,12 @@
     assign url_ink = root | append: 'collections/inkontinenzversorgung'
   endif
 
-  if pages['inkontinenzversrogung-auf-rezept'] != blank
+  if pages['inkontinenzversorgung-auf-rezept'] != blank
+    assign url_ink_rezept = pages['inkontinenzversorgung-auf-rezept'].url
+  elsif pages['inkontinenzversrogung-auf-rezept'] != blank
     assign url_ink_rezept = pages['inkontinenzversrogung-auf-rezept'].url
   else
-    assign url_ink_rezept = root | append: 'pages/inkontinenzversrogung-auf-rezept'
+    assign url_ink_rezept = root | append: 'pages/inkontinenzversorgung-auf-rezept'
   endif
 
   if collections['koerperpflege'] != blank
@@ -130,8 +132,10 @@
     endcase
   endif
 
-  if request.page_type == 'page' and page != blank and page.handle == 'inkontinenzversrogung-auf-rezept'
-    assign active_ink_rezept = true
+  if request.page_type == 'page' and page != blank
+    if page.handle == 'inkontinenzversorgung-auf-rezept' or page.handle == 'inkontinenzversrogung-auf-rezept'
+      assign active_ink_rezept = true
+    endif
   endif
 
   if request.page_type == 'product' and product != blank

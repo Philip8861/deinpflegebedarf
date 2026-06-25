@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "pflege_inko_rezept_landing": {
+      "type": "pflege-inko-rezept-landing",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "heading_line1": "Geld sparen: Inkontinenzversorgung auf Rezept",
+        "heading_line2": "Erhalten Sie bei uns ein kostenloses Testpaket",
+        "button_label": "Kostenloses Testpaket erhalten",
+        "hero_asset": "Landing_page_inko.webp",
+        "image_alt": "Inkontinenzversorgung auf Rezept",
+        "padding_top": 36,
+        "padding_bottom": 48
+      }
+    }
+  },
+  "order": ["pflege_inko_rezept_landing"]
+}
