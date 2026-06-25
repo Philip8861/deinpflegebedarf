@@ -147,12 +147,13 @@
             "type": "review",
             "settings": {
               "review_text": "Sehr guter Service und schnelle Lieferung!",
-              "customer_name": "Kundin/Kunde",
-              "source_text": "Bewertung aus dem Shop"
+              "customer_name": "Kundin/Kunde"
             }
           }
         },
-        "block_order": ["review_1"],
+        "block_order": [
+          "review_1"
+        ],
         "settings": {
           "average_rating": "5",
           "total_review_count": 4,
@@ -428,8 +429,6 @@
         },
         "customer-testimonials-homepage-style": {
           "type": "customer-testimonials-homepage-style",
-          "blocks": {},
-          "block_order": [],
           "settings": {
             "average_rating": "5",
             "total_review_count": 4,
