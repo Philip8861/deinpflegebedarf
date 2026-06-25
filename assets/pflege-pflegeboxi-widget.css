@@ -239,8 +239,6 @@
   justify-content: center;
   padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right))
     max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
-  /* Modal leicht unterhalb der vertikalen Mitte */
-  padding-bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 4vh);
 }
 
 .pflege-pflegeboxi-modal[hidden] {
@@ -513,10 +511,33 @@ a.pflege-pflegeboxi-modal__footer-link {
 
 /* === Responsive ============================================================ */
 
-/* Desktop: FAQ-Block + Pflegeboxi etwas tiefer — mehr Luft nach oben */
+/* Desktop: Boxi + Panel als eine Einheit zentrieren (gleicher Abstand oben/unten) */
 @media screen and (min-width: 750px) {
+  .pflege-pflegeboxi-modal {
+    padding: clamp(1.25rem, 2.5vh, 2rem) clamp(1rem, 2vw, 1.5rem);
+    align-items: center;
+    justify-content: center;
+  }
+
   .pflege-pflegeboxi-modal__shell {
-    margin-top: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0;
+  }
+
+  .pflege-pflegeboxi-modal__mascot {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    margin-bottom: -16px;
+    flex-shrink: 0;
+  }
+
+  .pflege-pflegeboxi-modal__panel {
+    width: 100%;
+    flex: 0 0 auto;
   }
 }
 
