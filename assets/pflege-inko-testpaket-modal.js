@@ -15,6 +15,7 @@
   var IFRAME_NAME = 'pflege-inko-testpaket-frame';
   var SUCCESS_CLASS = 'pflege-inko-modal--success';
   var STATE_SUCCESS = 'success';
+  var CANONICAL_MODAL_ID = 'PflegeInkoTestpaketModal-global';
   var SUBMIT_TIMEOUT_MS = 20000;
 
   function isEmail(value) {
@@ -140,7 +141,7 @@
     if (hasExplicitError(html)) return false;
     if (url.indexOf('contact_posted=true') !== -1) return true;
     if (isSuccessHtml(html)) return true;
-    if (result.ok && html.indexOf('pflege-inko-modal__form') !== -1) return true;
+    if (result.ok && html.indexOf('data-pflege-inko-sent-marker') !== -1) return true;
     return false;
   }
 
@@ -269,7 +270,7 @@
     root.dataset.pflegeInkoModalInit = 'true';
 
     var lastFocused = null;
-    var sectionRoot = document.body;
+    var intentionalClose = false;
     var form = root.querySelector('.pflege-inko-modal__form');
     var mainPanel = root.querySelector('[data-pflege-inko-main]');
     var successPanel = root.querySelector('[data-pflege-inko-success]');
@@ -350,8 +351,10 @@
     }
 
     function userClose() {
+      intentionalClose = true;
       resetFormState();
       if (root.open) root.close();
+      intentionalClose = false;
     }
 
     function open() {
@@ -375,10 +378,12 @@
       if (form) form.removeAttribute('target');
 
       if (success) {
-        isSubmitting = false;
         showSuccessView();
+        isSubmitting = false;
         if (!root.open && typeof root.showModal === 'function') {
-          root.showModal();
+          try {
+            root.showModal();
+          } catch (e) {}
         }
         return;
       }
@@ -424,9 +429,18 @@
     }
 
     root.addEventListener('close', function () {
-      if (isSuccessState()) {
-        resetFormState();
+      if (isSuccessState() && !intentionalClose) {
+        window.requestAnimationFrame(function () {
+          if (!isSuccessState() || intentionalClose) return;
+          if (!root.open && typeof root.showModal === 'function') {
+            try {
+              root.showModal();
+            } catch (e) {}
+          }
+        });
+        return;
       }
+
       if (lastFocused && typeof lastFocused.focus === 'function') {
         try {
           lastFocused.focus();
@@ -443,14 +457,16 @@
       userClose();
     });
 
-    sectionRoot.querySelectorAll('[data-pflege-inko-testpaket-open]').forEach(function (openTrigger) {
-      if (openTrigger.dataset.pflegeInkoOpenBound) return;
-      openTrigger.dataset.pflegeInkoOpenBound = 'true';
-      openTrigger.addEventListener('click', function (e) {
-        e.preventDefault();
-        open();
+    if (root.id === CANONICAL_MODAL_ID || !document.getElementById(CANONICAL_MODAL_ID)) {
+      document.querySelectorAll('[data-pflege-inko-testpaket-open]').forEach(function (openTrigger) {
+        if (openTrigger.dataset.pflegeInkoOpenBound) return;
+        openTrigger.dataset.pflegeInkoOpenBound = 'true';
+        openTrigger.addEventListener('click', function (e) {
+          e.preventDefault();
+          open();
+        });
       });
-    });
+    }
 
     root.querySelectorAll('[data-pflege-inko-modal-close]').forEach(function (el) {
       el.addEventListener('click', function () {
@@ -465,6 +481,11 @@
   }
 
   function start() {
+    var canonical = document.getElementById(CANONICAL_MODAL_ID);
+    if (canonical) {
+      initModal(canonical);
+      return;
+    }
     document.querySelectorAll('dialog[data-pflege-inko-testpaket-modal]').forEach(initModal);
   }
 
