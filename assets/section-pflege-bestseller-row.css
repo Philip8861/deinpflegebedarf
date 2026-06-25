@@ -128,24 +128,50 @@
   }
 }
 
-/* Feine Trennlinie zwischen erster und zweiter Reihe */
+/* Abstand + feine Trennlinie zwischen erster und zweiter Reihe */
 .pflege-bestseller__row-divider {
-  margin: clamp(1.35rem, 2.8vw, 2rem) 0;
-  height: 1px;
+  position: relative;
+  display: block;
+  margin: clamp(2rem, 4.2vw, 3rem) auto;
+  padding: clamp(0.85rem, 1.8vw, 1.25rem) clamp(1.5rem, 5vw, 3.5rem);
+  max-width: 100%;
+  height: auto;
   border: 0;
+  background: transparent;
+}
+
+.pflege-bestseller__row-divider::before {
+  content: '';
+  display: block;
+  height: 1px;
   background: linear-gradient(
     90deg,
     transparent 0%,
-    color-mix(in srgb, var(--pcd-border) 35%, transparent) 12%,
-    color-mix(in srgb, var(--pcd-border) 90%, #b8cfe8) 50%,
-    color-mix(in srgb, var(--pcd-border) 35%, transparent) 88%,
+    rgba(184, 207, 232, 0.25) 14%,
+    rgba(184, 207, 232, 0.85) 50%,
+    rgba(184, 207, 232, 0.25) 86%,
     transparent 100%
   );
-  opacity: 0.95;
+}
+
+.pflege-bestseller__row-divider::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid rgba(184, 207, 232, 0.95);
+  box-shadow:
+    0 0 0 4px #ffffff,
+    0 0 0 5px rgba(216, 232, 248, 0.55);
 }
 
 .pflege-bestseller__grid--row-2 {
-  margin-top: 0;
+  margin-top: clamp(0.35rem, 1vw, 0.65rem);
 }
 
 /* --- Horizontale Kategorie-Karten (Startseite / Warenkorb-Empfehlungen) --- */
