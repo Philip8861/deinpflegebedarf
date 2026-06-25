@@ -7,7 +7,7 @@
         "step_1": {
           "type": "step",
           "settings": {
-            "icon": "file-text",
+            "icon": "document",
             "title": "Anfrage ausfüllen",
             "text": "Teilen Sie uns Ihre Kontaktdaten und Wünsche mit."
           }

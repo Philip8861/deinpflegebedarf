@@ -35,13 +35,20 @@
   if steps_subtitle == blank
     assign steps_subtitle = 'sections.pflege_inko_rezept_landing.steps_subtitle' | t
   endif
+
+  assign title_suffix = 'passenden Inkontinenzprodukt'
+  assign title_has_break = false
+  if steps_title contains title_suffix
+    assign title_has_break = true
+    assign title_prefix = steps_title | remove: title_suffix | strip
+  endif
 -%}
 
 <div class="pflege-inko-rezept-below">
   <div class="pflege-inko-rezept-below__shell">
     <div class="pflege-inko-rezept-phone">
       <span class="pflege-inko-rezept-phone__icon" aria-hidden="true">
-        {% render 'pflege-icon', icon: 'phone', width: 22 %}
+        {% render 'pflege-icon', icon: 'phone', width: 32 %}
       </span>
       <div class="pflege-inko-rezept-phone__copy">
         {%- if phone_intro != blank -%}
@@ -65,80 +72,89 @@
           id="pflege-inko-rezept-steps-title-{{ section.id | default: 'fallback' }}"
           class="pflege-inko-rezept-steps__title"
         >
-          {{ steps_title | escape }}
+          {%- if title_has_break -%}
+            <span class="pflege-inko-rezept-steps__title-line">{{ title_prefix | escape }}</span>
+            <span class="pflege-inko-rezept-steps__title-line">{{ title_suffix | escape }}</span>
+          {%- else -%}
+            {{ steps_title | escape }}
+          {%- endif -%}
         </h2>
         {%- if steps_subtitle != blank -%}
           <p class="pflege-inko-rezept-steps__subtitle">{{ steps_subtitle | escape }}</p>
         {%- endif -%}
       </header>
 
-      <ol class="pflege-inko-rezept-steps__list">
-        {%- if section != blank and section.blocks.size > 0 -%}
-          {%- for block in section.blocks -%}
-            {%- if block.type == 'step' -%}
-              <li class="pflege-inko-rezept-steps__item" {{ block.shopify_attributes }}>
-                <article class="pflege-inko-rezept-steps__card">
-                  <span class="pflege-inko-rezept-steps__num" aria-hidden="true">{{ forloop.index }}</span>
-                  <span class="pflege-inko-rezept-steps__icon" aria-hidden="true">
-                    {%- if block.settings.icon == 'headset' -%}
-                      {% render 'pflege-icon', icon: 'headset', width: 36 %}
-                    {%- elsif block.settings.icon == 'gift' -%}
-                      {% render 'pflege-icon', icon: 'gift', width: 36 %}
-                    {%- elsif block.settings.icon == 'package' -%}
-                      {% render 'pflege-icon', icon: 'package', width: 36 %}
-                    {%- else -%}
-                      {% render 'pflege-icon', icon: 'file-text', width: 36 %}
-                    {%- endif -%}
-                  </span>
-                  <div class="pflege-inko-rezept-steps__copy">
-                    <h3 class="pflege-inko-rezept-steps__card-title">{{ block.settings.title | escape }}</h3>
-                    {%- if block.settings.text != blank -%}
-                      <p class="pflege-inko-rezept-steps__card-text">{{ block.settings.text | escape }}</p>
-                    {%- endif -%}
-                  </div>
-                </article>
-              </li>
-            {%- endif -%}
-          {%- endfor -%}
-        {%- else -%}
-          <li class="pflege-inko-rezept-steps__item">
-            <article class="pflege-inko-rezept-steps__card">
-              <span class="pflege-inko-rezept-steps__num" aria-hidden="true">1</span>
-              <span class="pflege-inko-rezept-steps__icon" aria-hidden="true">
-                {% render 'pflege-icon', icon: 'file-text', width: 36 %}
-              </span>
-              <div class="pflege-inko-rezept-steps__copy">
-                <h3 class="pflege-inko-rezept-steps__card-title">{{ 'sections.pflege_inko_rezept_landing.step_1_title' | t }}</h3>
-                <p class="pflege-inko-rezept-steps__card-text">{{ 'sections.pflege_inko_rezept_landing.step_1_text' | t }}</p>
-              </div>
-            </article>
-          </li>
-          <li class="pflege-inko-rezept-steps__item">
-            <article class="pflege-inko-rezept-steps__card">
-              <span class="pflege-inko-rezept-steps__num" aria-hidden="true">2</span>
-              <span class="pflege-inko-rezept-steps__icon" aria-hidden="true">
-                {% render 'pflege-icon', icon: 'headset', width: 36 %}
-              </span>
-              <div class="pflege-inko-rezept-steps__copy">
-                <h3 class="pflege-inko-rezept-steps__card-title">{{ 'sections.pflege_inko_rezept_landing.step_2_title' | t }}</h3>
-                <p class="pflege-inko-rezept-steps__card-text">{{ 'sections.pflege_inko_rezept_landing.step_2_text' | t }}</p>
-              </div>
-            </article>
-          </li>
-          <li class="pflege-inko-rezept-steps__item">
-            <article class="pflege-inko-rezept-steps__card">
-              <span class="pflege-inko-rezept-steps__num" aria-hidden="true">3</span>
-              <span class="pflege-inko-rezept-steps__icon" aria-hidden="true">
-                {% render 'pflege-icon', icon: 'gift', width: 36 %}
-              </span>
-              <div class="pflege-inko-rezept-steps__copy">
-                <h3 class="pflege-inko-rezept-steps__card-title">{{ 'sections.pflege_inko_rezept_landing.step_3_title' | t }}</h3>
-                <p class="pflege-inko-rezept-steps__card-text">{{ 'sections.pflege_inko_rezept_landing.step_3_text' | t }}</p>
-              </div>
-            </article>
-          </li>
-        {%- endif -%}
-      </ol>
+      <div class="pflege-inko-rezept-steps__list-wrap">
+        <ol class="pflege-inko-rezept-steps__list">
+          {%- if section != blank and section.blocks.size > 0 -%}
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'step' -%}
+                <li class="pflege-inko-rezept-steps__item" {{ block.shopify_attributes }}>
+                  <article class="pflege-inko-rezept-steps__card">
+                    <span class="pflege-inko-rezept-steps__num" aria-hidden="true">{{ forloop.index }}</span>
+                    <span class="pflege-inko-rezept-steps__icon" aria-hidden="true">
+                      {%- if block.settings.icon == 'headset' -%}
+                        {% render 'pflege-icon', icon: 'headset', width: 60 %}
+                      {%- elsif block.settings.icon == 'gift' -%}
+                        {% render 'pflege-icon', icon: 'gift', width: 60 %}
+                      {%- elsif block.settings.icon == 'package' -%}
+                        {% render 'pflege-icon', icon: 'package', width: 60 %}
+                      {%- elsif block.settings.icon == 'document' -%}
+                        {% render 'pflege-icon', icon: 'document', width: 60 %}
+                      {%- else -%}
+                        {% render 'pflege-icon', icon: 'file-text', width: 60 %}
+                      {%- endif -%}
+                    </span>
+                    <div class="pflege-inko-rezept-steps__copy">
+                      <h3 class="pflege-inko-rezept-steps__card-title">{{ block.settings.title | escape }}</h3>
+                      {%- if block.settings.text != blank -%}
+                        <p class="pflege-inko-rezept-steps__card-text">{{ block.settings.text | escape }}</p>
+                      {%- endif -%}
+                    </div>
+                  </article>
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- else -%}
+            <li class="pflege-inko-rezept-steps__item">
+              <article class="pflege-inko-rezept-steps__card">
+                <span class="pflege-inko-rezept-steps__num" aria-hidden="true">1</span>
+                <span class="pflege-inko-rezept-steps__icon" aria-hidden="true">
+                  {% render 'pflege-icon', icon: 'document', width: 60 %}
+                </span>
+                <div class="pflege-inko-rezept-steps__copy">
+                  <h3 class="pflege-inko-rezept-steps__card-title">{{ 'sections.pflege_inko_rezept_landing.step_1_title' | t }}</h3>
+                  <p class="pflege-inko-rezept-steps__card-text">{{ 'sections.pflege_inko_rezept_landing.step_1_text' | t }}</p>
+                </div>
+              </article>
+            </li>
+            <li class="pflege-inko-rezept-steps__item">
+              <article class="pflege-inko-rezept-steps__card">
+                <span class="pflege-inko-rezept-steps__num" aria-hidden="true">2</span>
+                <span class="pflege-inko-rezept-steps__icon" aria-hidden="true">
+                  {% render 'pflege-icon', icon: 'headset', width: 60 %}
+                </span>
+                <div class="pflege-inko-rezept-steps__copy">
+                  <h3 class="pflege-inko-rezept-steps__card-title">{{ 'sections.pflege_inko_rezept_landing.step_2_title' | t }}</h3>
+                  <p class="pflege-inko-rezept-steps__card-text">{{ 'sections.pflege_inko_rezept_landing.step_2_text' | t }}</p>
+                </div>
+              </article>
+            </li>
+            <li class="pflege-inko-rezept-steps__item">
+              <article class="pflege-inko-rezept-steps__card">
+                <span class="pflege-inko-rezept-steps__num" aria-hidden="true">3</span>
+                <span class="pflege-inko-rezept-steps__icon" aria-hidden="true">
+                  {% render 'pflege-icon', icon: 'gift', width: 60 %}
+                </span>
+                <div class="pflege-inko-rezept-steps__copy">
+                  <h3 class="pflege-inko-rezept-steps__card-title">{{ 'sections.pflege_inko_rezept_landing.step_3_title' | t }}</h3>
+                  <p class="pflege-inko-rezept-steps__card-text">{{ 'sections.pflege_inko_rezept_landing.step_3_text' | t }}</p>
+                </div>
+              </article>
+            </li>
+          {%- endif -%}
+        </ol>
+      </div>
     </section>
   </div>
 </div>

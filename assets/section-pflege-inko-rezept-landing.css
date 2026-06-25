@@ -1,4 +1,4 @@
-/* Inkontinenz-Rezept-Landing — Telefon + 3 Schritte unter dem Hero */
+/* Inkontinenz-Rezept-Landing — Telefon + 3 Schritte (Shop-Tokens) */
 
 .pflege-inko-rezept-landing-section,
 .pflege-inko-rezept-landing-section .pflege-hero,
@@ -6,45 +6,50 @@
   font-family: var(--font-body-family), system-ui, sans-serif;
 }
 
-.pflege-inko-rezept-below {
-  --inko-navy: var(--pflege-heading-navy, #062a55);
-  --inko-blue: var(--pflege-accent, #3f86d9);
-  --inko-blue-deep: #0b4f8c;
-  --inko-muted: #5d748d;
-  --inko-border: #d8e6f4;
-  --inko-surface: #f6f9fc;
-  --inko-accent: var(--pflege-cta, #f89738);
-  --inko-accent-dot: rgba(248, 151, 56, 0.85);
+.pflege-inko-rezept-landing__trail {
+  padding-bottom: 0;
 }
 
-.pflege-inko-rezept-landing__trail {
-  padding-bottom: clamp(2.5rem, 5vw, 4rem);
+/* --- Gesamter Abschnitt -------------------------------------------------- */
+
+.pflege-inko-rezept-below {
+  --inko-step-gap: clamp(3.5rem, 5vw, 5.5rem);
+  background: var(--pflege-backdrop-band-gradient, linear-gradient(180deg, #ffffff 0%, var(--pflege-bg-softer, #f5faff) 100%));
+  padding: clamp(4rem, 6.5vw, 6rem) 0;
+  text-align: center;
+  box-sizing: border-box;
 }
 
 .pflege-inko-rezept-below__shell {
   width: 100%;
-  max-width: min(100%, 1480px);
+  max-width: 1440px;
   margin-inline: auto;
-  padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
-  padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
+  padding-left: max(var(--pflege-inline-gutter, 1.25rem), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--pflege-inline-gutter, 1.25rem), env(safe-area-inset-right, 0px));
   box-sizing: border-box;
 }
 
-/* --- Telefon-Beratung ---------------------------------------------------- */
+/* --- Telefon-Hinweisbox -------------------------------------------------- */
 
 .pflege-inko-rezept-phone {
   display: flex;
-  align-items: flex-start;
-  gap: clamp(1rem, 2.5vw, 1.35rem);
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(1rem, 2.5vw, 1.25rem);
   width: 100%;
-  max-width: min(52rem, 100%);
-  margin: clamp(2.25rem, 4.5vw, 3.25rem) auto 0;
-  padding: clamp(1.35rem, 3vw, 1.75rem) clamp(1.5rem, 3.5vw, 2rem);
-  border-radius: 18px;
-  border: 1px solid var(--inko-border);
-  background: linear-gradient(165deg, #ffffff 0%, #f3f8fd 52%, #eef5fc 100%);
-  color: var(--inko-navy);
-  box-shadow: 0 8px 28px rgba(11, 35, 71, 0.05);
+  max-width: min(100%, 42rem);
+  margin: 0 auto;
+  padding: clamp(1.5rem, 3vw, 2rem) clamp(1.5rem, 3.5vw, 2rem);
+  border-radius: 24px;
+  border: 1px solid color-mix(in srgb, var(--pflege-accent, #3f86d9) 22%, var(--pflege-border-soft, #d8eafe));
+  background: linear-gradient(
+    165deg,
+    var(--pflege-white, #fefefe) 0%,
+    var(--pflege-bg-softer, #f5faff) 55%,
+    var(--pflege-bg-soft, #eef6ff) 100%
+  );
+  color: var(--pflege-heading-navy, #062a55);
+  box-shadow: 0 10px 32px rgba(11, 35, 71, 0.06);
   box-sizing: border-box;
 }
 
@@ -53,100 +58,127 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  border-radius: 12px;
-  background: #e8f2fc;
-  border: 1px solid rgba(63, 134, 217, 0.18);
-  color: var(--inko-blue-deep);
+  width: clamp(4.5rem, 8vw, 5.75rem);
+  height: clamp(4.5rem, 8vw, 5.75rem);
+  border-radius: var(--pflege-radius-pill, 999px);
+  background: var(--pflege-header-pill-hover-bg, #eaf4ff);
+  border: 1px solid color-mix(in srgb, var(--pflege-accent, #3f86d9) 28%, transparent);
+  color: var(--pflege-heading-navy, #062a55);
   line-height: 0;
 }
 
 .pflege-inko-rezept-phone__icon .pflege-icon svg {
-  width: 1.35rem;
-  height: 1.35rem;
+  width: clamp(1.75rem, 3vw, 2.25rem);
+  height: clamp(1.75rem, 3vw, 2.25rem);
 }
 
 .pflege-inko-rezept-phone__copy {
-  flex: 1;
-  min-width: 0;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 0.35rem;
+  min-width: 0;
+  text-align: center;
 }
 
 .pflege-inko-rezept-phone__label {
   margin: 0;
-  font-size: clamp(0.98rem, 0.25vw + 0.92rem, 1.08rem);
+  font-size: clamp(1rem, 0.3vw + 0.94rem, 1.125rem);
   font-weight: 600;
   line-height: 1.45;
-  color: var(--inko-muted);
+  color: var(--pflege-muted, #6f7f95);
 }
 
 .pflege-inko-rezept-phone__number {
   display: inline-block;
-  margin: 0;
-  font-size: clamp(1.55rem, 0.65vw + 1.35rem, 2rem);
-  font-weight: 800;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-  color: var(--inko-navy);
+  margin: 0.1rem 0;
+  font-size: clamp(2.125rem, 2.2vw + 1.5rem, 3.5rem);
+  font-weight: var(--pflege-home-section-heading-weight, 700);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: var(--pflege-heading-navy, #062a55);
   text-decoration: none;
   transition: color 0.18s ease;
 }
 
 .pflege-inko-rezept-phone__number:hover,
 .pflege-inko-rezept-phone__number:focus-visible {
-  color: var(--inko-blue);
+  color: var(--pflege-accent, #3f86d9);
   outline: none;
 }
 
 .pflege-inko-rezept-phone__hint {
-  margin: 0.15rem 0 0;
-  font-size: clamp(0.95rem, 0.2vw + 0.9rem, 1.05rem);
+  margin: 0.25rem 0 0;
+  max-width: 28rem;
+  font-size: clamp(0.98rem, 0.25vw + 0.92rem, 1.08rem);
   font-weight: 500;
   line-height: 1.5;
-  color: var(--inko-muted);
-  max-width: 36rem;
+  color: var(--pflege-muted, #6f7f95);
 }
 
 @media screen and (min-width: 750px) {
   .pflege-inko-rezept-phone {
+    flex-direction: row;
     align-items: center;
-    padding: clamp(1.5rem, 2.8vw, 1.85rem) clamp(1.75rem, 3.5vw, 2.25rem);
+    text-align: left;
+    max-width: min(100%, 47.5rem);
+    gap: clamp(1.25rem, 2.5vw, 1.75rem);
+    padding: clamp(1.5rem, 2.5vw, 2rem) clamp(1.75rem, 3vw, 2.25rem);
+  }
+
+  .pflege-inko-rezept-phone__copy {
+    align-items: flex-start;
+    text-align: left;
+    flex: 1;
   }
 }
 
-/* --- 3 Schritte ---------------------------------------------------------- */
+/* --- Headline + Untertitel ----------------------------------------------- */
 
 .pflege-inko-rezept-steps {
-  margin-top: clamp(3rem, 6vw, 4.5rem);
+  margin-top: clamp(3.5rem, 5.5vw, 4.5rem);
   width: 100%;
 }
 
 .pflege-inko-rezept-steps__head {
-  margin: 0 auto clamp(2rem, 4vw, 2.75rem);
-  max-width: min(52rem, 100%);
+  margin: 0 auto;
+  max-width: min(100%, 61.25rem);
   text-align: center;
 }
 
 .pflege-inko-rezept-steps__title {
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.12em;
   font-family: var(--font-body-family), system-ui, sans-serif;
-  font-size: clamp(1.85rem, 1.1vw + 1.45rem, 2.55rem);
-  font-weight: 800;
-  line-height: 1.2;
-  letter-spacing: -0.03em;
-  color: var(--inko-navy);
+  font-size: clamp(2.125rem, 2.8vw + 1.25rem, 4rem);
+  font-weight: var(--pflege-home-section-heading-weight, 700);
+  line-height: 1.1;
+  letter-spacing: var(--pflege-home-section-heading-letter-spacing, -0.025em);
+  color: var(--pflege-home-section-heading-color, #0f4f69);
+}
+
+.pflege-inko-rezept-steps__title-line {
+  display: block;
+  max-width: min(100%, 61.25rem);
 }
 
 .pflege-inko-rezept-steps__subtitle {
-  margin: clamp(0.75rem, 1.8vw, 1rem) auto 0;
-  max-width: min(44rem, 100%);
-  font-size: clamp(1.05rem, 0.35vw + 0.98rem, 1.2rem);
+  margin: clamp(1.125rem, 2vw, 1.5rem) auto 0;
+  max-width: min(100%, 47.5rem);
+  font-size: clamp(1.05rem, 0.35vw + 0.98rem, 1.375rem);
   font-weight: 500;
-  line-height: 1.55;
-  color: var(--inko-muted);
+  line-height: 1.5;
+  color: var(--pflege-muted, #6f7f95);
+}
+
+/* --- Schritte-Grid + Connector ------------------------------------------- */
+
+.pflege-inko-rezept-steps__list-wrap {
+  margin-top: clamp(4.25rem, 6.5vw, 5.5rem);
+  width: 100%;
 }
 
 .pflege-inko-rezept-steps__list {
@@ -155,54 +187,111 @@
   padding: 0;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: clamp(1.25rem, 2.8vw, 1.65rem);
+  gap: clamp(3.5rem, 6vw, 4.5rem);
+  align-items: stretch;
 }
 
-@media screen and (min-width: 750px) {
+.pflege-inko-rezept-steps__item {
+  position: relative;
+  min-width: 0;
+  max-width: 26.25rem;
+  margin-inline: auto;
+  width: 100%;
+}
+
+/* Connector zwischen Karten (Desktop) */
+@media screen and (min-width: 1024px) {
   .pflege-inko-rezept-steps__list {
-    grid-template-columns: repeat(3, minmax(300px, 1fr));
-    gap: clamp(1.35rem, 2.2vw, 1.75rem);
-    position: relative;
-    align-items: stretch;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--inko-step-gap);
+    max-width: min(100%, 78rem);
+    margin-inline: auto;
   }
 
-  .pflege-inko-rezept-steps__list::before {
+  .pflege-inko-rezept-steps__item {
+    max-width: none;
+    margin-inline: 0;
+  }
+
+  .pflege-inko-rezept-steps__item:not(:last-child)::after {
     content: '';
     position: absolute;
-    top: 3.1rem;
-    left: 18%;
-    right: 18%;
+    top: 42%;
+    left: calc(100% + 0.35rem);
+    width: calc(var(--inko-step-gap) - 0.7rem);
     height: 2px;
+    transform: translateY(-50%);
     background: linear-gradient(
       90deg,
-      transparent 0%,
-      rgba(63, 134, 217, 0.22) 12%,
-      rgba(63, 134, 217, 0.22) 88%,
-      transparent 100%
+      var(--pflege-accent, #3f86d9) 0%,
+      color-mix(in srgb, var(--pflege-accent, #3f86d9) 55%, transparent) 100%
     );
+    opacity: 0.45;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .pflege-inko-rezept-steps__item:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    top: 42%;
+    left: calc(100% + var(--inko-step-gap) - 0.55rem);
+    width: 8px;
+    height: 8px;
+    transform: translate(-100%, -50%);
+    border-radius: var(--pflege-radius-pill, 999px);
+    background: var(--pflege-accent, #3f86d9);
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .pflege-inko-rezept-steps__item:not(:last-child) .pflege-inko-rezept-steps__card::after {
+    content: '';
+    position: absolute;
+    top: 42%;
+    right: -0.5rem;
+    width: 8px;
+    height: 8px;
+    transform: translateY(-50%);
+    border-radius: var(--pflege-radius-pill, 999px);
+    background: var(--pflege-accent, #3f86d9);
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .pflege-inko-rezept-steps__item:not(:first-child) .pflege-inko-rezept-steps__card::before {
+    content: '';
+    position: absolute;
+    top: 42%;
+    left: -0.55rem;
+    width: 8px;
+    height: 8px;
+    transform: translateY(-50%);
+    border-radius: var(--pflege-radius-pill, 999px);
+    background: var(--pflege-accent, #3f86d9);
+    opacity: 0.5;
     pointer-events: none;
     z-index: 0;
   }
 }
 
-.pflege-inko-rezept-steps__item {
-  min-width: 0;
-  position: relative;
-  z-index: 1;
-}
+/* --- Schritt-Karten ------------------------------------------------------ */
 
 .pflege-inko-rezept-steps__card {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   height: 100%;
-  min-height: clamp(17rem, 28vw, 19.5rem);
-  padding: clamp(1.65rem, 3.2vw, 2.15rem) clamp(1.35rem, 2.5vw, 1.75rem) clamp(1.5rem, 2.8vw, 2rem);
-  border-radius: 20px;
-  border: 1px solid var(--inko-border);
-  background: #ffffff;
-  box-shadow: 0 6px 22px rgba(11, 35, 71, 0.05);
+  min-height: clamp(19.5rem, 28vw, 23.75rem);
+  padding: 4.5rem 2rem 2rem;
+  border-radius: 26px;
+  border: 1px solid color-mix(in srgb, var(--pflege-accent, #3f86d9) 18%, var(--pflege-border, #e5eef8));
+  background: var(--pflege-white, #fefefe);
+  box-shadow: 0 12px 36px rgba(11, 35, 71, 0.06);
   box-sizing: border-box;
   transition:
     transform 0.22s ease,
@@ -211,60 +300,51 @@
 }
 
 .pflege-inko-rezept-steps__card:hover {
-  transform: translateY(-3px);
-  border-color: #c5d9ee;
-  box-shadow: 0 14px 36px rgba(11, 35, 71, 0.09);
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--pflege-accent, #3f86d9) 32%, var(--pflege-border-soft, #d8eafe));
+  box-shadow: 0 18px 44px rgba(11, 35, 71, 0.09);
 }
 
 .pflege-inko-rezept-steps__num {
+  position: absolute;
+  top: -1.875rem;
+  left: 50%;
+  transform: translateX(-50%);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  margin-bottom: clamp(0.85rem, 2vw, 1.1rem);
-  border-radius: 999px;
-  background: var(--inko-navy);
-  color: #ffffff;
-  font-size: 1.05rem;
-  font-weight: 800;
+  width: clamp(3.25rem, 5vw, 4rem);
+  height: clamp(3.25rem, 5vw, 4rem);
+  border-radius: var(--pflege-radius-pill, 999px);
+  background: var(--pflege-heading-navy, #062a55);
+  color: var(--pflege-white, #fefefe);
+  font-size: clamp(1.35rem, 1vw + 1.1rem, 1.75rem);
+  font-weight: var(--pflege-home-section-heading-weight, 700);
   line-height: 1;
-  box-shadow: 0 4px 12px rgba(6, 42, 85, 0.18);
-  position: relative;
-}
-
-.pflege-inko-rezept-steps__num::after {
-  content: '';
-  position: absolute;
-  bottom: -3px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0.45rem;
-  height: 0.45rem;
-  border-radius: 999px;
-  background: var(--inko-accent-dot);
+  box-shadow: 0 8px 20px rgba(6, 42, 85, 0.22);
+  z-index: 2;
 }
 
 .pflege-inko-rezept-steps__icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: clamp(5rem, 9vw, 5.65rem);
-  height: clamp(5rem, 9vw, 5.65rem);
-  margin-bottom: clamp(1rem, 2.2vw, 1.25rem);
-  border-radius: 999px;
-  background: var(--inko-surface);
-  border: 1px solid rgba(63, 134, 217, 0.14);
-  color: var(--inko-blue-deep);
+  width: clamp(6.75rem, 10vw, 8.25rem);
+  height: clamp(6.75rem, 10vw, 8.25rem);
+  margin-bottom: clamp(1.75rem, 3vw, 2rem);
+  border-radius: var(--pflege-radius-pill, 999px);
+  background: color-mix(in srgb, var(--pflege-accent, #3f86d9) 8%, var(--pflege-bg-soft, #eef6ff));
+  border: 1px solid color-mix(in srgb, var(--pflege-accent, #3f86d9) 22%, transparent);
+  color: var(--pflege-heading-navy, #062a55);
   line-height: 0;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  flex-shrink: 0;
 }
 
 .pflege-inko-rezept-steps__icon .pflege-icon svg,
 .pflege-inko-rezept-steps__icon svg {
   display: block;
-  width: 2.35rem;
-  height: 2.35rem;
+  width: clamp(3.25rem, 5vw, 4.125rem);
+  height: clamp(3.25rem, 5vw, 4.125rem);
 }
 
 .pflege-inko-rezept-steps__copy {
@@ -272,62 +352,53 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  align-items: center;
+  max-width: 21.25rem;
 }
 
 .pflege-inko-rezept-steps__card-title {
-  margin: 0 0 0.65rem;
-  font-size: clamp(1.18rem, 0.45vw + 1.05rem, 1.38rem);
-  font-weight: 800;
-  line-height: 1.32;
-  color: var(--inko-navy);
+  margin: 0 0 0.75rem;
+  font-size: clamp(1.25rem, 0.5vw + 1.1rem, 1.75rem);
+  font-weight: var(--pflege-home-section-heading-weight, 700);
+  line-height: 1.22;
+  color: var(--pflege-heading-navy, #062a55);
 }
 
 .pflege-inko-rezept-steps__card-text {
   margin: 0;
-  font-size: clamp(1.02rem, 0.28vw + 0.96rem, 1.12rem);
+  font-size: clamp(1rem, 0.25vw + 0.94rem, 1.125rem);
   font-weight: 500;
-  line-height: 1.58;
-  color: var(--inko-muted);
+  line-height: 1.55;
+  color: var(--pflege-muted, #6f7f95);
+  max-width: 21.25rem;
+}
+
+/* --- Responsive Feinschliff ---------------------------------------------- */
+
+@media screen and (max-width: 1023px) {
+  .pflege-inko-rezept-steps__title {
+    font-size: clamp(2.125rem, 5vw + 1rem, 2.625rem);
+  }
+
+  .pflege-inko-rezept-phone__number {
+    font-size: clamp(2.125rem, 4vw + 1.25rem, 2.5rem);
+  }
 }
 
 @media screen and (max-width: 749px) {
+  .pflege-inko-rezept-below {
+    padding: clamp(3.5rem, 8vw, 4.5rem) 0;
+  }
+
   .pflege-inko-rezept-steps__card {
     min-height: 0;
-    align-items: center;
-    text-align: center;
-    flex-direction: column;
-    gap: 0;
-    padding: 1.5rem 1.25rem 1.35rem;
+    padding: 4rem 1.5rem 1.75rem;
   }
 
   .pflege-inko-rezept-steps__num {
-    margin-bottom: 0.85rem;
-    width: 2.25rem;
-    height: 2.25rem;
-    font-size: 1rem;
-  }
-
-  .pflege-inko-rezept-steps__icon {
-    width: 4.75rem;
-    height: 4.75rem;
-    margin-bottom: 1rem;
-  }
-
-  .pflege-inko-rezept-steps__icon .pflege-icon svg,
-  .pflege-inko-rezept-steps__icon svg {
-    width: 2.1rem;
-    height: 2.1rem;
-  }
-
-  .pflege-inko-rezept-steps__copy {
-    flex: none;
-    min-width: 0;
-  }
-}
-
-@media screen and (min-width: 990px) {
-  .pflege-inko-rezept-phone {
-    max-width: min(56rem, 100%);
+    top: -1.65rem;
+    width: 3.25rem;
+    height: 3.25rem;
+    font-size: 1.25rem;
   }
 }
