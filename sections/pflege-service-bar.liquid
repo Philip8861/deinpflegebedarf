@@ -1,11 +1,58 @@
 ﻿{{ 'section-pflege-service-bar.css' | asset_url | stylesheet_tag }}
 
+{%- comment -%}
+  Inline-Critical: greift immer (auch bei CDN-Cache), korrigiert globalen UI-Zoom (110 %).
+{%- endcomment -%}
+<style id="pflege-service-bar-critical-{{ section.id }}">
+  .shopify-section.pflege-service-bar-section {
+    zoom: calc(1 / var(--pflege-ui-scale, 1.1));
+    margin: 0 !important;
+    padding: 0 !important;
+    padding-top: env(safe-area-inset-top, 0px) !important;
+    background-color: #f0f5fb !important;
+  }
+
+  .pflege-service-bar .pflege-service-bar__inner.page-width {
+    box-sizing: border-box !important;
+    height: 30px !important;
+    max-height: 30px !important;
+    min-height: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    scrollbar-width: none !important;
+  }
+
+  .pflege-service-bar .pflege-service-bar__inner.page-width::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .pflege-service-bar__body,
+  .pflege-service-bar__text,
+  .pflege-service-bar a.pflege-service-bar__link {
+    font-size: 14px !important;
+    line-height: 1 !important;
+    font-weight: 500 !important;
+    white-space: nowrap !important;
+  }
+
+  .pflege-service-bar__body .pflege-icon,
+  .pflege-service-bar__body .pflege-icon svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+</style>
+
 <section class="pflege-service-bar" aria-label="Service-Hinweise">
   <div class="pflege-service-bar__inner page-width">
     {%- for block in section.blocks -%}
       <div class="pflege-service-bar__item" {{ block.shopify_attributes }}>
         <span class="pflege-service-bar__body">
-          {% render 'pflege-icon', icon: block.settings.icon, width: 18 %}
+          {% render 'pflege-icon', icon: block.settings.icon, width: 16 %}
           {%- if block.settings.subtext != blank -%}
             {%- if block.settings.link != blank -%}
               <a
