@@ -7,8 +7,6 @@
   #shopify-section-{{ section.id }} {
     margin: 0 !important;
     padding: 0 !important;
-    max-height: 31px !important;
-    overflow: hidden !important;
     background-color: #f0f5fb !important;
     zoom: calc(1 / var(--pflege-ui-scale, 1.1));
   }
@@ -16,8 +14,6 @@
   #shopify-section-{{ section.id }} .pflege-service-bar {
     margin: 0 !important;
     padding: 0 !important;
-    max-height: 31px !important;
-    overflow: hidden !important;
     background-color: #f0f5fb !important;
   }
 
@@ -32,7 +28,8 @@
     display: flex !important;
     align-items: center !important;
     flex-wrap: nowrap !important;
-    overflow: hidden !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
     scrollbar-width: none !important;
   }
 
@@ -43,6 +40,9 @@
     line-height: 16px !important;
     font-weight: 500 !important;
     white-space: nowrap !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    color: rgba(11, 35, 71, 0.88) !important;
   }
 
   #shopify-section-{{ section.id }} .pflege-service-bar__body .pflege-icon,
@@ -55,11 +55,11 @@
 <section class="pflege-service-bar" aria-label="Service-Hinweise">
   <div
     class="pflege-service-bar__inner page-width"
-    style="height:30px;max-height:30px;min-height:30px;padding-top:0;padding-bottom:0;overflow:hidden;box-sizing:border-box;display:flex;align-items:center;flex-wrap:nowrap;"
+    style="height:30px;max-height:30px;min-height:30px;padding-top:0;padding-bottom:0;overflow-x:auto;overflow-y:hidden;box-sizing:border-box;display:flex;align-items:center;flex-wrap:nowrap;"
   >
     {%- for block in section.blocks -%}
       <div class="pflege-service-bar__item" {{ block.shopify_attributes }}>
-        <span class="pflege-service-bar__body" style="font-size:14px;line-height:16px;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;margin:0;padding:0;">
+        <span class="pflege-service-bar__body" style="font-size:14px;line-height:16px;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;margin:0;padding:0;color:rgba(11,35,71,0.88);opacity:1;visibility:visible;">
           {% render 'pflege-icon', icon: block.settings.icon, width: 16 %}
           {%- if block.settings.subtext != blank -%}
             {%- if block.settings.link != blank -%}

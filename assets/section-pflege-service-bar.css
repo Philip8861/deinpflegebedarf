@@ -7,8 +7,6 @@
 .shopify-section.pflege-service-bar-section {
   margin: 0;
   padding: 0;
-  max-height: 31px;
-  overflow: hidden;
   background-color: #f0f5fb;
   zoom: calc(1 / var(--pflege-ui-scale, 1.1));
 }
@@ -19,8 +17,6 @@
   --pflege-service-hover-glow: 88, 145, 215;
   margin: 0;
   padding: 0;
-  max-height: 31px;
-  overflow: hidden;
 }
 
 .pflege-service-bar .pflege-service-bar__inner.page-width {
@@ -35,7 +31,10 @@
   align-items: center;
   justify-content: center;
   flex-wrap: nowrap;
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
   gap: 0.45rem clamp(0.65rem, 3vw, 1.75rem);
 }
 
@@ -184,57 +183,12 @@ a.pflege-service-bar__copy.pflege-service-bar__link {
   vertical-align: middle;
 }
 
-@keyframes pflege-service-bar-body-intro {
-  0% {
-    opacity: 0;
-    transform: translateY(0.35rem);
-    filter: brightness(1);
-  }
-  22% {
-    opacity: 1;
-    transform: translateY(0);
-    filter: brightness(1);
-  }
-  48% {
-    filter: drop-shadow(0 0 10px rgba(88, 145, 215, 0.55)) brightness(1.06);
-  }
-  62% {
-    filter: drop-shadow(0 0 6px rgba(88, 145, 215, 0.3)) brightness(1.02);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-    filter: none;
-  }
-}
-
+/* Startseite: Intro-Animation deaktiviert — opacity:0 + overflow clippte Text in schmalem Balken */
 .template-index .pflege-service-bar__body {
-  opacity: 0;
-  animation: pflege-service-bar-body-intro 1.55s ease forwards;
-}
-
-.template-index .pflege-service-bar__item:nth-child(1) .pflege-service-bar__body {
-  animation-delay: 0.06s;
-}
-
-.template-index .pflege-service-bar__item:nth-child(2) .pflege-service-bar__body {
-  animation-delay: 0.2s;
-}
-
-.template-index .pflege-service-bar__item:nth-child(3) .pflege-service-bar__body {
-  animation-delay: 0.34s;
-}
-
-.template-index .pflege-service-bar__item:nth-child(4) .pflege-service-bar__body {
-  animation-delay: 0.48s;
-}
-
-.template-index .pflege-service-bar__item:nth-child(5) .pflege-service-bar__body {
-  animation-delay: 0.62s;
-}
-
-.template-index .pflege-service-bar__item:nth-child(6) .pflege-service-bar__body {
-  animation-delay: 0.76s;
+  opacity: 1;
+  animation: none;
+  transform: none;
+  filter: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
