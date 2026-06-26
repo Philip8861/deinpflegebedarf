@@ -376,6 +376,11 @@
 .pflege-main-nav-section .pflege-main-nav__action--shopify-account {
   gap: 0.935rem;
   cursor: default;
+  align-items: center;
+}
+
+.pflege-main-nav-section .pflege-main-nav__action--cart .pflege-main-nav__cart-hit {
+  align-items: center;
 }
 
 .pflege-main-nav-section .pflege-main-nav__action--shopify-account .pflege-main-nav__stack--account-label {
@@ -735,16 +740,6 @@
     margin: 0 !important;
     box-sizing: border-box;
     z-index: 2;
-  }
-
-  .pflege-main-nav-section .pflege-main-nav__action {
-    align-items: flex-start;
-  }
-
-  .pflege-main-nav-section .pflege-main-nav__action--shopify-account shopify-account,
-  .pflege-main-nav-section .pflege-main-nav__action--shopify-account .pflege-shopify-account-host,
-  .pflege-main-nav-section .pflege-main-nav__cart-graphic {
-    margin-top: 0.08rem;
   }
 }
 
