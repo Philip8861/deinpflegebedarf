@@ -19,30 +19,35 @@
   --pflege-service-hover-glow: 88, 145, 215;
   margin: 0;
   padding-top: 0;
+  /* Dawn .page-width: nur horizontaler Innenabstand, kein vertikales Padding */
+  padding-bottom: 0;
 }
 
 .pflege-service-bar .pflege-service-bar__inner.page-width {
   margin: 0 auto;
-  padding-top: 0.3125rem;
-  padding-bottom: 0.3125rem;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
   padding-left: max(1rem, env(safe-area-inset-left, 0px));
   padding-right: max(1rem, env(safe-area-inset-right, 0px));
   min-height: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 0.4rem clamp(0.75rem, 3.5vw, 2rem);
-  row-gap: 0.35rem;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  gap: 0.45rem clamp(0.65rem, 3vw, 1.75rem);
+}
+
+.pflege-service-bar .pflege-service-bar__inner.page-width::-webkit-scrollbar {
+  display: none;
 }
 
 @media screen and (min-width: 990px) {
   .pflege-service-bar .pflege-service-bar__inner.page-width {
     justify-content: center;
     gap: 0.65rem clamp(1rem, 4vw, 2.5rem);
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
   }
 }
 
@@ -52,7 +57,7 @@
   flex: 0 0 auto;
 }
 
-/* Zeile: Icon + zweizeiliger Textblock (Hauptzeile + Unterzeile) */
+/* Zeile: Icon + Text — eine Zeile, kein Umbruch (wie früher) */
 .pflege-service-bar__body {
   display: inline-flex;
   align-items: center;
@@ -63,9 +68,9 @@
   font-synthesis: none;
   line-height: 1.22;
   color: rgba(11, 35, 71, 0.88);
-  white-space: normal;
+  white-space: nowrap;
   text-align: left;
-  max-width: 100%;
+  flex: 0 0 auto;
 }
 
 .pflege-service-bar__copy,
@@ -83,14 +88,15 @@ a.pflege-service-bar__copy.pflege-service-bar__link {
 .pflege-service-bar__line {
   margin: 0;
   padding: 0;
-  max-width: 100%;
+  white-space: nowrap;
 }
 
 .pflege-service-bar__line--main {
   font-size: inherit;
   font-weight: 500;
-  line-height: 1.28;
+  line-height: 1.22;
   color: inherit;
+  white-space: nowrap;
 }
 
 .pflege-service-bar__line--sub {
