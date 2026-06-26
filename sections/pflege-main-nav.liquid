@@ -507,6 +507,8 @@
             <strong class="pflege-main-nav__stack-title">{{ section.settings.account_heading | escape }}</strong>
             {%- if customer -%}
               <span class="pflege-main-nav__stack-sub">{{ 'customer.account_fallback' | t }}</span>
+            {%- else -%}
+              <span class="pflege-main-nav__stack-sub pflege-main-nav__stack-sub--rhythm" aria-hidden="true">&nbsp;</span>
             {%- endif -%}
           </span>
         </div>

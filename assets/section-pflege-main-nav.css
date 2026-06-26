@@ -4,8 +4,8 @@
   top: 0;
   z-index: 5;
   --pflege-header-cluster-gap: clamp(1rem, 1.85vw, 1.5rem);
-  /* Konto + Warenkorb enger beieinander */
-  --pflege-header-actions-gap: clamp(0.28rem, 0.85vw, 0.5rem);
+  /* Konto + Warenkorb: ausreichend Abstand, kein Badge-Überlapp */
+  --pflege-header-actions-gap: clamp(1rem, 1.55vw, 1.45rem);
   /* Suchfeld: Standardbreite + 1/3; Desktop: Mitte = Bildschirmmitte (siehe Grid position) */
   --pflege-nav-search-max-width: min(calc(41rem * 4 / 3), 100%);
   --pflege-nav-search-min-width: 15rem;
@@ -383,6 +383,13 @@
   cursor: pointer;
 }
 
+.pflege-main-nav-section .pflege-shopify-account-host {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  line-height: 0;
+}
+
 .pflege-main-nav-section .pflege-shopify-account__signed-out {
   display: inline-flex;
   align-items: center;
@@ -507,7 +514,7 @@
 
 .pflege-main-nav-section .pflege-main-nav__stack-title {
   font-size: 1.595rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.02em;
   color: var(--pflege-heading-navy, #062a55);
   -webkit-font-smoothing: antialiased;
@@ -519,6 +526,12 @@
   font-weight: 600;
   letter-spacing: 0.03em;
   color: var(--pflege-main-muted, #6f7f95);
+}
+
+.pflege-main-nav-section .pflege-main-nav__stack-sub--rhythm {
+  visibility: hidden;
+  user-select: none;
+  pointer-events: none;
 }
 
 .pflege-main-nav-section .pflege-main-nav__cart-icon {
@@ -561,16 +574,16 @@
   height: 100%;
 }
 
-/* Mengen-Badge am Wagen-Icon bei Artikeln im Warenkorb (Orange = CTA) */
+/* Mengen-Badge: oben rechts am Warenkorb-Icon (nicht nach links ins Konto-Bereich) */
 .pflege-main-nav-section .pflege-main-nav__cart-graphic .cart-count-bubble {
-  left: -0.2rem;
-  right: auto;
+  left: auto;
+  right: -0.1rem;
   bottom: auto;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 1.85rem;
-  height: 1.85rem;
-  font-size: 0.95rem;
+  top: -0.12rem;
+  transform: none;
+  width: 1.55rem;
+  height: 1.55rem;
+  font-size: 0.82rem;
   font-weight: 700;
   background-color: var(--pflege-cart-badge-fill, var(--pflege-cta, #f89738));
   color: var(--pflege-cart-badge-text, #ffffff);
@@ -722,7 +735,13 @@
   }
 
   .pflege-main-nav-section .pflege-main-nav__action {
-    align-items: center;
+    align-items: flex-start;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__action--shopify-account shopify-account,
+  .pflege-main-nav-section .pflege-main-nav__action--shopify-account .pflege-shopify-account-host,
+  .pflege-main-nav-section .pflege-main-nav__cart-graphic {
+    margin-top: 0.08rem;
   }
 }
 
@@ -949,14 +968,14 @@
   }
 
   .pflege-main-nav-section .pflege-main-nav__cart-graphic .cart-count-bubble {
-    left: -0.08rem;
-    right: auto;
+    left: auto;
+    right: -0.06rem;
+    top: -0.08rem;
     bottom: auto;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 1.55rem;
-    height: 1.55rem;
-    font-size: 0.88rem;
+    transform: none;
+    width: 1.45rem;
+    height: 1.45rem;
+    font-size: 0.78rem;
     background-color: var(--pflege-cart-badge-fill, var(--pflege-cta, #f89738));
     color: var(--pflege-cart-badge-text, #ffffff);
   }
