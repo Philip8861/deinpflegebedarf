@@ -3,6 +3,9 @@
   position: sticky;
   top: 0;
   z-index: 5;
+  margin: 0;
+  padding: 0;
+  background-color: rgb(var(--color-background, 254 254 254));
   --pflege-header-cluster-gap: clamp(1rem, 1.85vw, 1.5rem);
   /* Konto + Warenkorb: ausreichend Abstand, kein Badge-Überlapp */
   --pflege-header-actions-gap: clamp(1rem, 1.55vw, 1.45rem);
@@ -42,7 +45,7 @@
 
 .pflege-main-nav-section .pflege-main-nav__grid {
   margin: 0;
-  padding: 1.1rem 0;
+  padding: 0.4rem 0 0.55rem;
   align-items: center;
   width: 100%;
 }
@@ -650,8 +653,8 @@
     gap: var(--pflege-header-cluster-gap);
     width: 100%;
     box-sizing: border-box;
-    padding-top: 1.05rem;
-    padding-bottom: 1.35rem;
+    padding-top: 0.55rem;
+    padding-bottom: 0.7rem;
     position: relative;
   }
 
@@ -841,8 +844,8 @@
     align-items: center;
     justify-content: flex-start;
     gap: var(--pflege-header-cluster-gap);
-    row-gap: calc(var(--pflege-header-cluster-gap) * 0.65);
-    padding: 0.55rem 0 0.65rem;
+    row-gap: calc(var(--pflege-header-cluster-gap) * 0.5);
+    padding: 0.35rem 0 0.5rem;
     width: 100%;
     max-width: 100%;
     min-width: 0;

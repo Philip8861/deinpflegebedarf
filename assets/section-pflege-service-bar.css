@@ -1,11 +1,24 @@
 /* PflegeShop — Service-Leiste (Höhe: Basis 3rem × 1,1 × 1,05; Text ca. +10 %) */
 /* Oberer Headerbalken: feste Farbe (Token --pflege-bg-soft würde auf der Startseite sonst #eef6ff erzwingen) */
+
+/* Header-Stack: durchgehend ohne weiße Lücke oben oder zwischen Service-Leiste und Hauptleiste */
+.shopify-section-group-header-group {
+  background-color: #f0f5fb;
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+.shopify-section.pflege-service-bar-section {
+  margin: 0;
+  padding: 0;
+  background-color: #f0f5fb;
+}
+
 .pflege-service-bar {
   background-color: #f0f5fb !important;
   border-bottom: 1px solid var(--pflege-border, #e5eef8);
   --pflege-service-hover-glow: 88, 145, 215;
-  /* Oben im Header-Stack: Abstand zur Statusleiste (iPhone-Notch etc., mit viewport-fit=cover) */
-  padding-top: env(safe-area-inset-top, 0px);
+  margin: 0;
+  padding-top: 0;
 }
 
 .pflege-service-bar .pflege-service-bar__inner.page-width {
