@@ -1,31 +1,41 @@
-{{ 'section-pflege-service-bar.css' | asset_url | stylesheet_tag }}
+﻿{{ 'section-pflege-service-bar.css' | asset_url | stylesheet_tag }}
 
 <section class="pflege-service-bar" aria-label="Service-Hinweise">
   <div class="pflege-service-bar__inner page-width">
     {%- for block in section.blocks -%}
       <div class="pflege-service-bar__item" {{ block.shopify_attributes }}>
         <span class="pflege-service-bar__body">
-          {% render 'pflege-icon', icon: block.settings.icon, width: 20 %}
-          {%- if block.settings.link != blank -%}
+          {% render 'pflege-icon', icon: block.settings.icon, width: 18 %}
+          {%- if block.settings.subtext != blank -%}
+            {%- if block.settings.link != blank -%}
+              <a
+                href="{{ block.settings.link }}"
+                class="pflege-service-bar__copy pflege-service-bar__link{% if block.settings.link contains 'tel:' %} pflege-service-bar__link--tel{% endif %}"
+                {% if block.settings.link contains 'tel:' %}
+                  aria-label="{{ block.settings.text | escape }} — {{ block.settings.subtext | escape }} — Anrufen"
+                {% endif %}
+              >
+                <span class="pflege-service-bar__line pflege-service-bar__line--main">{{ block.settings.text | escape }}</span>
+                <span class="pflege-service-bar__line pflege-service-bar__line--sub">{{ block.settings.subtext | escape }}</span>
+              </a>
+            {%- else -%}
+              <span class="pflege-service-bar__copy">
+                <span class="pflege-service-bar__line pflege-service-bar__line--main">{{ block.settings.text | escape }}</span>
+                <span class="pflege-service-bar__line pflege-service-bar__line--sub">{{ block.settings.subtext | escape }}</span>
+              </span>
+            {%- endif -%}
+          {%- elsif block.settings.link != blank -%}
             <a
               href="{{ block.settings.link }}"
-              class="pflege-service-bar__copy pflege-service-bar__link{% if block.settings.link contains 'tel:' %} pflege-service-bar__link--tel{% endif %}"
+              class="pflege-service-bar__text pflege-service-bar__link{% if block.settings.link contains 'tel:' %} pflege-service-bar__link--tel{% endif %}"
               {% if block.settings.link contains 'tel:' %}
-                aria-label="{{ block.settings.text | escape }}{% if block.settings.subtext != blank %} — {{ block.settings.subtext | escape }}{% endif %} — Anrufen"
+                aria-label="{{ block.settings.text | escape }} — Anrufen"
               {% endif %}
             >
-              <span class="pflege-service-bar__line pflege-service-bar__line--main">{{ block.settings.text | escape }}</span>
-              {%- if block.settings.subtext != blank -%}
-                <span class="pflege-service-bar__line pflege-service-bar__line--sub">{{ block.settings.subtext | escape }}</span>
-              {%- endif -%}
+              {{- block.settings.text | escape -}}
             </a>
           {%- else -%}
-            <span class="pflege-service-bar__copy">
-              <span class="pflege-service-bar__line pflege-service-bar__line--main">{{ block.settings.text | escape }}</span>
-              {%- if block.settings.subtext != blank -%}
-                <span class="pflege-service-bar__line pflege-service-bar__line--sub">{{ block.settings.subtext | escape }}</span>
-              {%- endif -%}
-            </span>
+            <span class="pflege-service-bar__text">{{ block.settings.text | escape }}</span>
           {%- endif -%}
         </span>
       </div>
@@ -78,7 +88,7 @@
           "type": "url",
           "id": "link",
           "label": "Link optional",
-          "info": "Telefon: z. B. tel:+4983349893330 — dann ist die Zeile antippbar zum Anrufen."
+          "info": "Telefon: z. B. tel:+4977339488820 — dann ist die Zeile antippbar zum Anrufen."
         }
       ]
     }
@@ -98,8 +108,8 @@
           "type": "item",
           "settings": {
             "icon": "headset",
-            "text": "Persönliche Beratung 08334 / 9893330",
-            "link": "tel:+4983349893330"
+            "text": "Persönliche Beratung 07733 / 9488820",
+            "link": "tel:+4977339488820"
           }
         },
         {

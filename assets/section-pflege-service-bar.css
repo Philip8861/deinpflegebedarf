@@ -1,15 +1,13 @@
-/* PflegeShop — Service-Leiste (schlanke Einzeile, Original-Schriftgröße) */
-/* Oberer Headerbalken: feste Farbe (Token --pflege-bg-soft würde auf der Startseite sonst #eef6ff erzwingen) */
+/* PflegeShop — Service-Leiste (schlanke Einzeile) */
 
-/* Kein weißer Streifen oben (Safe-Area + Hintergrund am Header-Stack) */
 .shopify-section-group-header-group {
   background-color: #f0f5fb;
-  padding-top: env(safe-area-inset-top, 0px);
 }
 
 .shopify-section.pflege-service-bar-section {
   margin: 0;
   padding: 0;
+  padding-top: env(safe-area-inset-top, 0px);
   background-color: #f0f5fb;
 }
 
@@ -18,18 +16,17 @@
   border-bottom: 1px solid var(--pflege-border, #e5eef8);
   --pflege-service-hover-glow: 88, 145, 215;
   margin: 0;
-  padding-top: 0;
-  /* Dawn .page-width: nur horizontaler Innenabstand, kein vertikales Padding */
-  padding-bottom: 0;
+  padding: 0;
 }
 
 .pflege-service-bar .pflege-service-bar__inner.page-width {
   margin: 0 auto;
-  padding-top: 0.2rem;
-  padding-bottom: 0.2rem;
-  padding-left: max(1rem, env(safe-area-inset-left, 0px));
-  padding-right: max(1rem, env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
+  height: 2rem;
   min-height: 0;
+  max-height: 2rem;
+  padding: 0 max(1rem, env(safe-area-inset-right, 0px));
+  padding-left: max(1rem, env(safe-area-inset-left, 0px));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -57,7 +54,6 @@
   flex: 0 0 auto;
 }
 
-/* Zeile: Icon + Text — eine Zeile, kein Umbruch (wie früher) */
 .pflege-service-bar__body {
   display: inline-flex;
   align-items: center;
@@ -65,12 +61,26 @@
   margin: 0;
   padding: 0;
   font-size: clamp(0.98rem, 0.18vw + 0.9rem, 1.08rem);
+  font-weight: 500;
   font-synthesis: none;
-  line-height: 1.22;
+  line-height: 1;
   color: rgba(11, 35, 71, 0.88);
   white-space: nowrap;
   text-align: left;
   flex: 0 0 auto;
+}
+
+.pflege-service-bar__text,
+.pflege-service-bar__body > .pflege-service-bar__text {
+  margin: 0;
+  padding: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  font-family: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  color: inherit;
+  white-space: nowrap;
 }
 
 .pflege-service-bar__copy,
@@ -78,7 +88,7 @@ a.pflege-service-bar__copy.pflege-service-bar__link {
   display: inline-flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.12em;
+  gap: 0.08em;
   margin: 0;
   padding: 0;
   font-family: inherit;
@@ -93,8 +103,8 @@ a.pflege-service-bar__copy.pflege-service-bar__link {
 
 .pflege-service-bar__line--main {
   font-size: inherit;
-  font-weight: 500;
-  line-height: 1.22;
+  font-weight: inherit;
+  line-height: 1.1;
   color: inherit;
   white-space: nowrap;
 }
@@ -102,16 +112,16 @@ a.pflege-service-bar__copy.pflege-service-bar__link {
 .pflege-service-bar__line--sub {
   font-size: 0.84em;
   font-weight: 400;
-  line-height: 1.32;
+  line-height: 1.1;
   color: inherit;
   opacity: 0.68;
 }
 
-.pflege-service-bar__body a.pflege-service-bar__copy {
+.pflege-service-bar__body a.pflege-service-bar__copy,
+.pflege-service-bar__body a.pflege-service-bar__text {
   cursor: pointer;
 }
 
-/* Globale Link-Styles aus Dawn nicht vergrößern den Tel-Link */
 .pflege-service-bar a.pflege-service-bar__link {
   font-size: inherit !important;
   font-weight: inherit !important;
@@ -153,11 +163,10 @@ a.pflege-service-bar__copy.pflege-service-bar__link {
   text-decoration-color: currentColor;
 }
 
-/* Icons etwas zurückhaltender */
 .pflege-service-bar__body .pflege-icon {
   flex-shrink: 0;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -167,17 +176,16 @@ a.pflege-service-bar__copy.pflege-service-bar__link {
 
 .pflege-service-bar__body .pflege-icon svg {
   display: block;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   flex-shrink: 0;
   vertical-align: middle;
 }
 
-/* Startseite: Hinweise kurz nacheinander reinfahren + kurz aufleuchten */
 @keyframes pflege-service-bar-body-intro {
   0% {
     opacity: 0;
-    transform: translateY(0.7rem);
+    transform: translateY(0.35rem);
     filter: brightness(1);
   }
   22% {
