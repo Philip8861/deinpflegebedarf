@@ -1,7 +1,7 @@
 /* PflegeShop — Service-Leiste (Höhe: Basis 3rem × 1,1 × 1,05; Text ca. +10 %) */
 /* Oberer Headerbalken: feste Farbe (Token --pflege-bg-soft würde auf der Startseite sonst #eef6ff erzwingen) */
 
-/* Header-Stack: durchgehend ohne weiße Lücke oben oder zwischen Service-Leiste und Hauptleiste */
+/* Kein weißer Streifen oben (Safe-Area + Hintergrund am Header-Stack) */
 .shopify-section-group-header-group {
   background-color: #f0f5fb;
   padding-top: env(safe-area-inset-top, 0px);
@@ -23,24 +23,23 @@
 
 .pflege-service-bar .pflege-service-bar__inner.page-width {
   margin: 0 auto;
-  padding-top: 0.2rem;
-  padding-bottom: 0.2rem;
+  padding-top: 0;
+  padding-bottom: 0;
   padding-left: max(1rem, env(safe-area-inset-left, 0px));
   padding-right: max(1rem, env(safe-area-inset-right, 0px));
-  /* ~50 % der früheren Mindesthöhe (3.05 × 1.08 × 1.05 rem) */
-  min-height: calc(3.05rem * 1.08 * 1.05 / 2);
+  min-height: calc(3.05rem * 1.08 * 1.05);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 0.28rem clamp(0.55rem, 2.5vw, 1.35rem);
-  row-gap: 0.28rem;
+  gap: 0.55rem clamp(0.75rem, 3.5vw, 2rem);
+  row-gap: 0.5rem;
 }
 
 @media screen and (min-width: 990px) {
   .pflege-service-bar .pflege-service-bar__inner.page-width {
     justify-content: center;
-    gap: 0.32rem clamp(0.65rem, 3vw, 1.5rem);
+    gap: 0.65rem clamp(1rem, 4vw, 2.5rem);
     flex-wrap: nowrap;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -57,12 +56,12 @@
 .pflege-service-bar__body {
   display: inline-flex;
   align-items: center;
-  gap: 0.28rem;
+  gap: 0.4rem;
   margin: 0;
   padding: 0;
-  font-size: clamp(0.72rem, 0.1vw + 0.66rem, 0.82rem);
+  font-size: clamp(0.98rem, 0.18vw + 0.9rem, 1.08rem);
   font-synthesis: none;
-  line-height: 1.18;
+  line-height: 1.28;
   color: rgba(11, 35, 71, 0.88);
   white-space: normal;
   text-align: left;
@@ -74,7 +73,7 @@ a.pflege-service-bar__copy.pflege-service-bar__link {
   display: inline-flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.06em;
+  gap: 0.12em;
   margin: 0;
   padding: 0;
   font-family: inherit;
