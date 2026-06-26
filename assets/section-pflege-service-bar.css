@@ -1,4 +1,4 @@
-/* PflegeShop — Service-Leiste (Höhe: Basis 3rem × 1,1 × 1,05; Text ca. +10 %) */
+/* PflegeShop — Service-Leiste (schlanke Einzeile, Original-Schriftgröße) */
 /* Oberer Headerbalken: feste Farbe (Token --pflege-bg-soft würde auf der Startseite sonst #eef6ff erzwingen) */
 
 /* Kein weißer Streifen oben (Safe-Area + Hintergrund am Header-Stack) */
@@ -23,17 +23,17 @@
 
 .pflege-service-bar .pflege-service-bar__inner.page-width {
   margin: 0 auto;
-  padding-top: 0;
-  padding-bottom: 0;
+  padding-top: 0.3125rem;
+  padding-bottom: 0.3125rem;
   padding-left: max(1rem, env(safe-area-inset-left, 0px));
   padding-right: max(1rem, env(safe-area-inset-right, 0px));
-  min-height: calc(3.05rem * 1.08 * 1.05);
+  min-height: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 0.55rem clamp(0.75rem, 3.5vw, 2rem);
-  row-gap: 0.5rem;
+  gap: 0.4rem clamp(0.75rem, 3.5vw, 2rem);
+  row-gap: 0.35rem;
 }
 
 @media screen and (min-width: 990px) {
@@ -56,12 +56,12 @@
 .pflege-service-bar__body {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.35rem;
   margin: 0;
   padding: 0;
   font-size: clamp(0.98rem, 0.18vw + 0.9rem, 1.08rem);
   font-synthesis: none;
-  line-height: 1.28;
+  line-height: 1.22;
   color: rgba(11, 35, 71, 0.88);
   white-space: normal;
   text-align: left;
