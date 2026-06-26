@@ -1,63 +1,72 @@
 ﻿{{ 'section-pflege-service-bar.css' | asset_url | stylesheet_tag }}
 
 {%- comment -%}
-  Inline-Critical: greift immer (auch bei CDN-Cache), korrigiert globalen UI-Zoom (110 %).
+  Inline per Section-ID: höchste Spezifität, kein Safe-Area-Padding (war Hauptursache für dicken Balken auf Mobil).
 {%- endcomment -%}
 <style id="pflege-service-bar-critical-{{ section.id }}">
-  .shopify-section.pflege-service-bar-section {
-    zoom: calc(1 / var(--pflege-ui-scale, 1.1));
+  #shopify-section-{{ section.id }} {
     margin: 0 !important;
     padding: 0 !important;
-    padding-top: env(safe-area-inset-top, 0px) !important;
+    max-height: 31px !important;
+    overflow: hidden !important;
+    background-color: #f0f5fb !important;
+    zoom: calc(1 / var(--pflege-ui-scale, 1.1));
+  }
+
+  #shopify-section-{{ section.id }} .pflege-service-bar {
+    margin: 0 !important;
+    padding: 0 !important;
+    max-height: 31px !important;
+    overflow: hidden !important;
     background-color: #f0f5fb !important;
   }
 
-  .pflege-service-bar .pflege-service-bar__inner.page-width {
+  #shopify-section-{{ section.id }} .pflege-service-bar__inner.page-width {
     box-sizing: border-box !important;
     height: 30px !important;
     max-height: 30px !important;
-    min-height: 0 !important;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
+    min-height: 30px !important;
+    padding: 0 max(1rem, env(safe-area-inset-right, 0px)) !important;
+    padding-left: max(1rem, env(safe-area-inset-left, 0px)) !important;
     margin: 0 auto !important;
     display: flex !important;
     align-items: center !important;
     flex-wrap: nowrap !important;
-    overflow-x: auto !important;
+    overflow: hidden !important;
     scrollbar-width: none !important;
   }
 
-  .pflege-service-bar .pflege-service-bar__inner.page-width::-webkit-scrollbar {
-    display: none !important;
-  }
-
-  .pflege-service-bar__body,
-  .pflege-service-bar__text,
-  .pflege-service-bar a.pflege-service-bar__link {
+  #shopify-section-{{ section.id }} .pflege-service-bar__body,
+  #shopify-section-{{ section.id }} .pflege-service-bar__text,
+  #shopify-section-{{ section.id }} a.pflege-service-bar__link {
     font-size: 14px !important;
-    line-height: 1 !important;
+    line-height: 16px !important;
     font-weight: 500 !important;
     white-space: nowrap !important;
   }
 
-  .pflege-service-bar__body .pflege-icon,
-  .pflege-service-bar__body .pflege-icon svg {
+  #shopify-section-{{ section.id }} .pflege-service-bar__body .pflege-icon,
+  #shopify-section-{{ section.id }} .pflege-service-bar__body .pflege-icon svg {
     width: 16px !important;
     height: 16px !important;
   }
 </style>
 
 <section class="pflege-service-bar" aria-label="Service-Hinweise">
-  <div class="pflege-service-bar__inner page-width">
+  <div
+    class="pflege-service-bar__inner page-width"
+    style="height:30px;max-height:30px;min-height:30px;padding-top:0;padding-bottom:0;overflow:hidden;box-sizing:border-box;display:flex;align-items:center;flex-wrap:nowrap;"
+  >
     {%- for block in section.blocks -%}
       <div class="pflege-service-bar__item" {{ block.shopify_attributes }}>
-        <span class="pflege-service-bar__body">
+        <span class="pflege-service-bar__body" style="font-size:14px;line-height:16px;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;margin:0;padding:0;">
           {% render 'pflege-icon', icon: block.settings.icon, width: 16 %}
           {%- if block.settings.subtext != blank -%}
             {%- if block.settings.link != blank -%}
               <a
                 href="{{ block.settings.link }}"
                 class="pflege-service-bar__copy pflege-service-bar__link{% if block.settings.link contains 'tel:' %} pflege-service-bar__link--tel{% endif %}"
+                style="font-size:14px;line-height:16px;margin:0;padding:0;"
                 {% if block.settings.link contains 'tel:' %}
                   aria-label="{{ block.settings.text | escape }} — {{ block.settings.subtext | escape }} — Anrufen"
                 {% endif %}
@@ -66,7 +75,7 @@
                 <span class="pflege-service-bar__line pflege-service-bar__line--sub">{{ block.settings.subtext | escape }}</span>
               </a>
             {%- else -%}
-              <span class="pflege-service-bar__copy">
+              <span class="pflege-service-bar__copy" style="font-size:14px;line-height:16px;margin:0;padding:0;">
                 <span class="pflege-service-bar__line pflege-service-bar__line--main">{{ block.settings.text | escape }}</span>
                 <span class="pflege-service-bar__line pflege-service-bar__line--sub">{{ block.settings.subtext | escape }}</span>
               </span>
@@ -75,6 +84,7 @@
             <a
               href="{{ block.settings.link }}"
               class="pflege-service-bar__text pflege-service-bar__link{% if block.settings.link contains 'tel:' %} pflege-service-bar__link--tel{% endif %}"
+              style="font-size:14px;line-height:16px;margin:0;padding:0;"
               {% if block.settings.link contains 'tel:' %}
                 aria-label="{{ block.settings.text | escape }} — Anrufen"
               {% endif %}
@@ -82,7 +92,7 @@
               {{- block.settings.text | escape -}}
             </a>
           {%- else -%}
-            <span class="pflege-service-bar__text">{{ block.settings.text | escape }}</span>
+            <span class="pflege-service-bar__text" style="font-size:14px;line-height:16px;margin:0;padding:0;">{{ block.settings.text | escape }}</span>
           {%- endif -%}
         </span>
       </div>

@@ -7,7 +7,8 @@
 .shopify-section.pflege-service-bar-section {
   margin: 0;
   padding: 0;
-  padding-top: env(safe-area-inset-top, 0px);
+  max-height: 31px;
+  overflow: hidden;
   background-color: #f0f5fb;
   zoom: calc(1 / var(--pflege-ui-scale, 1.1));
 }
@@ -18,13 +19,15 @@
   --pflege-service-hover-glow: 88, 145, 215;
   margin: 0;
   padding: 0;
+  max-height: 31px;
+  overflow: hidden;
 }
 
 .pflege-service-bar .pflege-service-bar__inner.page-width {
   margin: 0 auto;
   box-sizing: border-box;
   height: 30px;
-  min-height: 0;
+  min-height: 30px;
   max-height: 30px;
   padding: 0 max(1rem, env(safe-area-inset-right, 0px));
   padding-left: max(1rem, env(safe-area-inset-left, 0px));
@@ -32,9 +35,7 @@
   align-items: center;
   justify-content: center;
   flex-wrap: nowrap;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
+  overflow: hidden;
   gap: 0.45rem clamp(0.65rem, 3vw, 1.75rem);
 }
 
