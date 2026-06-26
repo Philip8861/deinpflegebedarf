@@ -1,4 +1,4 @@
-{{ 'section-pflege-contact-page.css' | asset_url | stylesheet_tag }}
+﻿{{ 'section-pflege-contact-page.css' | asset_url | stylesheet_tag }}
 {{ 'component-pflege-contact-portrait.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'pflege-contact-success.js' | asset_url }}" defer="defer"></script>
 
@@ -14,7 +14,7 @@
 
   assign phone_href = section.settings.phone_link | strip
   if phone_href == blank
-    assign phone_href = 'tel:+4983349893330'
+    assign phone_href = 'tel:+4977339488820'
   endif
 -%}
 
@@ -401,7 +401,7 @@
       "type": "textarea",
       "id": "box_hours_text",
       "label": "Karte: Öffnungszeiten / Hinweis",
-      "default": "Mo.–Fr. 08:30 – 16:00 Uhr (telefonisch)"
+      "default": "Mo.–Do.: 8:30–16:00 Uhr, Freitag: 8:30–12:00 Uhr (telefonisch)"
     },
     {
       "type": "text",
@@ -413,14 +413,14 @@
       "type": "text",
       "id": "phone",
       "label": "Telefon (Anzeige)",
-      "default": "08334 / 9893330"
+      "default": "07733 / 9488820"
     },
     {
       "type": "text",
       "id": "phone_link",
       "label": "Telefon-Link",
-      "info": "Leer = automatisch tel:+49… aus der Anzeige. Oder z. B. tel:+4983349893330",
-      "default": "tel:+4983349893330"
+      "info": "Leer = automatisch tel:+49… aus der Anzeige. Oder z. B. tel:+4977339488820",
+      "default": "tel:+4977339488820"
     },
     {
       "type": "text",
@@ -546,10 +546,10 @@
       "name": "PflegeShop Kontakt",
       "settings": {
         "box_hours_title": "Erreichbarkeit",
-        "box_hours_text": "Mo.–Fr. 08:30 – 16:00 Uhr (telefonisch)",
+        "box_hours_text": "Mo.–Do.: 8:30–16:00 Uhr, Freitag: 8:30–12:00 Uhr (telefonisch)",
         "box_contact_title": "Direkt erreichen",
-        "phone": "08334 / 9893330",
-        "phone_link": "tel:+4983349893330"
+        "phone": "07733 / 9488820",
+        "phone_link": "tel:+4977339488820"
       }
     }
   ]
