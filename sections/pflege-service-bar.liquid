@@ -4,26 +4,28 @@
   Inline per Section-ID: höchste Spezifität, kein Safe-Area-Padding (war Hauptursache für dicken Balken auf Mobil).
 {%- endcomment -%}
 <style id="pflege-service-bar-critical-{{ section.id }}">
-  #shopify-section-{{ section.id }} {
-    margin: 0 !important;
-    padding: 0 !important;
-    background-color: #f0f5fb !important;
-    zoom: calc(1 / var(--pflege-ui-scale, 1.1));
-  }
-
+  #shopify-section-{{ section.id }},
   #shopify-section-{{ section.id }} .pflege-service-bar {
     margin: 0 !important;
     padding: 0 !important;
+    height: 31px !important;
+    max-height: 31px !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
     background-color: #f0f5fb !important;
+    line-height: 0 !important;
   }
 
   #shopify-section-{{ section.id }} .pflege-service-bar__inner.page-width {
     box-sizing: border-box !important;
     height: 30px !important;
     max-height: 30px !important;
-    min-height: 30px !important;
-    padding: 0 max(1rem, env(safe-area-inset-right, 0px)) !important;
+    min-height: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
     padding-left: max(1rem, env(safe-area-inset-left, 0px)) !important;
+    padding-right: max(1rem, env(safe-area-inset-right, 0px)) !important;
     margin: 0 auto !important;
     display: flex !important;
     align-items: center !important;
@@ -31,6 +33,14 @@
     overflow-x: auto !important;
     overflow-y: hidden !important;
     scrollbar-width: none !important;
+    line-height: normal !important;
+    gap: 0.45rem clamp(0.65rem, 3vw, 1.75rem) !important;
+  }
+
+  #shopify-section-{{ section.id }} .pflege-service-bar__item {
+    flex: 0 0 auto !important;
+    max-height: 16px !important;
+    line-height: 16px !important;
   }
 
   #shopify-section-{{ section.id }} .pflege-service-bar__body,
@@ -38,24 +48,29 @@
   #shopify-section-{{ section.id }} a.pflege-service-bar__link {
     font-size: 14px !important;
     line-height: 16px !important;
+    max-height: 16px !important;
     font-weight: 500 !important;
     white-space: nowrap !important;
     opacity: 1 !important;
     visibility: visible !important;
     color: rgba(11, 35, 71, 0.88) !important;
+    animation: none !important;
+    transform: none !important;
+    filter: none !important;
   }
 
   #shopify-section-{{ section.id }} .pflege-service-bar__body .pflege-icon,
   #shopify-section-{{ section.id }} .pflege-service-bar__body .pflege-icon svg {
     width: 16px !important;
     height: 16px !important;
+    max-height: 16px !important;
   }
 </style>
 
-<section class="pflege-service-bar" aria-label="Service-Hinweise">
+<section class="pflege-service-bar" aria-label="Service-Hinweise" style="height:31px;max-height:31px;overflow:hidden;margin:0;padding:0;box-sizing:border-box;">
   <div
     class="pflege-service-bar__inner page-width"
-    style="height:30px;max-height:30px;min-height:30px;padding-top:0;padding-bottom:0;overflow-x:auto;overflow-y:hidden;box-sizing:border-box;display:flex;align-items:center;flex-wrap:nowrap;"
+    style="height:30px;max-height:30px;min-height:0;padding:0;margin:0 auto;overflow-x:auto;overflow-y:hidden;box-sizing:border-box;display:flex;align-items:center;flex-wrap:nowrap;line-height:normal;"
   >
     {%- for block in section.blocks -%}
       <div class="pflege-service-bar__item" {{ block.shopify_attributes }}>
@@ -66,7 +81,7 @@
               <a
                 href="{{ block.settings.link }}"
                 class="pflege-service-bar__copy pflege-service-bar__link{% if block.settings.link contains 'tel:' %} pflege-service-bar__link--tel{% endif %}"
-                style="font-size:14px;line-height:16px;margin:0;padding:0;"
+                style="font-size:14px;line-height:16px;margin:0;padding:0;color:rgba(11,35,71,0.88);"
                 {% if block.settings.link contains 'tel:' %}
                   aria-label="{{ block.settings.text | escape }} — {{ block.settings.subtext | escape }} — Anrufen"
                 {% endif %}
@@ -84,7 +99,7 @@
             <a
               href="{{ block.settings.link }}"
               class="pflege-service-bar__text pflege-service-bar__link{% if block.settings.link contains 'tel:' %} pflege-service-bar__link--tel{% endif %}"
-              style="font-size:14px;line-height:16px;margin:0;padding:0;"
+              style="font-size:14px;line-height:16px;margin:0;padding:0;color:rgba(11,35,71,0.88);"
               {% if block.settings.link contains 'tel:' %}
                 aria-label="{{ block.settings.text | escape }} — Anrufen"
               {% endif %}
@@ -92,7 +107,7 @@
               {{- block.settings.text | escape -}}
             </a>
           {%- else -%}
-            <span class="pflege-service-bar__text" style="font-size:14px;line-height:16px;margin:0;padding:0;">{{ block.settings.text | escape }}</span>
+            <span class="pflege-service-bar__text" style="font-size:14px;line-height:16px;margin:0;padding:0;color:rgba(11,35,71,0.88);">{{ block.settings.text | escape }}</span>
           {%- endif -%}
         </span>
       </div>
