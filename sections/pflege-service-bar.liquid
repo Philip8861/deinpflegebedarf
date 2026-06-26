@@ -4,12 +4,30 @@
   Inline per Section-ID: höchste Spezifität, kein Safe-Area-Padding (war Hauptursache für dicken Balken auf Mobil).
 {%- endcomment -%}
 <style id="pflege-service-bar-critical-{{ section.id }}">
+  #shopify-section-{{ section.id }} {
+    --pflege-svc-font: clamp(11px, 2.75vw, 14px);
+    --pflege-svc-line: clamp(13px, 3.1vw, 16px);
+    --pflege-svc-icon: clamp(12px, 2.65vw, 16px);
+    --pflege-svc-bar-h: 31px;
+    --pflege-svc-inner-h: 30px;
+    --pflege-svc-gap: clamp(0.35rem, 2.5vw, 0.65rem);
+  }
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} {
+      --pflege-svc-font: 14px;
+      --pflege-svc-line: 16px;
+      --pflege-svc-icon: 16px;
+      --pflege-svc-gap: clamp(0.45rem, 3vw, 1.75rem);
+    }
+  }
+
   #shopify-section-{{ section.id }},
   #shopify-section-{{ section.id }} .pflege-service-bar {
     margin: 0 !important;
     padding: 0 !important;
-    height: 31px !important;
-    max-height: 31px !important;
+    height: var(--pflege-svc-bar-h) !important;
+    max-height: var(--pflege-svc-bar-h) !important;
     min-height: 0 !important;
     overflow: hidden !important;
     box-sizing: border-box !important;
@@ -19,13 +37,13 @@
 
   #shopify-section-{{ section.id }} .pflege-service-bar__inner.page-width {
     box-sizing: border-box !important;
-    height: 30px !important;
-    max-height: 30px !important;
+    height: var(--pflege-svc-inner-h) !important;
+    max-height: var(--pflege-svc-inner-h) !important;
     min-height: 0 !important;
     padding-top: 0 !important;
     padding-bottom: 0 !important;
-    padding-left: max(1rem, env(safe-area-inset-left, 0px)) !important;
-    padding-right: max(1rem, env(safe-area-inset-right, 0px)) !important;
+    padding-left: max(0.75rem, env(safe-area-inset-left, 0px)) !important;
+    padding-right: max(0.75rem, env(safe-area-inset-right, 0px)) !important;
     margin: 0 auto !important;
     display: flex !important;
     align-items: center !important;
@@ -34,21 +52,30 @@
     overflow-y: hidden !important;
     scrollbar-width: none !important;
     line-height: normal !important;
-    gap: 0.45rem clamp(0.65rem, 3vw, 1.75rem) !important;
+    gap: var(--pflege-svc-gap) !important;
+    justify-content: flex-start !important;
+  }
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .pflege-service-bar__inner.page-width {
+      padding-left: max(1rem, env(safe-area-inset-left, 0px)) !important;
+      padding-right: max(1rem, env(safe-area-inset-right, 0px)) !important;
+      justify-content: center !important;
+    }
   }
 
   #shopify-section-{{ section.id }} .pflege-service-bar__item {
     flex: 0 0 auto !important;
-    max-height: 16px !important;
-    line-height: 16px !important;
+    max-height: var(--pflege-svc-line) !important;
+    line-height: var(--pflege-svc-line) !important;
   }
 
   #shopify-section-{{ section.id }} .pflege-service-bar__body,
   #shopify-section-{{ section.id }} .pflege-service-bar__text,
   #shopify-section-{{ section.id }} a.pflege-service-bar__link {
-    font-size: 14px !important;
-    line-height: 16px !important;
-    max-height: 16px !important;
+    font-size: var(--pflege-svc-font) !important;
+    line-height: var(--pflege-svc-line) !important;
+    max-height: var(--pflege-svc-line) !important;
     font-weight: 500 !important;
     white-space: nowrap !important;
     opacity: 1 !important;
@@ -61,27 +88,23 @@
 
   #shopify-section-{{ section.id }} .pflege-service-bar__body .pflege-icon,
   #shopify-section-{{ section.id }} .pflege-service-bar__body .pflege-icon svg {
-    width: 16px !important;
-    height: 16px !important;
-    max-height: 16px !important;
+    width: var(--pflege-svc-icon) !important;
+    height: var(--pflege-svc-icon) !important;
+    max-height: var(--pflege-svc-icon) !important;
   }
 </style>
 
-<section class="pflege-service-bar" aria-label="Service-Hinweise" style="height:31px;max-height:31px;overflow:hidden;margin:0;padding:0;box-sizing:border-box;">
-  <div
-    class="pflege-service-bar__inner page-width"
-    style="height:30px;max-height:30px;min-height:0;padding:0;margin:0 auto;overflow-x:auto;overflow-y:hidden;box-sizing:border-box;display:flex;align-items:center;flex-wrap:nowrap;line-height:normal;"
-  >
+<section class="pflege-service-bar" aria-label="Service-Hinweise">
+  <div class="pflege-service-bar__inner page-width">
     {%- for block in section.blocks -%}
       <div class="pflege-service-bar__item" {{ block.shopify_attributes }}>
-        <span class="pflege-service-bar__body" style="font-size:14px;line-height:16px;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;margin:0;padding:0;color:rgba(11,35,71,0.88);opacity:1;visibility:visible;">
+        <span class="pflege-service-bar__body">
           {% render 'pflege-icon', icon: block.settings.icon, width: 16 %}
           {%- if block.settings.subtext != blank -%}
             {%- if block.settings.link != blank -%}
               <a
                 href="{{ block.settings.link }}"
                 class="pflege-service-bar__copy pflege-service-bar__link{% if block.settings.link contains 'tel:' %} pflege-service-bar__link--tel{% endif %}"
-                style="font-size:14px;line-height:16px;margin:0;padding:0;color:rgba(11,35,71,0.88);"
                 {% if block.settings.link contains 'tel:' %}
                   aria-label="{{ block.settings.text | escape }} — {{ block.settings.subtext | escape }} — Anrufen"
                 {% endif %}
@@ -90,7 +113,7 @@
                 <span class="pflege-service-bar__line pflege-service-bar__line--sub">{{ block.settings.subtext | escape }}</span>
               </a>
             {%- else -%}
-              <span class="pflege-service-bar__copy" style="font-size:14px;line-height:16px;margin:0;padding:0;">
+              <span class="pflege-service-bar__copy">
                 <span class="pflege-service-bar__line pflege-service-bar__line--main">{{ block.settings.text | escape }}</span>
                 <span class="pflege-service-bar__line pflege-service-bar__line--sub">{{ block.settings.subtext | escape }}</span>
               </span>
