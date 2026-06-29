@@ -371,6 +371,31 @@
   }
 }
 
+.pflege-pflegesets__empty {
+  grid-column: 1 / -1;
+  max-width: 36rem;
+  margin: 0 auto;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border-radius: var(--pflege-radius-lg, 22px);
+  border: 1px dashed var(--pflege-border, #c5d4e8);
+  background: var(--pflege-bg-softer, #f5faff);
+  text-align: center;
+}
+
+.pflege-pflegesets__empty-title {
+  margin: 0 0 0.65rem;
+  font-size: clamp(1.05rem, 0.95rem + 0.35vw, 1.2rem);
+  font-weight: 800;
+  color: var(--pflege-navy, #0b2347);
+}
+
+.pflege-pflegesets__empty-text {
+  margin: 0;
+  font-size: clamp(0.95rem, 0.88rem + 0.25vw, 1.05rem);
+  line-height: 1.55;
+  color: var(--pflege-navy-soft, #3d4f6b);
+}
+
 /* Kategorie-Karten im Pflegesets-Raster — gleiche Optik wie Kategorieseiten, größere Kacheln */
 .pflege-pflegesets--category .pflege-cat-card {
   min-width: 0;

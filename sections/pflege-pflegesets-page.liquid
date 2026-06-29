@@ -2,19 +2,6 @@
 {{ 'section-pflege-category-filtered.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
-  assign slot_handles = section.settings.handle_1 | default: 'pflegeset-grosse-s' | append: '|||'
-  assign slot_handles = slot_handles | append: section.settings.handle_2 | default: 'pflegeset-grosse-l' | append: '|||'
-  assign slot_handles = slot_handles | append: section.settings.handle_3 | default: 'pflegeset-grosse-m'
-  assign slot_handles = slot_handles | split: '|||'
-
-  assign pflege_col = section.settings.pflegesets_collection
-  if pflege_col == blank and collection != blank and collection.handle == 'pflegesets' and collection.all_products_count > 0
-    assign pflege_col = collection
-  endif
-  if pflege_col == blank and collections['pflegesets'] != blank and collections['pflegesets'].all_products_count > 0
-    assign pflege_col = collections['pflegesets']
-  endif
-
   assign pfs_heading = section.settings.heading | strip
   assign pfs_sub = section.settings.subheading | strip
 -%}
@@ -34,75 +21,10 @@
       {%- endif -%}
 
       <div class="pflege-pflegesets__grid">
-        {%- for handle_raw in slot_handles -%}
-          {%- assign handle = handle_raw | strip -%}
-          {%- liquid
-            assign card_product = nil
-            assign slot_index = forloop.index
-
-            case slot_index
-              when 1
-                if section.settings.product_1 != blank
-                  assign card_product = section.settings.product_1
-                endif
-                assign disp_title = section.settings.display_title_1 | strip
-              when 2
-                if section.settings.product_2 != blank
-                  assign card_product = section.settings.product_2
-                endif
-                assign disp_title = section.settings.display_title_2 | strip
-              when 3
-                if section.settings.product_3 != blank
-                  assign card_product = section.settings.product_3
-                endif
-                assign disp_title = section.settings.display_title_3 | strip
-            endcase
-
-            if card_product == blank and pflege_col != blank
-              for col_product in pflege_col.products
-                if col_product.handle == handle
-                  assign card_product = col_product
-                  break
-                endif
-              endfor
-            endif
-
-            if card_product == blank and pflege_col != blank
-              for col_product in pflege_col.products limit: 3
-                if forloop.index == slot_index
-                  assign card_product = col_product
-                  break
-                endif
-              endfor
-            endif
-
-            if card_product == blank
-              assign card_product = all_products[handle]
-            endif
-
-            if card_product == blank
-              assign alt_h = handle | replace: 'grosse', 'groesse'
-              if alt_h != handle
-                assign card_product = all_products[alt_h]
-              endif
-            endif
-
-            if card_product == blank
-              assign alt_h = handle | replace: 'groesse', 'grosse'
-              if alt_h != handle
-                assign card_product = all_products[alt_h]
-              endif
-            endif
-          -%}
-
-          {%- if card_product != blank -%}
-            {% render 'pflege-cat-card',
-              card_product: card_product,
-              list_item: false,
-              card_title_override: disp_title
-            %}
-          {%- endif -%}
-        {%- endfor -%}
+        {% render 'pflege-pflegesets-grid',
+          pfs_section: section,
+          card_style: 'category'
+        %}
       </div>
     </div>
   </div>
@@ -116,7 +38,7 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Zeigt die 3 Pflegesets als Kategorie-Karten (wie Hautpflege, Körperpflege). Kollektion „pflegesets“ mit allen 3 Produkten wählen — sonst fehlen Karten."
+      "content": "Datenquelle: Kollektion „pflegesets“ mit genau 3 Set-Produkten (S, L, M). Die Kollektion ist Pflicht — ohne sie werden auf Seiten keine Produkte geladen."
     },
     {
       "type": "text",
@@ -134,22 +56,22 @@
       "type": "collection",
       "id": "pflegesets_collection",
       "label": "Kollektion mit den 3 Pflegesets",
-      "info": "Empfohlen: Kollektion „pflegesets“ mit Set S, L und M."
+      "info": "Handle empfohlen: pflegesets"
     },
     {
       "type": "product",
       "id": "product_1",
-      "label": "Produkt Kachel 1 (optional)"
+      "label": "Produkt Kachel 1 (Fallback)"
     },
     {
       "type": "product",
       "id": "product_2",
-      "label": "Produkt Kachel 2 (optional)"
+      "label": "Produkt Kachel 2 (Fallback)"
     },
     {
       "type": "product",
       "id": "product_3",
-      "label": "Produkt Kachel 3 (optional)"
+      "label": "Produkt Kachel 3 (Fallback)"
     },
     {
       "type": "text",
