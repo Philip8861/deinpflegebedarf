@@ -2,20 +2,6 @@
 
 {%- liquid
   assign card_style = section.settings.card_style | default: 'category'
-  assign is_pflegesets_page = false
-  if template.suffix == 'pflegesets'
-    assign is_pflegesets_page = true
-  endif
-  if request.page_type == 'page' and page != blank and page.handle == 'pflegesets'
-    assign is_pflegesets_page = true
-  endif
-  if request.page_type == 'collection' and collection != blank and collection.handle == 'pflegesets'
-    assign is_pflegesets_page = true
-  endif
-  if is_pflegesets_page
-    assign card_style = 'category'
-  endif
-
   assign ha = section.settings.handle_1 | default: 'pflegeset-grosse-s' | strip
   assign hb = section.settings.handle_2 | default: 'pflegeset-grosse-l' | strip
   assign hc = section.settings.handle_3 | default: 'pflegeset-grosse-m' | strip
@@ -28,17 +14,9 @@
   if badge_label == blank
     assign badge_label = 'Sie sparen 10%'
   endif
-  assign promo_badge = badge_label
-  if card_style == 'category'
-    assign promo_badge = ''
-  endif
-
   assign pflege_col = section.settings.pflegesets_collection
   if pflege_col == blank and collection != blank and collection.handle == 'pflegesets' and collection.all_products_count > 0
     assign pflege_col = collection
-  endif
-  if pflege_col == blank and collections['pflegesets'] != blank and collections['pflegesets'].all_products_count > 0
-    assign pflege_col = collections['pflegesets']
   endif
   assign use_collection = false
   if pflege_col != blank and pflege_col.all_products_count > 0
@@ -108,16 +86,14 @@
                   assign disp_title = section.settings.display_title_3 | strip
               endcase
             -%}
-            {% if card_style == 'category' %}
-              {%- if card_product != blank -%}
-                {% render 'pflege-cat-card',
-                  card_product: card_product,
-                  list_item: false,
-                  promo_badge_label: promo_badge,
-                  promo_badge_variant: 'tip',
-                  card_title_override: disp_title
-                %}
-              {%- endif -%}
+            {% if card_style == 'category' and card_product != blank %}
+              {% render 'pflege-cat-card',
+                card_product: card_product,
+                list_item: false,
+                promo_badge_label: badge_label,
+                promo_badge_variant: 'tip',
+                card_title_override: disp_title
+              %}
             {% else %}
               {% render 'pflege-pflegeset-card',
                 card_product: card_product,
@@ -163,23 +139,6 @@
                   assign card_product = all_products[alt_h]
                 endif
               endif
-              if card_product == blank and pflege_col != blank
-                for col_product in pflege_col.products limit: 3
-                  if col_product.handle == handle
-                    assign card_product = col_product
-                    break
-                  endif
-                endfor
-              endif
-              if card_product == blank and pflege_col != blank
-                assign slot_index = forloop.index
-                for col_product in pflege_col.products limit: 3
-                  if forloop.index == slot_index
-                    assign card_product = col_product
-                    break
-                  endif
-                endfor
-              endif
             -%}
             {%- liquid
               assign slot_setting = ''
@@ -210,16 +169,14 @@
                   assign disp_title = section.settings.display_title_3 | strip
               endcase
             -%}
-            {% if card_style == 'category' %}
-              {%- if card_product != blank -%}
-                {% render 'pflege-cat-card',
-                  card_product: card_product,
-                  list_item: false,
-                  promo_badge_label: promo_badge,
-                  promo_badge_variant: 'tip',
-                  card_title_override: disp_title
-                %}
-              {%- endif -%}
+            {% if card_style == 'category' and card_product != blank %}
+              {% render 'pflege-cat-card',
+                card_product: card_product,
+                list_item: false,
+                promo_badge_label: badge_label,
+                promo_badge_variant: 'tip',
+                card_title_override: disp_title
+              %}
             {% else %}
               {% render 'pflege-pflegeset-card',
                 card_product: card_product,
@@ -320,7 +277,7 @@
       "type": "collection",
       "id": "pflegesets_collection",
       "label": "Kollektion mit den Pflegesets (empfohlen)",
-      "info": "Pflicht für die Pflegesets-Seite: Kollektion „pflegesets“ mit den 3 Set-Produkten wählen — sonst fehlen Bilder und Kategorie-Karten."
+      "info": "Zeigt die ersten drei Artikel dieser Kollektion — umgeht all_products/Handle-Probleme. Leer = Handles / Produktauswahl unten."
     },
     {
       "type": "product",
