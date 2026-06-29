@@ -1,0 +1,19 @@
+{
+  "sections": {
+    "main": {
+      "type": "pflege-pflegesets-row",
+      "settings": {
+        "heading": "Pflegesets",
+        "subheading": "Entdecken Sie unsere 3 Pflegesets, die perfekt zu Ihrer Pflegesituation passen.",
+        "badge_text": "Sie sparen 10%",
+        "display_title_1": "Pflegebox Set Größe S",
+        "display_title_2": "Pflegebox Set Größe L",
+        "display_title_3": "Pflegebox Set Größe M",
+        "handle_1": "pflegeset-grosse-s",
+        "handle_2": "pflegeset-grosse-l",
+        "handle_3": "pflegeset-grosse-m"
+      }
+    }
+  },
+  "order": ["main"]
+}

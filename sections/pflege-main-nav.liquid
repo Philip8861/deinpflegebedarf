@@ -87,10 +87,12 @@
     assign url_free_care = root | append: 'collections/kostenfreie-pflegehilfsmittel'
   endif
 
-  if collections['pflegesets'] != blank
+  if pages['pflegesets'] != blank
+    assign url_pflegesets = pages['pflegesets'].url
+  elsif collections['pflegesets'] != blank
     assign url_pflegesets = collections['pflegesets'].url
   else
-    assign url_pflegesets = root | append: 'collections/pflegesets'
+    assign url_pflegesets = root | append: 'pages/pflegesets'
   endif
 
   assign finder_modal_href = section.settings.finder_promo_button_link | strip
@@ -141,6 +143,9 @@
   if request.page_type == 'page' and page != blank
     if page.handle == 'inkontinenzversorgung-auf-rezept' or page.handle == 'inkontinenzversrogung-auf-rezept'
       assign active_ink_rezept = true
+    endif
+    if page.handle == 'pflegesets'
+      assign active_pflegesets = true
     endif
   endif
 
