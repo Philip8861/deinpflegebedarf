@@ -1,20 +1,10 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "main": {
-      "type": "pflege-pflegesets-row",
+      "type": "pflege-pflegesets-page",
       "settings": {
         "heading": "Pflegesets",
         "subheading": "Entdecken Sie unsere 3 Pflegesets, die perfekt zu Ihrer Pflegesituation passen.",
-        "badge_text": "Sie sparen 10%",
         "display_title_1": "Pflegebox Set Größe S",
         "display_title_2": "Pflegebox Set Größe L",
         "display_title_3": "Pflegebox Set Größe M",
@@ -24,7 +14,5 @@
       }
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["main"]
 }
