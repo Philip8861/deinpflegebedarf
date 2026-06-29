@@ -1,0 +1,265 @@
+/* PflegeShop — Account-Landing (/pages/mein-konto) */
+
+.pflege-account-landing {
+  --pflege-al-navy: #0b2f55;
+  --pflege-al-heading: #07516d;
+  --pflege-al-muted: #66758d;
+  --pflege-al-border: #d7e1ec;
+  --pflege-al-bg: #ffffff;
+  --pflege-al-bg-soft: #f4f9ff;
+  --pflege-al-accent: #ff841a;
+  --pflege-al-accent-hover: #f97316;
+  --pflege-al-link: #0876d8;
+  --pflege-al-radius: 18px;
+  --pflege-al-radius-sm: 10px;
+  --pflege-al-shadow: 0 22px 55px rgba(20, 73, 110, 0.09);
+  font-family: var(--font-body-family), system-ui, sans-serif;
+  color: var(--pflege-al-navy);
+}
+
+.pflege-account-landing__backdrop {
+  background: linear-gradient(180deg, #f4f9ff 0%, #eef6ff 55%, #f8fbff 100%);
+  padding: clamp(1.5rem, 3vw, 2rem) max(1.25rem, env(safe-area-inset-right, 0px)) clamp(4rem, 8vw, 5.5rem)
+    max(1.25rem, env(safe-area-inset-left, 0px));
+  min-height: calc(100vh - 14rem);
+  box-sizing: border-box;
+}
+
+.pflege-account-landing__inner {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+/* Hero */
+.pflege-account-landing__hero {
+  background: var(--pflege-al-bg);
+  border: 1px solid rgba(216, 226, 238, 0.55);
+  border-radius: var(--pflege-al-radius);
+  box-shadow: var(--pflege-al-shadow);
+  padding: clamp(1.75rem, 4vw, 2.75rem) clamp(1.5rem, 4vw, 3rem);
+  text-align: center;
+}
+
+.pflege-account-landing__logo-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.pflege-account-landing__logo-link {
+  display: inline-flex;
+  line-height: 0;
+  text-decoration: none;
+}
+
+.pflege-account-landing__logo-img {
+  width: auto;
+  height: auto;
+  max-width: min(240px, 58vw);
+  max-height: 56px;
+  object-fit: contain;
+}
+
+.pflege-account-landing__title {
+  margin: 0;
+  color: var(--pflege-al-heading);
+  font-size: clamp(1.65rem, 3.5vw, 2rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.pflege-account-landing__subtitle {
+  margin: 0.75rem auto 0;
+  max-width: 38rem;
+  color: var(--pflege-al-muted);
+  font-size: clamp(0.9375rem, 1.8vw, 1.0625rem);
+  line-height: 1.55;
+  font-weight: 600;
+}
+
+.pflege-account-landing__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+}
+
+.pflege-account-landing__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 50px;
+  padding: 0 1.35rem;
+  border-radius: var(--pflege-al-radius-sm);
+  border: none;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+.pflege-account-landing__btn--primary {
+  background: var(--pflege-al-accent);
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(255, 127, 22, 0.2);
+}
+
+.pflege-account-landing__btn--primary:hover,
+.pflege-account-landing__btn--primary:focus-visible {
+  background: var(--pflege-al-accent-hover);
+  outline: none;
+}
+
+.pflege-account-landing__btn--secondary {
+  background: var(--pflege-al-bg);
+  border: 1px solid var(--pflege-al-border);
+  color: var(--pflege-al-navy);
+}
+
+.pflege-account-landing__btn--secondary:hover,
+.pflege-account-landing__btn--secondary:focus-visible {
+  background: #f8fbff;
+  border-color: #c8d8e8;
+  outline: none;
+}
+
+.pflege-account-landing__logged-hint {
+  margin: 1rem 0 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--pflege-al-muted);
+}
+
+/* Benefits */
+.pflege-account-landing__benefits {
+  margin-top: clamp(1.75rem, 3.5vw, 2.5rem);
+}
+
+.pflege-account-landing__benefits-title {
+  margin: 0 0 1.15rem;
+  text-align: center;
+  color: var(--pflege-al-heading);
+  font-size: 1.125rem;
+  font-weight: 800;
+}
+
+.pflege-account-landing__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.pflege-account-landing__card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 1.2rem 1.1rem;
+  border-radius: var(--pflege-al-radius-sm);
+  border: 1px solid rgba(216, 226, 238, 0.65);
+  background: var(--pflege-al-bg);
+  box-shadow: 0 10px 28px rgba(20, 73, 110, 0.05);
+}
+
+.pflege-account-landing__card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  background: var(--pflege-al-bg-soft);
+  color: #075f84;
+}
+
+.pflege-account-landing__card-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--pflege-al-navy);
+  line-height: 1.3;
+}
+
+.pflege-account-landing__card-text {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  font-weight: 600;
+  color: var(--pflege-al-muted);
+}
+
+/* Service */
+.pflege-account-landing__service {
+  margin-top: clamp(1.75rem, 3.5vw, 2.5rem);
+  padding: clamp(1.35rem, 3vw, 1.75rem);
+  border-radius: var(--pflege-al-radius);
+  border: 1px solid color-mix(in srgb, var(--pflege-al-link) 18%, var(--pflege-al-border));
+  background: linear-gradient(135deg, #eef7ff 0%, #f8fbff 100%);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+}
+
+.pflege-account-landing__service-copy {
+  flex: 1 1 16rem;
+  min-width: 0;
+}
+
+.pflege-account-landing__service-title {
+  margin: 0 0 0.4rem;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--pflege-al-heading);
+}
+
+.pflege-account-landing__service-text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  font-weight: 600;
+  color: var(--pflege-al-muted);
+  max-width: 36rem;
+}
+
+.pflege-account-landing__service .pflege-account-landing__btn {
+  flex-shrink: 0;
+}
+
+@media screen and (max-width: 1024px) {
+  .pflege-account-landing__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .pflege-account-landing__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pflege-account-landing__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .pflege-account-landing__btn {
+    width: 100%;
+  }
+
+  .pflege-account-landing__service {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .pflege-account-landing__service .pflege-account-landing__btn {
+    width: 100%;
+  }
+}

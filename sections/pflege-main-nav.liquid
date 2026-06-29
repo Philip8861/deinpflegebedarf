@@ -87,6 +87,12 @@
     assign url_free_care = root | append: 'collections/kostenfreie-pflegehilfsmittel'
   endif
 
+  if collections['pflegesets'] != blank
+    assign url_pflegesets = collections['pflegesets'].url
+  else
+    assign url_pflegesets = root | append: 'collections/pflegesets'
+  endif
+
   assign finder_modal_href = section.settings.finder_promo_button_link | strip
   assign finder_open_testpaket = false
   if finder_modal_href == blank
@@ -103,6 +109,7 @@
   assign active_skin = false
   assign active_gloves = false
   assign active_free_care = false
+  assign active_pflegesets = false
 
   if request.page_type == 'collection'
     case collection.handle
@@ -126,6 +133,8 @@
         assign active_gloves = true
       when 'kostenfreie-pflegehilfsmittel', 'pflegehilfsmittel-kostenfrei'
         assign active_free_care = true
+      when 'pflegesets'
+        assign active_pflegesets = true
     endcase
   endif
 
@@ -199,6 +208,17 @@
         endif
       endfor
     endif
+    if rail_cat == ''
+      for c in product.collections
+        if c.handle == 'pflegesets'
+          assign rail_cat = 'pflegesets'
+          break
+        endif
+      endfor
+    endif
+    if rail_cat == '' and product.handle contains 'pflegeset'
+      assign rail_cat = 'pflegesets'
+    endif
     case rail_cat
       when 'free_care'
         assign active_free_care = true
@@ -214,11 +234,13 @@
         assign active_des = true
       when 'ver'
         assign active_ver = true
+      when 'pflegesets'
+        assign active_pflegesets = true
     endcase
   endif
 
   assign category_nav_active = false
-  if active_des or active_pf or active_hh or active_ver or active_ink or active_ink_rezept or active_body or active_skin or active_gloves or active_free_care
+  if active_des or active_pf or active_hh or active_ver or active_ink or active_ink_rezept or active_body or active_skin or active_gloves or active_free_care or active_pflegesets
     assign category_nav_active = true
   endif
 -%}
@@ -586,6 +608,7 @@
         url_gloves: url_gloves,
         url_des: url_des,
         url_ver: url_ver,
+        url_pflegesets: url_pflegesets,
         active_free_care: active_free_care,
         active_ink: active_ink,
         active_ink_rezept: active_ink_rezept,
@@ -593,7 +616,8 @@
         active_skin: active_skin,
         active_gloves: active_gloves,
         active_des: active_des,
-        active_ver: active_ver
+        active_ver: active_ver,
+        active_pflegesets: active_pflegesets
       %}
     </ul>
 

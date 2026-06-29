@@ -390,7 +390,8 @@
       "cat_skin": "Skin care",
       "cat_gloves": "Protection & gloves",
       "cat_des": "Hand and surface disinfection",
-      "cat_consumables": "Consumables"
+      "cat_consumables": "Consumables",
+      "cat_pflegesets": "Care sets"
     },
     "pflege_collection_bottom_content": {
       "default_aria": "More information about this category"

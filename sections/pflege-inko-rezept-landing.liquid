@@ -1,4 +1,4 @@
-{% comment %}
+﻿{% comment %}
   Landingpage: Inkontinenzversorgung auf Rezept — Hero wie Startseite + Testpaket-Popup.
 {% endcomment %}
 {{ 'section-pflege-hero.css' | asset_url | stylesheet_tag }}
@@ -73,11 +73,9 @@
   </div>
 </section>
 
-{% render 'pflege-inko-testpaket-modal', section: section %}
-
 {% schema %}
 {
-  "name": "Inkontinenz Rezept Landing",
+  "name": "Inko Rezept Landing",
   "tag": "section",
   "class": "pflege-inko-rezept-landing-section",
   "enabled_on": {
@@ -161,13 +159,13 @@
       "type": "text",
       "id": "phone_number",
       "label": "Telefonnummer (Anzeige)",
-      "default": "08334 / 9893330"
+      "default": "07733 / 9488820"
     },
     {
       "type": "text",
       "id": "phone_link",
       "label": "Telefon-Link",
-      "default": "tel:+4983349893330"
+      "default": "tel:+4977339488820"
     },
     {
       "type": "textarea",
@@ -226,7 +224,7 @@
   ],
   "presets": [
     {
-      "name": "Inkontinenz Rezept Landing",
+      "name": "Inko Rezept Landing",
       "blocks": [
         {
           "type": "step",

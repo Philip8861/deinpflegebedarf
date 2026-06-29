@@ -1,6 +1,7 @@
 {% comment %}
   Gemeinsame Kategorielinks für Desktop-Leiste und Kategorienübersicht-Pop-up.
   Erwartet: variant ('rail' | 'modal'), url_*/active_* von sections/pflege-main-nav.liquid
+  Nur Modal: url_pflegesets, active_pflegesets (Pflegesets erscheint nicht in der Desktop-Kategorie-Reihe)
 {% endcomment %}
 {%- liquid
   assign link_variant = variant | default: 'modal'
@@ -223,3 +224,17 @@
     {% endif %}
   </a>
 </li>
+
+{%- if link_variant == 'modal' -%}
+<li class="pflege-category-modal__item">
+  <a
+    href="{{ url_pflegesets }}"
+    class="pflege-category-modal__link{% if active_pflegesets %} is-active{% endif %}"
+    data-category-modal-close
+    {% if active_pflegesets %}aria-current="page"{% endif %}
+  >
+    <span class="pflege-category-modal__link-icon" aria-hidden="true">{% render 'pflege-icon', icon: 'package', width: icon_w %}</span>
+    <span class="pflege-category-modal__link-label">{{ 'sections.pflege_header_category_rail.cat_pflegesets' | t }}</span>
+  </a>
+</li>
+{%- endif -%}

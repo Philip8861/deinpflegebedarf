@@ -30,6 +30,8 @@
         "data_source": "collection",
         "collection": "all",
         "products_to_show": 4,
+        "enable_second_row": true,
+        "second_row_products_to_show": 4,
         "columns_desktop": "4",
         "show_collection_rating": true,
         "view_all_label": "",

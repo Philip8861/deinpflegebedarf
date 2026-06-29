@@ -1,0 +1,86 @@
+/* PflegeShop — gemeinsame Kundenkonto-Variablen & Basis-Komponenten */
+
+.pflege-customer-login,
+.pflege-customer-account-page {
+  --pflege-ca-navy: #0b2f55;
+  --pflege-ca-heading: #07516d;
+  --pflege-ca-muted: #66758d;
+  --pflege-ca-border: #d7e1ec;
+  --pflege-ca-bg: #ffffff;
+  --pflege-ca-bg-soft: #f4f9ff;
+  --pflege-ca-bg-gradient: linear-gradient(180deg, #f4f9ff 0%, #eef6ff 100%);
+  --pflege-ca-accent: #ff841a;
+  --pflege-ca-accent-hover: #f97316;
+  --pflege-ca-link: #0876d8;
+  --pflege-ca-radius: 15px;
+  --pflege-ca-radius-sm: 8px;
+  --pflege-ca-shadow: 0 22px 55px rgba(20, 73, 110, 0.08);
+  --pflege-ca-shadow-soft: 0 18px 45px rgba(20, 73, 110, 0.04);
+  --pflege-ca-error-bg: #fff5f5;
+  --pflege-ca-error-border: #f5d0d0;
+  --pflege-ca-error-text: #8b2e2e;
+  --pflege-ca-success-bg: #f0faf4;
+  --pflege-ca-success-border: #c8e6d4;
+  --pflege-ca-success-text: #1e5c3a;
+  font-family: var(--font-body-family), system-ui, sans-serif;
+  color: var(--pflege-ca-navy);
+}
+
+.pflege-customer-login__backdrop,
+.pflege-customer-account-page__backdrop {
+  background: var(--pflege-ca-bg-gradient);
+  padding-top: clamp(1.75rem, 3vw, 2rem);
+  padding-bottom: clamp(4.5rem, 8vw, 5.625rem);
+  padding-left: max(1.25rem, env(safe-area-inset-left, 0px));
+  padding-right: max(1.25rem, env(safe-area-inset-right, 0px));
+  min-height: calc(100vh - 12rem);
+  box-sizing: border-box;
+}
+
+.pflege-customer-login__logo-wrap,
+.pflege-customer-account-page__logo-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: clamp(1.25rem, 2.5vw, 1.75rem);
+}
+
+.pflege-customer-login__logo-link,
+.pflege-customer-account-page__logo-link {
+  display: inline-flex;
+  line-height: 0;
+  text-decoration: none;
+}
+
+.pflege-customer-login__logo-img,
+.pflege-customer-account-page__logo-img {
+  width: auto;
+  height: auto;
+  max-width: min(220px, 52vw);
+  max-height: 52px;
+  object-fit: contain;
+}
+
+.pflege-customer-login__register-link,
+.pflege-customer-account-page__alt-link {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--pflege-ca-muted);
+  line-height: 1.5;
+}
+
+.pflege-customer-login__register-link a,
+.pflege-customer-account-page__alt-link a {
+  color: var(--pflege-ca-link);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.pflege-customer-login__register-link a:hover,
+.pflege-customer-login__register-link a:focus-visible,
+.pflege-customer-account-page__alt-link a:hover,
+.pflege-customer-account-page__alt-link a:focus-visible {
+  text-decoration: underline;
+  outline: none;
+}

@@ -122,7 +122,6 @@
             <a
               href="{{ block.settings.link }}"
               class="pflege-service-bar__text pflege-service-bar__link{% if block.settings.link contains 'tel:' %} pflege-service-bar__link--tel{% endif %}"
-              style="font-size:14px;line-height:16px;margin:0;padding:0;color:rgba(11,35,71,0.88);"
               {% if block.settings.link contains 'tel:' %}
                 aria-label="{{ block.settings.text | escape }} — Anrufen"
               {% endif %}
@@ -130,7 +129,7 @@
               {{- block.settings.text | escape -}}
             </a>
           {%- else -%}
-            <span class="pflege-service-bar__text" style="font-size:14px;line-height:16px;margin:0;padding:0;color:rgba(11,35,71,0.88);">{{ block.settings.text | escape }}</span>
+            <span class="pflege-service-bar__text">{{ block.settings.text | escape }}</span>
           {%- endif -%}
         </span>
       </div>

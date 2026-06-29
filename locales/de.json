@@ -383,7 +383,8 @@
       "cat_skin": "Hautpflege",
       "cat_gloves": "Schutz & Handschuhe",
       "cat_des": "Hände und Flächendesinfektion",
-      "cat_consumables": "Verbrauchsartikel"
+      "cat_consumables": "Verbrauchsartikel",
+      "cat_pflegesets": "Pflegesets"
     },
     "pflege_collection_bottom_content": {
       "default_aria": "Ausführliche Informationen zur Kategorie"

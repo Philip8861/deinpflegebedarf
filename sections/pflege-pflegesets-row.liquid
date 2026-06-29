@@ -14,6 +14,9 @@
     assign badge_label = 'Sie sparen 10%'
   endif
   assign pflege_col = section.settings.pflegesets_collection
+  if pflege_col == blank and collection != blank and collection.handle == 'pflegesets' and collection.all_products_count > 0
+    assign pflege_col = collection
+  endif
   assign use_collection = false
   if pflege_col != blank and pflege_col.all_products_count > 0
     assign use_collection = true
