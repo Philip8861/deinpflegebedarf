@@ -6,6 +6,9 @@
 
   if (typeof PflegeCategoryAttributes === 'undefined') return;
 
+  var PRICE_FILTER_MIN_CENTS = 0;
+  var PRICE_FILTER_MAX_CENTS = 15000;
+
   var BRAND_LABELS = {
     meditrade: 'Meditrade',
     seni: 'Seni',
@@ -911,14 +914,17 @@
     root.querySelectorAll('[data-pflege-cat-filter-form]').forEach(syncPriceRangeVisuals);
   }
 
+  function getPriceBounds() {
+    return { min: PRICE_FILTER_MIN_CENTS, max: PRICE_FILTER_MAX_CENTS };
+  }
+
   function renderPriceFilter(products, selected, priceBounds) {
     var minBound = priceBounds.min;
     var maxBound = priceBounds.max;
-    if (minBound === maxBound) return '';
 
     var currentMin = selected.priceMin != null ? selected.priceMin : minBound;
     var currentMax = selected.priceMax != null ? selected.priceMax : maxBound;
-    var step = Math.max(50, Math.round((maxBound - minBound) / 100));
+    var step = 100;
 
     return (
       '<details class="pflege-cat-filter__group" open data-filter-group-wrap="price">' +
@@ -967,20 +973,7 @@
 
   function renderFilters(container, products, selected, prefix, collapsible, filterGroups) {
     if (!container) return;
-    var priceBounds = {
-      min: Math.min.apply(
-        null,
-        products.map(function (p) {
-          return p.priceMin;
-        })
-      ),
-      max: Math.max.apply(
-        null,
-        products.map(function (p) {
-          return p.priceMax;
-        })
-      ),
-    };
+    var priceBounds = getPriceBounds();
 
     var html = '';
     filterGroups.forEach(function (group) {
