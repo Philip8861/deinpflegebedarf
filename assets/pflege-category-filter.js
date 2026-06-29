@@ -592,7 +592,7 @@
     }
 
     var unitHtml = product.unitPriceFormatted
-      ? '<span class="pflege-cat-card__unit">' + escapeHtml(product.unitPriceFormatted) + '</span>'
+      ? '<span class="pflege-cat-card__unit" style="display:block;width:100%;text-align:center;">' + escapeHtml(product.unitPriceFormatted) + '</span>'
       : '';
 
     return (
@@ -621,13 +621,15 @@
       (product.subtitle
         ? '<p class="pflege-cat-card__desc">' + escapeHtml(product.subtitle) + '</p>'
         : '<p class="pflege-cat-card__desc pflege-cat-card__desc--empty">&nbsp;</p>') +
-      '<div class="pflege-cat-card__price-row">' +
-      '<span class="pflege-cat-card__price">' +
+      '<div class="pflege-cat-card__footer">' +
+      '<div class="pflege-cat-card__price-row" style="display:block;width:100%;text-align:center;margin:0;">' +
+      '<span class="pflege-cat-card__price" style="display:block;width:100%;text-align:center;">' +
       escapeHtml(product.priceFormatted) +
       '</span>' +
       unitHtml +
       '</div>' +
       cartHtml +
+      '</div>' +
       '</div>' +
       '</article>' +
       '</li>'
