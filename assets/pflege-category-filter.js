@@ -448,28 +448,69 @@
     return map;
   }
 
-  function applyTagSlugMappings(product, filterGroups) {
-    var valueToGroup = getStaticFilterValueMap(filterGroups);
-    (product.normalizedTags || []).forEach(function (slug) {
-      var groupId = valueToGroup[slug];
-      if (!groupId) return;
-      if (!product[groupId]) product[groupId] = [];
-      if (product[groupId].indexOf(slug) === -1) product[groupId].push(slug);
+  function getFilterOptionLabel(filterValue, filterGroups) {
+    var label = filterValue;
+    filterGroups.forEach(function (group) {
+      (group.options || []).forEach(function (option) {
+        if (option.value === filterValue) label = option.label;
+      });
     });
-    return product;
+    return label;
   }
 
-  function productMatchesTag(product, filterValue) {
-    var tags = product.normalizedTags || [];
-    if (!filterValue || !tags.length) return false;
-    return tags.indexOf(filterValue) !== -1;
+  function cloneSelected(selected, filterGroups) {
+    var copy = {
+      priceMin: selected.priceMin != null ? selected.priceMin : null,
+      priceMax: selected.priceMax != null ? selected.priceMax : null,
+    };
+    filterGroups.forEach(function (group) {
+      copy[group.id] = (selected[group.id] || []).slice();
+    });
+    return copy;
   }
 
-  function productMatchesFilterValue(product, filterValue) {
+  function createEmptySelected(filterGroups) {
+    return cloneSelected({ priceMin: null, priceMax: null }, filterGroups);
+  }
+
+  function productMatchesFilterValue(product, filterValue, filterGroups) {
     if (!filterValue) return false;
-    if (productMatchesTag(product, filterValue)) return true;
-    if (PflegeCategoryAttributes.haystackIncludesFilterValue(product, filterValue)) return true;
-    return false;
+
+    var groupFields = [
+      'productTypes',
+      'materials',
+      'properties',
+      'applicationAreas',
+      'forms',
+      'absorbency',
+      'clothingSizes',
+      'genders',
+      'protectionClasses',
+      'packUnits',
+      'formats',
+      'sizes',
+    ];
+    var i;
+    for (i = 0; i < groupFields.length; i++) {
+      var vals = product[groupFields[i]] || [];
+      if (vals.indexOf(filterValue) !== -1) return true;
+    }
+
+    if (product.brand === filterValue) return true;
+
+    var option = {
+      value: filterValue,
+      label: getFilterOptionLabel(filterValue, filterGroups),
+    };
+    var rawTags = product.rawTags || PflegeCategoryAttributes.parseProductTags(product);
+    for (i = 0; i < rawTags.length; i++) {
+      if (PflegeCategoryAttributes.tagMatchesFilterOption(rawTags[i], option)) return true;
+    }
+
+    var normalizedTags = product.normalizedTags || [];
+    if (normalizedTags.indexOf(filterValue) !== -1) return true;
+
+    return PflegeCategoryAttributes.haystackIncludesFilterValue(product, filterValue);
   }
 
   function parseConfig(root) {
@@ -532,7 +573,7 @@
 
       if (groupId === 'brand') {
         var brandMatch = values.some(function (value) {
-          return product.brand === value || productMatchesFilterValue(product, value);
+          return product.brand === value || productMatchesFilterValue(product, value, filterGroups);
         });
         if (!brandMatch) return false;
         continue;
@@ -540,7 +581,7 @@
 
       if (groupId === 'tags') {
         var tagMatch = values.some(function (value) {
-          return productMatchesFilterValue(product, value);
+          return productMatchesFilterValue(product, value, filterGroups);
         });
         if (!tagMatch) return false;
         continue;
@@ -549,7 +590,7 @@
       var productValues = product[groupId] || [];
       var match = values.some(function (value) {
         if (productValues.indexOf(value) !== -1) return true;
-        return productMatchesFilterValue(product, value);
+        return productMatchesFilterValue(product, value, filterGroups);
       });
       if (!match) return false;
     }
@@ -701,11 +742,24 @@
   }
 
   function countForOption(products, selected, groupId, optionValue, filterGroups) {
-    var testSelected = JSON.parse(JSON.stringify(selected));
+    var testSelected = cloneSelected(selected, filterGroups);
     var current = testSelected[groupId] || [];
     if (current.indexOf(optionValue) === -1) {
       testSelected[groupId] = current.concat([optionValue]);
     }
+    return products.filter(function (product) {
+      return productMatchesFilters(product, testSelected, filterGroups);
+    }).length;
+  }
+
+  function countForOptionIfRemoved(products, selected, groupId, optionValue, filterGroups) {
+    if ((selected[groupId] || []).indexOf(optionValue) === -1) {
+      return countForOption(products, selected, groupId, optionValue, filterGroups);
+    }
+    var testSelected = cloneSelected(selected, filterGroups);
+    testSelected[groupId] = (testSelected[groupId] || []).filter(function (value) {
+      return value !== optionValue;
+    });
     return products.filter(function (product) {
       return productMatchesFilters(product, testSelected, filterGroups);
     }).length;
@@ -724,7 +778,7 @@
         });
       }
       if (groupId === 'tags') {
-        (product.tags || []).forEach(function (tag) {
+        (product.rawTags || PflegeCategoryAttributes.parseProductTags(product)).forEach(function (tag) {
           var slug = PflegeCategoryAttributes.normalizeTagSlug(tag);
           if (!slug || staticValues[slug]) return;
           map[slug] = String(tag || '').trim();
@@ -774,8 +828,10 @@
       '">';
 
     options.forEach(function (option) {
-      var count = countForOption(products, selected, group.id, option.value, filterGroups);
       var checked = (selected[group.id] || []).indexOf(option.value) !== -1;
+      var count = checked
+        ? countForOptionIfRemoved(products, selected, group.id, option.value, filterGroups)
+        : countForOption(products, selected, group.id, option.value, filterGroups);
       var disabled = count === 0 && !checked;
       var labelPrefix = option.drops ? renderDropIcons(option.drops) : '';
       html +=
@@ -981,10 +1037,12 @@
   }
 
   function resetFilters(root, products, filterConfig) {
+    var filterGroups = filterConfig.groups;
     root.querySelectorAll('[data-pflege-cat-sort]').forEach(function (select) {
       select.value = 'manual';
     });
-    applyState(root, products, getSelectedFilters(null, filterConfig.groups), 'manual', filterConfig);
+    root._pflegeCatSelected = createEmptySelected(filterGroups);
+    applyState(root, products, root._pflegeCatSelected, 'manual', filterConfig);
   }
 
   function openDrawer(root) {
@@ -1022,17 +1080,33 @@
     var products = config.products.map(function (product, index) {
       var enriched = PflegeCategoryAttributes.enrichProduct(product);
       enriched.sortIndex = index;
-      return applyTagSlugMappings(enriched, filterGroups);
+      return PflegeCategoryAttributes.mergeProductTagsIntoAttributes(enriched, filterGroups);
     });
 
-    applyState(root, products, getSelectedFilters(null, filterGroups), 'manual', filterConfig);
+    root._pflegeCatSelected = createEmptySelected(filterGroups);
+    applyState(root, products, root._pflegeCatSelected, 'manual', filterConfig);
 
     root.addEventListener('change', function (event) {
       if (!root.contains(event.target)) return;
-      if (!event.target.matches('[data-filter-group], [data-price-min], [data-price-max]')) return;
-      var form = event.target.closest('[data-pflege-cat-filter-form]');
-      if (!form) return;
-      applyState(root, products, getSelectedFilters(form, filterGroups), getSortKey(root), filterConfig);
+      if (!event.target.matches('[data-filter-group]')) return;
+
+      var groupId = event.target.getAttribute('data-filter-group');
+      var value = event.target.value;
+      if (!groupId || !value) return;
+
+      var selected = cloneSelected(root._pflegeCatSelected || createEmptySelected(filterGroups), filterGroups);
+      if (!selected[groupId]) selected[groupId] = [];
+
+      if (event.target.checked) {
+        if (selected[groupId].indexOf(value) === -1) selected[groupId].push(value);
+      } else {
+        selected[groupId] = selected[groupId].filter(function (item) {
+          return item !== value;
+        });
+      }
+
+      root._pflegeCatSelected = selected;
+      applyState(root, products, selected, getSortKey(root), filterConfig);
     });
 
     root.addEventListener('input', function (event) {
@@ -1040,7 +1114,21 @@
       var form = event.target.closest('[data-pflege-cat-filter-form]');
       if (!form || !root.contains(form)) return;
       syncPriceRangeVisuals(form);
-      applyState(root, products, getSelectedFilters(form, filterGroups), getSortKey(root), filterConfig, {
+      var selected = cloneSelected(root._pflegeCatSelected || createEmptySelected(filterGroups), filterGroups);
+      var priceMin = form.querySelector('[data-price-min]');
+      var priceMax = form.querySelector('[data-price-max]');
+      if (priceMin && priceMin.value !== '' && priceMin.value !== priceMin.getAttribute('data-default-min')) {
+        selected.priceMin = parseInt(priceMin.value, 10);
+      } else {
+        selected.priceMin = null;
+      }
+      if (priceMax && priceMax.value !== '' && priceMax.value !== priceMax.getAttribute('data-default-max')) {
+        selected.priceMax = parseInt(priceMax.value, 10);
+      } else {
+        selected.priceMax = null;
+      }
+      root._pflegeCatSelected = selected;
+      applyState(root, products, selected, getSortKey(root), filterConfig, {
         skipFilterRender: true,
       });
     });
@@ -1050,8 +1138,13 @@
         root.querySelectorAll('[data-pflege-cat-sort]').forEach(function (other) {
           other.value = select.value;
         });
-        var desktopForm = root.querySelector('[data-pflege-cat-filters-desktop]');
-        applyState(root, products, getSelectedFilters(desktopForm, filterGroups), select.value, filterConfig);
+        applyState(
+          root,
+          products,
+          root._pflegeCatSelected || createEmptySelected(filterGroups),
+          select.value,
+          filterConfig
+        );
       });
     });
 
@@ -1080,7 +1173,9 @@
     if (drawerApply) {
       drawerApply.addEventListener('click', function () {
         var drawerForm = root.querySelector('[data-pflege-cat-filters-drawer]');
-        applyState(root, products, getSelectedFilters(drawerForm, filterGroups), getSortKey(root), filterConfig);
+        var selected = getSelectedFilters(drawerForm, filterGroups);
+        root._pflegeCatSelected = selected;
+        applyState(root, products, selected, getSortKey(root), filterConfig);
         closeDrawer(root);
       });
     }

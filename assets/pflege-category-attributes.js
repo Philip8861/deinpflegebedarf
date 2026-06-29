@@ -1043,6 +1043,67 @@
     return deriveDesinfektionAttributes(product);
   }
 
+  function parseProductTags(product) {
+    var tags = product && product.tags;
+    if (Array.isArray(tags)) {
+      return tags
+        .map(function (tag) {
+          return String(tag || '').trim();
+        })
+        .filter(Boolean);
+    }
+    if (typeof tags === 'string') {
+      return tags
+        .split(',')
+        .map(function (tag) {
+          return tag.trim();
+        })
+        .filter(Boolean);
+    }
+    return [];
+  }
+
+  function compactToken(value) {
+    return normalizeText(value).replace(/[\s_-]+/g, '');
+  }
+
+  function tagMatchesFilterOption(tag, option) {
+    if (!tag || !option) return false;
+    var slug = normalizeTagSlug(tag);
+    if (slug && slug === option.value) return true;
+    if (normalizeText(tag) === normalizeText(option.label)) return true;
+    var tagCompact = compactToken(tag);
+    if (tagCompact && tagCompact === compactToken(option.value)) return true;
+    if (tagCompact && tagCompact === compactToken(option.label)) return true;
+    return false;
+  }
+
+  function mergeProductTagsIntoAttributes(product, filterGroups) {
+    var rawTags = parseProductTags(product);
+    var normalizedTags = unique(
+      rawTags
+        .map(function (tag) {
+          return normalizeTagSlug(tag);
+        })
+        .filter(Boolean)
+    );
+
+    (filterGroups || []).forEach(function (group) {
+      if (!group.options) return;
+      group.options.forEach(function (option) {
+        rawTags.forEach(function (tag) {
+          if (!tagMatchesFilterOption(tag, option)) return;
+          if (!product[group.id]) product[group.id] = [];
+          if (product[group.id].indexOf(option.value) === -1) product[group.id].push(option.value);
+        });
+      });
+    });
+
+    product.rawTags = rawTags;
+    product.normalizedTags = normalizedTags;
+    return product;
+  }
+
   function normalizeTagSlug(value) {
     return normalizeText(value)
       .replace(/[^a-z0-9]+/g, '-')
@@ -1051,19 +1112,26 @@
 
   function enrichProduct(product) {
     var attrs = deriveProductAttributes(product);
+    var rawTags = parseProductTags(product);
     var normalizedTags = unique(
-      (product.tags || [])
+      rawTags
         .map(function (tag) {
           return normalizeTagSlug(tag);
         })
         .filter(Boolean)
     );
-    return Object.assign({}, product, attrs, { normalizedTags: normalizedTags });
+    return Object.assign({}, product, attrs, {
+      rawTags: rawTags,
+      normalizedTags: normalizedTags,
+    });
   }
 
   global.PflegeCategoryAttributes = {
     normalizeText: normalizeText,
     normalizeTagSlug: normalizeTagSlug,
+    parseProductTags: parseProductTags,
+    tagMatchesFilterOption: tagMatchesFilterOption,
+    mergeProductTagsIntoAttributes: mergeProductTagsIntoAttributes,
     buildHaystack: buildHaystack,
     haystackIncludesFilterValue: haystackIncludesFilterValue,
     isHautpflegeCategory: isHautpflegeCategory,
