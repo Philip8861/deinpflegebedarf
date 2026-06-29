@@ -493,14 +493,16 @@
 
     if (!rootOrForm) return selected;
 
-    var forms = [];
+    var form = null;
     if (rootOrForm.matches && rootOrForm.matches('[data-pflege-cat-filter-form]')) {
-      forms = [rootOrForm];
-    } else if (rootOrForm.querySelectorAll) {
-      forms = Array.prototype.slice.call(rootOrForm.querySelectorAll('[data-pflege-cat-filter-form]'));
+      form = rootOrForm;
+    } else if (rootOrForm.querySelector) {
+      form =
+        rootOrForm.querySelector('[data-pflege-cat-filters-desktop]') ||
+        rootOrForm.querySelector('[data-pflege-cat-filters-drawer]');
     }
 
-    forms.forEach(function (form) {
+    if (form) {
       form.querySelectorAll('input[type="checkbox"][data-filter-group]:checked').forEach(function (input) {
         var groupId = input.getAttribute('data-filter-group');
         var value = input.value;
@@ -508,16 +510,9 @@
         if (!selected[groupId]) selected[groupId] = [];
         if (selected[groupId].indexOf(value) === -1) selected[groupId].push(value);
       });
-    });
 
-    var priceForm =
-      (rootOrForm.querySelector && rootOrForm.querySelector('[data-pflege-cat-filters-desktop]')) ||
-      (rootOrForm.querySelector && rootOrForm.querySelector('[data-pflege-cat-filters-drawer]')) ||
-      (rootOrForm.matches && rootOrForm.matches('[data-pflege-cat-filter-form]') ? rootOrForm : null);
-
-    if (priceForm) {
-      var priceMin = priceForm.querySelector('[data-price-min]');
-      var priceMax = priceForm.querySelector('[data-price-max]');
+      var priceMin = form.querySelector('[data-price-min]');
+      var priceMax = form.querySelector('[data-price-max]');
       if (priceMin && priceMin.value !== '' && priceMin.value !== priceMin.getAttribute('data-default-min')) {
         selected.priceMin = parseInt(priceMin.value, 10);
       }
@@ -1035,7 +1030,9 @@
     root.addEventListener('change', function (event) {
       if (!root.contains(event.target)) return;
       if (!event.target.matches('[data-filter-group], [data-price-min], [data-price-max]')) return;
-      applyState(root, products, getSelectedFilters(root, filterGroups), getSortKey(root), filterConfig);
+      var form = event.target.closest('[data-pflege-cat-filter-form]');
+      if (!form) return;
+      applyState(root, products, getSelectedFilters(form, filterGroups), getSortKey(root), filterConfig);
     });
 
     root.addEventListener('input', function (event) {
@@ -1043,7 +1040,7 @@
       var form = event.target.closest('[data-pflege-cat-filter-form]');
       if (!form || !root.contains(form)) return;
       syncPriceRangeVisuals(form);
-      applyState(root, products, getSelectedFilters(root, filterGroups), getSortKey(root), filterConfig, {
+      applyState(root, products, getSelectedFilters(form, filterGroups), getSortKey(root), filterConfig, {
         skipFilterRender: true,
       });
     });
@@ -1053,7 +1050,8 @@
         root.querySelectorAll('[data-pflege-cat-sort]').forEach(function (other) {
           other.value = select.value;
         });
-        applyState(root, products, getSelectedFilters(root, filterGroups), select.value, filterConfig);
+        var desktopForm = root.querySelector('[data-pflege-cat-filters-desktop]');
+        applyState(root, products, getSelectedFilters(desktopForm, filterGroups), select.value, filterConfig);
       });
     });
 
@@ -1081,7 +1079,8 @@
     var drawerApply = root.querySelector('[data-pflege-cat-drawer-apply]');
     if (drawerApply) {
       drawerApply.addEventListener('click', function () {
-        applyState(root, products, getSelectedFilters(root, filterGroups), getSortKey(root), filterConfig);
+        var drawerForm = root.querySelector('[data-pflege-cat-filters-drawer]');
+        applyState(root, products, getSelectedFilters(drawerForm, filterGroups), getSortKey(root), filterConfig);
         closeDrawer(root);
       });
     }
