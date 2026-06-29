@@ -50,6 +50,9 @@
           assign is_pfc_collection = true
           assign pflege_seo_title = 'sections.pflege_collection_free_care.meta_title' | t
           assign pflege_seo_description = 'sections.pflege_collection_free_care.meta_description' | t
+        elsif col_h == 'pflegesets' or template.suffix == 'pflegesets'
+          assign pflege_seo_title = 'sections.pflege_category_filtered.pflegesets.meta_title' | t
+          assign pflege_seo_description = 'sections.pflege_category_filtered.pflegesets.meta_description' | t
         endif
         if template.suffix == 'desinfektion' or template.suffix == 'haende-und-flaechendesinfektion' or template.suffix == 'hautpflege' or template.suffix == 'inkontinenzversorgung' or template.suffix == 'verbrauchsartikel' or template.suffix == 'koerperpflege' or template.suffix == 'schutz-handschuhe' or col_h == 'desinfektion' or col_h == 'haende-und-flaechendesinfektion' or col_h == 'hautpflege' or col_h == 'hautschutz-hautpflege' or col_h == 'hauschutz-hautpflege' or col_h == 'inkontinenzversorgung' or col_h == 'inkontinenz' or col_h == 'verbrauchsartikel' or col_h == 'koerperpflege' or col_h == 'korperpflege' or col_h == 'schutz-handschuhe' or col_h == 'schutz-und-handschuhe' or col_h == 'handschuhe'
           assign is_category_filtered = true
