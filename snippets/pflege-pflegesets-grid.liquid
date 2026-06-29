@@ -6,23 +6,23 @@
   - card_style: "promo" | "category"
   - pflege_col: optional, bereits aufgelöste Kollektion
 
-  Produkt-Auflösung (pro Slot S/L/M):
-  1. Kollektion „pflegesets“ (Setting oder Shop-Kollektion)
-  2. Produktauswahl product_1/2/3 im Theme-Editor
-  3. Handle-Match in der Kollektion
-  4. all_products[handle] (Startseite zuverlässiger als Pages)
+  Datenquelle (Priorität):
+  1. Kollektion aus Section-Setting / aktuelle Seite / collections.pflegesets
+  2. Erste 3 Produkte aus der Kollektion (zuverlässigste Variante)
+  3. Fallback: Handles + Produktauswahl im Theme-Editor
 {% endcomment %}
 {%- liquid
   assign pfs = pfs_section.settings
   assign style = card_style | default: 'promo'
   assign col = pflege_col
-  if col == blank
+
+  if col == blank and pfs.pflegesets_collection != blank
     assign col = pfs.pflegesets_collection
   endif
-  if col == blank and collection != blank and collection.handle == 'pflegesets' and collection.all_products_count > 0
+  if col == blank and collection != blank and collection.handle == 'pflegesets'
     assign col = collection
   endif
-  if col == blank and collections['pflegesets'] != blank and collections['pflegesets'].all_products_count > 0
+  if col == blank and collections['pflegesets'] != blank
     assign col = collections['pflegesets']
   endif
 
@@ -40,106 +40,145 @@
   endif
 
   assign rendered_count = 0
+  assign col_count = 0
+  if col != blank
+    assign col_count = col.all_products_count
+  endif
 -%}
 
-{%- for handle_raw in slot_handles -%}
-  {%- assign handle = handle_raw | strip -%}
-  {%- liquid
-    assign card_product = nil
-    assign slot_index = forloop.index
-    assign disp_title = ''
-    assign slot_contents = ''
-    assign slot_setting = ''
-
-    case slot_index
-      when 1
-        if pfs.product_1 != blank
-          assign card_product = pfs.product_1
-        endif
-        assign disp_title = pfs.display_title_1 | strip
-        assign slot_setting = pfs.contents_1
-      when 2
-        if pfs.product_2 != blank
-          assign card_product = pfs.product_2
-        endif
-        assign disp_title = pfs.display_title_2 | strip
-        assign slot_setting = pfs.contents_2
-      when 3
-        if pfs.product_3 != blank
-          assign card_product = pfs.product_3
-        endif
-        assign disp_title = pfs.display_title_3 | strip
-        assign slot_setting = pfs.contents_3
-    endcase
-
-    if card_product == blank and col != blank
-      for col_product in col.products
-        if col_product.handle == handle
-          assign card_product = col_product
-          break
-        endif
-      endfor
-    endif
-
-    if card_product == blank and col != blank
-      for col_product in col.products limit: 3
-        if forloop.index == slot_index
-          assign card_product = col_product
-          break
-        endif
-      endfor
-    endif
-
-    if card_product == blank
-      assign card_product = all_products[handle]
-    endif
-    if card_product == blank
-      assign alt_h = handle | replace: 'grosse', 'groesse'
-      if alt_h != handle
-        assign card_product = all_products[alt_h]
-      endif
-    endif
-    if card_product == blank
-      assign alt_h = handle | replace: 'groesse', 'grosse'
-      if alt_h != handle
-        assign card_product = all_products[alt_h]
-      endif
-    endif
-  -%}
-  {%- capture slot_contents -%}
-    {%- render 'pflege-pflegeset-resolve-contents',
-      slot: slot_index,
-      setting_value: slot_setting
+{%- if col != blank and col_count > 0 -%}
+  {%- comment -%} Primärweg: alle Produkte direkt aus der Kollektion {%- endcomment -%}
+  {%- for card_product in col.products limit: 3 -%}
+    {%- liquid
+      assign slot_index = forloop.index
+      assign disp_title = ''
+      assign slot_setting = ''
+      case slot_index
+        when 1
+          assign disp_title = pfs.display_title_1 | strip
+          assign slot_setting = pfs.contents_1
+        when 2
+          assign disp_title = pfs.display_title_2 | strip
+          assign slot_setting = pfs.contents_2
+        when 3
+          assign disp_title = pfs.display_title_3 | strip
+          assign slot_setting = pfs.contents_3
+      endcase
     -%}
-  {%- endcapture -%}
-  {%- assign slot_contents = slot_contents | strip -%}
+    {%- capture slot_contents -%}
+      {%- render 'pflege-pflegeset-resolve-contents',
+        slot: slot_index,
+        setting_value: slot_setting
+      -%}
+    {%- endcapture -%}
+    {%- assign slot_contents = slot_contents | strip -%}
 
-  {%- if style == 'category' and card_product != blank -%}
-    {%- assign rendered_count = rendered_count | plus: 1 -%}
-    {% render 'pflege-cat-card',
-      card_product: card_product,
-      list_item: false,
-      card_title_override: disp_title
-    %}
-  {%- elsif style == 'promo' -%}
-    {%- assign rendered_count = rendered_count | plus: 1 -%}
-    {% render 'pflege-pflegeset-card',
-      card_product: card_product,
-      handle_fallback: handle,
-      badge_label: badge_label,
-      card_contents: slot_contents,
-      card_title: disp_title
-    %}
-  {%- endif -%}
-{%- endfor -%}
+    {%- if style == 'category' -%}
+      {%- assign rendered_count = rendered_count | plus: 1 -%}
+      {% render 'pflege-cat-card',
+        card_product: card_product,
+        list_item: false,
+        card_title_override: disp_title
+      %}
+    {%- else -%}
+      {%- assign rendered_count = rendered_count | plus: 1 -%}
+      {% render 'pflege-pflegeset-card',
+        card_product: card_product,
+        handle_fallback: card_product.handle,
+        badge_label: badge_label,
+        card_contents: slot_contents,
+        card_title: disp_title
+      %}
+    {%- endif -%}
+  {%- endfor -%}
+{%- else -%}
+  {%- comment -%} Fallback: Handles / Produktauswahl {%- endcomment -%}
+  {%- for handle_raw in slot_handles -%}
+    {%- assign handle = handle_raw | strip -%}
+    {%- liquid
+      assign card_product = nil
+      assign slot_index = forloop.index
+      assign disp_title = ''
+      assign slot_setting = ''
+
+      case slot_index
+        when 1
+          if pfs.product_1 != blank
+            assign card_product = pfs.product_1
+          endif
+          assign disp_title = pfs.display_title_1 | strip
+          assign slot_setting = pfs.contents_1
+        when 2
+          if pfs.product_2 != blank
+            assign card_product = pfs.product_2
+          endif
+          assign disp_title = pfs.display_title_2 | strip
+          assign slot_setting = pfs.contents_2
+        when 3
+          if pfs.product_3 != blank
+            assign card_product = pfs.product_3
+          endif
+          assign disp_title = pfs.display_title_3 | strip
+          assign slot_setting = pfs.contents_3
+      endcase
+
+      if card_product == blank
+        assign card_product = all_products[handle]
+      endif
+      if card_product == blank
+        assign alt_h = handle | replace: 'grosse', 'groesse'
+        if alt_h != handle
+          assign card_product = all_products[alt_h]
+        endif
+      endif
+      if card_product == blank
+        assign alt_h = handle | replace: 'groesse', 'grosse'
+        if alt_h != handle
+          assign card_product = all_products[alt_h]
+        endif
+      endif
+    -%}
+    {%- capture slot_contents -%}
+      {%- render 'pflege-pflegeset-resolve-contents',
+        slot: slot_index,
+        setting_value: slot_setting
+      -%}
+    {%- endcapture -%}
+    {%- assign slot_contents = slot_contents | strip -%}
+
+    {%- if style == 'category' and card_product != blank -%}
+      {%- assign rendered_count = rendered_count | plus: 1 -%}
+      {% render 'pflege-cat-card',
+        card_product: card_product,
+        list_item: false,
+        card_title_override: disp_title
+      %}
+    {%- elsif style == 'promo' -%}
+      {%- assign rendered_count = rendered_count | plus: 1 -%}
+      {% render 'pflege-pflegeset-card',
+        card_product: card_product,
+        handle_fallback: handle,
+        badge_label: badge_label,
+        card_contents: slot_contents,
+        card_title: disp_title
+      %}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
 
 {%- if rendered_count == 0 -%}
   <div class="pflege-pflegesets__empty">
     <p class="pflege-pflegesets__empty-title">Pflegesets konnten nicht geladen werden</p>
     <p class="pflege-pflegesets__empty-text">
-      Bitte legen Sie im Shopify-Admin eine Kollektion mit dem Handle <strong>pflegesets</strong> an,
-      fügen Sie die drei Set-Produkte (S, L, M) hinzu und wählen Sie die Kollektion im Theme-Editor
-      unter „Kollektion mit den Pflegesets“.
+      {%- if col == blank -%}
+        Kollektion <strong>pflegesets</strong> wurde nicht gefunden. Handle der Kollektion muss exakt
+        <strong>pflegesets</strong> heißen.
+      {%- elsif col_count == 0 -%}
+        Kollektion <strong>{{ col.title | escape }}</strong> ist leer — bitte die 3 Set-Produkte (S, L, M)
+        hinzufügen und für den Online-Shop veröffentlichen.
+      {%- else -%}
+        Produkte konnten nicht geladen werden. Kollektion und Theme-Vorlage prüfen.
+      {%- endif -%}
     </p>
   </div>
 {%- endif -%}
