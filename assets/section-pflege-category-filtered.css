@@ -1,4 +1,4 @@
-/* PflegeShop — Gefilterte Kategorieseite (Desinfektion u. a.) */
+/* PflegeShop — Gefilterte Kategorieseite (Desinfektion u. a.) — build 2026-06-29 */
 
 body.pflege-category-filtered-page {
   --pcd-navy: #003b70;
@@ -407,6 +407,16 @@ body.pflege-category-filtered-page.template-collection .gradient {
 }
 
 /* --- Product card -------------------------------------------------------- */
+.pflege-cat-card {
+  --pcd-navy: #003b70;
+  --pcd-blue: #0b74d1;
+  --pcd-border: #d8e8f8;
+  --pcd-muted: #607089;
+  --pcd-cta: #f28c28;
+  --pcd-cta-hover: #dc7a22;
+  --pcd-radius: 16px;
+}
+
 .pflege-cat-card__inner {
   display: flex;
   flex-direction: column;
@@ -482,6 +492,17 @@ body.pflege-category-filtered-page.template-collection .gradient {
   flex-direction: column;
   flex: 1 1 auto;
   gap: 0.45rem;
+  align-items: stretch;
+  width: 100%;
+}
+
+.pflege-cat-card__footer {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.35rem;
+  width: 100%;
+  margin-top: auto;
 }
 
 .pflege-cat-card__title {
@@ -515,22 +536,28 @@ body.pflege-category-filtered-page.template-collection .gradient {
 }
 
 .pflege-cat-card__price-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.35rem 0.5rem;
-  margin-top: 0.15rem;
+  display: block;
+  width: 100%;
+  margin: 0;
+  text-align: center;
 }
 
 .pflege-cat-card__price {
+  display: block;
+  width: 100%;
   font-size: 1.375rem;
   font-weight: 800;
   color: var(--pcd-navy);
+  text-align: center;
+  line-height: 1.2;
 }
 
 .pflege-cat-card__unit {
+  display: block;
+  width: 100%;
   font-size: 0.875rem;
   color: var(--pcd-muted);
+  text-align: center;
 }
 
 .pflege-cat-card__cart,
@@ -541,7 +568,7 @@ body.pflege-category-filtered-page.template-collection .gradient {
   gap: 0.45rem;
   width: 100%;
   min-height: 2.65rem;
-  margin-top: 0.35rem;
+  margin-top: 0;
   padding: 0.55rem 0.75rem;
   border: 1.5px solid var(--pcd-cta);
   border-radius: 11px;

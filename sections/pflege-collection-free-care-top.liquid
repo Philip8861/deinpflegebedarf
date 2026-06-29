@@ -3,7 +3,7 @@
 {% endcomment %}
 {{ 'section-pflege-hero.css' | asset_url | stylesheet_tag }}
 {{ 'section-pflege-collection-free-care.css' | asset_url | stylesheet_tag }}
-{{ 'section-pflege-category-filtered.css' | asset_url | stylesheet_tag }}
+{% render 'pflege-cat-card-styles' %}
 {{ 'section-pflege-bestseller-row.css' | asset_url | stylesheet_tag }}
 
 {%- liquid

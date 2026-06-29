@@ -87,12 +87,12 @@
     assign url_free_care = root | append: 'collections/kostenfreie-pflegehilfsmittel'
   endif
 
-  if pages['pflegesets'] != blank
-    assign url_pflegesets = pages['pflegesets'].url
-  elsif collections['pflegesets'] != blank
+  if collections['pflegesets'] != blank
     assign url_pflegesets = collections['pflegesets'].url
+  elsif pages['pflegesets'] != blank
+    assign url_pflegesets = pages['pflegesets'].url
   else
-    assign url_pflegesets = root | append: 'pages/pflegesets'
+    assign url_pflegesets = root | append: 'collections/pflegesets'
   endif
 
   assign finder_modal_href = section.settings.finder_promo_button_link | strip

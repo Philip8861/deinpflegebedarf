@@ -63,7 +63,7 @@
   endif
 -%}
 
-{{ 'section-pflege-category-filtered.css' | asset_url | stylesheet_tag }}
+{% render 'pflege-cat-card-styles' %}
 {%- if promo_fullwidth -%}
   {{ 'section-pflege-inko-testpaket-modal.css' | asset_url | stylesheet_tag }}
   <script src="{{ 'pflege-inko-testpaket-modal.js' | asset_url }}" defer="defer"></script>

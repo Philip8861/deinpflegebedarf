@@ -436,12 +436,19 @@
   min-height: 0;
 }
 
-.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__price-row {
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__footer {
+  margin-top: auto;
+  width: 100%;
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.3rem 0.45rem;
-  margin: 0.55rem 0 0;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__price-row {
+  display: block;
+  width: 100%;
+  margin: 0;
+  text-align: center;
   flex: 0 0 auto;
 }
 
@@ -461,7 +468,7 @@
 .pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__cart--link {
   width: 100%;
   min-height: 2.65rem;
-  margin-top: auto;
+  margin-top: 0.35rem;
   padding: 0.55rem 0.75rem;
   padding-top: 0.75rem;
   border: 1.5px solid var(--pcd-cta);
