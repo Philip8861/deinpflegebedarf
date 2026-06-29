@@ -1032,13 +1032,27 @@
     return deriveDesinfektionAttributes(product);
   }
 
+  function normalizeTagSlug(value) {
+    return normalizeText(value)
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, '');
+  }
+
   function enrichProduct(product) {
     var attrs = deriveProductAttributes(product);
-    return Object.assign({}, product, attrs);
+    var normalizedTags = unique(
+      (product.tags || [])
+        .map(function (tag) {
+          return normalizeTagSlug(tag);
+        })
+        .filter(Boolean)
+    );
+    return Object.assign({}, product, attrs, { normalizedTags: normalizedTags });
   }
 
   global.PflegeCategoryAttributes = {
     normalizeText: normalizeText,
+    normalizeTagSlug: normalizeTagSlug,
     isHautpflegeCategory: isHautpflegeCategory,
     isInkontinenzCategory: isInkontinenzCategory,
     deriveProductAttributes: deriveProductAttributes,

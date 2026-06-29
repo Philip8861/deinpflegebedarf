@@ -430,7 +430,20 @@
   }
 
   function getFilterConfig(handle) {
-    return FILTER_CONFIGS[resolveCategoryKey(handle)] || FILTER_CONFIGS.desinfektion;
+    var base = FILTER_CONFIGS[resolveCategoryKey(handle)] || FILTER_CONFIGS.desinfektion;
+    return {
+      groups: base.groups.concat([{ id: 'tags', label: 'Tags', dynamic: true }]),
+      badges: base.badges,
+    };
+  }
+
+  function productMatchesTag(product, filterValue) {
+    var tags = product.normalizedTags || [];
+    if (!filterValue || !tags.length) return false;
+    if (tags.indexOf(filterValue) !== -1) return true;
+    return tags.some(function (tag) {
+      return tag.indexOf(filterValue) !== -1 || filterValue.indexOf(tag) !== -1;
+    });
   }
 
   function parseConfig(root) {
@@ -479,13 +492,25 @@
       if (!values.length) continue;
 
       if (groupId === 'brand') {
-        if (values.indexOf(product.brand) === -1) return false;
+        var brandMatch = values.some(function (value) {
+          return product.brand === value || productMatchesTag(product, value);
+        });
+        if (!brandMatch) return false;
+        continue;
+      }
+
+      if (groupId === 'tags') {
+        var tagMatch = values.some(function (value) {
+          return productMatchesTag(product, value);
+        });
+        if (!tagMatch) return false;
         continue;
       }
 
       var productValues = product[groupId] || [];
       var match = values.some(function (value) {
-        return productValues.indexOf(value) !== -1;
+        if (productValues.indexOf(value) !== -1) return true;
+        return productMatchesTag(product, value);
       });
       if (!match) return false;
     }
@@ -654,6 +679,12 @@
       if (groupId === 'sizes') {
         (product.sizes || []).forEach(function (size) {
           map[size] = size;
+        });
+      }
+      if (groupId === 'tags') {
+        (product.tags || []).forEach(function (tag) {
+          var slug = PflegeCategoryAttributes.normalizeTagSlug(tag);
+          if (slug) map[slug] = String(tag || '').trim();
         });
       }
     });
