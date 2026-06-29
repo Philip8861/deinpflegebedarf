@@ -28,6 +28,17 @@
     );
   }
 
+  function haystackIncludesFilterValue(product, filterValue) {
+    if (!filterValue) return false;
+    var hay = buildHaystack(product);
+    var needle = normalizeText(filterValue);
+    if (!needle) return false;
+    if (hay.indexOf(needle) !== -1) return true;
+    var compactHay = hay.replace(/-/g, '');
+    var compactNeedle = needle.replace(/-/g, '');
+    return compactNeedle.length > 0 && compactHay.indexOf(compactNeedle) !== -1;
+  }
+
   function includesAny(hay, needles) {
     return needles.some(function (needle) {
       return hay.indexOf(normalizeText(needle)) !== -1;
@@ -1053,6 +1064,8 @@
   global.PflegeCategoryAttributes = {
     normalizeText: normalizeText,
     normalizeTagSlug: normalizeTagSlug,
+    buildHaystack: buildHaystack,
+    haystackIncludesFilterValue: haystackIncludesFilterValue,
     isHautpflegeCategory: isHautpflegeCategory,
     isInkontinenzCategory: isInkontinenzCategory,
     deriveProductAttributes: deriveProductAttributes,

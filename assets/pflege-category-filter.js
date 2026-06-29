@@ -437,13 +437,39 @@
     };
   }
 
+  function getStaticFilterValueMap(filterGroups) {
+    var map = {};
+    filterGroups.forEach(function (group) {
+      if (group.dynamic || !group.options) return;
+      group.options.forEach(function (option) {
+        map[option.value] = group.id;
+      });
+    });
+    return map;
+  }
+
+  function applyTagSlugMappings(product, filterGroups) {
+    var valueToGroup = getStaticFilterValueMap(filterGroups);
+    (product.normalizedTags || []).forEach(function (slug) {
+      var groupId = valueToGroup[slug];
+      if (!groupId) return;
+      if (!product[groupId]) product[groupId] = [];
+      if (product[groupId].indexOf(slug) === -1) product[groupId].push(slug);
+    });
+    return product;
+  }
+
   function productMatchesTag(product, filterValue) {
     var tags = product.normalizedTags || [];
     if (!filterValue || !tags.length) return false;
-    if (tags.indexOf(filterValue) !== -1) return true;
-    return tags.some(function (tag) {
-      return tag.indexOf(filterValue) !== -1 || filterValue.indexOf(tag) !== -1;
-    });
+    return tags.indexOf(filterValue) !== -1;
+  }
+
+  function productMatchesFilterValue(product, filterValue) {
+    if (!filterValue) return false;
+    if (productMatchesTag(product, filterValue)) return true;
+    if (PflegeCategoryAttributes.haystackIncludesFilterValue(product, filterValue)) return true;
+    return false;
   }
 
   function parseConfig(root) {
@@ -457,7 +483,7 @@
     }
   }
 
-  function getSelectedFilters(form, filterGroups) {
+  function getSelectedFilters(rootOrForm, filterGroups) {
     var selected = {};
     filterGroups.forEach(function (group) {
       selected[group.id] = [];
@@ -465,21 +491,39 @@
     selected.priceMin = null;
     selected.priceMax = null;
 
-    if (!form) return selected;
+    if (!rootOrForm) return selected;
 
-    form.querySelectorAll('input[type="checkbox"][data-filter-group]:checked').forEach(function (input) {
-      var groupId = input.getAttribute('data-filter-group');
-      if (!selected[groupId]) selected[groupId] = [];
-      selected[groupId].push(input.value);
+    var forms = [];
+    if (rootOrForm.matches && rootOrForm.matches('[data-pflege-cat-filter-form]')) {
+      forms = [rootOrForm];
+    } else if (rootOrForm.querySelectorAll) {
+      forms = Array.prototype.slice.call(rootOrForm.querySelectorAll('[data-pflege-cat-filter-form]'));
+    }
+
+    forms.forEach(function (form) {
+      form.querySelectorAll('input[type="checkbox"][data-filter-group]:checked').forEach(function (input) {
+        var groupId = input.getAttribute('data-filter-group');
+        var value = input.value;
+        if (!groupId || !value) return;
+        if (!selected[groupId]) selected[groupId] = [];
+        if (selected[groupId].indexOf(value) === -1) selected[groupId].push(value);
+      });
     });
 
-    var priceMin = form.querySelector('[data-price-min]');
-    var priceMax = form.querySelector('[data-price-max]');
-    if (priceMin && priceMin.value !== '' && priceMin.value !== priceMin.getAttribute('data-default-min')) {
-      selected.priceMin = parseInt(priceMin.value, 10);
-    }
-    if (priceMax && priceMax.value !== '' && priceMax.value !== priceMax.getAttribute('data-default-max')) {
-      selected.priceMax = parseInt(priceMax.value, 10);
+    var priceForm =
+      (rootOrForm.querySelector && rootOrForm.querySelector('[data-pflege-cat-filters-desktop]')) ||
+      (rootOrForm.querySelector && rootOrForm.querySelector('[data-pflege-cat-filters-drawer]')) ||
+      (rootOrForm.matches && rootOrForm.matches('[data-pflege-cat-filter-form]') ? rootOrForm : null);
+
+    if (priceForm) {
+      var priceMin = priceForm.querySelector('[data-price-min]');
+      var priceMax = priceForm.querySelector('[data-price-max]');
+      if (priceMin && priceMin.value !== '' && priceMin.value !== priceMin.getAttribute('data-default-min')) {
+        selected.priceMin = parseInt(priceMin.value, 10);
+      }
+      if (priceMax && priceMax.value !== '' && priceMax.value !== priceMax.getAttribute('data-default-max')) {
+        selected.priceMax = parseInt(priceMax.value, 10);
+      }
     }
 
     return selected;
@@ -493,7 +537,7 @@
 
       if (groupId === 'brand') {
         var brandMatch = values.some(function (value) {
-          return product.brand === value || productMatchesTag(product, value);
+          return product.brand === value || productMatchesFilterValue(product, value);
         });
         if (!brandMatch) return false;
         continue;
@@ -501,7 +545,7 @@
 
       if (groupId === 'tags') {
         var tagMatch = values.some(function (value) {
-          return productMatchesTag(product, value);
+          return productMatchesFilterValue(product, value);
         });
         if (!tagMatch) return false;
         continue;
@@ -510,7 +554,7 @@
       var productValues = product[groupId] || [];
       var match = values.some(function (value) {
         if (productValues.indexOf(value) !== -1) return true;
-        return productMatchesTag(product, value);
+        return productMatchesFilterValue(product, value);
       });
       if (!match) return false;
     }
@@ -663,15 +707,18 @@
 
   function countForOption(products, selected, groupId, optionValue, filterGroups) {
     var testSelected = JSON.parse(JSON.stringify(selected));
-    // Facetten-Zählung: andere Gruppen behalten, in dieser Gruppe nur die eine Option testen.
-    testSelected[groupId] = [optionValue];
+    var current = testSelected[groupId] || [];
+    if (current.indexOf(optionValue) === -1) {
+      testSelected[groupId] = current.concat([optionValue]);
+    }
     return products.filter(function (product) {
       return productMatchesFilters(product, testSelected, filterGroups);
     }).length;
   }
 
-  function buildDynamicOptions(products, groupId) {
+  function buildDynamicOptions(products, groupId, filterGroups) {
     var map = {};
+    var staticValues = filterGroups ? getStaticFilterValueMap(filterGroups) : {};
     products.forEach(function (product) {
       if (groupId === 'brand' && product.brand) {
         map[product.brand] = BRAND_LABELS[product.brand] || product.vendor || product.brand;
@@ -684,7 +731,8 @@
       if (groupId === 'tags') {
         (product.tags || []).forEach(function (tag) {
           var slug = PflegeCategoryAttributes.normalizeTagSlug(tag);
-          if (slug) map[slug] = String(tag || '').trim();
+          if (!slug || staticValues[slug]) return;
+          map[slug] = String(tag || '').trim();
         });
       }
     });
@@ -712,7 +760,7 @@
 
   function renderFilterGroup(group, products, selected, prefix, collapsible, filterGroups) {
     var options = group.options ? group.options.slice() : [];
-    if (group.dynamic) options = buildDynamicOptions(products, group.id);
+    if (group.dynamic) options = buildDynamicOptions(products, group.id, filterGroups);
     if (!options.length) return '';
 
     var openAttr = collapsible ? '' : ' open';
@@ -979,16 +1027,15 @@
     var products = config.products.map(function (product, index) {
       var enriched = PflegeCategoryAttributes.enrichProduct(product);
       enriched.sortIndex = index;
-      return enriched;
+      return applyTagSlugMappings(enriched, filterGroups);
     });
 
     applyState(root, products, getSelectedFilters(null, filterGroups), 'manual', filterConfig);
 
     root.addEventListener('change', function (event) {
-      var form = event.target.closest('[data-pflege-cat-filter-form]');
-      if (!form || !root.contains(form)) return;
+      if (!root.contains(event.target)) return;
       if (!event.target.matches('[data-filter-group], [data-price-min], [data-price-max]')) return;
-      applyState(root, products, getSelectedFilters(form, filterGroups), getSortKey(root), filterConfig);
+      applyState(root, products, getSelectedFilters(root, filterGroups), getSortKey(root), filterConfig);
     });
 
     root.addEventListener('input', function (event) {
@@ -996,7 +1043,7 @@
       var form = event.target.closest('[data-pflege-cat-filter-form]');
       if (!form || !root.contains(form)) return;
       syncPriceRangeVisuals(form);
-      applyState(root, products, getSelectedFilters(form, filterGroups), getSortKey(root), filterConfig, {
+      applyState(root, products, getSelectedFilters(root, filterGroups), getSortKey(root), filterConfig, {
         skipFilterRender: true,
       });
     });
@@ -1006,8 +1053,7 @@
         root.querySelectorAll('[data-pflege-cat-sort]').forEach(function (other) {
           other.value = select.value;
         });
-        var desktopForm = root.querySelector('[data-pflege-cat-filters-desktop]');
-        applyState(root, products, getSelectedFilters(desktopForm, filterGroups), select.value, filterConfig);
+        applyState(root, products, getSelectedFilters(root, filterGroups), select.value, filterConfig);
       });
     });
 
@@ -1035,8 +1081,7 @@
     var drawerApply = root.querySelector('[data-pflege-cat-drawer-apply]');
     if (drawerApply) {
       drawerApply.addEventListener('click', function () {
-        var drawerForm = root.querySelector('[data-pflege-cat-filters-drawer]');
-        applyState(root, products, getSelectedFilters(drawerForm, filterGroups), getSortKey(root), filterConfig);
+        applyState(root, products, getSelectedFilters(root, filterGroups), getSortKey(root), filterConfig);
         closeDrawer(root);
       });
     }
