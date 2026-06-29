@@ -620,7 +620,7 @@
       '</a></h3>' +
       (product.subtitle
         ? '<p class="pflege-cat-card__desc">' + escapeHtml(product.subtitle) + '</p>'
-        : '<p class="pflege-cat-card__desc pflege-cat-card__desc--empty">&nbsp;</p>') +
+        : '') +
       '<div class="pflege-cat-card__footer">' +
       '<div class="pflege-cat-card__price-row" style="display:block;width:100%;text-align:center;margin:0;">' +
       '<span class="pflege-cat-card__price" style="display:block;width:100%;text-align:center;">' +

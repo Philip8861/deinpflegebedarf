@@ -344,6 +344,47 @@
     {{ 'pflegeshop-tokens.css' | asset_url | stylesheet_tag }}
     {{ 'pflege-section-spacing.css' | asset_url | stylesheet_tag }}
     {{ 'component-pflege-type-unified.css' | asset_url | stylesheet_tag }}
+    <style id="pflege-cat-card-price-center">
+      .pflege-cat-card .pflege-cat-card__price-row {
+        display: block !important;
+        width: 100% !important;
+        margin: 0 !important;
+        text-align: center !important;
+      }
+      .pflege-cat-card .pflege-cat-card__price,
+      .pflege-cat-card .pflege-cat-card__unit {
+        display: block !important;
+        width: 100% !important;
+        text-align: center !important;
+        color: #003b70 !important;
+        font-weight: 800 !important;
+      }
+      .pflege-cat-card .pflege-cat-card__title,
+      .pflege-cat-card .pflege-cat-card__title a {
+        color: #003b70 !important;
+      }
+      .pflege-cat-card .pflege-cat-card__body {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        gap: 0.45rem;
+        align-items: stretch;
+        width: 100%;
+      }
+      .pflege-cat-card .pflege-cat-card__footer {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+        width: 100%;
+        margin-top: auto;
+      }
+      .pflege-pflegesets--category .pflege-cat-card .pflege-cat-card__price-row,
+      .pflege-pflegesets--category .pflege-cat-card .pflege-cat-card__price {
+        display: block !important;
+        width: 100% !important;
+        text-align: center !important;
+      }
+    </style>
     {%- if template.name == 'index' -%}
       {{ 'pflegeshop-header-home.css' | asset_url | stylesheet_tag }}
       {{ 'pflege-home-entrance.css' | asset_url | stylesheet_tag }}
