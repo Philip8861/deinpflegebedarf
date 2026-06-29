@@ -119,6 +119,63 @@
     if (bodyField) bodyField.value = buildBody(data);
   }
 
+  function showSuccessInModal(root) {
+    if (!root) return;
+
+    var mainPanel = root.querySelector('[data-pflege-inko-main]');
+    var successPanel = root.querySelector('[data-pflege-inko-success]');
+    var errorEl = root.querySelector('[data-pflege-inko-form-error]');
+
+    if (errorEl) {
+      errorEl.hidden = true;
+      errorEl.textContent = '';
+    }
+
+    root.classList.add(SUCCESS_CLASS);
+    root.dataset.pflegeInkoState = STATE_SUCCESS;
+    if (mainPanel) mainPanel.setAttribute('hidden', '');
+    if (successPanel) successPanel.removeAttribute('hidden');
+
+    if (typeof root.showModal === 'function' && !root.open) {
+      try {
+        root.showModal();
+      } catch (e) {}
+    }
+
+    var btn = successPanel && successPanel.querySelector('[data-pflege-inko-modal-close]');
+    if (btn && typeof btn.focus === 'function') {
+      window.setTimeout(function () {
+        try {
+          btn.focus();
+        } catch (e) {}
+      }, 50);
+    }
+  }
+
+  function shouldShowInkoSuccessFromUrl() {
+    try {
+      var url = new URL(window.location.href);
+      if (url.searchParams.get('pflege_inko_sent') === '1') return true;
+      if (url.searchParams.get('contact_posted') !== 'true') return false;
+      if (document.querySelector('[data-pflege-contact-success]')) return false;
+      var path = (url.pathname || '/').replace(/\/+$/, '') || '/';
+      if (path === '/') return true;
+      if (path.indexOf('inkontinenz') !== -1 || path.indexOf('rezept') !== -1) return true;
+    } catch (e) {}
+    return false;
+  }
+
+  function cleanSuccessUrl() {
+    try {
+      var url = new URL(window.location.href);
+      url.searchParams.delete('pflege_inko_sent');
+      url.searchParams.delete('contact_posted');
+      url.hash = '';
+      var query = url.searchParams.toString();
+      window.history.replaceState({}, '', url.pathname + (query ? '?' + query : '') + url.hash);
+    } catch (e) {}
+  }
+
   function hasExplicitError(html) {
     if (!html) return false;
     if (html.indexOf('data-pflege-inko-sent-error') !== -1) return true;
@@ -298,20 +355,7 @@
     }
 
     function showSuccessView() {
-      hideError();
-      root.classList.add(SUCCESS_CLASS);
-      root.dataset.pflegeInkoState = STATE_SUCCESS;
-      if (mainPanel) mainPanel.setAttribute('hidden', '');
-      if (successPanel) successPanel.removeAttribute('hidden');
-
-      var btn = successPanel && successPanel.querySelector('[data-pflege-inko-modal-close]');
-      if (btn && typeof btn.focus === 'function') {
-        window.setTimeout(function () {
-          try {
-            btn.focus();
-          } catch (e) {}
-        }, 50);
-      }
+      showSuccessInModal(root);
     }
 
     function clearSubmitWatchers() {
@@ -401,8 +445,9 @@
     }
 
     function onSubmit(e) {
+      if (e && typeof e.preventDefault === 'function') e.preventDefault();
+
       if (isSubmitting || isSuccessState()) {
-        e.preventDefault();
         return;
       }
 
@@ -410,13 +455,11 @@
 
       var data = validateForm(form);
       if (!data) {
-        e.preventDefault();
         showError(VALIDATION_TEXT);
         return;
       }
 
       syncHiddenFields(form, data);
-      e.preventDefault();
       isSubmitting = true;
       submitSettled = false;
 
@@ -475,12 +518,31 @@
     });
 
     if (form) {
-      form.addEventListener('submit', onSubmit);
+      form.addEventListener('submit', onSubmit, true);
       form.setAttribute('novalidate', 'novalidate');
+    }
+
+    if (submitBtn) {
+      submitBtn.addEventListener('click', onSubmit);
     }
   }
 
+  function handleRedirectSuccess() {
+    if (!shouldShowInkoSuccessFromUrl()) return;
+
+    var root =
+      document.getElementById(CANONICAL_MODAL_ID) ||
+      document.querySelector('dialog[data-pflege-inko-testpaket-modal]');
+    if (!root) return;
+
+    initModal(root);
+    showSuccessInModal(root);
+    cleanSuccessUrl();
+  }
+
   function start() {
+    handleRedirectSuccess();
+
     var canonical = document.getElementById(CANONICAL_MODAL_ID);
     if (canonical) {
       initModal(canonical);

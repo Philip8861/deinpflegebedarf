@@ -88,6 +88,8 @@
       <div class="pflege-inko-modal__form-wrap">
         <div class="pflege-inko-modal__form-panel" data-pflege-inko-form-panel>
           {%- form 'contact', id: inko_form_id, class: 'pflege-inko-modal__form' -%}
+            {%- capture inko_return_to -%}{{ request.origin }}{{ request.path }}?pflege_inko_sent=1{%- endcapture -%}
+            <input type="hidden" name="return_to" value="{{ inko_return_to | strip }}">
             <input type="hidden" name="contact[tags]" value="testpaket, inkontinenz, deinpflegebedarf">
             <input type="hidden" name="contact[subject]" value="Kostenloses Testpaket Inkontinenzversorgung">
             <input type="hidden" name="contact[Betreff]" value="Testpaket Inkontinenzversorgung">
@@ -236,7 +238,7 @@
 
             <p class="pflege-inko-modal__form-error" data-pflege-inko-form-error hidden role="alert"></p>
 
-            <button type="submit" class="pflege-inko-modal__submit" data-pflege-inko-submit>
+            <button type="button" class="pflege-inko-modal__submit" data-pflege-inko-submit>
               Jetzt kostenlos anfragen
             </button>
 
