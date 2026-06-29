@@ -1,32 +1,27 @@
-{{ 'section-pflege-pflegesets-row.css' | asset_url | stylesheet_tag }}
 {{ 'section-pflege-category-filtered.css' | asset_url | stylesheet_tag }}
+{{ 'section-pflege-pflegesets-row.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
   assign pfs_heading = section.settings.heading | strip
   assign pfs_sub = section.settings.subheading | strip
 -%}
 
-<section class="pflege-pflegesets pflege-pflegesets--category" {{ section.shopify_attributes }}>
-  <div class="pflege-pflegesets__shell">
-    <div class="pflege-pflegesets__panel">
-      {%- if pfs_heading != blank or pfs_sub != blank -%}
-        <header class="pflege-pflegesets__head">
-          {%- if pfs_heading != blank -%}
-            <h1 class="pflege-pflegesets__title">{{ pfs_heading | escape | newline_to_br }}</h1>
-          {%- endif -%}
-          {%- if pfs_sub != blank -%}
-            <p class="pflege-pflegesets__sub">{{ pfs_sub | escape | newline_to_br }}</p>
-          {%- endif -%}
-        </header>
-      {%- endif -%}
+<section class="pflege-cat-filtered pflege-pflegesets pflege-pflegesets--category" {{ section.shopify_attributes }}>
+  <div class="pflege-cat-filtered__shell pflege-pflegesets__shell">
+    {%- if pfs_heading != blank or pfs_sub != blank -%}
+      <header class="pflege-pflegesets__head">
+        {%- if pfs_heading != blank -%}
+          <h1 class="pflege-pflegesets__title">{{ pfs_heading | escape | newline_to_br }}</h1>
+        {%- endif -%}
+        {%- if pfs_sub != blank -%}
+          <p class="pflege-pflegesets__sub">{{ pfs_sub | escape | newline_to_br }}</p>
+        {%- endif -%}
+      </header>
+    {%- endif -%}
 
-      <div class="pflege-pflegesets__grid">
-        {% render 'pflege-pflegesets-grid',
-          pfs_section: section,
-          card_style: 'category'
-        %}
-      </div>
-    </div>
+    <ul class="pflege-cat-filtered__grid pflege-pflegesets__cat-grid" role="list">
+      {% render 'pflege-pflegesets-category-grid', pfs_section: section %}
+    </ul>
   </div>
 </section>
 
@@ -38,7 +33,7 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Datenquelle: Kollektion „pflegesets“ mit genau 3 Set-Produkten (S, L, M). Die Kollektion ist Pflicht — ohne sie werden auf Seiten keine Produkte geladen."
+      "content": "Datenquelle: Kollektion „pflegesets“ mit genau 3 Set-Produkten (S, L, M). Karten sehen aus wie auf anderen Kategorieseiten."
     },
     {
       "type": "text",

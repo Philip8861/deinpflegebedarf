@@ -396,6 +396,35 @@
   color: var(--pflege-navy-soft, #3d4f6b);
 }
 
+/* Pflegesets-Seite: 3 große Kategorie-Karten (kein 4-Spalten-Raster) */
+.pflege-pflegesets__cat-grid {
+  grid-template-columns: 1fr;
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+  width: min(100%, 92%);
+  max-width: 1480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media screen and (min-width: 750px) {
+  .pflege-pflegesets__cat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .pflege-pflegesets__cat-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(2rem, 4.5vw, 3.5rem);
+  }
+}
+
+.pflege-pflegesets__empty-item {
+  list-style: none;
+  grid-column: 1 / -1;
+}
+
 /* Kategorie-Karten im Pflegesets-Raster — gleiche Optik wie Kategorieseiten, größere Kacheln */
 .pflege-pflegesets--category .pflege-cat-card {
   min-width: 0;
