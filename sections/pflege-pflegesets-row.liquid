@@ -1,7 +1,7 @@
+{% render 'pflege-cat-card-styles' %}
 {{ 'section-pflege-pflegesets-row.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
-  assign card_style = section.settings.card_style | default: 'promo'
   assign pfs_heading = section.settings.heading | strip
   assign pfs_sub = section.settings.subheading | strip
   if pfs_sub == blank and pfs_heading contains ' Entdecken Sie '
@@ -12,12 +12,8 @@
   endif
 -%}
 
-{%- if card_style == 'category' -%}
-  {{ 'section-pflege-category-filtered.css' | asset_url | stylesheet_tag }}
-{%- endif -%}
-
-<section class="pflege-pflegesets{% if card_style == 'category' %} pflege-pflegesets--category{% endif %}" {{ section.shopify_attributes }}>
-  <div class="pflege-pflegesets__shell">
+<section class="pflege-cat-filtered pflege-pflegesets pflege-pflegesets--category" {{ section.shopify_attributes }}>
+  <div class="pflege-cat-filtered__shell pflege-pflegesets__shell">
     <div class="pflege-pflegesets__panel">
       {%- if pfs_heading != blank or pfs_sub != blank -%}
         <header class="pflege-pflegesets__head">
@@ -32,12 +28,9 @@
         </header>
       {%- endif -%}
 
-      <div class="pflege-pflegesets__grid">
-        {% render 'pflege-pflegesets-grid',
-          pfs_section: section,
-          card_style: card_style
-        %}
-      </div>
+      <ul class="pflege-cat-filtered__grid pflege-pflegesets__cat-grid" role="list">
+        {% render 'pflege-pflegesets-category-grid', pfs_section: section %}
+      </ul>
     </div>
   </div>
 </section>
@@ -50,17 +43,7 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Datenquelle: Kollektion „pflegesets“ mit 3 Set-Produkten (S, L, M). Gleiche Kollektion wie auf der Pflegesets-Seite. Promo-Kacheln = Startseite mit Inhaltsliste. Kategorie-Karten = wie Kategorieseiten."
-    },
-    {
-      "type": "select",
-      "id": "card_style",
-      "label": "Kachel-Stil",
-      "options": [
-        { "value": "promo", "label": "Promo-Kacheln (Startseite)" },
-        { "value": "category", "label": "Wie Kategorieseiten" }
-      ],
-      "default": "promo"
+      "content": "Datenquelle: Kollektion „pflegesets“ mit 3 Set-Produkten (S, L, M). Gleiche Karten wie auf /collections/pflegesets."
     },
     {
       "type": "textarea",
@@ -79,14 +62,7 @@
       "type": "collection",
       "id": "pflegesets_collection",
       "label": "Kollektion mit den 3 Pflegesets",
-      "info": "Handle empfohlen: pflegesets — Pflicht für zuverlässige Produktbilder."
-    },
-    {
-      "type": "text",
-      "id": "badge_text",
-      "label": "Hinweis auf dem Bild (nur Promo-Kacheln)",
-      "default": "Sie sparen 10%",
-      "info": "Leer = Shop-Metafeld pflegesets_badge oder Standard „Sie sparen 10%“."
+      "info": "Handle empfohlen: pflegesets"
     },
     {
       "type": "text",
@@ -105,24 +81,6 @@
       "id": "display_title_3",
       "label": "Anzeigename — Kachel 3",
       "default": "Pflegebox Set Größe M"
-    },
-    {
-      "type": "textarea",
-      "id": "contents_1",
-      "label": "Enthaltene Artikel — Kachel 1 (nur Promo)",
-      "default": "• Tiga Soft Einlagen Gr. S (16 Stück)\n• Sensiderm Barriercreme (75 ml)\n• Mildes Waschgel ohne Parfum (250 ml)\n• Nitril-Einmalhandschuhe (10 Paar)\n• All-in-One Feuchttücher (48 Stück)"
-    },
-    {
-      "type": "textarea",
-      "id": "contents_2",
-      "label": "Enthaltene Artikel — Kachel 2 (nur Promo)",
-      "default": "• Comfort Plus Inkontinenzhosen Gr. L (14 Stück)\n• Pflegebad-Öl beruhigend (200 ml)\n• Hautmilch rückfettend (400 ml)\n• Zellstoff-Vliesunterlagen (30 Stück)\n• Mundhygiene-Sticks einzeln verpackt (12 Stück)"
-    },
-    {
-      "type": "textarea",
-      "id": "contents_3",
-      "label": "Enthaltene Artikel — Kachel 3 (nur Promo)",
-      "default": "• Super-Saugvorlagen Gr. M (18 Stück)\n• Zinkpaste für gereizte Haut (100 g)\n• Desinfektionsreiniger für Oberflächen (500 ml)\n• Betteinlage Frottee waschbar (1 Stück)\n• Körperlotion unparfümiert (300 ml)"
     },
     {
       "type": "product",

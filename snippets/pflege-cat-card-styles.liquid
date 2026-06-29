@@ -1,0 +1,27 @@
+{{ 'section-pflege-category-filtered.css' | asset_url | stylesheet_tag }}
+{{ 'pflege-cat-card-layout.css' | asset_url | stylesheet_tag }}
+<style>
+  /* Preis mittig — inline, damit alte CDN-CSS nicht überschreibt */
+  .pflege-cat-card .pflege-cat-card__footer {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.35rem;
+    width: 100%;
+    margin-top: auto;
+  }
+
+  .pflege-cat-card .pflege-cat-card__footer .pflege-cat-card__price-row {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    text-align: center !important;
+  }
+
+  .pflege-cat-card .pflege-cat-card__footer .pflege-cat-card__price,
+  .pflege-cat-card .pflege-cat-card__footer .pflege-cat-card__unit {
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
+  }
+</style>
