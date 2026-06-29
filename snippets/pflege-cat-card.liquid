@@ -36,6 +36,11 @@
     assign subtitle = p.type
   endif
 
+  assign card_heading = p.title
+  if card_title_override != blank
+    assign card_heading = card_title_override
+  endif
+
   if settings.currency_code_enabled
     assign price_label = p.price_min | money_with_currency
   else
@@ -99,7 +104,7 @@
         </div>
       {%- endif -%}
       <h3 class="pflege-cat-card__title">
-        <a href="{{ p.url }}">{{ p.title | escape }}</a>
+        <a href="{{ p.url }}">{{ card_heading | escape }}</a>
       </h3>
       {%- if subtitle != blank -%}
         <p class="pflege-cat-card__desc">{{ subtitle | escape }}</p>

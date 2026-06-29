@@ -370,3 +370,48 @@
     gap: clamp(1.6rem, 4.5vw, 2.25rem);
   }
 }
+
+/* Kategorie-Karten im Pflegesets-Raster — gleiche Optik wie Kategorieseiten, größere Kacheln */
+.pflege-pflegesets--category .pflege-cat-card {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pflege-pflegesets--category .pflege-cat-card__inner {
+  flex: 1 1 auto;
+  height: 100%;
+}
+
+.pflege-pflegesets--category .pflege-cat-card__media-link {
+  min-height: clamp(14rem, 22vw, 20rem);
+  aspect-ratio: 1 / 1;
+}
+
+.pflege-pflegesets--category .pflege-cat-card__img {
+  object-fit: contain;
+}
+
+.pflege-pflegesets--category .pflege-cat-card__title {
+  font-size: clamp(1.12rem, 0.98rem + 0.55vw, 1.38rem);
+}
+
+.pflege-pflegesets--category .pflege-cat-card__desc {
+  font-size: clamp(0.93rem, 0.82rem + 0.38vw, 1.08rem);
+  -webkit-line-clamp: 3;
+  min-height: 3.2rem;
+}
+
+.pflege-pflegesets--category .pflege-cat-card__price {
+  font-size: clamp(1.12rem, 1.02rem + 0.32vw, 1.3rem);
+}
+
+.pflege-pflegesets--category .pflege-cat-card__cart,
+.pflege-pflegesets--category .pflege-cat-card__cart--link {
+  min-height: 2.85rem;
+  font-size: clamp(0.98rem, 0.92rem + 0.2vw, 1.05rem);
+}
