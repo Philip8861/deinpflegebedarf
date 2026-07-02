@@ -216,8 +216,6 @@
   function deriveDesinfektionAttributes(product) {
     var hay = buildHaystack(product);
     var productTypes = [];
-    var applicationAreas = [];
-    var forms = [];
     var properties = [];
 
     if (
@@ -232,7 +230,6 @@
       ])
     ) {
       productTypes.push('haendedesinfektion');
-      applicationAreas.push('hand');
     }
 
     if (
@@ -249,54 +246,41 @@
       ])
     ) {
       productTypes.push('flaechendesinfektion');
-      applicationAreas.push('surface');
     }
 
     if (includesAny(hay, ['koerperdesinfektion', 'körperdesinfektion', 'körper desinfektion'])) {
       productTypes.push('koerperdesinfektion');
-      applicationAreas.push('body');
     }
 
     if (includesAny(hay, ['desinfektionstuch', 'desinfektionstücher', 'desinfektionstuecher', 'tücher', 'tuecher'])) {
       productTypes.push('desinfektionstuecher');
-      forms.push('tuecher');
     }
 
     if (includesAny(hay, ['desinfektionsgel', ' desinfektions gel', ' handgel', ' gel ']) || /\bgel\b/.test(hay)) {
       if (hay.indexOf('gel') !== -1) {
         productTypes.push('desinfektionsgel');
-        forms.push('gel');
       }
     }
 
-    if (includesAny(hay, ['spray', 'sprueh', 'sprüh'])) {
-      productTypes.push('spray');
-      forms.push('spray');
-    }
-
-    if (includesAny(hay, ['kanister', 'nachfuell', 'nachfüll', 'gebinde', '5 liter', '5 l'])) {
-      productTypes.push('kanister');
-      forms.push('kanister');
-    }
-
-    if (includesAny(hay, ['fluessigkeit', 'flüssigkeit', 'loesung', 'lösung', ' fluessig', ' flüssig'])) {
-      forms.push('fluessigkeit');
-    }
-
-    if (applicationAreas.indexOf('hand') === -1 && hay.indexOf('hand') !== -1 && hay.indexOf('desinfekt') !== -1) {
-      applicationAreas.push('hand');
-    }
-    if (applicationAreas.indexOf('surface') === -1 && includesAny(hay, ['flaeche', 'fläche', 'oberflaeche', 'oberfläche'])) {
-      applicationAreas.push('surface');
-    }
-    if (applicationAreas.indexOf('body') === -1 && hay.indexOf('koerper') !== -1) {
-      applicationAreas.push('body');
-    }
-    if (includesAny(hay, ['medizinprodukt', 'medizinprodukte', 'med', 'desinfektionsmittel'])) {
-      applicationAreas.push('medizinprodukte');
-    }
-    if (includesAny(hay, ['haushalt', 'pflege', 'alltag'])) {
-      applicationAreas.push('haushalt-pflege');
+    if (
+      includesAny(hay, [
+        'zubehoer',
+        'zubehör',
+        'desinfektionsspender',
+        'spender',
+        'dosierpumpe',
+        'dosierer',
+        'pumpe',
+        'pumpflasche',
+        'spray',
+        'sprueh',
+        'sprüh',
+        'flaschenhalter',
+        'wandspender',
+        'desinfektionsstation',
+      ])
+    ) {
+      productTypes.push('zubehoer');
     }
 
     if (includesAny(hay, ['vah'])) properties.push('vah-gelistet');
@@ -314,9 +298,6 @@
     return {
       categorySlug: product.categorySlug || 'desinfektion',
       productTypes: unique(productTypes),
-      applicationAreas: unique(applicationAreas),
-      forms: unique(forms),
-      skinConditions: [],
       brand: normalizeBrand(product.vendor),
       sizes: extractSizes(hay, product.optionValues),
       properties: unique(properties),

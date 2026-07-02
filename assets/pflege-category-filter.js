@@ -76,27 +76,7 @@
             { value: 'flaechendesinfektion', label: 'Flächendesinfektion' },
             { value: 'desinfektionstuecher', label: 'Desinfektionstücher' },
             { value: 'desinfektionsgel', label: 'Desinfektionsgel' },
-            { value: 'spray', label: 'Spray' },
-            { value: 'kanister', label: 'Kanister / Nachfüllung' },
-          ],
-        },
-        {
-          id: 'applicationAreas',
-          label: 'Anwendungsbereich',
-          options: [
-            { value: 'hand', label: 'Hände' },
-            { value: 'surface', label: 'Flächen' },
-          ],
-        },
-        {
-          id: 'forms',
-          label: 'Darreichungsform',
-          options: [
-            { value: 'gel', label: 'Gel' },
-            { value: 'fluessigkeit', label: 'Flüssigkeit' },
-            { value: 'tuecher', label: 'Tücher' },
-            { value: 'spray', label: 'Spray' },
-            { value: 'kanister', label: 'Kanister' },
+            { value: 'zubehoer', label: 'Zubehör' },
           ],
         },
       ],
