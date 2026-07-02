@@ -172,6 +172,9 @@
           options: [
             { value: 'wundversorgung-erste-hilfe', label: 'Wundversorgung & Erste Hilfe' },
             { value: 'medikamenten-zubehoer', label: 'Medikamenten Zubehör' },
+            { value: 'pflege-alltagshilfen', label: 'Pflege- & Alltagshilfen' },
+            { value: 'hygiene-entsorgung', label: 'Hygiene & Entsorgung' },
+            { value: 'medizinisches-zubehoer', label: 'Medizinisches Zubehör' },
           ],
         },
       ],
