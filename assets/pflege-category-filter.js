@@ -188,6 +188,7 @@
             { value: 'dusch-bade', label: 'Dusch- & Badeprodukte' },
             { value: 'zahn-mund', label: 'Zahn- & Mundpflege' },
             { value: 'rasur', label: 'Rasur' },
+            { value: 'raum-geruchspflege', label: 'Raum & Geruchspflege' },
           ],
         },
       ],
