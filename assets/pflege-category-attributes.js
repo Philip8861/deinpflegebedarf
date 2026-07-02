@@ -676,8 +676,6 @@
   function deriveKoerperpflegeAttributes(product) {
     var hay = buildHaystack(product);
     var productTypes = [];
-    var applicationAreas = [];
-    var properties = [];
 
     if (
       includesAny(hay, [
@@ -691,18 +689,14 @@
       ])
     ) {
       productTypes.push('waschutensilien');
-      applicationAreas.push('bett');
-      applicationAreas.push('koerper');
     }
 
     if (includesAny(hay, ['shampoo', 'haarpflege', 'haarshampoo', 'conditioner', 'haarwasch'])) {
       productTypes.push('shampoo-haare');
-      applicationAreas.push('haare');
     }
 
     if (includesAny(hay, ['duschgel', 'dusch', 'badezusatz', 'pflegebad', 'badepflege', 'waschbad', 'bad'])) {
       productTypes.push('dusch-bade');
-      applicationAreas.push('bad');
     }
 
     if (
@@ -717,34 +711,10 @@
       ])
     ) {
       productTypes.push('zahn-mund');
-      applicationAreas.push('mund');
-    }
-
-    if (includesAny(hay, ['deodorant', 'deo ', 'antitranspirant'])) {
-      productTypes.push('deodorant');
-      applicationAreas.push('koerper');
     }
 
     if (includesAny(hay, ['rasur', 'rasier', 'shaving'])) {
       productTypes.push('rasur');
-      applicationAreas.push('koerper');
-    }
-
-    if (includesAny(hay, ['parfuemfrei', 'parfümfrei', 'unparfuemiert', 'ohne parfum'])) {
-      properties.push('parfuemfrei');
-    }
-    if (includesAny(hay, ['hautfreundlich', 'sanft', 'mild', 'sensitiv', 'hautneutral'])) {
-      properties.push('hautfreundlich');
-    }
-    if (includesAny(hay, ['alkoholfrei', 'ohne alkohol'])) {
-      properties.push('alkoholfrei');
-    }
-
-    if (includesAny(hay, ['bett', 'bettpflege', 'liege'])) {
-      applicationAreas.push('bett');
-    }
-    if (includesAny(hay, ['hand', 'haende', 'hände'])) {
-      applicationAreas.push('haende');
     }
 
     if (!productTypes.length && includesAny(hay, ['koerperpflege', 'koerper', 'pflege', 'hygiene'])) {
@@ -754,10 +724,6 @@
     return {
       categorySlug: product.categorySlug || 'koerperpflege',
       productTypes: unique(productTypes),
-      applicationAreas: unique(applicationAreas),
-      brand: normalizeBrand(product.vendor),
-      sizes: extractSizes(hay, product.optionValues),
-      properties: unique(properties),
       priceMin: product.priceMin || 0,
       priceMax: product.priceMax || product.priceMin || 0,
     };
