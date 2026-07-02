@@ -1,5 +1,6 @@
 /**
  * PflegeShop — Kategorie-Filter (Sidebar + Mobile-Drawer)
+ * Produkt-Zuordnung zu Filtern: ausschließlich über Shopify-Tags (+ Preis-Slider).
  */
 (function () {
   'use strict';
@@ -298,41 +299,18 @@
   function productMatchesFilterValue(product, filterValue, filterGroups) {
     if (!filterValue) return false;
 
-    var groupFields = [
-      'productTypes',
-      'materials',
-      'properties',
-      'applicationAreas',
-      'forms',
-      'absorbency',
-      'clothingSizes',
-      'genders',
-      'protectionClasses',
-      'packUnits',
-      'formats',
-      'sizes',
-    ];
-    var i;
-    for (i = 0; i < groupFields.length; i++) {
-      var vals = product[groupFields[i]] || [];
-      if (vals.indexOf(filterValue) !== -1) return true;
-    }
-
-    if (product.brand === filterValue) return true;
-
     var option = {
       value: filterValue,
       label: getFilterOptionLabel(filterValue, filterGroups),
     };
     var rawTags = product.rawTags || PflegeCategoryAttributes.parseProductTags(product);
+    var i;
     for (i = 0; i < rawTags.length; i++) {
       if (PflegeCategoryAttributes.tagMatchesFilterOption(rawTags[i], option)) return true;
     }
 
     var normalizedTags = product.normalizedTags || [];
-    if (normalizedTags.indexOf(filterValue) !== -1) return true;
-
-    return false;
+    return normalizedTags.indexOf(filterValue) !== -1;
   }
 
   function parseConfig(root) {
@@ -393,25 +371,7 @@
       var values = selected[groupId] || [];
       if (!values.length) continue;
 
-      if (groupId === 'brand') {
-        var brandMatch = values.some(function (value) {
-          return product.brand === value || productMatchesFilterValue(product, value, filterGroups);
-        });
-        if (!brandMatch) return false;
-        continue;
-      }
-
-      if (groupId === 'tags') {
-        var tagMatch = values.some(function (value) {
-          return productMatchesFilterValue(product, value, filterGroups);
-        });
-        if (!tagMatch) return false;
-        continue;
-      }
-
-      var productValues = product[groupId] || [];
       var match = values.some(function (value) {
-        if (productValues.indexOf(value) !== -1) return true;
         return productMatchesFilterValue(product, value, filterGroups);
       });
       if (!match) return false;
@@ -877,7 +837,7 @@
     var products = config.products.map(function (product, index) {
       var enriched = PflegeCategoryAttributes.enrichProduct(product);
       enriched.sortIndex = index;
-      return PflegeCategoryAttributes.mergeProductTagsIntoAttributes(enriched, filterGroups);
+      return enriched;
     });
 
     root._pflegeCatSelected = createEmptySelected(filterGroups);

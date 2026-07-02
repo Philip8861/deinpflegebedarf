@@ -1,6 +1,7 @@
 /**
  * PflegeShop — Produktattribute für Kategorie-Filter ableiten.
- * Kapselt Mapping aus Titel, Tags, Vendor, Typ und Varianten — nicht im UI verteilen.
+ * Filter-Zuordnung erfolgt ausschließlich über Shopify-Tags (siehe pflege-category-filter.js).
+ * Keyword-Regeln dienen nur noch für Produkt-Badges auf den Karten.
  */
 (function (global) {
   'use strict';
@@ -865,9 +866,10 @@
         })
         .filter(Boolean)
     );
-    return Object.assign({}, product, attrs, {
+    return Object.assign({}, product, {
       rawTags: rawTags,
       normalizedTags: normalizedTags,
+      properties: attrs.properties || [],
     });
   }
 
