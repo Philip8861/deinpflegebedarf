@@ -204,12 +204,6 @@
     if (includesAny(hay, ['herren', 'mann', 'maennlich', 'male', 'men', 'for him'])) {
       genders.push('herren');
     }
-    if (includesAny(hay, ['unisex', 'neutral', 'alle', 'universal'])) {
-      genders.push('unisex');
-    }
-    if (!genders.length && includesAny(hay, ['seni active', 'seni san', 'seni soft'])) {
-      genders.push('unisex');
-    }
     return unique(genders);
   }
 
@@ -586,7 +580,6 @@
       absorbency: unique(absorbency),
       clothingSizes: unique(clothingSizes),
       genders: unique(genders),
-      brand: normalizeBrand(product.vendor),
       sizes: extractSizes(hay, product.optionValues),
       properties: unique(properties),
       priceMin: product.priceMin || 0,

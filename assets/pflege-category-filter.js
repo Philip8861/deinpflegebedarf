@@ -145,7 +145,6 @@
           label: 'Größe',
           layout: 'columns',
           options: [
-            { value: 'xs', label: 'XS' },
             { value: 's', label: 'S' },
             { value: 'm', label: 'M' },
             { value: 'l', label: 'L' },
@@ -159,17 +158,6 @@
           options: [
             { value: 'damen', label: 'Für Damen' },
             { value: 'herren', label: 'Für Herren' },
-            { value: 'unisex', label: 'Unisex' },
-          ],
-        },
-        {
-          id: 'brand',
-          label: 'Marke',
-          options: [
-            { value: 'seni', label: 'Seni' },
-            { value: 'molicare', label: 'MoliCare' },
-            { value: 'tena', label: 'TENA' },
-            { value: 'id', label: 'iD' },
           ],
         },
       ],
