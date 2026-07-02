@@ -237,7 +237,6 @@
           options: [
             { value: 'einmalhandschuhe', label: 'Einmalhandschuhe' },
             { value: 'schutzmasken', label: 'Schutzmasken' },
-            { value: 'schutzbrillen', label: 'Schutzbrillen & Visiere' },
             { value: 'schutzschuerzen', label: 'Schutzschürzen & Kittel' },
             { value: 'ueberschuhe', label: 'Überschuhe' },
             { value: 'schutzbekleidung', label: 'Schutzbekleidung & Overalls' },
@@ -249,9 +248,6 @@
           options: [
             { value: 'nitril', label: 'Nitril' },
             { value: 'latex', label: 'Latex' },
-            { value: 'vinyl', label: 'Vinyl / PVC' },
-            { value: 'vlies', label: 'Vlies' },
-            { value: 'polyethylen', label: 'Polyethylen (PE)' },
           ],
         },
         {
@@ -267,53 +263,6 @@
             { value: 'xxl', label: 'XXL' },
           ],
         },
-        {
-          id: 'applicationAreas',
-          label: 'Anwendungsbereich',
-          options: [
-            { value: 'pflege', label: 'Pflege & Senioren' },
-            { value: 'praxis', label: 'Praxis & Klinik' },
-            { value: 'haushalt', label: 'Haushalt & Alltag' },
-            { value: 'medizin', label: 'Medizin & Behandlung' },
-            { value: 'hygiene', label: 'Hygiene & Reinigung' },
-          ],
-        },
-        {
-          id: 'protectionClasses',
-          label: 'Schutzklasse / Typ',
-          options: [
-            { value: 'ffp2', label: 'FFP2' },
-            { value: 'ffp3', label: 'FFP3' },
-            { value: 'op-maske', label: 'OP-Maske / Typ II' },
-            { value: 'untersuchung', label: 'Untersuchungshandschuh' },
-            { value: 'chemikalien', label: 'Chemikalienschutz' },
-          ],
-        },
-        {
-          id: 'packUnits',
-          label: 'Verpackung',
-          options: [
-            { value: 'pack-100', label: '100 Stück' },
-            { value: 'pack-200', label: '200 Stück' },
-            { value: 'pack-50', label: '50 Stück' },
-            { value: 'pack-25', label: '25 Stück / klein' },
-            { value: 'einzelpack', label: 'Einzelpack' },
-            { value: 'karton', label: 'Karton / Spender' },
-          ],
-        },
-        {
-          id: 'properties',
-          label: 'Eigenschaften',
-          options: [
-            { value: 'latexfrei', label: 'Latexfrei' },
-            { value: 'puderfrei', label: 'Puderfrei' },
-            { value: 'steril', label: 'Steril' },
-            { value: 'texturiert', label: 'Texturiert / Riffeln' },
-            { value: 'lang', label: 'Extra lang / Stulpe' },
-          ],
-        },
-        { id: 'brand', label: 'Marke', dynamic: true },
-        { id: 'sizes', label: 'Maße / Variante', dynamic: true },
       ],
       badges: ['latexfrei', 'puderfrei', 'steril'],
     },

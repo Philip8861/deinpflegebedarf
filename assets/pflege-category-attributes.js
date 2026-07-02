@@ -773,29 +773,13 @@
     var productTypes = [];
     var materials = [];
     var clothingSizes = [];
-    var applicationAreas = [];
-    var protectionClasses = [];
-    var packUnits = [];
-    var properties = [];
 
     if (includesAny(hay, ['handschuh', 'handschuhe', 'untersuchungshandschuh', 'einmalhandschuh'])) {
       productTypes.push('einmalhandschuhe');
-      if (includesAny(hay, ['untersuchung', 'untersuchungshandschuh', 'medical exam'])) {
-        protectionClasses.push('untersuchung');
-      }
     }
 
     if (includesAny(hay, ['ffp2', 'ffp3', 'mundschutz', 'atemschutz', 'op-maske', 'maske', 'masken'])) {
       productTypes.push('schutzmasken');
-    }
-    if (includesAny(hay, ['ffp2'])) protectionClasses.push('ffp2');
-    if (includesAny(hay, ['ffp3'])) protectionClasses.push('ffp3');
-    if (includesAny(hay, ['op-maske', 'op maske', 'typ ii', 'typ 2', 'medizinische maske'])) {
-      protectionClasses.push('op-maske');
-    }
-
-    if (includesAny(hay, ['schutzbrille', 'visier', 'face shield', 'brille'])) {
-      productTypes.push('schutzbrillen');
     }
 
     if (includesAny(hay, ['schutzschuerze', 'schürze', 'schuerze', 'kittel', 'schutzkittel'])) {
@@ -814,51 +798,8 @@
     if (includesAny(hay, ['latex']) && !includesAny(hay, ['latexfrei', 'latex frei', 'latex-free'])) {
       materials.push('latex');
     }
-    if (includesAny(hay, ['vinyl', 'pvc'])) materials.push('vinyl');
-    if (includesAny(hay, ['vlies', 'non-woven', 'nonwoven'])) materials.push('vlies');
-    if (includesAny(hay, ['polyethylen', ' pe ', 'polyethylene'])) materials.push('polyethylen');
 
     clothingSizes = extractClothingSizes(hay, product.optionValues);
-
-    if (includesAny(hay, ['pflege', 'senior', 'altenpflege', 'betreuung'])) {
-      applicationAreas.push('pflege');
-    }
-    if (includesAny(hay, ['praxis', 'klinik', 'arzt', 'medizin'])) {
-      applicationAreas.push('praxis');
-      applicationAreas.push('medizin');
-    }
-    if (includesAny(hay, ['haushalt', 'alltag', 'reinigung'])) {
-      applicationAreas.push('haushalt');
-    }
-    if (includesAny(hay, ['hygiene', 'desinfektion', 'schutz'])) {
-      applicationAreas.push('hygiene');
-    }
-
-    if (includesAny(hay, ['chemikalien', 'chemikalienbestaendig', 'chemikalienbeständig', 'chemo'])) {
-      protectionClasses.push('chemikalien');
-    }
-
-    if (includesAny(hay, ['200 st', '200er', '240 st'])) {
-      packUnits.push('pack-200');
-    } else if (includesAny(hay, ['100 st', '100er', '120 st'])) {
-      packUnits.push('pack-100');
-    } else if (includesAny(hay, ['50 st', '50er', '60 st'])) {
-      packUnits.push('pack-50');
-    } else if (includesAny(hay, ['25 st', '25er', '30 st', '20 st'])) {
-      packUnits.push('pack-25');
-    }
-    if (includesAny(hay, ['karton', 'gebinde', 'spender', 'box'])) {
-      packUnits.push('karton');
-    }
-    if (includesAny(hay, ['einzel', 'single', '1 st'])) {
-      packUnits.push('einzelpack');
-    }
-
-    if (includesAny(hay, ['latexfrei', 'latex frei', 'latex-free'])) properties.push('latexfrei');
-    if (includesAny(hay, ['puderfrei', 'puder frei', 'powder free'])) properties.push('puderfrei');
-    if (includesAny(hay, ['steril', 'sterile'])) properties.push('steril');
-    if (includesAny(hay, ['texturiert', 'riffeln', 'griff', 'structured'])) properties.push('texturiert');
-    if (includesAny(hay, ['extra lang', 'lang', 'stulpe', '30 cm', '300 mm'])) properties.push('lang');
 
     if (!productTypes.length && includesAny(hay, ['schutz', 'handschuh', 'hygiene'])) {
       productTypes.push('schutzprodukt');
@@ -869,12 +810,6 @@
       productTypes: unique(productTypes),
       materials: unique(materials),
       clothingSizes: unique(clothingSizes),
-      applicationAreas: unique(applicationAreas),
-      protectionClasses: unique(protectionClasses),
-      packUnits: unique(packUnits),
-      brand: normalizeBrand(product.vendor),
-      sizes: extractSizes(hay, product.optionValues),
-      properties: unique(properties),
       priceMin: product.priceMin || 0,
       priceMax: product.priceMax || product.priceMin || 0,
     };
