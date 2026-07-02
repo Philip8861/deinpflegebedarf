@@ -255,7 +255,7 @@
   function getFilterConfig(handle) {
     var base = FILTER_CONFIGS[resolveCategoryKey(handle)] || FILTER_CONFIGS.desinfektion;
     return {
-      groups: base.groups.concat([{ id: 'tags', label: 'Tags', dynamic: true }]),
+      groups: base.groups.slice(),
       badges: base.badges,
     };
   }
