@@ -129,6 +129,8 @@
             { value: 'einlagen', label: 'Einlagen' },
             { value: 'vorlagen', label: 'Vorlagen' },
             { value: 'bettschutzeinlagen', label: 'Bettschutzeinlagen' },
+            { value: 'fixierhosen-zubehoer', label: 'Fixierhosen & Zubehör' },
+            { value: 'reinigung-geruchsentfernung', label: 'Reinigung & Geruchsentfernung' },
           ],
         },
         {
