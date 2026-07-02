@@ -332,7 +332,7 @@
     var normalizedTags = product.normalizedTags || [];
     if (normalizedTags.indexOf(filterValue) !== -1) return true;
 
-    return PflegeCategoryAttributes.haystackIncludesFilterValue(product, filterValue);
+    return false;
   }
 
   function parseConfig(root) {
@@ -574,19 +574,6 @@
     }).length;
   }
 
-  function countForOptionIfRemoved(products, selected, groupId, optionValue, filterGroups) {
-    if ((selected[groupId] || []).indexOf(optionValue) === -1) {
-      return countForOption(products, selected, groupId, optionValue, filterGroups);
-    }
-    var testSelected = cloneSelected(selected, filterGroups);
-    testSelected[groupId] = (testSelected[groupId] || []).filter(function (value) {
-      return value !== optionValue;
-    });
-    return products.filter(function (product) {
-      return productMatchesFilters(product, testSelected, filterGroups);
-    }).length;
-  }
-
   function buildDynamicOptions(products, groupId, filterGroups) {
     var map = {};
     var staticValues = filterGroups ? getStaticFilterValueMap(filterGroups) : {};
@@ -651,9 +638,7 @@
 
     options.forEach(function (option) {
       var checked = (selected[group.id] || []).indexOf(option.value) !== -1;
-      var count = checked
-        ? countForOptionIfRemoved(products, selected, group.id, option.value, filterGroups)
-        : countForOption(products, selected, group.id, option.value, filterGroups);
+      var count = countForOption(products, selected, group.id, option.value, filterGroups);
       var disabled = count === 0 && !checked;
       var labelPrefix = option.drops ? renderDropIcons(option.drops) : '';
       html +=
