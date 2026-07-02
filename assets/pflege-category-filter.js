@@ -525,10 +525,7 @@
 
   function countForOption(products, selected, groupId, optionValue, filterGroups) {
     var testSelected = cloneSelected(selected, filterGroups);
-    var current = testSelected[groupId] || [];
-    if (current.indexOf(optionValue) === -1) {
-      testSelected[groupId] = current.concat([optionValue]);
-    }
+    testSelected[groupId] = [optionValue];
     return products.filter(function (product) {
       return productMatchesFilters(product, testSelected, filterGroups);
     }).length;
