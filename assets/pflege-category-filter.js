@@ -92,7 +92,6 @@
             { value: 'lotion', label: 'Lotion' },
             { value: 'oel', label: 'Öl' },
             { value: 'hautschutz', label: 'Hautschutz / Barriercreme' },
-            { value: 'spray', label: 'Spray' },
           ],
         },
         {

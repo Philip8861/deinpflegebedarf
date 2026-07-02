@@ -391,11 +391,6 @@
       forms.push('schaum');
     }
 
-    if (includesAny(hay, ['spray', 'sprueh', 'sprüh', 'koerperspray'])) {
-      productTypes.push('spray');
-      forms.push('spray');
-    }
-
     if (includesAny(hay, ['normal', 'normale haut', 'normal skin'])) {
       skinConditions.push('normal');
     }
