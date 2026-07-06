@@ -157,7 +157,8 @@
 }
 
 @media screen and (max-width: 749px) and (prefers-reduced-motion: reduce) {
-  .pflege-hero__panel--mobile-shop .pflege-hero__cta {
+  .pflege-hero__panel--mobile-shop .pflege-hero__cta::before,
+  .pflege-hero__panel--mobile-shop .pflege-hero__cta::after {
     animation: none;
   }
 }
