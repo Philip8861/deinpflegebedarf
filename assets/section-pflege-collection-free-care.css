@@ -550,16 +550,6 @@
   }
 
   .pflege-hero--free-care .pflege-hero__panel--mobile-free-care .pflege-hero__cta--secondary {
-    width: 100%;
-    max-width: none;
-    min-height: 2.65rem;
-    padding: 0.65rem 1rem;
-    font-size: clamp(0.88rem, 3.5vw, 0.98rem);
-    font-weight: 600;
-    border-radius: var(--pflege-btn-primary-radius, 12px);
-    background: rgba(255, 255, 255, 0.88);
-    border: 1px solid rgba(61, 85, 111, 0.22);
-    color: #3d556f !important;
-    box-shadow: 0 1px 3px rgba(11, 35, 71, 0.06);
+    display: none;
   }
 }
