@@ -343,6 +343,7 @@
     {{ 'pflege-ui-scale.css' | asset_url | stylesheet_tag }}
     {{ 'pflegeshop-tokens.css' | asset_url | stylesheet_tag }}
     {{ 'pflege-mobile-buttons.css' | asset_url | stylesheet_tag }}
+    {{ 'pflege-mobile-modals.css' | asset_url | stylesheet_tag }}
     {{ 'pflege-section-spacing.css' | asset_url | stylesheet_tag }}
     {{ 'component-pflege-type-unified.css' | asset_url | stylesheet_tag }}
     <style id="pflege-hide-header-hamburger">
@@ -645,8 +646,9 @@
           position: fixed !important;
           inset: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0) env(safe-area-inset-bottom, 0)
             env(safe-area-inset-left, 0) !important;
-          width: calc(100% - (clamp(0.85rem, 4.5vw, 1.25rem) * 2)) !important;
-          max-width: calc(100% - (clamp(0.85rem, 4.5vw, 1.25rem) * 2)) !important;
+          width: calc(100% - (var(--pflege-modal-inset-x, clamp(0.85rem, 4.5vw, 1.25rem)) * 2)) !important;
+          max-width: calc(100% - (var(--pflege-modal-inset-x, clamp(0.85rem, 4.5vw, 1.25rem)) * 2)) !important;
+          max-height: calc(100% - (var(--pflege-modal-inset-y, clamp(1rem, 5vw, 1.35rem)) * 2)) !important;
           margin: auto !important;
           box-sizing: border-box !important;
         }
@@ -799,6 +801,7 @@
     {%- endif -%}
 
     {{ 'section-pflege-inko-testpaket-modal.css' | asset_url | stylesheet_tag }}
+    {{ 'pflege-mobile-modals.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'pflege-inko-testpaket-modal.js' | asset_url }}" defer="defer"></script>
     {% render 'pflege-inko-testpaket-modal', modal_suffix: 'global' %}
 

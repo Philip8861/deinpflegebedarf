@@ -473,11 +473,15 @@ button.ct-hp__cta {
 .ct-hp__review-modal {
   padding: 0;
   margin: auto;
+  position: fixed;
+  inset: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px)
+    env(safe-area-inset-left, 0px);
   border: none;
-  max-height: calc(100vh - 2.75rem - env(safe-area-inset-bottom, 0px));
+  width: min(44rem, calc(100% - (var(--pflege-modal-inset-x, 1.25rem) * 2)));
+  max-width: calc(100% - (var(--pflege-modal-inset-x, 1.25rem) * 2));
+  max-height: calc(100% - (var(--pflege-modal-inset-y, 1.375rem) * 2));
   overflow: auto;
-  max-width: calc(100vw - 2.5rem);
-  width: min(44rem, calc(100vw - 2.5rem));
+  box-sizing: border-box;
   border-radius: var(--pflege-radius-lg, 22px);
   background: #fff;
   color: var(--ct-hp-navy);

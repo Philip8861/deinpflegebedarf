@@ -297,16 +297,19 @@ html.pflege-popup-open body {
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-@media (max-width: 600px) {
+@media screen and (max-width: 749px) {
   .pflege-newsletter-popup {
-    padding: 0.75rem;
-    align-items: flex-end;
+    padding: var(--pflege-modal-inset-y, clamp(1rem, 5vw, 1.35rem))
+      var(--pflege-modal-inset-x, clamp(0.85rem, 4.5vw, 1.25rem));
+    padding-top: max(var(--pflege-modal-inset-y, clamp(1rem, 5vw, 1.35rem)), env(safe-area-inset-top, 0px));
+    padding-bottom: max(var(--pflege-modal-inset-y, clamp(1rem, 5vw, 1.35rem)), env(safe-area-inset-bottom, 0px));
+    align-items: center;
   }
 
   .pflege-newsletter-popup__panel {
     max-width: 100%;
     padding: 1.85rem 1.45rem 1.65rem;
-    border-radius: 20px;
+    border-radius: var(--pflege-radius-lg, 22px);
   }
 
   .pflege-newsletter-popup__title {

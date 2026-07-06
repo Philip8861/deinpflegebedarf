@@ -565,6 +565,49 @@ button.pflege-cat-filtered__promo-cta {
 }
 
 @media screen and (max-width: 749px) {
+  .pflege-inko-modal {
+    --inko-modal-inset-x: var(--pflege-modal-inset-x, clamp(0.85rem, 4.5vw, 1.25rem));
+    --inko-modal-inset-y: var(--pflege-modal-inset-y, clamp(1rem, 5vw, 1.35rem));
+    --inko-modal-max-width: 100%;
+    border-radius: var(--pflege-radius-lg, 22px);
+  }
+
+  .pflege-inko-modal__panel {
+    padding: clamp(0.9rem, 3.5vw, 1.15rem);
+  }
+
+  .pflege-inko-modal__close {
+    top: 12px;
+    right: 12px;
+  }
+
+  .pflege-inko-modal__header {
+    margin-bottom: 14px;
+    padding-right: 2rem;
+  }
+
+  .pflege-inko-modal__title {
+    font-size: clamp(1.05rem, 4.2vw, 1.125rem);
+  }
+
+  .pflege-inko-modal__subtitle {
+    font-size: clamp(0.8125rem, 3.2vw, 0.875rem);
+  }
+
+  .pflege-inko-modal__body {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .pflege-inko-modal__form-wrap {
+    padding-left: 0;
+    padding-top: 16px;
+    padding-bottom: 0;
+    margin-top: 16px;
+    border-left: 0;
+    border-top: 1px solid var(--inko-modal-line);
+  }
+
   .pflege-inko-modal__submit,
   .pflege-inko-modal__success-btn {
     min-height: var(--pflege-btn-primary-min-h, 2.875rem);
@@ -575,7 +618,7 @@ button.pflege-cat-filtered__promo-cta {
   }
 }
 
-@media screen and (max-width: 989px) {
+@media screen and (min-width: 750px) and (max-width: 989px) {
   .pflege-inko-modal {
     --inko-modal-inset-x: 20px;
     --inko-modal-inset-y: 40px;
@@ -600,49 +643,6 @@ button.pflege-cat-filtered__promo-cta {
 }
 
 @media screen and (max-width: 767px) {
-  .pflege-inko-modal {
-    --inko-modal-inset-x: 16px;
-    --inko-modal-inset-y: 32px;
-    --inko-modal-max-width: 100%;
-    border-radius: 16px;
-  }
-
-  .pflege-inko-modal__panel {
-    padding: 14px 14px 14px;
-  }
-
-  .pflege-inko-modal__close {
-    top: 12px;
-    right: 12px;
-  }
-
-  .pflege-inko-modal__header {
-    margin-bottom: 14px;
-    padding-right: 2rem;
-  }
-
-  .pflege-inko-modal__title {
-    font-size: 18px;
-  }
-
-  .pflege-inko-modal__subtitle {
-    font-size: 12px;
-  }
-
-  .pflege-inko-modal__body {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0;
-  }
-
-  .pflege-inko-modal__form-wrap {
-    padding-left: 0;
-    padding-top: 16px;
-    padding-bottom: 0;
-    margin-top: 16px;
-    border-left: 0;
-    border-top: 1px solid var(--inko-modal-line);
-  }
-
   .pflege-inko-modal__fields--split {
     grid-template-columns: minmax(0, 1fr);
   }

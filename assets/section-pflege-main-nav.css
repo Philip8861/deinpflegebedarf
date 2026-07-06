@@ -1036,8 +1036,8 @@
 /* ─── Kategorieübersicht: Modal ─── */
 
 .pflege-category-modal {
-  --pflege-cat-modal-inset-x: 1.25rem;
-  --pflege-cat-modal-inset-y: 1.375rem;
+  --pflege-cat-modal-inset-x: var(--pflege-modal-inset-x, 1.25rem);
+  --pflege-cat-modal-inset-y: var(--pflege-modal-inset-y, 1.375rem);
 
   padding: 0;
   margin: auto;
@@ -1352,8 +1352,8 @@
 
 @media screen and (max-width: 749px) {
   .pflege-category-modal {
-    --pflege-cat-modal-inset-x: clamp(0.85rem, 4.5vw, 1.25rem);
-    --pflege-cat-modal-inset-y: clamp(1rem, 5vw, 1.35rem);
+    --pflege-cat-modal-inset-x: var(--pflege-modal-inset-x);
+    --pflege-cat-modal-inset-y: var(--pflege-modal-inset-y);
   }
 
   .pflege-category-modal__cta {

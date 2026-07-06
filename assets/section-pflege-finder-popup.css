@@ -101,13 +101,13 @@
   font-size: clamp(1.15rem, 1rem + 0.5vw, 1.45rem);
 }
 
-@media (max-width: 599px) {
+@media screen and (max-width: 749px) {
   .pflege-finder-modal {
-    width: calc(100vw - 1rem);
-    max-height: calc(100dvh - 1rem);
+    width: calc(100% - (var(--pflege-modal-inset-x, clamp(0.85rem, 4.5vw, 1.25rem)) * 2));
+    max-height: calc(100% - (var(--pflege-modal-inset-y, clamp(1rem, 5vw, 1.35rem)) * 2));
   }
 
   .pflege-finder-modal__panel {
-    max-height: calc(100dvh - 1rem);
+    max-height: calc(100% - (var(--pflege-modal-inset-y, clamp(1rem, 5vw, 1.35rem)) * 2));
   }
 }
