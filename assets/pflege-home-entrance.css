@@ -261,7 +261,7 @@
       .pflege-hero__panel--mobile-shop
       .pflege-hero__cta {
       opacity: 1 !important;
-      animation: pflege-hero-cta-mobile-pulse 3s ease-in-out 0.85s infinite !important;
+      animation: pflege-hero-cta-mobile-pulse 5s ease-in-out 0.85s infinite !important;
       transition: background 0.2s ease, filter 0.2s ease !important;
     }
   }
