@@ -425,6 +425,18 @@
       width: auto !important;
     }
   }
+
+  @media screen and (max-width: 749px) {
+    #PflegeCategoryDialog-{{ section.id }}.pflege-category-modal {
+      position: fixed !important;
+      inset: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0) env(safe-area-inset-bottom, 0)
+        env(safe-area-inset-left, 0) !important;
+      width: calc(100% - (clamp(0.85rem, 4.5vw, 1.25rem) * 2)) !important;
+      max-width: calc(100% - (clamp(0.85rem, 4.5vw, 1.25rem) * 2)) !important;
+      margin: auto !important;
+      box-sizing: border-box !important;
+    }
+  }
 </style>
 
 <div class="header-wrapper pflege-main-nav pflege-main-nav--full-bleed color-{{ section.settings.color_scheme }} gradient">

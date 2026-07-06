@@ -1026,13 +1026,20 @@
 /* ─── Kategorieübersicht: Modal ─── */
 
 .pflege-category-modal {
+  --pflege-cat-modal-inset-x: 1.25rem;
+  --pflege-cat-modal-inset-y: 1.375rem;
+
   padding: 0;
   margin: auto;
+  position: fixed;
+  inset: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px)
+    env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
   border: none;
-  max-height: calc(100vh - 2.75rem - env(safe-area-inset-bottom, 0px));
+  width: min(38rem, calc(100% - (var(--pflege-cat-modal-inset-x) * 2)));
+  max-width: calc(100% - (var(--pflege-cat-modal-inset-x) * 2));
+  max-height: calc(100% - (var(--pflege-cat-modal-inset-y) * 2));
   overflow: auto;
-  max-width: calc(100vw - 2.5rem);
-  width: min(38rem, calc(100vw - 2.5rem));
+  box-sizing: border-box;
   border-radius: var(--pflege-radius-lg, 22px);
   background: rgb(var(--color-background));
   color: rgb(var(--color-foreground));
@@ -1331,5 +1338,21 @@
   border-radius: 50%;
   background: var(--pflege-cta, #f89738);
   box-shadow: 0 0 0 3px rgba(248, 151, 56, 0.22);
+}
+
+@media screen and (max-width: 749px) {
+  .pflege-category-modal {
+    --pflege-cat-modal-inset-x: clamp(0.85rem, 4.5vw, 1.25rem);
+    --pflege-cat-modal-inset-y: clamp(1rem, 5vw, 1.35rem);
+  }
+
+  .pflege-category-modal__panel {
+    padding: 0 1.15rem 1.5rem;
+  }
+
+  .pflege-category-modal__head {
+    margin-inline: -1.15rem;
+    padding-inline: 1.15rem;
+  }
 }
 
