@@ -124,9 +124,11 @@
     }
 
     #shopify-section-{{ section.id }} .pflege-service-bar__rotate-btn {
-      font-size: clamp(13px, 3.65vw, 16px) !important;
+      font-size: var(--pflege-btn-link-fs, clamp(0.8125rem, 3.65vw, 1rem)) !important;
       font-weight: 800 !important;
-      line-height: clamp(16px, 4.2vw, 19px) !important;
+      line-height: 1.25 !important;
+      min-height: var(--pflege-btn-link-min-h, 2.75rem) !important;
+      padding: 0 0.35rem !important;
     }
   }
 </style>

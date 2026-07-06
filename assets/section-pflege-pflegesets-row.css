@@ -542,10 +542,12 @@
   }
 
   .pflege-pflegesets__cart {
-    min-height: 2.15rem;
-    padding: 0.35rem 0.45rem;
-    font-size: clamp(0.68rem, 2.6vw, 0.78rem);
-    border-radius: 8px;
+    min-width: var(--pflege-btn-icon-min, 2.75rem);
+    min-height: var(--pflege-btn-icon-min, 2.75rem);
+    width: var(--pflege-btn-icon-min, 2.75rem);
+    height: var(--pflege-btn-icon-min, 2.75rem);
+    padding: 0;
+    border-radius: 50%;
   }
 
   .pflege-pflegesets__cart .pflege-icon svg {

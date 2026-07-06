@@ -221,6 +221,18 @@ body.pflege-collection-page .facet-filters__label.label {
   body.pflege-collection-page #ProductGridContainer {
     gap: 0.75rem;
   }
+
+  body.pflege-collection-page .pflege-coll-card__cta {
+    min-height: var(--pflege-btn-primary-min-h, 2.875rem);
+    padding: var(--pflege-btn-primary-pad-y, 0.72rem) var(--pflege-btn-primary-pad-x, 1.1rem);
+    font-size: var(--pflege-btn-primary-fs, clamp(1rem, 4vw, 1.125rem));
+    font-weight: var(--pflege-btn-primary-fw, 700);
+    border-radius: var(--pflege-btn-primary-radius, 12px);
+    align-self: stretch;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+  }
 }
 
 body.pflege-collection-page ul#product-grid {

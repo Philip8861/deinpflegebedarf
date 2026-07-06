@@ -342,6 +342,7 @@
     {{ 'base.css' | asset_url | stylesheet_tag }}
     {{ 'pflege-ui-scale.css' | asset_url | stylesheet_tag }}
     {{ 'pflegeshop-tokens.css' | asset_url | stylesheet_tag }}
+    {{ 'pflege-mobile-buttons.css' | asset_url | stylesheet_tag }}
     {{ 'pflege-section-spacing.css' | asset_url | stylesheet_tag }}
     {{ 'component-pflege-type-unified.css' | asset_url | stylesheet_tag }}
     <style id="pflege-hide-header-hamburger">
@@ -459,10 +460,11 @@
 
         .pflege-cat-card__cart,
         .pflege-cat-card__cart--link {
-          min-height: 2.15rem !important;
-          padding: 0.35rem 0.45rem !important;
-          font-size: clamp(0.68rem, 2.6vw, 0.78rem) !important;
-          border-radius: 8px;
+          min-height: var(--pflege-btn-compact-min-h, 2.5rem) !important;
+          padding: var(--pflege-btn-compact-pad-y, 0.48rem) var(--pflege-btn-compact-pad-x, 0.55rem) !important;
+          font-size: var(--pflege-btn-compact-fs, clamp(0.8125rem, 3.1vw, 0.875rem)) !important;
+          font-weight: var(--pflege-btn-compact-fw, 700) !important;
+          border-radius: var(--pflege-btn-compact-radius, 8px);
         }
 
         .pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__inner {
@@ -578,10 +580,11 @@
           width: 100% !important;
           max-width: none !important;
           align-self: stretch !important;
-          font-size: clamp(0.98rem, 4.1vw, 1.1rem) !important;
-          font-weight: 900 !important;
-          min-height: 2.85rem !important;
-          padding: 0.68rem 1rem !important;
+          font-size: var(--pflege-btn-primary-fs, clamp(1rem, 4vw, 1.125rem)) !important;
+          font-weight: 800 !important;
+          min-height: var(--pflege-btn-primary-min-h, 2.875rem) !important;
+          padding: var(--pflege-btn-primary-pad-y, 0.72rem) var(--pflege-btn-primary-pad-x, 1.1rem) !important;
+          border-radius: var(--pflege-btn-primary-radius, 12px) !important;
         }
 
         /* Kategorienübersicht mobil: kleiner + Seitenabstand */
@@ -591,9 +594,10 @@
         }
 
         .pflege-main-nav-section .pflege-main-nav__category-dialog-trigger {
-          min-height: 2.55rem !important;
-          height: 2.55rem !important;
-          font-size: clamp(1.05rem, 4.2vw, 1.22rem) !important;
+          min-height: var(--pflege-btn-secondary-min-h, 2.75rem) !important;
+          height: var(--pflege-btn-secondary-min-h, 2.75rem) !important;
+          font-size: var(--pflege-btn-secondary-fs, clamp(1rem, 4.2vw, 1.125rem)) !important;
+          font-weight: var(--pflege-btn-secondary-fw, 700) !important;
           max-width: 100% !important;
           box-sizing: border-box !important;
         }

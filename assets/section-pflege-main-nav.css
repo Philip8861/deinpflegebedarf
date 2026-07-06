@@ -829,9 +829,9 @@
   }
 
   .pflege-main-nav-section {
-    --pflege-nav-pill-min-height: 2.55rem;
-    --pflege-nav-pill-font-size: clamp(1.05rem, 4.2vw, 1.22rem);
-    --pflege-nav-pill-pad-inline: clamp(0.85rem, 3.2vw, 1.15rem);
+    --pflege-nav-pill-min-height: var(--pflege-btn-secondary-min-h, 2.75rem);
+    --pflege-nav-pill-font-size: var(--pflege-btn-secondary-fs, clamp(1rem, 4.2vw, 1.125rem));
+    --pflege-nav-pill-pad-inline: var(--pflege-btn-secondary-pad-x, clamp(0.85rem, 3.2vw, 1.15rem));
   }
 
   .pflege-main-nav-section .pflege-main-nav__category-dialog-trigger {
@@ -1016,7 +1016,7 @@
   }
 
   .pflege-main-nav-section .pflege-main-nav__search-input {
-    font-size: var(--pflege-nav-pill-font-size, max(1.45rem, 16px));
+    font-size: var(--pflege-nav-pill-font-size, clamp(1rem, 4.2vw, 1.125rem));
     padding-top: 0.45rem;
     padding-bottom: 0.45rem;
     padding-left: 0;
@@ -1354,6 +1354,21 @@
   .pflege-category-modal {
     --pflege-cat-modal-inset-x: clamp(0.85rem, 4.5vw, 1.25rem);
     --pflege-cat-modal-inset-y: clamp(1rem, 5vw, 1.35rem);
+  }
+
+  .pflege-category-modal__cta {
+    min-height: var(--pflege-btn-primary-min-h, 2.875rem);
+    padding: var(--pflege-btn-primary-pad-y, 0.72rem) var(--pflege-btn-primary-pad-x, 1.1rem);
+    font-size: var(--pflege-btn-primary-fs, clamp(1rem, 4vw, 1.125rem));
+    font-weight: var(--pflege-btn-primary-fw, 700);
+    border-radius: var(--pflege-btn-primary-radius, 12px);
+  }
+
+  .pflege-category-modal__link {
+    min-height: var(--pflege-btn-secondary-min-h, 2.75rem);
+    padding: 0.72rem 0.95rem;
+    font-size: var(--pflege-btn-secondary-fs, clamp(1rem, 4.2vw, 1.125rem));
+    font-weight: var(--pflege-btn-secondary-fw, 700);
   }
 
   .pflege-category-modal__panel {

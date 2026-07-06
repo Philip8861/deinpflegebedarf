@@ -564,6 +564,17 @@ button.pflege-cat-filtered__promo-cta {
   text-align: center;
 }
 
+@media screen and (max-width: 749px) {
+  .pflege-inko-modal__submit,
+  .pflege-inko-modal__success-btn {
+    min-height: var(--pflege-btn-primary-min-h, 2.875rem);
+    padding: var(--pflege-btn-primary-pad-y, 0.72rem) var(--pflege-btn-primary-pad-x, 1.1rem);
+    font-size: var(--pflege-btn-primary-fs, clamp(1rem, 4vw, 1.125rem));
+    font-weight: var(--pflege-btn-primary-fw, 700);
+    border-radius: var(--pflege-btn-primary-radius, 12px);
+  }
+}
+
 @media screen and (max-width: 989px) {
   .pflege-inko-modal {
     --inko-modal-inset-x: 20px;

@@ -238,14 +238,14 @@ body.template-index .pflege-hero,
 .pflege-hero__panel--mobile-shop .pflege-hero__cta {
   width: 100%;
   max-width: none;
-  min-height: 2.85rem;
+  min-height: var(--pflege-btn-primary-min-h, 2.875rem);
   margin: clamp(0.25rem, 1.2vw, 0.5rem) 0 0;
   flex-shrink: 0;
-  padding: 0.68rem 1rem;
-  font-size: clamp(0.98rem, 4.1vw, 1.1rem);
-  font-weight: 900;
+  padding: var(--pflege-btn-primary-pad-y, 0.72rem) var(--pflege-btn-primary-pad-x, 1.1rem);
+  font-size: var(--pflege-btn-primary-fs, clamp(1rem, 4vw, 1.125rem));
+  font-weight: 800;
   gap: 0.5rem;
-  border-radius: 12px;
+  border-radius: var(--pflege-btn-primary-radius, 12px);
   justify-content: center;
   text-align: center;
   align-self: stretch;

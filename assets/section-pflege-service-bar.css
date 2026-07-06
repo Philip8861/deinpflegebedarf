@@ -323,13 +323,14 @@ a.pflege-service-bar__copy.pflege-service-bar__link {
 
   .pflege-service-bar__rotate-btn {
     margin: 0;
-    padding: 0;
+    padding: 0 0.35rem;
     border: none;
     background: none;
     font: inherit;
-    font-size: clamp(13px, 3.65vw, 16px);
+    font-size: var(--pflege-btn-link-fs, clamp(0.8125rem, 3.65vw, 1rem));
     font-weight: 800;
-    line-height: clamp(16px, 4.2vw, 19px);
+    line-height: 1.25;
+    min-height: var(--pflege-btn-link-min-h, 2.75rem);
     color: var(--pflege-accent, #3f86d9);
     text-decoration: underline;
     text-decoration-color: rgba(63, 134, 217, 0.45);
