@@ -316,7 +316,13 @@
   color: var(--pl-muted);
 }
 
-/* Widerrufsformular unter dem Text — gleicher Rhythmus */
+/* Widerrufsformular — oben auf der Widerrufsbelehrung */
+.pflege-legal--plain .pflege-withdrawal--top {
+  margin-top: 0;
+  margin-bottom: var(--pl-plain-section-gap, clamp(1.75rem, 3vw, 2.25rem));
+  max-width: 100%;
+}
+
 .pflege-legal--plain .pflege-withdrawal-form,
 .pflege-legal--plain [data-pflege-withdrawal-form] {
   margin-top: var(--pl-plain-section-gap);

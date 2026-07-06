@@ -5,12 +5,16 @@
 {% endcomment %}
 {{ 'pflege-withdrawal-form.css' | asset_url | stylesheet_tag }}
 
-<div class="pflege-withdrawal" id="pflege-withdrawal" data-pflege-withdrawal>
+<div class="pflege-withdrawal{% if placement == 'top' %} pflege-withdrawal--top{% endif %}" id="pflege-withdrawal" data-pflege-withdrawal>
   <div class="pflege-withdrawal__intro">
     <h2 class="pflege-withdrawal__heading" id="pflege-withdrawal-heading">Elektronische Widerrufsfunktion</h2>
     <p class="pflege-withdrawal__lead">
       Sie können Ihren Widerruf unmittelbar über das folgende Formular erklären. Alternativ genügen weiterhin Brief oder
-      E-Mail an die oben genannten Kontaktdaten. Ein Widerrufsgrund ist nicht erforderlich.
+      E-Mail an unsere Kontaktdaten im Abschnitt „Widerrufsrecht“ weiter unten. Ein Widerrufsgrund ist nicht erforderlich.
+    </p>
+    <p class="pflege-withdrawal__lead pflege-withdrawal__lead--note">
+      Nach Eingang Ihres Widerrufs bestätigen wir den Eingang unverzüglich auf einem dauerhaften Datenträger, in der Regel
+      per E-Mail.
     </p>
   </div>
 

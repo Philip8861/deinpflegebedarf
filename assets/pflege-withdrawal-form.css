@@ -7,6 +7,22 @@
   max-width: min(36rem, 100%);
 }
 
+.pflege-withdrawal--top {
+  margin-top: 0;
+  margin-bottom: clamp(2rem, 3.5vw, 2.75rem);
+  padding-top: 0;
+  padding-bottom: clamp(1.75rem, 3vw, 2.25rem);
+  border-top: none;
+  border-bottom: 1px solid var(--pflege-border, #e5eef8);
+  max-width: 100%;
+}
+
+.pflege-withdrawal__lead--note {
+  margin-bottom: 1.25rem;
+  color: var(--pflege-muted, #6f7f95);
+  font-size: clamp(0.96rem, 0.92rem + 0.12vw, 1.04rem);
+}
+
 .pflege-withdrawal__heading {
   margin: 0 0 0.65rem;
   font-family: var(--pflege-font-display, var(--font-body-family, inherit));
@@ -33,18 +49,28 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 3rem;
-  padding: 0.75rem 1.65rem;
+  width: 100%;
+  max-width: min(24rem, 100%);
+  min-height: 3.5rem;
+  padding: 1rem 2.1rem;
   border: none;
   border-radius: var(--pflege-radius-card, 14px);
   font-family: var(--font-body-family, inherit);
-  font-size: clamp(1.02rem, 0.98rem + 0.12vw, 1.1rem);
-  font-weight: 700;
+  font-size: clamp(1.12rem, 1.02rem + 0.35vw, 1.28rem);
+  font-weight: 800;
   line-height: 1.2;
   color: #fff;
   background: var(--pflege-home-section-heading-color, #0f4f69);
   cursor: pointer;
   transition: background 0.2s ease, transform 0.15s ease;
+  box-shadow: 0 2px 10px rgba(15, 79, 105, 0.18);
+}
+
+@media screen and (min-width: 480px) {
+  .pflege-withdrawal__toggle {
+    width: auto;
+    min-width: min(20rem, 100%);
+  }
 }
 
 .pflege-withdrawal__toggle:hover,
