@@ -702,6 +702,16 @@ button.ct-hp__cta {
   }
 }
 
+@media screen and (max-width: 749px) {
+  .ct-hp__card .ct-hp__quote {
+    padding-bottom: 0.65rem;
+  }
+
+  .ct-hp__card .ct-hp__author {
+    margin-top: 2.15rem;
+  }
+}
+
 @media screen and (max-width: 549px) {
   .ct-hp__review-fields {
     grid-template-columns: 1fr;
