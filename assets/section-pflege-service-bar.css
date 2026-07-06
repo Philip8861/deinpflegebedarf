@@ -237,3 +237,164 @@ a.pflege-service-bar__copy.pflege-service-bar__link {
   transform: none;
   filter: none;
 }
+
+/* --- Mobil: Wechsel „Rezept einlösen“ ↔ Versand (Desktop unverändert) --- */
+.pflege-service-bar__mobile-rotate {
+  display: none;
+}
+
+@media screen and (max-width: 749px) {
+  .pflege-service-bar__item--desktop {
+    display: none !important;
+  }
+
+  .pflege-service-bar .pflege-service-bar__inner.page-width {
+    justify-content: center !important;
+    overflow: hidden !important;
+  }
+
+  .pflege-service-bar__mobile-rotate {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  .pflege-service-bar__rotate-viewport {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    height: var(--pflege-svc-line, 16px);
+    overflow: hidden;
+  }
+
+  .pflege-service-bar__rotate-slide {
+    position: absolute;
+    inset: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.3rem, 1.5vw, 0.4rem);
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: var(--pflege-svc-font, 13px);
+    font-weight: 600;
+    line-height: var(--pflege-svc-line, 16px);
+    color: rgba(11, 35, 71, 0.92);
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(100%);
+    animation: pflege-svc-rotate-a 9s ease-in-out infinite;
+    will-change: opacity, transform;
+  }
+
+  .pflege-service-bar__rotate-slide--2 {
+    animation-name: pflege-svc-rotate-b;
+  }
+
+  .pflege-service-bar__rotate-slide .pflege-icon {
+    flex-shrink: 0;
+    color: var(--pflege-accent, #3f86d9);
+    line-height: 0;
+  }
+
+  .pflege-service-bar__rotate-slide .pflege-icon svg {
+    width: var(--pflege-svc-icon, 14px);
+    height: var(--pflege-svc-icon, 14px);
+  }
+
+  .pflege-service-bar__rotate-btn {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    font: inherit;
+    font-weight: 700;
+    color: var(--pflege-accent, #3f86d9);
+    text-decoration: underline;
+    text-decoration-color: rgba(63, 134, 217, 0.45);
+    text-underline-offset: 0.14em;
+    cursor: pointer;
+    white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .pflege-service-bar__rotate-btn:focus-visible {
+    outline: 2px solid var(--pflege-accent, #3f86d9);
+    outline-offset: 2px;
+    border-radius: 0.2rem;
+  }
+
+  .pflege-service-bar__rotate-text {
+    font-weight: 600;
+    color: rgba(11, 35, 71, 0.92);
+  }
+}
+
+@keyframes pflege-svc-rotate-a {
+  0%,
+  4% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+
+  8%,
+  42% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  46%,
+  96% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes pflege-svc-rotate-b {
+  0%,
+  46% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+
+  50%,
+  88% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  92%,
+  100% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+}
+
+@media screen and (max-width: 749px) and (prefers-reduced-motion: reduce) {
+  .pflege-service-bar__rotate-slide {
+    animation: none;
+    position: static;
+    opacity: 0;
+    transform: none;
+  }
+
+  .pflege-service-bar__rotate-slide--1 {
+    opacity: 1;
+  }
+
+  .pflege-service-bar__rotate-viewport {
+    display: flex;
+    justify-content: center;
+    height: auto;
+    min-height: var(--pflege-svc-line, 16px);
+  }
+}

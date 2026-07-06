@@ -92,12 +92,55 @@
     height: var(--pflege-svc-icon) !important;
     max-height: var(--pflege-svc-icon) !important;
   }
+
+  #shopify-section-{{ section.id }} .pflege-service-bar__mobile-rotate {
+    display: none !important;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .pflege-service-bar__item--desktop {
+      display: none !important;
+    }
+
+    #shopify-section-{{ section.id }} .pflege-service-bar__inner.page-width {
+      justify-content: center !important;
+      overflow: hidden !important;
+    }
+
+    #shopify-section-{{ section.id }} .pflege-service-bar__mobile-rotate {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 100% !important;
+    }
+  }
 </style>
 
 <section class="pflege-service-bar" aria-label="Service-Hinweise">
   <div class="pflege-service-bar__inner page-width">
+    <div class="pflege-service-bar__mobile-rotate" aria-live="polite" aria-atomic="true">
+      <div class="pflege-service-bar__rotate-viewport">
+        <div class="pflege-service-bar__rotate-slide pflege-service-bar__rotate-slide--1">
+          {% render 'pflege-icon', icon: 'document', width: 16 %}
+          <button
+            type="button"
+            class="pflege-service-bar__rotate-btn"
+            data-pflege-inko-testpaket-open
+          >
+            {{- section.settings.mobile_rotate_rezept_label | default: 'Rezept Einlösen' | escape -}}
+          </button>
+        </div>
+        <div class="pflege-service-bar__rotate-slide pflege-service-bar__rotate-slide--2">
+          {% render 'pflege-icon', icon: 'truck', width: 16 %}
+          <span class="pflege-service-bar__rotate-text">
+            {{- section.settings.mobile_rotate_shipping_label | default: 'Schneller Versand innerhalb 1–3 Tagen' | escape -}}
+          </span>
+        </div>
+      </div>
+    </div>
+
     {%- for block in section.blocks -%}
-      <div class="pflege-service-bar__item" {{ block.shopify_attributes }}>
+      <div class="pflege-service-bar__item pflege-service-bar__item--desktop" {{ block.shopify_attributes }}>
         <span class="pflege-service-bar__body">
           {% render 'pflege-icon', icon: block.settings.icon, width: 16 %}
           {%- if block.settings.subtext != blank -%}
@@ -146,6 +189,24 @@
     "groups": ["header"]
   },
   "max_blocks": 6,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Mobil — Wechseltext"
+    },
+    {
+      "type": "text",
+      "id": "mobile_rotate_rezept_label",
+      "label": "Text 1 (öffnet Rezept-Pop-up)",
+      "default": "Rezept Einlösen"
+    },
+    {
+      "type": "text",
+      "id": "mobile_rotate_shipping_label",
+      "label": "Text 2 (Versand)",
+      "default": "Schneller Versand innerhalb 1–3 Tagen"
+    }
+  ],
   "blocks": [
     {
       "type": "item",
