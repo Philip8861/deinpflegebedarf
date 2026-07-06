@@ -579,6 +579,20 @@
           min-height: 2.85rem !important;
           padding: 0.68rem 1rem !important;
         }
+
+        /* Kategorienübersicht mobil: kleiner + Seitenabstand */
+        .pflege-main-nav-section .pflege-main-nav.pflege-main-nav--full-bleed {
+          padding-left: max(clamp(0.85rem, 4.5vw, 1.25rem), env(safe-area-inset-left, 0px)) !important;
+          padding-right: max(clamp(0.85rem, 4.5vw, 1.25rem), env(safe-area-inset-right, 0px)) !important;
+        }
+
+        .pflege-main-nav-section .pflege-main-nav__category-dialog-trigger {
+          min-height: 2.55rem !important;
+          height: 2.55rem !important;
+          font-size: clamp(1.05rem, 4.2vw, 1.22rem) !important;
+          max-width: 100% !important;
+          box-sizing: border-box !important;
+        }
       }
     </style>
     {%- if template.name == 'index' -%}
