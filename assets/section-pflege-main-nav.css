@@ -50,10 +50,9 @@
   width: 100%;
 }
 
-.pflege-main-nav-section .pflege-main-nav__drawer-slot {
-  flex: 0 0 auto;
-  display: flex;
-  align-items: center;
+.pflege-main-nav-section .pflege-main-nav__drawer-slot,
+.pflege-main-nav-section header-drawer {
+  display: none !important;
 }
 
 .pflege-main-nav-section .pflege-main-nav__logo {
@@ -762,19 +761,11 @@
   }
 }
 
-/* Drawer + Menü-Hilfsstyles */
-.pflege-main-nav-section header-drawer {
-  justify-self: start;
-}
-
-@media screen and (min-width: 750px) {
-  .pflege-main-nav-section header-drawer {
-    display: none !important;
-  }
-}
-
-.pflege-main-nav-section .menu-drawer-container {
-  display: flex;
+/* Drawer + Menü-Hilfsstyles — Hamburger entfernt */
+.pflege-main-nav-section header-drawer,
+.pflege-main-nav-section .menu-drawer-container,
+.pflege-main-nav-section .header__icon--menu {
+  display: none !important;
 }
 
 .pflege-main-nav-section .list-menu {
@@ -812,7 +803,7 @@
   }
 }
 
-/* Mobil: Zeile 1 = Drawer, Logo, Aktionen • Zeile 2 = Kategorie-Pill • Zeile 3 = Suche (Kategorie-Reiter nur Desktop, unter „Kategorienübersicht“) */
+/* Mobil: Zeile 1 = Logo, Aktionen • Zeile 2 = Kategorie-Pill • Zeile 3 = Suche */
 @media screen and (max-width: 749px) {
   .pflege-main-nav-section .pflege-main-nav__nav {
     display: block !important;
@@ -866,23 +857,16 @@
     box-sizing: border-box;
   }
 
-  .pflege-main-nav-section .pflege-main-nav__drawer-slot {
-    flex: 0 0 auto;
-    align-self: center;
-    display: flex;
-    order: 1;
-  }
-
   .pflege-main-nav-section .pflege-main-nav__logo {
     flex: 1 1 auto;
-    order: 2;
+    order: 1;
     min-width: 0;
     max-width: min(52vw, 14rem);
   }
 
   .pflege-main-nav-section .pflege-main-nav__actions {
     flex: 0 0 auto;
-    order: 3;
+    order: 2;
     gap: var(--pflege-header-actions-gap);
     margin-left: auto;
     align-self: center;
@@ -912,7 +896,6 @@
     width: 100%;
   }
 
-  .pflege-main-nav-section .pflege-main-nav__drawer-slot,
   .pflege-main-nav-section .pflege-main-nav__logo,
   .pflege-main-nav-section .pflege-main-nav__search,
   .pflege-main-nav-section predictive-search.pflege-main-nav__search-host,

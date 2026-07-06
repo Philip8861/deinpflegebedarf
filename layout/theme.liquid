@@ -344,6 +344,14 @@
     {{ 'pflegeshop-tokens.css' | asset_url | stylesheet_tag }}
     {{ 'pflege-section-spacing.css' | asset_url | stylesheet_tag }}
     {{ 'component-pflege-type-unified.css' | asset_url | stylesheet_tag }}
+    <style id="pflege-hide-header-hamburger">
+      header-drawer,
+      .section-header .menu-drawer-container,
+      .section-header .header__icon--menu,
+      .section-header .header__icon--summary.header__icon--menu {
+        display: none !important;
+      }
+    </style>
     <style id="pflege-cat-card-price-center">
       .pflege-cat-card .pflege-cat-card__price-row {
         display: block !important;
