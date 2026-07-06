@@ -504,6 +504,42 @@
         .pflege-pflegesets--category .pflege-cat-card__title {
           font-size: clamp(0.72rem, 2.8vw, 0.88rem) !important;
         }
+
+        /* Startseite Hero mobil: kompakt oben, kein Button in der Bildmitte */
+        body.template-index .pflege-hero__mobile-shop-overlay {
+          height: min(52%, 22rem) !important;
+          overflow: visible !important;
+        }
+
+        body.template-index .pflege-hero__mobile-shop-overlay .pflege-hero__content {
+          display: flex !important;
+          flex-direction: column !important;
+          align-items: stretch !important;
+          justify-content: flex-start !important;
+          gap: clamp(0.42rem, 1.8vw, 0.58rem) !important;
+        }
+
+        body.template-index .pflege-hero__panel--mobile-shop .pflege-hero__badge {
+          display: inline-block !important;
+          align-self: flex-start !important;
+          opacity: 1 !important;
+          visibility: visible !important;
+        }
+
+        body.template-index .pflege-hero__panel--mobile-shop .pflege-hero__title,
+        body.template-index .pflege-hero__panel--mobile-shop .pflege-hero__sub {
+          margin: 0 !important;
+          text-align: left !important;
+        }
+
+        body.template-index .pflege-hero__panel--mobile-shop .pflege-hero__sub {
+          overflow: visible !important;
+        }
+
+        body.template-index .pflege-hero__panel--mobile-shop .pflege-hero__cta {
+          margin-top: clamp(0.15rem, 0.8vw, 0.35rem) !important;
+          width: 100% !important;
+        }
       }
     </style>
     {%- if template.name == 'index' -%}
