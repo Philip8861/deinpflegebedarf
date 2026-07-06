@@ -124,11 +124,19 @@
     }
 
     #shopify-section-{{ section.id }} .pflege-service-bar__rotate-btn {
+      font-family: var(--font-body-family, inherit) !important;
       font-size: var(--pflege-btn-link-fs, clamp(0.8125rem, 3.65vw, 1rem)) !important;
-      font-weight: 800 !important;
+      font-weight: 700 !important;
       line-height: 1.25 !important;
       min-height: var(--pflege-btn-link-min-h, 2.75rem) !important;
       padding: 0 0.35rem !important;
+      color: var(--pflege-heading-navy, #062a55) !important;
+      -webkit-text-fill-color: var(--pflege-heading-navy, #062a55) !important;
+      text-decoration-color: rgba(6, 42, 85, 0.38) !important;
+    }
+
+    #shopify-section-{{ section.id }} .pflege-service-bar__rotate-slide--1 .pflege-icon {
+      color: var(--pflege-heading-navy, #062a55) !important;
     }
   }
 </style>

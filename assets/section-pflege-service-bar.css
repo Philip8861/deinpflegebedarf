@@ -305,6 +305,10 @@ a.pflege-service-bar__copy.pflege-service-bar__link {
     animation-name: pflege-svc-rotate-b;
   }
 
+  .pflege-service-bar__rotate-slide--1 .pflege-icon {
+    color: var(--pflege-heading-navy, #062a55);
+  }
+
   .pflege-service-bar__rotate-slide--1 .pflege-icon svg {
     width: clamp(14px, 3.4vw, 17px);
     height: clamp(14px, 3.4vw, 17px);
@@ -326,14 +330,15 @@ a.pflege-service-bar__copy.pflege-service-bar__link {
     padding: 0 0.35rem;
     border: none;
     background: none;
-    font: inherit;
+    font-family: var(--font-body-family, inherit);
     font-size: var(--pflege-btn-link-fs, clamp(0.8125rem, 3.65vw, 1rem));
-    font-weight: 800;
+    font-weight: 700;
     line-height: 1.25;
     min-height: var(--pflege-btn-link-min-h, 2.75rem);
-    color: var(--pflege-accent, #3f86d9);
+    color: var(--pflege-heading-navy, #062a55);
+    -webkit-text-fill-color: var(--pflege-heading-navy, #062a55);
     text-decoration: underline;
-    text-decoration-color: rgba(63, 134, 217, 0.45);
+    text-decoration-color: rgba(6, 42, 85, 0.38);
     text-underline-offset: 0.14em;
     cursor: pointer;
     white-space: nowrap;
@@ -341,7 +346,7 @@ a.pflege-service-bar__copy.pflege-service-bar__link {
   }
 
   .pflege-service-bar__rotate-btn:focus-visible {
-    outline: 2px solid var(--pflege-accent, #3f86d9);
+    outline: 2px solid var(--pflege-heading-navy, #062a55);
     outline-offset: 2px;
     border-radius: 0.2rem;
   }
