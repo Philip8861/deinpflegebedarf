@@ -21,21 +21,23 @@
   <p class="pflege-hero__sub">{{ hero_subheading | escape }}</p>
 {%- endif -%}
 {%- if section.settings.button_label != blank -%}
-  {%- if section.settings.button_opens_category_modal -%}
-    <button
-      type="button"
-      class="pflege-hero__cta pflege-hero__cta--category-modal"
-      data-pflege-category-modal-open
-    >
-      {{- section.settings.button_label | escape -}}
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </button>
-  {%- else -%}
-    <a class="pflege-hero__cta" href="{{ section.settings.button_link | default: routes.collections_url }}">
-      {{- section.settings.button_label | escape -}}
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
-  {%- endif -%}
+  <span class="pflege-hero__cta-glow">
+    {%- if section.settings.button_opens_category_modal -%}
+      <button
+        type="button"
+        class="pflege-hero__cta pflege-hero__cta--category-modal"
+        data-pflege-category-modal-open
+      >
+        {{- section.settings.button_label | escape -}}
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    {%- else -%}
+      <a class="pflege-hero__cta" href="{{ section.settings.button_link | default: routes.collections_url }}">
+        {{- section.settings.button_label | escape -}}
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    {%- endif -%}
+  </span>
 {%- endif -%}
 {%- if section.blocks.size > 0 -%}
   <ul class="pflege-hero__usps">

@@ -576,11 +576,26 @@
           max-width: none !important;
         }
 
+        body.template-index .pflege-hero__panel--mobile-shop {
+          overflow: visible !important;
+        }
+
+        body.template-index .pflege-hero__panel--mobile-shop .pflege-hero__mobile-shop-photo {
+          border-radius: var(--pflege-radius-lg, 22px) !important;
+        }
+
+        body.template-index .pflege-hero__panel--mobile-shop .pflege-hero__cta-glow {
+          display: block !important;
+          position: relative !important;
+          width: 100% !important;
+          margin-top: clamp(0.25rem, 1.2vw, 0.5rem) !important;
+          isolation: isolate !important;
+        }
+
         body.template-index .pflege-hero__panel--mobile-shop .pflege-hero__cta {
           position: relative !important;
-          isolation: isolate !important;
-          overflow: visible !important;
-          margin-top: clamp(0.25rem, 1.2vw, 0.5rem) !important;
+          z-index: 1 !important;
+          margin-top: 0 !important;
           width: 100% !important;
           max-width: none !important;
           align-self: stretch !important;
@@ -589,42 +604,23 @@
           min-height: var(--pflege-btn-primary-min-h, 2.875rem) !important;
           padding: var(--pflege-btn-primary-pad-y, 0.72rem) var(--pflege-btn-primary-pad-x, 1.1rem) !important;
           border-radius: var(--pflege-btn-primary-radius, 12px) !important;
-          animation: none !important;
-          box-shadow: 0 2px 10px rgba(248, 151, 56, 0.22) !important;
+          animation: pflege-hero-cta-mobile-shine 5s ease-in-out infinite !important;
           transition: background 0.25s ease !important;
         }
 
-        body.template-index .pflege-hero__panel--mobile-shop .pflege-hero__cta::before {
-          content: '' !important;
-          position: absolute !important;
-          inset: -1px !important;
-          border-radius: inherit !important;
-          z-index: -1 !important;
-          pointer-events: none !important;
-          box-shadow:
-            0 0 0 2px rgba(255, 215, 165, 0.6),
-            0 0 22px 5px rgba(248, 151, 56, 0.52),
-            0 0 38px 10px rgba(248, 151, 56, 0.26) !important;
-          opacity: 0 !important;
-          transform: scale(1) !important;
-          backface-visibility: hidden !important;
-          -webkit-backface-visibility: hidden !important;
-          animation: pflege-hero-cta-mobile-glow 5s ease-in-out infinite !important;
-        }
-
-        body.template-index .pflege-hero__panel--mobile-shop .pflege-hero__cta::after {
+        body.template-index .pflege-hero__panel--mobile-shop .pflege-hero__cta-glow::before {
           content: '' !important;
           position: absolute !important;
           inset: 0 !important;
-          border-radius: inherit !important;
+          border-radius: var(--pflege-btn-primary-radius, 12px) !important;
           pointer-events: none !important;
-          background: linear-gradient(
-            180deg,
-            rgba(255, 255, 255, 0.24) 0%,
-            rgba(255, 255, 255, 0) 58%
-          ) !important;
+          z-index: 0 !important;
+          box-shadow:
+            0 0 0 2px rgba(255, 215, 165, 0.65),
+            0 0 24px 6px rgba(248, 151, 56, 0.55),
+            0 0 42px 12px rgba(248, 151, 56, 0.28) !important;
           opacity: 0 !important;
-          animation: pflege-hero-cta-mobile-shine 5s ease-in-out infinite !important;
+          animation: pflege-hero-cta-mobile-glow 5s ease-in-out infinite !important;
         }
 
         @keyframes pflege-hero-cta-mobile-glow {
@@ -632,27 +628,22 @@
           66%,
           100% {
             opacity: 0;
-            transform: scale(1);
           }
 
           74% {
-            opacity: 0.32;
-            transform: scale(1.006);
+            opacity: 0.38;
           }
 
           82% {
-            opacity: 0.82;
-            transform: scale(1.016);
+            opacity: 0.88;
           }
 
           90% {
-            opacity: 0.38;
-            transform: scale(1.004);
+            opacity: 0.42;
           }
 
           96% {
             opacity: 0;
-            transform: scale(1);
           }
         }
 
@@ -660,19 +651,21 @@
           0%,
           66%,
           100% {
-            opacity: 0;
+            filter: brightness(1);
+            box-shadow: 0 2px 10px rgba(248, 151, 56, 0.22);
           }
 
           80% {
-            opacity: 0.42;
+            filter: brightness(1.07);
           }
 
           86% {
-            opacity: 0.62;
+            filter: brightness(1.12);
+            box-shadow: 0 2px 12px rgba(248, 151, 56, 0.32);
           }
 
           94% {
-            opacity: 0.08;
+            filter: brightness(1.02);
           }
         }
 

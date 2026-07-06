@@ -261,7 +261,7 @@
       .pflege-hero__panel--mobile-shop
       .pflege-hero__cta {
       opacity: 1 !important;
-      animation: none !important;
+      animation: pflege-hero-cta-mobile-shine 5s ease-in-out 0.85s infinite !important;
       transition: background 0.25s ease !important;
     }
 
@@ -269,12 +269,7 @@
       #MainContent
       > .shopify-section.pflege-home-in-view
       .pflege-hero__panel--mobile-shop
-      .pflege-hero__cta::before,
-    html.pflege-home-entrance-prep body.template-index
-      #MainContent
-      > .shopify-section.pflege-home-in-view
-      .pflege-hero__panel--mobile-shop
-      .pflege-hero__cta::after {
+      .pflege-hero__cta-glow::before {
       animation-delay: 0.85s;
     }
   }

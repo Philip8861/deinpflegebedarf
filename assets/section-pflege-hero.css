@@ -136,6 +136,11 @@ body.template-index .pflege-hero,
 @media screen and (max-width: 749px) {
   body.template-index .pflege-hero__panel--mobile-shop {
     display: block;
+    overflow: visible;
+  }
+
+  body.template-index .pflege-hero__panel--mobile-shop .pflege-hero__mobile-shop-photo {
+    border-radius: var(--pflege-radius-lg, 22px);
   }
 }
 
@@ -235,11 +240,23 @@ body.template-index .pflege-hero,
   -webkit-text-stroke: 0.25px #152536;
 }
 
+.pflege-hero__cta-glow {
+  display: contents;
+}
+
+.pflege-hero__panel--mobile-shop .pflege-hero__cta-glow {
+  display: block;
+  position: relative;
+  width: 100%;
+  margin: clamp(0.25rem, 1.2vw, 0.5rem) 0 0;
+  isolation: isolate;
+}
+
 .pflege-hero__panel--mobile-shop .pflege-hero__cta {
   width: 100%;
   max-width: none;
   min-height: var(--pflege-btn-primary-min-h, 2.875rem);
-  margin: clamp(0.25rem, 1.2vw, 0.5rem) 0 0;
+  margin: 0;
   flex-shrink: 0;
   padding: var(--pflege-btn-primary-pad-y, 0.72rem) var(--pflege-btn-primary-pad-x, 1.1rem);
   font-size: var(--pflege-btn-primary-fs, clamp(1rem, 4vw, 1.125rem));
@@ -257,53 +274,34 @@ body.template-index .pflege-hero,
 }
 
 @media screen and (max-width: 749px) and (prefers-reduced-motion: no-preference) {
-  .pflege-hero__panel--mobile-shop .pflege-hero__cta {
-    position: relative;
-    isolation: isolate;
-    overflow: visible;
-    animation: none !important;
-    transition: background 0.25s ease !important;
-    box-shadow: 0 2px 10px rgba(248, 151, 56, 0.22);
-  }
-
-  .pflege-hero__panel--mobile-shop .pflege-hero__cta::before {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    border-radius: inherit;
-    z-index: -1;
-    pointer-events: none;
-    box-shadow:
-      0 0 0 2px rgba(255, 215, 165, 0.6),
-      0 0 22px 5px rgba(248, 151, 56, 0.52),
-      0 0 38px 10px rgba(248, 151, 56, 0.26);
-    opacity: 0;
-    transform: scale(1);
-    transform-origin: center center;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    will-change: opacity, transform;
-    animation: pflege-hero-cta-mobile-glow 5s ease-in-out infinite;
-  }
-
-  .pflege-hero__panel--mobile-shop .pflege-hero__cta::after {
+  .pflege-hero__panel--mobile-shop .pflege-hero__cta-glow::before {
     content: '';
     position: absolute;
     inset: 0;
-    border-radius: inherit;
+    border-radius: var(--pflege-btn-primary-radius, 12px);
     pointer-events: none;
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.24) 0%,
-      rgba(255, 255, 255, 0) 58%
-    );
+    z-index: 0;
+    box-shadow:
+      0 0 0 2px rgba(255, 215, 165, 0.65),
+      0 0 24px 6px rgba(248, 151, 56, 0.55),
+      0 0 42px 12px rgba(248, 151, 56, 0.28);
     opacity: 0;
     will-change: opacity;
-    animation: pflege-hero-cta-mobile-shine 5s ease-in-out infinite;
+    animation: pflege-hero-cta-mobile-glow 5s ease-in-out infinite;
   }
 
-  .pflege-hero__panel--mobile-shop .pflege-hero__cta:active::before,
-  .pflege-hero__panel--mobile-shop .pflege-hero__cta:active::after {
+  .pflege-hero__panel--mobile-shop .pflege-hero__cta {
+    position: relative;
+    z-index: 1;
+    animation: pflege-hero-cta-mobile-shine 5s ease-in-out infinite !important;
+    transition: background 0.25s ease !important;
+  }
+
+  .pflege-hero__panel--mobile-shop .pflege-hero__cta:active {
+    animation-play-state: paused;
+  }
+
+  .pflege-hero__panel--mobile-shop .pflege-hero__cta-glow:active::before {
     animation-play-state: paused;
   }
 }
@@ -313,27 +311,22 @@ body.template-index .pflege-hero,
   66%,
   100% {
     opacity: 0;
-    transform: scale(1);
   }
 
   74% {
-    opacity: 0.32;
-    transform: scale(1.006);
+    opacity: 0.38;
   }
 
   82% {
-    opacity: 0.82;
-    transform: scale(1.016);
+    opacity: 0.88;
   }
 
   90% {
-    opacity: 0.38;
-    transform: scale(1.004);
+    opacity: 0.42;
   }
 
   96% {
     opacity: 0;
-    transform: scale(1);
   }
 }
 
@@ -341,19 +334,21 @@ body.template-index .pflege-hero,
   0%,
   66%,
   100% {
-    opacity: 0;
+    filter: brightness(1);
+    box-shadow: 0 2px 10px rgba(248, 151, 56, 0.22);
   }
 
   80% {
-    opacity: 0.42;
+    filter: brightness(1.07);
   }
 
   86% {
-    opacity: 0.62;
+    filter: brightness(1.12);
+    box-shadow: 0 2px 12px rgba(248, 151, 56, 0.32);
   }
 
   94% {
-    opacity: 0.08;
+    filter: brightness(1.02);
   }
 }
 
