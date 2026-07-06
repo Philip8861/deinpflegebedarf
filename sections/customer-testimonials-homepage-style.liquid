@@ -124,6 +124,7 @@
               <p class="ct-hp__quote">
                 {{ block.settings.review_text | strip | escape }}
               </p>
+              <span class="ct-hp__quote-mark ct-hp__quote-mark--close" aria-hidden="true">&rdquo;</span>
               <div class="ct-hp__author">
                 <span class="ct-hp__avatar" aria-hidden="true">
                   <svg viewBox="0 0 24 24" focusable="false">
@@ -141,6 +142,7 @@
         {%- else -%}
           <article class="ct-hp__panel is-active" data-ct-panel aria-hidden="false">
             <p class="ct-hp__quote">{{ section.settings.fallback_quote | default: 'Sehr guter Service und schnelle Lieferung!' | escape }}</p>
+            <span class="ct-hp__quote-mark ct-hp__quote-mark--close" aria-hidden="true">&rdquo;</span>
             <div class="ct-hp__author">
               <span class="ct-hp__avatar" aria-hidden="true">
                 <svg viewBox="0 0 24 24" focusable="false">

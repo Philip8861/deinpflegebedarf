@@ -175,6 +175,17 @@
   user-select: none;
 }
 
+.ct-hp__quote-mark--close {
+  position: static;
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: clamp(3.25rem, 2.5rem + 2.5vw, 5rem);
+  line-height: 0.85;
+  margin: 0.85rem auto 0.35rem;
+  padding: 0;
+}
+
 .ct-hp__body {
   width: 100%;
 }
@@ -703,12 +714,25 @@ button.ct-hp__cta {
 }
 
 @media screen and (max-width: 749px) {
+  .ct-hp__panel.is-active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   .ct-hp__card .ct-hp__quote {
-    padding-bottom: 0.65rem;
+    padding-bottom: 0.35rem;
+    margin-bottom: 0;
+  }
+
+  .ct-hp__quote-mark--close {
+    margin-top: 1.35rem;
+    margin-bottom: 0.65rem;
+    line-height: 0.9;
   }
 
   .ct-hp__card .ct-hp__author {
-    margin-top: 2.15rem;
+    margin-top: 1.65rem !important;
   }
 }
 
