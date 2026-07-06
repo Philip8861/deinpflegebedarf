@@ -191,14 +191,15 @@ body.template-index .pflege-hero,
   margin: 0;
   padding: 0.42rem 0.5rem;
   font-size: clamp(0.88rem, 3.75vw, 1.02rem);
-  font-weight: 800;
-  letter-spacing: 0.01em;
+  font-weight: 900;
+  letter-spacing: 0.008em;
   line-height: 1.34;
   text-align: center;
   background: rgba(255, 255, 255, 0.92);
   border: 1px solid rgba(229, 238, 248, 0.95);
   box-shadow: 0 1px 4px rgba(11, 35, 71, 0.05);
   box-sizing: border-box;
+  -webkit-text-stroke: 0.2px currentColor;
 }
 
 .pflege-hero__panel--mobile-shop .pflege-hero__title {
@@ -210,24 +211,28 @@ body.template-index .pflege-hero,
   text-align: center;
   width: 100%;
   color: #0a4560;
+  -webkit-text-stroke: 0.45px #0a4560;
+  paint-order: stroke fill;
 }
 
 .pflege-hero__panel--mobile-shop .pflege-hero__title span {
   font-weight: 900;
+  -webkit-text-stroke: inherit;
 }
 
 .pflege-hero__panel--mobile-shop .pflege-hero__sub {
   margin: 0;
   font-size: clamp(0.98rem, 4.1vw, 1.12rem);
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1.45;
-  color: #1e3348;
+  color: #152536;
   white-space: pre-line;
   text-align: center;
   overflow: visible;
   width: 100%;
   padding-inline: clamp(0.15rem, 1vw, 0.35rem);
   box-sizing: border-box;
+  -webkit-text-stroke: 0.25px #152536;
 }
 
 .pflege-hero__panel--mobile-shop .pflege-hero__cta {
@@ -238,7 +243,7 @@ body.template-index .pflege-hero,
   flex-shrink: 0;
   padding: 0.68rem 1rem;
   font-size: clamp(0.98rem, 4.1vw, 1.1rem);
-  font-weight: 800;
+  font-weight: 900;
   gap: 0.5rem;
   border-radius: 12px;
   justify-content: center;
