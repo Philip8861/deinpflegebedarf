@@ -1,6 +1,12 @@
+{%- liquid
+  assign hero_subheading = section.settings.subheading
+  if subheading_override != blank
+    assign hero_subheading = subheading_override
+  endif
+-%}
 {% comment %}
   Hero-Textblock (Badge, Titel, Unterzeile, CTA, USPs).
-  Parameter: section (required)
+  Parameter: section (required), subheading_override (optional, nur Mobil-Startseite)
 {% endcomment %}
 {%- if section.settings.badge != blank -%}
   <p class="pflege-hero__badge">{{ section.settings.badge | escape }}</p>
@@ -11,8 +17,8 @@
     <br><span>{{ section.settings.heading_line2 | escape }}</span>
   {%- endif -%}
 </h1>
-{%- if section.settings.subheading != blank -%}
-  <p class="pflege-hero__sub">{{ section.settings.subheading | escape }}</p>
+{%- if hero_subheading != blank -%}
+  <p class="pflege-hero__sub">{{ hero_subheading | escape }}</p>
 {%- endif -%}
 {%- if section.settings.button_label != blank -%}
   {%- if section.settings.button_opens_category_modal -%}
