@@ -499,3 +499,67 @@
   outline: 2px solid var(--pfc-navy);
   outline-offset: 3px;
 }
+
+/* Mobil: mobil_pflegebox.webp + Overlay wie Startseite */
+@media screen and (max-width: 749px) {
+  .pflege-hero--free-care .pflege-hero__panel--mobile-free-care .pflege-hero__mobile-shop-overlay {
+    height: min(64%, 30rem);
+    padding-bottom: clamp(0.65rem, 2.2vw, 0.85rem);
+  }
+
+  .pflege-hero--free-care .pflege-hero__panel--mobile-free-care .pflege-hero__title {
+    font-weight: 900;
+    font-size: clamp(1.55rem, 6.8vw, 1.95rem);
+  }
+
+  .pflege-hero--free-care .pflege-hero__panel--mobile-free-care .pflege-hero__sub {
+    font-size: clamp(0.92rem, 3.85vw, 1.05rem);
+    font-weight: 700;
+    line-height: 1.42;
+  }
+
+  .pflege-hero--free-care .pflege-hero__panel--mobile-free-care .pflege-hero__actions {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.55rem;
+    width: 100%;
+    max-width: none;
+    margin-top: 0;
+  }
+
+  .pflege-hero--free-care .pflege-hero__panel--mobile-free-care .pflege-hero__cta {
+    width: 100%;
+    max-width: none;
+    min-height: var(--pflege-btn-primary-min-h, 2.875rem);
+    padding: var(--pflege-btn-primary-pad-y, 0.72rem) var(--pflege-btn-primary-pad-x, 1.1rem);
+    font-size: clamp(0.95rem, 3.85vw, 1.05rem);
+    font-weight: 700;
+    gap: 0.5rem;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  .pflege-hero--free-care .pflege-hero__panel--mobile-free-care .pflege-hero__cta--configure {
+    font-weight: 800;
+  }
+
+  .pflege-hero--free-care .pflege-hero__panel--mobile-free-care .pflege-hero__cta-gear .pflege-icon svg {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+
+  .pflege-hero--free-care .pflege-hero__panel--mobile-free-care .pflege-hero__cta--secondary {
+    width: 100%;
+    max-width: none;
+    min-height: 2.65rem;
+    padding: 0.65rem 1rem;
+    font-size: clamp(0.88rem, 3.5vw, 0.98rem);
+    font-weight: 600;
+    border-radius: var(--pflege-btn-primary-radius, 12px);
+    background: rgba(255, 255, 255, 0.88);
+    border: 1px solid rgba(61, 85, 111, 0.22);
+    color: #3d556f !important;
+    box-shadow: 0 1px 3px rgba(11, 35, 71, 0.06);
+  }
+}

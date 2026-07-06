@@ -113,13 +113,15 @@ body.template-index .pflege-hero,
 }
 
 @media screen and (min-width: 750px) {
-  .pflege-hero__panel--mobile-shop {
+  .pflege-hero__panel--mobile-shop,
+  .pflege-hero__panel--mobile-free-care {
     display: none !important;
   }
 }
 
-/* Startseite mobil: Mobile_shop.webp + Text in oberer Bildhälfte */
-.pflege-hero__panel--mobile-shop {
+/* Mobil: Foto + Text-Overlay in oberer Bildhälfte (Startseite, kostenfreie PHM) */
+.pflege-hero__panel--mobile-shop,
+.pflege-hero__panel--mobile-free-care {
   display: none;
   position: relative;
   width: 100%;
@@ -141,6 +143,19 @@ body.template-index .pflege-hero,
 
   body.template-index .pflege-hero__panel--mobile-shop .pflege-hero__mobile-shop-photo {
     border-radius: var(--pflege-radius-lg, 22px);
+  }
+
+  .pflege-hero--free-care .pflege-hero__panel--mobile-free-care {
+    display: block;
+    overflow: visible;
+  }
+
+  .pflege-hero--free-care .pflege-hero__panel--mobile-free-care .pflege-hero__mobile-shop-photo {
+    border-radius: var(--pflege-radius-lg, 22px);
+  }
+
+  .pflege-hero--free-care .pflege-hero__panel--asset-bg {
+    display: none !important;
   }
 }
 
@@ -188,7 +203,8 @@ body.template-index .pflege-hero,
   text-align: center;
 }
 
-.pflege-hero__panel--mobile-shop .pflege-hero__badge {
+.pflege-hero__panel--mobile-shop .pflege-hero__badge,
+.pflege-hero__panel--mobile-free-care .pflege-hero__badge {
   display: block;
   align-self: stretch;
   max-width: none;
@@ -207,7 +223,8 @@ body.template-index .pflege-hero,
   -webkit-text-stroke: 0.2px currentColor;
 }
 
-.pflege-hero__panel--mobile-shop .pflege-hero__title {
+.pflege-hero__panel--mobile-shop .pflege-hero__title,
+.pflege-hero__panel--mobile-free-care .pflege-hero__title {
   margin: 0;
   font-size: clamp(1.72rem, 7.5vw, 2.15rem);
   font-weight: 900;
@@ -220,12 +237,14 @@ body.template-index .pflege-hero,
   paint-order: stroke fill;
 }
 
-.pflege-hero__panel--mobile-shop .pflege-hero__title span {
+.pflege-hero__panel--mobile-shop .pflege-hero__title span,
+.pflege-hero__panel--mobile-free-care .pflege-hero__title span {
   font-weight: 900;
   -webkit-text-stroke: inherit;
 }
 
-.pflege-hero__panel--mobile-shop .pflege-hero__sub {
+.pflege-hero__panel--mobile-shop .pflege-hero__sub,
+.pflege-hero__panel--mobile-free-care .pflege-hero__sub {
   margin: 0;
   font-size: clamp(0.98rem, 4.1vw, 1.12rem);
   font-weight: 800;

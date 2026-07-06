@@ -3,6 +3,7 @@
 @media screen and (max-width: 749px) {
   /* ── Primary (Orange CTAs) ── */
   .pflege-hero__panel--mobile-shop .pflege-hero__cta,
+  .pflege-hero--free-care .pflege-hero__panel--mobile-free-care .pflege-hero__cta,
   .pflege-category-modal__cta,
   .pflege-cat-filtered__promo-cta,
   .pflege-inko-modal__submit,
