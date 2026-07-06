@@ -3,17 +3,38 @@
 {%- liquid
   assign fetch_prio = 'high'
   assign hero_loading = 'eager'
+  assign hero_alt = section.settings.image_alt | default: 'Pflegeprodukte' | escape
 -%}
 
 <section class="pflege-hero">
   <div class="pflege-hero__shell">
-    <div class="pflege-hero__panel{% if section.settings.image == blank %} pflege-hero__panel--asset-bg{% endif %}">
+    {%- if section.settings.image == blank -%}
+      <div class="pflege-hero__panel pflege-hero__panel--mobile-shop">
+        <img
+          class="pflege-hero__mobile-shop-photo"
+          src="{{ 'Mobile_shop.webp' | asset_url }}"
+          alt="{{ hero_alt }}"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+          width="750"
+          height="1200"
+        >
+        <div class="pflege-hero__mobile-shop-overlay">
+          <div class="pflege-hero__content">
+            {% render 'pflege-hero-content', section: section %}
+          </div>
+        </div>
+      </div>
+    {%- endif -%}
+
+    <div class="pflege-hero__panel{% if section.settings.image == blank %} pflege-hero__panel--asset-bg pflege-hero__panel--desktop-home{% endif %}">
       {%- if section.settings.image == blank -%}
         <div class="pflege-hero__asset-zoom">
           <img
             class="pflege-hero__asset-photo"
             src="{{ 'startseite_main.webp' | asset_url }}"
-            alt="{{ section.settings.image_alt | default: 'Pflegeprodukte' | escape }}"
+            alt="{{ hero_alt }}"
             loading="eager"
             fetchpriority="high"
             decoding="async"
@@ -22,47 +43,7 @@
       {%- endif -%}
       <div class="pflege-hero__grid{% if section.settings.image == blank %} pflege-hero__grid--asset-bg{% endif %}">
         <div class="pflege-hero__content">
-          {%- if section.settings.badge != blank -%}
-            <p class="pflege-hero__badge">{{ section.settings.badge | escape }}</p>
-          {%- endif -%}
-          <h1 class="pflege-hero__title">
-            {{- section.settings.heading_line1 | escape -}}
-            {%- if section.settings.heading_line2 != blank -%}
-              <br><span>{{ section.settings.heading_line2 | escape }}</span>
-            {%- endif -%}
-          </h1>
-          {%- if section.settings.subheading != blank -%}
-            <p class="pflege-hero__sub">{{ section.settings.subheading | escape }}</p>
-          {%- endif -%}
-          {%- if section.settings.button_label != blank -%}
-            {%- if section.settings.button_opens_category_modal -%}
-              <button
-                type="button"
-                class="pflege-hero__cta pflege-hero__cta--category-modal"
-                data-pflege-category-modal-open
-              >
-                {{- section.settings.button_label | escape -}}
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </button>
-            {%- else -%}
-              <a class="pflege-hero__cta" href="{{ section.settings.button_link | default: routes.collections_url }}">
-                {{- section.settings.button_label | escape -}}
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </a>
-            {%- endif -%}
-          {%- endif -%}
-          {%- if section.blocks.size > 0 -%}
-            <ul class="pflege-hero__usps">
-              {%- for block in section.blocks -%}
-                {%- if block.type == 'usp' -%}
-                  <li class="pflege-hero__usp" {{ block.shopify_attributes }}>
-                    {% render 'pflege-icon', icon: block.settings.icon, width: 22 %}
-                    <span>{{ block.settings.text | escape }}</span>
-                  </li>
-                {%- endif -%}
-              {%- endfor -%}
-            </ul>
-          {%- endif -%}
+          {% render 'pflege-hero-content', section: section %}
         </div>
         {%- if section.settings.image != blank -%}
           <div class="pflege-hero__media">

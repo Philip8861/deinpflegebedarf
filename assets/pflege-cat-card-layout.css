@@ -1,0 +1,115 @@
+/* PflegeShop — Produktkarten-Layout v2 (2026-06-29) */
+
+.pflege-cat-card {
+  --pcd-navy: #003b70;
+  --pcd-blue: #0b74d1;
+  --pcd-border: #d8e8f8;
+  --pcd-muted: #607089;
+  --pcd-cta: #f28c28;
+  --pcd-cta-hover: #dc7a22;
+  --pcd-badge-bg: #eaf8e5;
+  --pcd-badge-text: #2e7d32;
+  --pcd-radius: 16px;
+}
+
+.pflege-cat-card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  gap: 0.45rem;
+  align-items: stretch;
+  width: 100%;
+}
+
+.pflege-cat-card__footer {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.35rem;
+  width: 100%;
+  margin-top: auto;
+}
+
+.pflege-cat-card__title {
+  color: var(--pcd-navy);
+}
+
+.pflege-cat-card__price-row {
+  display: block;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+}
+
+.pflege-cat-card__price {
+  display: block;
+  width: 100%;
+  font-size: 1.375rem;
+  font-weight: 800;
+  color: var(--pcd-navy);
+  text-align: center;
+  line-height: 1.2;
+}
+
+.pflege-cat-card__unit {
+  display: block;
+  width: 100%;
+  font-size: 0.875rem;
+  color: var(--pcd-muted);
+  text-align: center;
+}
+
+.pflege-cat-card__cart,
+.pflege-cat-card__cart--link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  width: 100%;
+  min-height: 2.65rem;
+  margin-top: 0;
+  padding: 0.55rem 0.75rem;
+  border: 1.5px solid var(--pcd-cta);
+  border-radius: 11px;
+  background: #ffffff;
+  color: var(--pcd-cta);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+
+.pflege-cat-card__cart:hover,
+.pflege-cat-card__cart--link:hover {
+  background: var(--pcd-cta);
+  color: #ffffff;
+  border-color: var(--pcd-cta);
+}
+
+.pflege-cat-card__cart:focus-visible,
+.pflege-cat-card__cart--link:focus-visible {
+  outline: 2px solid var(--pcd-blue);
+  outline-offset: 2px;
+}
+
+.pflege-cat-card__desc {
+  flex: 1 1 auto;
+}
+
+@media screen and (max-width: 749px) {
+  .pflege-cat-card__inner {
+    padding: 0.5rem;
+  }
+
+  .pflege-cat-card__price {
+    font-size: clamp(0.88rem, 3.6vw, 1rem);
+  }
+
+  .pflege-cat-card__cart,
+  .pflege-cat-card__cart--link {
+    min-height: 2.15rem;
+    font-size: clamp(0.68rem, 2.6vw, 0.78rem);
+  }
+}
