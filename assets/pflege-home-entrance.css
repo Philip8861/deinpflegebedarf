@@ -260,9 +260,9 @@
       > .shopify-section.pflege-home-in-view
       .pflege-hero__panel--mobile-shop
       .pflege-hero__cta {
-      animation:
-        pflege-home-rise 0.68s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both,
-        pflege-hero-cta-mobile-pulse 3s ease-in-out 1.15s infinite;
+      opacity: 1 !important;
+      animation: pflege-hero-cta-mobile-pulse 3s ease-in-out 0.85s infinite !important;
+      transition: background 0.2s ease, filter 0.2s ease !important;
     }
   }
 

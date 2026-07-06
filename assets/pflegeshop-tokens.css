@@ -108,8 +108,9 @@
     --pflege-btn-compact-radius: 8px;
 
     --pflege-btn-icon-min: 2.75rem;
-    --pflege-btn-link-fs: clamp(0.8125rem, 3.65vw, 1rem);
+    --pflege-btn-link-fs: clamp(0.9375rem, 4.2vw, 1.125rem);
     --pflege-btn-link-min-h: 2.75rem;
+    --pflege-btn-link-lh: clamp(1.125rem, 4.8vw, 1.375rem);
   }
 }
 

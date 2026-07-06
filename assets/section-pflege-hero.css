@@ -258,7 +258,8 @@ body.template-index .pflege-hero,
 
 @media screen and (max-width: 749px) and (prefers-reduced-motion: no-preference) {
   .pflege-hero__panel--mobile-shop .pflege-hero__cta {
-    animation: pflege-hero-cta-mobile-pulse 3s ease-in-out infinite;
+    animation: pflege-hero-cta-mobile-pulse 3s ease-in-out infinite !important;
+    transition: background 0.2s ease, filter 0.2s ease !important;
     will-change: transform, box-shadow, filter;
   }
 
@@ -269,26 +270,26 @@ body.template-index .pflege-hero,
 
 @keyframes pflege-hero-cta-mobile-pulse {
   0%,
-  80%,
+  78%,
   100% {
     transform: scale(1);
-    box-shadow: 0 2px 10px rgba(248, 151, 56, 0.28);
+    box-shadow: 0 3px 12px rgba(248, 151, 56, 0.32);
     filter: brightness(1);
   }
 
-  88% {
-    transform: scale(1.07);
+  86% {
+    transform: scale(1.09);
     box-shadow:
-      0 0 0 3px rgba(255, 210, 155, 0.9),
-      0 0 26px rgba(248, 151, 56, 0.72),
-      0 12px 34px rgba(248, 151, 56, 0.42);
-    filter: brightness(1.16);
+      0 0 0 4px rgba(255, 210, 155, 0.95),
+      0 0 32px rgba(248, 151, 56, 0.78),
+      0 14px 38px rgba(248, 151, 56, 0.48);
+    filter: brightness(1.18);
   }
 
-  94% {
-    transform: scale(1.035);
-    box-shadow: 0 6px 22px rgba(248, 151, 56, 0.38);
-    filter: brightness(1.07);
+  93% {
+    transform: scale(1.04);
+    box-shadow: 0 8px 26px rgba(248, 151, 56, 0.42);
+    filter: brightness(1.08);
   }
 }
 

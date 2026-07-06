@@ -99,8 +99,8 @@
 
   @media screen and (max-width: 749px) {
     #shopify-section-{{ section.id }} {
-      --pflege-svc-bar-h: 35px;
-      --pflege-svc-inner-h: 34px;
+      --pflege-svc-bar-h: 37px;
+      --pflege-svc-inner-h: 36px;
     }
 
     #shopify-section-{{ section.id }} .pflege-service-bar__item--desktop {
@@ -120,14 +120,14 @@
     }
 
     #shopify-section-{{ section.id }} .pflege-service-bar__rotate-viewport {
-      height: clamp(16px, 4.2vw, 19px) !important;
+      height: var(--pflege-btn-link-lh, clamp(1.125rem, 4.8vw, 1.375rem)) !important;
     }
 
     #shopify-section-{{ section.id }} .pflege-service-bar__rotate-btn {
       font-family: var(--font-body-family, inherit) !important;
-      font-size: var(--pflege-btn-link-fs, clamp(0.8125rem, 3.65vw, 1rem)) !important;
-      font-weight: 700 !important;
-      line-height: 1.25 !important;
+      font-size: var(--pflege-btn-link-fs, clamp(0.9375rem, 4.2vw, 1.125rem)) !important;
+      font-weight: 800 !important;
+      line-height: var(--pflege-btn-link-lh, clamp(1.125rem, 4.8vw, 1.375rem)) !important;
       min-height: var(--pflege-btn-link-min-h, 2.75rem) !important;
       padding: 0 0.35rem !important;
       color: var(--pflege-heading-navy, #062a55) !important;

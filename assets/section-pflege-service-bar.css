@@ -245,8 +245,8 @@ a.pflege-service-bar__copy.pflege-service-bar__link {
 
 @media screen and (max-width: 749px) {
   .shopify-section.pflege-service-bar-section {
-    --pflege-svc-bar-h: 35px;
-    --pflege-svc-inner-h: 34px;
+    --pflege-svc-bar-h: 37px;
+    --pflege-svc-inner-h: 36px;
   }
 
   .pflege-service-bar__item--desktop {
@@ -271,13 +271,13 @@ a.pflege-service-bar__copy.pflege-service-bar__link {
     position: relative;
     width: 100%;
     max-width: 100%;
-    height: clamp(16px, 4.2vw, 19px);
+    height: var(--pflege-btn-link-lh, clamp(1.125rem, 4.8vw, 1.375rem));
     overflow: hidden;
   }
 
   .pflege-service-bar__rotate-slide--1 {
-    font-size: clamp(13px, 3.65vw, 16px);
-    line-height: clamp(16px, 4.2vw, 19px);
+    font-size: var(--pflege-btn-link-fs, clamp(0.9375rem, 4.2vw, 1.125rem));
+    line-height: var(--pflege-btn-link-lh, clamp(1.125rem, 4.8vw, 1.375rem));
   }
 
   .pflege-service-bar__rotate-slide {
@@ -331,9 +331,9 @@ a.pflege-service-bar__copy.pflege-service-bar__link {
     border: none;
     background: none;
     font-family: var(--font-body-family, inherit);
-    font-size: var(--pflege-btn-link-fs, clamp(0.8125rem, 3.65vw, 1rem));
-    font-weight: 700;
-    line-height: 1.25;
+    font-size: var(--pflege-btn-link-fs, clamp(0.9375rem, 4.2vw, 1.125rem));
+    font-weight: 800;
+    line-height: var(--pflege-btn-link-lh, clamp(1.125rem, 4.8vw, 1.375rem));
     min-height: var(--pflege-btn-link-min-h, 2.75rem);
     color: var(--pflege-heading-navy, #062a55);
     -webkit-text-fill-color: var(--pflege-heading-navy, #062a55);
