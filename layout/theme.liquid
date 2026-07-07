@@ -740,7 +740,6 @@
     </style>
     {%- if template.name == 'index' -%}
       {{ 'pflegeshop-header-home.css' | asset_url | stylesheet_tag }}
-      {{ 'pflege-home-entrance.css' | asset_url | stylesheet_tag }}
     {%- elsif template.name == 'collection' or request.page_type == 'collection' -%}
       {{ 'pflege-collection-page.css' | asset_url | stylesheet_tag }}
       {%- if template.suffix == 'kostenfreie-pflegehilfsmittel' -%}
@@ -751,13 +750,8 @@
           {{ 'section-pflege-collection-free-care.css' | asset_url | stylesheet_tag }}
         {%- endif -%}
       {%- endif -%}
-      {%- if is_pfc_collection -%}
-        {{ 'pflege-pfc-entrance.css' | asset_url | stylesheet_tag }}
-      {%- endif -%}
-      {%- if is_category_filtered -%}
-        {{ 'pflege-category-entrance.css' | asset_url | stylesheet_tag }}
-      {%- endif -%}
     {%- endif -%}
+    {{ 'pflege-site-entrance.css' | asset_url | stylesheet_tag }}
     <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
 
     {%- if settings.cart_type == 'drawer' -%}
@@ -801,27 +795,11 @@
   </head>
 
   <body class="gradient template-{{ template.name }}{% if template.suffix != blank %} template-{{ template.name }}-{{ template.suffix | handleize }}{% endif %}{% if template.name == 'collection' or request.page_type == 'collection' %} pflege-collection-page{% endif %}{% if is_category_filtered %} pflege-category-filtered-page{% endif %}{% if template.name == 'search' %} pflege-search-page{% endif %}{% if is_pfc_collection %} pflege-pfc-collection{% endif %}{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
-    {%- if template.name == 'index' -%}
-      <script>
-        if (!document.documentElement.classList.contains('shopify-design-mode')) {
-          document.documentElement.classList.add('pflege-home-entrance-prep');
-        }
-      </script>
-    {%- endif -%}
-    {%- if is_pfc_collection -%}
-      <script>
-        if (!document.documentElement.classList.contains('shopify-design-mode')) {
-          document.documentElement.classList.add('pflege-pfc-entrance-prep');
-        }
-      </script>
-    {%- endif -%}
-    {%- if is_category_filtered -%}
-      <script>
-        if (!document.documentElement.classList.contains('shopify-design-mode')) {
-          document.documentElement.classList.add('pflege-cat-entrance-prep');
-        }
-      </script>
-    {%- endif -%}
+    <script>
+      if (!document.documentElement.classList.contains('shopify-design-mode')) {
+        document.documentElement.classList.add('pflege-site-entrance-prep');
+      }
+    </script>
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">
       {{ 'accessibility.skip_to_text' | t }}
     </a>
@@ -948,11 +926,6 @@
     {%- endif -%}
     <script src="{{ 'pflege-bestseller-add.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pflege-cart-icon-sync.js' | asset_url }}" defer="defer"></script>
-    {%- if template.name == 'index' -%}
-      <script src="{{ 'pflege-home-entrance.js' | asset_url }}" defer="defer"></script>
-    {%- endif -%}
-    {%- if is_pfc_collection -%}
-      <script src="{{ 'pflege-pfc-entrance.js' | asset_url }}" defer="defer"></script>
-    {%- endif -%}
+    <script src="{{ 'pflege-site-entrance.js' | asset_url }}" defer="defer"></script>
   </body>
 </html>
