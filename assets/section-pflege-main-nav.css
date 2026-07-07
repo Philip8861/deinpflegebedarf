@@ -912,6 +912,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: 0 clamp(0.15rem, 1.2vw, 0.35rem);
+    box-sizing: border-box;
   }
 
   .pflege-main-nav-section predictive-search.pflege-main-nav__search-host .pflege-main-nav__search {
@@ -1011,25 +1013,33 @@
   }
 
   .pflege-main-nav-section .pflege-main-nav__search {
-    min-height: var(--pflege-nav-pill-min-height, 2.95rem);
-    padding: 0.45rem 0 0.45rem 0.85rem;
+    min-height: var(--pflege-nav-pill-min-height, 2.75rem);
+    height: var(--pflege-nav-pill-min-height, 2.75rem);
+    padding: 0 var(--pflege-nav-pill-pad-inline) 0 calc(var(--pflege-nav-pill-pad-inline) * 0.9);
   }
 
   .pflege-main-nav-section .pflege-main-nav__search-input {
     font-size: var(--pflege-nav-pill-font-size, clamp(1rem, 4.2vw, 1.125rem));
-    padding-top: 0.45rem;
-    padding-bottom: 0.45rem;
+    font-weight: 700;
+    padding-top: 0;
+    padding-bottom: 0;
     padding-left: 0;
+    line-height: 1.2;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__search-input::placeholder {
+    font-size: inherit;
+    font-weight: 700;
   }
 
   .pflege-main-nav-section .pflege-main-nav__search-submit {
-    padding: 0.4rem 0.65rem;
+    padding: 0 0.2rem 0 0.35rem;
     flex-shrink: 0;
   }
 
   .pflege-main-nav-section .pflege-main-nav__search-submit .svg-wrapper {
-    width: 1.75rem;
-    height: 1.75rem;
+    width: clamp(1.3rem, 5.4vw, 1.5rem);
+    height: clamp(1.3rem, 5.4vw, 1.5rem);
   }
 }
 

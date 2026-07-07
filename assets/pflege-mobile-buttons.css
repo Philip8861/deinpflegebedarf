@@ -63,8 +63,33 @@
     height: var(--pflege-btn-secondary-min-h);
   }
 
+  .pflege-main-nav-section .pflege-main-nav__search {
+    height: var(--pflege-btn-secondary-min-h);
+    min-height: var(--pflege-btn-secondary-min-h);
+    padding: 0 var(--pflege-btn-secondary-pad-x) 0 calc(var(--pflege-btn-secondary-pad-x) * 0.9);
+  }
+
   .pflege-main-nav-section .pflege-main-nav__search-input {
     font-size: var(--pflege-btn-secondary-fs);
+    font-weight: var(--pflege-btn-secondary-fw);
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    line-height: 1.2;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__search-input::placeholder {
+    font-size: inherit;
+    font-weight: var(--pflege-btn-secondary-fw);
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__search-submit {
+    padding: 0 0.2rem 0 0.35rem;
+  }
+
+  .pflege-main-nav-section .pflege-main-nav__search-submit .svg-wrapper {
+    width: clamp(1.3rem, 5.4vw, 1.5rem);
+    height: clamp(1.3rem, 5.4vw, 1.5rem);
   }
 
   .pflege-main-nav-section .pflege-main-nav__action--account,
