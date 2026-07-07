@@ -990,6 +990,66 @@ html.pflege-cat-drawer-open body {
     transform: translateX(28%);
   }
 
+  .pflege-cat-filtered--inko .pflege-cat-filtered__promo--fullwidth .pflege-cat-filtered__promo-copy {
+    inset: 0 0 auto 0;
+    width: 100%;
+    max-width: none;
+    height: min(70%, 33rem);
+    align-items: stretch;
+    justify-content: flex-start;
+    text-align: center;
+    gap: clamp(0.6rem, 2.4vw, 0.85rem);
+    padding: clamp(1rem, 4vw, 1.3rem) clamp(0.65rem, 2.8vw, 0.9rem) clamp(0.8rem, 2.8vw, 1rem);
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.58) 0%,
+      rgba(255, 255, 255, 0.3) 72%,
+      transparent 100%
+    );
+  }
+
+  .pflege-cat-filtered--inko .pflege-cat-filtered__promo--fullwidth .pflege-cat-filtered__promo-title {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    text-align: center;
+    font-size: clamp(1.89rem, 8.3vw, 2.43rem);
+    font-weight: 900;
+    line-height: 1.12;
+    letter-spacing: -0.025em;
+    color: #0a4560;
+    -webkit-text-stroke: 0.55px #0a4560;
+    paint-order: stroke fill;
+  }
+
+  .pflege-cat-filtered--inko .pflege-cat-filtered__promo--fullwidth .pflege-cat-filtered__promo-lead {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    text-align: center;
+    font-size: clamp(0.98rem, 4.1vw, 1.12rem);
+    font-weight: 900;
+    line-height: 1.4;
+    color: #152536;
+    padding-inline: clamp(0.15rem, 1vw, 0.35rem);
+    box-sizing: border-box;
+    -webkit-text-stroke: 0.4px #152536;
+  }
+
+  .pflege-cat-filtered--inko .pflege-cat-filtered__promo--fullwidth .pflege-cat-filtered__promo-cta {
+    width: 100%;
+    max-width: none;
+    align-self: stretch;
+    justify-content: center;
+    margin: 0;
+    min-height: var(--pflege-btn-primary-min-h, 2.875rem);
+    padding: var(--pflege-btn-primary-pad-y, 0.72rem) var(--pflege-btn-primary-pad-x, 1.1rem);
+    font-size: var(--pflege-btn-primary-fs, clamp(1rem, 4vw, 1.125rem));
+    font-weight: 800;
+    border-radius: var(--pflege-btn-primary-radius, 12px);
+    gap: 0.5rem;
+  }
+
   .pflege-cat-filtered__promo--fullwidth .pflege-cat-filtered__promo-img {
     min-height: clamp(17.5rem, 68vw, 23rem);
     object-position: 72% center;
