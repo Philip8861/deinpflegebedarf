@@ -431,7 +431,7 @@ body.pflege-category-filtered-page.template-collection .gradient {
 
 .pflege-cat-card__media {
   position: relative;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.85rem;
 }
 
 .pflege-cat-card__media-link {
@@ -441,7 +441,9 @@ body.pflege-category-filtered-page.template-collection .gradient {
   aspect-ratio: 1 / 1;
   width: 100%;
   min-height: clamp(10.5rem, 28vw, 15rem);
-  background: #fafcff;
+  background: transparent;
+  border: none;
+  box-shadow: none;
   border-radius: 12px;
   overflow: hidden;
   text-decoration: none;
@@ -1333,7 +1335,7 @@ html.pflege-cat-drawer-open body {
   }
 
   .pflege-cat-card__media {
-    margin-bottom: 0.45rem;
+    margin-bottom: 0.55rem;
   }
 
   .pflege-cat-card__media-link {

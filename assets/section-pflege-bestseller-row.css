@@ -321,7 +321,9 @@
   max-height: 100%;
   aspect-ratio: 1 / 1;
   align-self: center;
-  background: #fafcff;
+  background: transparent;
+  border: none;
+  box-shadow: none;
   border-radius: 12px;
 }
 
