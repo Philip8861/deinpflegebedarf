@@ -735,7 +735,14 @@ html.pflege-cat-drawer-open body {
     min-height: 2.75rem;
     padding: 0 1.25rem;
     line-height: 1;
+    border: 1px solid var(--pcd-border);
     border-radius: 12px;
+    background: #ffffff;
+    color: var(--pcd-navy);
+    font-family: inherit;
+    font-size: 1.0625rem;
+    font-weight: 800;
+    cursor: pointer;
     box-sizing: border-box;
     -webkit-appearance: none;
     appearance: none;
@@ -746,6 +753,7 @@ html.pflege-cat-drawer-open body {
     width: 1.125rem;
     height: 1.125rem;
     margin: 0;
+    color: var(--pcd-blue);
   }
 
   .pflege-cat-filtered__count--mobile {
