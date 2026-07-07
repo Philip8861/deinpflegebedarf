@@ -470,7 +470,7 @@
 /* Mobil: rezept_einloesen.webp + Text-Overlay wie Startseite / kostenfreie PHM */
 @media screen and (max-width: 749px) {
   .pflege-hero--inko-rezept .pflege-hero__panel--mobile-free-care .pflege-hero__mobile-shop-overlay {
-    height: min(66%, 31rem);
+    height: min(70%, 33rem);
     padding-bottom: clamp(0.65rem, 2.2vw, 0.85rem);
   }
 
@@ -482,14 +482,16 @@
 
   .pflege-hero--inko-rezept .pflege-hero__panel--mobile-free-care .pflege-hero__title {
     font-weight: 900;
-    font-size: clamp(1.42rem, 6.2vw, 1.82rem);
-    line-height: 1.14;
+    font-size: clamp(1.89rem, 8.3vw, 2.43rem);
+    line-height: 1.12;
+    -webkit-text-stroke: 0.55px #0a4560;
   }
 
   .pflege-hero--inko-rezept .pflege-hero__panel--mobile-free-care .pflege-hero__sub {
-    font-size: clamp(0.9rem, 3.75vw, 1.02rem);
-    font-weight: 700;
-    line-height: 1.42;
+    font-size: clamp(0.98rem, 4.1vw, 1.12rem);
+    font-weight: 900;
+    line-height: 1.4;
+    -webkit-text-stroke: 0.4px #152536;
   }
 
   .pflege-hero--inko-rezept .pflege-hero__panel--mobile-free-care .pflege-hero__actions {
