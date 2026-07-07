@@ -161,11 +161,70 @@
         '. ' +
         maxParts.month
     );
+
+    fitDeliveryTextWidth(node);
+  }
+
+  function fitDeliveryTextWidth(node) {
+    var textEl = node && node.querySelector('[data-pflege-delivery-estimate-text]');
+    if (!textEl) return;
+
+    var isMobile = window.matchMedia('(max-width: 749px)').matches;
+    if (!isMobile || node.hidden) {
+      textEl.style.removeProperty('font-size');
+      node.classList.remove('is-delivery-fitted');
+      return;
+    }
+
+    var wrap = node.closest('.pflege-product__purchase-form-wrap');
+    var button = wrap && wrap.querySelector('.product-form__submit');
+    if (!button) {
+      textEl.style.removeProperty('font-size');
+      return;
+    }
+
+    var targetWidth = button.getBoundingClientRect().width;
+    if (targetWidth < 48) return;
+
+    textEl.style.fontSize = '10px';
+
+    var min = 10;
+    var max = 24;
+
+    while (max - min > 0.2) {
+      var mid = (min + max) / 2;
+      textEl.style.fontSize = mid + 'px';
+      if (textEl.scrollWidth <= targetWidth) {
+        min = mid;
+      } else {
+        max = mid;
+      }
+    }
+
+    textEl.style.fontSize = min + 'px';
+    node.classList.add('is-delivery-fitted');
+  }
+
+  function fitAllDeliveryWidths() {
+    document.querySelectorAll('[data-pflege-delivery-estimate]').forEach(function (node) {
+      fitDeliveryTextWidth(node);
+    });
+  }
+
+  var fitRaf = 0;
+  function scheduleFitAll() {
+    if (fitRaf) window.cancelAnimationFrame(fitRaf);
+    fitRaf = window.requestAnimationFrame(function () {
+      fitRaf = 0;
+      fitAllDeliveryWidths();
+    });
   }
 
   function init() {
     document.querySelectorAll('[data-pflege-delivery-estimate]').forEach(updateNode);
     syncVisibility();
+    bindFitListeners();
+    scheduleFitAll();
   }
 
   function syncVisibility() {
@@ -175,7 +234,23 @@
       var button = productForm && productForm.querySelector('.product-form__submit');
       var hidden = !button || button.hasAttribute('disabled');
       node.hidden = hidden;
+      if (!hidden) fitDeliveryTextWidth(node);
     });
+  }
+
+  function bindFitListeners() {
+    if (window.__pflegeDeliveryEstimateFitBound) return;
+    window.__pflegeDeliveryEstimateFitBound = true;
+
+    window.addEventListener('resize', scheduleFitAll, { passive: true });
+    window.addEventListener('orientationchange', scheduleFitAll, { passive: true });
+
+    if (typeof ResizeObserver !== 'undefined') {
+      var ro = new ResizeObserver(scheduleFitAll);
+      document.querySelectorAll('.pflege-product__purchase-form-wrap').forEach(function (wrap) {
+        ro.observe(wrap);
+      });
+    }
   }
 
   if (window.__pflegeDeliveryEstimateInit) {

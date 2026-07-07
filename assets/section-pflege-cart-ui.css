@@ -257,16 +257,20 @@
     margin-top: 0.35rem;
     padding: 0;
     gap: 0;
-    font-size: clamp(0.58rem, 5.4cqi, 0.86rem);
+    font-size: clamp(0.78rem, 8.2cqi, 1.12rem);
     font-weight: 700;
-    line-height: 1.25;
-    letter-spacing: -0.015em;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
     text-align: center;
     white-space: nowrap;
     background: none;
     border: none;
     border-radius: 0;
     box-shadow: none;
+  }
+
+  .pflege-product__delivery-estimate.is-delivery-fitted {
+    letter-spacing: 0;
   }
 
   .pflege-product__delivery-estimate-icon {
@@ -278,10 +282,10 @@
     width: 100%;
     max-width: 100%;
     flex: none;
-    line-height: 1.25;
+    line-height: 1.2;
     text-align: center;
     white-space: nowrap;
-    overflow: hidden;
+    overflow: visible;
     text-overflow: clip;
   }
 
