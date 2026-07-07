@@ -467,7 +467,7 @@
   }
 }
 
-/* Mobil: rezept_einlösen.webp + Text-Overlay wie Startseite / kostenfreie PHM */
+/* Mobil: rezept_einloesen.webp + Text-Overlay wie Startseite / kostenfreie PHM */
 @media screen and (max-width: 749px) {
   .pflege-hero--inko-rezept .pflege-hero__panel--mobile-free-care .pflege-hero__mobile-shop-overlay {
     height: min(66%, 31rem);

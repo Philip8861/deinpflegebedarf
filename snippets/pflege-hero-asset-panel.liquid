@@ -4,6 +4,10 @@
   heading_line2, subheading, button_label, button_link, button_opens_testpaket,
   secondary_button_label, secondary_button_link, title_id, full_width
 {% endcomment %}
+{%- liquid
+  assign mobile_photo_w = mobile_asset_width | default: 750
+  assign mobile_photo_h = mobile_asset_height | default: 1200
+-%}
 {%- if mobile_asset_file != blank -%}
   <div class="pflege-hero__panel pflege-hero__panel--mobile-free-care">
     <img
@@ -13,8 +17,8 @@
       loading="eager"
       fetchpriority="high"
       decoding="async"
-      width="750"
-      height="1200"
+      width="{{ mobile_photo_w }}"
+      height="{{ mobile_photo_h }}"
     >
     <div class="pflege-hero__mobile-shop-overlay">
       <div class="pflege-hero__content">

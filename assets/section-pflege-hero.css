@@ -145,16 +145,19 @@ body.template-index .pflege-hero,
     border-radius: var(--pflege-radius-lg, 22px);
   }
 
-  .pflege-hero--free-care .pflege-hero__panel--mobile-free-care {
+  .pflege-hero--free-care .pflege-hero__panel--mobile-free-care,
+  .pflege-hero--inko-rezept .pflege-hero__panel--mobile-free-care {
     display: block;
     overflow: visible;
   }
 
-  .pflege-hero--free-care .pflege-hero__panel--mobile-free-care .pflege-hero__mobile-shop-photo {
+  .pflege-hero--free-care .pflege-hero__panel--mobile-free-care .pflege-hero__mobile-shop-photo,
+  .pflege-hero--inko-rezept .pflege-hero__panel--mobile-free-care .pflege-hero__mobile-shop-photo {
     border-radius: var(--pflege-radius-lg, 22px);
   }
 
-  .pflege-hero--free-care .pflege-hero__panel--asset-bg {
+  .pflege-hero--free-care .pflege-hero__panel--asset-bg,
+  .pflege-hero--inko-rezept .pflege-hero__panel--asset-bg {
     display: none !important;
   }
 }
