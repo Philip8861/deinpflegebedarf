@@ -1,0 +1,126 @@
+/* PflegeShop — einheitliche Pop-up-/Modal-Abstände mobil (wie Kategorienübersicht) */
+
+@media screen and (max-width: 749px) {
+  /* ── Native Dialoge (zentriert) ── */
+  .pflege-category-modal,
+  dialog.pflege-category-modal,
+  .pflege-inko-modal,
+  .pflege-finder-modal,
+  .ct-hp__review-modal {
+    --pflege-cat-modal-inset-x: var(--pflege-modal-inset-x);
+    --pflege-cat-modal-inset-y: var(--pflege-modal-inset-y);
+    --inko-modal-inset-x: var(--pflege-modal-inset-x);
+    --inko-modal-inset-y: var(--pflege-modal-inset-y);
+
+    position: fixed !important;
+    inset: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0) env(safe-area-inset-bottom, 0)
+      env(safe-area-inset-left, 0) !important;
+    width: calc(100% - (var(--pflege-modal-inset-x) * 2)) !important;
+    max-width: calc(100% - (var(--pflege-modal-inset-x) * 2)) !important;
+    max-height: calc(100% - (var(--pflege-modal-inset-y) * 2)) !important;
+    margin: auto !important;
+    box-sizing: border-box !important;
+  }
+
+  .pflege-finder-modal__panel {
+    max-height: calc(100% - (var(--pflege-modal-inset-y) * 2)) !important;
+  }
+
+  .pflege-category-modal__panel {
+    padding: 0 1.15rem 1.5rem !important;
+  }
+
+  .pflege-category-modal__head {
+    margin-inline: -1.15rem !important;
+    padding-inline: 1.15rem !important;
+  }
+
+  .pflege-inko-modal__panel {
+    padding: clamp(0.9rem, 3.5vw, 1.15rem) !important;
+  }
+
+  .ct-hp__review-modal__panel {
+    padding: 0 1.15rem 1.5rem !important;
+  }
+
+  .ct-hp__review-modal__head {
+    margin-inline: -1.15rem !important;
+    padding-inline: 1.15rem !important;
+  }
+
+  /* ── Newsletter-Pop-up ── */
+  .pflege-newsletter-popup {
+    padding: var(--pflege-modal-inset-y) var(--pflege-modal-inset-x) !important;
+    padding-top: max(var(--pflege-modal-inset-y), env(safe-area-inset-top, 0px)) !important;
+    padding-bottom: max(var(--pflege-modal-inset-y), env(safe-area-inset-bottom, 0px)) !important;
+    align-items: center !important;
+  }
+
+  .pflege-newsletter-popup__panel {
+    width: 100% !important;
+    max-width: none !important;
+    border-radius: var(--pflege-radius-lg, 22px) !important;
+  }
+
+  /* ── Warenkorb-Bestätigung ── */
+  .cart-notification-wrapper {
+    padding: var(--pflege-modal-inset-y) var(--pflege-modal-inset-x) !important;
+    padding-top: max(var(--pflege-modal-inset-y), env(safe-area-inset-top, 0px)) !important;
+    padding-bottom: max(var(--pflege-modal-inset-y), env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  .cart-notification {
+    width: 100% !important;
+    max-width: none !important;
+    max-height: calc(100% - (var(--pflege-modal-inset-y) * 2)) !important;
+    padding: clamp(1.15rem, 4vw, 1.5rem) clamp(1.05rem, 4.2vw, 1.25rem) !important;
+    border-radius: var(--pflege-radius-lg, 22px) !important;
+  }
+
+  /* ── Filter-Drawer (Kategorieseite) ── */
+  .pflege-cat-filtered__drawer {
+    padding: 0 var(--pflege-modal-inset-x) var(--pflege-modal-inset-x) !important;
+    padding-bottom: max(var(--pflege-modal-inset-x), env(safe-area-inset-bottom, 0px)) !important;
+    box-sizing: border-box !important;
+  }
+
+  .pflege-cat-filtered__drawer-panel {
+    width: 100% !important;
+    max-height: min(
+      88vh,
+      calc(100dvh - var(--pflege-modal-inset-x) - env(safe-area-inset-top, 0px) - 0.5rem)
+    ) !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+    border-radius: var(--pflege-radius-lg, 22px) var(--pflege-radius-lg, 22px) 0 0 !important;
+  }
+
+  .pflege-cat-filtered__drawer-body {
+    min-height: 0 !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* ── Cookie-Banner ── */
+  .pflege-cookie-banner {
+    padding-left: max(var(--pflege-modal-inset-x), env(safe-area-inset-left, 0px)) !important;
+    padding-right: max(var(--pflege-modal-inset-x), env(safe-area-inset-right, 0px)) !important;
+    padding-bottom: max(var(--pflege-modal-inset-x), env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  .pflege-cookie-banner__panel {
+    border-radius: var(--pflege-radius-lg, 22px) !important;
+    padding-left: clamp(1rem, 4vw, 1.2rem) !important;
+    padding-right: clamp(1rem, 4vw, 1.2rem) !important;
+  }
+
+  /* ── Kontaktformular & Cookie-Einstellungen (Seitenränder) ── */
+  .pflege-contact-page__shell,
+  .pflege-cookie-settings__shell,
+  .pflege-account-landing__inner {
+    padding-left: max(var(--pflege-modal-inset-x), env(safe-area-inset-left, 0px)) !important;
+    padding-right: max(var(--pflege-modal-inset-x), env(safe-area-inset-right, 0px)) !important;
+  }
+}

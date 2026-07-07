@@ -778,15 +778,18 @@ html.pflege-cat-drawer-open body {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-height: 85vh;
+  max-height: min(85vh, calc(100dvh - env(safe-area-inset-top, 0px) - 1rem));
+  min-height: 0;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   background: #ffffff;
   border-radius: 20px 20px 0 0;
   box-shadow: 0 -8px 40px rgba(0, 59, 112, 0.15);
 }
 
 .pflege-cat-filtered__drawer-head {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -816,11 +819,16 @@ html.pflege-cat-drawer-open body {
 
 .pflege-cat-filtered__drawer-body {
   flex: 1 1 auto;
+  min-height: 0;
+  overflow-x: hidden;
   overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   padding: 0.75rem 1rem 1rem;
 }
 
 .pflege-cat-filtered__drawer-foot {
+  flex-shrink: 0;
   display: grid;
   gap: 0.5rem;
   padding: 0.85rem 1rem calc(0.85rem + env(safe-area-inset-bottom, 0));
@@ -1404,7 +1412,10 @@ html.pflege-cat-drawer-open body {
   }
 
   .pflege-cat-filtered__drawer-panel {
-    max-height: 88vh;
+    max-height: min(
+      88vh,
+      calc(100dvh - var(--pflege-modal-inset-x, 0.75rem) - env(safe-area-inset-top, 0px) - 0.5rem)
+    );
     border-radius: 1.35rem 1.35rem 0 0;
     box-shadow: 0 -10px 36px rgba(11, 35, 71, 0.14);
   }
@@ -1436,8 +1447,11 @@ html.pflege-cat-drawer-open body {
     margin-top: 0.65rem;
     padding: 0.85rem 0.75rem;
     border: 1px solid var(--pflege-border, #e5eef8);
+    border-top: none;
     border-radius: 14px;
     background: var(--pflege-bg-soft, #eef6ff);
+    overflow: hidden;
+    min-width: 0;
   }
 
   .pflege-cat-filtered__drawer-body .pflege-cat-filter__group:first-of-type {
@@ -1445,19 +1459,52 @@ html.pflege-cat-drawer-open body {
   }
 
   .pflege-cat-filtered__drawer-body .pflege-cat-filter__group-title {
-    margin-bottom: 0.55rem;
-    padding-bottom: 0.45rem;
-    border-bottom: 1px solid color-mix(in srgb, var(--pflege-accent, #3f86d9) 18%, var(--pflege-border, #e5eef8));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.65rem;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
     font-size: clamp(1rem, 3.8vw, 1.12rem);
     font-weight: 800;
     color: var(--pflege-navy, #0b2347);
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .pflege-cat-filtered__drawer-body .pflege-cat-filter__group-title::after {
+    content: '';
+    flex-shrink: 0;
+    width: 0.55rem;
+    height: 0.55rem;
+    margin-left: auto;
+    border-right: 2px solid var(--pflege-accent, #3f86d9);
+    border-bottom: 2px solid var(--pflege-accent, #3f86d9);
+    transform: rotate(45deg);
+    transition: transform 0.2s ease;
+    opacity: 0.85;
+  }
+
+  .pflege-cat-filtered__drawer-body .pflege-cat-filter__group[open] .pflege-cat-filter__group-title {
+    margin-bottom: 0.55rem;
+    padding-bottom: 0.45rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--pflege-accent, #3f86d9) 18%, var(--pflege-border, #e5eef8));
+  }
+
+  .pflege-cat-filtered__drawer-body .pflege-cat-filter__group[open] .pflege-cat-filter__group-title::after {
+    transform: rotate(-135deg);
   }
 
   .pflege-cat-filtered__drawer-body .pflege-cat-filter__list {
     gap: 0.4rem;
+    max-width: 100%;
+    overflow: hidden;
   }
 
   .pflege-cat-filtered__drawer-body .pflege-cat-filter__label {
+    min-width: 0;
+    max-width: 100%;
     padding: 0.52rem 0.62rem;
     border: 1px solid var(--pflege-border, #e5eef8);
     border-radius: 10px;
@@ -1466,6 +1513,16 @@ html.pflege-cat-drawer-open body {
     font-weight: 700;
     color: var(--pflege-navy, #0b2347);
     transition: border-color 0.15s ease, background 0.15s ease;
+  }
+
+  .pflege-cat-filtered__drawer-body .pflege-cat-filter__label-text {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .pflege-cat-filtered__drawer-body .pflege-cat-filter__count {
+    flex-shrink: 0;
   }
 
   .pflege-cat-filtered__drawer-body .pflege-cat-filter__label:has(.pflege-cat-filter__checkbox:checked) {
@@ -1490,6 +1547,7 @@ html.pflege-cat-drawer-open body {
   }
 
   .pflege-cat-filtered__drawer-body .pflege-cat-filter__list--columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.4rem 0.55rem;
   }
 
