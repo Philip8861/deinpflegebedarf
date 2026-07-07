@@ -27,6 +27,9 @@
   {{ 'section-pflege-cart-ui.css' | asset_url | stylesheet_tag }}
   {{ 'pflege-mockup-pdp.css' | asset_url | stylesheet_tag }}
   {{ 'pflege-payment-badges.css' | asset_url | stylesheet_tag }}
+  {% unless product.has_only_default_variant %}
+    <script src="{{ 'pflege-variant-pill-fit.js' | asset_url }}" defer="defer"></script>
+  {% endunless %}
 
   {%- style -%}
     .section-{{ section.id }}-padding {

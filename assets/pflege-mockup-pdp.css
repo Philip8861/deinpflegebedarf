@@ -567,6 +567,57 @@
   }
 }
 
+@media screen and (max-width: 749px) {
+  .pflege-product-page .product__info-wrapper,
+  .pflege-product-page .product__info-container,
+  .pflege-product-page variant-selects {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .pflege-product-page variant-selects {
+    container-type: inline-size;
+    container-name: pflege-variant-selects;
+    width: 100%;
+    overflow-x: clip;
+  }
+
+  .pflege-product-page .product-form__input--pill {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.45rem;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin-bottom: 1.15rem;
+  }
+
+  .pflege-product-page .product-form__input--pill legend.form__label {
+    width: 100%;
+    margin-bottom: 0.35rem !important;
+    font-size: clamp(0.82rem, 3.5vw, 0.95rem) !important;
+  }
+
+  .pflege-product-page .product-form__input--pill input[type='radio'] + label {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    flex: 1 1 auto;
+    justify-content: flex-start;
+    text-align: left;
+    padding: 0.48rem 0.65rem !important;
+    font-size: clamp(0.62rem, 4.4cqi, 0.82rem) !important;
+    line-height: 1.22;
+    white-space: nowrap;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  .pflege-product-page .product-form__input--pill input[type='radio'] + label.is-variant-pill-fitted {
+    overflow: visible;
+  }
+}
+
 @media screen {
   .pflege-mock-pdp-inventory .pflege-product__availability-inner {
     flex-wrap: wrap;
