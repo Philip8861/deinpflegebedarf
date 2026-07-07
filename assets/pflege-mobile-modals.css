@@ -77,22 +77,26 @@
     border-radius: var(--pflege-radius-lg, 22px) !important;
   }
 
-  /* ── Filter-Drawer (Kategorieseite) ── */
+  /* ── Filter-Popup (Kategorieseite, zentriert wie Kategorienübersicht) ── */
   .pflege-cat-filtered__drawer {
-    padding: 0 var(--pflege-modal-inset-x) var(--pflege-modal-inset-x) !important;
-    padding-bottom: max(var(--pflege-modal-inset-x), env(safe-area-inset-bottom, 0px)) !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: var(--pflege-modal-inset-y) var(--pflege-modal-inset-x) !important;
+    padding-top: max(var(--pflege-modal-inset-y), env(safe-area-inset-top, 0px)) !important;
+    padding-bottom: max(var(--pflege-modal-inset-y), env(safe-area-inset-bottom, 0px)) !important;
     box-sizing: border-box !important;
   }
 
   .pflege-cat-filtered__drawer-panel {
     width: 100% !important;
-    max-height: min(
-      88vh,
-      calc(100dvh - var(--pflege-modal-inset-x) - env(safe-area-inset-top, 0px) - 0.5rem)
+    max-width: none !important;
+    max-height: calc(
+      100dvh - (var(--pflege-modal-inset-y) * 2) - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)
     ) !important;
     min-height: 0 !important;
     overflow: hidden !important;
-    border-radius: var(--pflege-radius-lg, 22px) var(--pflege-radius-lg, 22px) 0 0 !important;
+    border-radius: var(--pflege-radius-lg, 22px) !important;
+    box-shadow: 0 22px 52px rgba(11, 35, 71, 0.16) !important;
   }
 
   .pflege-cat-filtered__drawer-body {

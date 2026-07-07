@@ -760,8 +760,11 @@ html.pflege-cat-drawer-open body {
   inset: 0;
   z-index: 10200;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
+  padding: max(1rem, env(safe-area-inset-top, 0px)) max(1rem, env(safe-area-inset-right, 0px))
+    max(1rem, env(safe-area-inset-bottom, 0px)) max(1rem, env(safe-area-inset-left, 0px));
+  box-sizing: border-box;
 }
 
 .pflege-cat-filtered__drawer[hidden] {
@@ -777,15 +780,15 @@ html.pflege-cat-drawer-open body {
 .pflege-cat-filtered__drawer-panel {
   position: relative;
   z-index: 1;
-  width: 100%;
-  max-height: min(85vh, calc(100dvh - env(safe-area-inset-top, 0px) - 1rem));
+  width: min(100%, 34rem);
+  max-height: min(85vh, calc(100dvh - 2rem));
   min-height: 0;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   background: #ffffff;
-  border-radius: 20px 20px 0 0;
-  box-shadow: 0 -8px 40px rgba(0, 59, 112, 0.15);
+  border-radius: calc(var(--pflege-radius-lg, 22px));
+  box-shadow: 0 22px 52px rgba(11, 35, 71, 0.18);
 }
 
 .pflege-cat-filtered__drawer-head {
@@ -1412,12 +1415,13 @@ html.pflege-cat-drawer-open body {
   }
 
   .pflege-cat-filtered__drawer-panel {
+    width: 100%;
     max-height: min(
       88vh,
-      calc(100dvh - var(--pflege-modal-inset-x, 0.75rem) - env(safe-area-inset-top, 0px) - 0.5rem)
+      calc(100dvh - (var(--pflege-modal-inset-y, 1.375rem) * 2) - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px))
     );
-    border-radius: 1.35rem 1.35rem 0 0;
-    box-shadow: 0 -10px 36px rgba(11, 35, 71, 0.14);
+    border-radius: var(--pflege-radius-lg, 22px);
+    box-shadow: 0 22px 52px rgba(11, 35, 71, 0.16);
   }
 
   .pflege-cat-filtered__drawer-head {
