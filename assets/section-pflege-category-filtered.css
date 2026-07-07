@@ -978,6 +978,18 @@ html.pflege-cat-drawer-open body {
     min-height: clamp(17.5rem, 68vw, 23rem);
   }
 
+  .pflege-cat-filtered--inko .pflege-cat-filtered__promo--fullwidth .pflege-cat-filtered__promo-media {
+    overflow: hidden;
+  }
+
+  .pflege-cat-filtered--inko .pflege-cat-filtered__promo--fullwidth .pflege-cat-filtered__promo-img {
+    min-height: clamp(17.5rem, 68vw, 23rem);
+    width: 135%;
+    max-width: none;
+    object-position: left center;
+    transform: translateX(28%);
+  }
+
   .pflege-cat-filtered__promo--fullwidth .pflege-cat-filtered__promo-img {
     min-height: clamp(17.5rem, 68vw, 23rem);
     object-position: 72% center;
