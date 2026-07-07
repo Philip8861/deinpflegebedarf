@@ -173,7 +173,15 @@
     <div class="pflege-cat-filtered__promo pflege-cat-filtered__promo--fullwidth">
       <div class="pflege-cat-filtered__promo-inner">
         <div class="pflege-cat-filtered__promo-copy">
-          <h2 class="pflege-cat-filtered__promo-title">{{ promo_heading | escape }}</h2>
+          <h2 class="pflege-cat-filtered__promo-title">
+            {%- assign promo_heading_parts = promo_heading | split: 'Sparen Sie Geld:' -%}
+            {%- if promo_heading_parts.size > 1 -%}
+              <span class="pflege-cat-filtered__promo-title-lead">Sparen Sie Geld:</span>
+              <span class="pflege-cat-filtered__promo-title-rest">{{ promo_heading_parts[1] | strip | escape }}</span>
+            {%- else -%}
+              {{- promo_heading | escape -}}
+            {%- endif -%}
+          </h2>
           {%- if promo_text != blank -%}
             <p class="pflege-cat-filtered__promo-lead">{{ promo_text | escape }}</p>
           {%- endif -%}
@@ -306,7 +314,12 @@
           Filter
         </button>
         <p class="pflege-cat-filtered__count pflege-cat-filtered__count--mobile" data-product-count>
-          {{ collection.products_count }} Produkte
+          {{ collection.products_count }}
+          {%- if collection.products_count == 1 -%}
+            Produkt gefunden
+          {%- else -%}
+            Produkte gefunden
+          {%- endif -%}
         </p>
         <div class="pflege-cat-filtered__sort-wrap pflege-cat-filtered__sort-wrap--mobile">
           <label class="visually-hidden" for="PflegeCatSortMobile-{{ section.id }}">Sortieren nach</label>
