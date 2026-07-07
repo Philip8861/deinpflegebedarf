@@ -1013,7 +1013,7 @@ html.pflege-cat-drawer-open body {
     max-width: none;
     margin: 0;
     text-align: center;
-    font-size: clamp(1.89rem, 8.3vw, 2.43rem);
+    font-size: clamp(1.72rem, 7.5vw, 2.18rem);
     font-weight: 900;
     line-height: 1.12;
     letter-spacing: -0.025em;
@@ -1027,7 +1027,7 @@ html.pflege-cat-drawer-open body {
     max-width: none;
     margin: 0;
     text-align: center;
-    font-size: clamp(0.98rem, 4.1vw, 1.12rem);
+    font-size: clamp(0.92rem, 3.75vw, 1.04rem);
     font-weight: 900;
     line-height: 1.4;
     color: #152536;
