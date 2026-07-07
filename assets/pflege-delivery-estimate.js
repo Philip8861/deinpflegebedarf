@@ -170,8 +170,9 @@
 
   function syncVisibility() {
     document.querySelectorAll('[data-pflege-delivery-estimate]').forEach(function (node) {
-      var form = node.closest('product-form');
-      var button = form && form.querySelector('.product-form__submit');
+      var purchaseRow = node.closest('.pflege-product__purchase-row');
+      var productForm = purchaseRow && purchaseRow.querySelector('product-form');
+      var button = productForm && productForm.querySelector('.product-form__submit');
       var hidden = !button || button.hasAttribute('disabled');
       node.hidden = hidden;
     });
