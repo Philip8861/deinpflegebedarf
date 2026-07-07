@@ -173,7 +173,7 @@ body.template-index .pflege-hero,
 .pflege-hero__mobile-shop-overlay {
   position: absolute;
   inset: 0 0 auto 0;
-  height: min(58%, 25rem);
+  height: min(70%, 33rem);
   min-height: 0;
   display: flex;
   flex-direction: column;
@@ -229,14 +229,14 @@ body.template-index .pflege-hero,
 .pflege-hero__panel--mobile-shop .pflege-hero__title,
 .pflege-hero__panel--mobile-free-care .pflege-hero__title {
   margin: 0;
-  font-size: clamp(1.72rem, 7.5vw, 2.15rem);
+  font-size: clamp(1.89rem, 8.3vw, 2.43rem);
   font-weight: 900;
   line-height: 1.12;
   letter-spacing: -0.025em;
   text-align: center;
   width: 100%;
   color: #0a4560;
-  -webkit-text-stroke: 0.45px #0a4560;
+  -webkit-text-stroke: 0.55px #0a4560;
   paint-order: stroke fill;
 }
 
@@ -250,8 +250,8 @@ body.template-index .pflege-hero,
 .pflege-hero__panel--mobile-free-care .pflege-hero__sub {
   margin: 0;
   font-size: clamp(0.98rem, 4.1vw, 1.12rem);
-  font-weight: 800;
-  line-height: 1.45;
+  font-weight: 900;
+  line-height: 1.4;
   color: #152536;
   white-space: pre-line;
   text-align: center;
@@ -259,7 +259,7 @@ body.template-index .pflege-hero,
   width: 100%;
   padding-inline: clamp(0.15rem, 1vw, 0.35rem);
   box-sizing: border-box;
-  -webkit-text-stroke: 0.25px #152536;
+  -webkit-text-stroke: 0.4px #152536;
 }
 
 .pflege-hero__cta-glow {

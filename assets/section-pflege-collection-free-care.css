@@ -503,19 +503,22 @@
 /* Mobil: mobil_pflegebox.webp + Overlay wie Startseite */
 @media screen and (max-width: 749px) {
   .pflege-hero--free-care .pflege-hero__panel--mobile-free-care .pflege-hero__mobile-shop-overlay {
-    height: min(64%, 30rem);
+    height: min(70%, 33rem);
     padding-bottom: clamp(0.65rem, 2.2vw, 0.85rem);
   }
 
   .pflege-hero--free-care .pflege-hero__panel--mobile-free-care .pflege-hero__title {
     font-weight: 900;
-    font-size: clamp(1.55rem, 6.8vw, 1.95rem);
+    font-size: clamp(1.89rem, 8.3vw, 2.43rem);
+    line-height: 1.12;
+    -webkit-text-stroke: 0.55px #0a4560;
   }
 
   .pflege-hero--free-care .pflege-hero__panel--mobile-free-care .pflege-hero__sub {
-    font-size: clamp(0.92rem, 3.85vw, 1.05rem);
-    font-weight: 700;
-    line-height: 1.42;
+    font-size: clamp(0.98rem, 4.1vw, 1.12rem);
+    font-weight: 900;
+    line-height: 1.4;
+    -webkit-text-stroke: 0.4px #152536;
   }
 
   .pflege-hero--free-care .pflege-hero__panel--mobile-free-care .pflege-hero__actions {
