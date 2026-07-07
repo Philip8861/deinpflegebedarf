@@ -204,17 +204,26 @@
     gap: 0.55rem;
   }
 
+  .pflege-product__purchase-form-wrap {
+    container-type: inline-size;
+    container-name: pflege-purchase-form;
+  }
+
   .pflege-product__delivery-estimate {
+    display: block;
     justify-content: center;
     align-items: center;
     width: 100%;
+    max-width: 100%;
     margin-top: 0.35rem;
     padding: 0;
-    gap: 0.55rem;
-    font-size: clamp(1.02rem, 4.2vw, 1.14rem);
+    gap: 0;
+    font-size: clamp(0.58rem, 5.4cqi, 0.86rem);
     font-weight: 700;
-    line-height: 1.45;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
     text-align: center;
+    white-space: nowrap;
     background: none;
     border: none;
     border-radius: 0;
@@ -222,29 +231,29 @@
   }
 
   .pflege-product__delivery-estimate-icon {
-    margin-top: 0;
-    align-self: center;
-    padding-top: 0;
-  }
-
-  .pflege-product__delivery-estimate-icon .pflege-icon {
-    width: 1.45rem;
-    height: 1.45rem;
+    display: none !important;
   }
 
   .pflege-product__delivery-estimate-text {
-    flex: 0 1 auto;
-    line-height: 1.45;
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    flex: none;
+    line-height: 1.25;
     text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
   }
 
   .pflege-product__delivery-tail {
     display: inline;
     margin-top: 0;
+    white-space: nowrap;
   }
 
   .pflege-product__delivery-date-highlight {
-    font-size: 1.06em;
+    font-size: 1em;
     font-weight: 900;
   }
 }
