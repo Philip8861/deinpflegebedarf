@@ -428,6 +428,12 @@
       .replace(/"/g, '&quot;');
   }
 
+  function badgeModifier(key) {
+    if (key === 'rezeptfaehig') return ' pflege-cat-card__badge--blue';
+    if (key === 'parfuemfrei') return ' pflege-cat-card__badge--accent';
+    return '';
+  }
+
   function renderBadges(product, badgeKeys) {
     var badges = [];
     (product.properties || []).forEach(function (prop) {
@@ -439,15 +445,17 @@
       }
     });
     if (!badges.length) return '';
+    var visibleBadges = badges.slice(0, 2);
+    var stackClass = visibleBadges.length > 1 ? ' pflege-cat-card__badges--stack' : '';
     return (
-      '<div class="pflege-cat-card__badges">' +
-      badges
-        .slice(0, 2)
+      '<div class="pflege-cat-card__badges' +
+      stackClass +
+      '">' +
+      visibleBadges
         .map(function (badge) {
-          var modifier = badge.key === 'rezeptfaehig' ? ' pflege-cat-card__badge--blue' : '';
           return (
             '<span class="pflege-cat-card__badge' +
-            modifier +
+            badgeModifier(badge.key) +
             '">' +
             escapeHtml(badge.label) +
             '</span>'
