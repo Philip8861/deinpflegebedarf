@@ -760,6 +760,15 @@
     box-shadow: none !important;
   }
 
+  .pflege-product__purchase-row .pflege-product__purchase-form-wrap {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
   .pflege-product__purchase-row .product-form {
     flex: 1 1 0;
     min-width: 0;
