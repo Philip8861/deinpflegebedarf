@@ -371,7 +371,10 @@
     role="dialog"
     aria-labelledby="PflegeCatDrawerTitle-{{ section.id }}"
   >
-    <div class="pflege-cat-filtered__drawer-backdrop" data-pflege-cat-drawer-close aria-hidden="true"></div>
+    <div class="pflege-cat-filtered__drawer-backdrop" data-pflege-cat-drawer-close aria-hidden="true">
+      <span class="pflege-cat-filtered__drawer-backdrop-blur" aria-hidden="true"></span>
+      <span class="pflege-cat-filtered__drawer-backdrop-dim" aria-hidden="true"></span>
+    </div>
     <div class="pflege-cat-filtered__drawer-panel">
       <div class="pflege-cat-filtered__drawer-head">
         <h2 class="pflege-cat-filtered__drawer-title" id="PflegeCatDrawerTitle-{{ section.id }}">Filter</h2>

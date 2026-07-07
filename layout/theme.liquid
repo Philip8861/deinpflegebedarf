@@ -718,6 +718,24 @@
           margin: auto !important;
           box-sizing: border-box !important;
         }
+
+        .pflege-cat-filtered__drawer-backdrop-blur {
+          -webkit-backdrop-filter: blur(7px) !important;
+          backdrop-filter: blur(7px) !important;
+          background: transparent !important;
+        }
+
+        .pflege-cat-filtered__drawer-backdrop-dim {
+          background: rgba(11, 35, 71, 0.74) !important;
+        }
+
+        .pflege-cat-filtered__drawer-panel {
+          border: 1px solid rgba(255, 255, 255, 0.95) !important;
+          box-shadow:
+            0 0 0 1px rgba(11, 35, 71, 0.08),
+            0 32px 76px rgba(11, 35, 71, 0.42),
+            0 14px 32px rgba(11, 35, 71, 0.22) !important;
+        }
       }
     </style>
     {%- if template.name == 'index' -%}
