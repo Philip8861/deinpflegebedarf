@@ -13,15 +13,12 @@
     <li class="pflege-pdp-breadcrumb__item">
       <a href="{{ routes.root_url }}">{{ home_label | escape }}</a>
     </li>
-    <li class="pflege-pdp-breadcrumb__sep" aria-hidden="true">{{ sep | escape }}</li>
     {%- if bc_coll != blank -%}
+      <li class="pflege-pdp-breadcrumb__sep" aria-hidden="true">{{ sep | escape }}</li>
       <li class="pflege-pdp-breadcrumb__item">
         <a href="{{ bc_coll.url }}">{{ bc_coll.title | escape }}</a>
       </li>
-      <li class="pflege-pdp-breadcrumb__sep" aria-hidden="true">{{ sep | escape }}</li>
     {%- endif -%}
-    <li class="pflege-pdp-breadcrumb__item pflege-pdp-breadcrumb__item--current" aria-current="page">
-      {{- product.title | escape -}}
-    </li>
   </ol>
+  <span class="visually-hidden" aria-current="page">{{ product.title | escape }}</span>
 </nav>
