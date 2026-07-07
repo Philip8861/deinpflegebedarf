@@ -12,7 +12,7 @@ body.pflege-category-filtered-page {
   --pcd-badge-bg: #eaf8e5;
   --pcd-badge-text: #2e7d32;
   --pcd-max: min(100%, 1320px);
-  --pcd-sidebar: 228px;
+  --pcd-sidebar: 252px;
   --pcd-gap: 32px;
   --pcd-card-gap: 20px;
   --pcd-radius: 16px;
@@ -172,7 +172,7 @@ body.pflege-category-filtered-page.template-collection .gradient {
   background: none;
   color: var(--pcd-blue);
   font: inherit;
-  font-size: 1.0625rem;
+  font-size: 1.3125rem;
   font-weight: 800;
   cursor: pointer;
 }
@@ -202,7 +202,7 @@ body.pflege-category-filtered-page.template-collection .gradient {
 .pflege-cat-filter__group-title {
   list-style: none;
   cursor: pointer;
-  font-size: 1.1875rem;
+  font-size: 1.4375rem;
   font-weight: 800;
   color: var(--pcd-navy);
   margin-bottom: 0.65rem;
@@ -226,7 +226,7 @@ body.pflege-category-filtered-page.template-collection .gradient {
   display: flex;
   align-items: center;
   gap: 0.55rem;
-  font-size: 1.125rem;
+  font-size: 1.375rem;
   font-weight: 700;
   color: var(--pcd-text);
   cursor: pointer;
@@ -238,8 +238,8 @@ body.pflege-category-filtered-page.template-collection .gradient {
 }
 
 .pflege-cat-filter__checkbox {
-  width: 1.125rem;
-  height: 1.125rem;
+  width: 1.25rem;
+  height: 1.25rem;
   margin: 0;
   accent-color: var(--pcd-blue);
   flex: 0 0 auto;
@@ -251,7 +251,7 @@ body.pflege-category-filtered-page.template-collection .gradient {
 }
 
 .pflege-cat-filter__count {
-  font-size: 1rem;
+  font-size: 1.1875rem;
   font-weight: 700;
   color: var(--pcd-muted);
 }
@@ -261,7 +261,7 @@ body.pflege-category-filtered-page.template-collection .gradient {
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
-  font-size: 1.0625rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--pcd-navy);
   margin-bottom: 0.65rem;
@@ -740,7 +740,7 @@ html.pflege-cat-drawer-open body {
     background: #ffffff;
     color: var(--pcd-navy);
     font-family: inherit;
-    font-size: 1.0625rem;
+    font-size: 1.2rem;
     font-weight: 800;
     cursor: pointer;
     box-sizing: border-box;
@@ -780,7 +780,7 @@ html.pflege-cat-drawer-open body {
   }
 
   .pflege-cat-filtered__drawer-title {
-    font-size: 1.1875rem;
+    font-size: 1.375rem;
     font-weight: 800;
   }
 }
@@ -861,7 +861,7 @@ html.pflege-cat-drawer-open body {
 
 .pflege-cat-filtered__drawer-title {
   margin: 0;
-  font-size: 1.1875rem;
+  font-size: 1.375rem;
   font-weight: 800;
   color: var(--pcd-navy);
 }
@@ -905,6 +905,7 @@ html.pflege-cat-drawer-open body {
   background: var(--pcd-blue);
   color: #ffffff;
   font: inherit;
+  font-size: 1.125rem;
   font-weight: 700;
   cursor: pointer;
 }
@@ -915,6 +916,7 @@ html.pflege-cat-drawer-open body {
   background: none;
   color: var(--pcd-blue);
   font: inherit;
+  font-size: 1.0625rem;
   font-weight: 600;
   cursor: pointer;
 }
@@ -1437,7 +1439,7 @@ html.pflege-cat-drawer-open body {
     background: var(--pflege-bg-soft, #eef6ff);
     color: var(--pflege-navy, #0b2347);
     font-family: inherit;
-    font-size: clamp(0.95rem, 3.6vw, 1.05rem);
+    font-size: clamp(1.1rem, 4.4vw, 1.25rem);
     font-weight: 800;
     line-height: 1;
     letter-spacing: 0.01em;
@@ -1463,7 +1465,7 @@ html.pflege-cat-drawer-open body {
     width: 100%;
     margin: 0;
     text-align: center;
-    font-size: clamp(0.88rem, 3.2vw, 0.98rem);
+    font-size: clamp(1.02rem, 3.9vw, 1.15rem);
     font-weight: 700;
     color: var(--pflege-navy-soft, #3d4f6b);
   }
@@ -1485,7 +1487,7 @@ html.pflege-cat-drawer-open body {
     border-radius: var(--pflege-btn-primary-radius, 12px);
     background: #fff;
     color: var(--pflege-navy, #0b2347);
-    font-size: clamp(0.88rem, 3.2vw, 0.98rem);
+    font-size: clamp(1.02rem, 3.9vw, 1.15rem);
     font-weight: 700;
     text-align: center;
     text-align-last: center;
@@ -1522,7 +1524,7 @@ html.pflege-cat-drawer-open body {
   }
 
   .pflege-cat-filtered__drawer-title {
-    font-size: clamp(1.15rem, 4.2vw, 1.35rem);
+    font-size: clamp(1.38rem, 5.4vw, 1.65rem);
     font-weight: 800;
     color: var(--pflege-navy, #0b2347);
   }
@@ -1561,7 +1563,7 @@ html.pflege-cat-drawer-open body {
     margin-bottom: 0;
     padding-bottom: 0;
     border-bottom: none;
-    font-size: clamp(1rem, 3.8vw, 1.12rem);
+    font-size: clamp(1.22rem, 4.8vw, 1.42rem);
     font-weight: 800;
     color: var(--pflege-navy, #0b2347);
     user-select: none;
@@ -1600,11 +1602,11 @@ html.pflege-cat-drawer-open body {
   .pflege-cat-filtered__drawer-body .pflege-cat-filter__label {
     min-width: 0;
     max-width: 100%;
-    padding: 0.52rem 0.62rem;
+    padding: 0.58rem 0.68rem;
     border: 1px solid var(--pflege-border, #e5eef8);
     border-radius: 10px;
     background: #fff;
-    font-size: clamp(0.88rem, 3.2vw, 0.98rem);
+    font-size: clamp(1.08rem, 4.2vw, 1.24rem);
     font-weight: 700;
     color: var(--pflege-navy, #0b2347);
     transition: border-color 0.15s ease, background 0.15s ease;
@@ -1626,13 +1628,13 @@ html.pflege-cat-drawer-open body {
   }
 
   .pflege-cat-filtered__drawer-body .pflege-cat-filter__checkbox {
-    width: 1.05rem;
-    height: 1.05rem;
+    width: 1.2rem;
+    height: 1.2rem;
     accent-color: var(--pflege-accent, #3f86d9);
   }
 
   .pflege-cat-filtered__drawer-body .pflege-cat-filter__count {
-    font-size: 0.82rem;
+    font-size: clamp(0.98rem, 3.8vw, 1.12rem);
     font-weight: 700;
     color: var(--pflege-navy-soft, #3d4f6b);
   }
@@ -1647,7 +1649,7 @@ html.pflege-cat-drawer-open body {
   }
 
   .pflege-cat-filtered__drawer-body .pflege-cat-filter__price-values {
-    font-size: clamp(0.92rem, 3.4vw, 1.02rem);
+    font-size: clamp(1.08rem, 4.1vw, 1.22rem);
     color: var(--pflege-navy, #0b2347);
   }
 
@@ -1681,7 +1683,7 @@ html.pflege-cat-drawer-open body {
     border-radius: var(--pflege-btn-primary-radius, 12px);
     background: var(--pflege-cta-orange, #f89738);
     color: #fff;
-    font-size: clamp(0.98rem, 3.75vw, 1.08rem);
+    font-size: clamp(1.12rem, 4.4vw, 1.28rem);
     font-weight: 800;
     box-shadow: 0 8px 18px rgba(248, 151, 56, 0.24);
   }
@@ -1689,7 +1691,7 @@ html.pflege-cat-drawer-open body {
   .pflege-cat-filtered__drawer-reset {
     min-height: 2.35rem;
     color: var(--pflege-accent, #3f86d9);
-    font-size: clamp(0.9rem, 3.3vw, 1rem);
+    font-size: clamp(1.05rem, 4vw, 1.18rem);
     font-weight: 700;
   }
 }
