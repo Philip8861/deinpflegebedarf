@@ -207,6 +207,11 @@
       "pflege_cart": {
         "wishlist": "Auf den Merkzettel",
         "delivery_eta": "in 1–2 Werktagen bei dir",
+        "delivery_estimate_prefix": "Lieferung ca.",
+        "delivery_estimate_between": "bis",
+        "delivery_estimate_suffix": ".",
+        "delivery_estimate_loading": "Lieferzeit wird berechnet …",
+        "delivery_estimate_aria": "Voraussichtliche Lieferzeit",
         "trust_ship_title": "Kostenloser Versand ab 150 €",
         "trust_ship_sub": "",
         "trust_payment_title": "Sichere Zahlung",

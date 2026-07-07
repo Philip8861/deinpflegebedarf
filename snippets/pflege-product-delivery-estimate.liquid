@@ -1,0 +1,23 @@
+{% comment %}
+  Dynamische Lieferzeit unter dem Warenkorb-Button.
+  Accepts:
+  - available: {Boolean}
+{% endcomment %}
+{%- if available -%}
+  <p
+    class="pflege-product__delivery-estimate"
+    data-pflege-delivery-estimate
+    data-delivery-prefix="{{ 'products.product.pflege_cart.delivery_estimate_prefix' | t | escape }}"
+    data-delivery-between="{{ 'products.product.pflege_cart.delivery_estimate_between' | t | escape }}"
+    data-delivery-suffix="{{ 'products.product.pflege_cart.delivery_estimate_suffix' | t | escape }}"
+    aria-label="{{ 'products.product.pflege_cart.delivery_estimate_aria' | t | escape }}"
+  >
+    <span class="pflege-product__delivery-estimate-icon" aria-hidden="true">
+      {% render 'pflege-icon', icon: 'truck', width: 22 %}
+    </span>
+    <span class="pflege-product__delivery-estimate-text" data-pflege-delivery-estimate-text>
+      {{ 'products.product.pflege_cart.delivery_estimate_loading' | t }}
+    </span>
+  </p>
+  <script src="{{ 'pflege-delivery-estimate.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}

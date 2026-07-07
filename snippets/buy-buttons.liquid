@@ -106,6 +106,13 @@
             {{ form | payment_button }}
           {%- endif -%}
         </div>
+        {%- liquid
+          assign pf_delivery_available = false
+          if product.selected_or_first_available_variant.available and quantity_rule_soldout == false and product.selected_or_first_available_variant != null
+            assign pf_delivery_available = true
+          endif
+        -%}
+        {% render 'pflege-product-delivery-estimate', available: pf_delivery_available %}
       {%- endform -%}
     </product-form>
   {%- else -%}
