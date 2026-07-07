@@ -44,12 +44,15 @@
 
   /* ── Secondary (Pills, Filter, Nav) ── */
   .pflege-main-nav-section .pflege-main-nav__category-dialog-trigger,
-  .pflege-cat-filtered__filter-btn,
   .pflege-cat-filtered__drawer-reset,
   .pflege-main-nav-section .pflege-main-nav__search {
     min-height: var(--pflege-btn-secondary-min-h);
     font-size: var(--pflege-btn-secondary-fs);
     font-weight: var(--pflege-btn-secondary-fw);
+    box-sizing: border-box;
+  }
+
+  .pflege-cat-filtered__filter-btn {
     box-sizing: border-box;
   }
 
