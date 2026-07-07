@@ -83,17 +83,6 @@
     margin: 0;
   }
 
-  .template-cart #MainContent:has(cart-items:not(.is-empty)) .pflege-cart-recommendations--page-row {
-    grid-column: 1 / -1;
-    grid-row: 4;
-    width: 100%;
-    max-width: 100%;
-    margin-top: clamp(1.25rem, 2.5vw, 1.75rem);
-    position: relative;
-    z-index: 1;
-    box-sizing: border-box;
-  }
-
   .template-cart #MainContent:has(cart-items:not(.is-empty)) > .pflege-cart-section--aside {
     grid-column: 2;
     grid-row: 3;
@@ -113,13 +102,13 @@
   .template-cart #MainContent:has(cart-items:not(.is-empty))
     > .shopify-section:not(.pflege-cart-section--main):not(.pflege-cart-section--aside):not(.pflege-cart-section--service) {
     grid-column: 1 / -1;
-    grid-row: 5;
+    grid-row: 4;
     margin-top: 1.5rem;
   }
 
   .template-cart #MainContent:has(cart-items:not(.is-empty)) > .pflege-cart-section--service {
     grid-column: 1 / -1;
-    grid-row: 6;
+    grid-row: 5;
     margin-top: 0.5rem;
   }
 
@@ -338,14 +327,7 @@
   display: none !important;
 }
 
-.template-cart .pflege-cart-recommendations--page-row {
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-/* Dawn-Empfehlungen auf /cart ausblenden (related-products + featured-collection mit Produktraster).
-   Eure Empfehlungen: nur .pflege-cart-recommendations--page-row in main-cart-items (.pflege-bestseller). */
+/* Dawn-Empfehlungen auf /cart ausblenden (related-products + featured-collection mit Produktraster). */
 .template-cart
   #MainContent
   > .shopify-section:not(.pflege-cart-section--main):not(.pflege-cart-section--aside):not(.pflege-cart-section--service):has(
@@ -400,54 +382,60 @@
   padding-bottom: 1.45rem;
 }
 
-/* --- Mobile Warenkorb: eigenes Raster (Dawn-Tabellen-Grid + thead-Artefakte vermeiden) --- */
+/* --- Mobile Warenkorb: 2-Spalten-Kartenraster, darunter Bestellübersicht --- */
 @media screen and (max-width: 749px) {
-  .template-cart .pflege-cart-recommendations--page-row {
-    margin-top: clamp(0.65rem, 2vw, 1.1rem);
-    margin-bottom: clamp(0.5rem, 1.5vw, 0.85rem);
-  }
-
   .template-cart .pflege-cart-page__title.title--primary {
     font-size: clamp(2.05rem, 5.8vw, 2.75rem);
     margin-top: 0.35rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.65rem;
   }
 
   .template-cart .pflege-cart-breadcrumb__list {
     font-size: 1.22rem;
   }
 
-  .template-cart .pflege-cart-items-table.cart-items {
-    border-radius: 1.15rem;
-    overflow: hidden;
+  .template-cart .pflege-cart-stack-card {
+    gap: 0;
   }
 
-  /* Dawn: .cart-items thead tr { display:flex; margin-bottom:4rem } — komplett aus */
+  .template-cart .pflege-cart-items-table.cart-items {
+    border: none;
+    border-radius: 0;
+    overflow: visible;
+    background: transparent;
+    box-shadow: none;
+  }
+
   .template-cart .pflege-cart-items-table.cart-items thead {
     display: none !important;
   }
 
   .template-cart .pflege-cart-items-table.cart-items tbody {
-    display: block !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
     width: 100%;
   }
 
-  /* Flex-Spalte statt 2-Spalten-Grid: volle Textbreite, logische Reihenfolge Bild → Text → Summe → Menge */
   .template-cart .pflege-cart-items-table.cart-items tbody .cart-item {
     display: flex !important;
     flex-direction: column;
     align-items: stretch;
-    gap: 0.75rem;
+    gap: 0.55rem;
     width: 100%;
+    min-width: 0;
     box-sizing: border-box;
     margin: 0 !important;
-    padding: 1rem 0.95rem 1.15rem;
-    border-bottom: 1px solid rgba(88, 145, 215, 0.2);
+    padding: 0.72rem 0.62rem 0.82rem;
+    border: 1px solid rgba(88, 145, 215, 0.32);
+    border-radius: 1rem;
+    background: rgb(var(--color-background, 255 255 255));
+    box-shadow: 0 6px 20px rgba(11, 35, 71, 0.06);
   }
 
   .template-cart .pflege-cart-items-table.cart-items tbody .cart-item:last-child {
-    border-bottom: none;
-    padding-bottom: 0.95rem;
+    border-bottom: 1px solid rgba(88, 145, 215, 0.32);
+    padding-bottom: 0.82rem;
   }
 
   .template-cart .pflege-cart-items-table.cart-items tbody .cart-item > td {
@@ -462,7 +450,6 @@
     padding-top: 0 !important;
   }
 
-  /* Tabellen-Bildzelle: nur ≥750px; Mobil siehe .pflege-cart-item__mobile-media im Detailblock */
   .template-cart .pflege-cart-items-table .cart-item__media {
     display: none !important;
   }
@@ -477,93 +464,114 @@
     grid-row: unset !important;
   }
 
-  /* Dawn: .cart-item__details > * { max-width: 30rem } — auf Mobil volle Zeilenbreite */
   .template-cart .pflege-cart-items-table .cart-item__details > * {
     max-width: 100%;
   }
 
   .template-cart .pflege-cart-items-table .cart-item__details .pflege-cart-item__details-shell {
     max-width: 100%;
-    padding: 0.35rem 2.75rem 0 0.5rem;
+    padding: 0.15rem 1.85rem 0 0.15rem;
     display: flex;
     flex-direction: column;
     align-items: stretch;
     text-align: left;
-    gap: 0.55rem;
+    gap: 0.45rem;
   }
 
   .template-cart .pflege-cart-items-table .pflege-cart-item__head-row {
     display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 0.75rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.45rem;
     width: 100%;
   }
 
   .template-cart .pflege-cart-items-table .pflege-cart-item__head-text {
     flex: 1 1 auto;
     min-width: 0;
-    text-align: left;
+    width: 100%;
+    text-align: center;
   }
 
   .template-cart .pflege-cart-items-table .cart-item__details .pflege-cart-item__head-text .caption-with-letter-spacing {
     width: 100%;
-    text-align: left;
-    margin-bottom: 0.15rem !important;
+    text-align: center;
+    margin-bottom: 0.1rem !important;
+    font-size: 0.92rem;
   }
 
   .template-cart .pflege-cart-items-table .cart-item__details .pflege-cart-item__head-text .pflege-cart-item__title {
     width: 100%;
-    text-align: left;
+    text-align: center;
     padding-inline: 0;
     margin-top: 0 !important;
+    font-size: clamp(0.92rem, 3.1vw, 1.05rem);
+    line-height: 1.24;
   }
 
   .template-cart .pflege-cart-items-table .pflege-cart-item__mobile-media {
     display: flex;
     flex-shrink: 0;
-    justify-content: flex-start;
-    align-items: flex-start;
-    width: auto;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
     margin: 0;
   }
 
   .template-cart .pflege-cart-items-table .pflege-cart-item__mobile-media .cart-item__image-container {
-    max-width: 8.775rem;
-    width: 8.775rem;
+    max-width: 100%;
+    width: 100%;
     margin-inline: 0;
+    padding: 0.35rem;
   }
 
   .template-cart .pflege-cart-items-table .pflege-cart-item__mobile-media .cart-item__image {
     max-width: 100%;
+    width: 100%;
+    height: auto;
     margin-inline: 0;
+    object-fit: contain;
   }
 
   .template-cart .pflege-cart-items-table .cart-item__nested-line .pflege-cart-item__mobile-media .cart-item__image-container {
-    max-width: 7.15rem;
-    width: 7.15rem;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .template-cart .pflege-cart-items-table .pflege-cart-item__availability {
+    justify-content: center;
+    font-size: 0.88rem;
+    margin-top: 0.15rem;
   }
 
   .template-cart .pflege-cart-items-table .cart-item__details .pflege-cart-item__unit-mobile {
     width: 100%;
-    margin-top: 0.35rem !important;
+    margin-top: 0.15rem !important;
   }
 
   .template-cart .pflege-cart-items-table .cart-item__details .pflege-cart-item__unit-mobile .pflege-cart-price-stack {
-    align-items: flex-start;
-    text-align: left;
+    align-items: center;
+    text-align: center;
+  }
+
+  .template-cart .pflege-cart-items-table .cart-item__details .pflege-cart-item__unit-mobile .pflege-cart-price-stack__amount {
+    font-size: 1.08rem;
+  }
+
+  .template-cart .pflege-cart-items-table .cart-item__details .pflege-cart-item__unit-mobile .pflege-cart-price-stack__label {
+    font-size: 0.88rem;
   }
 
   .template-cart .pflege-cart-items-table .cart-item__details .pflege-cart-item__options,
   .template-cart .pflege-cart-items-table .cart-item__details .discounts {
     width: 100%;
     max-width: 100%;
-    text-align: left;
+    text-align: center;
     align-self: stretch;
-    margin-top: 0.35rem !important;
+    margin-top: 0.2rem !important;
+    font-size: 0.9rem;
   }
 
-  /* Dawn .break + .product-option: word-break — auf Mobil nur an Wortgrenzen */
   .template-cart .pflege-cart-items-table .cart-item__details .cart-item__name.break,
   .template-cart .pflege-cart-items-table .cart-item__details .pflege-cart-item__title,
   .template-cart .pflege-cart-items-table .cart-item__details .h4 {
@@ -579,7 +587,6 @@
     overflow-wrap: break-word;
   }
 
-  /* Geldbeträge nicht mitten im Betrag umbrechen */
   .template-cart .pflege-cart-items-table .pflege-cart-price-stack__amount,
   .template-cart .pflege-cart-items-table .pflege-cart-price-stack__amount .price,
   .template-cart .pflege-cart-items-table .pflege-cart-price-stack__amount .cart-item__final-price {
@@ -590,7 +597,7 @@
     width: 100%;
     max-width: 100%;
     display: block !important;
-    padding-top: 0.15rem;
+    padding-top: 0.1rem;
     grid-column: unset !important;
     grid-row: unset !important;
   }
@@ -602,17 +609,14 @@
 
   .template-cart .pflege-cart-items-table .cart-item__quantity-wrapper {
     width: 100%;
-    max-width: 15.5rem;
-    margin-inline: auto;
+    max-width: 100%;
+    margin-inline: 0;
     justify-content: center;
   }
 
   .template-cart .pflege-cart-items-table .cart-item.cart-item__nested-line {
-    background: rgba(248, 250, 253, 0.55);
-    border-radius: 0.65rem;
-    margin-top: 0.35rem;
-    padding-left: 0.65rem;
-    padding-right: 0.65rem;
+    background: rgba(248, 250, 253, 0.85);
+    grid-column: 1 / -1;
   }
 
   .template-cart .pflege-cart-items-table .cart-item__nested-line .cart-item__image-container {
@@ -620,19 +624,36 @@
   }
 
   .template-cart .pflege-cart-items-table .cart-item__nested-line .cart-item__image {
-    max-width: 4.5rem;
+    max-width: 100%;
   }
 
-  .template-cart quantity-input.quantity,
-  .template-cart cart-items .quantity {
-    width: min(100%, 14.5rem);
-    margin-inline: auto;
+  .template-cart .pflege-cart-items-table quantity-input.quantity,
+  .template-cart .pflege-cart-items-table cart-items .quantity {
+    width: 100%;
+    max-width: 100%;
+    min-height: 3.35rem;
+    grid-template-columns: minmax(2.5rem, 1fr) minmax(2.75rem, auto) minmax(2.5rem, 1fr);
   }
 
-  .template-cart .pflege-cart-item__title.cart-item__name {
-    font-size: 1.38rem;
-    line-height: 1.22;
-    padding-right: 0.25rem;
+  .template-cart .pflege-cart-items-table .quantity__input {
+    font-size: 1.08rem;
+  }
+
+  .template-cart .pflege-cart-items-table .quantity__button .svg-wrapper {
+    width: 0.95rem;
+  }
+
+  .template-cart cart-remove-button.pflege-cart-item__remove--mobile .button.pflege-cart-item__remove-btn {
+    min-width: 2.35rem;
+    min-height: 2.35rem;
+  }
+
+  .template-cart .pflege-cart-item__details-shell {
+    padding-right: 1.85rem;
+  }
+
+  .template-cart #MainContent:has(cart-items:not(.is-empty)) > .pflege-cart-section--aside {
+    margin-top: 1rem;
   }
 
   .template-cart #main-cart-footer .js-contents > .pflege-cart-stack-below-summary > .pflege-cart-promo--under-summary .pflege-cart-promo.pflege-cart-card {
