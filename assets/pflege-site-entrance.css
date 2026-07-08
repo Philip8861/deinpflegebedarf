@@ -1,0 +1,89 @@
+/* PflegeShop — gestaffelte Seiten-Einblendung (s. pflege-site-entrance.js) */
+
+@keyframes pflege-site-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 1.15rem, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes pflege-site-rise-card {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0.85rem, 0) scale(0.992);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.pflege-site-entrance-prep .pflege-site-entrance-el {
+    opacity: 0;
+    transform: translate3d(0, 1.15rem, 0);
+    animation: none;
+  }
+
+  html.pflege-site-entrance-prep .pflege-site-entrance-el--card {
+    transform: translate3d(0, 0.85rem, 0) scale(0.992);
+  }
+
+  html.pflege-site-entrance-ready .pflege-site-entrance-el {
+    animation: pflege-site-rise 0.68s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: var(--pse-delay, 0s);
+  }
+
+  html.pflege-site-entrance-ready .pflege-site-entrance-el--card {
+    animation-name: pflege-site-rise-card;
+    animation-duration: 0.42s;
+  }
+
+  html.pflege-site-entrance-ready .pflege-site-entrance-el--section {
+    animation-duration: 0.58s;
+  }
+
+  /* Bilder/Promo sofort sichtbar — kein kurzes Abdunkeln */
+  html.pflege-site-entrance-prep .pflege-hero__asset-photo,
+  html.pflege-site-entrance-ready .pflege-hero__asset-photo,
+  html.pflege-site-entrance-prep .pflege-cat-filtered__promo-img,
+  html.pflege-site-entrance-ready .pflege-cat-filtered__promo-img,
+  html.pflege-site-entrance-prep .pflege-cat-card__img,
+  html.pflege-site-entrance-ready .pflege-cat-card__img,
+  html.pflege-site-entrance-prep .product__media img,
+  html.pflege-site-entrance-ready .product__media img {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  /* Kein Doppel-Effekt mit Theme-Scroll-Animation */
+  html.pflege-site-entrance-prep #MainContent .scroll-trigger {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.pflege-site-entrance-prep .pflege-site-entrance-el {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Pflegesets: sofort sichtbar — keine Wartezeit auf defer-JS */
+body.pflege-pflegesets-page .pflege-pflegesets .pflege-cat-card,
+body.pflege-pflegesets-page .pflege-pflegesets__title,
+body.pflege-pflegesets-page .pflege-pflegesets__sub,
+body.pflege-pflegesets-page .pflege-pflegesets-section .shopify-section {
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+}

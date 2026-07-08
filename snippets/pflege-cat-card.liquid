@@ -8,6 +8,8 @@
   - show_tip_badge: optional, „Unser Tipp!“ (Legacy)
   - promo_badge_label: optional Badge-Text
   - promo_badge_variant: optional „tip“ (orange) oder „bestseller“ (navy)
+  - media_badge_label: optional Badge oben rechts auf dem Bild (z. B. Spar-Hinweis)
+  - card_mode: optional „pflegeset“ (kompakte Box-Karte)
 {% endcomment %}
 {%- liquid
   assign p = card_product
@@ -65,6 +67,11 @@
   if is_horizontal
     assign card_classes = card_classes | append: ' pflege-cat-card--horizontal'
   endif
+  if card_mode == 'pflegeset'
+    assign card_classes = card_classes | append: ' pflege-cat-card--pflegeset'
+  endif
+
+  assign media_badge = media_badge_label | strip
 -%}
 {%- if use_li -%}
 <li class="{{ card_classes }}">
@@ -78,14 +85,25 @@
           <span class="pflege-cat-card__badge pflege-cat-card__badge--blue">Rezeptfähig</span>
         </div>
       {%- endif -%}
+      {%- if media_badge != blank -%}
+        <div class="pflege-cat-card__badges pflege-cat-card__badges--top-right">
+          <span class="pflege-cat-card__badge pflege-cat-card__badge--save">{{ media_badge | escape }}</span>
+        </div>
+      {%- endif -%}
       {%- if p.featured_media -%}
         <a href="{{ p.url }}" class="pflege-cat-card__media-link">
+          {%- liquid
+            assign img_loading = 'lazy'
+            if card_mode == 'pflegeset'
+              assign img_loading = 'eager'
+            endif
+          -%}
           {{
             p.featured_media
             | image_url: width: 960
             | image_tag:
               class: 'pflege-cat-card__img',
-              loading: 'lazy',
+              loading: img_loading,
               widths: '320, 480, 640, 960',
               sizes: '(min-width: 990px) 368px, (min-width: 600px) 55vw, 68vw',
               alt: p.featured_media.alt | default: p.title | escape
@@ -106,7 +124,7 @@
       <h3 class="pflege-cat-card__title">
         <a href="{{ p.url }}">{{ card_heading | escape }}</a>
       </h3>
-      {%- if subtitle != blank -%}
+      {%- if subtitle != blank and card_mode != 'pflegeset' -%}
         <p class="pflege-cat-card__desc">{{ subtitle | escape }}</p>
       {%- endif -%}
       <div class="pflege-cat-card__footer">

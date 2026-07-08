@@ -476,6 +476,49 @@
   font-size: clamp(1.12rem, 0.98rem + 0.55vw, 1.38rem);
 }
 
+/* Pflegebox-Karten: rotes Spar-Badge oben rechts, fette zentrierte Überschrift */
+.pflege-pflegesets--category .pflege-cat-card--pflegeset .pflege-cat-card__badges--top-right {
+  left: auto;
+  right: 0.5rem;
+  top: 0.5rem;
+  z-index: 3;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.pflege-pflegesets--category .pflege-cat-card--pflegeset .pflege-cat-card__badge--save {
+  border-radius: var(--pflege-radius-card, 14px);
+  background: #d62828;
+  color: #fff;
+  font-size: clamp(0.86rem, 0.76rem + 0.4vw, 1.05rem);
+  font-weight: 800;
+  line-height: 1.2;
+  box-shadow: 0 2px 8px rgba(11, 35, 71, 0.18);
+}
+
+.pflege-pflegesets--category .pflege-cat-card--pflegeset .pflege-cat-card__body {
+  align-items: center;
+  text-align: center;
+}
+
+.pflege-pflegesets--category .pflege-cat-card--pflegeset .pflege-cat-card__title {
+  width: 100%;
+  text-align: center;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+.pflege-pflegesets--category .pflege-cat-card--pflegeset .pflege-cat-card__title a {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.pflege-pflegesets--category .pflege-cat-card--pflegeset .pflege-cat-card__footer {
+  width: 100%;
+  margin-top: 0.15rem;
+}
+
 @media screen and (max-width: 749px) {
   .pflege-pflegesets__cat-grid {
     width: 100%;
@@ -489,6 +532,19 @@
 
   .pflege-pflegesets--category .pflege-cat-card__title {
     font-size: clamp(0.72rem, 2.8vw, 0.88rem);
+  }
+
+  .pflege-pflegesets--category .pflege-cat-card--pflegeset .pflege-cat-card__badge--save {
+    top: 0.3rem;
+    right: 0.3rem;
+    padding: 0.22rem 0.42rem;
+    font-size: clamp(0.58rem, 2.2vw, 0.68rem);
+    border-radius: 8px;
+  }
+
+  .pflege-pflegesets--category .pflege-cat-card--pflegeset .pflege-cat-card__title {
+    font-size: clamp(0.82rem, 3.1vw, 0.96rem);
+    font-weight: 900;
   }
 
   .pflege-pflegesets__card {

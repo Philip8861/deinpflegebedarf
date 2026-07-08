@@ -1,41 +1,127 @@
-{{ 'section-pflege-category-filtered.css' | asset_url | stylesheet_tag }}
-{{ 'pflege-cat-card-layout.css' | asset_url | stylesheet_tag }}
-<style>
-  /* Preis mittig + Mobil-2-Spalten — inline, damit alte CDN-CSS nicht überschreibt */
-  .pflege-cat-card .pflege-cat-card__footer {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.35rem;
-    width: 100%;
-    margin-top: auto;
-  }
-
-  .pflege-cat-card .pflege-cat-card__footer .pflege-cat-card__price-row {
-    display: block !important;
-    width: 100% !important;
-    margin: 0 !important;
-    text-align: center !important;
-  }
-
-  .pflege-cat-card .pflege-cat-card__footer .pflege-cat-card__price,
-  .pflege-cat-card .pflege-cat-card__footer .pflege-cat-card__unit {
-    display: block !important;
-    width: 100% !important;
-    text-align: center !important;
-  }
-
-  @media screen and (max-width: 749px) {
-    .pflege-cat-filtered__grid,
-    .pflege-bestseller__grid,
-    .pflege-pflegesets__grid,
-    .pflege-pflegesets__cat-grid {
-      display: grid !important;
-      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-      gap: clamp(0.5rem, 2.2vw, 0.75rem) !important;
-      width: 100% !important;
-      max-width: 100% !important;
-    }
-  }
-</style>
-
+{{ 'section-pflege-category-filtered.css' | asset_url | stylesheet_tag }}
+
+{{ 'pflege-cat-card-layout.css' | asset_url | stylesheet_tag }}
+
+<style>
+
+  /* Preis mittig + Mobil-2-Spalten — inline, damit alte CDN-CSS nicht überschreibt */
+
+  .pflege-cat-card .pflege-cat-card__footer {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: stretch;
+
+    gap: 0.35rem;
+
+    width: 100%;
+
+    margin-top: auto;
+
+  }
+
+
+
+  .pflege-cat-card .pflege-cat-card__footer .pflege-cat-card__price-row {
+
+    display: block !important;
+
+    width: 100% !important;
+
+    margin: 0 !important;
+
+    text-align: center !important;
+
+  }
+
+
+
+  .pflege-cat-card .pflege-cat-card__footer .pflege-cat-card__price,
+
+  .pflege-cat-card .pflege-cat-card__footer .pflege-cat-card__unit {
+
+    display: block !important;
+
+    width: 100% !important;
+
+    text-align: center !important;
+
+  }
+
+
+
+  .pflege-pflegesets--category .pflege-cat-card--pflegeset .pflege-cat-card__badges--top-right {
+
+    left: auto;
+
+    right: 0.5rem;
+
+    top: 0.5rem;
+
+    z-index: 3;
+
+    flex-direction: column;
+
+    align-items: flex-end;
+
+  }
+
+
+
+  .pflege-pflegesets--category .pflege-cat-card--pflegeset .pflege-cat-card__badge--save {
+
+    border-radius: 14px;
+
+    background: #d62828 !important;
+
+    color: #fff !important;
+
+    font-weight: 800;
+
+    box-shadow: 0 2px 8px rgba(11, 35, 71, 0.18);
+
+  }
+
+
+
+  .pflege-pflegesets--category .pflege-cat-card--pflegeset .pflege-cat-card__title,
+
+  .pflege-pflegesets--category .pflege-cat-card--pflegeset .pflege-cat-card__title a {
+
+    text-align: center !important;
+
+    font-weight: 900 !important;
+
+  }
+
+
+
+  @media screen and (max-width: 749px) {
+
+    .pflege-cat-filtered__grid,
+
+    .pflege-bestseller__grid,
+
+    .pflege-pflegesets__grid,
+
+    .pflege-pflegesets__cat-grid {
+
+      display: grid !important;
+
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+
+      gap: clamp(0.5rem, 2.2vw, 0.75rem) !important;
+
+      width: 100% !important;
+
+      max-width: 100% !important;
+
+    }
+
+  }
+
+</style>
+
+

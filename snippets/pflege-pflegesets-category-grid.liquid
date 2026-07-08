@@ -35,12 +35,35 @@
         when 3
           assign disp_title = pfs.display_title_3 | strip
       endcase
+
+      assign save_badge = ''
+      assign title_check = disp_title | downcase
+      assign handle_check = card_product.handle | downcase
+      if title_check contains ' größe s' or title_check contains ' grosse s' or title_check contains ' size s' or handle_check contains 'groesse-s' or handle_check contains 'grosse-s'
+        assign save_badge = 'Sie sparen 10%'
+      elsif title_check contains ' größe m' or title_check contains ' grosse m' or title_check contains ' size m' or handle_check contains 'groesse-m' or handle_check contains 'grosse-m'
+        assign save_badge = 'Sie sparen 15%'
+      elsif title_check contains ' größe l' or title_check contains ' grosse l' or title_check contains ' size l' or handle_check contains 'groesse-l' or handle_check contains 'grosse-l'
+        assign save_badge = 'Sie sparen 20%'
+      else
+        case forloop.index
+          when 1
+            assign save_badge = 'Sie sparen 10%'
+          when 2
+            assign save_badge = 'Sie sparen 20%'
+          when 3
+            assign save_badge = 'Sie sparen 15%'
+        endcase
+      endif
+
       assign rendered_count = rendered_count | plus: 1
     -%}
     {% render 'pflege-cat-card',
       card_product: card_product,
       list_item: true,
-      card_title_override: disp_title
+      card_title_override: disp_title,
+      media_badge_label: save_badge,
+      card_mode: 'pflegeset'
     %}
   {%- endfor -%}
 {%- else -%}
@@ -74,13 +97,35 @@
       if card_product == blank
         assign card_product = all_products[handle]
       endif
+
+      assign save_badge = ''
+      assign title_check = disp_title | downcase
+      assign handle_check = handle | downcase
+      if title_check contains ' größe s' or title_check contains ' grosse s' or title_check contains ' size s' or handle_check contains 'groesse-s' or handle_check contains 'grosse-s'
+        assign save_badge = 'Sie sparen 10%'
+      elsif title_check contains ' größe m' or title_check contains ' grosse m' or title_check contains ' size m' or handle_check contains 'groesse-m' or handle_check contains 'grosse-m'
+        assign save_badge = 'Sie sparen 15%'
+      elsif title_check contains ' größe l' or title_check contains ' grosse l' or title_check contains ' size l' or handle_check contains 'groesse-l' or handle_check contains 'grosse-l'
+        assign save_badge = 'Sie sparen 20%'
+      else
+        case forloop.index
+          when 1
+            assign save_badge = 'Sie sparen 10%'
+          when 2
+            assign save_badge = 'Sie sparen 20%'
+          when 3
+            assign save_badge = 'Sie sparen 15%'
+        endcase
+      endif
     -%}
     {%- if card_product != blank -%}
       {%- assign rendered_count = rendered_count | plus: 1 -%}
       {% render 'pflege-cat-card',
         card_product: card_product,
         list_item: true,
-        card_title_override: disp_title
+        card_title_override: disp_title,
+        media_badge_label: save_badge,
+        card_mode: 'pflegeset'
       %}
     {%- endif -%}
   {%- endfor -%}

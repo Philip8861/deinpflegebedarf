@@ -44,6 +44,10 @@
       assign pflege_seo_description = blank
       assign is_pfc_collection = false
       assign is_category_filtered = false
+      assign is_pflegesets_page = false
+      if template.suffix == 'pflegesets'
+        assign is_pflegesets_page = true
+      endif
       if request.page_type == 'collection' and collection != blank
         assign col_h = collection.handle | downcase
         if col_h == 'kostenfreie-pflegehilfsmittel' or col_h == 'pflegehilfsmittel-kostenfrei'
@@ -51,6 +55,7 @@
           assign pflege_seo_title = 'sections.pflege_collection_free_care.meta_title' | t
           assign pflege_seo_description = 'sections.pflege_collection_free_care.meta_description' | t
         elsif col_h == 'pflegesets' or template.suffix == 'pflegesets'
+          assign is_pflegesets_page = true
           assign pflege_seo_title = 'sections.pflege_category_filtered.pflegesets.meta_title' | t
           assign pflege_seo_description = 'sections.pflege_category_filtered.pflegesets.meta_description' | t
         endif
@@ -82,6 +87,7 @@
         assign pflege_seo_description = 'sections.pflege_faq_page.meta_description' | t
       endif
       if request.page_type == 'page' and page != blank and page.handle == 'pflegesets'
+        assign is_pflegesets_page = true
         assign pflege_seo_title = 'sections.pflege_category_filtered.pflegesets.meta_title' | t
         assign pflege_seo_description = 'sections.pflege_category_filtered.pflegesets.meta_description' | t
       endif
@@ -394,6 +400,33 @@
         width: 100% !important;
         text-align: center !important;
       }
+      .pflege-pflegesets--category .pflege-cat-card--pflegeset .pflege-cat-card__badges--top-right {
+        left: auto;
+        right: 0.5rem;
+        top: 0.5rem;
+        z-index: 3;
+        flex-direction: column;
+        align-items: flex-end;
+      }
+      .pflege-pflegesets--category .pflege-cat-card--pflegeset .pflege-cat-card__badge--save {
+        border-radius: 14px;
+        background: #d62828 !important;
+        color: #fff !important;
+        font-size: clamp(0.86rem, 0.76rem + 0.4vw, 1.05rem);
+        font-weight: 800;
+        line-height: 1.2;
+        box-shadow: 0 2px 8px rgba(11, 35, 71, 0.18);
+      }
+      .pflege-pflegesets--category .pflege-cat-card--pflegeset .pflege-cat-card__body {
+        align-items: center;
+        text-align: center;
+      }
+      .pflege-pflegesets--category .pflege-cat-card--pflegeset .pflege-cat-card__title,
+      .pflege-pflegesets--category .pflege-cat-card--pflegeset .pflege-cat-card__title a {
+        width: 100%;
+        text-align: center !important;
+        font-weight: 900 !important;
+      }
     </style>
     <style id="pflege-mobile-product-grid">
       /* Mobil: immer 2 Spalten — inline, damit gecachte CDN-Assets nicht überschreiben */
@@ -514,6 +547,18 @@
 
         .pflege-pflegesets--category .pflege-cat-card__title {
           font-size: clamp(0.72rem, 2.8vw, 0.88rem) !important;
+        }
+
+        .pflege-pflegesets--category .pflege-cat-card--pflegeset .pflege-cat-card__badge--save {
+          padding: 0.22rem 0.42rem;
+          font-size: clamp(0.58rem, 2.2vw, 0.68rem) !important;
+          border-radius: 8px;
+        }
+
+        .pflege-pflegesets--category .pflege-cat-card--pflegeset .pflege-cat-card__title,
+        .pflege-pflegesets--category .pflege-cat-card--pflegeset .pflege-cat-card__title a {
+          font-size: clamp(0.82rem, 3.1vw, 0.96rem) !important;
+          font-weight: 900 !important;
         }
 
         /* Startseite Hero mobil: volle Breite, kräftigere Typo */
@@ -794,9 +839,9 @@
     </script>
   </head>
 
-  <body class="gradient template-{{ template.name }}{% if template.suffix != blank %} template-{{ template.name }}-{{ template.suffix | handleize }}{% endif %}{% if template.name == 'collection' or request.page_type == 'collection' %} pflege-collection-page{% endif %}{% if is_category_filtered %} pflege-category-filtered-page{% endif %}{% if template.name == 'search' %} pflege-search-page{% endif %}{% if is_pfc_collection %} pflege-pfc-collection{% endif %}{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
+  <body class="gradient template-{{ template.name }}{% if template.suffix != blank %} template-{{ template.name }}-{{ template.suffix | handleize }}{% endif %}{% if template.name == 'collection' or request.page_type == 'collection' %} pflege-collection-page{% endif %}{% if is_category_filtered %} pflege-category-filtered-page{% endif %}{% if is_pflegesets_page %} pflege-pflegesets-page{% endif %}{% if template.name == 'search' %} pflege-search-page{% endif %}{% if is_pfc_collection %} pflege-pfc-collection{% endif %}{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
     <script>
-      if (!document.documentElement.classList.contains('shopify-design-mode')) {
+      if (!document.documentElement.classList.contains('shopify-design-mode'){% unless is_pflegesets_page %} && !document.body.classList.contains('pflege-pflegesets-page'){% endunless %}) {
         document.documentElement.classList.add('pflege-site-entrance-prep');
       }
     </script>
