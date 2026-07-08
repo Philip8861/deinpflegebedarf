@@ -72,6 +72,12 @@
   endif
 
   assign media_badge = media_badge_label | strip
+  if media_badge == blank
+    capture auto_save_badge
+      render 'pflege-pflegeset-save-badge', card_product: p
+    endcapture
+    assign media_badge = auto_save_badge | strip
+  endif
 -%}
 {%- if use_li -%}
 <li class="{{ card_classes }}">

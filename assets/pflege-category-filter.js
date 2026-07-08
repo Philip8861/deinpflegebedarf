@@ -466,6 +466,59 @@
     );
   }
 
+  function getPflegesetSaveBadge(product) {
+    var handle = String(product.handle || '').toLowerCase();
+    var title = String(product.title || '').toLowerCase();
+    var isPflegeset =
+      title.indexOf('pflegeset') !== -1 ||
+      handle.indexOf('pflegeset') !== -1 ||
+      handle.indexOf('groesse-') !== -1 ||
+      handle.indexOf('grosse-') !== -1;
+    if (!isPflegeset) return '';
+    if (
+      handle.indexOf('groesse-s') !== -1 ||
+      handle.indexOf('grosse-s') !== -1 ||
+      handle.indexOf('pflegeset-s') !== -1 ||
+      title.indexOf('pflegeset s') !== -1 ||
+      title.indexOf('größe s') !== -1 ||
+      title.indexOf('grosse s') !== -1
+    ) {
+      return 'Sie sparen 10%';
+    }
+    if (
+      handle.indexOf('groesse-m') !== -1 ||
+      handle.indexOf('grosse-m') !== -1 ||
+      handle.indexOf('pflegeset-m') !== -1 ||
+      title.indexOf('pflegeset m') !== -1 ||
+      title.indexOf('größe m') !== -1 ||
+      title.indexOf('grosse m') !== -1
+    ) {
+      return 'Sie sparen 15%';
+    }
+    if (
+      handle.indexOf('groesse-l') !== -1 ||
+      handle.indexOf('grosse-l') !== -1 ||
+      handle.indexOf('pflegeset-l') !== -1 ||
+      title.indexOf('pflegeset l') !== -1 ||
+      title.indexOf('größe l') !== -1 ||
+      title.indexOf('grosse l') !== -1
+    ) {
+      return 'Sie sparen 20%';
+    }
+    return '';
+  }
+
+  function renderPflegesetSaveBadge(product) {
+    var label = getPflegesetSaveBadge(product);
+    if (!label) return '';
+    return (
+      '<div class="pflege-cat-card__badges pflege-cat-card__badges--top-right">' +
+      '<span class="pflege-cat-card__badge pflege-cat-card__badge--save">' +
+      escapeHtml(label) +
+      '</span></div>'
+    );
+  }
+
   function renderCard(product, badgeKeys) {
     var cartHtml = '';
     if (product.available && product.variantId && product.variantsCount <= 1) {
@@ -501,6 +554,7 @@
       '<article class="pflege-cat-card__inner">' +
       '<div class="pflege-cat-card__media">' +
       renderBadges(product, badgeKeys) +
+      renderPflegesetSaveBadge(product) +
       (product.image
         ? '<a href="' +
           escapeHtml(product.url) +

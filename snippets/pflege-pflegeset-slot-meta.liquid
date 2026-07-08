@@ -84,4 +84,11 @@
         assign meta_title = 'Pflegebox Set Größe L'
     endcase
   endif
+
+  if meta_badge == blank
+    capture meta_badge_raw
+      render 'pflege-pflegeset-save-badge', card_product: card_product, handle_fallback: handle_fallback
+    endcapture
+    assign meta_badge = meta_badge_raw | strip
+  endif
 -%}{{ meta_title }}|||{{ meta_badge }}

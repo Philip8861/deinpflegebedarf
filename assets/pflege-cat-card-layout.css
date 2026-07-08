@@ -98,6 +98,24 @@
   flex: 1 1 auto;
 }
 
+.pflege-cat-card__badges--top-right {
+  left: auto;
+  right: 0.5rem;
+  top: 0.5rem;
+  z-index: 3;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.pflege-cat-card__badge--save {
+  border-radius: 14px;
+  background: #d62828;
+  color: #fff;
+  font-weight: 800;
+  line-height: 1.2;
+  box-shadow: 0 2px 8px rgba(11, 35, 71, 0.18);
+}
+
 @media screen and (max-width: 749px) {
   .pflege-cat-card__inner {
     padding: 0.5rem;
@@ -114,5 +132,16 @@
     font-size: var(--pflege-btn-compact-fs, clamp(0.8125rem, 3.1vw, 0.875rem));
     font-weight: var(--pflege-btn-compact-fw, 700);
     border-radius: var(--pflege-btn-compact-radius, 8px);
+  }
+
+  .pflege-cat-card__badges--top-right {
+    right: 0.3rem;
+    top: 0.3rem;
+  }
+
+  .pflege-cat-card__badge--save {
+    padding: 0.22rem 0.42rem;
+    font-size: clamp(0.58rem, 2.2vw, 0.68rem);
+    border-radius: 8px;
   }
 }
