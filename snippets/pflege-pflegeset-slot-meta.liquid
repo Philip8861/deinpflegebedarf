@@ -5,12 +5,14 @@
   - card_product: Produkt
   - handle_fallback: optional String, wenn kein Produktobjekt
   - slot_index: optional Zahl (1–3) als Fallback
+  - slot_order: optional „collection“ (S,M,L) oder „handles“ (S,L,M wie Theme-Handles)
   - pfs_section: Section mit display_title_1/2/3
 {% endcomment %}
 {%- liquid
   assign pfs = pfs_section.settings
   assign probe_handle = ''
   assign probe_title = ''
+  assign order_mode = slot_order | default: 'collection'
 
   if card_product != blank
     assign probe_handle = card_product.handle | downcase
@@ -23,11 +25,14 @@
 
   assign size_tag = ''
 
-  if probe_handle contains 'groesse-s' or probe_handle contains 'grosse-s' or probe_title contains 'größe s' or probe_title contains 'grösse s' or probe_title contains 'grosse s' or probe_title contains ' size s' or probe_title contains ' grösse s'
+  comment
+    Größe aus Handle/Titel — u. a. „Pflegeset S - …“, „Pflegeset M – …“, pflegeset-grosse-s
+  endcomment
+  if probe_handle contains 'groesse-s' or probe_handle contains 'grosse-s' or probe_handle contains 'pflegeset-s' or probe_title contains 'pflegeset s' or probe_title contains 'größe s' or probe_title contains 'grösse s' or probe_title contains 'grosse s' or probe_title contains ' size s' or probe_title contains ' set s' or probe_title contains ' set s-' or probe_title contains ' set s –'
     assign size_tag = 's'
-  elsif probe_handle contains 'groesse-m' or probe_handle contains 'grosse-m' or probe_title contains 'größe m' or probe_title contains 'grösse m' or probe_title contains 'grosse m' or probe_title contains ' size m' or probe_title contains ' grösse m'
+  elsif probe_handle contains 'groesse-m' or probe_handle contains 'grosse-m' or probe_handle contains 'pflegeset-m' or probe_title contains 'pflegeset m' or probe_title contains 'größe m' or probe_title contains 'grösse m' or probe_title contains 'grosse m' or probe_title contains ' size m' or probe_title contains ' set m' or probe_title contains ' set m-' or probe_title contains ' set m –'
     assign size_tag = 'm'
-  elsif probe_handle contains 'groesse-l' or probe_handle contains 'grosse-l' or probe_title contains 'größe l' or probe_title contains 'grösse l' or probe_title contains 'grosse l' or probe_title contains ' size l' or probe_title contains ' grösse l'
+  elsif probe_handle contains 'groesse-l' or probe_handle contains 'grosse-l' or probe_handle contains 'pflegeset-l' or probe_title contains 'pflegeset l' or probe_title contains 'größe l' or probe_title contains 'grösse l' or probe_title contains 'grosse l' or probe_title contains ' size l' or probe_title contains ' set l' or probe_title contains ' set l-' or probe_title contains ' set l –'
     assign size_tag = 'l'
   endif
 
@@ -43,7 +48,7 @@
   elsif size_tag == 'l'
     assign meta_title = pfs.display_title_2 | strip
     assign meta_badge = 'Sie sparen 20%'
-  else
+  elsif order_mode == 'handles'
     case slot_index
       when 1
         assign meta_title = pfs.display_title_1 | strip
@@ -54,6 +59,18 @@
       when 3
         assign meta_title = pfs.display_title_3 | strip
         assign meta_badge = 'Sie sparen 15%'
+    endcase
+  else
+    case slot_index
+      when 1
+        assign meta_title = pfs.display_title_1 | strip
+        assign meta_badge = 'Sie sparen 10%'
+      when 2
+        assign meta_title = pfs.display_title_3 | strip
+        assign meta_badge = 'Sie sparen 15%'
+      when 3
+        assign meta_title = pfs.display_title_2 | strip
+        assign meta_badge = 'Sie sparen 20%'
     endcase
   endif
 
