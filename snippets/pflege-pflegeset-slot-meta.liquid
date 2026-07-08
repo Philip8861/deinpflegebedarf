@@ -1,0 +1,70 @@
+{% comment %}
+  Pflegeset-Kachel: Anzeigetitel + Spar-Badge nach Größe (S 10%, M 15%, L 20%).
+
+  Parameter:
+  - card_product: Produkt
+  - handle_fallback: optional String, wenn kein Produktobjekt
+  - slot_index: optional Zahl (1–3) als Fallback
+  - pfs_section: Section mit display_title_1/2/3
+{% endcomment %}
+{%- liquid
+  assign pfs = pfs_section.settings
+  assign probe_handle = ''
+  assign probe_title = ''
+
+  if card_product != blank
+    assign probe_handle = card_product.handle | downcase
+    assign probe_title = card_product.title | downcase
+  endif
+
+  if probe_handle == blank and handle_fallback != blank
+    assign probe_handle = handle_fallback | downcase
+  endif
+
+  assign size_tag = ''
+
+  if probe_handle contains 'groesse-s' or probe_handle contains 'grosse-s' or probe_title contains 'größe s' or probe_title contains 'grösse s' or probe_title contains 'grosse s' or probe_title contains ' size s' or probe_title contains ' grösse s'
+    assign size_tag = 's'
+  elsif probe_handle contains 'groesse-m' or probe_handle contains 'grosse-m' or probe_title contains 'größe m' or probe_title contains 'grösse m' or probe_title contains 'grosse m' or probe_title contains ' size m' or probe_title contains ' grösse m'
+    assign size_tag = 'm'
+  elsif probe_handle contains 'groesse-l' or probe_handle contains 'grosse-l' or probe_title contains 'größe l' or probe_title contains 'grösse l' or probe_title contains 'grosse l' or probe_title contains ' size l' or probe_title contains ' grösse l'
+    assign size_tag = 'l'
+  endif
+
+  assign meta_title = ''
+  assign meta_badge = ''
+
+  if size_tag == 's'
+    assign meta_title = pfs.display_title_1 | strip
+    assign meta_badge = 'Sie sparen 10%'
+  elsif size_tag == 'm'
+    assign meta_title = pfs.display_title_3 | strip
+    assign meta_badge = 'Sie sparen 15%'
+  elsif size_tag == 'l'
+    assign meta_title = pfs.display_title_2 | strip
+    assign meta_badge = 'Sie sparen 20%'
+  else
+    case slot_index
+      when 1
+        assign meta_title = pfs.display_title_1 | strip
+        assign meta_badge = 'Sie sparen 10%'
+      when 2
+        assign meta_title = pfs.display_title_2 | strip
+        assign meta_badge = 'Sie sparen 20%'
+      when 3
+        assign meta_title = pfs.display_title_3 | strip
+        assign meta_badge = 'Sie sparen 15%'
+    endcase
+  endif
+
+  if meta_title == blank
+    case size_tag
+      when 's'
+        assign meta_title = 'Pflegebox Set Größe S'
+      when 'm'
+        assign meta_title = 'Pflegebox Set Größe M'
+      when 'l'
+        assign meta_title = 'Pflegebox Set Größe L'
+    endcase
+  endif
+-%}{{ meta_title }}|||{{ meta_badge }}

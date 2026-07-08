@@ -1,149 +1,115 @@
-{% comment %}
-  Pflegesets-Seite — nur Kategorie-Karten (wie Hautpflege, Desinfektion …).
-  Kein Promo-Fallback.
-{% endcomment %}
-{%- liquid
-  assign pfs = pfs_section.settings
-  assign col = pflege_col
-
-  if col == blank and pfs.pflegesets_collection != blank
-    assign col = pfs.pflegesets_collection
-  endif
-  if col == blank and collection != blank and collection.handle == 'pflegesets'
-    assign col = collection
-  endif
-  if col == blank and collections['pflegesets'] != blank
-    assign col = collections['pflegesets']
-  endif
-
-  assign rendered_count = 0
-  assign col_count = 0
-  if col != blank
-    assign col_count = col.all_products_count
-  endif
--%}
-
-{%- if col != blank and col_count > 0 -%}
-  {%- for card_product in col.products limit: 3 -%}
-    {%- liquid
-      assign disp_title = ''
-      case forloop.index
-        when 1
-          assign disp_title = pfs.display_title_1 | strip
-        when 2
-          assign disp_title = pfs.display_title_2 | strip
-        when 3
-          assign disp_title = pfs.display_title_3 | strip
-      endcase
-
-      assign save_badge = ''
-      assign title_check = disp_title | downcase
-      assign handle_check = card_product.handle | downcase
-      if title_check contains ' größe s' or title_check contains ' grosse s' or title_check contains ' size s' or handle_check contains 'groesse-s' or handle_check contains 'grosse-s'
-        assign save_badge = 'Sie sparen 10%'
-      elsif title_check contains ' größe m' or title_check contains ' grosse m' or title_check contains ' size m' or handle_check contains 'groesse-m' or handle_check contains 'grosse-m'
-        assign save_badge = 'Sie sparen 15%'
-      elsif title_check contains ' größe l' or title_check contains ' grosse l' or title_check contains ' size l' or handle_check contains 'groesse-l' or handle_check contains 'grosse-l'
-        assign save_badge = 'Sie sparen 20%'
-      else
-        case forloop.index
-          when 1
-            assign save_badge = 'Sie sparen 10%'
-          when 2
-            assign save_badge = 'Sie sparen 20%'
-          when 3
-            assign save_badge = 'Sie sparen 15%'
-        endcase
-      endif
-
-      assign rendered_count = rendered_count | plus: 1
-    -%}
-    {% render 'pflege-cat-card',
-      card_product: card_product,
-      list_item: true,
-      card_title_override: disp_title,
-      media_badge_label: save_badge,
-      card_mode: 'pflegeset'
-    %}
-  {%- endfor -%}
-{%- else -%}
-  {%- liquid
-    assign ha = pfs.handle_1 | default: 'pflegeset-grosse-s' | strip
-    assign hb = pfs.handle_2 | default: 'pflegeset-grosse-l' | strip
-    assign hc = pfs.handle_3 | default: 'pflegeset-grosse-m' | strip
-    assign slot_handles = ha | append: '|||' | append: hb | append: '|||' | append: hc | split: '|||'
-  -%}
-  {%- for handle_raw in slot_handles -%}
-    {%- assign handle = handle_raw | strip -%}
-    {%- liquid
-      assign card_product = nil
-      case forloop.index
-        when 1
-          if pfs.product_1 != blank
-            assign card_product = pfs.product_1
-          endif
-          assign disp_title = pfs.display_title_1 | strip
-        when 2
-          if pfs.product_2 != blank
-            assign card_product = pfs.product_2
-          endif
-          assign disp_title = pfs.display_title_2 | strip
-        when 3
-          if pfs.product_3 != blank
-            assign card_product = pfs.product_3
-          endif
-          assign disp_title = pfs.display_title_3 | strip
-      endcase
-      if card_product == blank
-        assign card_product = all_products[handle]
-      endif
-
-      assign save_badge = ''
-      assign title_check = disp_title | downcase
-      assign handle_check = handle | downcase
-      if title_check contains ' größe s' or title_check contains ' grosse s' or title_check contains ' size s' or handle_check contains 'groesse-s' or handle_check contains 'grosse-s'
-        assign save_badge = 'Sie sparen 10%'
-      elsif title_check contains ' größe m' or title_check contains ' grosse m' or title_check contains ' size m' or handle_check contains 'groesse-m' or handle_check contains 'grosse-m'
-        assign save_badge = 'Sie sparen 15%'
-      elsif title_check contains ' größe l' or title_check contains ' grosse l' or title_check contains ' size l' or handle_check contains 'groesse-l' or handle_check contains 'grosse-l'
-        assign save_badge = 'Sie sparen 20%'
-      else
-        case forloop.index
-          when 1
-            assign save_badge = 'Sie sparen 10%'
-          when 2
-            assign save_badge = 'Sie sparen 20%'
-          when 3
-            assign save_badge = 'Sie sparen 15%'
-        endcase
-      endif
-    -%}
-    {%- if card_product != blank -%}
-      {%- assign rendered_count = rendered_count | plus: 1 -%}
-      {% render 'pflege-cat-card',
-        card_product: card_product,
-        list_item: true,
-        card_title_override: disp_title,
-        media_badge_label: save_badge,
-        card_mode: 'pflegeset'
-      %}
-    {%- endif -%}
-  {%- endfor -%}
-{%- endif -%}
-
-{%- if rendered_count == 0 -%}
-  <li class="pflege-pflegesets__empty-item">
-    <div class="pflege-pflegesets__empty">
-      <p class="pflege-pflegesets__empty-title">Pflegesets konnten nicht geladen werden</p>
-      <p class="pflege-pflegesets__empty-text">
-        {%- if col == blank -%}
-          Kollektion <strong>pflegesets</strong> wurde nicht gefunden.
-        {%- elsif col_count == 0 -%}
-          Kollektion <strong>{{ col.title | escape }}</strong> ist leer — bitte die 3 Set-Produkte hinzufügen.
-        {%- else -%}
-          Produkte konnten nicht geladen werden.
-        {%- endif -%}
-      </p>
-    </div>
-  </li>
-{%- endif -%}
+{% comment %}
+  Pflegesets-Seite — nur Kategorie-Karten (wie Hautpflege, Desinfektion …).
+  Kein Promo-Fallback.
+{% endcomment %}
+{%- liquid
+  assign pfs = pfs_section.settings
+  assign col = pflege_col
+
+  if col == blank and pfs.pflegesets_collection != blank
+    assign col = pfs.pflegesets_collection
+  endif
+  if col == blank and collection != blank and collection.handle == 'pflegesets'
+    assign col = collection
+  endif
+  if col == blank and collections['pflegesets'] != blank
+    assign col = collections['pflegesets']
+  endif
+
+  assign rendered_count = 0
+  assign col_count = 0
+  if col != blank
+    assign col_count = col.all_products_count
+  endif
+-%}
+
+{%- if col != blank and col_count > 0 -%}
+  {%- for card_product in col.products limit: 3 -%}
+    {%- capture slot_meta -%}
+      {%- render 'pflege-pflegeset-slot-meta',
+        card_product: card_product,
+        slot_index: forloop.index,
+        pfs_section: pfs_section
+      -%}
+    {%- endcapture -%}
+    {%- assign slot_parts = slot_meta | strip | split: '|||' -%}
+    {%- assign disp_title = slot_parts[0] -%}
+    {%- assign save_badge = slot_parts[1] -%}
+    {%- assign rendered_count = rendered_count | plus: 1 -%}
+    {% render 'pflege-cat-card',
+      card_product: card_product,
+      list_item: true,
+      card_title_override: disp_title,
+      media_badge_label: save_badge,
+      card_mode: 'pflegeset'
+    %}
+  {%- endfor -%}
+{%- else -%}
+  {%- liquid
+    assign ha = pfs.handle_1 | default: 'pflegeset-grosse-s' | strip
+    assign hb = pfs.handle_2 | default: 'pflegeset-grosse-l' | strip
+    assign hc = pfs.handle_3 | default: 'pflegeset-grosse-m' | strip
+    assign slot_handles = ha | append: '|||' | append: hb | append: '|||' | append: hc | split: '|||'
+  -%}
+  {%- for handle_raw in slot_handles -%}
+    {%- assign handle = handle_raw | strip -%}
+    {%- liquid
+      assign card_product = nil
+      case forloop.index
+        when 1
+          if pfs.product_1 != blank
+            assign card_product = pfs.product_1
+          endif
+        when 2
+          if pfs.product_2 != blank
+            assign card_product = pfs.product_2
+          endif
+        when 3
+          if pfs.product_3 != blank
+            assign card_product = pfs.product_3
+          endif
+      endcase
+      if card_product == blank
+        assign card_product = all_products[handle]
+      endif
+    -%}
+    {%- if card_product != blank -%}
+      {%- capture slot_meta -%}
+        {%- render 'pflege-pflegeset-slot-meta',
+          card_product: card_product,
+          handle_fallback: handle,
+          slot_index: forloop.index,
+          pfs_section: pfs_section
+        -%}
+      {%- endcapture -%}
+      {%- assign slot_parts = slot_meta | strip | split: '|||' -%}
+      {%- assign disp_title = slot_parts[0] -%}
+      {%- assign save_badge = slot_parts[1] -%}
+      {%- assign rendered_count = rendered_count | plus: 1 -%}
+      {% render 'pflege-cat-card',
+        card_product: card_product,
+        list_item: true,
+        card_title_override: disp_title,
+        media_badge_label: save_badge,
+        card_mode: 'pflegeset'
+      %}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+
+{%- if rendered_count == 0 -%}
+  <li class="pflege-pflegesets__empty-item">
+    <div class="pflege-pflegesets__empty">
+      <p class="pflege-pflegesets__empty-title">Pflegesets konnten nicht geladen werden</p>
+      <p class="pflege-pflegesets__empty-text">
+        {%- if col == blank -%}
+          Kollektion <strong>pflegesets</strong> wurde nicht gefunden.
+        {%- elsif col_count == 0 -%}
+          Kollektion <strong>{{ col.title | escape }}</strong> ist leer — bitte die 3 Set-Produkte hinzufügen.
+        {%- else -%}
+          Produkte konnten nicht geladen werden.
+        {%- endif -%}
+      </p>
+    </div>
+  </li>
+{%- endif -%}
