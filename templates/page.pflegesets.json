@@ -15,14 +15,19 @@
         "heading": "Pflegesets",
         "subheading": "Entdecken Sie unsere 3 Pflegesets, die perfekt zu Ihrer Pflegesituation passen.",
         "pflegesets_collection": "pflegesets",
-        "display_title_1": "Pflegebox Set Größe S",
-        "display_title_2": "Pflegebox Set Größe L",
-        "display_title_3": "Pflegebox Set Größe M",
+        "product_1": "",
+        "product_2": "",
+        "product_3": "",
+        "display_title_1": "Pflegeset S - Bad & Waschbecken",
+        "display_title_2": "Pflegeset M – Alltag & Bett",
+        "display_title_3": "Pflegeset L – Pflege im Bett",
         "handle_1": "pflegeset-grosse-s",
         "handle_2": "pflegeset-grosse-l",
         "handle_3": "pflegeset-grosse-m"
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
