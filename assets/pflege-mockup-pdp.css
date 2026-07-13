@@ -298,6 +298,32 @@
   pointer-events: none;
 }
 
+.pflege-gallery-badge--save {
+  left: auto;
+  right: max(1rem, env(safe-area-inset-right, 1rem));
+  text-transform: none;
+  letter-spacing: 0;
+  border-radius: 14px;
+  background: #d62828;
+  color: #fff;
+  font-weight: 800;
+  border: none;
+  box-shadow: 0 2px 8px rgba(11, 35, 71, 0.18);
+  font-size: clamp(0.86rem, 0.76rem + 0.4vw, 1.05rem);
+  line-height: 1.2;
+  padding: 0.35rem 0.65rem;
+}
+
+@media screen and (max-width: 749px) {
+  .pflege-gallery-badge--save {
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.22rem 0.42rem;
+    font-size: clamp(0.58rem, 2.2vw, 0.68rem);
+    border-radius: 8px;
+  }
+}
+
 /* ——— Bewertungen (Abstand unter Überschrift / Kurztext; Abstand zu Vorteilen) ——— */
 
 .pflege-mock-pdp__title-wrap + .rating-wrapper.pflege-mock-pdp__rating {

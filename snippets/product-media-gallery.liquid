@@ -57,9 +57,18 @@
     endif
   endif
 -%}
+{%- liquid
+  capture pf_save_badge_raw
+    render 'pflege-pflegeset-save-badge', card_product: product
+  endcapture
+  assign pf_save_badge = pf_save_badge_raw | strip
+-%}
 <div class="pflege-product-gallery-shell">
   {%- if show_bs_badge -%}
     <span class="pflege-gallery-badge">{{ 'products.product.pflege_pdp.bestseller_badge' | t }}</span>
+  {%- endif -%}
+  {%- if pf_save_badge != blank -%}
+    <span class="pflege-gallery-badge pflege-gallery-badge--save">{{ pf_save_badge | escape }}</span>
   {%- endif -%}
 <media-gallery
   id="MediaGallery-{{ section.id }}"
