@@ -186,6 +186,13 @@
     var targetWidth = button.getBoundingClientRect().width;
     if (targetWidth < 48) return;
 
+    var iconEl = node.querySelector('.pflege-product__delivery-estimate-icon');
+    if (iconEl) {
+      var iconStyles = window.getComputedStyle(node);
+      var iconGap = parseFloat(iconStyles.columnGap || iconStyles.gap || '0') || 0;
+      targetWidth = Math.max(32, targetWidth - iconEl.getBoundingClientRect().width - iconGap);
+    }
+
     textEl.style.fontSize = '10px';
 
     var min = 10;

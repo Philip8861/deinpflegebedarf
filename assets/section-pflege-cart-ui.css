@@ -249,14 +249,16 @@
   }
 
   .pflege-product__delivery-estimate {
-    display: block;
-    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
     align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
     width: 100%;
     max-width: 100%;
     margin-top: 0.35rem;
     padding: 0;
-    gap: 0;
     font-size: clamp(0.78rem, 8.2cqi, 1.12rem);
     font-weight: 700;
     line-height: 1.2;
@@ -274,14 +276,28 @@
   }
 
   .pflege-product__delivery-estimate-icon {
-    display: none !important;
+    display: inline-flex !important;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 1.15rem;
+    height: 1.15rem;
+    margin: 0;
+    color: var(--pflege-accent, #3f86d9);
+    line-height: 0;
+  }
+
+  .pflege-product__delivery-estimate-icon .pflege-icon,
+  .pflege-product__delivery-estimate-icon .pflege-icon svg {
+    width: 1.15rem;
+    height: 1.15rem;
   }
 
   .pflege-product__delivery-estimate-text {
     display: block;
-    width: 100%;
+    width: auto;
     max-width: 100%;
-    flex: none;
+    flex: 0 1 auto;
     line-height: 1.2;
     text-align: center;
     white-space: nowrap;
