@@ -53,41 +53,21 @@
   {%- for card_product in col.products limit: 3 -%}
 
     {%- capture slot_meta -%}
-
       {%- render 'pflege-pflegeset-slot-meta',
-
         card_product: card_product,
-
         slot_index: forloop.index,
-
         slot_order: 'collection',
-
         pfs_section: pfs_section
-
       -%}
-
     {%- endcapture -%}
-
     {%- assign slot_parts = slot_meta | strip | split: '|||' -%}
-
-    {%- assign disp_title = slot_parts[0] -%}
-
     {%- assign save_badge = slot_parts[1] -%}
-
     {%- assign rendered_count = rendered_count | plus: 1 -%}
-
     {% render 'pflege-cat-card',
-
       card_product: card_product,
-
       list_item: true,
-
-      card_title_override: disp_title,
-
       media_badge_label: save_badge,
-
       card_mode: 'pflegeset'
-
     %}
 
   {%- endfor -%}
@@ -153,43 +133,22 @@
     {%- if card_product != blank -%}
 
       {%- capture slot_meta -%}
-
         {%- render 'pflege-pflegeset-slot-meta',
-
           card_product: card_product,
-
           handle_fallback: handle,
-
           slot_index: forloop.index,
-
           slot_order: 'handles',
-
           pfs_section: pfs_section
-
         -%}
-
       {%- endcapture -%}
-
       {%- assign slot_parts = slot_meta | strip | split: '|||' -%}
-
-      {%- assign disp_title = slot_parts[0] -%}
-
       {%- assign save_badge = slot_parts[1] -%}
-
       {%- assign rendered_count = rendered_count | plus: 1 -%}
-
       {% render 'pflege-cat-card',
-
         card_product: card_product,
-
         list_item: true,
-
-        card_title_override: disp_title,
-
         media_badge_label: save_badge,
-
         card_mode: 'pflegeset'
-
       %}
 
     {%- endif -%}

@@ -51,17 +51,14 @@
   {%- for card_product in col.products limit: 3 -%}
     {%- liquid
       assign slot_index = forloop.index
-      assign disp_title = ''
+      assign disp_title = card_product.title | strip
       assign slot_setting = ''
       case slot_index
         when 1
-          assign disp_title = pfs.display_title_1 | strip
           assign slot_setting = pfs.contents_1
         when 2
-          assign disp_title = pfs.display_title_2 | strip
           assign slot_setting = pfs.contents_2
         when 3
-          assign disp_title = pfs.display_title_3 | strip
           assign slot_setting = pfs.contents_3
       endcase
     -%}
@@ -106,19 +103,16 @@
           if pfs.product_1 != blank
             assign card_product = pfs.product_1
           endif
-          assign disp_title = pfs.display_title_1 | strip
           assign slot_setting = pfs.contents_1
         when 2
           if pfs.product_2 != blank
             assign card_product = pfs.product_2
           endif
-          assign disp_title = pfs.display_title_2 | strip
           assign slot_setting = pfs.contents_2
         when 3
           if pfs.product_3 != blank
             assign card_product = pfs.product_3
           endif
-          assign disp_title = pfs.display_title_3 | strip
           assign slot_setting = pfs.contents_3
       endcase
 
@@ -136,6 +130,12 @@
         if alt_h != handle
           assign card_product = all_products[alt_h]
         endif
+      endif
+
+      if card_product != blank
+        assign disp_title = card_product.title | strip
+      else
+        assign disp_title = handle | replace: '-', ' '
       endif
     -%}
     {%- capture slot_contents -%}

@@ -155,6 +155,11 @@
       "pflege_cart": {
         "wishlist": "Auf den Merkzettel",
         "delivery_eta": "in 1–2 Werktagen bei dir",
+        "delivery_estimate_prefix": "Estimated delivery approx.",
+        "delivery_estimate_between": "to",
+        "delivery_estimate_suffix": ".",
+        "delivery_estimate_loading": "Calculating delivery …",
+        "delivery_estimate_aria": "Estimated delivery window",
         "trust_ship_title": "Free shipping from €150",
         "trust_ship_sub": "",
         "trust_payment_title": "Secure payment",
