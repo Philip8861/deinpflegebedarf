@@ -178,9 +178,8 @@
               {%- when 'price' -%}
                 <div class="pflege-mock-pdp__buy-card" data-pf-buy-card tabindex="-1">
                 <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
-                  {%- render 'price',
+                  {%- render 'pflege-pflegeset-pdp-price',
                     product: product,
-                    use_variant: true,
                     show_badges: true,
                     price_class: 'price--large'
                   -%}

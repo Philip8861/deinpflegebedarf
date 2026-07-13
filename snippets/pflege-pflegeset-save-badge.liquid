@@ -3,31 +3,16 @@
   Parameter: card_product, handle_fallback (optional)
 {% endcomment %}
 {%- liquid
-  assign save_badge = ''
-  assign probe_handle = ''
-  assign probe_title = ''
+  capture save_percent_raw
+    render 'pflege-pflegeset-save-percent', card_product: card_product, handle_fallback: handle_fallback
+  endcapture
+  assign save_percent = save_percent_raw | strip | plus: 0
 
-  if card_product != blank
-    assign probe_handle = card_product.handle | downcase
-    assign probe_title = card_product.title | downcase
-  endif
-
-  if probe_handle == blank and handle_fallback != blank
-    assign probe_handle = handle_fallback | downcase
-  endif
-
-  assign is_pflegeset = false
-  if probe_title contains 'pflegeset' or probe_handle contains 'pflegeset' or probe_handle contains 'groesse-' or probe_handle contains 'grosse-'
-    assign is_pflegeset = true
-  endif
-
-  if is_pflegeset
-    if probe_handle contains 'groesse-s' or probe_handle contains 'grosse-s' or probe_handle contains 'pflegeset-s' or probe_title contains 'pflegeset s' or probe_title contains 'größe s' or probe_title contains 'grösse s' or probe_title contains 'grosse s' or probe_title contains ' size s' or probe_title contains ' set s' or probe_title contains ' set s-' or probe_title contains ' set s –'
-      assign save_badge = 'Sie sparen 10%'
-    elsif probe_handle contains 'groesse-m' or probe_handle contains 'grosse-m' or probe_handle contains 'pflegeset-m' or probe_title contains 'pflegeset m' or probe_title contains 'größe m' or probe_title contains 'grösse m' or probe_title contains 'grosse m' or probe_title contains ' size m' or probe_title contains ' set m' or probe_title contains ' set m-' or probe_title contains ' set m –'
-      assign save_badge = 'Sie sparen 15%'
-    elsif probe_handle contains 'groesse-l' or probe_handle contains 'grosse-l' or probe_handle contains 'pflegeset-l' or probe_title contains 'pflegeset l' or probe_title contains 'größe l' or probe_title contains 'grösse l' or probe_title contains 'grosse l' or probe_title contains ' size l' or probe_title contains ' set l' or probe_title contains ' set l-' or probe_title contains ' set l –'
-      assign save_badge = 'Sie sparen 20%'
-    endif
+  if save_percent == 10
+    assign save_badge = 'Sie sparen 10%'
+  elsif save_percent == 15
+    assign save_badge = 'Sie sparen 15%'
+  elsif save_percent == 20
+    assign save_badge = 'Sie sparen 20%'
   endif
 -%}{{ save_badge }}
