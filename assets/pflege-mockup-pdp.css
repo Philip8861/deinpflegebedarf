@@ -303,24 +303,24 @@
   right: max(1rem, env(safe-area-inset-right, 1rem));
   text-transform: none;
   letter-spacing: 0;
-  border-radius: 14px;
+  border-radius: 15px;
   background: #d62828;
   color: #fff;
   font-weight: 800;
   border: none;
   box-shadow: 0 2px 8px rgba(11, 35, 71, 0.18);
-  font-size: clamp(0.86rem, 0.76rem + 0.4vw, 1.05rem);
+  font-size: clamp(0.946rem, 0.836rem + 0.44vw, 1.155rem);
   line-height: 1.2;
-  padding: 0.35rem 0.65rem;
+  padding: 0.385rem 0.715rem;
 }
 
 @media screen and (max-width: 749px) {
   .pflege-gallery-badge--save {
     top: 0.5rem;
     right: 0.5rem;
-    padding: 0.22rem 0.42rem;
-    font-size: clamp(0.58rem, 2.2vw, 0.68rem);
-    border-radius: 8px;
+    padding: 0.275rem 0.525rem;
+    font-size: clamp(0.725rem, 2.75vw, 0.85rem);
+    border-radius: 10px;
   }
 }
 
