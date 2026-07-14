@@ -64,6 +64,9 @@ class CartNotification extends HTMLElement {
         id: 'cart-notification-button',
       },
       {
+        id: 'cart-notification-recos',
+      },
+      {
         id: 'cart-icon-bubble',
       },
     ];

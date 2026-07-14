@@ -91,52 +91,9 @@
         </button>
       </div>
 
-      {%- if collections.all.products.size > 0 -%}
-        <section class="cart-notification__recos" aria-labelledby="cart-notification-recos-title">
-          <div class="cart-notification__recos-heading-wrap">
-            <h3 id="cart-notification-recos-title" class="cart-notification__recos-heading">
-              {{ 'general.cart.notification_recos_heading' | t }}
-            </h3>
-          </div>
-          <ul class="cart-notification__recos-grid list-unstyled" role="list">
-            {%- for reco_product in collections.all.products limit: 4 -%}
-              <li class="cart-notification__reco">
-                <a
-                  href="{{ reco_product.url }}"
-                  class="cart-notification__reco-link"
-                  aria-label="{{ reco_product.title | escape }} – Produktseite öffnen"
-                >
-                  <span class="cart-notification__reco-media">
-                    {%- if reco_product.featured_image -%}
-                      <img
-                        src="{{ reco_product.featured_image | image_url: width: 360 }}"
-                        srcset="{{ reco_product.featured_image | image_url: width: 240 }} 240w, {{ reco_product.featured_image | image_url: width: 360 }} 360w, {{ reco_product.featured_image | image_url: width: 480 }} 480w"
-                        sizes="(min-width: 990px) 18vw, (min-width: 750px) 22vw, 42vw"
-                        alt="{{ reco_product.featured_image.alt | default: reco_product.title | escape }}"
-                        width="180"
-                        height="180"
-                        loading="lazy"
-                      >
-                    {%- else -%}
-                      <span class="cart-notification__reco-placeholder" aria-hidden="true">
-                        {{- 'product-1' | placeholder_svg_tag: 'placeholder-svg' -}}
-                      </span>
-                    {%- endif -%}
-                  </span>
-                  <span class="cart-notification__reco-name">{{ reco_product.title | escape }}</span>
-                  <span class="cart-notification__reco-price">
-                    {%- if reco_product.price_varies -%}
-                      ab {{ reco_product.price_min | money }}
-                    {%- else -%}
-                      {{ reco_product.price | money }}
-                    {%- endif -%}
-                  </span>
-                </a>
-              </li>
-            {%- endfor -%}
-          </ul>
-        </section>
-      {%- endif -%}
+      <div id="cart-notification-recos">
+        {% render 'pflege-cart-notification-recos' %}
+      </div>
     </div>
   </div>
 </cart-notification>

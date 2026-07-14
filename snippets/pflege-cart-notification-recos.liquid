@@ -1,0 +1,74 @@
+{% comment %}
+  Warenkorb-Pop-up: „Oft zusammen gekauft“ — kompletter Block inkl. Überschrift.
+  Produkte aus Kollektion oft-zusammen-gekauft; Artikel im Warenkorb werden übersprungen.
+{% endcomment %}
+{%- liquid
+  assign reco_col = collections['oft-zusammen-gekauft']
+  assign reco_limit = 4
+  assign reco_count = 0
+-%}
+{%- if reco_col != blank and reco_col.all_products_count > 0 -%}
+  {%- capture reco_items -%}
+    {%- for reco_product in reco_col.products -%}
+      {%- if reco_count >= reco_limit -%}
+        {%- break -%}
+      {%- endif -%}
+      {%- assign in_cart = false -%}
+      {%- for item in cart.items -%}
+        {%- if item.product_id == reco_product.id -%}
+          {%- assign in_cart = true -%}
+          {%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- unless in_cart -%}
+        <li class="cart-notification__reco">
+          <a
+            href="{{ reco_product.url }}"
+            class="cart-notification__reco-link"
+            aria-label="{{ reco_product.title | escape }} – Produktseite öffnen"
+          >
+            <span class="cart-notification__reco-media">
+              {%- if reco_product.featured_image -%}
+                <img
+                  src="{{ reco_product.featured_image | image_url: width: 360 }}"
+                  srcset="{{ reco_product.featured_image | image_url: width: 240 }} 240w, {{ reco_product.featured_image | image_url: width: 360 }} 360w, {{ reco_product.featured_image | image_url: width: 480 }} 480w"
+                  sizes="(min-width: 990px) 18vw, (min-width: 750px) 22vw, 42vw"
+                  alt="{{ reco_product.featured_image.alt | default: reco_product.title | escape }}"
+                  width="180"
+                  height="180"
+                  loading="lazy"
+                >
+              {%- else -%}
+                <span class="cart-notification__reco-placeholder" aria-hidden="true">
+                  {{- 'product-1' | placeholder_svg_tag: 'placeholder-svg' -}}
+                </span>
+              {%- endif -%}
+            </span>
+            <span class="cart-notification__reco-name">{{ reco_product.title | escape }}</span>
+            <span class="cart-notification__reco-price">
+              {%- if reco_product.price_varies -%}
+                ab {{ reco_product.price_min | money }}
+              {%- else -%}
+                {{ reco_product.price | money }}
+              {%- endif -%}
+            </span>
+          </a>
+        </li>
+        {%- assign reco_count = reco_count | plus: 1 -%}
+      {%- endunless -%}
+    {%- endfor -%}
+  {%- endcapture -%}
+  {%- assign reco_items = reco_items | strip -%}
+  {%- if reco_items != blank -%}
+    <section class="cart-notification__recos" aria-labelledby="cart-notification-recos-title">
+      <div class="cart-notification__recos-heading-wrap">
+        <h3 id="cart-notification-recos-title" class="cart-notification__recos-heading">
+          {{ 'general.cart.notification_recos_heading' | t }}
+        </h3>
+      </div>
+      <ul class="cart-notification__recos-grid list-unstyled" role="list">
+        {{ reco_items }}
+      </ul>
+    </section>
+  {%- endif -%}
+{%- endif -%}

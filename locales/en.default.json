@@ -457,6 +457,11 @@
         "meta_title": "Buy popular care products online | Selection for everyday care",
         "meta_description": "Popular care products at a glance: carefully selected items for incontinence, skin care, body care and more. Order online with ease.",
         "description": "Our most popular care products for everyday use at home and in care settings. This selection is curated regularly and featured on the homepage — from incontinence care to skin and body care, gloves and consumables."
+      },
+      "oft_zusammen_gekauft": {
+        "meta_title": "Frequently bought together | Complementary care products",
+        "meta_description": "Practical add-ons for your care order: gloves, wipes, skin care and more. Often ordered together with other care products.",
+        "description": "These products are frequently ordered as add-ons — e.g. gloves, wipes, skin care or consumables for everyday care. The selection appears after adding to cart as a helpful suggestion."
       }
     },
     "pflege_inko_rezept_landing": {
