@@ -435,32 +435,53 @@
 
 .cart-notification__reco {
   display: flex;
+  min-width: 0;
+}
+
+.cart-notification__reco-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100%;
+  background: var(--cn-white);
+  border: 1px solid var(--cn-border);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+.cart-notification__reco-card:hover,
+.cart-notification__reco-card:focus-within {
+  border-color: var(--cn-accent);
+  box-shadow: 0 14px 28px -14px rgba(11, 35, 71, 0.32);
+  transform: translateY(-3px);
 }
 
 .cart-notification__reco-link {
   display: flex;
   flex-direction: column;
+  flex: 1 1 auto;
   width: 100%;
-  padding: 0.85rem 0.85rem 0.975rem;
-  background: var(--cn-white);
-  border: 1px solid var(--cn-border);
-  border-radius: 16px;
+  padding: 0.85rem 0.85rem 0.75rem;
+  background: transparent;
+  border: none;
+  border-radius: 0;
   text-decoration: none;
   color: inherit;
-  transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+  transition: none;
 }
 
 .cart-notification__reco-link:hover,
 .cart-notification__reco-link:focus-visible {
-  border-color: var(--cn-accent);
-  box-shadow: 0 14px 28px -14px rgba(11, 35, 71, 0.32);
-  transform: translateY(-3px);
+  border-color: transparent;
+  box-shadow: none;
+  transform: none;
   outline: none;
 }
 
 .cart-notification__reco-link:focus-visible {
   outline: 2px solid var(--cn-accent);
-  outline-offset: 2px;
+  outline-offset: -2px;
 }
 
 .cart-notification__reco-media {
@@ -503,4 +524,20 @@
   font-weight: 700;
   color: var(--cn-cta);
   text-align: center;
+}
+
+.cart-notification__reco-cart.pflege-cat-card__cart,
+.cart-notification__reco-cart.pflege-cat-card__cart--link {
+  width: calc(100% - 1.7rem);
+  margin: 0 0.85rem 0.85rem;
+  min-height: var(--pflege-btn-compact-min-h, 2.5rem);
+  padding: var(--pflege-btn-compact-pad-y, 0.48rem) var(--pflege-btn-compact-pad-x, 0.55rem);
+  font-size: var(--pflege-btn-compact-fs, clamp(0.8125rem, 3.1vw, 0.875rem));
+  font-weight: var(--pflege-btn-compact-fw, 700);
+  border-radius: var(--pflege-btn-compact-radius, 8px);
+}
+
+.cart-notification__reco-cart.pflege-cat-card__cart.loading {
+  pointer-events: none;
+  opacity: 0.72;
 }
