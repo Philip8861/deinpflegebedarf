@@ -1,5 +1,5 @@
 {% comment %}
-  Pflegeset-Kachel: Spar-Badge nach Größe (S 10%, M 15%, L 20%).
+  Pflegeset-Kachel: Spar-Badge nach Größe (S 3%, M 5%, L 9%).
   Titel kommt direkt vom Produkt (card_product.title).
 
   Parameter:
@@ -7,31 +7,6 @@
   - handle_fallback: optional String, wenn kein Produktobjekt
 {% endcomment %}
 {%- liquid
-  assign probe_handle = ''
-  assign probe_title = ''
-
-  if card_product != blank
-    assign probe_handle = card_product.handle | downcase
-    assign probe_title = card_product.title | downcase
-  endif
-
-  if probe_handle == blank and handle_fallback != blank
-    assign probe_handle = handle_fallback | downcase
-  endif
-
-  assign size_tag = ''
-
-  comment
-    Größe aus Handle/Titel — u. a. „Pflegeset S - …“, „Pflegeset M – …“, pflegeset-grosse-s
-  endcomment
-  if probe_handle contains 'groesse-s' or probe_handle contains 'grosse-s' or probe_handle contains 'pflegeset-s' or probe_title contains 'pflegeset s' or probe_title contains 'größe s' or probe_title contains 'grösse s' or probe_title contains 'grosse s' or probe_title contains ' size s' or probe_title contains ' set s' or probe_title contains ' set s-' or probe_title contains ' set s –'
-    assign size_tag = 's'
-  elsif probe_handle contains 'groesse-m' or probe_handle contains 'grosse-m' or probe_handle contains 'pflegeset-m' or probe_title contains 'pflegeset m' or probe_title contains 'größe m' or probe_title contains 'grösse m' or probe_title contains 'grosse m' or probe_title contains ' size m' or probe_title contains ' set m' or probe_title contains ' set m-' or probe_title contains ' set m –'
-    assign size_tag = 'm'
-  elsif probe_handle contains 'groesse-l' or probe_handle contains 'grosse-l' or probe_handle contains 'pflegeset-l' or probe_title contains 'pflegeset l' or probe_title contains 'größe l' or probe_title contains 'grösse l' or probe_title contains 'grosse l' or probe_title contains ' size l' or probe_title contains ' set l' or probe_title contains ' set l-' or probe_title contains ' set l –'
-    assign size_tag = 'l'
-  endif
-
   assign meta_title = ''
   assign meta_badge = ''
 
@@ -41,18 +16,8 @@
     assign meta_title = handle_fallback | replace: '-', ' '
   endif
 
-  if size_tag == 's'
-    assign meta_badge = 'Sie sparen 10%'
-  elsif size_tag == 'm'
-    assign meta_badge = 'Sie sparen 15%'
-  elsif size_tag == 'l'
-    assign meta_badge = 'Sie sparen 20%'
-  endif
-
-  if meta_badge == blank
-    capture meta_badge_raw
-      render 'pflege-pflegeset-save-badge', card_product: card_product, handle_fallback: handle_fallback
-    endcapture
-    assign meta_badge = meta_badge_raw | strip
-  endif
+  capture meta_badge_raw
+    render 'pflege-pflegeset-save-badge', card_product: card_product, handle_fallback: handle_fallback
+  endcapture
+  assign meta_badge = meta_badge_raw | strip
 -%}{{ meta_title }}|||{{ meta_badge }}

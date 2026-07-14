@@ -483,7 +483,7 @@
       title.indexOf('größe s') !== -1 ||
       title.indexOf('grosse s') !== -1
     ) {
-      return 'Sie sparen 10%';
+      return 'Sie sparen 3%';
     }
     if (
       handle.indexOf('groesse-m') !== -1 ||
@@ -493,7 +493,7 @@
       title.indexOf('größe m') !== -1 ||
       title.indexOf('grosse m') !== -1
     ) {
-      return 'Sie sparen 15%';
+      return 'Sie sparen 5%';
     }
     if (
       handle.indexOf('groesse-l') !== -1 ||
@@ -503,7 +503,7 @@
       title.indexOf('größe l') !== -1 ||
       title.indexOf('grosse l') !== -1
     ) {
-      return 'Sie sparen 20%';
+      return 'Sie sparen 9%';
     }
     return '';
   }

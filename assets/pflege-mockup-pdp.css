@@ -539,26 +539,6 @@
   line-height: 1.1;
 }
 
-.pflege-pflegeset-pdp-price__row {
-  display: flex !important;
-  flex-direction: row;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 0.55rem 0.75rem;
-}
-
-.pflege-pflegeset-pdp-price__current {
-  margin: 0 !important;
-}
-
-.pflege-pflegeset-pdp-price__compare {
-  margin: 0 !important;
-  text-decoration: line-through;
-  font-size: clamp(1.2rem, 1rem + 0.45vw, 1.55rem) !important;
-  font-weight: 500 !important;
-  letter-spacing: -0.01em;
-  color: rgba(var(--color-foreground), 0.55) !important;
-}
 
 @media screen {
   .pflege-product-page variant-selects .product-form__input--pill:first-child {

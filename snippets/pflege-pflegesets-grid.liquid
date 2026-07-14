@@ -35,9 +35,6 @@
   if badge_label == blank
     assign badge_label = shop.metafields.pflegeshop.pflegesets_badge.value | strip
   endif
-  if badge_label == blank
-    assign badge_label = 'Sie sparen 10%'
-  endif
 
   assign rendered_count = 0
   assign col_count = 0
