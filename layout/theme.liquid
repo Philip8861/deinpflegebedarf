@@ -808,6 +808,7 @@
       {%- endif -%}
     {%- endif -%}
     {{ 'pflege-site-entrance.css' | asset_url | stylesheet_tag }}
+    {{ 'pflege-hero-rise.css' | asset_url | stylesheet_tag }}
     <style id="pflege-no-flash-critical">
       /* Verhindert kurzes Abdunkeln/Ausblenden beim Seitenwechsel (vor defer-JS) */
       html,
@@ -1029,5 +1030,6 @@
     <script src="{{ 'pflege-bestseller-add.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pflege-cart-icon-sync.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pflege-site-entrance.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'pflege-hero-rise.js' | asset_url }}" defer="defer"></script>
   </body>
 </html>

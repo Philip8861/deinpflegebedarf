@@ -1,0 +1,27 @@
+/* Gestaffeltes Hero-Text-Einblenden ohne Abdunkeln (s. pflege-hero-rise.js) */
+
+@keyframes pflege-hero-rise {
+  from {
+    transform: translate3d(0, 1.15rem, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.pflege-hero-rise-ready .pflege-hero-rise-el {
+    opacity: 1;
+    animation: pflege-hero-rise 0.68s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    animation-delay: var(--phr-delay, 0s);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.pflege-hero-rise-ready .pflege-hero-rise-el {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
