@@ -3,6 +3,7 @@
     var master = document.getElementById('cart-icon-bubble');
     var slave = document.getElementById('pflege-cart-icon-contents');
     if (!master || !slave) return;
+    if (slave.innerHTML.trim() === master.innerHTML.trim()) return;
     slave.innerHTML = master.innerHTML;
   }
 
@@ -24,14 +25,12 @@
   }
 
   function init() {
-    syncPflegeCartIcon();
     var master = document.getElementById('cart-icon-bubble');
     var slave = document.getElementById('pflege-cart-icon-contents');
     if (master && slave) {
       new MutationObserver(syncPflegeCartIcon).observe(master, { childList: true, subtree: true });
     }
     updatePflegeCartTotal();
-    requestAnimationFrame(syncPflegeCartIcon);
     if (typeof subscribe === 'function' && typeof PUB_SUB_EVENTS !== 'undefined') {
       subscribe(PUB_SUB_EVENTS.cartUpdate, function () {
         requestAnimationFrame(function () {

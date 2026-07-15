@@ -11,6 +11,13 @@
     visibility: hidden !important;
     opacity: 0 !important;
   }
+  .cart-notification-wrapper:not(.is-active) .cart-notification__backdrop,
+  .cart-notification-wrapper:not(.is-active) .cart-notification__backdrop-blur,
+  .cart-notification-wrapper:not(.is-active) .cart-notification__backdrop-dim {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
 </style>
 {% comment %}
   Renders cart notification

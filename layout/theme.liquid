@@ -810,6 +810,11 @@
     {{ 'pflege-site-entrance.css' | asset_url | stylesheet_tag }}
     <style id="pflege-no-flash-critical">
       /* Verhindert kurzes Abdunkeln/Ausblenden beim Seitenwechsel (vor defer-JS) */
+      html,
+      body.gradient {
+        background-color: #fefefe !important;
+      }
+
       html:not(.shopify-design-mode) body.gradient {
         background-attachment: scroll !important;
       }
@@ -824,6 +829,34 @@
         animation: none !important;
         transition: none !important;
         filter: none !important;
+      }
+
+      /* Inaktive Overlays nie kurz sichtbar */
+      html:not(.shopify-design-mode) .cart-notification-wrapper:not(.is-active) .cart-notification__backdrop,
+      html:not(.shopify-design-mode) .cart-notification-wrapper:not(.is-active) .cart-notification__backdrop-blur,
+      html:not(.shopify-design-mode) .cart-notification-wrapper:not(.is-active) .cart-notification__backdrop-dim,
+      html:not(.shopify-design-mode) .pflege-pflegeboxi-modal[hidden],
+      html:not(.shopify-design-mode) #pflege-pflegeboxi-root[hidden] {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+      }
+
+      /* Header: Badge/Icons sofort an Endposition (kein Sprung nach base.css) */
+      html:not(.shopify-design-mode) .pflege-main-nav-section .pflege-main-nav__cart-graphic .cart-count-bubble {
+        left: auto !important;
+        right: -0.1rem !important;
+        bottom: auto !important;
+        top: -0.12rem !important;
+        transform: none !important;
+      }
+
+      html:not(.shopify-design-mode) .pflege-main-nav-section shopify-account:not(:defined),
+      html:not(.shopify-design-mode) .pflege-main-nav-section shopify-account:defined {
+        min-width: 3.65rem !important;
+        min-height: 3.65rem !important;
+        width: 3.65rem !important;
+        height: 3.65rem !important;
       }
     </style>
     <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">

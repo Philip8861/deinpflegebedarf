@@ -258,7 +258,10 @@
 <style id="pflege-main-nav-critical-{{ section.id }}">
   .pflege-main-nav-section.section-header {
     --pflege-header-cluster-gap: clamp(1rem, 1.85vw, 1.5rem);
-    --pflege-header-actions-gap: clamp(0.28rem, 0.85vw, 0.5rem);
+    --pflege-header-actions-gap: clamp(1rem, 1.55vw, 1.45rem);
+    --pflege-action-icon-box: 3.65rem;
+    --pflege-action-icon-svg: 3.28rem;
+    --pflege-cart-svg-scale: 0.9;
     --pflege-nav-search-max-width: min(calc(41rem * 4 / 3), 100%);
     --pflege-nav-search-min-width: 15rem;
     --pflege-nav-search-screen-gutter: clamp(8rem, 16vw, 20rem);
@@ -423,6 +426,36 @@
     }
     .pflege-main-nav-section .pflege-main-nav__category-dialog-trigger {
       width: auto !important;
+    }
+    .pflege-main-nav-section .pflege-main-nav__action--shopify-account,
+    .pflege-main-nav-section .pflege-main-nav__action--cart {
+      gap: 0.935rem !important;
+      align-items: center !important;
+      align-self: center !important;
+    }
+    .pflege-main-nav-section shopify-account:not(:defined) {
+      min-width: var(--pflege-action-icon-box, 3.65rem) !important;
+      min-height: var(--pflege-action-icon-box, 3.65rem) !important;
+    }
+    .pflege-main-nav-section .pflege-main-nav__cart-graphic {
+      position: relative !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: var(--pflege-action-icon-box, 3.65rem) !important;
+      height: var(--pflege-action-icon-box, 3.65rem) !important;
+      flex-shrink: 0 !important;
+    }
+    .pflege-main-nav-section .pflege-main-nav__cart-graphic .cart-count-bubble {
+      left: auto !important;
+      right: -0.1rem !important;
+      bottom: auto !important;
+      top: -0.12rem !important;
+      transform: none !important;
+      width: 1.55rem !important;
+      height: 1.55rem !important;
+      font-size: 0.82rem !important;
+      font-weight: 700 !important;
     }
   }
 

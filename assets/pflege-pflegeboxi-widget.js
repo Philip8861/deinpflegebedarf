@@ -24,7 +24,10 @@
 
     if (!isDesktop()) {
       root.hidden = true;
+      return;
     }
+
+    root.hidden = false;
 
     const dismissBtn = root.querySelector('[data-pflegeboxi-dismiss]');
     const closeEls = modal.querySelectorAll('[data-pflegeboxi-close]');

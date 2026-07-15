@@ -347,8 +347,13 @@
 }
 
 .pflege-main-nav-section shopify-account:not(:defined) {
-  min-width: var(--pflege-action-icon-box, 2.75rem);
-  min-height: var(--pflege-action-icon-box, 2.75rem);
+  min-width: var(--pflege-action-icon-box, 3.65rem);
+  min-height: var(--pflege-action-icon-box, 3.65rem);
+}
+
+.pflege-main-nav-section shopify-account:defined {
+  width: var(--pflege-action-icon-box, 3.65rem);
+  height: var(--pflege-action-icon-box, 3.65rem);
 }
 
 .pflege-main-nav-section shopify-account::part(signed-out-avatar) {

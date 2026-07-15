@@ -13,9 +13,8 @@
   }
 </style>
 {{ 'pflege-pflegeboxi-widget.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'pflege-pflegeboxi-widget.js' | asset_url }}" defer="defer"></script>
 
-<div id="pflege-pflegeboxi-root">
+<div id="pflege-pflegeboxi-root" hidden>
   <div class="pflege-pflegeboxi-widget">
     <div class="pflege-pflegeboxi-widget__cluster">
       <button
@@ -126,3 +125,18 @@
     </button>
   </div>
 </div>
+
+<script>
+  (function () {
+    var root = document.getElementById('pflege-pflegeboxi-root');
+    if (!root) return;
+    try {
+      if (window.sessionStorage.getItem('pflegeboxi-dismissed') === '1') return;
+      if (!window.matchMedia('(min-width: 750px)').matches) return;
+    } catch (e) {
+      return;
+    }
+    root.hidden = false;
+  })();
+</script>
+<script src="{{ 'pflege-pflegeboxi-widget.js' | asset_url }}" defer="defer"></script>
