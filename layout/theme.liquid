@@ -129,7 +129,8 @@
     <script src="{{ 'details-modal.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'search-form.js' | asset_url }}" defer="defer"></script>
 
-    {%- if settings.animations_reveal_on_scroll -%}
+    {%- comment -%} Scroll-Reveal beim Laden deaktiviert — verursacht kurzes Abdunkeln {%- endcomment -%}
+    {%- if false and settings.animations_reveal_on_scroll -%}
       <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
 
@@ -807,6 +808,24 @@
       {%- endif -%}
     {%- endif -%}
     {{ 'pflege-site-entrance.css' | asset_url | stylesheet_tag }}
+    <style id="pflege-no-flash-critical">
+      /* Verhindert kurzes Abdunkeln/Ausblenden beim Seitenwechsel (vor defer-JS) */
+      html:not(.shopify-design-mode) body.gradient {
+        background-attachment: scroll !important;
+      }
+
+      html:not(.shopify-design-mode) .scroll-trigger.animate--fade-in,
+      html:not(.shopify-design-mode) .scroll-trigger.animate--slide-in,
+      html:not(.shopify-design-mode) .pflege-site-entrance-el,
+      html:not(.shopify-design-mode) .pflege-site-entrance-el--card,
+      html:not(.shopify-design-mode) .pflege-site-entrance-el--section {
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+        transition: none !important;
+        filter: none !important;
+      }
+    </style>
     <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
 
     {%- if settings.cart_type == 'drawer' -%}

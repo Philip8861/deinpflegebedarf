@@ -247,8 +247,7 @@
   }
 
   function runInitial() {
-    collectAll(false);
-    reveal();
+    document.documentElement.classList.add('pflege-site-entrance-ready');
   }
 
   runInitial();
