@@ -60,7 +60,6 @@
     '.pflege-product-page .pflege-product__purchase-row',
     '.pflege-product-page .pflege-buy-usps__item',
     '.pflege-product-page .pflege-product__trust-unified',
-    '.pflege-product-page .pflege-pdp-detail',
     '.pflege-product-page .pflege-related-products',
     '.pflege-cart-page__title',
     '.pflege-cart-breadcrumb',
@@ -148,18 +147,6 @@
     });
   }
 
-  function markHomeSections(startIndex) {
-    if (!document.body.classList.contains('template-index')) return startIndex;
-    const main = document.querySelector('#MainContent');
-    if (!main) return startIndex;
-
-    let index = startIndex;
-    main.querySelectorAll(':scope > .shopify-section, :scope > section').forEach((section) => {
-      if (markEl(section, index * SECTION_STEP_SEC, 'section')) index += 1;
-    });
-    return index;
-  }
-
   function markOrderedElements(startIndex, rootScope) {
     let index = startIndex;
     const scopeRoots = rootScope || roots;
@@ -220,6 +207,7 @@
     let index = startIndex;
     main.querySelectorAll(':scope > .shopify-section').forEach((section) => {
       if (section.querySelector('.pflege-site-entrance-el')) return;
+      if (section.querySelector('.pflege-pdp-detail, .pflege-product-description-section')) return;
       if (markEl(section, index * SECTION_STEP_SEC, 'section')) index += 1;
     });
   }
@@ -227,19 +215,12 @@
   function collectAll(refreshCards) {
     if (!refreshCards) seen.clear();
 
-    const isHome = document.body.classList.contains('template-index');
     const isCategoryFiltered = document.body.classList.contains('pflege-category-filtered-page');
 
     if (!refreshCards) {
-      let index = 0;
-
-      if (isHome) {
-        index = markHomeSections(0);
-        markFooterElements(index);
-      } else {
-        index = markOrderedElements(0);
-        markFallbackSections(index);
-      }
+      let index = markOrderedElements(0);
+      markFallbackSections(index);
+      markFooterElements(index);
 
       if (isCategoryFiltered) {
         markCategoryCards(false);
@@ -261,18 +242,13 @@
   }
 
   function reveal() {
+    document.documentElement.classList.add('pflege-site-entrance-prep');
     document.documentElement.classList.add('pflege-site-entrance-ready');
   }
 
   function runInitial() {
     collectAll(false);
-    if (designMode || reduceMotion) {
-      reveal();
-    } else {
-      requestAnimationFrame(() => {
-        requestAnimationFrame(reveal);
-      });
-    }
+    reveal();
   }
 
   runInitial();

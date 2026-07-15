@@ -850,11 +850,6 @@
   </head>
 
   <body class="gradient template-{{ template.name }}{% if template.suffix != blank %} template-{{ template.name }}-{{ template.suffix | handleize }}{% endif %}{% if template.name == 'collection' or request.page_type == 'collection' %} pflege-collection-page{% endif %}{% if is_category_filtered %} pflege-category-filtered-page{% endif %}{% if is_pflegesets_page %} pflege-pflegesets-page{% endif %}{% if template.name == 'search' %} pflege-search-page{% endif %}{% if is_pfc_collection %} pflege-pfc-collection{% endif %}{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
-    <script>
-      if (!document.documentElement.classList.contains('shopify-design-mode'){% unless is_pflegesets_page %} && !document.body.classList.contains('pflege-pflegesets-page'){% endunless %}) {
-        document.documentElement.classList.add('pflege-site-entrance-prep');
-      }
-    </script>
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">
       {{ 'accessibility.skip_to_text' | t }}
     </a>

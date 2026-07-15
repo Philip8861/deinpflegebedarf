@@ -25,24 +25,15 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  html.pflege-site-entrance-prep .pflege-site-entrance-el {
-    opacity: 0;
-    transform: translate3d(0, 1.15rem, 0);
-    animation: none;
-  }
-
-  html.pflege-site-entrance-prep .pflege-site-entrance-el--card {
-    transform: translate3d(0, 0.85rem, 0) scale(0.992);
-  }
-
   html.pflege-site-entrance-ready .pflege-site-entrance-el {
-    animation: pflege-site-rise 0.68s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: pflege-site-rise 0.68s cubic-bezier(0.22, 1, 0.36, 1) backwards;
     animation-delay: var(--pse-delay, 0s);
   }
 
   html.pflege-site-entrance-ready .pflege-site-entrance-el--card {
     animation-name: pflege-site-rise-card;
     animation-duration: 0.42s;
+    animation-fill-mode: backwards;
   }
 
   html.pflege-site-entrance-ready .pflege-site-entrance-el--section {
@@ -64,9 +55,18 @@
   }
 
   /* Kein Doppel-Effekt mit Theme-Scroll-Animation */
-  html.pflege-site-entrance-prep #MainContent .scroll-trigger {
+  html.pflege-site-entrance-ready #MainContent .scroll-trigger {
     opacity: 1;
     transform: none;
+  }
+
+  /* Produktbeschreibung sofort sichtbar — kein Warten auf Stagger */
+  .pflege-pdp-detail,
+  .pflege-pdp-detail .pflege-product-description-section,
+  .pflege-pdp-detail .pflege-product-description-section * {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
   }
 }
 
