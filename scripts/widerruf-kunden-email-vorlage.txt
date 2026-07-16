@@ -1,0 +1,31 @@
+Guten Tag {{ contact.name }},
+
+wir bestätigen den Eingang Ihrer Widerrufserklärung.
+
+Eingegangen am: {{ "now" | date: "%d.%m.%Y", "Europe/Berlin" }}
+Eingegangen um: {{ "now" | date: "%H:%M", "Europe/Berlin" }} Uhr (Europe/Berlin)
+Vorgangsnummer: {{ contact.Vorgangsnummer }}
+
+Ihre übermittelten Angaben:
+
+Angaben zur Bestellung:
+{{ contact.Bestellangaben }}
+
+Umfang des Widerrufs:
+{{ contact.Widerrufsumfang }}
+
+Betroffene Artikel:
+{% if contact.Betroffene_Artikel != blank %}{{ contact.Betroffene_Artikel }}{% else %}Gesamte Bestellung{% endif %}
+
+Ihre Erklärung:
+„Hiermit widerrufe ich den von mir abgeschlossenen Vertrag über die angegebene Bestellung beziehungsweise die angegebenen Artikel.“
+
+{% if contact.Zusatznachricht != blank %}
+Zusätzliche Nachricht:
+{{ contact.Zusatznachricht }}
+{% endif %}
+
+Diese Nachricht bestätigt den Eingang Ihrer Widerrufserklärung. Sie enthält noch keine Aussage über die rechtliche Prüfung oder die weitere Rückabwicklung.
+
+Freundliche Grüße
+deinpflegebedarf.de

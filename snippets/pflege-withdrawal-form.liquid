@@ -1,6 +1,6 @@
 {% comment %}
   Elektronische Widerrufsfunktion (§ 356a BGB) — zweistufiger Ablauf.
-  Shopify-Kontaktformular → Shop-Benachrichtigung; Kunden-E-Mail via Shopify Flow (siehe scripts/shopify-flow-widerruf-setup.md).
+  Shopify-Kontaktformular → Shop-Benachrichtigung; Kunden-E-Mail via Shopify Flow (Pflicht, siehe scripts/shopify-flow-widerruf-setup.md).
 
   Parameter:
   - standalone: true auf /pages/vertrag-widerrufen (Formular immer sichtbar, ohne Aufklapper)
@@ -83,10 +83,16 @@
         >
         <input type="hidden" name="contact[Widerrufsumfang]" value="" data-pflege-withdrawal-scope-hidden>
         <input type="hidden" name="contact[Bestellangaben]" value="" data-pflege-withdrawal-order-hidden>
-        <input type="hidden" name="contact[Betroffene Artikel]" value="" data-pflege-withdrawal-items-hidden>
+        <input type="hidden" name="contact[Betroffene_Artikel]" value="" data-pflege-withdrawal-items-hidden>
         <input type="hidden" name="contact[Bestelldatum]" value="" data-pflege-withdrawal-date-hidden>
         <input type="hidden" name="contact[Zusatznachricht]" value="" data-pflege-withdrawal-message-hidden>
         <textarea name="contact[body]" class="pflege-withdrawal__body-hidden" data-pflege-withdrawal-body aria-hidden="true" tabindex="-1"></textarea>
+
+        {%- if form.posted_successfully? and page.handle == 'vertrag-widerrufen' -%}
+          <span hidden data-pflege-withdrawal-sent-marker></span>
+        {%- elsif form.errors -%}
+          <span hidden data-pflege-withdrawal-sent-error></span>
+        {%- endif -%}
 
         {%- if form.posted_successfully? and page.handle == 'vertrag-widerrufen' -%}
           <div class="pflege-withdrawal__success" data-pflege-withdrawal-success role="status" tabindex="-1">

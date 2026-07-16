@@ -1,105 +1,113 @@
-# Shopify Flow — Eingangsbestätigung Widerruf (§ 356a BGB)
+# Shopify Flow — Kunden-E-Mail bei Widerruf (Schritt für Schritt)
 
-> **Wichtig:** Das Theme kann **keine E-Mails an Kunden** versenden. Ohne diesen Flow erhält der Kunde **keine** Bestätigungs-E-Mail — nur die Bestätigung auf der Webseite.
+> **Pflicht:** Das Theme kann keine E-Mails versenden. Dieser Flow muss **einmalig im Shopify-Admin** eingerichtet werden — dann erhält jeder Kunde nach dem Widerruf automatisch die Eingangsbestätigung.
 
-Diese Anleitung richtet die **automatische Kunden-E-Mail** und die **interne Benachrichtigung** ein.
+**Dauer:** ca. 10 Minuten
 
-## Voraussetzungen
+---
 
-- Shopify-Plan mit **Shopify Flow** (Shopify Plus oder Flow als Add-on)
-- Seite `/pages/vertrag-widerrufen` im Admin angelegt (Handle: `vertrag-widerrufen`, Template: `page.vertrag-widerrufen`)
-- Kontaktformular-Tag: `widerruf` (wird vom Theme gesetzt)
+## Voraussetzung
 
-## Workflow 1: Eingangsbestätigung an Kunden
+- Shopify-Plan mit **Shopify Flow** (Shopify, Advanced oder Plus — im Admin unter **Apps → Flow** prüfen)
+- Theme mit Widerrufsformular ist deployed (fetch-Übermittlung wie Rezept-Formular)
 
-### Trigger
+---
 
-**Kontaktformular eingereicht** (Contact form submitted)
+## Schritt 1: Flow öffnen
 
-### Bedingung
+1. Shopify Admin → **Apps** → **Flow** öffnen  
+   (Falls nicht installiert: im Shopify App Store nach „Shopify Flow“ suchen und installieren)
+2. **Workflow erstellen** klicken
 
-- `contact.tags` enthält `widerruf`
-- ODER `contact.subject` enthält `Widerrufserklärung`
+---
 
-### Aktion: E-Mail an Kunden senden
+## Schritt 2: Trigger
 
-**An:** `{{ contact.email }}`
+1. **Trigger hinzufügen** → **Kontaktformular eingereicht** (Contact form submitted)
 
-**Betreff:** `Eingangsbestätigung Ihres Widerrufs – deinpflegebedarf.de`
+---
 
-**Text (Vorlage):**
+## Schritt 3: Bedingung (nur Widerrufe)
+
+1. **Bedingung hinzufügen**
+2. Feld: **Tags** (oder `contact.tags`)
+3. Operator: **enthält** / **contains**
+4. Wert: `widerruf`
+
+> Alternativ: Betreff **enthält** `Widerrufserklärung`
+
+---
+
+## Schritt 4: Aktion — E-Mail an Kunden
+
+1. **Aktion hinzufügen** → **E-Mail senden** (Send email)
+2. **An:** Variable `contact.email` auswählen (E-Mail des Formulars)
+3. **Von:** `deinpflegebedarf@alltagshilfe-sued.de` (oder eure Shop-Absenderadresse)
+4. **Betreff:**
 
 ```
-Guten Tag {{ contact.name }},
-
-wir bestätigen den Eingang Ihrer Widerrufserklärung.
-
-Eingegangen am: {{ "now" | date: "%d.%m.%Y", "Europe/Berlin" }}
-Eingegangen um: {{ "now" | date: "%H:%M", "Europe/Berlin" }} Uhr (Europe/Berlin)
-Vorgangsnummer: {{ contact.Vorgangsnummer }}
-
-Ihre übermittelten Angaben:
-
-Angaben zur Bestellung:
-{{ contact.Bestellangaben }}
-
-Umfang des Widerrufs:
-{{ contact.Widerrufsumfang }}
-
-Betroffene Artikel:
-{% if contact["Betroffene Artikel"] != blank %}{{ contact["Betroffene Artikel"] }}{% else %}Gesamte Bestellung{% endif %}
-
-Ihre Erklärung:
-„Hiermit widerrufe ich den von mir abgeschlossenen Vertrag über die angegebene Bestellung beziehungsweise die angegebenen Artikel.“
-
-{% if contact.Zusatznachricht != blank %}
-Zusätzliche Nachricht:
-{{ contact.Zusatznachricht }}
-{% endif %}
-
-Diese Nachricht bestätigt den Eingang Ihrer Widerrufserklärung. Sie enthält noch keine Aussage über die rechtliche Prüfung oder die weitere Rückabwicklung.
-
-Freundliche Grüße
-deinpflegebedarf.de
+Eingangsbestätigung Ihres Widerrufs – deinpflegebedarf.de
 ```
 
-> **Hinweis:** Feldnamen in Flow müssen exakt den Hidden-Feldern im Theme entsprechen (`Vorgangsnummer`, `Bestellangaben`, `Widerrufsumfang`, `Betroffene Artikel`, `Zusatznachricht`).
+5. **Nachricht:** Inhalt aus `scripts/widerruf-kunden-email-vorlage.txt` kopieren und in Flow einfügen.  
+   Variablen in Flow über **Variable einfügen** setzen (siehe Vorlage).
 
-## Workflow 2: Interne Benachrichtigung
+### Verfügbare Variablen in Flow
 
-### Trigger & Bedingung
+| Variable | Quelle im Formular |
+|----------|-------------------|
+| `contact.name` | Name |
+| `contact.email` | E-Mail |
+| `contact.Vorgangsnummer` | Vorgangsnummer |
+| `contact.Bestellangaben` | Angaben zur Bestellung |
+| `contact.Widerrufsumfang` | Gesamte / Teil der Bestellung |
+| `contact.Betroffene_Artikel` | Betroffene Artikel |
+| `contact.Zusatznachricht` | Optionale Nachricht |
+| `contact.body` | Vollständiger Text (Fallback) |
 
-Identisch zu Workflow 1.
+---
 
-### Aktion: E-Mail an Shop
+## Schritt 5: Workflow aktivieren
 
-**An:** `deinpflegebedarf@alltagshilfe-sued.de` (oder die in Shopify hinterlegte Kontakt-E-Mail)
+1. Workflow benennen: `Widerruf — Eingangsbestätigung Kunde`
+2. **Speichern**
+3. Schalter auf **Aktiv** stellen
 
-**Betreff:** `Neuer Widerruf — {{ contact.Vorgangsnummer }}`
+---
 
-**Text:** Vollständiger Inhalt aus `contact.body` (enthält alle strukturierten Daten inkl. Submission-ID und Zeitstempel).
+## Schritt 6: Test
 
-## Fehlerbehandlung
+1. `/pages/vertrag-widerrufen` öffnen (Inkognito, ohne Login)
+2. Test-Widerruf absenden
+3. Prüfen:
+   - ✅ Bestätigungsseite im Shop
+   - ✅ E-Mail an Kunden-Adresse (ggf. Spam-Ordner)
+   - ✅ E-Mail an `deinpflegebedarf@alltagshilfe-sued.de` (Shopify-Standardbenachrichtigung)
+   - ✅ Eintrag unter **Kunden → Kontaktformulare**
 
-Bei fehlgeschlagenem E-Mail-Versand in Flow:
+---
 
-1. **Aktion „Interne E-Mail“** an technischen Ansprechpartner mit Fehlerdetails
-2. Optional: **Metafield / Google Sheet / Notion** als Fallback-Protokoll (keine Marketing-Tracker)
+## Optional: Zweiter Flow bei E-Mail-Fehler
 
-## Datenspeicherung in Shopify
+Falls die Kunden-E-Mail fehlschlägt:
 
-- Widerrufe landen als **Kontaktanfragen** im Shopify-Admin (Kunden → Kontaktformulare)
-- Strukturierte Daten zusätzlich im Feld `contact[body]`
-- Vorgangsnummer: `contact[Vorgangsnummer]`
-- Submission-ID: `contact[Submission-ID]`
+1. Neuer Workflow oder **Fehlerbehandlung** in Flow
+2. Aktion: Interne E-Mail an `deinpflegebedarf@alltagshilfe-sued.de`
+3. Betreff: `FEHLER: Widerrufs-E-Mail nicht versendet — {{ contact.Vorgangsnummer }}`
 
-## Keine Tracker
+---
 
-Flow-Workflows dürfen **keine** Daten an Meta Pixel, Google Ads, Klaviyo-Marketing o. Ä. senden, sofern nicht ausdrücklich datenschutzrechtlich freigegeben.
+## Häufige Probleme
 
-## Test nach Einrichtung
+| Problem | Lösung |
+|---------|--------|
+| Keine Kunden-E-Mail | Flow aktiv? Bedingung `widerruf` korrekt? |
+| Keine Shop-E-Mail | Einstellungen → Benachrichtigungen → Kontaktformular prüfen |
+| Flow-Variablen leer | Theme deployen; Feldnamen exakt wie oben |
+| E-Mail im Spam | Absender-Domain SPF/DKIM in Shopify prüfen |
 
-1. Test-Widerruf auf `/pages/vertrag-widerrufen` absenden
-2. Prüfen: Kunden-E-Mail innerhalb weniger Minuten
-3. Prüfen: Interne E-Mail im Postfach
-4. Prüfen: Eintrag im Shopify-Admin unter Kontaktformularen
+---
+
+## Technischer Hintergrund
+
+Das Widerrufsformular sendet per `fetch()` an Shopify `/contact` — identisch zur zuverlässigen Rezept-Übermittlung. Shopify löst danach den Flow-Trigger **Kontaktformular eingereicht** aus.

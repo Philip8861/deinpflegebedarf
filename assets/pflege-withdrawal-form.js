@@ -1,6 +1,7 @@
 /**
  * Elektronische Widerrufsfunktion (§ 356a BGB) — zweistufiger Ablauf.
- * Keine Tracking-Events; keine Daten in URL-Parametern.
+ * Übermittlung per fetch() an Shopify /contact (wie Rezept-Formular).
+ * Kunden-E-Mail: Shopify Flow (scripts/shopify-flow-widerruf-setup.md).
  */
 (function () {
   'use strict';
@@ -9,6 +10,9 @@
     'Hiermit widerrufe ich den von mir abgeschlossenen Vertrag über die angegebene Bestellung beziehungsweise die angegebenen Artikel.';
 
   var STORAGE_PREFIX = 'pflege-wd-submitted-';
+  var SUBMIT_TIMEOUT_MS = 20000;
+  var ERROR_TEXT =
+    'Die Widerrufserklärung konnte nicht übermittelt werden. Bitte versuchen Sie es erneut oder kontaktieren Sie uns per E-Mail.';
 
   function qs(root, sel) {
     return root.querySelector(sel);
@@ -227,10 +231,6 @@
       .replace(/"/g, '&quot;');
   }
 
-  function hasWiderrufQuery() {
-    return /(?:^|[?&])widerruf=1(?:&|$)/.test(window.location.search);
-  }
-
   function buildSuccessHtml(data) {
     var emailLine = data.email
       ? ' Eine Eingangsbestätigung wurde an <strong>' + escapeHtml(data.email) + '</strong> gesendet.'
@@ -289,27 +289,38 @@
     };
   }
 
-  function showClientSuccess(root, form) {
-    var data = readStoredSuccess();
-    if (!data) return false;
+  function bindPrintButton(root) {
+    var printBtn = qs(root, '[data-pflege-withdrawal-print]');
+    if (printBtn) {
+      printBtn.addEventListener('click', function () {
+        window.print();
+      });
+    }
+  }
+
+  function showClientSuccess(root, form, data) {
+    var payload = data || readStoredSuccess();
+    if (!payload) return false;
 
     var intro = qs(root, '.pflege-withdrawal__page-intro');
     if (intro) intro.hidden = true;
 
-    form.innerHTML = buildSuccessHtml(data);
+    form.innerHTML = buildSuccessHtml(payload);
     var success = qs(root, '[data-pflege-withdrawal-success]');
     if (success) {
-      var printBtn = qs(root, '[data-pflege-withdrawal-print]');
-      if (printBtn) {
-        printBtn.addEventListener('click', function () {
-          window.print();
-        });
-      }
+      bindPrintButton(root);
       success.focus();
       if (typeof success.scrollIntoView === 'function') {
         success.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }
+
+    try {
+      var url = new URL(window.location.href);
+      url.searchParams.set('widerruf', '1');
+      window.history.replaceState({}, '', url.pathname + url.search + url.hash);
+    } catch (e) {}
+
     return true;
   }
 
@@ -383,8 +394,76 @@
     }
   }
 
+  function isChallengeUrl(url) {
+    return String(url || '').indexOf('/challenge') !== -1 || String(url || '').indexOf('shopify-challenge') !== -1;
+  }
+
+  function hasExplicitError(html) {
+    if (!html) return false;
+    if (html.indexOf('data-pflege-withdrawal-sent-error') !== -1) return true;
+    if (html.indexOf('pflege-withdrawal__alert--error') !== -1 && html.indexOf('role="alert"') !== -1) return true;
+    return false;
+  }
+
+  function isSuccessHtml(html) {
+    if (!html) return false;
+    if (isChallengeUrl(html)) return false;
+    if (hasExplicitError(html)) return false;
+    if (html.indexOf('data-pflege-withdrawal-sent-marker') !== -1) return true;
+    if (html.indexOf('data-pflege-withdrawal-success') !== -1) return true;
+    if (html.indexOf('contact_posted=true') !== -1) return true;
+    if (html.indexOf('form-status-list') !== -1) return true;
+    return false;
+  }
+
+  function evaluateSubmitResponse(result) {
+    var html = result.html || '';
+    var url = result.url || '';
+    if (isChallengeUrl(url) || html.indexOf('shopify-challenge') !== -1) return false;
+    if (hasExplicitError(html)) return false;
+    if (url.indexOf('contact_posted=true') !== -1) return true;
+    if (isSuccessHtml(html)) return true;
+    return !!(result.ok && html.indexOf('data-pflege-withdrawal-sent-marker') !== -1);
+  }
+
+  function submitContactForm(form, onComplete) {
+    var action = form.getAttribute('action') || form.action || '/contact';
+    var controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    var timedOut = false;
+    var timeoutId = window.setTimeout(function () {
+      timedOut = true;
+      if (controller) controller.abort();
+      onComplete(false);
+    }, SUBMIT_TIMEOUT_MS);
+
+    fetch(action, {
+      method: 'POST',
+      body: new FormData(form),
+      credentials: 'same-origin',
+      redirect: 'follow',
+      signal: controller ? controller.signal : undefined,
+      headers: {
+        Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+      },
+    })
+      .then(function (response) {
+        return response.text().then(function (html) {
+          return { ok: response.ok, url: response.url || '', html: html };
+        });
+      })
+      .then(function (result) {
+        if (timedOut) return;
+        window.clearTimeout(timeoutId);
+        onComplete(evaluateSubmitResponse(result));
+      })
+      .catch(function () {
+        if (timedOut) return;
+        window.clearTimeout(timeoutId);
+        onComplete(false);
+      });
+  }
+
   function enhanceSuccess(root, success) {
-    var caseWrap = qs(success, '[data-pflege-withdrawal-success-case]');
     var caseDisplay = qs(success, '[data-pflege-withdrawal-case-display]');
     var caseId = sessionStorage.getItem('pflege-wd-last-case-id');
 
@@ -396,9 +475,17 @@
       }
     }
 
-    if (caseId && caseWrap && caseDisplay) {
+    if (caseId && caseDisplay && !caseDisplay.textContent) {
       caseDisplay.textContent = caseId;
-      caseWrap.hidden = false;
+    }
+  }
+
+  function showSubmitError(root, message) {
+    var statusEl = qs(root, '[data-pflege-withdrawal-submit-status]');
+    if (statusEl) {
+      statusEl.hidden = false;
+      statusEl.setAttribute('role', 'alert');
+      statusEl.textContent = message || ERROR_TEXT;
     }
   }
 
@@ -416,15 +503,13 @@
     var success = qs(root, '[data-pflege-withdrawal-success]');
     if (success) {
       enhanceSuccess(root, success);
+      bindPrintButton(root);
       success.focus();
-      var printBtn = qs(root, '[data-pflege-withdrawal-print]');
-      if (printBtn) {
-        printBtn.addEventListener('click', function () {
-          window.print();
-        });
-      }
       return;
     }
+
+    var isSubmitting = false;
+    var submitSettled = false;
 
     qsa(root, '[data-pflege-withdrawal-scope]').forEach(function (radio) {
       radio.addEventListener('change', function () {
@@ -471,16 +556,28 @@
     var confirmBtn = qs(root, '[data-pflege-withdrawal-confirm]');
     var statusEl = qs(root, '[data-pflege-withdrawal-submit-status]');
 
+    function resetSubmitUi() {
+      isSubmitting = false;
+      submitSettled = false;
+      if (confirmBtn) {
+        confirmBtn.disabled = false;
+        confirmBtn.removeAttribute('aria-busy');
+        confirmBtn.textContent = 'Widerruf bestätigen';
+      }
+    }
+
     form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+
+      if (isSubmitting || submitSettled) return;
+
       var step2 = qs(root, '[data-pflege-withdrawal-step="2"]');
       if (!step2 || step2.hidden) {
-        ev.preventDefault();
         return;
       }
 
-      var data = readFormData(root);
-      if (!validateStep1(root)) {
-        ev.preventDefault();
+      var data = validateStep1(root);
+      if (!data) {
         setStep(root, 1);
         return;
       }
@@ -489,12 +586,10 @@
       var storageKey = STORAGE_PREFIX + submissionId;
 
       if (sessionStorage.getItem(storageKey) === '1') {
-        ev.preventDefault();
-        if (statusEl) {
-          statusEl.hidden = false;
-          statusEl.textContent =
-            'Diese Widerrufserklärung wurde bereits übermittelt. Bitte laden Sie die Seite neu, wenn Sie einen weiteren Widerruf erklären möchten.';
-        }
+        showSubmitError(
+          root,
+          'Diese Widerrufserklärung wurde bereits übermittelt. Bitte laden Sie die Seite neu, wenn Sie einen weiteren Widerruf erklären möchten.'
+        );
         return;
       }
 
@@ -507,13 +602,15 @@
       }
 
       var bodyInput = qs(root, '[data-pflege-withdrawal-body]');
-      if (bodyInput) {
-        sessionStorage.setItem('pflege-wd-last-receipt', bodyInput.value);
-      }
+      var receipt = bodyInput ? bodyInput.value : buildBody(data, stamp);
+
+      sessionStorage.setItem('pflege-wd-last-receipt', receipt);
       sessionStorage.setItem('pflege-wd-last-stamp', JSON.stringify(stamp));
       sessionStorage.setItem('pflege-wd-last-case-id', data.caseId);
       sessionStorage.setItem('pflege-wd-last-email', data.email);
-      sessionStorage.setItem(storageKey, '1');
+
+      isSubmitting = true;
+      submitSettled = false;
 
       if (confirmBtn) {
         confirmBtn.disabled = true;
@@ -522,18 +619,46 @@
       }
       if (statusEl) {
         statusEl.hidden = false;
+        statusEl.removeAttribute('role');
         statusEl.textContent = 'Ihre Widerrufserklärung wird übermittelt. Bitte warten …';
       }
+
+      submitContactForm(form, function (ok) {
+        if (submitSettled) return;
+        submitSettled = true;
+
+        if (ok) {
+          sessionStorage.setItem(storageKey, '1');
+          var payload = {
+            caseId: data.caseId,
+            email: data.email,
+            receipt: receipt,
+            date: stamp.date,
+            time: stamp.time,
+            tz: stamp.tz,
+          };
+          showClientSuccess(root, form, payload);
+          isSubmitting = false;
+          return;
+        }
+
+        resetSubmitUi();
+        showSubmitError(root, ERROR_TEXT);
+      });
     });
 
-    form.addEventListener('invalid', function (ev) {
-      ev.preventDefault();
-      var step2 = qs(root, '[data-pflege-withdrawal-step="2"]');
-      if (step2 && !step2.hidden) {
-        setStep(root, 1);
-        validateStep1(root);
-      }
-    }, true);
+    form.addEventListener(
+      'invalid',
+      function (ev) {
+        ev.preventDefault();
+        var step2 = qs(root, '[data-pflege-withdrawal-step="2"]');
+        if (step2 && !step2.hidden) {
+          setStep(root, 1);
+          validateStep1(root);
+        }
+      },
+      true
+    );
   }
 
   function init() {
