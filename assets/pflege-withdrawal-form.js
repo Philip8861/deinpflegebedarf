@@ -480,8 +480,8 @@
   }
 
   var WEBHOOK_URL_LIVE =
-    'https://script.google.com/macros/s/AKfycbz5KyqBI0NSVRa55fmosV0rPw0dQ6aQ8Wfc61Bh5lYpsJ9yGz62XWb62OOJTqsC63Yd/exec';
-  var WEBHOOK_DEPLOYMENT_ID = 'AKfycbz5KyqBI0NSVRa55fmosV0rPw0dQ6aQ8Wfc61Bh5lYpsJ9yGz62XWb62OOJTqsC63Yd';
+    'https://script.google.com/macros/s/AKfycbzGEEamLZvg_36WL-gr6rKAdyXHbrgtNZUDY3-qGKegulaboWegfFRNU7rX2aK7GJKs/exec';
+  var WEBHOOK_DEPLOYMENT_ID = 'AKfycbzGEEamLZvg_36WL-gr6rKAdyXHbrgtNZUDY3-qGKegulaboWegfFRNU7rX2aK7GJKs';
 
   function resolveWebhookUrl(root) {
     var url = root.getAttribute('data-pflege-withdrawal-email-webhook');
