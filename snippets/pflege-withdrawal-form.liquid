@@ -11,14 +11,22 @@
 {%- liquid
   assign wd_standalone = standalone | default: false
   assign url_privacy = routes.root_url | append: 'pages/datenschutzerklaerung'
-  assign wd_return_to = request.origin | append: request.path | append: '?widerruf=1'
+  if page.url != blank
+    assign wd_return_to = shop.secure_url | append: page.url | append: '?widerruf=1'
+  else
+    assign wd_return_to = shop.secure_url | append: request.path | append: '?widerruf=1'
+  endif
   assign wd_is_success = false
-  if form.posted_successfully? and request.path contains 'vertrag-widerrufen'
+  if page.handle == 'vertrag-widerrufen' and form.posted_successfully?
     assign wd_is_success = true
   endif
   assign wd_tz = 'Europe/Berlin'
   assign wd_now_date = 'now' | date: '%d.%m.%Y'
   assign wd_now_time = 'now' | date: '%H:%M'
+  assign wd_show_intro = true
+  if wd_is_success or request.query_string contains 'widerruf'
+    assign wd_show_intro = false
+  endif
 -%}
 
 <div
@@ -27,6 +35,7 @@
   data-pflege-withdrawal
   {% if wd_standalone %}data-pflege-withdrawal-standalone{% endif %}
   data-pflege-withdrawal-tz="{{ wd_tz | escape }}"
+  {% if request.query_string contains 'widerruf' %}data-pflege-withdrawal-query-success{% endif %}
 >
   {%- unless wd_standalone -%}
     <div class="pflege-withdrawal__intro">
@@ -40,7 +49,7 @@
     </div>
   {%- endunless -%}
 
-  {%- if wd_standalone and wd_is_success == false -%}
+  {%- if wd_standalone and wd_show_intro -%}
     <p class="pflege-withdrawal__page-intro">
       Hier können Sie den Widerruf eines über unseren Onlineshop geschlossenen Vertrags erklären. Bitte geben Sie die
       erforderlichen Angaben ein, damit wir Ihre Bestellung zuordnen und Ihnen den Eingang des Widerrufs bestätigen
@@ -77,9 +86,9 @@
         <input type="hidden" name="contact[Betroffene Artikel]" value="" data-pflege-withdrawal-items-hidden>
         <input type="hidden" name="contact[Bestelldatum]" value="" data-pflege-withdrawal-date-hidden>
         <input type="hidden" name="contact[Zusatznachricht]" value="" data-pflege-withdrawal-message-hidden>
-        <textarea name="contact[body]" class="pflege-withdrawal__body-hidden" data-pflege-withdrawal-body hidden aria-hidden="true"></textarea>
+        <textarea name="contact[body]" class="pflege-withdrawal__body-hidden" data-pflege-withdrawal-body aria-hidden="true" tabindex="-1"></textarea>
 
-        {%- if wd_is_success -%}
+        {%- if form.posted_successfully? and page.handle == 'vertrag-widerrufen' -%}
           <div class="pflege-withdrawal__success" data-pflege-withdrawal-success role="status" tabindex="-1">
             <h2 class="pflege-withdrawal__success-title">Ihr Widerruf wurde übermittelt</h2>
             <p class="pflege-withdrawal__success-lead">
@@ -88,7 +97,7 @@
                 Eine Eingangsbestätigung wurde an <strong>{{ form.email | escape }}</strong> gesendet.
               {%- endif -%}
             </p>
-            <p class="pflege-withdrawal__success-case" data-pflege-withdrawal-success-case hidden>
+            <p class="pflege-withdrawal__success-case" data-pflege-withdrawal-success-case>
               <strong>Vorgangsnummer:</strong> <span data-pflege-withdrawal-case-display></span>
             </p>
             <p class="pflege-withdrawal__success-note">

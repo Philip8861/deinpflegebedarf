@@ -227,6 +227,92 @@
       .replace(/"/g, '&quot;');
   }
 
+  function hasWiderrufQuery() {
+    return /(?:^|[?&])widerruf=1(?:&|$)/.test(window.location.search);
+  }
+
+  function buildSuccessHtml(data) {
+    var emailLine = data.email
+      ? ' Eine Eingangsbestätigung wurde an <strong>' + escapeHtml(data.email) + '</strong> gesendet.'
+      : '';
+    var receiptBlock = data.receipt
+      ? '<pre class="pflege-withdrawal__receipt-pre">' + escapeHtml(data.receipt) + '</pre>'
+      : '';
+
+    return (
+      '<div class="pflege-withdrawal__success" data-pflege-withdrawal-success role="status" tabindex="-1">' +
+      '<h2 class="pflege-withdrawal__success-title">Ihr Widerruf wurde übermittelt</h2>' +
+      '<p class="pflege-withdrawal__success-lead">Wir haben Ihre Widerrufserklärung am <strong>' +
+      escapeHtml(data.date) +
+      '</strong> um <strong>' +
+      escapeHtml(data.time) +
+      ' Uhr (' +
+      escapeHtml(data.tz) +
+      ')</strong> erhalten.' +
+      emailLine +
+      '</p>' +
+      '<p class="pflege-withdrawal__success-case" data-pflege-withdrawal-success-case>' +
+      '<strong>Vorgangsnummer:</strong> <span data-pflege-withdrawal-case-display>' +
+      escapeHtml(data.caseId) +
+      '</span></p>' +
+      '<p class="pflege-withdrawal__success-note">Diese Bestätigung bezieht sich ausschließlich auf den Eingang Ihrer Erklärung — nicht auf eine rechtliche Prüfung oder die Rückabwicklung des Vertrags.</p>' +
+      '<article class="pflege-withdrawal__receipt" aria-labelledby="pflege-withdrawal-receipt-title">' +
+      '<h3 id="pflege-withdrawal-receipt-title" class="pflege-withdrawal__receipt-title">Ihre übermittelten Angaben</h3>' +
+      receiptBlock +
+      '<button type="button" class="pflege-withdrawal__print" data-pflege-withdrawal-print>Bestätigung drucken / als PDF speichern</button>' +
+      '</article></div>'
+    );
+  }
+
+  function readStoredSuccess() {
+    var caseId = sessionStorage.getItem('pflege-wd-last-case-id');
+    if (!caseId) return null;
+
+    var stampRaw = sessionStorage.getItem('pflege-wd-last-stamp');
+    var stamp = null;
+    if (stampRaw) {
+      try {
+        stamp = JSON.parse(stampRaw);
+      } catch (e) {
+        stamp = null;
+      }
+    }
+    if (!stamp) stamp = nowStamp();
+
+    return {
+      caseId: caseId,
+      email: sessionStorage.getItem('pflege-wd-last-email') || '',
+      receipt: sessionStorage.getItem('pflege-wd-last-receipt') || '',
+      date: stamp.date,
+      time: stamp.time,
+      tz: stamp.tz,
+    };
+  }
+
+  function showClientSuccess(root, form) {
+    var data = readStoredSuccess();
+    if (!data) return false;
+
+    var intro = qs(root, '.pflege-withdrawal__page-intro');
+    if (intro) intro.hidden = true;
+
+    form.innerHTML = buildSuccessHtml(data);
+    var success = qs(root, '[data-pflege-withdrawal-success]');
+    if (success) {
+      var printBtn = qs(root, '[data-pflege-withdrawal-print]');
+      if (printBtn) {
+        printBtn.addEventListener('click', function () {
+          window.print();
+        });
+      }
+      success.focus();
+      if (typeof success.scrollIntoView === 'function') {
+        success.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+    return true;
+  }
+
   function setStep(root, step) {
     var step1 = qs(root, '[data-pflege-withdrawal-step="1"]');
     var step2 = qs(root, '[data-pflege-withdrawal-step="2"]');
@@ -323,6 +409,10 @@
     var form = qs(root, '[data-pflege-withdrawal-form]');
     if (!form) return;
 
+    if (!qs(root, '[data-pflege-withdrawal-success]') && root.hasAttribute('data-pflege-withdrawal-query-success')) {
+      if (showClientSuccess(root, form)) return;
+    }
+
     var success = qs(root, '[data-pflege-withdrawal-success]');
     if (success) {
       enhanceSuccess(root, success);
@@ -411,6 +501,20 @@
       var stamp = nowStamp();
       syncHiddenFields(root, data, stamp);
 
+      var caseInput = qs(root, '[data-pflege-withdrawal-case-id]');
+      if (caseInput && caseInput.value) {
+        data.caseId = caseInput.value;
+      }
+
+      var bodyInput = qs(root, '[data-pflege-withdrawal-body]');
+      if (bodyInput) {
+        sessionStorage.setItem('pflege-wd-last-receipt', bodyInput.value);
+      }
+      sessionStorage.setItem('pflege-wd-last-stamp', JSON.stringify(stamp));
+      sessionStorage.setItem('pflege-wd-last-case-id', data.caseId);
+      sessionStorage.setItem('pflege-wd-last-email', data.email);
+      sessionStorage.setItem(storageKey, '1');
+
       if (confirmBtn) {
         confirmBtn.disabled = true;
         confirmBtn.setAttribute('aria-busy', 'true');
@@ -420,10 +524,6 @@
         statusEl.hidden = false;
         statusEl.textContent = 'Ihre Widerrufserklärung wird übermittelt. Bitte warten …';
       }
-
-      sessionStorage.setItem(storageKey, '1');
-      sessionStorage.setItem('pflege-wd-last-case-id', data.caseId);
-      sessionStorage.setItem('pflege-wd-last-email', data.email);
     });
 
     form.addEventListener('invalid', function (ev) {

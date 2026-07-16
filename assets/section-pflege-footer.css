@@ -781,18 +781,18 @@ a.pflege-footer__contact-line:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 2.75rem;
-  padding: 0.55rem 1.2rem;
-  border-radius: 10px;
+  min-height: 3rem;
+  padding: 0.65rem 1.45rem;
+  border-radius: 12px;
   font-family: var(--font-body-family, inherit);
-  font-size: clamp(0.98rem, 0.94rem + 0.1vw, 1.06rem) !important;
+  font-size: clamp(1.04rem, 0.98rem + 0.14vw, 1.14rem) !important;
   font-weight: 700 !important;
   line-height: 1.2;
   letter-spacing: 0.01em;
   color: #fff !important;
   text-decoration: none !important;
-  background: var(--pflege-ft-accent, #3f86d9);
-  box-shadow: 0 2px 8px rgba(63, 134, 217, 0.3);
+  background: var(--pflege-ft-cta, #f89738);
+  box-shadow: 0 2px 10px rgba(248, 151, 56, 0.35);
   transition: background 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -800,8 +800,8 @@ a.pflege-footer__contact-line:hover {
 .pflege-footer__withdrawal-btn:focus-visible {
   color: #fff !important;
   text-decoration: none !important;
-  background: #3578c4;
-  box-shadow: 0 3px 12px rgba(63, 134, 217, 0.38);
+  background: var(--pflege-ft-cta-hover, #cf6d18);
+  box-shadow: 0 3px 12px rgba(248, 151, 56, 0.42);
   outline: 2px solid var(--pflege-ft-navy, #0b2347);
   outline-offset: 2px;
 }

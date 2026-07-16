@@ -1,6 +1,8 @@
 # Shopify Flow — Eingangsbestätigung Widerruf (§ 356a BGB)
 
-Diese Anleitung richtet die **automatische Kunden-E-Mail** und die **interne Benachrichtigung** ein. Das Theme allein kann keine E-Mails an Kunden versenden — dafür ist Shopify Flow erforderlich.
+> **Wichtig:** Das Theme kann **keine E-Mails an Kunden** versenden. Ohne diesen Flow erhält der Kunde **keine** Bestätigungs-E-Mail — nur die Bestätigung auf der Webseite.
+
+Diese Anleitung richtet die **automatische Kunden-E-Mail** und die **interne Benachrichtigung** ein.
 
 ## Voraussetzungen
 
