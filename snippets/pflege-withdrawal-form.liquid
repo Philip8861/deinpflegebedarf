@@ -11,7 +11,7 @@
 {{ 'pflege-withdrawal-form.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
-  assign wd_webhook_url = 'https://script.google.com/macros/s/AKfycbx2I3NGzrUUqJlqB6D14TNf4E0KEz6tMkcJY1z6SpeVc0hvFDoKq1BlCzOZ2AVq2ART/exec'
+  assign wd_webhook_url = 'https://script.google.com/macros/s/AKfycbz5KyqBI0NSVRa55fmosV0rPw0dQ6aQ8Wfc61Bh5lYpsJ9yGz62XWb62OOJTqsC63Yd/exec'
   assign wd_standalone = standalone | default: false
   assign url_privacy = routes.root_url | append: 'pages/datenschutzerklaerung'
   if page.url != blank
