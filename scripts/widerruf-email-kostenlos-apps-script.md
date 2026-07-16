@@ -34,6 +34,22 @@ var CONFIG = {
   replyTo: 'deinpflegebedarf@alltagshilfe-sued.de',
 };
 
+function parseInput(e) {
+  if (!e) return null;
+
+  if (e.postData && e.postData.contents) {
+    try {
+      return JSON.parse(e.postData.contents);
+    } catch (err) {}
+  }
+
+  if (e.parameter && e.parameter.type) {
+    return e.parameter;
+  }
+
+  return null;
+}
+
 function doGet(e) {
   try {
     var params = e && e.parameter ? e.parameter : {};
@@ -48,11 +64,10 @@ function doGet(e) {
 
 function doPost(e) {
   try {
-    if (!e || !e.postData || !e.postData.contents) {
+    var data = parseInput(e);
+    if (!data) {
       return jsonResponse({ ok: false, error: 'Keine Daten' });
     }
-
-    var data = JSON.parse(e.postData.contents);
     return handleWiderruf(data);
   } catch (err) {
     return jsonResponse({ ok: false, error: String(err) });

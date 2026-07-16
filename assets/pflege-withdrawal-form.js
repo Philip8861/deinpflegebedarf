@@ -493,55 +493,98 @@
     var url = root.getAttribute('data-pflege-withdrawal-email-webhook');
     if (!url) return;
 
-    var json = JSON.stringify(payload);
-    var sent = false;
+    var slimPayload = {
+      type: payload.type,
+      name: payload.name,
+      email: payload.email,
+      case_id: payload.case_id,
+      order_info: payload.order_info,
+      scope: payload.scope,
+      partial_items: payload.partial_items,
+      message: payload.message,
+      received_date: payload.received_date,
+      received_time: payload.received_time,
+      timezone: payload.timezone,
+    };
+
+    sendWebhookViaHiddenForm(url, slimPayload);
+    sendWebhookViaGetImage(url, slimPayload);
 
     try {
+      var json = JSON.stringify(slimPayload);
       if (typeof navigator !== 'undefined' && navigator.sendBeacon) {
         var blob = new Blob([json], { type: 'text/plain;charset=UTF-8' });
-        sent = navigator.sendBeacon(url, blob);
+        navigator.sendBeacon(url, blob);
       }
     } catch (e) {}
-
-    if (sent) return;
-
-    try {
-      var keys = [
-        'type',
-        'name',
-        'email',
-        'case_id',
-        'order_info',
-        'scope',
-        'partial_items',
-        'message',
-        'received_date',
-        'received_time',
-        'timezone',
-      ];
-      var params = [];
-
-      keys.forEach(function (key) {
-        if (payload[key] != null && payload[key] !== '') {
-          params.push(encodeURIComponent(key) + '=' + encodeURIComponent(String(payload[key])));
-        }
-      });
-
-      if (params.length) {
-        var getUrl = url + (url.indexOf('?') >= 0 ? '&' : '?') + params.join('&');
-        var img = new Image();
-        img.src = getUrl;
-      }
-    } catch (e2) {}
 
     try {
       fetch(url, {
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'text/plain' },
-        body: json,
+        body: JSON.stringify(slimPayload),
       }).catch(function () {});
-    } catch (e3) {}
+    } catch (e2) {}
+  }
+
+  function sendWebhookViaHiddenForm(url, payload) {
+    try {
+      var frameId = 'pflege-wd-webhook-frame';
+      var frame = document.getElementById(frameId);
+      if (!frame) {
+        frame = document.createElement('iframe');
+        frame.id = frameId;
+        frame.name = frameId;
+        frame.title = 'Widerruf Webhook';
+        frame.setAttribute('aria-hidden', 'true');
+        frame.style.cssText = 'display:none;width:0;height:0;border:0;';
+        document.body.appendChild(frame);
+      }
+
+      var form = document.createElement('form');
+      form.method = 'POST';
+      form.action = url;
+      form.target = frameId;
+      form.style.display = 'none';
+      form.setAttribute('accept-charset', 'UTF-8');
+
+      Object.keys(payload).forEach(function (key) {
+        var value = payload[key];
+        if (value == null || value === '') return;
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = key;
+        input.value = String(value);
+        form.appendChild(input);
+      });
+
+      document.body.appendChild(form);
+      form.submit();
+      window.setTimeout(function () {
+        if (form.parentNode) form.parentNode.removeChild(form);
+      }, 3000);
+    } catch (e) {}
+  }
+
+  function sendWebhookViaGetImage(url, payload) {
+    try {
+      var keys = Object.keys(payload);
+      var params = [];
+
+      keys.forEach(function (key) {
+        var value = payload[key];
+        if (value == null || value === '') return;
+        params.push(encodeURIComponent(key) + '=' + encodeURIComponent(String(value)));
+      });
+
+      if (!params.length) return;
+
+      var getUrl = url + (url.indexOf('?') >= 0 ? '&' : '?') + params.join('&');
+      var img = new Image();
+      img.alt = '';
+      img.src = getUrl;
+    } catch (e) {}
   }
 
   function buildWebhookPayload(data, stamp, receipt) {
