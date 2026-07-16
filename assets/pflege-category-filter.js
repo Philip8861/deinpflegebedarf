@@ -546,7 +546,7 @@
     }
 
     var unitHtml = product.unitPriceFormatted
-      ? '<span class="pflege-cat-card__unit" style="display:block;width:100%;text-align:center;">' + escapeHtml(product.unitPriceFormatted) + '</span>'
+      ? '<span class="pflege-cat-card__unit" style="display:block;width:100%;text-align:center;">Grundpreis: ' + escapeHtml(product.unitPriceFormatted) + '</span>'
       : '';
 
     return (

@@ -539,6 +539,32 @@
   line-height: 1.1;
 }
 
+.pflege-mock-pdp__buy-card .price__container .pflege-grundpreis {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 0.45rem;
+  width: 100%;
+  margin: 0.15rem 0 0.6rem;
+  padding: 0;
+  font-size: clamp(0.82rem, 0.78rem + 0.22vw, 0.96rem);
+  line-height: 1.35;
+  color: rgba(15, 45, 84, 0.72);
+}
+
+.pflege-grundpreis__label {
+  font-weight: 600;
+  color: rgba(15, 45, 84, 0.58);
+}
+
+.pflege-grundpreis__value {
+  font-weight: 500;
+}
+
+.pflege-grundpreis[hidden] {
+  display: none !important;
+}
+
 
 @media screen {
   .pflege-product-page variant-selects .product-form__input--pill:first-child {

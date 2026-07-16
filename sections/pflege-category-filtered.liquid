@@ -123,12 +123,10 @@
       assign option_values_arr = option_values | split: '||'
 
       assign unit_price_label = ''
-      if card_variant.unit_price_measurement
-        assign unit_price_label = card_variant.unit_price | money | append: ' / '
-        if card_variant.unit_price_measurement.reference_unit != blank
-          assign unit_price_label = unit_price_label | append: card_variant.unit_price_measurement.reference_unit
-        endif
-      endif
+      capture unit_price_label
+        render 'pflege-grundpreis', variant: card_variant, product: product, text_only: true
+      endcapture
+      assign unit_price_label = unit_price_label | strip
 
       if settings.currency_code_enabled
         assign price_label = product.price_min | money_with_currency
