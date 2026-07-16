@@ -1,8 +1,10 @@
 /**
- * PflegeShop — Grundpreis-Fallback (PAngV), wenn kein Shopify-Einheitspreis gesetzt ist.
+ * PflegeShop — Einheitspreis-Fallback (PAngV)
  */
 (function () {
   'use strict';
+
+  var UNIT_SEP = 'PRO';
 
   function formatMoney(cents) {
     if (typeof Shopify !== 'undefined' && typeof Shopify.formatMoney === 'function') {
@@ -22,52 +24,114 @@
     return match ? match[1].trim().toLowerCase() : '';
   }
 
-  function computeGrundpreis(priceCents, variantTitle, productTitle) {
-    var blob = (variantTitle || '') + ' ' + (productTitle || '');
-    var paren = extractParen(variantTitle) || extractParen(productTitle);
-    var scan = blob.toLowerCase();
+  function extractPackCount(blob, variantTitle, productTitle) {
+    var count = 0;
+    var product = String(productTitle || '');
+    var variant = String(variantTitle || '');
 
-    var mlMatch = (paren.match(/([\d.,]+)\s*ml/) || scan.match(/([\d.,]+)\s*ml/));
-    if (mlMatch) {
-      var ml = parseNumber(mlMatch[1]);
-      if (ml > 0) {
-        return formatMoney(Math.round((priceCents * 1000) / ml)) + ' / 1 l';
+    var stkMatch = variant.toLowerCase().match(/(\d+(?:[.,]\d+)?)\s*stk/i);
+    if (stkMatch) {
+      count = parseNumber(stkMatch[1]);
+    }
+
+    if (count <= 1) {
+      var paren = extractParen(product) || extractParen(variant);
+      var parenCount = paren.match(/(\d+(?:[.,]\d+)?)\s*(?:stück|stk\.?|st\.)/i);
+      if (parenCount) {
+        count = parseNumber(parenCount[1]);
       }
     }
 
-    var literMatch = paren.match(/([\d.,]+)\s*(?:l|liter)\b/) || scan.match(/([\d.,]+)\s*(?:l|liter)\b/);
+    if (count <= 1) {
+      var stueckMatch = product.match(/(\d+(?:[.,]\d+)?)\s*(?:stück|stk\.?|st\.)/i);
+      if (stueckMatch) {
+        count = parseNumber(stueckMatch[1]);
+      }
+    }
+
+    return count;
+  }
+
+  function isInkoProduct(blob) {
+    return /inkontinenz|einlagen|\spants\b|windel|vorlage|\bslip\b|fixierhöschen|netzhose/i.test(blob);
+  }
+
+  function isLiquidProduct(blob) {
+    return /flasche|sprüh|lotion|shampoo|\bgel\b|balsam|creme|paste|wasch|desinfekt|zahnpasta|spuckbeutel|\böl\b|tonic|serum|milch/i.test(blob);
+  }
+
+  function extractMlFromTitle(productTitle) {
+    var match = String(productTitle || '').match(/(\d+(?:[.,]\d+)?)\s*ml\b/i);
+    return match ? parseNumber(match[1]) : 0;
+  }
+
+  function extractMlFromText(text, allowParenOnly) {
+    var productMl = extractMlFromTitle(text);
+    if (productMl > 0) return productMl;
+
+    if (!allowParenOnly) return 0;
+
+    var paren = extractParen(text);
+    var parenMatch = paren.match(/(?:ca\.?\s*)?(\d+(?:[.,]\d+)?)\s*ml\b/i);
+    if (parenMatch) return parseNumber(parenMatch[1]);
+
+    var scanMatch = String(text || '').toLowerCase().match(/(?:ca\.?\s*)?(\d+(?:[.,]\d+)?)\s*ml\b/i);
+    return scanMatch ? parseNumber(scanMatch[1]) : 0;
+  }
+
+  function computeUnitPrice(priceCents, variantTitle, productTitle, productType) {
+    var blob = (productTitle || '') + ' ' + (variantTitle || '') + ' ' + (productType || '');
+    var blobLower = blob.toLowerCase();
+    var inko = isInkoProduct(blobLower);
+    var liquid = isLiquidProduct(blobLower);
+    var packCount = extractPackCount(blobLower, variantTitle, productTitle);
+
+    if (packCount > 1) {
+      return formatMoney(Math.round(priceCents / packCount)) + ' ' + UNIT_SEP + ' 1 Stück';
+    }
+
+    var titleMl = extractMlFromTitle(productTitle);
+    var useLiter = false;
+    var ml = 0;
+
+    if (titleMl > 0) {
+      ml = titleMl;
+      useLiter = true;
+    } else if (liquid && !inko) {
+      ml = extractMlFromText(variantTitle, true) || extractMlFromText(productTitle, true);
+      if (ml > 0) useLiter = true;
+    }
+
+    if (useLiter && ml > 0) {
+      return formatMoney(Math.round((priceCents * 1000) / ml)) + ' ' + UNIT_SEP + ' Liter';
+    }
+
+    var paren = extractParen(variantTitle) || extractParen(productTitle);
+    var literMatch = paren.match(/(\d+(?:[.,]\d+)?)\s*(?:l|liter)\b/i) || blobLower.match(/(\d+(?:[.,]\d+)?)\s*(?:l|liter)\b/i);
     if (literMatch && !/ml/.test(literMatch[0])) {
       var liters = parseNumber(literMatch[1]);
       if (liters > 0) {
-        return formatMoney(Math.round(priceCents / liters)) + ' / 1 l';
+        return formatMoney(Math.round(priceCents / liters)) + ' ' + UNIT_SEP + ' Liter';
       }
     }
 
-    var kgMatch = paren.match(/([\d.,]+)\s*kg/) || scan.match(/([\d.,]+)\s*kg/);
+    var kgMatch = paren.match(/(\d+(?:[.,]\d+)?)\s*kg/i) || blobLower.match(/(\d+(?:[.,]\d+)?)\s*kg/i);
     if (kgMatch) {
       var kg = parseNumber(kgMatch[1]);
       if (kg > 0) {
-        return formatMoney(Math.round(priceCents / kg)) + ' / 1 kg';
+        return formatMoney(Math.round(priceCents / kg)) + ' ' + UNIT_SEP + ' 1 kg';
       }
     }
 
-    var gMatch = paren.match(/([\d.,]+)\s*g\b/) || scan.match(/([\d.,]+)\s*g\b/);
+    var gMatch = paren.match(/(\d+(?:[.,]\d+)?)\s*(?:g|gramm)\b/i);
     if (gMatch && !/kg/.test(gMatch[0])) {
       var grams = parseNumber(gMatch[1]);
       if (grams > 0) {
-        return formatMoney(Math.round((priceCents * 1000) / grams)) + ' / 1 kg';
+        return formatMoney(Math.round((priceCents * 1000) / grams)) + ' ' + UNIT_SEP + ' 1 kg';
       }
     }
 
-    var countMatch = paren.match(/([\d.,]+)\s*(?:stück|stk\.?|st\.)/i) || scan.match(/([\d.,]+)\s*(?:stück|stk\.?|st\.)/i);
-    if (countMatch) {
-      var count = parseNumber(countMatch[1]);
-      if (count > 1) {
-        return formatMoney(Math.round(priceCents / count)) + ' / 1 Stück';
-      }
-    }
-
-    return formatMoney(priceCents) + ' / 1 Stück';
+    return formatMoney(priceCents) + ' ' + UNIT_SEP + ' 1 Stück';
   }
 
   function updateNode(node) {
@@ -76,29 +140,18 @@
     var textEl = node.querySelector('[data-pflege-grundpreis-text]');
     if (!textEl) return;
 
-    var existing = textEl.textContent.trim();
-    if (existing) {
-      node.hidden = false;
-      node.classList.remove('pflege-grundpreis--pending');
-      return;
-    }
-
     var price = parseInt(node.getAttribute('data-variant-price'), 10);
     if (!price) {
       node.hidden = true;
       return;
     }
 
-    var result = computeGrundpreis(
+    var result = computeUnitPrice(
       price,
       node.getAttribute('data-variant-title') || '',
-      node.getAttribute('data-product-title') || ''
+      node.getAttribute('data-product-title') || '',
+      node.getAttribute('data-product-type') || ''
     );
-
-    if (!result) {
-      node.hidden = true;
-      return;
-    }
 
     textEl.textContent = result;
     node.hidden = false;
@@ -123,18 +176,12 @@
       init();
     }
 
-    document.addEventListener('shopify:section:load', function () {
-      init();
-    });
-    document.addEventListener('product-info:loaded', function () {
-      init();
-    });
+    document.addEventListener('shopify:section:load', init);
+    document.addEventListener('product-info:loaded', init);
 
     if (typeof subscribe === 'function' && typeof PUB_SUB_EVENTS !== 'undefined') {
       subscribe(PUB_SUB_EVENTS.variantChange, function () {
-        window.setTimeout(function () {
-          init();
-        }, 0);
+        window.setTimeout(init, 0);
       });
     }
   }

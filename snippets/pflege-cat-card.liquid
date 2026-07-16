@@ -135,7 +135,7 @@
         <div class="pflege-cat-card__price-row" style="display:block;width:100%;text-align:center;margin:0;">
           <span class="pflege-cat-card__price" style="display:block;width:100%;text-align:center;">{{ price_label }}</span>
           {%- if unit_price_label != blank -%}
-            <span class="pflege-cat-card__unit" style="display:block;width:100%;text-align:center;">{{ 'products.product.price.unit_price' | t }}: {{ unit_price_label }}</span>
+            <span class="pflege-cat-card__unit" style="display:block;width:100%;text-align:center;">{{ unit_price_label }}</span>
           {%- endif -%}
         </div>
         {%- if p.available and p.variants.size <= 1 and card_variant -%}
