@@ -496,7 +496,7 @@
     var slimPayload = {
       type: payload.type,
       name: payload.name,
-      email: payload.email,
+      customer_email: payload.customer_email,
       case_id: payload.case_id,
       order_info: payload.order_info,
       scope: payload.scope,
@@ -592,7 +592,7 @@
       type: 'widerruf',
       shop: window.location.hostname || '',
       name: data.name,
-      email: data.email,
+      customer_email: data.email,
       case_id: data.caseId,
       order_info: data.orderInfo,
       scope: getScopeLabel(data.scope),

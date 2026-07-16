@@ -79,27 +79,29 @@ function handleWiderruf(data) {
     return jsonResponse({ ok: false, error: 'Unbekannter Typ' });
   }
 
-  if (!data.email || !data.case_id) {
+  var recipient = String(data.customer_email || data.email || '').trim();
+
+  if (!recipient || recipient.indexOf('@') === -1 || !data.case_id) {
     return jsonResponse({ ok: false, error: 'Pflichtfelder fehlen' });
   }
 
   var subject =
     'Eingangsbestätigung Ihres Widerrufs – ' + CONFIG.shopName;
 
-  var body = buildEmailBody(data);
+  var body = buildEmailBody(data, recipient);
 
   MailApp.sendEmail({
-    to: data.email,
+    to: recipient,
     subject: subject,
     body: body,
     replyTo: CONFIG.replyTo,
     name: CONFIG.shopName,
   });
 
-  return jsonResponse({ ok: true });
+  return jsonResponse({ ok: true, sent_to: recipient });
 }
 
-function buildEmailBody(data) {
+function buildEmailBody(data, recipient) {
   var lines = [
     'Guten Tag ' + (data.name || '') + ',',
     '',
