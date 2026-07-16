@@ -540,6 +540,7 @@
 
     // Ein zuverlässiger Kanal reicht — verhindert Doppel-Mails an dieselbe Adresse.
     sendWebhookViaHiddenForm(url, slimPayload);
+  }
 
   function sendWebhookViaHiddenForm(url, payload) {
     try {
