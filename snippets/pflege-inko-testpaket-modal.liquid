@@ -69,7 +69,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C9 3 12 8 12 8"/><path d="M16.5 8a2.5 2.5 0 0 0 0-5C15 3 12 8 12 8"/></svg>
           </span>
           <div class="pflege-inko-modal__step-copy">
-            <h3 class="pflege-inko-modal__step-title">Perfektes Produkt besprechen und Gratis-Muster zusenden</h3>
+            <h3 class="pflege-inko-modal__step-title">Passendes Produkt auswählen und Gratis-Muster erhalten</h3>
             <p class="pflege-inko-modal__step-text">Wir finden gemeinsam die passende Lösung für Sie.</p>
           </div>
         </article>
@@ -167,10 +167,10 @@
                 data-pflege-inko-field="reachability"
               >
                 <option value="" selected disabled>Bitte wählen</option>
-                <option value="08:00 - 10:00 Uhr">08:00 - 10:00 Uhr</option>
-                <option value="10:00 - 12:00 Uhr">10:00 - 12:00 Uhr</option>
-                <option value="12:00 - 14:00 Uhr">12:00 - 14:00 Uhr</option>
-                <option value="14:00 - 16:00 Uhr">14:00 - 16:00 Uhr</option>
+                <option value="08:00–10:00 Uhr">08:00–10:00 Uhr</option>
+                <option value="10:00–12:00 Uhr">10:00–12:00 Uhr</option>
+                <option value="12:00–14:00 Uhr">12:00–14:00 Uhr</option>
+                <option value="14:00–16:00 Uhr">14:00–16:00 Uhr</option>
               </select>
             </div>
 
@@ -219,19 +219,7 @@
                 >
                 <span class="pflege-inko-modal__consent-box" aria-hidden="true"></span>
                 <span class="pflege-inko-modal__consent-text">
-                  Ich stimme der Verarbeitung meiner Daten gemäß der
-                  {%- if url_privacy != blank -%}
-                    <a href="{{ url_privacy }}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Datenschutzerklärung</a>
-                  {%- else -%}
-                    Datenschutzerklärung
-                  {%- endif -%}
-                  zu. Weitere Informationen finden Sie in unserer
-                  {%- if url_privacy != blank -%}
-                    <a href="{{ url_privacy }}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Datenschutzerklärung</a>
-                  {%- else -%}
-                    Datenschutzerklärung
-                  {%- endif -%}
-                  .
+                  Ich stimme der Verarbeitung meiner Daten gemäß der {% if url_privacy != blank %}<a href="{{ url_privacy }}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Datenschutzerklärung</a>{% else %}Datenschutzerklärung{% endif %} zu. Weitere Informationen finden Sie in unserer {% if url_privacy != blank %}<a href="{{ url_privacy }}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Datenschutzerklärung</a>{% else %}Datenschutzerklärung{% endif %}.
                 </span>
               </label>
             </div>

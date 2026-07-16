@@ -131,7 +131,7 @@
       }
     }
 
-    return formatMoney(priceCents) + ' ' + UNIT_SEP + ' 1 Stück';
+    return null;
   }
 
   function updateNode(node) {
@@ -152,6 +152,14 @@
       node.getAttribute('data-product-title') || '',
       node.getAttribute('data-product-type') || ''
     );
+
+    if (!result) {
+      textEl.textContent = '';
+      node.hidden = true;
+      node.classList.remove('pflege-grundpreis--computed');
+      node.classList.add('pflege-grundpreis--pending');
+      return;
+    }
 
     textEl.textContent = result;
     node.hidden = false;

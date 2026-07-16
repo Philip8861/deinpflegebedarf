@@ -28,7 +28,7 @@
       assign grundpreis_text = unit_variant.unit_price | money | append: ' ' | append: unit_sep | append: ' ' | append: unit_kg
     elsif ref_unit == 'g'
       assign grundpreis_text = unit_variant.unit_price | money | append: ' ' | append: unit_sep | append: ' ' | append: unit_kg
-    else
+    elsif unit_variant.unit_price != unit_variant.price
       assign grundpreis_text = unit_variant.unit_price | money | append: ' ' | append: unit_sep | append: ' ' | append: unit_piece
     endif
     assign grundpreis_native = true
@@ -155,10 +155,6 @@
           endunless
         endunless
       endif
-    endif
-
-    if grundpreis_text == blank
-      assign grundpreis_text = unit_variant.price | money | append: ' ' | append: unit_sep | append: ' ' | append: unit_piece
     endif
   endif
 -%}

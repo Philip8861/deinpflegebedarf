@@ -1,4 +1,4 @@
-{{ 'section-collection-list.css' | asset_url | stylesheet_tag }}
+﻿{{ 'section-collection-list.css' | asset_url | stylesheet_tag }}
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 {{ 'component-slider.css' | asset_url | stylesheet_tag }}
 
@@ -95,8 +95,7 @@
           </button>
           <div class="slider-counter caption">
             <span class="slider-counter--current">1</span>
-            <span aria-hidden="true"> / </span>
-            <span class="visually-hidden">{{ 'general.slider.of' | t }}</span>
+            <span aria-hidden="true"> von </span>
             <span class="slider-counter--total">{{ section.blocks.size }}</span>
           </div>
           <button

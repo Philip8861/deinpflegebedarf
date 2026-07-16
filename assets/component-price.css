@@ -90,6 +90,15 @@
   font-size: 1.3rem;
 }
 
+.price__label {
+  margin-right: 0.35rem;
+  font-size: 0.9em;
+}
+
+.price__label--sale {
+  margin-left: 0.35rem;
+}
+
 .unit-price {
   display: block;
   font-size: 1.1rem;
