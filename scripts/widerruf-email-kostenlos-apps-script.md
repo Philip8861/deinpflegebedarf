@@ -34,6 +34,18 @@ var CONFIG = {
   replyTo: 'deinpflegebedarf@alltagshilfe-sued.de',
 };
 
+function doGet(e) {
+  try {
+    var params = e && e.parameter ? e.parameter : {};
+    if (params.type === 'widerruf') {
+      return handleWiderruf(params);
+    }
+    return textResponse('Widerruf-Webhook aktiv');
+  } catch (err) {
+    return jsonResponse({ ok: false, error: String(err) });
+  }
+}
+
 function doPost(e) {
   try {
     if (!e || !e.postData || !e.postData.contents) {
@@ -41,32 +53,35 @@ function doPost(e) {
     }
 
     var data = JSON.parse(e.postData.contents);
-
-    if (data.type !== 'widerruf') {
-      return jsonResponse({ ok: false, error: 'Unbekannter Typ' });
-    }
-
-    if (!data.email || !data.case_id) {
-      return jsonResponse({ ok: false, error: 'Pflichtfelder fehlen' });
-    }
-
-    var subject =
-      'Eingangsbestätigung Ihres Widerrufs – ' + CONFIG.shopName;
-
-    var body = buildEmailBody(data);
-
-    MailApp.sendEmail({
-      to: data.email,
-      subject: subject,
-      body: body,
-      replyTo: CONFIG.replyTo,
-      name: CONFIG.shopName,
-    });
-
-    return jsonResponse({ ok: true });
+    return handleWiderruf(data);
   } catch (err) {
     return jsonResponse({ ok: false, error: String(err) });
   }
+}
+
+function handleWiderruf(data) {
+  if (data.type !== 'widerruf') {
+    return jsonResponse({ ok: false, error: 'Unbekannter Typ' });
+  }
+
+  if (!data.email || !data.case_id) {
+    return jsonResponse({ ok: false, error: 'Pflichtfelder fehlen' });
+  }
+
+  var subject =
+    'Eingangsbestätigung Ihres Widerrufs – ' + CONFIG.shopName;
+
+  var body = buildEmailBody(data);
+
+  MailApp.sendEmail({
+    to: data.email,
+    subject: subject,
+    body: body,
+    replyTo: CONFIG.replyTo,
+    name: CONFIG.shopName,
+  });
+
+  return jsonResponse({ ok: true });
 }
 
 function buildEmailBody(data) {
@@ -110,6 +125,12 @@ function buildEmailBody(data) {
 function jsonResponse(obj) {
   return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(
     ContentService.MimeType.JSON
+  );
+}
+
+function textResponse(text) {
+  return ContentService.createTextOutput(text).setMimeType(
+    ContentService.MimeType.TEXT
   );
 }
 ```
@@ -206,6 +227,8 @@ Google verarbeitet Daten als Auftragsverarbeiter. In der Datenschutzerklärung e
 
 Nach Code-Änderung: **Deploy → Manage deployments → Stift ✏️ → Version: New version → Deploy**  
 Sonst läuft noch die alte Version.
+
+**Wichtig:** Das Theme nutzt `sendBeacon` und einen GET-Fallback — dafür muss `doGet` im Skript vorhanden sein (siehe aktueller Code oben).
 
 ---
 

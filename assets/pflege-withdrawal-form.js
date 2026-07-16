@@ -493,14 +493,55 @@
     var url = root.getAttribute('data-pflege-withdrawal-email-webhook');
     if (!url) return;
 
+    var json = JSON.stringify(payload);
+    var sent = false;
+
+    try {
+      if (typeof navigator !== 'undefined' && navigator.sendBeacon) {
+        var blob = new Blob([json], { type: 'text/plain;charset=UTF-8' });
+        sent = navigator.sendBeacon(url, blob);
+      }
+    } catch (e) {}
+
+    if (sent) return;
+
+    try {
+      var keys = [
+        'type',
+        'name',
+        'email',
+        'case_id',
+        'order_info',
+        'scope',
+        'partial_items',
+        'message',
+        'received_date',
+        'received_time',
+        'timezone',
+      ];
+      var params = [];
+
+      keys.forEach(function (key) {
+        if (payload[key] != null && payload[key] !== '') {
+          params.push(encodeURIComponent(key) + '=' + encodeURIComponent(String(payload[key])));
+        }
+      });
+
+      if (params.length) {
+        var getUrl = url + (url.indexOf('?') >= 0 ? '&' : '?') + params.join('&');
+        var img = new Image();
+        img.src = getUrl;
+      }
+    } catch (e2) {}
+
     try {
       fetch(url, {
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'text/plain' },
-        body: JSON.stringify(payload),
+        body: json,
       }).catch(function () {});
-    } catch (e) {}
+    } catch (e3) {}
   }
 
   function buildWebhookPayload(data, stamp, receipt) {
