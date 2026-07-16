@@ -15,18 +15,21 @@
 
   assign grundpreis_text = ''
   assign grundpreis_native = false
-  assign unit_sep = 'general.unit_price_separator' | t | default: 'PRO' | upcase
+  assign unit_sep = 'products.product.pflege_cart.unit_price_sep' | t
+  assign unit_liter = 'products.product.pflege_cart.unit_price_liter' | t
+  assign unit_piece = 'products.product.pflege_cart.unit_price_piece' | t
+  assign unit_kg = 'products.product.pflege_cart.unit_price_kg' | t
 
   if unit_variant.unit_price_measurement
     assign ref_unit = unit_variant.unit_price_measurement.reference_unit | downcase
     if ref_unit == 'l'
-      assign grundpreis_text = unit_variant.unit_price | money | append: ' ' | append: unit_sep | append: ' Liter'
+      assign grundpreis_text = unit_variant.unit_price | money | append: ' ' | append: unit_sep | append: ' ' | append: unit_liter
     elsif ref_unit == 'kg'
-      assign grundpreis_text = unit_variant.unit_price | money | append: ' ' | append: unit_sep | append: ' 1 kg'
+      assign grundpreis_text = unit_variant.unit_price | money | append: ' ' | append: unit_sep | append: ' ' | append: unit_kg
     elsif ref_unit == 'g'
-      assign grundpreis_text = unit_variant.unit_price | money | append: ' ' | append: unit_sep | append: ' 1 kg'
+      assign grundpreis_text = unit_variant.unit_price | money | append: ' ' | append: unit_sep | append: ' ' | append: unit_kg
     else
-      assign grundpreis_text = unit_variant.unit_price | money | append: ' ' | append: unit_sep | append: ' 1 Stück'
+      assign grundpreis_text = unit_variant.unit_price | money | append: ' ' | append: unit_sep | append: ' ' | append: unit_piece
     endif
     assign grundpreis_native = true
   else
@@ -109,10 +112,10 @@
 
     if pack_count > 1
       assign piece_cents = unit_variant.price | divided_by: pack_count
-      assign grundpreis_text = piece_cents | money | append: ' ' | append: unit_sep | append: ' 1 Stück'
+      assign grundpreis_text = piece_cents | money | append: ' ' | append: unit_sep | append: ' ' | append: unit_piece
     elsif use_liter_price and ml_num > 0
       assign liter_cents = unit_variant.price | times: 1000 | divided_by: ml_num
-      assign grundpreis_text = liter_cents | money | append: ' ' | append: unit_sep | append: ' Liter'
+      assign grundpreis_text = liter_cents | money | append: ' ' | append: unit_sep | append: ' ' | append: unit_liter
     elsif grundpreis_text == blank and blob contains 'kg'
       assign kg_paren = unit_variant.title | split: '(' | last | split: ')' | first | downcase | strip
       unless kg_paren contains 'kg'
@@ -123,7 +126,7 @@
         assign kg_num = kg_val | plus: 0
         if kg_num > 0
           assign kg_cents = unit_variant.price | divided_by: kg_num
-          assign grundpreis_text = kg_cents | money | append: ' ' | append: unit_sep | append: ' 1 kg'
+          assign grundpreis_text = kg_cents | money | append: ' ' | append: unit_sep | append: ' ' | append: unit_kg
         endif
       endif
     endif
@@ -138,7 +141,7 @@
         assign g_num = g_val | plus: 0
         if g_num > 0
           assign kg_cents = unit_variant.price | times: 1000 | divided_by: g_num
-          assign grundpreis_text = kg_cents | money | append: ' ' | append: unit_sep | append: ' 1 kg'
+          assign grundpreis_text = kg_cents | money | append: ' ' | append: unit_sep | append: ' ' | append: unit_kg
         endif
       elsif g_paren contains 'g'
         unless g_paren contains 'kg'
@@ -147,7 +150,7 @@
             assign g_num = g_val | plus: 0
             if g_num > 0
               assign kg_cents = unit_variant.price | times: 1000 | divided_by: g_num
-              assign grundpreis_text = kg_cents | money | append: ' ' | append: unit_sep | append: ' 1 kg'
+              assign grundpreis_text = kg_cents | money | append: ' ' | append: unit_sep | append: ' ' | append: unit_kg
             endif
           endunless
         endunless
@@ -155,7 +158,7 @@
     endif
 
     if grundpreis_text == blank
-      assign grundpreis_text = unit_variant.price | money | append: ' ' | append: unit_sep | append: ' 1 Stück'
+      assign grundpreis_text = unit_variant.price | money | append: ' ' | append: unit_sep | append: ' ' | append: unit_piece
     endif
   endif
 -%}
