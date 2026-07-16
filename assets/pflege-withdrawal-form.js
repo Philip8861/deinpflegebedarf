@@ -490,44 +490,56 @@
     return url;
   }
 
+  function normalizeWebhookPayload(payload) {
+    var customerEmail = trim(payload.customer_email || payload.email || '');
+    if (!customerEmail) {
+      try {
+        customerEmail = trim(sessionStorage.getItem('pflege-wd-last-email') || '');
+      } catch (e) {}
+    }
+    payload.customer_email = customerEmail;
+    payload.email = customerEmail;
+    return payload;
+  }
+
   function sendCustomerEmailWebhook(root, payload) {
     var url = resolveWebhookUrl(root);
     if (!url) return;
 
+    var normalized = normalizeWebhookPayload(
+      Object.assign({}, payload, {
+        type: payload.type || 'widerruf',
+        name: payload.name || '',
+        case_id: payload.case_id || '',
+        order_info: payload.order_info || '',
+        scope: payload.scope || '',
+        partial_items: payload.partial_items || '',
+        message: payload.message || '',
+        received_date: payload.received_date || '',
+        received_time: payload.received_time || '',
+        timezone: payload.timezone || '',
+      })
+    );
+
+    if (!normalized.customer_email) return;
+
     var slimPayload = {
-      type: payload.type,
-      name: payload.name,
-      customer_email: payload.customer_email,
-      case_id: payload.case_id,
-      order_info: payload.order_info,
-      scope: payload.scope,
-      partial_items: payload.partial_items,
-      message: payload.message,
-      received_date: payload.received_date,
-      received_time: payload.received_time,
-      timezone: payload.timezone,
+      type: normalized.type,
+      name: normalized.name,
+      customer_email: normalized.customer_email,
+      email: normalized.customer_email,
+      case_id: normalized.case_id,
+      order_info: normalized.order_info,
+      scope: normalized.scope,
+      partial_items: normalized.partial_items,
+      message: normalized.message,
+      received_date: normalized.received_date,
+      received_time: normalized.received_time,
+      timezone: normalized.timezone,
     };
 
+    // Ein zuverlässiger Kanal reicht — verhindert Doppel-Mails an dieselbe Adresse.
     sendWebhookViaHiddenForm(url, slimPayload);
-    sendWebhookViaGetImage(url, slimPayload);
-
-    try {
-      var json = JSON.stringify(slimPayload);
-      if (typeof navigator !== 'undefined' && navigator.sendBeacon) {
-        var blob = new Blob([json], { type: 'text/plain;charset=UTF-8' });
-        navigator.sendBeacon(url, blob);
-      }
-    } catch (e) {}
-
-    try {
-      fetch(url, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain' },
-        body: JSON.stringify(slimPayload),
-      }).catch(function () {});
-    } catch (e2) {}
-  }
 
   function sendWebhookViaHiddenForm(url, payload) {
     try {
@@ -589,11 +601,13 @@
   }
 
   function buildWebhookPayload(data, stamp, receipt) {
+    var customerEmail = trim(data.email || '');
     return {
       type: 'widerruf',
       shop: window.location.hostname || '',
       name: data.name,
-      customer_email: data.email,
+      customer_email: customerEmail,
+      email: customerEmail,
       case_id: data.caseId,
       order_info: data.orderInfo,
       scope: getScopeLabel(data.scope),
