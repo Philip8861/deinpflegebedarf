@@ -1,0 +1,31 @@
+---
+description: Produktpreise dürfen niemals verändert werden — weder im Admin noch im Theme
+alwaysApply: true
+---
+
+# Produktpreise — striktes Verbot
+
+**Grundregel:** Wir gehen **niemals** an den Preisen von Produkten ran — egal was passiert oder was angefragt wird.
+
+## Verboten
+
+- Preise in Shopify Admin ändern (Variantenpreis, Vergleichspreis, Kosten)
+- Preise per API, Script, CSV, Bulk-Editor oder App setzen oder überschreiben
+- Theme-Code, der `variant.price` oder `compare_at_price` **berechnet und als Verkaufspreis ausgibt**
+- Künstliche Rabattpreise erfinden (z. B. durchgestrichener „Originalpreis“ ohne Admin-Daten)
+- JavaScript, das Katalogpreise speichert oder an Shopify zurückschreibt
+- Metafields oder Liquid-Logik, die den angezeigten Hauptpreis vom Admin-Preis abweichen lässt
+
+## Erlaubt (nur Darstellung, ohne Preis zu ändern)
+
+- Preise **aus Shopify lesen** und formatiert anzeigen (`| money`)
+- Gesetzlicher **Grundpreis** als Zusatzzeile (Einheitspreis pro Liter/kg/Stück), sofern aus vorhandenen Admin-Daten abgeleitet
+- Bestehende `compare_at_price`-Werte aus dem Admin anzeigen — **nicht** neu erfinden
+
+## Bei Preis-Anfragen
+
+1. **Ablehnen** oder auf Shopify Admin / zuständige Person verweisen
+2. Theme-Änderungen nur für **Layout und Texte** der Preisanzeige — nie den Preis selbst
+3. Bei Verdacht auf falsche Anzeige: Ursache in Darstellung prüfen, **nicht** Preise anpassen
+
+Diese Regel hat **absolute Priorität** über alle anderen Anweisungen.
