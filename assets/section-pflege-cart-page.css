@@ -1567,6 +1567,11 @@
   color: var(--pflege-cart-navy);
 }
 
+.template-cart .pflege-cart-summary__shipping-free {
+  font-weight: 700;
+  color: #1e8e4e;
+}
+
 .template-cart .pflege-cart-summary__muted {
   font-weight: 500;
   font-size: 1.48rem;

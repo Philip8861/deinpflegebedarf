@@ -45,6 +45,18 @@
               {% render block %}
             {%- when 'subtotal' -%}
               <div class="js-contents" {{ block.shopify_attributes }}>
+                {%- liquid
+                  # Versandanzeige: unter 150 € Warenkorbwert 5,99 €, ab 150 € kostenlos.
+                  # Gleiche Schwelle wie Versand-Fortschrittsbalken (pflege-cart-promo-row).
+                  assign shipping_threshold_cents = 15000
+                  assign shipping_fee_cents = 599
+                  if cart.items_subtotal_price >= shipping_threshold_cents
+                    assign shipping_cents = 0
+                  else
+                    assign shipping_cents = shipping_fee_cents
+                  endif
+                  assign display_total_cents = cart.total_price | plus: shipping_cents
+                -%}
                 <div class="pflege-cart-summary pflege-cart-card">
                   <h2 class="pflege-cart-summary__heading">{{ 'sections.cart.pflege.summary_title' | t }}</h2>
 
@@ -56,9 +68,11 @@
 
                     <div class="pflege-cart-summary__row">
                       <span>{{ 'sections.cart.pflege.shipping' | t }}</span>
-                      <span class="pflege-cart-summary__value pflege-cart-summary__muted pflege-cart-summary__shipping-note">
-                        {{- 'sections.cart.pflege.shipping_note' | t -}}
-                      </span>
+                      {%- if shipping_cents == 0 -%}
+                        <span class="pflege-cart-summary__value pflege-cart-summary__shipping-free">Kostenlos</span>
+                      {%- else -%}
+                        <span class="pflege-cart-summary__value">{{ shipping_cents | money }}</span>
+                      {%- endif -%}
                     </div>
 
                     {%- if cart.cart_level_discount_applications.size > 0 -%}
@@ -78,7 +92,7 @@
 
                     <div class="pflege-cart-summary__row pflege-cart-summary__row--grand">
                       <span>{{ 'sections.cart.pflege.grand_total' | t }}</span>
-                      <span class="pflege-cart-summary__grand-value">{{ cart.total_price | money }}</span>
+                      <span class="pflege-cart-summary__grand-value">{{ display_total_cents | money }}</span>
                     </div>
 
                     <p class="pflege-cart-summary__vat caption">{{ 'sections.cart.pflege.vat_included' | t }}</p>
