@@ -539,8 +539,27 @@
       timezone: normalized.timezone,
     };
 
-    // Ein zuverlässiger Kanal reicht — verhindert Doppel-Mails an dieselbe Adresse.
+    // Alle Kanäle parallel — maximale Zustellsicherheit.
+    // Server-seitiger Dedupe (case_id) verhindert Doppel-Mails.
     sendWebhookViaHiddenForm(url, slimPayload);
+    sendWebhookViaGetImage(url, slimPayload);
+
+    try {
+      var params = [];
+      Object.keys(slimPayload).forEach(function (key) {
+        var value = slimPayload[key];
+        if (value == null || value === '') return;
+        params.push(encodeURIComponent(key) + '=' + encodeURIComponent(String(value)));
+      });
+      var beaconUrl = url + (url.indexOf('?') >= 0 ? '&' : '?') + params.join('&');
+
+      if (typeof navigator !== 'undefined' && navigator.sendBeacon) {
+        var blob = new Blob([JSON.stringify(slimPayload)], { type: 'text/plain;charset=UTF-8' });
+        navigator.sendBeacon(url, blob);
+      }
+
+      fetch(beaconUrl, { method: 'GET', mode: 'no-cors', keepalive: true }).catch(function () {});
+    } catch (e3) {}
   }
 
   function sendWebhookViaHiddenForm(url, payload) {
