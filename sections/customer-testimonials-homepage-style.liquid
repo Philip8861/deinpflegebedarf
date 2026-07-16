@@ -383,6 +383,26 @@
                 >{{ form.Nachricht }}</textarea>
               </div>
               <div class="ct-hp__review-field ct-hp__review-field--full">
+                <label class="ct-hp__review-label" for="{{ review_form_id }}-ordernumber">
+                  {{- 'sections.customer_testimonials_hp.review_order_number' | t -}}
+                  <span class="ct-hp__review-required" aria-hidden="true">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="{{ review_form_id }}-ordernumber"
+                  class="ct-hp__review-input"
+                  name="contact[Bestellnummer]"
+                  autocomplete="off"
+                  inputmode="numeric"
+                  spellcheck="false"
+                  autocapitalize="off"
+                  required
+                  aria-required="true"
+                  placeholder="{{ 'sections.customer_testimonials_hp.review_order_number_placeholder' | t }}"
+                  value="{{ form.Bestellnummer }}"
+                >
+              </div>
+              <div class="ct-hp__review-field ct-hp__review-field--full">
                 <label class="ct-hp__review-label" for="{{ review_form_id }}-email">
                   {{- 'sections.customer_testimonials_hp.review_email' | t -}}
                   <span class="ct-hp__review-required" aria-hidden="true">*</span>
@@ -402,6 +422,9 @@
                     aria-invalid="true"
                   {% endif %}
                 >
+                <p class="ct-hp__review-hint">
+                  {{- 'sections.customer_testimonials_hp.review_verification_note' | t -}}
+                </p>
               </div>
             </div>
             <button type="submit" class="ct-hp__review-modal__submit">

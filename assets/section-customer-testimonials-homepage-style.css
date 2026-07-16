@@ -601,6 +601,13 @@ button.ct-hp__cta {
   box-shadow: 0 0 0 3px rgba(63, 134, 217, 0.14);
 }
 
+.ct-hp__review-hint {
+  margin: 0.5rem 0 0;
+  font-size: clamp(0.84rem, 0.78rem + 0.18vw, 0.94rem);
+  line-height: 1.5;
+  color: var(--ct-hp-muted);
+}
+
 .ct-hp__review-textarea {
   min-height: 9.5rem;
   resize: vertical;
