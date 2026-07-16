@@ -10,6 +10,7 @@
 {{ 'pflege-withdrawal-form.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
+  assign wd_webhook_url = 'https://script.google.com/macros/s/AKfycbx2I3NGzrUUqJlqB6D14TNf4E0KEz6tMkcJY1z6SpeVc0hvFDoKq1BlCzOZ2AVq2ART/exec'
   assign wd_standalone = standalone | default: false
   assign url_privacy = routes.root_url | append: 'pages/datenschutzerklaerung'
   if page.url != blank
@@ -37,7 +38,7 @@
   {% if wd_standalone %}data-pflege-withdrawal-standalone{% endif %}
   data-pflege-withdrawal-tz="{{ wd_tz | escape }}"
   {% if request.query_string contains 'widerruf' %}data-pflege-withdrawal-query-success{% endif %}
-  {% if email_webhook_url != blank %}data-pflege-withdrawal-email-webhook="{{ email_webhook_url | strip | escape }}"{% endif %}
+  data-pflege-withdrawal-email-webhook="{{ wd_webhook_url | escape }}"
 >
   {%- unless wd_standalone -%}
     <div class="pflege-withdrawal__intro">

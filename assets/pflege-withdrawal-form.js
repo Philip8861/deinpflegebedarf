@@ -2,6 +2,7 @@
  * Elektronische Widerrufsfunktion (§ 356a BGB) — zweistufiger Ablauf.
  * Übermittlung per fetch() an Shopify /contact (wie Rezept-Formular).
  * Kunden-E-Mail: Google Apps Script Webhook (scripts/widerruf-email-kostenlos-apps-script.md).
+ * Build: 2026-07-16-live-fix-b
  */
 (function () {
   'use strict';
@@ -489,8 +490,19 @@
     }
   }
 
-  function sendCustomerEmailWebhook(root, payload) {
+  var WEBHOOK_URL_LIVE =
+    'https://script.google.com/macros/s/AKfycbx2I3NGzrUUqJlqB6D14TNf4E0KEz6tMkcJY1z6SpeVc0hvFDoKq1BlCzOZ2AVq2ART/exec';
+
+  function resolveWebhookUrl(root) {
     var url = root.getAttribute('data-pflege-withdrawal-email-webhook');
+    if (!url || url.indexOf('AKfycbx2I3NG') === -1) {
+      return WEBHOOK_URL_LIVE;
+    }
+    return url;
+  }
+
+  function sendCustomerEmailWebhook(root, payload) {
+    var url = resolveWebhookUrl(root);
     if (!url) return;
 
     var slimPayload = {
