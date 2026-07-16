@@ -25,9 +25,10 @@
         </header>
 
         {%- if show_withdrawal_form -%}
-          {% render 'pflege-withdrawal-form', placement: 'top' %}
+          {% render 'pflege-withdrawal-form', placement: 'top', standalone: withdrawal_standalone %}
         {%- endif -%}
 
+        {%- unless withdrawal_page_only -%}
         <div class="pflege-legal__content rte">
           {%- liquid
             assign legal_page_body = page.content | strip_html | strip
@@ -58,6 +59,7 @@
             </p>
           {%- endif -%}
         </div>
+        {%- endunless -%}
       </div>
     {%- else -%}
       <header class="pflege-legal__header">

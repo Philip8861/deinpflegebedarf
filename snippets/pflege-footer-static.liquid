@@ -13,6 +13,8 @@
 
   assign url_widerruf = root | append: 'pages/widerrufsbelehrung'
 
+  assign url_vertrag_widerrufen = root | append: 'pages/vertrag-widerrufen'
+
   assign url_datenschutz = root | append: 'pages/datenschutzerklaerung'
 
   assign url_cookie = root | append: 'pages/cookie-einstellungen'
@@ -78,10 +80,10 @@
           <nav class="pflege-footer__menu-col" aria-labelledby="pflege-ft-r">
             <h2 id="pflege-ft-r" class="pflege-footer__menu-heading">Rechtliches</h2>
             <ul class="pflege-footer__menu-list" role="list">
-              <li><a href="{{ url_agb }}">AGB</a></li>
               <li><a href="{{ url_impressum }}">Impressum</a></li>
+              <li><a href="{{ url_datenschutz }}">Datenschutz</a></li>
+              <li><a href="{{ url_agb }}">AGB</a></li>
               <li><a href="{{ url_widerruf }}">Widerrufsbelehrung</a></li>
-              <li><a href="{{ url_datenschutz }}">Datenschutzerklärung</a></li>
               <li><a href="{{ url_cookie }}">Cookie-Einstellungen</a></li>
             </ul>
           </nav>
@@ -261,6 +263,10 @@
           <li><a href="{{ url_agb }}">AGB</a></li>
           <li><a href="{{ url_impressum }}">Impressum</a></li>
           <li><a href="{{ url_datenschutz }}">Datenschutz</a></li>
+          <li><a href="{{ url_widerruf }}">Widerrufsbelehrung</a></li>
+          <li>
+            <a href="{{ url_vertrag_widerrufen }}" class="pflege-footer__bottom-withdrawal">Vertrag widerrufen</a>
+          </li>
           <li><a href="{{ url_cookie }}">Cookie-Einstellungen</a></li>
         </ul>
       </nav>

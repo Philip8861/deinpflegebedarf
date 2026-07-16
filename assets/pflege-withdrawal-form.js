@@ -1,148 +1,448 @@
+/**
+ * Elektronische Widerrufsfunktion (§ 356a BGB) — zweistufiger Ablauf.
+ * Keine Tracking-Events; keine Daten in URL-Parametern.
+ */
 (function () {
-  var root = document.querySelector('[data-pflege-withdrawal]');
-  if (!root) return;
+  'use strict';
 
-  var toggle = root.querySelector('[data-pflege-withdrawal-toggle]');
-  var panel = root.querySelector('[data-pflege-withdrawal-panel]');
-  var form = root.querySelector('[data-pflege-withdrawal-form]');
-  var success = root.querySelector('[data-pflege-withdrawal-success]');
+  var DECLARATION =
+    'Hiermit widerrufe ich den von mir abgeschlossenen Vertrag über die angegebene Bestellung beziehungsweise die angegebenen Artikel.';
 
-  function setPanelOpen(open) {
-    if (!toggle || !panel) return;
-    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-    panel.hidden = !open;
+  var STORAGE_PREFIX = 'pflege-wd-submitted-';
+
+  function qs(root, sel) {
+    return root.querySelector(sel);
   }
 
-  if (toggle && panel) {
-    toggle.addEventListener('click', function () {
-      var isOpen = toggle.getAttribute('aria-expanded') === 'true';
-      setPanelOpen(!isOpen);
-      if (!isOpen && success) {
-        success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }
+  function qsa(root, sel) {
+    return Array.prototype.slice.call(root.querySelectorAll(sel));
+  }
+
+  function trim(val) {
+    return (val || '').replace(/^\s+|\s+$/g, '');
+  }
+
+  function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  function generateCaseId() {
+    var now = new Date();
+    var y = now.getFullYear();
+    var m = String(now.getMonth() + 1).padStart(2, '0');
+    var d = String(now.getDate()).padStart(2, '0');
+    var rand = String(Math.floor(1000 + Math.random() * 9000));
+    return 'WD-' + y + m + d + '-' + rand;
+  }
+
+  function generateSubmissionId() {
+    if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+      return crypto.randomUUID();
+    }
+    return 'sub-' + Date.now() + '-' + Math.random().toString(36).slice(2, 11);
+  }
+
+  function formatDateDE(isoDate) {
+    if (!isoDate) return '';
+    var parts = isoDate.split('-');
+    if (parts.length !== 3) return isoDate;
+    return parts[2] + '.' + parts[1] + '.' + parts[0];
+  }
+
+  function getTimezone() {
+    var root = document.querySelector('[data-pflege-withdrawal]');
+    return (root && root.getAttribute('data-pflege-withdrawal-tz')) || 'Europe/Berlin';
+  }
+
+  function nowStamp() {
+    var now = new Date();
+    var tz = getTimezone();
+    var dateStr = now.toLocaleDateString('de-DE', { timeZone: tz });
+    var timeStr = now.toLocaleTimeString('de-DE', {
+      timeZone: tz,
+      hour: '2-digit',
+      minute: '2-digit',
     });
+    return { date: dateStr, time: timeStr, tz: tz, iso: now.toISOString() };
   }
 
-  if (success) {
-    setPanelOpen(true);
+  function showError(el, msg) {
+    if (!el) return;
+    el.textContent = msg;
+    el.hidden = !msg;
   }
 
-  function buildBody() {
-    var name = (root.querySelector('[data-pflege-withdrawal-name]') || {}).value || '';
-    var email = (root.querySelector('[data-pflege-withdrawal-email]') || {}).value || '';
-    var order = (root.querySelector('[data-pflege-withdrawal-order]') || {}).value || '';
-    var ordered = (root.querySelector('[data-pflege-withdrawal-ordered]') || {}).value || '';
-    var received = (root.querySelector('[data-pflege-withdrawal-received]') || {}).value || '';
-    var items = (root.querySelector('[data-pflege-withdrawal-items]') || {}).value || '';
-    var message = (root.querySelector('[data-pflege-withdrawal-message]') || {}).value || '';
+  function clearErrors(root) {
+    qsa(root, '[data-pflege-withdrawal-error]').forEach(function (el) {
+      showError(el, '');
+    });
+    var alert = qs(root, '[data-pflege-withdrawal-errors]');
+    if (alert) alert.hidden = true;
+  }
 
+  function getScopeLabel(value) {
+    return value === 'partial' ? 'Teil der Bestellung' : 'Gesamte Bestellung';
+  }
+
+  function buildBody(data, stamp) {
     var lines = [
-      '--- Widerrufserklärung (Online-Formular) ---',
+      '=== WIDERRUFSERKLÄRUNG (§ 356a BGB) ===',
       '',
-      'Der Kunde erklärt hiermit den Widerruf des Kaufvertrags.',
+      'Vorgangsnummer: ' + data.caseId,
+      'Submission-ID: ' + data.submissionId,
+      'Eingang (Client): ' + stamp.date + ' ' + stamp.time + ' (' + stamp.tz + ')',
+      'Eingang (ISO): ' + stamp.iso,
       '',
-      'Name: ' + name.trim(),
-      'E-Mail: ' + email.trim(),
-      'Bestellnummer: ' + order.trim(),
+      'Name: ' + data.name,
+      'E-Mail: ' + data.email,
+      '',
+      'Angaben zur Bestellung:',
+      data.orderInfo,
+      '',
+      'Umfang des Widerrufs: ' + getScopeLabel(data.scope),
     ];
 
-    if (ordered) lines.push('Bestelldatum: ' + ordered);
-    if (received) lines.push('Erhalten am: ' + received);
-    lines.push('Artikel / Ware: ' + items.trim());
-    if (message.trim()) lines.push('Nachricht: ' + message.trim());
-    lines.push('', 'Bestätigung: Ich möchte den Vertrag widerrufen. (angekreuzt)');
+    if (data.scope === 'partial') {
+      lines.push('Betroffene Artikel:', data.partialItems);
+    } else {
+      lines.push('Betroffene Artikel: Gesamte Bestellung');
+    }
 
+    if (data.orderDate) {
+      lines.push('', 'Bestelldatum (optional): ' + data.orderDate);
+    }
+
+    lines.push('', 'Erklärungstext:', '„' + DECLARATION + '“');
+
+    if (data.message) {
+      lines.push('', 'Zusätzliche Nachricht:', data.message);
+    }
+
+    lines.push('', '---', 'Keine Zahlungsdaten erfasst. Keine IP-Adresse gespeichert.');
     return lines.join('\n');
   }
 
-  function syncBody() {
-    var bodyField = root.querySelector('[data-pflege-withdrawal-body]');
-    if (!bodyField) return;
-    bodyField.value = buildBody();
+  function readFormData(root) {
+    var scopeEl = qs(root, '[data-pflege-withdrawal-scope]:checked');
+    var orderDateRaw = qs(root, '[data-pflege-withdrawal-order-date]');
+    return {
+      name: trim(qs(root, '[data-pflege-withdrawal-name]').value),
+      email: trim(qs(root, '[data-pflege-withdrawal-email]').value),
+      orderInfo: trim(qs(root, '[data-pflege-withdrawal-order-info]').value),
+      scope: scopeEl ? scopeEl.value : '',
+      partialItems: trim(qs(root, '[data-pflege-withdrawal-partial-items]').value),
+      orderDate: orderDateRaw && orderDateRaw.value ? formatDateDE(orderDateRaw.value) : '',
+      message: trim(qs(root, '[data-pflege-withdrawal-message]').value),
+      caseId: (qs(root, '[data-pflege-withdrawal-case-id]') || {}).value || '',
+      submissionId: (qs(root, '[data-pflege-withdrawal-submission-id]') || {}).value || '',
+    };
   }
 
-  if (form) {
-    ['input', 'change', 'blur'].forEach(function (evt) {
-      form.addEventListener(
-        evt,
-        function (e) {
-          if (e.target && e.target.hasAttribute('data-pflege-withdrawal-body')) return;
-          syncBody();
-        },
-        true
-      );
-    });
+  function validateStep1(root) {
+    clearErrors(root);
+    var valid = true;
+    var data = readFormData(root);
 
-    form.addEventListener('submit', function (event) {
-      var confirm = root.querySelector('[data-pflege-withdrawal-confirm]');
-      var items = root.querySelector('[data-pflege-withdrawal-items]');
-      var order = root.querySelector('[data-pflege-withdrawal-order]');
-      var bodyField = root.querySelector('[data-pflege-withdrawal-body]');
-
-      if (!confirm || !confirm.checked) {
-        event.preventDefault();
-        confirm && confirm.focus();
-        return;
-      }
-
-      if (!order || !order.value.trim() || !items || !items.value.trim()) {
-        event.preventDefault();
-        return;
-      }
-
-      syncBody();
-
-      if (!bodyField || !bodyField.value.trim()) {
-        event.preventDefault();
-        bodyField && bodyField.focus();
-        return;
-      }
-
-      try {
-        sessionStorage.setItem(
-          'pflege_withdrawal_receipt',
-          JSON.stringify({
-            name: (root.querySelector('[data-pflege-withdrawal-name]') || {}).value || '',
-            email: (root.querySelector('[data-pflege-withdrawal-email]') || {}).value || '',
-            body: bodyField.value,
-            at: new Date().toISOString(),
-          })
-        );
-      } catch (e) {
-        /* ignore */
-      }
-    });
-
-    syncBody();
-  }
-
-  var printBtn = root.querySelector('[data-pflege-withdrawal-print]');
-  if (printBtn) {
-    printBtn.addEventListener('click', function () {
-      document.body.classList.add('pflege-withdrawal-print-mode');
-      window.print();
-      window.addEventListener(
-        'afterprint',
-        function () {
-          document.body.classList.remove('pflege-withdrawal-print-mode');
-        },
-        { once: true }
-      );
-    });
-  }
-
-  var receipt = root.querySelector('[data-pflege-withdrawal-receipt]');
-  if (receipt && success) {
-    try {
-      var stored = sessionStorage.getItem('pflege_withdrawal_receipt');
-      if (stored) {
-        var data = JSON.parse(stored);
-        var pre = receipt.querySelector('.pflege-withdrawal__receipt-pre');
-        if (pre && !pre.textContent.trim() && data.body) pre.textContent = data.body;
-      }
-      sessionStorage.removeItem('pflege_withdrawal_receipt');
-    } catch (e) {
-      /* ignore */
+    if (!data.name) {
+      showError(qs(root, '[data-pflege-withdrawal-error="name"]'), 'Bitte geben Sie Ihren Vor- und Nachnamen an.');
+      valid = false;
     }
+
+    if (!data.email) {
+      showError(qs(root, '[data-pflege-withdrawal-error="email"]'), 'Bitte geben Sie Ihre E-Mail-Adresse an.');
+      valid = false;
+    } else if (!isValidEmail(data.email)) {
+      showError(qs(root, '[data-pflege-withdrawal-error="email"]'), 'Bitte geben Sie eine gültige E-Mail-Adresse an.');
+      valid = false;
+    }
+
+    if (!data.orderInfo) {
+      showError(
+        qs(root, '[data-pflege-withdrawal-error="order-info"]'),
+        'Bitte geben Sie Angaben zur Bestellung an (Bestellnummer oder Bestelldatum und Artikel).'
+      );
+      valid = false;
+    }
+
+    if (!data.scope) {
+      showError(qs(root, '[data-pflege-withdrawal-error="scope"]'), 'Bitte wählen Sie den Umfang des Widerrufs.');
+      valid = false;
+    } else if (data.scope === 'partial' && !data.partialItems) {
+      showError(
+        qs(root, '[data-pflege-withdrawal-error="partial-items"]'),
+        'Bitte nennen Sie die Artikel, die Sie widerrufen möchten.'
+      );
+      valid = false;
+    }
+
+    return valid ? data : null;
+  }
+
+  function renderSummary(root, data) {
+    var dl = qs(root, '[data-pflege-withdrawal-summary]');
+    if (!dl) return;
+
+    var rows = [
+      ['Name', data.name],
+      ['E-Mail-Adresse', data.email],
+      ['Angaben zur Bestellung', data.orderInfo],
+      ['Umfang des Widerrufs', getScopeLabel(data.scope)],
+    ];
+
+    if (data.scope === 'partial') {
+      rows.push(['Betroffene Artikel', data.partialItems]);
+    }
+
+    if (data.orderDate) {
+      rows.push(['Bestelldatum', data.orderDate]);
+    }
+
+    if (data.message) {
+      rows.push(['Zusätzliche Nachricht', data.message]);
+    }
+
+    rows.push(['Vorgangsnummer', data.caseId]);
+
+    dl.innerHTML = rows
+      .map(function (row) {
+        return (
+          '<div class="pflege-withdrawal__summary-row">' +
+          '<dt>' +
+          row[0] +
+          '</dt>' +
+          '<dd>' +
+          escapeHtml(row[1]) +
+          '</dd>' +
+          '</div>'
+        );
+      })
+      .join('');
+  }
+
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function setStep(root, step) {
+    var step1 = qs(root, '[data-pflege-withdrawal-step="1"]');
+    var step2 = qs(root, '[data-pflege-withdrawal-step="2"]');
+    if (step1) step1.hidden = step !== 1;
+    if (step2) step2.hidden = step !== 2;
+
+    if (step === 2) {
+      var confirmBtn = qs(root, '[data-pflege-withdrawal-confirm]');
+      if (confirmBtn) {
+        confirmBtn.disabled = false;
+        confirmBtn.removeAttribute('aria-busy');
+      }
+      var title = qs(step2, '.pflege-withdrawal__step-title');
+      if (title) title.focus();
+    } else if (step === 1) {
+      var formTitle = qs(root, '#pflege-withdrawal-form-title');
+      if (formTitle) formTitle.focus();
+    }
+  }
+
+  function syncHiddenFields(root, data, stamp) {
+    var caseInput = qs(root, '[data-pflege-withdrawal-case-id]');
+    var subInput = qs(root, '[data-pflege-withdrawal-submission-id]');
+    var bodyInput = qs(root, '[data-pflege-withdrawal-body]');
+
+    if (!data.caseId) {
+      data.caseId = generateCaseId();
+      if (caseInput) caseInput.value = data.caseId;
+    }
+    if (!data.submissionId) {
+      data.submissionId = generateSubmissionId();
+      if (subInput) subInput.value = data.submissionId;
+    }
+
+    var scopeHidden = qs(root, '[data-pflege-withdrawal-scope-hidden]');
+    var orderHidden = qs(root, '[data-pflege-withdrawal-order-hidden]');
+    var itemsHidden = qs(root, '[data-pflege-withdrawal-items-hidden]');
+    var dateHidden = qs(root, '[data-pflege-withdrawal-date-hidden]');
+    var msgHidden = qs(root, '[data-pflege-withdrawal-message-hidden]');
+
+    if (scopeHidden) scopeHidden.value = getScopeLabel(data.scope);
+    if (orderHidden) orderHidden.value = data.orderInfo;
+    if (itemsHidden) {
+      itemsHidden.value = data.scope === 'partial' ? data.partialItems : 'Gesamte Bestellung';
+    }
+    if (dateHidden) dateHidden.value = data.orderDate;
+    if (msgHidden) msgHidden.value = data.message;
+    if (bodyInput) bodyInput.value = buildBody(data, stamp);
+  }
+
+  function togglePartialField(root) {
+    var checked = qs(root, '[data-pflege-withdrawal-scope]:checked');
+    var wrap = qs(root, '[data-pflege-withdrawal-partial-wrap]');
+    var items = qs(root, '[data-pflege-withdrawal-partial-items]');
+    if (!wrap) return;
+
+    var isPartial = checked && checked.value === 'partial';
+    wrap.hidden = !isPartial;
+    if (items) {
+      if (isPartial) {
+        items.setAttribute('required', 'required');
+        items.setAttribute('aria-required', 'true');
+      } else {
+        items.removeAttribute('required');
+        items.removeAttribute('aria-required');
+        items.value = '';
+      }
+    }
+  }
+
+  function enhanceSuccess(root, success) {
+    var caseWrap = qs(success, '[data-pflege-withdrawal-success-case]');
+    var caseDisplay = qs(success, '[data-pflege-withdrawal-case-display]');
+    var caseId = sessionStorage.getItem('pflege-wd-last-case-id');
+
+    if (!caseId) {
+      var pre = qs(root, '.pflege-withdrawal__receipt-pre');
+      if (pre && pre.textContent) {
+        var match = pre.textContent.match(/Vorgangsnummer:\s*(WD-[^\n\r]+)/);
+        if (match) caseId = trim(match[1]);
+      }
+    }
+
+    if (caseId && caseWrap && caseDisplay) {
+      caseDisplay.textContent = caseId;
+      caseWrap.hidden = false;
+    }
+  }
+
+  function initWithdrawal(root) {
+    if (!root || root.getAttribute('data-pflege-withdrawal-initialized') === 'true') return;
+    root.setAttribute('data-pflege-withdrawal-initialized', 'true');
+
+    var form = qs(root, '[data-pflege-withdrawal-form]');
+    if (!form) return;
+
+    var success = qs(root, '[data-pflege-withdrawal-success]');
+    if (success) {
+      enhanceSuccess(root, success);
+      success.focus();
+      var printBtn = qs(root, '[data-pflege-withdrawal-print]');
+      if (printBtn) {
+        printBtn.addEventListener('click', function () {
+          window.print();
+        });
+      }
+      return;
+    }
+
+    qsa(root, '[data-pflege-withdrawal-scope]').forEach(function (radio) {
+      radio.addEventListener('change', function () {
+        togglePartialField(root);
+      });
+    });
+    togglePartialField(root);
+
+    var reviewBtn = qs(root, '[data-pflege-withdrawal-review]');
+    if (reviewBtn) {
+      reviewBtn.addEventListener('click', function () {
+        var data = validateStep1(root);
+        if (!data) {
+          var firstError = qs(root, '[data-pflege-withdrawal-error]:not([hidden])');
+          if (firstError) {
+            var fieldId = firstError.getAttribute('data-pflege-withdrawal-error');
+            var fieldMap = {
+              name: '[data-pflege-withdrawal-name]',
+              email: '[data-pflege-withdrawal-email]',
+              'order-info': '[data-pflege-withdrawal-order-info]',
+              scope: '[data-pflege-withdrawal-scope]',
+              'partial-items': '[data-pflege-withdrawal-partial-items]',
+            };
+            var input = qs(root, fieldMap[fieldId] || '');
+            if (input) input.focus();
+          }
+          return;
+        }
+
+        var stamp = nowStamp();
+        syncHiddenFields(root, data, stamp);
+        renderSummary(root, data);
+        setStep(root, 2);
+      });
+    }
+
+    var editBtn = qs(root, '[data-pflege-withdrawal-edit]');
+    if (editBtn) {
+      editBtn.addEventListener('click', function () {
+        setStep(root, 1);
+      });
+    }
+
+    var confirmBtn = qs(root, '[data-pflege-withdrawal-confirm]');
+    var statusEl = qs(root, '[data-pflege-withdrawal-submit-status]');
+
+    form.addEventListener('submit', function (ev) {
+      var step2 = qs(root, '[data-pflege-withdrawal-step="2"]');
+      if (!step2 || step2.hidden) {
+        ev.preventDefault();
+        return;
+      }
+
+      var data = readFormData(root);
+      if (!validateStep1(root)) {
+        ev.preventDefault();
+        setStep(root, 1);
+        return;
+      }
+
+      var submissionId = data.submissionId || generateSubmissionId();
+      var storageKey = STORAGE_PREFIX + submissionId;
+
+      if (sessionStorage.getItem(storageKey) === '1') {
+        ev.preventDefault();
+        if (statusEl) {
+          statusEl.hidden = false;
+          statusEl.textContent =
+            'Diese Widerrufserklärung wurde bereits übermittelt. Bitte laden Sie die Seite neu, wenn Sie einen weiteren Widerruf erklären möchten.';
+        }
+        return;
+      }
+
+      var stamp = nowStamp();
+      syncHiddenFields(root, data, stamp);
+
+      if (confirmBtn) {
+        confirmBtn.disabled = true;
+        confirmBtn.setAttribute('aria-busy', 'true');
+        confirmBtn.textContent = 'Wird übermittelt …';
+      }
+      if (statusEl) {
+        statusEl.hidden = false;
+        statusEl.textContent = 'Ihre Widerrufserklärung wird übermittelt. Bitte warten …';
+      }
+
+      sessionStorage.setItem(storageKey, '1');
+      sessionStorage.setItem('pflege-wd-last-case-id', data.caseId);
+      sessionStorage.setItem('pflege-wd-last-email', data.email);
+    });
+
+    form.addEventListener('invalid', function (ev) {
+      ev.preventDefault();
+      var step2 = qs(root, '[data-pflege-withdrawal-step="2"]');
+      if (step2 && !step2.hidden) {
+        setStep(root, 1);
+        validateStep1(root);
+      }
+    }, true);
+  }
+
+  function init() {
+    qsa(document, '[data-pflege-withdrawal]').forEach(initWithdrawal);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
   }
 })();

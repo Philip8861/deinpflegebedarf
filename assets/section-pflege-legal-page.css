@@ -316,7 +316,23 @@
   color: var(--pl-muted);
 }
 
-/* Widerrufsformular — oben auf der Widerrufsbelehrung */
+.pflege-legal__legal-placeholder {
+  margin: 1rem 0 1.25rem;
+  padding: 1rem 1.1rem;
+  border: 2px dashed #c9a227;
+  border-radius: 12px;
+  background: #fffbeb;
+}
+
+.pflege-legal__legal-placeholder p {
+  margin: 0 0 0.65rem;
+}
+
+.pflege-legal__legal-placeholder p:last-child {
+  margin-bottom: 0;
+}
+
+/* Widerrufsformular — eigene Seite /vertrag-widerrufen */
 .pflege-legal--plain .pflege-withdrawal--top {
   margin-top: 0;
   margin-bottom: var(--pl-plain-section-gap, clamp(1.75rem, 3vw, 2.25rem));

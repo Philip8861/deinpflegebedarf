@@ -771,6 +771,69 @@ a.pflege-footer__contact-line:hover {
   box-sizing: border-box;
 }
 
+/* Hervorgehobener Widerrufs-Link (§ 356a BGB) */
+.pflege-footer__withdrawal-band {
+  border-top: 1px solid var(--pflege-ft-border);
+  background: linear-gradient(180deg, #f0f7fc 0%, #e8f2fa 100%);
+  padding: clamp(1rem, 2.2vw, 1.35rem) max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
+}
+
+.pflege-footer__inner--withdrawal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+}
+
+.pflege-footer__withdrawal-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.85rem;
+  padding: 0.7rem 1.5rem;
+  border-radius: 12px;
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1rem, 0.96rem + 0.12vw, 1.08rem);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  color: #fff;
+  background: var(--pflege-ft-accent, #0f4f69);
+  box-shadow: 0 2px 10px rgba(15, 79, 105, 0.2);
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.pflege-footer__withdrawal-link:hover,
+.pflege-footer__withdrawal-link:focus-visible {
+  background: #0c3f54;
+  outline: 2px solid #3f86d9;
+  outline-offset: 3px;
+}
+
+.pflege-footer__withdrawal-note {
+  margin: 0;
+  flex: 1 1 12rem;
+  font-size: clamp(0.86rem, 0.84rem + 0.08vw, 0.94rem);
+  line-height: 1.45;
+  color: var(--pflege-ft-muted);
+}
+
+.pflege-footer__bottom-withdrawal {
+  font-weight: 700;
+  color: var(--pflege-ft-accent, #0f4f69) !important;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.pflege-footer__bottom-withdrawal:hover,
+.pflege-footer__bottom-withdrawal:focus-visible {
+  color: #0c3f54 !important;
+  outline: 2px solid #3f86d9;
+  outline-offset: 2px;
+}
+
 @media screen and (max-width: 749px) {
   .pflege-footer__bottom-nav {
     margin-left: 0;

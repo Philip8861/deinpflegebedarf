@@ -65,7 +65,17 @@
         assign legal_title_fallback = 'Datenschutzerklärung'
       when 'versand-zahlung'
         assign legal_title_fallback = 'Versand & Zahlung'
+      when 'vertrag-widerrufen'
+        assign legal_title_fallback = 'Vertrag widerrufen'
     endcase
+  endif
+
+  if current_handle == 'vertrag-widerrufen'
+    assign legal_plain = true
+    assign show_withdrawal_form = true
+    assign withdrawal_standalone = true
+    assign withdrawal_page_only = true
+    assign legal_title_fallback = 'Vertrag widerrufen'
   endif
 
   assign legal_body_html = section.settings.body_text
@@ -75,6 +85,8 @@
   assign legal_use_datenschutz_body = false
   assign legal_use_versand_zahlung_body = false
   assign show_withdrawal_form = false
+  assign withdrawal_standalone = false
+  assign withdrawal_page_only = false
   assign shipping_standard = section.settings.shipping_standard_cost
   assign shipping_free_from = section.settings.shipping_free_from
   if legal_body_html == blank and legal_use_impressum_defaults
@@ -85,11 +97,9 @@
   endif
   if current_handle == 'widerrufsbelehrung' and legal_body_html == blank
     assign legal_use_widerrufsbelehrung_body = true
-    assign show_withdrawal_form = true
   endif
   if current_handle == 'widerrufsrecht' and legal_body_html == blank
     assign legal_use_widerrufsbelehrung_body = true
-    assign show_withdrawal_form = true
   endif
   if legal_body_html == blank
     if current_handle == 'datenschutz' or current_handle == 'datenschutzerklärung' or current_handle == 'datenschutzerklaerung' or current_handle contains 'datenschutz'
@@ -156,6 +166,8 @@
   shipping_free_from: shipping_free_from,
   url_kontakt: url_kontakt,
   show_withdrawal_form: show_withdrawal_form,
+  withdrawal_standalone: withdrawal_standalone,
+  withdrawal_page_only: withdrawal_page_only,
   legal_plain: legal_plain
 %}
 
