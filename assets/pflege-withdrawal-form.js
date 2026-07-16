@@ -2,7 +2,7 @@
  * Elektronische Widerrufsfunktion (§ 356a BGB) — zweistufiger Ablauf.
  * Übermittlung per fetch() an Shopify /contact (wie Rezept-Formular).
  * Kunden-E-Mail: Google Apps Script Webhook (scripts/widerruf-email-kostenlos-apps-script.md).
- * Build: 2026-07-16-live-fix-b
+ * Build: 2026-07-16-live-fix-c (Captcha-Rücksprung cache-sicher + Sofort-Webhook)
  */
 (function () {
   'use strict';
@@ -809,11 +809,28 @@
         if (ok === 'challenge') {
           // Shopify verlangt ein Captcha — regulär abschicken, damit der
           // Kunde es lösen kann. Webhook-Daten für die Rückkehr vormerken.
+          var challengePayload = buildWebhookPayload(data, stamp, receipt);
           try {
             sessionStorage.setItem(
               'pflege-wd-pending-webhook',
-              JSON.stringify(buildWebhookPayload(data, stamp, receipt))
+              JSON.stringify(challengePayload)
             );
+          } catch (e) {}
+          // Kunden-Mail sofort mit auslösen (Beacon/keepalive überleben die
+          // Weiterleitung; Dedupe im Apps Script verhindert Doppelversand,
+          // falls der Rücksprung sie erneut sendet).
+          try {
+            sendCustomerEmailWebhook(root, challengePayload);
+          } catch (e) {}
+          // Rücksprung-URL eindeutig machen, damit die Seite nach dem Captcha
+          // garantiert frisch (ohne Shopify-Cache) mit aktuellem JS lädt.
+          try {
+            var returnInput = form.querySelector('input[name="return_to"]');
+            if (returnInput && returnInput.value) {
+              returnInput.value +=
+                (returnInput.value.indexOf('?') >= 0 ? '&' : '?') +
+                'ts=' + Date.now();
+            }
           } catch (e) {}
           if (statusEl) {
             statusEl.textContent = 'Sicherheitsprüfung erforderlich — Sie werden weitergeleitet …';
