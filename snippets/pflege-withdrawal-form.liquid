@@ -41,6 +41,7 @@
   {% if request.query_string contains 'widerruf' %}data-pflege-withdrawal-query-success{% endif %}
   data-pflege-withdrawal-email-webhook="{{ wd_webhook_url | escape }}"
 >
+  <!-- WD-BUILD-20260716-v2 -->
   {%- unless wd_standalone -%}
     <div class="pflege-withdrawal__intro">
       <h2 class="pflege-withdrawal__heading" id="pflege-withdrawal-heading">Elektronische Widerrufsfunktion</h2>
