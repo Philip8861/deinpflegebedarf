@@ -1,4 +1,4 @@
-{% comment %} WD-BUILD-20260716-v3 {% endcomment %}
+{% comment %} WD-BUILD-20260716-v4 {% endcomment %}
 {% comment %}
   Elektronische Widerrufsfunktion (§ 356a BGB) — zweistufiger Ablauf.
   Shopify-Kontaktformular → Shop-Benachrichtigung; Kunden-E-Mail via Google Apps Script (kostenlos, scripts/widerruf-email-kostenlos-apps-script.md).
@@ -41,7 +41,7 @@
   {% if request.query_string contains 'widerruf' %}data-pflege-withdrawal-query-success{% endif %}
   data-pflege-withdrawal-email-webhook="{{ wd_webhook_url | escape }}"
 >
-  <!-- WD-BUILD-20260716-v3 -->
+  <!-- WD-BUILD-20260716-v4 -->
   {%- unless wd_standalone -%}
     <div class="pflege-withdrawal__intro">
       <h2 class="pflege-withdrawal__heading" id="pflege-withdrawal-heading">Elektronische Widerrufsfunktion</h2>
@@ -295,4 +295,4 @@
     </div>
   {%- endunless -%}
 </div>
-<script src="{{ 'pflege-withdrawal-form-v3.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'pflege-withdrawal-form-v4.js' | asset_url }}" defer="defer"></script>
