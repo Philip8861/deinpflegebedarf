@@ -1,8 +1,14 @@
-# Shopify Flow — Kunden-E-Mail bei Widerruf (Schritt für Schritt)
+# Shopify Flow — Kunden-E-Mail bei Widerruf
 
-> **Pflicht:** Das Theme kann keine E-Mails versenden. Dieser Flow muss **einmalig im Shopify-Admin** eingerichtet werden — dann erhält jeder Kunde nach dem Widerruf automatisch die Eingangsbestätigung.
+> ⚠️ **Nicht geeignet für das Theme-Widerrufsformular**  
+> Shopify Flow hat **keinen Trigger** für Theme-Kontaktformulare (`{% form 'contact' %}`).  
+> Der Trigger „Kontaktformular eingereicht“ existiert in Flow **nicht** für euer Widerrufsformular.
 
-**Dauer:** ca. 10 Minuten
+**Stattdessen (dauerhaft kostenlos):** `scripts/widerruf-email-kostenlos-apps-script.md`
+
+---
+
+Diese Anleitung bleibt nur als Referenz, falls ihr später **Shopify Forms** statt des Theme-Formulars nutzt.
 
 ---
 
@@ -110,4 +116,4 @@ Falls die Kunden-E-Mail fehlschlägt:
 
 ## Technischer Hintergrund
 
-Das Widerrufsformular sendet per `fetch()` an Shopify `/contact` — identisch zur zuverlässigen Rezept-Übermittlung. Shopify löst danach den Flow-Trigger **Kontaktformular eingereicht** aus.
+Das Widerrufsformular sendet per `fetch()` an Shopify `/contact` — identisch zur zuverlässigen Rezept-Übermittlung. **Dieser Submit löst keinen Shopify-Flow-Trigger aus.** Kunden-E-Mail erfolgt über Google Apps Script (siehe `scripts/widerruf-email-kostenlos-apps-script.md`).

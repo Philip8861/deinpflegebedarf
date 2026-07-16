@@ -38,7 +38,7 @@
 |--------|-------|------------------|
 | **Shopify (Kontaktformular)** | Formularübermittlung, Speicherung als Kontaktanfrage | Alle Formulardaten via HTTPS POST |
 | **Shopify E-Mail-Benachrichtigung** | Interne Shop-Benachrichtigung bei neuem Kontakt | Standard-Shopify-Notification an Shop-E-Mail |
-| **Shopify Flow** (einrichtungspflichtig) | Automatische Eingangsbestätigung an Kunden + interne Meldung | Siehe `scripts/shopify-flow-widerruf-setup.md` |
+| **Webhook (Google Apps Script)** (optional, einrichtungspflichtig) | Automatische Eingangsbestätigung an Kunden | Siehe `scripts/widerruf-email-kostenlos-apps-script.md` |
 | **Theme-JavaScript** (`pflege-withdrawal-form.js`) | Validierung, Zwei-Stufen-UI, Duplikatschutz | Lokal im Browser; `sessionStorage` nur für Submission-ID / Vorgangsnummer-Anzeige |
 
 **Nicht eingesetzt für Widerrufsdaten:**

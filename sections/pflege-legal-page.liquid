@@ -172,6 +172,7 @@
   show_withdrawal_form: show_withdrawal_form,
   withdrawal_standalone: withdrawal_standalone,
   withdrawal_page_only: withdrawal_page_only,
+  widerruf_email_webhook_url: section.settings.widerruf_email_webhook_url,
   legal_plain: legal_plain
 %}
 
@@ -312,6 +313,16 @@
       "id": "contact_text",
       "label": "Kontakt-Text",
       "info": "Optional, z. B. „Fragen? Kontaktieren Sie uns unter …“"
+    },
+    {
+      "type": "header",
+      "content": "Widerruf — Kunden-E-Mail (kostenlos)"
+    },
+    {
+      "type": "text",
+      "id": "widerruf_email_webhook_url",
+      "label": "Webhook-URL für Kunden-Eingangsbestätigung",
+      "info": "Optional. Dauerhaft kostenlos: Google Apps Script — Anleitung scripts/widerruf-email-kostenlos-apps-script.md"
     },
     {
       "type": "header",

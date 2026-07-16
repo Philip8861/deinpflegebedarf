@@ -1,7 +1,7 @@
 /**
  * Elektronische Widerrufsfunktion (§ 356a BGB) — zweistufiger Ablauf.
  * Übermittlung per fetch() an Shopify /contact (wie Rezept-Formular).
- * Kunden-E-Mail: Shopify Flow (scripts/shopify-flow-widerruf-setup.md).
+ * Kunden-E-Mail: Google Apps Script Webhook (scripts/widerruf-email-kostenlos-apps-script.md).
  */
 (function () {
   'use strict';
@@ -489,6 +489,40 @@
     }
   }
 
+  function sendCustomerEmailWebhook(root, payload) {
+    var url = root.getAttribute('data-pflege-withdrawal-email-webhook');
+    if (!url) return;
+
+    try {
+      fetch(url, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(payload),
+      }).catch(function () {});
+    } catch (e) {}
+  }
+
+  function buildWebhookPayload(data, stamp, receipt) {
+    return {
+      type: 'widerruf',
+      shop: window.location.hostname || '',
+      name: data.name,
+      email: data.email,
+      case_id: data.caseId,
+      order_info: data.orderInfo,
+      scope: getScopeLabel(data.scope),
+      partial_items: data.scope === 'partial' ? data.partialItems : 'Gesamte Bestellung',
+      order_date: data.orderDate || '',
+      message: data.message || '',
+      declaration: DECLARATION,
+      received_date: stamp.date,
+      received_time: stamp.time,
+      timezone: stamp.tz,
+      receipt: receipt,
+    };
+  }
+
   function initWithdrawal(root) {
     if (!root || root.getAttribute('data-pflege-withdrawal-initialized') === 'true') return;
     root.setAttribute('data-pflege-withdrawal-initialized', 'true');
@@ -637,6 +671,7 @@
             time: stamp.time,
             tz: stamp.tz,
           };
+          sendCustomerEmailWebhook(root, buildWebhookPayload(data, stamp, receipt));
           showClientSuccess(root, form, payload);
           isSubmitting = false;
           return;

@@ -1,10 +1,11 @@
 {% comment %}
   Elektronische Widerrufsfunktion (§ 356a BGB) — zweistufiger Ablauf.
-  Shopify-Kontaktformular → Shop-Benachrichtigung; Kunden-E-Mail via Shopify Flow (Pflicht, siehe scripts/shopify-flow-widerruf-setup.md).
+  Shopify-Kontaktformular → Shop-Benachrichtigung; Kunden-E-Mail via Google Apps Script (kostenlos, scripts/widerruf-email-kostenlos-apps-script.md).
 
   Parameter:
   - standalone: true auf /pages/vertrag-widerrufen (Formular immer sichtbar, ohne Aufklapper)
   - placement: 'top' | default (Layout auf Widerrufsbelehrung, falls eingebettet)
+  - email_webhook_url: optionaler Webhook für Kunden-Eingangsbestätigung
 {% endcomment %}
 {{ 'pflege-withdrawal-form.css' | asset_url | stylesheet_tag }}
 
@@ -36,6 +37,7 @@
   {% if wd_standalone %}data-pflege-withdrawal-standalone{% endif %}
   data-pflege-withdrawal-tz="{{ wd_tz | escape }}"
   {% if request.query_string contains 'widerruf' %}data-pflege-withdrawal-query-success{% endif %}
+  {% if email_webhook_url != blank %}data-pflege-withdrawal-email-webhook="{{ email_webhook_url | strip | escape }}"{% endif %}
 >
   {%- unless wd_standalone -%}
     <div class="pflege-withdrawal__intro">

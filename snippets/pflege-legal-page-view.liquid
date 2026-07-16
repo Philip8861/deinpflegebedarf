@@ -25,7 +25,7 @@
         </header>
 
         {%- if show_withdrawal_form -%}
-          {% render 'pflege-withdrawal-form', placement: 'top', standalone: withdrawal_standalone %}
+          {% render 'pflege-withdrawal-form', placement: 'top', standalone: withdrawal_standalone, email_webhook_url: widerruf_email_webhook_url %}
         {%- endif -%}
 
         {%- unless withdrawal_page_only -%}

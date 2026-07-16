@@ -28,12 +28,12 @@
 | 6 | Teilwiderruf ohne Artikelangabe | ✅ | Validierung `partial-items` |
 | 7 | Korrektur in Stufe 2 | ✅ | Button „Angaben bearbeiten“ → Schritt 1 |
 | 8 | Doppelklick „Widerruf bestätigen“ | ✅ | Button deaktiviert, `aria-busy`, `sessionStorage` Submission-ID |
-| 9 | E-Mail-Versand schlägt fehl | ⚠️ | Theme kann Fehler nicht abfangen; Flow-Fehlerprotokoll in `shopify-flow-widerruf-setup.md` dokumentieren |
+| 9 | E-Mail-Versand schlägt fehl | ⚠️ | Widerruf gilt trotzdem; Webhook-Fehler blockiert nicht die Bestätigungsseite |
 | 10 | Mobile 320 px | ✅ | CSS `@media max-width: 479px` — volle Breite Buttons, einspaltige Summary |
 | 11 | Tastaturbedienung | ✅ | Labels, Fokuszustände, Radio-Buttons, kein Fokus-Trap |
 | 12 | Widerruf ohne Login | ✅ | Öffentliche Seite, kein `customer` required |
 | 13 | Link auf jeder Seite | ✅ | Footer-Band + Bottom-Bar in `pflege-footer-static.liquid` |
-| 14 | Eingangsbestätigung mit Inhalt, Datum, Uhrzeit | ⚠️ | On-Page ✅; E-Mail erfordert Shopify Flow |
+| 14 | Eingangsbestätigung mit Inhalt, Datum, Uhrzeit | ⚠️ | On-Page ✅; E-Mail erfordert Google Apps Script |
 | 15 | Keine Daten an Marketingtracker | ✅ | Kein Tracking-Code in `pflege-withdrawal-form.js`; keine Pixel-Events |
 
 ---
@@ -50,8 +50,8 @@
 | 6 | Kein Widerrufsgrund | ✅ |
 | 7 | Zweistufiger Ablauf | ✅ „Angaben prüfen“ → „Widerruf bestätigen“ |
 | 8 | Endbutton „Widerruf bestätigen“ | ✅ |
-| 9 | Sofortige Eingangsbestätigung E-Mail | ⚠️ Flow einrichten |
-| 10 | E-Mail mit Inhalt, Datum, Uhrzeit | ⚠️ Flow-Vorlage vorhanden |
+| 9 | Sofortige Eingangsbestätigung E-Mail | ⚠️ | Google Apps Script einrichten |
+| 10 | E-Mail mit Inhalt, Datum, Uhrzeit | ⚠️ | Vorlage in `widerruf-email-kostenlos-apps-script.md` |
 | 11 | Erfolgsseite mit Datum, Uhrzeit, Vorgangsnummer | ✅ |
 | 12 | Keine rechtliche Anerkennung behauptet | ✅ |
 | 13 | Mobil + Desktop | ✅ CSS Breakpoints |
@@ -74,6 +74,6 @@
 ## Offene technische Punkte
 
 1. **Shopify-Seite anlegen** im Admin (Handle `vertrag-widerrufen`, Template zuweisen)
-2. **Shopify Flow** für Kunden-E-Mail konfigurieren (siehe `scripts/shopify-flow-widerruf-setup.md`)
+2. **Google Apps Script** für Kunden-E-Mail konfigurieren (siehe `scripts/widerruf-email-kostenlos-apps-script.md`)
 3. **Live-Test** aller 15 Testfälle nach Theme-Upload
 4. **Screenshots** nach Live-Test
