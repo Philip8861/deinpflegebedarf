@@ -409,7 +409,7 @@
   function evaluateSubmitResponse(result) {
     var html = result.html || '';
     var url = result.url || '';
-    if (isChallengeUrl(url) || html.indexOf('shopify-challenge') !== -1) return false;
+    if (isChallengeUrl(url) || html.indexOf('shopify-challenge') !== -1) return 'challenge';
     if (hasExplicitError(html)) return false;
     if (url.indexOf('contact_posted=true') !== -1) return true;
     if (html.indexOf('data-pflege-withdrawal-sent-marker') !== -1) return true;
@@ -608,12 +608,37 @@
     };
   }
 
+  function flushPendingWebhook(root) {
+    // Nach Captcha-Umleitung: vorgemerkte Kunden-Bestätigung nachsenden.
+    var raw = null;
+    try {
+      raw = sessionStorage.getItem('pflege-wd-pending-webhook');
+    } catch (e) {}
+    if (!raw) return;
+
+    try {
+      sessionStorage.removeItem('pflege-wd-pending-webhook');
+      var payload = JSON.parse(raw);
+      var sentKey = 'pflege-wd-webhook-sent-' + (payload.case_id || '');
+      if (payload.case_id && sessionStorage.getItem(sentKey) === '1') return;
+      sendCustomerEmailWebhook(root, payload);
+      if (payload.case_id) sessionStorage.setItem(sentKey, '1');
+    } catch (e2) {}
+  }
+
   function initWithdrawal(root) {
     if (!root || root.getAttribute('data-pflege-withdrawal-initialized') === 'true') return;
     root.setAttribute('data-pflege-withdrawal-initialized', 'true');
 
     var form = qs(root, '[data-pflege-withdrawal-form]');
     if (!form) return;
+
+    var isReturnSuccess =
+      root.hasAttribute('data-pflege-withdrawal-query-success') ||
+      qs(root, '[data-pflege-withdrawal-success]') !== null;
+    if (isReturnSuccess) {
+      flushPendingWebhook(root);
+    }
 
     if (!qs(root, '[data-pflege-withdrawal-success]') && root.hasAttribute('data-pflege-withdrawal-query-success')) {
       if (showClientSuccess(root, form)) return;
@@ -745,6 +770,22 @@
       submitContactForm(form, function (ok) {
         if (submitSettled) return;
         submitSettled = true;
+
+        if (ok === 'challenge') {
+          // Shopify verlangt ein Captcha — regulär abschicken, damit der
+          // Kunde es lösen kann. Webhook-Daten für die Rückkehr vormerken.
+          try {
+            sessionStorage.setItem(
+              'pflege-wd-pending-webhook',
+              JSON.stringify(buildWebhookPayload(data, stamp, receipt))
+            );
+          } catch (e) {}
+          if (statusEl) {
+            statusEl.textContent = 'Sicherheitsprüfung erforderlich — Sie werden weitergeleitet …';
+          }
+          form.submit();
+          return;
+        }
 
         if (ok) {
           sessionStorage.setItem(storageKey, '1');
