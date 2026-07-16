@@ -71,10 +71,6 @@
   endif
 
   if current_handle == 'vertrag-widerrufen'
-    assign legal_plain = true
-    assign show_withdrawal_form = true
-    assign withdrawal_standalone = true
-    assign withdrawal_page_only = true
     assign legal_title_fallback = 'Vertrag widerrufen'
   endif
 
@@ -107,6 +103,14 @@
     elsif current_handle == 'versand-zahlung'
       assign legal_use_versand_zahlung_body = true
     endif
+  endif
+
+  if current_handle == 'vertrag-widerrufen'
+    assign legal_plain = true
+    assign show_withdrawal_form = true
+    assign withdrawal_standalone = true
+    assign withdrawal_page_only = true
+    assign legal_title_fallback = 'Vertrag widerrufen'
   endif
 
   if legal_plain
