@@ -257,6 +257,20 @@
       {%- assign review_btn = 'sections.customer_testimonials_hp.review_submit' | t -%}
     {%- endif -%}
     {%- assign review_form_id = 'CtReviewForm-' | append: section.id -%}
+    {%- liquid
+      assign ct_review_order_label = section.settings.review_order_number_label | strip
+      if ct_review_order_label == blank
+        assign ct_review_order_label = 'Bestellnummer'
+      endif
+      assign ct_review_order_placeholder = section.settings.review_order_number_placeholder | strip
+      if ct_review_order_placeholder == blank
+        assign ct_review_order_placeholder = 'z. B. 1042'
+      endif
+      assign ct_review_verify_note = section.settings.review_verification_note | strip
+      if ct_review_verify_note == blank
+        assign ct_review_verify_note = 'Vielen Dank für Ihre Bewertung! Nach Eingang gleichen wir Ihre Bestellnummer mit unseren Bestelldaten ab. Die Veröffentlichung erfolgt erst nach erfolgreicher Verifizierung.'
+      endif
+    -%}
     <dialog
       class="ct-hp__review-modal"
       id="ct-review-modal-{{ section.id }}"
@@ -384,7 +398,7 @@
               </div>
               <div class="ct-hp__review-field ct-hp__review-field--full">
                 <label class="ct-hp__review-label" for="{{ review_form_id }}-ordernumber">
-                  {{- 'sections.customer_testimonials_hp.review_order_number' | t -}}
+                  {{- ct_review_order_label | escape -}}
                   <span class="ct-hp__review-required" aria-hidden="true">*</span>
                 </label>
                 <input
@@ -398,7 +412,7 @@
                   autocapitalize="off"
                   required
                   aria-required="true"
-                  placeholder="{{ 'sections.customer_testimonials_hp.review_order_number_placeholder' | t }}"
+                  placeholder="{{ ct_review_order_placeholder | escape }}"
                   value="{{ form.Bestellnummer }}"
                 >
               </div>
@@ -423,7 +437,7 @@
                   {% endif %}
                 >
                 <p class="ct-hp__review-hint">
-                  {{- 'sections.customer_testimonials_hp.review_verification_note' | t -}}
+                  {{- ct_review_verify_note | escape -}}
                 </p>
               </div>
             </div>
@@ -534,6 +548,24 @@
       "id": "review_submit_label",
       "label": "Button-Text",
       "default": "Bewertung abgeben"
+    },
+    {
+      "type": "text",
+      "id": "review_order_number_label",
+      "label": "Feld „Bestellnummer“",
+      "default": "Bestellnummer"
+    },
+    {
+      "type": "text",
+      "id": "review_order_number_placeholder",
+      "label": "Platzhalter Bestellnummer",
+      "default": "z. B. 1042"
+    },
+    {
+      "type": "textarea",
+      "id": "review_verification_note",
+      "label": "Hinweis unter E-Mail (Verifizierung)",
+      "default": "Vielen Dank für Ihre Bewertung! Nach Eingang gleichen wir Ihre Bestellnummer mit unseren Bestelldaten ab. Die Veröffentlichung erfolgt erst nach erfolgreicher Verifizierung."
     },
     {
       "type": "checkbox",
