@@ -316,20 +316,37 @@
   color: var(--pl-muted);
 }
 
-.pflege-legal__legal-placeholder {
-  margin: 1rem 0 1.25rem;
-  padding: 1rem 1.1rem;
-  border: 2px dashed #c9a227;
+.pflege-legal__withdrawal-action {
+  margin: 1.15rem 0 1.5rem;
+}
+
+.pflege-legal__withdrawal-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0.65rem 1.45rem;
   border-radius: 12px;
-  background: #fffbeb;
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1.04rem, 0.98rem + 0.14vw, 1.14rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  color: #fff;
+  text-decoration: none;
+  background: #f89738;
+  box-shadow: 0 2px 10px rgba(248, 151, 56, 0.35);
+  transition: background 0.2s ease, box-shadow 0.2s ease;
 }
 
-.pflege-legal__legal-placeholder p {
-  margin: 0 0 0.65rem;
-}
-
-.pflege-legal__legal-placeholder p:last-child {
-  margin-bottom: 0;
+.pflege-legal__withdrawal-btn:hover,
+.pflege-legal__withdrawal-btn:focus-visible {
+  color: #fff;
+  text-decoration: none;
+  background: #cf6d18;
+  box-shadow: 0 3px 12px rgba(248, 151, 56, 0.42);
+  outline: 2px solid var(--pl-navy, #0b2347);
+  outline-offset: 2px;
 }
 
 /* Widerrufsformular — eigene Seite /vertrag-widerrufen */
