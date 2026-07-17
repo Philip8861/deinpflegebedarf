@@ -702,7 +702,8 @@
 {%- endif -%}
 
 <div class="visually-hidden" aria-hidden="true">
-  <a href="{{ routes.cart_url }}" id="cart-icon-bubble">{% render 'pflege-cart-icon-inner' %}</a>
+  {%- comment -%} tabindex="-1": verstecktes Sync-Element darf nicht per Tab erreichbar sein {%- endcomment -%}
+  <a href="{{ routes.cart_url }}" id="cart-icon-bubble" tabindex="-1">{% render 'pflege-cart-icon-inner' %}</a>
 </div>
 
 {% schema %}

@@ -143,16 +143,28 @@
         });
       }
 
-      function setRating(value) {
+      function syncTabindex(value) {
+        // Roving Tabindex: genau ein Stern ist per Tab erreichbar (gewählter, sonst erster)
+        var activeIndex = value > 0 ? value - 1 : 0;
+        buttons.forEach(function (btn, index) {
+          btn.setAttribute('tabindex', index === activeIndex ? '0' : '-1');
+        });
+      }
+
+      function setRating(value, moveFocus) {
         hidden.value = String(value);
         group.setAttribute('data-ct-review-rating', String(value));
         paintStars(value);
+        syncTabindex(value);
+        if (moveFocus) {
+          var target = buttons[value - 1];
+          if (target) target.focus();
+        }
       }
 
       buttons.forEach(function (btn) {
         btn.setAttribute('role', 'radio');
         btn.setAttribute('aria-checked', 'false');
-        btn.setAttribute('tabindex', '-1');
 
         btn.addEventListener('click', function () {
           var value = parseInt(btn.getAttribute('data-ct-review-star'), 10);
@@ -174,12 +186,14 @@
         var current = parseInt(hidden.value, 10) || 0;
         if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
           e.preventDefault();
-          setRating(Math.min(5, current + 1 || 1));
+          setRating(Math.min(5, current + 1 || 1), true);
         } else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
           e.preventDefault();
-          setRating(Math.max(1, current - 1 || 1));
+          setRating(Math.max(1, current - 1 || 1), true);
         }
       });
+
+      syncTabindex(parseInt(hidden.value, 10) || 0);
     });
   }
 
