@@ -491,8 +491,12 @@
       }
     });
 
+    // ESC schließt das Modal (Barrierefreiheit) — nur während des Absendens blockieren,
+    // damit der Vorgang nicht mittendrin abgebrochen wird
     root.addEventListener('cancel', function (e) {
       e.preventDefault();
+      if (isSubmitting) return;
+      userClose();
     });
 
     root.addEventListener('click', function (e) {

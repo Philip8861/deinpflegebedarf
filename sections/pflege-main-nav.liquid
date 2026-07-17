@@ -587,7 +587,8 @@
           href="{{ routes.cart_url }}"
           id="pflege-cart-icon-bubble"
           class="pflege-main-nav__cart-hit pflege-main-nav__cart-icon link focus-inset"
-          aria-label="{{ section.settings.cart_heading | escape }}"
+          aria-label="{{ section.settings.cart_heading | escape }}, {{ cart.item_count }} Artikel, {{ cart.total_price | money }}"
+          data-pflege-cart-heading="{{ section.settings.cart_heading | escape }}"
         >
           <span id="pflege-cart-icon-contents" class="pflege-main-nav__cart-graphic" aria-hidden="true">
             {% render 'pflege-cart-icon-inner' %}

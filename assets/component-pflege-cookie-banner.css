@@ -36,6 +36,14 @@
   display: none !important;
 }
 
+/* Container erhält programmatischen Fokus (tabindex="-1") — kein Ring am Wrapper,
+   die Buttons/Links darin haben eigene sichtbare Fokus-Stile */
+.pflege-cookie-banner:focus,
+.pflege-cookie-banner:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
 .pflege-cookie-banner__panel {
   pointer-events: auto;
   max-width: min(100%, 1426px);

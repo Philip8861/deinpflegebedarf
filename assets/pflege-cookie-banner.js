@@ -12,7 +12,40 @@
   }
 
   function hideBanner(root) {
+    var hadFocus = root.contains(document.activeElement);
     root.hidden = true;
+    if (root._pflegeCookieKeydown) {
+      document.removeEventListener('keydown', root._pflegeCookieKeydown, true);
+      root._pflegeCookieKeydown = null;
+    }
+    // Fokus nicht im versteckten Banner zurücklassen
+    if (hadFocus) {
+      var target = document.getElementById('MainContent') || document.body;
+      try {
+        target.focus({ preventScroll: true });
+      } catch (e) {}
+    }
+  }
+
+  function showBanner(root) {
+    root.hidden = false;
+
+    // Screenreader/Tastatur: Banner beim Einblenden fokussieren
+    try {
+      root.focus({ preventScroll: true });
+    } catch (e) {}
+
+    // ESC blendet das Banner für diese Seitenansicht aus (keine Entscheidung gespeichert,
+    // Banner erscheint beim nächsten Seitenaufruf erneut)
+    if (!root._pflegeCookieKeydown) {
+      root._pflegeCookieKeydown = function (e) {
+        if (e.key === 'Escape' && !root.hidden) {
+          e.preventDefault();
+          hideBanner(root);
+        }
+      };
+      document.addEventListener('keydown', root._pflegeCookieKeydown, true);
+    }
   }
 
   function init(root) {
@@ -59,7 +92,7 @@
     }
 
     if (root._pflegeCookieBound) {
-      root.hidden = false;
+      showBanner(root);
       return;
     }
 
@@ -67,7 +100,7 @@
     var decline = $('[data-pflege-cookie-decline]', root);
     if (!accept || !decline) return;
 
-    root.hidden = false;
+    showBanner(root);
     root._pflegeCookieBound = true;
 
     accept.addEventListener('click', function () {

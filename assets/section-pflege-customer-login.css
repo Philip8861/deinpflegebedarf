@@ -296,7 +296,11 @@
 .pflege-customer-login__password-toggle:focus-visible {
   background: rgba(11, 119, 165, 0.08);
   color: #07516d;
-  outline: none;
+}
+
+.pflege-customer-login__password-toggle:focus-visible {
+  outline: 2px solid var(--pflege-navy, #0b2347);
+  outline-offset: 2px;
 }
 
 .pflege-customer-login__password-toggle svg {
@@ -325,7 +329,12 @@
 .pflege-customer-login__forgot:hover,
 .pflege-customer-login__forgot:focus-visible {
   text-decoration: underline;
-  outline: none;
+}
+
+.pflege-customer-login__forgot:focus-visible {
+  outline: 2px solid var(--pflege-navy, #0b2347);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 .pflege-customer-login__btn {
@@ -365,7 +374,11 @@
 .pflege-customer-login__btn--primary:hover,
 .pflege-customer-login__btn--primary:focus-visible {
   background: #f97316;
-  outline: none;
+}
+
+.pflege-customer-login__btn--primary:focus-visible {
+  outline: 2px solid var(--pflege-navy, #0b2347);
+  outline-offset: 2px;
 }
 
 .pflege-customer-login__or {
@@ -401,7 +414,11 @@
 .pflege-customer-login__btn--secondary:focus-visible {
   background: #f8fbff;
   border-color: #c8d8e8;
-  outline: none;
+}
+
+.pflege-customer-login__btn--secondary:focus-visible {
+  outline: 2px solid var(--pflege-navy, #0b2347);
+  outline-offset: 2px;
 }
 
 .pflege-customer-login__secure {

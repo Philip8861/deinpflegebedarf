@@ -87,6 +87,7 @@
         {%- endif -%}
       {%- else -%}
         {%- if block.settings.placeholder_image != blank -%}
+          {%- assign manual_alt = block.settings.placeholder_image.alt | default: block.settings.manual_title -%}
           {{
             block.settings.placeholder_image
             | image_url: width: 800
@@ -94,7 +95,7 @@
               loading: 'lazy',
               widths: '320, 480, 640, 800',
               sizes: '(min-width: 990px) 368px, (min-width: 600px) 55vw, 68vw',
-              alt: ''
+              alt: manual_alt
           }}
         {%- else -%}
           {{ 'product-apparel-2' | placeholder_svg_tag: 'placeholder-svg' }}

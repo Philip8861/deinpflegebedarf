@@ -127,7 +127,12 @@
 .pflege-inko-rezept-phone__number:hover,
 .pflege-inko-rezept-phone__number:focus-visible {
   color: color-mix(in srgb, var(--pflege-home-section-heading-color, #0f4f69) 78%, var(--pflege-heading-navy, #062a55));
-  outline: none;
+}
+
+.pflege-inko-rezept-phone__number:focus-visible {
+  outline: 2px solid var(--pflege-heading-navy, #062a55);
+  outline-offset: 3px;
+  border-radius: 6px;
 }
 
 .pflege-inko-rezept-phone__hint {

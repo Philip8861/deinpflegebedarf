@@ -82,5 +82,11 @@
 .pflege-customer-account-page__alt-link a:hover,
 .pflege-customer-account-page__alt-link a:focus-visible {
   text-decoration: underline;
-  outline: none;
+}
+
+.pflege-customer-login__register-link a:focus-visible,
+.pflege-customer-account-page__alt-link a:focus-visible {
+  outline: 2px solid var(--pflege-ca-link, #0b6edc);
+  outline-offset: 2px;
+  border-radius: 4px;
 }

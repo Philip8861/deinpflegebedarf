@@ -16,10 +16,18 @@
       })
       .then(function (cart) {
         var currency = cart.currency || 'EUR';
-        el.textContent = new Intl.NumberFormat(document.documentElement.lang || 'de-DE', {
+        var formatted = new Intl.NumberFormat(document.documentElement.lang || 'de-DE', {
           style: 'currency',
           currency: currency,
         }).format(cart.total_price / 100);
+        el.textContent = formatted;
+
+        // Zugänglicher Name des Warenkorb-Links mit Artikelanzahl aktuell halten
+        var link = document.getElementById('pflege-cart-icon-bubble');
+        if (link) {
+          var heading = link.getAttribute('data-pflege-cart-heading') || 'Warenkorb';
+          link.setAttribute('aria-label', heading + ', ' + cart.item_count + ' Artikel, ' + formatted);
+        }
       })
       .catch(function () {});
   }

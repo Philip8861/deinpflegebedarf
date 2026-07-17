@@ -754,6 +754,12 @@ summary::-webkit-details-marker {
   outline: 0 !important;
 }
 
+/* Skip-Link-Ziel: Nach "Direkt zum Inhalt" muss der Fokus sichtbar sein (WCAG 2.4.7) */
+main#MainContent.focus-none:focus-visible {
+  outline: 0.2rem solid rgba(var(--color-foreground), 0.4) !important;
+  outline-offset: -0.2rem;
+}
+
 .focus-offset:focus-visible {
   outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
   outline-offset: 1rem;

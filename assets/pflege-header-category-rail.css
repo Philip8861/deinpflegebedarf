@@ -249,7 +249,11 @@
 .pflege-cat-rail--header-row .pflege-cat-rail__sublink:focus-visible {
   background: #f0f7ff;
   color: #0f4f69;
-  outline: none;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__sublink:focus-visible {
+  outline: 2px solid var(--pflege-heading-navy, #062a55);
+  outline-offset: -2px;
 }
 
 .pflege-cat-rail--header-row .pflege-cat-rail__sublink.is-active {
