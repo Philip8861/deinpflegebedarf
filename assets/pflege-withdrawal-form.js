@@ -2,7 +2,7 @@
  * Elektronische Widerrufsfunktion (§ 356a BGB) — zweistufiger Ablauf.
  * Übermittlung per fetch() an Shopify /contact (wie Rezept-Formular).
  * Kunden-E-Mail: Google Apps Script Webhook (scripts/widerruf-email-kostenlos-apps-script.md).
- * Build: 2026-07-16-live-fix-c (Captcha-Rücksprung cache-sicher + Sofort-Webhook)
+ * Build: 2026-07-17-live-fix-f (ein Webhook-Versand, Client- + Server-Dedupe)
  */
 (function () {
   'use strict';
@@ -484,11 +484,9 @@
   var WEBHOOK_DEPLOYMENT_ID = 'AKfycbzGEEamLZvg_36WL-gr6rKAdyXHbrgtNZUDY3-qGKegulaboWegfFRNU7rX2aK7GJKs';
 
   function resolveWebhookUrl(root) {
-    var url = root.getAttribute('data-pflege-withdrawal-email-webhook');
-    if (!url || url.indexOf(WEBHOOK_DEPLOYMENT_ID) === -1) {
-      return WEBHOOK_URL_LIVE;
-    }
-    return url;
+    // Immer die feste Live-URL — data-Attribut kann aus veraltetem
+    // Seiten-Cache oder Theme-Editor-Einstellungen eine tote URL enthalten.
+    return WEBHOOK_URL_LIVE;
   }
 
   function normalizeWebhookPayload(payload) {
@@ -503,9 +501,13 @@
     return payload;
   }
 
-  function sendCustomerEmailWebhook(root, payload) {
+  function webhookSentKey(caseId) {
+    return 'pflege-wd-webhook-sent-' + (caseId || '');
+  }
+
+  function trySendCustomerEmailWebhook(root, payload) {
     var url = resolveWebhookUrl(root);
-    if (!url) return;
+    if (!url) return false;
 
     var normalized = normalizeWebhookPayload(
       Object.assign({}, payload, {
@@ -522,7 +524,15 @@
       })
     );
 
-    if (!normalized.customer_email) return;
+    if (!normalized.customer_email) return false;
+
+    var sentKey = webhookSentKey(normalized.case_id);
+    if (normalized.case_id) {
+      try {
+        if (sessionStorage.getItem(sentKey) === '1') return false;
+        sessionStorage.setItem(sentKey, '1');
+      } catch (e) {}
+    }
 
     var slimPayload = {
       type: normalized.type,
@@ -539,66 +549,22 @@
       timezone: normalized.timezone,
     };
 
-    // Alle Kanäle parallel — maximale Zustellsicherheit.
-    // Server-seitiger Dedupe (case_id) verhindert Doppel-Mails.
-    sendWebhookViaHiddenForm(url, slimPayload);
-    sendWebhookViaGetImage(url, slimPayload);
-
     try {
-      var params = [];
-      Object.keys(slimPayload).forEach(function (key) {
-        var value = slimPayload[key];
-        if (value == null || value === '') return;
-        params.push(encodeURIComponent(key) + '=' + encodeURIComponent(String(value)));
-      });
-      var beaconUrl = url + (url.indexOf('?') >= 0 ? '&' : '?') + params.join('&');
-
       if (typeof navigator !== 'undefined' && navigator.sendBeacon) {
-        var blob = new Blob([JSON.stringify(slimPayload)], { type: 'text/plain;charset=UTF-8' });
-        navigator.sendBeacon(url, blob);
+        navigator.sendBeacon(
+          url,
+          new Blob([JSON.stringify(slimPayload)], { type: 'text/plain;charset=UTF-8' })
+        );
+        return true;
       }
+    } catch (e1) {}
 
-      fetch(beaconUrl, { method: 'GET', mode: 'no-cors', keepalive: true }).catch(function () {});
-    } catch (e3) {}
+    sendWebhookViaGetImage(url, slimPayload);
+    return true;
   }
 
-  function sendWebhookViaHiddenForm(url, payload) {
-    try {
-      var frameId = 'pflege-wd-webhook-frame';
-      var frame = document.getElementById(frameId);
-      if (!frame) {
-        frame = document.createElement('iframe');
-        frame.id = frameId;
-        frame.name = frameId;
-        frame.title = 'Widerruf Webhook';
-        frame.setAttribute('aria-hidden', 'true');
-        frame.style.cssText = 'display:none;width:0;height:0;border:0;';
-        document.body.appendChild(frame);
-      }
-
-      var form = document.createElement('form');
-      form.method = 'POST';
-      form.action = url;
-      form.target = frameId;
-      form.style.display = 'none';
-      form.setAttribute('accept-charset', 'UTF-8');
-
-      Object.keys(payload).forEach(function (key) {
-        var value = payload[key];
-        if (value == null || value === '') return;
-        var input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = key;
-        input.value = String(value);
-        form.appendChild(input);
-      });
-
-      document.body.appendChild(form);
-      form.submit();
-      window.setTimeout(function () {
-        if (form.parentNode) form.parentNode.removeChild(form);
-      }, 3000);
-    } catch (e) {}
+  function sendCustomerEmailWebhook(root, payload) {
+    trySendCustomerEmailWebhook(root, payload);
   }
 
   function sendWebhookViaGetImage(url, payload) {
@@ -644,7 +610,6 @@
   }
 
   function flushPendingWebhook(root) {
-    // Nach Captcha-Umleitung: vorgemerkte Kunden-Bestätigung nachsenden.
     var raw = null;
     try {
       raw = sessionStorage.getItem('pflege-wd-pending-webhook');
@@ -652,12 +617,9 @@
     if (!raw) return;
 
     try {
-      sessionStorage.removeItem('pflege-wd-pending-webhook');
       var payload = JSON.parse(raw);
-      var sentKey = 'pflege-wd-webhook-sent-' + (payload.case_id || '');
-      if (payload.case_id && sessionStorage.getItem(sentKey) === '1') return;
-      sendCustomerEmailWebhook(root, payload);
-      if (payload.case_id) sessionStorage.setItem(sentKey, '1');
+      sessionStorage.removeItem('pflege-wd-pending-webhook');
+      trySendCustomerEmailWebhook(root, payload);
     } catch (e2) {}
   }
 
@@ -748,6 +710,7 @@
     form.addEventListener('submit', function (ev) {
       ev.preventDefault();
 
+      if (form.getAttribute('data-pflege-wd-already-submitted') === '1') return;
       if (isSubmitting || submitSettled) return;
 
       var step2 = qs(root, '[data-pflege-withdrawal-step="2"]');
@@ -789,7 +752,8 @@
       sessionStorage.setItem('pflege-wd-last-email', data.email);
 
       isSubmitting = true;
-      submitSettled = false;
+      submitSettled = true;
+      form.setAttribute('data-pflege-wd-already-submitted', '1');
 
       if (confirmBtn) {
         confirmBtn.disabled = true;
@@ -802,62 +766,31 @@
         statusEl.textContent = 'Ihre Widerrufserklärung wird übermittelt. Bitte warten …';
       }
 
-      submitContactForm(form, function (ok) {
-        if (submitSettled) return;
-        submitSettled = true;
+      try {
+        sessionStorage.setItem(storageKey, '1');
+      } catch (e) {}
 
-        if (ok === 'challenge') {
-          // Shopify verlangt ein Captcha — regulär abschicken, damit der
-          // Kunde es lösen kann. Webhook-Daten für die Rückkehr vormerken.
-          var challengePayload = buildWebhookPayload(data, stamp, receipt);
-          try {
-            sessionStorage.setItem(
-              'pflege-wd-pending-webhook',
-              JSON.stringify(challengePayload)
-            );
-          } catch (e) {}
-          // Kunden-Mail sofort mit auslösen (Beacon/keepalive überleben die
-          // Weiterleitung; Dedupe im Apps Script verhindert Doppelversand,
-          // falls der Rücksprung sie erneut sendet).
-          try {
-            sendCustomerEmailWebhook(root, challengePayload);
-          } catch (e) {}
-          // Rücksprung-URL eindeutig machen, damit die Seite nach dem Captcha
-          // garantiert frisch (ohne Shopify-Cache) mit aktuellem JS lädt.
-          try {
-            var returnInput = form.querySelector('input[name="return_to"]');
-            if (returnInput && returnInput.value) {
-              returnInput.value +=
-                (returnInput.value.indexOf('?') >= 0 ? '&' : '?') +
-                'ts=' + Date.now();
-            }
-          } catch (e) {}
-          if (statusEl) {
-            statusEl.textContent = 'Sicherheitsprüfung erforderlich — Sie werden weitergeleitet …';
-          }
-          form.submit();
-          return;
+      var webhookPayload = buildWebhookPayload(data, stamp, receipt);
+      try {
+        sessionStorage.setItem('pflege-wd-pending-webhook', JSON.stringify(webhookPayload));
+      } catch (e) {}
+      try {
+        trySendCustomerEmailWebhook(root, webhookPayload);
+      } catch (e) {}
+      try {
+        var returnInput = form.querySelector('input[name="return_to"]');
+        if (returnInput && returnInput.value) {
+          var returnBase = returnInput.value.replace(/([?&])ts=\d+/g, '$1').replace(/[?&]$/, '');
+          returnInput.value =
+            returnBase + (returnBase.indexOf('?') >= 0 ? '&' : '?') + 'ts=' + Date.now();
         }
+      } catch (e) {}
 
-        if (ok) {
-          sessionStorage.setItem(storageKey, '1');
-          var payload = {
-            caseId: data.caseId,
-            email: data.email,
-            receipt: receipt,
-            date: stamp.date,
-            time: stamp.time,
-            tz: stamp.tz,
-          };
-          sendCustomerEmailWebhook(root, buildWebhookPayload(data, stamp, receipt));
-          showClientSuccess(root, form, payload);
-          isSubmitting = false;
-          return;
-        }
-
-        resetSubmitUi();
-        showSubmitError(root, ERROR_TEXT);
-      });
+      // Kurz warten, damit Beacon/Bild-Request den Webhook erreichen,
+      // bevor form.submit() die Seite verlässt.
+      window.setTimeout(function () {
+        form.submit();
+      }, 600);
     });
 
     form.addEventListener(
