@@ -1,0 +1,960 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "general": {
+    "password_page": {
+      "login_form_heading": "Shop mit Passwort betreten:",
+      "login_password_button": "Mit Passwort betreten",
+      "login_form_password_label": "Passwort",
+      "login_form_password_placeholder": "Dein Passwort",
+      "login_form_error": "Falsches Passwort!",
+      "login_form_submit": "Eingeben",
+      "admin_link_html": "Bist du der Shop-Inhaber? <a href=\"/admin\" class=\"link underlined-link\">Hier einloggen</a>",
+      "powered_by_shopify_html": "Dieser Shop wird unterstützt von {{ shopify }}"
+    },
+    "social": {
+      "alt_text": {
+        "share_on_facebook": "Auf Facebook teilen",
+        "share_on_twitter": "Auf X teilen",
+        "share_on_pinterest": "Auf Pinterest pinnen"
+      },
+      "links": {
+        "twitter": "X (Twitter)",
+        "facebook": "Facebook",
+        "pinterest": "Pinterest",
+        "instagram": "Instagram",
+        "tumblr": "Tumblr",
+        "snapchat": "Snapchat",
+        "youtube": "YouTube",
+        "vimeo": "Vimeo",
+        "tiktok": "TikTok"
+      }
+    },
+    "continue_shopping": "Weiter einkaufen",
+    "pagination": {
+      "label": "Seitennummerierung",
+      "page": "Seite {{ number }}",
+      "next": "Nächste Seite",
+      "previous": "Vorherige Seite"
+    },
+    "search": {
+      "search": "Suchen",
+      "reset": "Suchbegriff zurücksetzen",
+      "heading": {
+        "one": "{{ count }} result",
+        "other": "{{ count }} results"
+      },
+      "results_with_count": {
+        "one": "{{ count }} result for \"{{ terms }}\"",
+        "other": "{{ count }} results for \"{{ terms }}\""
+      }
+    },
+    "meta": {
+      "tags": "Tagged \"{{ tags }}\"",
+      "page": "Page {{ page }}"
+    },
+    "cart": {
+      "view": "Warenkorb anzeigen ({{ count }})",
+      "view_empty_cart": "Warenkorb anzeigen",
+      "item_added": "In den Warenkorb gelegt",
+      "notification_heading": "Prima, der Artikel wartet jetzt im Warenkorb auf dich!",
+      "notification_subtext": "",
+      "notification_recos_heading": "Oft zusammen gekauft: hilfreiche Produkte für die häusliche Pflege",
+      "notification_checkout": "Zur Kasse",
+      "notification_continue": "Weiter einkaufen",
+      "notification_qty": {
+        "one": "{{ count }} Artikel",
+        "other": "{{ count }} Artikel"
+      },
+      "trust_pay_title": "Sichere Zahlung",
+      "trust_pay_sub": "SSL-verschlüsselt",
+      "trust_quality_title": "100% geprüfte Qualität",
+      "trust_quality_sub": "Sorgfältig ausgewählte Produkte",
+      "trust_ship_title": "Versand innerhalb von 1-3 Werktagen",
+      "trust_ship_sub": ""
+    },
+    "share": {
+      "close": "Teilen schließen",
+      "copy_to_clipboard": "Link kopieren",
+      "share_url": "Link",
+      "success_message": "Link in die Zwischenablage kopiert"
+    },
+    "slider": {
+      "of": "von",
+      "next_slide": "Nach rechts schieben",
+      "previous_slide": "Nach links schieben",
+      "name": "Slider"
+    }
+  },
+  "newsletter": {
+    "label": "E-Mail",
+    "success": "Danke für deine Anmeldung",
+    "button_label": "Abonnieren"
+  },
+  "accessibility": {
+    "skip_to_text": "Direkt zum Inhalt",
+    "skip_to_product_info": "Zu Produktinformationen springen",
+    "close": "Schließen",
+    "unit_price_separator": "pro",
+    "vendor": "Anbieter:",
+    "error": "Fehler",
+    "refresh_page": "Wenn du dich für eine Auswahl entscheidest, wird die Seite komplett aktualisiert.",
+    "link_messages": {
+      "new_window": "Wird in einem neuen Fenster geöffnet.",
+      "external": "Öffnet externe Webseite."
+    },
+    "loading": "Wird geladen ...",
+    "total_reviews": "Bewertungen insgesamt",
+    "star_reviews_info": "{{ rating_value }} von {{ rating_max }} Sternen",
+    "collapsible_content_title": "Einklappbarer Inhalt",
+    "complementary_products": "Ergänzende Produkte"
+  },
+  "blogs": {
+    "article": {
+      "blog": "Blog",
+      "read_more_title": "Weiterlesen: {{ title }}",
+      "comments": {
+        "one": "{{ count }} Kommentar",
+        "other": "{{ count }} Kommentare"
+      },
+      "moderated": "Bitte beachte, dass Kommentare vor der Veröffentlichung freigegeben werden müssen.",
+      "comment_form_title": "Hinterlasse einen Kommentar",
+      "name": "Name",
+      "email": "E-Mail",
+      "message": "Kommentar",
+      "post": "Kommentar posten",
+      "back_to_blog": "Zurück zum Blog",
+      "share": "Diesen Artikel teilen",
+      "success": "Dein Kommentar wurde erfolgreich gepostet! Vielen Dank!",
+      "success_moderated": "Dein Kommentar wurde erfolgreich gepostet. Da unser Blog moderiert wird, werden wir ihn erst kurze Zeit später veröffentlichen."
+    }
+  },
+  "onboarding": {
+    "product_title": "Beispiel für Produkttitel",
+    "collection_title": "Name deiner Kollektion"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "In den Warenkorb",
+      "choose_options": "Optionen auswählen",
+      "choose_product_options": "Optionen für {{ product_name }} auswählen",
+      "description": "Beschreibung",
+      "inventory_in_stock": "Sofort lieferbar",
+      "inventory_in_stock_show_count": "{{ quantity }} auf Lager",
+      "inventory_low_stock": "Niedriger Lagerbestand",
+      "inventory_low_stock_show_count": "Niedriger Lagerbestand: {{ quantity }} verbleibend",
+      "inventory_out_of_stock": "Nicht vorrätig",
+      "inventory_out_of_stock_continue_selling": "Sofort lieferbar",
+      "pflege_cart": {
+        "wishlist": "Auf den Merkzettel",
+        "delivery_eta": "Versand innerhalb von 1-3 Werktagen",
+        "delivery_estimate_prefix": "Estimated delivery approx.",
+        "delivery_estimate_between": "to",
+        "delivery_estimate_suffix": ".",
+        "delivery_estimate_loading": "Calculating delivery …",
+        "delivery_estimate_aria": "Estimated delivery window",
+        "unit_price_sep": "PRO",
+        "unit_price_liter": "Liter",
+        "unit_price_piece": "1 Stück",
+        "unit_price_kg": "1 kg",
+        "trust_ship_title": "Free shipping from €150",
+        "trust_ship_sub": "",
+        "trust_payment_title": "Secure payment",
+        "trust_quality_title": "100 % verified quality",
+        "trust_quality_sub": "Carefully selected products",
+        "trust_discrete_title": "100 % discreet shipping",
+        "trust_discrete_sub": "Neutral packaging, delivered discreetly",
+        "pay_methods_label": "Pay securely with",
+        "pay_methods_aria": "Accepted payment methods",
+        "pay_trust_title": "100 % secure payment & discreet shipping",
+        "pay_trust_desc": "Pay conveniently with familiar payment methods. Your order is packed neutrally and delivered discreetly.",
+        "pay_trust_badge_ssl": "SSL encrypted",
+        "pay_trust_badge_packaging": "Neutral packaging",
+        "pay_trust_aria": "Secure payment and discreet shipping",
+        "trust_care_title": "Von Pflegekräften empfohlen",
+        "trust_care_sub": "Vertrauen, das zählt"
+      },
+      "pflege_pdp": {
+        "tabs_aria": "Product details & reviews",
+        "reviews_placeholder": "Connect Shopify product reviews or a reviews app — content will render in this panel.",
+        "reviews_link_suffix": "customer reviews",
+        "bestseller_badge": "Bestseller",
+        "rating_placeholder": "No reviews yet.",
+        "claims_aria": "Highlighted product traits",
+        "claim_fallback_1": "Designed for delicate or sensitive-prone skin",
+        "claim_fallback_2": "Balanced, caring formulation",
+        "claim_fallback_3": "Suitable for home and professional care",
+        "claim_fallback_4": "Reliable sourcing and documented information",
+        "quick_usp_fallback_1": "Certified quality",
+        "quick_usp_fallback_2": "Recommended by caregivers",
+        "quick_usp_fallback_3": "For home & professional care",
+        "quick_usp_fallback_4": "Trusted-care quality cues",
+        "service_foot_aria": "Service highlights",
+        "service_foot_shipping_title": "Versand innerhalb von 1-3 Werktagen",
+        "service_foot_shipping_sub": "",
+        "service_foot_support_title": "Personal advice",
+        "service_foot_support_sub": "07733 / 9488820",
+        "service_foot_quality_title": "Versand innerhalb von 1-3 Werktagen",
+        "service_foot_quality_sub": "",
+        "unified_info_aria": "Product information and downloads",
+        "hilfsmittelnummer_label": "Medical aid number:",
+        "product_sheet_download": "Download product sheet",
+        "unified_placeholder_beschreibung": "Product description will appear here once the metafield custom.beschreibung is filled in the admin.",
+        "unified_placeholder_anwendung": "Application notes will appear here once custom.anwendung is filled.",
+        "unified_placeholder_produkteigenschaften": "Product attributes will appear here once custom.produkteigenschaften is filled.",
+        "unified_placeholder_hilfsmittel": "to be added",
+        "unified_placeholder_pdf": "Product sheet: no PDF uploaded yet (e.g. custom.produktblatt).",
+        "meta_strip_aria": "Product highlights",
+        "meta_strip_title_beschreibung": "Description",
+        "meta_strip_title_anwendung": "How to use",
+        "meta_strip_title_eigenschaften": "Product details",
+        "meta_strip_title_hilfsmittel": "Medical aid number",
+        "meta_strip_title_pdf": "Product sheet",
+        "meta_strip_placeholder_body": "Content coming soon — fill the metafield in Shopify admin."
+      },
+      "sku": "SKU",
+      "on_sale": "Angebot",
+      "product_variants": "Produktvarianten",
+      "media": {
+        "gallery_viewer": "Galerie-Viewer",
+        "load_image": "Bild {{ index }} in Galerieansicht laden",
+        "load_model": "3D-Modell {{ index }} in Galerieansicht laden",
+        "load_video": "Video {{ index }} in Galerieansicht abspielen",
+        "image_available": "Bild {{ index }} ist nun in der Galerieansicht verfügbar",
+        "open_media": "Medien {{ index }} in Modal öffnen",
+        "play_model": "3D-Viewer abspielen",
+        "play_video": "Video abspielen"
+      },
+      "nested_label": "{{ title }} für {{ parent_title }}",
+      "quantity": {
+        "label": "Anzahl",
+        "input_label": "Anzahl von {{ product }}",
+        "increase": "Erhöhe die Menge für {{ product }}",
+        "decrease": "Verringere die Menge für {{ product }}",
+        "minimum_of": "Mindestens {{ quantity }}",
+        "maximum_of": "Maximal {{ quantity }}",
+        "multiples_of": "In {{ quantity }}er Schritten",
+        "min_of": "Mindestens {{ quantity }}",
+        "max_of": "Höchstens {{ quantity }}",
+        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}</span> im Warenkorb",
+        "in_cart_aria_label": "Menge ({{ quantity }} im Warenkorb)",
+        "note": "Mengenregeln anzeigen"
+      },
+      "volume_pricing": {
+        "title": "Volumenabhängige Preisgestaltung",
+        "note": "Volumenabhängige Preisgestaltung verfügbar",
+        "minimum": "{{ quantity }}+",
+        "price_at_each_html": "bei {{ price }}/Stück",
+        "price_range": "{{ minimum }}–{{ maximum }}"
+      },
+      "pickup_availability": {
+        "view_store_info": "Shop-Informationen anzeigen",
+        "check_other_stores": "Verfügbarkeit in anderen Shops überprüfen",
+        "pick_up_available": "Abholung verfügbar",
+        "pick_up_available_at_html": "Abholung bei <span class=\"color-foreground\">{{ location_name }}</span> verfügbar",
+        "pick_up_unavailable_at_html": "Abholung bei <span class=\"color-foreground\">{{ location_name }}</span> derzeit nicht verfügbar",
+        "unavailable": "Verfügbarkeit für Abholungen konnte nicht geladen werden",
+        "refresh": "Aktualisieren"
+      },
+      "price": {
+        "from_price_html": "Von {{ price }}",
+        "regular_price": "Normaler Preis",
+        "sale_price": "Verkaufspreis",
+        "unit_price": "Grundpreis"
+      },
+      "share": "Dieses Produkt teilen",
+      "sold_out": "Ausverkauft",
+      "unavailable": "Nicht verfügbar",
+      "vendor": "Anbieter",
+      "value_unavailable": "{{ option_value }} – nicht verfügbar",
+      "variant_sold_out_or_unavailable": "Variante ausverkauft oder nicht verfügbar",
+      "video_exit_message": "{{ title }} öffnet das Video auf derselben Seite im Vollbildmodus.",
+      "view_full_details": "Vollständige Details anzeigen",
+      "xr_button": "In deinem Bereich ansehen",
+      "xr_button_label": "\"Ansicht in deinem Raum\" lädt den Artikel in ein Augmented-Reality-Fenster",
+      "taxes_included": "Inkl. Steuern.",
+      "duties_included": "Inkl. Zollgebühren.",
+      "duties_and_taxes_included": "Inkl. Zollgebühren und Steuern.",
+      "shipping_policy_html": "<a href=\"{{ link }}\">Versand</a> wird an der Kasse berechnet"
+    },
+    "modal": {
+      "label": "Medien-Galerie"
+    },
+    "facets": {
+      "filter_and_operator_subtitle": "Allen entsprechen",
+      "apply": "Anwenden",
+      "clear": "Löschen",
+      "clear_all": "Alle entfernen",
+      "from": "Von",
+      "filter_and_sort": "Filtern und sortieren",
+      "filter_by_label": "Filter:",
+      "filter_button": "Filter",
+      "filters_selected": {
+        "one": "{{ count }} ausgewählt",
+        "other": "{{ count }} ausgewählt"
+      },
+      "filter_selected_accessibility": "{{ type }} ({{ count }} Filter ausgewählt)",
+      "show_more": "Mehr anzeigen",
+      "show_less": "Weniger anzeigen",
+      "max_price": "Der höchste Preis ist {{ price }}",
+      "product_count": {
+        "one": "{{ product_count }} von {{ count }} Produkt",
+        "other": "{{ product_count }} von {{ count }} Produkten"
+      },
+      "product_count_simple": {
+        "one": "{{ count }} Produkt",
+        "other": "{{ count }} Produkte"
+      },
+      "reset": "Zurücksetzen",
+      "sort_button": "Sortieren",
+      "sort_by_label": "Sortieren nach:",
+      "to": "Bis",
+      "clear_filter": "Filter entfernen"
+    }
+  },
+  "templates": {
+    "search": {
+      "no_results": "Keine Ergebnisse gefunden für \"{{ terms }}\". Überprüfe die Schreibweise oder versuche es mit einer anderen Suchanfrage.",
+      "page": "Seite",
+      "products": "Produkte",
+      "results_pages_with_count": {
+        "one": "{{ count }} Seite",
+        "other": "{{ count }} Seiten"
+      },
+      "results_suggestions_with_count": {
+        "one": "{{ count }} Vorschlag",
+        "other": "{{ count }} Vorschläge"
+      },
+      "results_products_with_count": {
+        "one": "{{ count }} Produkt",
+        "other": "{{ count }} Produkte"
+      },
+      "results_with_count": {
+        "one": "{{ count }} Ergebnis",
+        "other": "{{ count }} Ergebnisse"
+      },
+      "results_with_count_and_term": {
+        "one": "{{ count }} Ergebnis für \"{{ terms }}\" gefunden",
+        "other": "{{ count }} Ergebnisse für \"{{ terms }}\" gefunden"
+      },
+      "title": "Suchergebnisse",
+      "search_for": "Suchbegriff: „{{ terms }}“",
+      "suggestions": "Vorschläge",
+      "pages": "Seiten"
+    },
+    "cart": {
+      "cart": "Warenkorb"
+    },
+    "contact": {
+      "form": {
+        "title": "Kontaktformular",
+        "name": "Name",
+        "email": "E-Mail",
+        "phone": "Telefonnummer",
+        "comment": "Kommentar",
+        "send": "Senden",
+        "post_success": "Danke, dass du uns kontaktiert hast. Wir werden uns so schnell wie möglich bei dir melden.",
+        "error_heading": "Bitte passe Folgendes an:"
+      }
+    },
+    "404": {
+      "title": "Page not found",
+      "subtext": "The page you requested does not exist or may have been moved.",
+      "cta": "Back to shop"
+    }
+  },
+  "sections": {
+    "announcements": {
+      "previous_announcement": "Vorherige Ankündigung",
+      "next_announcement": "Nächste Ankündigung",
+      "carousel": "Karussell",
+      "announcement": "Ankündigung",
+      "announcement_bar": "Ankündigungsleiste"
+    },
+    "header": {
+      "announcement": "Ankündigung",
+      "menu": "Menü",
+      "cart_count": {
+        "one": "{{ count }} Artikel",
+        "other": "{{ count }} Artikel"
+      }
+    },
+    "related_products": {
+      "view_all": "View all →"
+    },
+    "pflege_header_category_rail": {
+      "nav_aria": "Product categories",
+      "cat_free_care": "Free care aids",
+      "cat_ink": "Incontinence care",
+      "cat_ink_products": "Incontinence products",
+      "cat_ink_rezept": "Redeem prescription",
+      "cat_body": "Body care",
+      "cat_skin": "Skin care",
+      "cat_gloves": "Protection & gloves",
+      "cat_des": "Hand and surface disinfection",
+      "cat_consumables": "Consumables",
+      "cat_pflegesets": "Care sets"
+    },
+    "pflege_collection_bottom_content": {
+      "default_aria": "More information about this category"
+    },
+    "pflege_collection": {
+      "finder_heading": "Not sure which product fits?",
+      "finder_text_default": "Our product finder guides you step by step to a suitable selection.",
+      "finder_cta": "Start product finder",
+      "fallback_intro": "{{ title }} bundles curated essentials for straightforward shopping.",
+      "fallback_usp_1": "Reliable brands and dependable quality.",
+      "fallback_usp_2": "Clear layout — find what matters quickly.",
+      "fallback_usp_3": "Personal guidance when choosing products.",
+      "seo_fallback": "Browse products in {{ title }} with concise introduction above and detailed product pages for each offer.",
+      "view_details": "View details",
+      "view_details_aria": "{{ title }} — Open product details",
+      "usp_list_label": "Category highlights"
+    },
+    "pflege_category_filtered": {
+      "desinfektion": {
+        "meta_title": "Buy hand & surface disinfectant online | Disinfection products",
+        "meta_description": "Hand disinfectant, surface disinfectant, wipes, gels and sprays for care, practice and home. Filter by type, compare and order online with discreet delivery."
+      },
+      "hautpflege": {
+        "meta_title": "Buy skin care online | Creams, lotions & skin protection",
+        "meta_description": "Skin care for daily and professional care: creams, lotions, wash products and barrier creams for dry, sensitive or irritated skin. Filter and order online.",
+        "description": "Nourishing creams, lotions, wash products and skin protection for everyday care at home, in practice and in care settings. Find products for normal, dry, sensitive or irritated skin."
+      },
+      "inkontinenzversorgung": {
+        "meta_title": "Buy incontinence products online | Slips, pants & pads",
+        "meta_description": "Discreet protection for bladder weakness: incontinence slips, pants, pads, shaped pads and bed protection. Filter by absorbency, size and brand – prescription billing available.",
+        "heading": "Incontinence care",
+        "description": "Discreet, reliable protection for bladder weakness and incontinence – at home, on the go and at night. Find the right slips, pants, pads or bed protection in the absorbency and size you need.",
+        "promo_heading": "Incontinence care with prescription billing available",
+        "promo_text": "Request our free sample pack and find the product that truly fits your needs – with no obligation.",
+        "promo_button_label": "Request free sample pack"
+      },
+      "verbrauchsartikel": {
+        "meta_title": "Buy consumables online | Disposable care supplies",
+        "meta_description": "Consumables for care and home: bed protection pads, aprons, masks, tissues and disposal bags. Filter by type and order online.",
+        "description": "Disposable items and consumables for care, home and practice – from bed protection pads to aprons and disposal bags. Filter by product type, material, absorbency, packaging, brand and price."
+      },
+      "koerperpflege": {
+        "meta_title": "Buy body care online | Wash mitts & care products",
+        "meta_description": "Body care for daily care: wash mitts, shampoo, shower gel, oral care and more. Filter by product type and application area.",
+        "description": "Wash mitts, shampoo, shower gel, oral care and more for everyday care – in bed, in the bath or on the go. Filter by product type, application area and properties."
+      },
+      "schutz_handschuhe": {
+        "meta_title": "Buy protection & gloves online | Disposable gloves",
+        "meta_description": "Disposable gloves, face masks, aprons and protective clothing for care, practice and home. Filter by material, size, protection class and brand.",
+        "description": "Disposable gloves in nitrile, latex and vinyl, plus masks, aprons, overshoes and protective clothing for care, practice and home. Filter by product type, material, glove size, protection class, packaging and brand."
+      },
+      "pflegesets": {
+        "meta_title": "Buy care sets online | Care box set size S, M & L",
+        "meta_description": "3 care sets for everyday care: care box sets in sizes S, M and L with matching care products. Save time and money — order online with ease.",
+        "description": "Discover our 3 care sets tailored to your care situation. Each set includes carefully selected care products — from incontinence care and skin care to gloves and consumables. Choose size S, M or L and order your care box online."
+      },
+      "startseite_beliebte_produkte": {
+        "meta_title": "Buy popular care products online | Selection for everyday care",
+        "meta_description": "Popular care products at a glance: carefully selected items for incontinence, skin care, body care and more. Order online with ease.",
+        "description": "Our most popular care products for everyday use at home and in care settings. This selection is curated regularly and featured on the homepage — from incontinence care to skin and body care, gloves and consumables."
+      },
+      "oft_zusammen_gekauft": {
+        "meta_title": "Frequently bought together | Complementary care products",
+        "meta_description": "Practical add-ons for your care order: gloves, wipes, skin care and more. Often ordered together with other care products.",
+        "description": "These products are frequently ordered as add-ons — e.g. gloves, wipes, skin care or consumables for everyday care. The selection appears after adding to cart as a helpful suggestion."
+      }
+    },
+    "pflege_inko_rezept_landing": {
+      "meta_title": "Incontinence care on prescription | Free sample pack",
+      "meta_description": "Save on incontinence care with prescription billing. Request our free sample pack and find the right product with no obligation — we handle organisation and billing.",
+      "hero_badge": "We handle the organisation and you save money",
+      "heading_line1": "Save money: incontinence care on prescription",
+      "hero_sub": "Get a free sample pack from us and find the product that truly fits you, with no obligation.",
+      "button_label": "Request free sample pack",
+      "image_alt": "Incontinence care on prescription",
+      "phone_intro": "We are also happy to advise you by phone:",
+      "phone_number": "07733 / 9488820",
+      "phone_hint": "We advise you personally and free of charge on the right incontinence care.",
+      "steps_title": "In 3 simple steps to the right incontinence product",
+      "steps_subtitle": "We advise you personally, clarify your needs and send free samples on request.",
+      "step_1_title": "Submit your request",
+      "step_1_text": "Share your contact details and preferences with us.",
+      "step_2_title": "We will contact you personally",
+      "step_2_text": "Our team will reach out on working days within 24 hours.",
+      "step_3_title": "Discuss product & receive samples",
+      "step_3_text": "Together we find the right solution and send free samples on request."
+    },
+    "pflege_collection_free_care": {
+      "meta_title": "Free care aids from care grade 1 | Configure care box",
+      "meta_description": "Get care consumables worth up to €42 per month free from care grade 1. Configure your box, we handle the application and delivery.",
+      "hero_badge": "Free care consumables from care grade 1",
+      "hero_image_alt": "Free care consumables for home care",
+      "hero_h1": "Did you know?",
+      "hero_sub": "Many products in our shop do not need to be paid for yourself. From care grade 1, you can receive care consumables worth up to €42 per month free of charge through your care fund.",
+      "hero_p1": "Many care aids do not need to be bought in the shop. With care grade 1 or higher and care at home, eligible consumables can be provided monthly by your care fund – up to €42 per month.",
+      "hero_p2": "Examples include disposable gloves, hand and surface disinfectants, protective aprons, face masks, FFP2 masks and disposable bed protection pads.",
+      "hero_p3": "Use our care box configurator to build your box online. We handle the formalities with your care fund.",
+      "trust_kassen": "Approved with all statutory health insurers in Germany.",
+      "cta_configure": "Configure now",
+      "cta_more_info": "More information",
+      "cta_more_info": "More information",
+      "cta_check_configure": "Check eligibility and configure box",
+      "cta_configure_box": "Configure care box now",
+      "cta_more_info_view": "View more information",
+      "benefit_1_title": "Up to €42 monthly",
+      "benefit_1_text": "Your care fund covers consumable care aids up to the statutory limit.",
+      "benefit_2_title": "From care grade 1",
+      "benefit_2_text": "Entitlement applies from care grade 1 with care at home.",
+      "benefit_3_title": "No monthly receipts",
+      "benefit_3_text": "After approval, supply and billing run automatically.",
+      "benefit_4_title": "We handle the paperwork",
+      "benefit_4_text": "You configure your box; we submit the application to your care fund.",
+      "pregrid_aria": "Note before product list",
+      "pregrid_text": "You can still buy these products in the shop. With an approved care grade, the free care box is often the better choice.",
+      "faq_heading": "FAQ — free care aids",
+      "faq_1_q": "Can I get the care box on deinpflegebedarf.de?",
+      "faq_1_a": "<p>No. You can configure the care box at <a href=\"https://www.alltagshilfe-sued.de/pflegehilfsmittel/pflegebox-konfigurator\" rel=\"noopener noreferrer\">alltagshilfe-sued.de/pflegehilfsmittel/pflegebox-konfigurator</a>.</p>",
+      "faq_2_q": "What are consumable care aids for €42?",
+      "faq_2_a": "Hygiene products needed for care at home that are used once and disposed of. The care fund covers up to €42 per month.",
+      "faq_3_q": "Who is entitled to the €42 allowance?",
+      "faq_3_a": "People with care grades 1–5 who are cared for at home.",
+      "faq_4_q": "Is care grade 1 enough?",
+      "faq_4_a": "Yes. From care grade 1 you have the full statutory entitlement of up to €42 per month.",
+      "faq_5_q": "What is typically in a care box?",
+      "faq_5_a": "Gloves, disinfectants, bed protection pads, protective aprons and masks, among others.",
+      "faq_6_q": "How do I apply for the €42 allowance?",
+      "faq_6_a": "Configure your box in our configurator. We handle the rest.",
+      "faq_7_q": "Are the products really 100% free?",
+      "faq_7_a": "Yes, if requirements are met, the care fund pays up to the statutory limit. We are approved with all German insurers.",
+      "faq_8_q": "Do I need to submit receipts every month?",
+      "faq_8_a": "No. After approval, delivery and billing are automatic.",
+      "faq_9_q": "Can I apply retroactively?",
+      "faq_9_a": "Retroactive reimbursement is difficult; apply as early as possible.",
+      "faq_10_q": "What if I use less than €42 in a month?",
+      "faq_10_a": "It is a monthly cap. Unused budget does not roll over or convert to cash.",
+      "faq_11_q": "Does entitlement apply in a nursing home?",
+      "faq_11_a": "No. It applies only to care at home.",
+      "faq_12_q": "Can I change products monthly?",
+      "faq_12_a": "Yes. Contact us via the contact page to adjust your selection.",
+      "faq_13_q": "How long does approval take?",
+      "faq_13_a": "It depends on your care fund. You usually receive your box within about 5–7 working days.",
+      "faq_14_q": "Are FFP2 masks covered?",
+      "faq_14_a": "Yes. Masks are eligible consumable care aids.",
+      "faq_15_q": "Difference between technical aids and consumables?",
+      "faq_15_a": "Technical aids are durable items such as beds or wheelchairs. Consumables are hygiene products used regularly and disposed of.",
+      "closing_title": "Get your care aids free from care grade 1",
+      "closing_text": "Use your statutory entitlement and configure your care box online step by step.",
+      "testimonials_cta_title": "Receive your care box free of charge",
+      "testimonials_cta_text": "From care grade 1, you are entitled to care consumables worth up to €42 per month. Choose your products conveniently online and let us guide you step by step through assembling your box."
+    },
+    "pflege_faq_page": {
+      "meta_title": "FAQ | Frequently asked questions about care supplies, shipping & payment",
+      "meta_description": "Answers to common questions about deinpflegebedarf.de: ordering, shipping, payment, care products, incontinence products, care aids, returns, withdrawal and customer service.",
+      "heading": "Frequently asked questions",
+      "intro_lead": "Here you will find answers to the most important questions about ordering, shipping, payment, returns and our care products. If your question is not answered, please contact us personally.",
+      "contact_phone": "07733 / 9488820",
+      "contact_email": "deinpflegebedarf@alltagshilfe-sued.de",
+      "contact_hours": "Mon–Thu: 8:30–16:00, Fri: 8:30–12:00"
+    },
+    "pflege_faq_accordion": {
+      "heading": "Frequently asked questions",
+      "intro_html": "Answers about ordering, care supplies and delivery. Learn more about {{ link }} and free care consumables in our categories.",
+      "intro_link_label": "incontinence care",
+      "faq_1_q": "How does prescription billing work for incontinence products?",
+      "faq_1_a": "<p>On request we handle <strong>billing with your health insurer</strong>. You order suitable products from us; we check the details and manage the formal process so you can skip the pharmacy visit.</p>",
+      "faq_2_q": "How does home delivery work?",
+      "faq_2_a": "<p>After your order and verification we pack items <strong>discreetly and securely</strong> and ship to your chosen address. Delivery time and shipping details are shown during checkout and in your confirmation.</p>",
+      "faq_3_q": "Do I still need to go to the pharmacy?",
+      "faq_3_a": "<p>No. With prescription billing or a free care box, we deliver <strong>directly to your home</strong>, saving time and making regular supply easier.</p>",
+      "faq_4_q": "How are products selected and reviewed?",
+      "faq_4_a": "<p>Our range is guided by <strong>professional care experience</strong>. We focus on reliable quality, appropriate sizes and a clear assortment so you can find a suitable solution quickly.</p>",
+      "faq_5_q": "I am unsure which products to choose — who can help?",
+      "faq_5_a": "<p>Our customer service can help with <strong>sizes, quantities and the order process</strong>. For medical decisions, please also consult your doctor or care professional.</p>",
+      "faq_6_q": "How do reorders work for ongoing supply?",
+      "faq_6_a": "<p>You can <strong>reorder previous items easily</strong>. With an approved care box or ongoing prescription supply, delivery usually continues automatically after approval.</p>"
+    },
+    "pflege_site_footer_stack": {
+      "aria_label": "Benefits, customer reviews, and frequently asked questions"
+    },
+    "pflege_boxi_faq_strip": {
+      "heading": "Frequently asked questions",
+      "intro_default": "Answers about ordering, shipping, returns, and how it works",
+      "load_more": "Load more questions and answers",
+      "load_less": "Show fewer questions"
+    },
+    "customer_testimonials_hp": {
+      "dots_label": "Choose testimonial",
+      "dot_aria": "Show testimonial {{ index }}",
+      "show_less": "Show less",
+      "chevron_down": "▼",
+      "verified_buyer": "Verified buyer",
+      "review_stars": "Your rating (1–5 stars)",
+      "review_star_aria": "{{ count }} of 5 stars",
+      "review_submit": "Submit a review",
+      "review_lastname": "Last name",
+      "review_firstname": "First name",
+      "review_email": "Email",
+      "review_message": "Message",
+      "review_send": "Send review",
+      "review_required_note": "All fields marked with * are required.",
+      "review_success": "Thank you! Your review has been submitted and will be reviewed.",
+      "review_error": "Please check the highlighted fields and try again."
+    },
+    "cart": {
+      "title": "Warenkorb",
+      "caption": "Artikel im Warenkorb",
+      "remove_title": "{{ title }} aus Warenkorb entfernen",
+      "estimated_total": "Geschätzte Gesamtkosten",
+      "new_estimated_total": "Neuer geschätzter Gesamtbetrag",
+      "note": "Spezielle Bestellanweisungen",
+      "checkout": "Zur Kasse",
+      "empty": "Dein Warenkorb ist leer",
+      "cart_error": "Beim Aktualisieren deines Warenkorbs ist ein Fehler aufgetreten. Bitte versuche es erneut.",
+      "cart_quantity_error_html": "Du kannst deinem Warenkorb nur {{ quantity }} Stück dieses Artikels hinzufügen.",
+      "duties_and_taxes_included_shipping_at_checkout_with_policy_html": "Inkl. Zollgebühren und Steuern. Rabatte und <a href=\"{{ link }}\">Versand</a> werden an der Kasse berechnet.",
+      "duties_and_taxes_included_shipping_at_checkout_without_policy": "Inkl. Zollgebühren und Steuern. Rabatte und Versand werden an der Kasse berechnet.",
+      "taxes_included_shipping_at_checkout_with_policy_html": "Inkl. Steuern. Rabatte und <a href=\"{{ link }}\">Versand</a> werden an der Kasse berechnet.",
+      "taxes_included_shipping_at_checkout_without_policy": "Inkl. Steuern. Rabatte und Versand werden an der Kasse berechnet.",
+      "duties_included_taxes_at_checkout_shipping_at_checkout_with_policy_html": "Inkl. Zollgebühren. Steuern, Rabatte und <a href=\"{{ link }}\">Versand</a> werden an der Kasse berechnet.",
+      "duties_included_taxes_at_checkout_shipping_at_checkout_without_policy": "Inkl. Zollgebühren. Steuern, Rabatte und Versand werden an der Kasse berechnet.",
+      "taxes_at_checkout_shipping_at_checkout_with_policy_html": "Steuern, Rabatte und <a href=\"{{ link }}\">Versand</a> werden an der Kasse berechnet.",
+      "taxes_at_checkout_shipping_at_checkout_without_policy": "Steuern, Rabatte und Versand werden an der Kasse berechnet.",
+      "headings": {
+        "product": "Produkt",
+        "price": "Preis",
+        "total": "Gesamt",
+        "quantity": "Anzahl",
+        "image": "Produktbild",
+        "unit_price": "Einzelpreis"
+      },
+      "update": "Aktualisieren",
+      "login": {
+        "title": "Hast du ein Konto?",
+        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Logge dich ein</a>, damit es an der Kasse schneller geht."
+      },
+      "pflege": {
+        "breadcrumb_nav": "Navigationspfad",
+        "breadcrumb_home": "Startseite",
+        "breadcrumb_cart": "Warenkorb",
+        "empty_title": "Ihr Warenkorb ist leer",
+        "empty_text": "Entdecken Sie unsere Pflegeprodukte und finden Sie passende Artikel für Ihren Pflegealltag.",
+        "empty_cta": "Contact us",
+        "summary_title": "Bestellübersicht",
+        "subtotal": "Zwischensumme",
+        "shipping": "Versand",
+        "shipping_note": "wird berechnet",
+        "discount_with_code": "Rabatt ({{ code }})",
+        "grand_total": "Gesamtsumme",
+        "vat_included": "inkl. MwSt.",
+        "continue_shopping": "Weiter einkaufen",
+        "coupon_title": "Gutschein einlösen",
+        "coupon_placeholder": "Gutscheincode eingeben",
+        "coupon_submit": "Einlösen",
+        "coupon_hint": "Nach dem Einlösen wird die Seite neu geladen; Rabatte erscheinen in der Bestellübersicht.",
+        "availability_in_stock": "Sofort lieferbar!",
+        "price_unit_label": "Stückpreis",
+        "price_line_label": "Gesamtpreis",
+        "service_strip_label": "Service und Vorteile",
+        "service_ship": "Versand innerhalb von 1-3 Werktagen",
+        "service_phone": "Persönliche Beratung 07733 / 9488820",
+        "service_quality": "100% geprüfte Qualität",
+        "free_shipping_title": "Kostenloser Versand ab 150 €",
+        "free_shipping_subline": "ab 150 € Bestellwert",
+        "free_shipping_remaining": "Noch {{ amount }} bis zum kostenlosen Versand.",
+        "free_shipping_qualified": "Sie erhalten kostenlosen Versand.",
+        "trust_pay_title": "Sicher bezahlen",
+        "trust_pay_sub": "Versand innerhalb von 1-3 Werktagen",
+        "trust_buyer_title": "Käuferschutz",
+        "trust_buyer_sub": "Viele sichere Zahlungsmethoden",
+        "trust_quality_title": "100% geprüfte Qualität",
+        "trust_quality_sub": "Sorgfältig ausgewählte Produkte",
+        "recommendations_title": "Das könnten Ihnen auch gefallen",
+        "recommendations_view_all": "Alle ansehen →",
+        "recommendations_du_title": "Das könnten Ihnen auch gefallen",
+        "recommendations_bestseller_title": "Beliebte Pflegeprodukte",
+        "recommendations_bestseller_intro": "Ausgewählte Artikel, die andere Kundinnen und Kunden besonders oft gewählt haben.",
+        "recommendations_bestseller_view_all": "Zur gesamten Auswahl →"
+      }
+    },
+    "footer": {
+      "payment": "Zahlungsmethoden"
+    },
+    "featured_blog": {
+      "view_all": "Alle anzeigen",
+      "onboarding_title": "Blog-Beitrag",
+      "onboarding_content": "Verschaffe deinen Kunden eine Übersicht über deinen Blog-Beitrag"
+    },
+    "featured_collection": {
+      "view_all": "Alle anzeigen",
+      "view_all_label": "Alle Produkte in der Kollektion {{ collection_name }} anzeigen"
+    },
+    "collection_list": {
+      "view_all": "Alle anzeigen"
+    },
+    "collection_template": {
+      "empty": "Keine Produkte gefunden",
+      "title": "Kategorie",
+      "use_fewer_filters_html": "Verwende weniger Filter oder <a class=\"{{ class }}\" href=\"{{ link }}\">entferne alle</a>"
+    },
+    "video": {
+      "load_video": "Video laden: {{ description }}"
+    },
+    "slideshow": {
+      "load_slide": "Folie laden",
+      "previous_slideshow": "Vorherige Folie",
+      "next_slideshow": "Nächste Folie",
+      "pause_slideshow": "Slideshow pausieren",
+      "play_slideshow": "Slideshow abspielen",
+      "carousel": "Karussell",
+      "slide": "Folie"
+    },
+    "page": {
+      "title": "Seitentitel"
+    },
+    "quick_order_list": {
+      "product_total": "Produktzwischensumme",
+      "view_cart": "Warenkorb ansehen",
+      "each": "{{ money }}/Stück",
+      "product": "Produkt",
+      "variant": "Variante",
+      "variant_total": "Varianten insgesamt",
+      "items_added": {
+        "one": "{{ quantity }} Artikel hinzugefügt",
+        "other": "{{ quantity }} Artikel hinzugefügt"
+      },
+      "items_removed": {
+        "one": "{{ quantity }} Artikel entfernt",
+        "other": "{{ quantity }} Artikel entfernt"
+      },
+      "product_variants": "Produktvarianten",
+      "total_items": "Artikel gesamt",
+      "remove_all_single_item_confirmation": "1 Artikel aus dem Warenkorb entfernen?",
+      "remove_all_items_confirmation": "Alle {{ quantity }} Artikel aus deinem Warenkorb entfernen?",
+      "remove_all": "Alle entfernen",
+      "cancel": "Abbrechen",
+      "min_error": "Dieser Artikel hat ein Minimum von {{ min }}",
+      "max_error": "Dieser Artikel hat ein Maximum von {{ max }}",
+      "step_error": "Du kannst diesen Artikel nur in Abstufungen von {{ step }} hinzufügen."
+    }
+  },
+  "localization": {
+    "country_label": "Land/Region",
+    "language_label": "Sprache",
+    "update_language": "Sprache aktualisieren",
+    "update_country": "Land/Region aktualisieren",
+    "search": "Suchen",
+    "popular_countries_regions": "Beliebte Länder/Regionen",
+    "country_results_count": "{{ count }} Länder/Regionen gefunden"
+  },
+  "customer": {
+    "account": {
+      "title": "Konto",
+      "details": "Kontodetails",
+      "view_addresses": "Adressen anzeigen",
+      "return": "Zurück zu Kontodetails"
+    },
+    "account_fallback": "Konto",
+    "activate_account": {
+      "title": "Konto aktivieren",
+      "subtext": "Erstelle ein Passwort, um dein Konto zu aktivieren.",
+      "password": "Passwort",
+      "password_confirm": "Passwort bestätigen",
+      "submit": "Konto aktivieren",
+      "cancel": "Einladung ablehnen"
+    },
+    "addresses": {
+      "title": "Adressen",
+      "default": "Standard",
+      "add_new": "Neue Adresse hinzufügen",
+      "edit_address": "Adresse bearbeiten",
+      "first_name": "Vorname",
+      "last_name": "Nachname",
+      "company": "Unternehmen",
+      "address1": "Adresse 1",
+      "address2": "Adresse 2",
+      "city": "Ort",
+      "country": "Land/Region",
+      "province": "Bundesland/Provinz",
+      "zip": "PLZ",
+      "phone": "Telefonnummer",
+      "set_default": "Als Standard-Adresse festlegen",
+      "add": "Adresse hinzufügen",
+      "update": "Adresse aktualisieren",
+      "cancel": "Abbrechen",
+      "edit": "Bearbeiten",
+      "delete": "Löschen",
+      "delete_confirm": "Bist du sicher, dass du diese Adresse löschen möchtest?"
+    },
+    "log_in": "Einloggen",
+    "log_out": "Abmelden",
+    "login_page": {
+      "cancel": "Abbrechen",
+      "create_account": "Konto erstellen",
+      "email": "E-Mail",
+      "forgot_password": "Hast du dein Passwort vergessen?",
+      "guest_continue": "Fortfahren",
+      "guest_title": "Als Gast fortsetzen",
+      "password": "Passwort",
+      "title": "Anmelden",
+      "sign_in": "Anmelden",
+      "submit": "Senden",
+      "alternate_provider_separator": "oder"
+    },
+    "order": {
+      "title": "Bestellung {{ name }}",
+      "date_html": "Aufgegeben am {{ date }}",
+      "cancelled_html": "Bestellung storniert am {{ date }}",
+      "cancelled_reason": "Grund: {{ reason }}",
+      "billing_address": "Rechnungsadresse",
+      "payment_status": "Zahlungsstatus",
+      "shipping_address": "Lieferadresse",
+      "fulfillment_status": "Lieferstatus",
+      "discount": "Rabatt",
+      "shipping": "Versand",
+      "tax": "Steuer",
+      "product": "Produkt",
+      "sku": "SKU",
+      "price": "Preis",
+      "quantity": "Menge",
+      "total": "Gesamtsumme",
+      "total_refunded": "Zurückerstattet",
+      "fulfilled_at_html": "Ausgeführt am {{ date }}",
+      "track_shipment": "Sendung nachverfolgen",
+      "tracking_url": "Tracking-Link",
+      "tracking_company": "Versanddienstleister",
+      "tracking_number": "Trackingnummer",
+      "subtotal": "Zwischensumme",
+      "total_duties": "Zollgebühren"
+    },
+    "orders": {
+      "title": "Bestellhistorie",
+      "order_number": "Bestellung",
+      "order_number_link": "Bestellnummer {{ number }}",
+      "date": "Datum",
+      "payment_status": "Zahlungsstatus",
+      "fulfillment_status": "Lieferstatus",
+      "total": "Gesamtsumme",
+      "none": "Du hast noch keine Bestellungen aufgegeben."
+    },
+    "recover_password": {
+      "title": "Setze dein Passwort zurück",
+      "subtext": "Wir werden dir eine E-Mail zum Zurücksetzen deines Passworts schicken",
+      "success": "Wir haben dir eine E-Mail mit einem Link zum Aktualisieren deines Passworts geschickt."
+    },
+    "register": {
+      "title": "Konto erstellen",
+      "first_name": "Vorname",
+      "last_name": "Nachname",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "submit": "Erstellen"
+    },
+    "reset_password": {
+      "title": "Passwort für Konto zurücksetzen",
+      "subtext": "Neues Passwort eingeben",
+      "password": "Passwort",
+      "password_confirm": "Passwort bestätigen",
+      "submit": "Passwort zurücksetzen"
+    }
+  },
+  "gift_cards": {
+    "issued": {
+      "how_to_use_gift_card": "Verwende diesen Geschenkgutscheincode online oder verwende den QR-Code im Shop",
+      "title": "Hier ist dein {{ value }}-Gutschein für {{ shop }}!",
+      "subtext": "Dein Gutschein",
+      "gift_card_code": "Gutscheincode",
+      "shop_link": "Onlineshop besuchen",
+      "add_to_apple_wallet": "Zu Apple Wallet hinzufügen",
+      "qr_image_alt": "QR-Code – Scannen, um Gutschein einzulösen",
+      "copy_code": "Geschenkgutscheincode kopieren",
+      "expiration_date": "Gültig bis {{ expires_on }}",
+      "copy_code_success": "Code erfolgreich kopiert",
+      "expired": "Abgelaufen"
+    }
+  },
+  "footer_pflege": {
+    "legal_heading": "Rechtliches",
+    "link_agb": "AGB",
+    "link_impressum": "Impressum",
+    "link_widerruf": "Widerrufsbelehrung",
+    "link_versand": "Versandrichtlinien",
+    "link_datenschutz": "Datenschutzerklärung"
+  },
+  "pflegeboxi": {
+    "launcher_aria": "Open help and FAQ — Pflegeboxi",
+    "bubble": "Hi, I’m Pflegeboxi. Tap me — I’ll be happy to help!",
+    "title": "Quick answers",
+    "close": "Close",
+    "dismiss_launcher": "Hide Pflegeboxi",
+    "mascot_alt": "Pflegeboxi mascot",
+    "more_help": "More help",
+    "faq_1_q": "How does shipping work?",
+    "faq_1_a": "After payment is confirmed, we pack your order securely and hand it to our carrier. Shipping usually takes 1-3 business days. Costs are shown in the cart and on the shipping page.",
+    "faq_2_q": "Can I return something?",
+    "faq_2_a": "You can return unused items within the statutory withdrawal period. You’ll find details in our terms and the cancellation policy.",
+    "faq_3_q": "Which payment methods do you offer?",
+    "faq_3_a": "At checkout you can choose from the payment options we display — cards, PayPal, and others depending on our integration.",
+    "faq_4_q": "How do I reach customer service?",
+    "faq_4_a": "Use the contact page or the details in the legal notice. We’ll get back to you as soon as we can.",
+    "faq_5_q": "Do you ship internationally?",
+    "faq_5_a": "Where we ship is explained in our shipping or delivery policy. At checkout you’ll see options for your address.",
+    "faq_6_q": "How secure is shopping here?",
+    "faq_6_a": "Checkout uses encrypted connections. Payments are processed by established payment providers — we don’t store your full card details on our servers.",
+    "faq_7_q": "Will I get an order confirmation?",
+    "faq_7_a": "Yes — you should receive an email with the key details. If you don’t see it, check your spam folder.",
+    "faq_8_q": "My parcel arrived damaged — what now?",
+    "faq_8_a": "Take photos of the packaging and contents and contact support promptly. That helps us arrange a replacement or clarify things with the carrier.",
+    "faq_9_q": "Do you offer discounts for larger quantities?",
+    "faq_9_a": "Current promotions or tiered pricing appear on the site or product page. For bulk needs, a quick message to support can help.",
+    "faq_10_q": "How fast is delivery?",
+    "faq_10_a": "Shipping usually takes 1-3 business days. You will see this on the product page, in the cart, and in your order confirmation.",
+    "faq_11_q": "Are all items always in stock?",
+    "faq_11_a": "Unless noted otherwise, items should be available. If there’s a delay or restock, we’ll reflect that in your order or via support.",
+    "faq_12_q": "What does “currently unavailable” mean?",
+    "faq_12_a": "The item can’t be ordered for now — restocking or sold out. Use a notify-me option if available, or check back later.",
+    "faq_13_q": "Can I add a gift note?",
+    "faq_13_a": "If the theme or checkout offers a gift or message field, use that. Otherwise ask support before placing the order.",
+    "faq_14_q": "How does the right of withdrawal work?",
+    "faq_14_a": "You generally have a statutory period after receiving the goods (exceptions may apply — e.g. sealed hygiene products). Exact steps are in our cancellation policy.",
+    "faq_15_q": "Where are terms and privacy policy?",
+    "faq_15_a": "Links are usually in the site footer — terms, cancellation policy, and privacy. You can also search within the shop domain.",
+    "faq_16_q": "What data do you store about me?",
+    "faq_16_a": "Only what’s needed for the contract, shipping, and legal obligations — explained in detail in the privacy policy.",
+    "faq_17_q": "Can I order as a business with a VAT ID?",
+    "faq_17_a": "If checkout offers VAT ID or company fields, use them. Otherwise support can help with correct invoicing.",
+    "faq_18_q": "Any notes on best-before dates or hygiene items?",
+    "faq_18_a": "Where relevant, you’ll see shelf-life info and any special return rules on the product page. Ask before purchase if unsure.",
+    "faq_19_q": "Do you ship bulky or heavy parcels?",
+    "faq_19_a": "Large or heavy shipments may use freight or extra fees — look for shipping notes in the cart or at checkout.",
+    "faq_20_q": "I’m unsure which product to choose — what should I do?",
+    "faq_20_a": "Compare sizes, pack quantities, and usage notes in the description. For medical or personal needs, also speak with a qualified professional — we don’t replace medical advice."
+  },
+  "recipient": {
+    "form": {
+      "checkbox": "Ich möchte dies als Geschenk senden",
+      "expanded": "Formular für den Empfänger des Gutscheins erweitert",
+      "collapsed": "Formular für den Empfänger des Gutscheins minimiert",
+      "email_label": "Empfänger E-Mail",
+      "email_label_optional_for_no_js_behavior": "E-Mail-Adresse des Empfängers (optional)",
+      "email": "E-Mail",
+      "name_label": "Name des Empfängers (optional)",
+      "name": "Name",
+      "message_label": "Nachricht (optional)",
+      "message": "Nachricht",
+      "max_characters": "Maximal {{ max_chars }} Zeichen",
+      "send_on": "JJJJ-MM-TT",
+      "send_on_label": "Senden am (optional)"
+    }
+  },
+  "shopify": {
+    "online_store": {
+      "spam_detection": {
+        "disclaimer_html": ""
+      }
+    }
+  }
+}

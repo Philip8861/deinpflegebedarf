@@ -1,0 +1,52 @@
+{% comment %}
+  Abschluss-CTA — gleiche Kopf-Optik wie Pflegebox-Artikel (Bestseller-Block), ohne Karten-Hintergrund.
+  Parameter: section_id, config_url, info_url, title, text, modifier_class
+{% endcomment %}
+{%- liquid
+  assign closing_title = title
+  if closing_title == blank
+    assign closing_title = 'sections.pflege_collection_free_care.closing_title' | t
+  endif
+  assign closing_text = text
+  if closing_text == blank
+    assign closing_text = 'sections.pflege_collection_free_care.closing_text' | t
+  endif
+  assign closing_title_id = 'pfc-free-care-closing-title'
+  if section_id != blank
+    assign closing_title_id = closing_title_id | append: '-' | append: section_id
+  endif
+  assign closing_modifier = 'pflege-bestseller--closing-cta'
+  if modifier_class != blank
+    assign closing_modifier = closing_modifier | append: ' ' | append: modifier_class
+  endif
+-%}
+<section
+  class="pflege-bestseller {{ closing_modifier }} pfc-free-care__closing"
+  aria-labelledby="{{ closing_title_id }}"
+>
+  <div class="pflege-bestseller__shell">
+    <div class="pflege-bestseller__panel">
+      <header class="pflege-bestseller__head">
+        <div class="pflege-bestseller__head-text">
+          <h2 id="{{ closing_title_id }}" class="pflege-bestseller__title">
+            {{ closing_title | escape }}
+          </h2>
+          <p class="pflege-bestseller__intro">
+            {{ closing_text | escape }}
+          </p>
+        </div>
+        <div class="pflege-bestseller__closing-actions">
+          <a class="pflege-bestseller__closing-cta-primary" href="{{ config_url | escape }}">
+            <span class="pflege-bestseller__closing-cta-gear" aria-hidden="true">
+              {% render 'pflege-icon', icon: 'settings', width: 22 %}
+            </span>
+            {{ 'sections.pflege_collection_free_care.cta_configure_box' | t }}
+          </a>
+          <a class="pflege-bestseller__closing-cta-secondary" href="{{ info_url | escape }}">
+            {{ 'sections.pflege_collection_free_care.cta_more_info_view' | t }}
+          </a>
+        </div>
+      </header>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,16 @@
+{% comment %}
+  Nicht mehr für das Layout genutzt — Footer kommt aus snippets/pflege-footer-static.liquid (theme.liquid).
+  Datei bleibt nur für Theme-Kompatibilität / alte Verweise.
+{% endcomment %}
+{% render 'pflege-footer-static' %}
+
+{% schema %}
+{
+  "name": "Pflege Footer",
+  "tag": "section",
+  "class": "pflege-footer-section",
+  "settings": [],
+  "blocks": [{ "type": "@app" }],
+  "presets": [{ "name": "Pflege Footer" }]
+}
+{% endschema %}

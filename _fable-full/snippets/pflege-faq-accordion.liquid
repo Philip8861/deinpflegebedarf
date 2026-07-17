@@ -1,0 +1,128 @@
+{% comment %}
+  FAQ-Accordion (einheitlich auf allen Seiten)
+  Parameter:
+  - section_id (Pflicht)
+  - locale_root: z. B. sections.pflege_faq_accordion oder pflegeboxi
+  - faq_from / faq_to: Index-Bereich (Standard 1..faq_count)
+  - faq_count: Fallback-Ende, wenn faq_to leer
+  - heading, intro: optional
+  - intro_html: true = Locale intro_html mit Link, false = nur intro-Text
+  - intro_link_url, intro_link_label
+  - first_open, single_open
+  - modifier_class
+  - deferred_from / deferred_to: weitere FAQs + „Mehr laden“
+  - load_more_label_more / load_more_label_less
+{% endcomment %}
+
+{%- liquid
+  assign faq_from = faq_from | default: 1 | plus: 0
+  assign faq_to = faq_to | default: faq_count | default: 6 | plus: 0
+  assign locale_root = locale_root | default: 'sections.pflege_faq_accordion'
+  assign first_open = first_open | default: false
+  assign single_open = single_open | default: true
+  assign intro_html = intro_html | default: true
+
+  assign heading_key = locale_root | append: '.heading'
+  assign intro_key = locale_root | append: '.intro_html'
+  assign intro_link_label_key = locale_root | append: '.intro_link_label'
+
+  if heading != blank
+    assign heading_text = heading
+  else
+    assign heading_text = heading_key | t
+  endif
+
+  if collections['inkontinenzversorgung'] != blank
+    assign default_ink_url = collections['inkontinenzversorgung'].url
+  elsif collections['inkontinenz'] != blank
+    assign default_ink_url = collections['inkontinenz'].url
+  else
+    assign default_ink_url = routes.root_url | append: 'collections/inkontinenzversorgung'
+  endif
+
+  assign intro_link_url = intro_link_url | strip
+  if intro_link_url == blank
+    assign intro_link_url = default_ink_url
+  endif
+  if intro_link_label == blank
+    assign intro_link_label = intro_link_label_key | t
+  endif
+
+  assign deferred_from_num = deferred_from | plus: 0
+  assign deferred_to_num = deferred_to | plus: 0
+  assign has_deferred = false
+  if deferred_from_num > 0 and deferred_to_num >= deferred_from_num
+    assign has_deferred = true
+  endif
+-%}
+
+<section
+  class="pflege-faq-accordion{% if modifier_class != blank %} {{ modifier_class }}{% endif %}"
+  aria-labelledby="pflege-faq-accordion-title-{{ section_id }}"
+  data-pflege-faq-accordion
+  data-first-open="{% if first_open %}true{% else %}false{% endif %}"
+  data-single-open="{% if single_open %}true{% else %}false{% endif %}"
+  {% if has_deferred %}data-pflege-faq-has-load-more{% endif %}
+>
+  <div class="pflege-faq-accordion__backdrop">
+  <div class="pflege-faq-accordion__inner">
+    <header class="pflege-faq-accordion__head">
+      <h2 class="pflege-faq-accordion__title" id="pflege-faq-accordion-title-{{ section_id }}">
+        {{ heading_text | escape }}
+      </h2>
+      {%- if intro != blank -%}
+        <p class="pflege-faq-accordion__intro">{{ intro | newline_to_br }}</p>
+      {%- elsif intro_html -%}
+        {%- capture intro_link_markup -%}
+          <a href="{{ intro_link_url | escape }}">{{ intro_link_label | escape }}</a>
+        {%- endcapture -%}
+        <p class="pflege-faq-accordion__intro">
+          {{ intro_key | t: link: intro_link_markup }}
+        </p>
+      {%- endif -%}
+    </header>
+
+    <div class="pflege-faq-accordion__list" role="list">
+      {%- for i in (faq_from..faq_to) -%}
+        {% render 'pflege-faq-accordion-item',
+          section_id: section_id,
+          index: i,
+          locale_root: locale_root
+        %}
+      {%- endfor -%}
+
+      {%- if has_deferred -%}
+        <div class="pflege-faq-accordion__load-more-wrap">
+          <button
+            type="button"
+            class="pflege-faq-accordion__load-more"
+            data-faq-load-more
+            aria-expanded="false"
+            aria-controls="pflege-faq-extra-{{ section_id }}"
+            data-faq-label-more="{{ load_more_label_more | default: 'sections.pflege_boxi_faq_strip.load_more' | t | escape }}"
+            data-faq-label-less="{{ load_more_label_less | default: 'sections.pflege_boxi_faq_strip.load_less' | t | escape }}"
+          >
+            <span class="pflege-faq-accordion__load-more-icon" aria-hidden="true"></span>
+            <span class="pflege-faq-accordion__load-more-label">{{ load_more_label_more | default: 'sections.pflege_boxi_faq_strip.load_more' | t }}</span>
+          </button>
+        </div>
+
+        <div
+          class="pflege-faq-accordion__deferred"
+          id="pflege-faq-extra-{{ section_id }}"
+          data-faq-extra
+          hidden
+        >
+          {%- for i in (deferred_from_num..deferred_to_num) -%}
+            {% render 'pflege-faq-accordion-item',
+              section_id: section_id,
+              index: i,
+              locale_root: locale_root
+            %}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+  </div>
+</section>

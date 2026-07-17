@@ -1,0 +1,106 @@
+<style>
+  /* Zwei Schichten wie dialog::backdrop: Blur unten, Abdunklung oben (sonst wirkt Div-Overlay heller) */
+  .cart-notification__backdrop-blur {
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+  }
+  .cart-notification__backdrop-dim {
+    background: var(--pflege-overlay-backdrop, rgba(11, 35, 71, 0.56));
+  }
+  .cart-notification-wrapper:not(.is-active) #cart-notification {
+    visibility: hidden !important;
+    opacity: 0 !important;
+  }
+  .cart-notification-wrapper:not(.is-active) .cart-notification__backdrop,
+  .cart-notification-wrapper:not(.is-active) .cart-notification__backdrop-blur,
+  .cart-notification-wrapper:not(.is-active) .cart-notification__backdrop-dim {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+</style>
+{% comment %}
+  Renders cart notification
+
+  Accepts:
+  - color_scheme: {String} sets the color scheme of the notification (optional)
+  - desktop_menu_type: {String} passes the desktop menu type which allows us to use the right css class (optional)
+
+  Usage:
+  {% render 'cart-notification' %}
+{% endcomment %}
+
+<cart-notification>
+  {%- comment -%} Kein page-width: sonst schmaler Overlay-Bereich, Scrap/Unschärfe am Rand {%- endcomment -%}
+  <div class="cart-notification-wrapper">
+    <div class="cart-notification__backdrop" aria-hidden="true">
+      <span class="cart-notification__backdrop-blur"></span>
+      <span class="cart-notification__backdrop-dim"></span>
+    </div>
+    <div
+      id="cart-notification"
+      class="cart-notification focus-inset"
+      aria-modal="true"
+      aria-labelledby="cart-notification-title"
+      role="dialog"
+      tabindex="-1"
+    >
+      <button
+        type="button"
+        class="cart-notification__close"
+        aria-label="{{ 'accessibility.close' | t }}"
+      >
+        <span class="svg-wrapper" aria-hidden="true">
+          {{- 'icon-close.svg' | inline_asset_content -}}
+        </span>
+      </button>
+
+      <div class="cart-notification__title-row">
+        <div class="cart-notification__titles">
+          <h2 id="cart-notification-title" class="cart-notification__headline">
+            {{ 'general.cart.notification_heading' | t }}
+          </h2>
+          {%- assign cart_notification_sub = 'general.cart.notification_subtext' | t -%}
+          {%- if cart_notification_sub != blank -%}
+            <p class="cart-notification__subtext">{{ cart_notification_sub }}</p>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <div id="cart-notification-product" class="cart-notification-product-host"></div>
+
+      <div class="cart-notification__actions">
+        <a
+          href="{{ routes.cart_url }}"
+          class="cart-notification__btn cart-notification__btn--primary"
+        >
+          <span id="cart-notification-button">Zum Warenkorb ({{ cart.item_count }})</span>
+          <span class="cart-notification__btn-arrow" aria-hidden="true">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M5 12h14"/>
+              <path d="m12 5 7 7-7 7"/>
+            </svg>
+          </span>
+        </a>
+
+        <button type="button" class="cart-notification__link-quiet">
+          Weiter shoppen
+        </button>
+      </div>
+
+      <div id="cart-notification-recos">
+        {% render 'pflege-cart-notification-recos' %}
+      </div>
+    </div>
+  </div>
+</cart-notification>

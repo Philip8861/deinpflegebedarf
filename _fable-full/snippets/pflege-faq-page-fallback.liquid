@@ -1,0 +1,32 @@
+{% comment %} Fallback, wenn die Seite im Admin die Standard-Vorlage „page“ nutzt. {% endcomment %}
+{{ 'section-pflege-faq-accordion.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'pflege-faq-accordion.js' | asset_url }}" defer="defer"></script>
+
+<section
+  class="pflege-faq-accordion pflege-faq-accordion--page section-padding color-scheme-1 gradient"
+  aria-labelledby="pflege-faq-page-title-fallback"
+  data-pflege-faq-accordion
+  data-first-open="false"
+  data-single-open="true"
+>
+  <div class="pflege-faq-accordion__backdrop">
+    <div class="pflege-faq-accordion__inner">
+      <header class="pflege-faq-accordion__head">
+        <h1 class="pflege-faq-accordion__title" id="pflege-faq-page-title-fallback">
+          {{ 'sections.pflege_faq_page.heading' | t }}
+        </h1>
+
+        <div class="pflege-faq-accordion__intro pflege-faq-accordion__intro--page">
+          <p class="pflege-faq-accordion__intro-lead">{{ 'sections.pflege_faq_page.intro_lead' | t }}</p>
+        </div>
+      </header>
+
+      {% render 'pflege-faq-page-categories', section_id: 'fallback' %}
+    </div>
+  </div>
+</section>
+
+{% render 'pflege-free-care-faq-schema',
+  locale_root: 'sections.pflege_faq_page',
+  faq_count: 65
+%}

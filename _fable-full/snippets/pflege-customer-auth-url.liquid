@@ -1,0 +1,15 @@
+{%- comment -%}
+  URL zur echten Shopify-Kundenauthentifizierung (Neue Kundenkonten).
+  Eingeloggte Kunden → Kundenbereich; Gäste → Shopify-Login/OAuth.
+{%- endcomment -%}
+{%- if customer -%}
+  {{ routes.account_url }}
+{%- else -%}
+  {%- liquid
+    assign auth_url = routes.account_login_url
+    if auth_url == blank or auth_url == '#'
+      assign auth_url = 'https://account.deinpflegebedarf.de'
+    endif
+  -%}
+  {{ auth_url }}
+{%- endif -%}

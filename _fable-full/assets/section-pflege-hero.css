@@ -1,0 +1,730 @@
+/* PflegeShop — Hero */
+body.template-index .pflege-hero,
+.pflege-hero--free-care,
+.pflege-hero--inko-rezept {
+  padding-top: clamp(0.35rem, 1.15vw, 0.9rem);
+  padding-bottom: clamp(1rem, 2vw, 1.5rem);
+}
+
+.pflege-hero--inko-rezept .pflege-hero__title,
+.pflege-hero--free-care .pflege-hero__title {
+  font-family: var(--font-body-family), system-ui, sans-serif;
+  font-weight: 400;
+}
+
+/*
+ * Inkontinenz auf Rezept: Landing_page.webp in Originalproportionen,
+ * gleiche sichtbare Breite wie PHM-Hero (1901 px @ zoom 0.75) — nur hier.
+ */
+@media screen and (min-width: 750px) {
+  .pflege-hero--inko-rezept .pflege-hero__asset-zoom {
+    zoom: calc(0.75 * 1901 / 1738);
+  }
+}
+
+.pflege-hero {
+  padding-bottom: var(--pflege-home-section-stack, clamp(1.5rem, 3vw, 2rem));
+}
+
+/* Nur Trust-Bereich (eigene Section unter Bestseller): gleiche Shell, etwas kompakteres OberPadding */
+.pflege-hero--trust-only {
+  padding-top: clamp(0.5rem, 1.5vw, 1rem);
+  padding-bottom: clamp(2rem, 4vw, 2.75rem);
+}
+
+.pflege-hero--trust-only .pflege-hero__trust-wrap {
+  margin-top: 0;
+}
+
+/* Volle Zeilenbreite wie Pflege-Hauptleiste (Logo … Warenkorb), gleiche Innenabstände */
+.pflege-hero__shell {
+  max-width: none;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
+}
+
+.pflege-hero__panel {
+  position: relative;
+  border-radius: var(--pflege-radius-lg, 22px);
+  border: 1px solid var(--pflege-border, #e5eef8);
+  background: linear-gradient(145deg, var(--pflege-bg-softer, #f5faff) 0%, var(--pflege-bg-soft, #eef6ff) 42%, #e8f2fc 100%);
+  overflow: hidden;
+  min-height: 26rem;
+}
+
+@media screen and (min-width: 990px) {
+  .pflege-hero__panel {
+    min-height: 30rem;
+  }
+}
+
+/* Ohne Theme-Bild: Kachel = Originalbild (max. Shell-Breite Logo–Warenkorb), Text als Overlay */
+.pflege-hero__panel--asset-bg {
+  background: var(--pflege-bg-soft, #eef6ff);
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
+  min-height: 0;
+}
+
+/* Kachel + Bild 25 % kleiner; Overlay-Text bleibt unskaliert */
+.pflege-hero__asset-zoom {
+  zoom: 0.75;
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
+  line-height: 0;
+}
+
+/* Mobil: kein zoom — vermeidet Versatz/Rendering-Probleme (Safari/Chrome) */
+@media screen and (max-width: 749px) {
+  .pflege-hero__panel--desktop-home {
+    display: none !important;
+  }
+
+  .pflege-hero__panel--asset-bg {
+    width: 100%;
+    margin-inline: 0;
+    box-sizing: border-box;
+  }
+
+  .pflege-hero__asset-zoom {
+    zoom: 1;
+    width: 100%;
+    max-width: 100%;
+    margin-inline: 0;
+  }
+
+  .pflege-hero__panel--asset-bg .pflege-hero__grid--asset-bg {
+    padding-left: max(1rem, env(safe-area-inset-left, 0px));
+    padding-right: max(1rem, env(safe-area-inset-right, 0px));
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .pflege-hero__panel--asset-bg .pflege-hero__grid--asset-bg .pflege-hero__content {
+    max-width: 100%;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .pflege-hero__panel--mobile-shop,
+  .pflege-hero__panel--mobile-free-care {
+    display: none !important;
+  }
+}
+
+/* Mobil: Foto + Text-Overlay in oberer Bildhälfte (Startseite, kostenfreie PHM) */
+.pflege-hero__panel--mobile-shop,
+.pflege-hero__panel--mobile-free-care {
+  display: none;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin-inline: 0;
+  border-radius: var(--pflege-radius-lg, 22px);
+  border: 1px solid var(--pflege-border, #e5eef8);
+  overflow: hidden;
+  background: var(--pflege-bg-soft, #eef6ff);
+  min-height: 0;
+  line-height: 0;
+}
+
+@media screen and (max-width: 749px) {
+  body.template-index .pflege-hero__panel--mobile-shop {
+    display: block;
+    overflow: visible;
+  }
+
+  body.template-index .pflege-hero__panel--mobile-shop .pflege-hero__mobile-shop-photo {
+    border-radius: var(--pflege-radius-lg, 22px);
+  }
+
+  .pflege-hero--free-care .pflege-hero__panel--mobile-free-care,
+  .pflege-hero--inko-rezept .pflege-hero__panel--mobile-free-care {
+    display: block;
+    overflow: visible;
+  }
+
+  .pflege-hero--free-care .pflege-hero__panel--mobile-free-care .pflege-hero__mobile-shop-photo,
+  .pflege-hero--inko-rezept .pflege-hero__panel--mobile-free-care .pflege-hero__mobile-shop-photo {
+    border-radius: var(--pflege-radius-lg, 22px);
+  }
+
+  .pflege-hero--free-care .pflege-hero__panel--asset-bg,
+  .pflege-hero--inko-rezept .pflege-hero__panel--asset-bg {
+    display: none !important;
+  }
+}
+
+.pflege-hero__mobile-shop-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  vertical-align: top;
+}
+
+.pflege-hero__mobile-shop-overlay {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: min(70%, 33rem);
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  padding: clamp(1rem, 4vw, 1.3rem) clamp(0.65rem, 2.8vw, 0.9rem) clamp(0.8rem, 2.8vw, 1rem);
+  box-sizing: border-box;
+  z-index: 1;
+  line-height: normal;
+  pointer-events: none;
+  overflow: visible;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.58) 0%,
+    rgba(255, 255, 255, 0.3) 72%,
+    transparent 100%
+  );
+}
+
+.pflege-hero__mobile-shop-overlay .pflege-hero__content {
+  max-width: none;
+  width: 100%;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: clamp(0.6rem, 2.4vw, 0.85rem);
+  min-height: 0;
+  text-align: center;
+}
+
+.pflege-hero__panel--mobile-shop .pflege-hero__badge,
+.pflege-hero__panel--mobile-free-care .pflege-hero__badge {
+  display: block;
+  align-self: stretch;
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  padding: 0.42rem 0.5rem;
+  font-size: clamp(0.88rem, 3.75vw, 1.02rem);
+  font-weight: 900;
+  letter-spacing: 0.008em;
+  line-height: 1.34;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(229, 238, 248, 0.95);
+  box-shadow: 0 1px 4px rgba(11, 35, 71, 0.05);
+  box-sizing: border-box;
+  -webkit-text-stroke: 0.2px currentColor;
+}
+
+.pflege-hero__panel--mobile-shop .pflege-hero__title,
+.pflege-hero__panel--mobile-free-care .pflege-hero__title {
+  margin: 0;
+  font-size: clamp(1.89rem, 8.3vw, 2.43rem);
+  font-weight: 900;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  text-align: center;
+  width: 100%;
+  color: #0a4560;
+  -webkit-text-stroke: 0.55px #0a4560;
+  paint-order: stroke fill;
+}
+
+.pflege-hero__panel--mobile-shop .pflege-hero__title span,
+.pflege-hero__panel--mobile-free-care .pflege-hero__title span {
+  font-weight: 900;
+  -webkit-text-stroke: inherit;
+}
+
+.pflege-hero__panel--mobile-shop .pflege-hero__sub,
+.pflege-hero__panel--mobile-free-care .pflege-hero__sub {
+  margin: 0;
+  font-size: clamp(0.98rem, 4.1vw, 1.12rem);
+  font-weight: 900;
+  line-height: 1.4;
+  color: #152536;
+  white-space: pre-line;
+  text-align: center;
+  overflow: visible;
+  width: 100%;
+  padding-inline: clamp(0.15rem, 1vw, 0.35rem);
+  box-sizing: border-box;
+  -webkit-text-stroke: 0.4px #152536;
+}
+
+.pflege-hero__cta-glow {
+  display: contents;
+}
+
+.pflege-hero__panel--mobile-shop .pflege-hero__cta-glow {
+  display: block;
+  position: relative;
+  width: 100%;
+  margin: clamp(0.25rem, 1.2vw, 0.5rem) 0 0;
+  isolation: isolate;
+}
+
+.pflege-hero__panel--mobile-shop .pflege-hero__cta {
+  width: 100%;
+  max-width: none;
+  min-height: var(--pflege-btn-primary-min-h, 2.875rem);
+  margin: 0;
+  flex-shrink: 0;
+  padding: var(--pflege-btn-primary-pad-y, 0.72rem) var(--pflege-btn-primary-pad-x, 1.1rem);
+  font-size: var(--pflege-btn-primary-fs, clamp(1rem, 4vw, 1.125rem));
+  font-weight: 800;
+  gap: 0.5rem;
+  border-radius: var(--pflege-btn-primary-radius, 12px);
+  justify-content: center;
+  text-align: center;
+  align-self: stretch;
+}
+
+.pflege-hero__panel--mobile-shop .pflege-hero__cta svg {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+@media screen and (max-width: 749px) and (prefers-reduced-motion: no-preference) {
+  .pflege-hero__panel--mobile-shop .pflege-hero__cta-glow::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--pflege-btn-primary-radius, 12px);
+    pointer-events: none;
+    z-index: 0;
+    box-shadow:
+      0 0 0 2px rgba(255, 215, 165, 0.65),
+      0 0 24px 6px rgba(248, 151, 56, 0.55),
+      0 0 42px 12px rgba(248, 151, 56, 0.28);
+    opacity: 0;
+    will-change: opacity;
+    animation: pflege-hero-cta-mobile-glow 5s ease-in-out infinite;
+  }
+
+  .pflege-hero__panel--mobile-shop .pflege-hero__cta {
+    position: relative;
+    z-index: 1;
+    animation: pflege-hero-cta-mobile-shine 5s ease-in-out infinite !important;
+    transition: background 0.25s ease !important;
+  }
+
+  .pflege-hero__panel--mobile-shop .pflege-hero__cta:active {
+    animation-play-state: paused;
+  }
+
+  .pflege-hero__panel--mobile-shop .pflege-hero__cta-glow:active::before {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes pflege-hero-cta-mobile-glow {
+  0%,
+  66%,
+  100% {
+    opacity: 0;
+  }
+
+  74% {
+    opacity: 0.38;
+  }
+
+  82% {
+    opacity: 0.88;
+  }
+
+  90% {
+    opacity: 0.42;
+  }
+
+  96% {
+    opacity: 0;
+  }
+}
+
+@keyframes pflege-hero-cta-mobile-shine {
+  0%,
+  66%,
+  100% {
+    filter: brightness(1);
+    box-shadow: 0 2px 10px rgba(248, 151, 56, 0.22);
+  }
+
+  80% {
+    filter: brightness(1.07);
+  }
+
+  86% {
+    filter: brightness(1.12);
+    box-shadow: 0 2px 12px rgba(248, 151, 56, 0.32);
+  }
+
+  94% {
+    filter: brightness(1.02);
+  }
+}
+
+.pflege-hero__panel--mobile-shop .pflege-hero__usps {
+  display: none;
+}
+
+.pflege-hero__asset-photo {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+}
+
+.pflege-hero__panel--asset-bg .pflege-hero__grid--asset-bg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding-top: clamp(1.5rem, 3.5vw, 2.75rem);
+  padding-right: clamp(1.25rem, 3.5vw, 2.75rem);
+  padding-bottom: clamp(1.25rem, 3vw, 2.5rem);
+  /* Leicht nach rechts: etwa dort, wo die Schutzausrüstung / Produkte von links beginnen */
+  padding-left: clamp(1.5rem, 5vw, 3rem);
+  box-sizing: border-box;
+  pointer-events: none;
+  z-index: 1;
+  min-height: 0;
+  gap: 0;
+}
+
+.pflege-hero__panel--asset-bg .pflege-hero__grid--asset-bg .pflege-hero__content {
+  max-width: min(52ch, 92%);
+  pointer-events: auto;
+}
+
+@media screen and (min-width: 750px) {
+  .pflege-hero__panel--asset-bg .pflege-hero__grid--asset-bg {
+    padding-left: clamp(2rem, 8vw, 14%);
+  }
+
+  .pflege-hero__panel--asset-bg .pflege-hero__grid--asset-bg .pflege-hero__content {
+    max-width: min(52ch, 52%);
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .pflege-hero__panel--asset-bg .pflege-hero__grid--asset-bg {
+    padding-left: clamp(2.5rem, 9vw, 17%);
+  }
+}
+
+.pflege-hero__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 1.35rem 1.1rem;
+}
+
+@media screen and (min-width: 400px) {
+  .pflege-hero__grid {
+    padding: 1.6rem 1.35rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .pflege-hero__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 2rem;
+    padding: 2rem 4vw 2rem 3vw;
+  }
+}
+
+.pflege-hero__content {
+  max-width: var(--pflege-max-copy, 52rem);
+}
+
+.pflege-hero__badge {
+  display: inline-block;
+  padding: 0.4rem 0.95rem;
+  border-radius: var(--pflege-radius-pill, 999px);
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--pflege-border, #e5eef8);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.045em;
+  color: var(--pflege-navy, #0b2347);
+  margin-bottom: 1rem;
+}
+
+.pflege-hero__title {
+  font-family: var(--pflege-font-display, var(--font-body-family));
+  font-weight: 400;
+  font-size: clamp(2.15rem, 5.5vw + 0.75rem, 4.75rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: #0f4f69;
+  margin: 0 0 1.45rem;
+}
+
+.pflege-hero__title span {
+  color: inherit;
+}
+
+.pflege-hero__sub {
+  font-size: clamp(1.22rem, 0.35vw + 1.12rem, 1.45rem);
+  line-height: 1.55;
+  /* Lesbarer als --pflege-muted, aber blasser als die Überschrift (Navy) */
+  color: #3d556f;
+  margin: 0 0 2.35rem;
+  white-space: pre-line;
+}
+
+.pflege-hero__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 1.05rem 1.9rem;
+  border-radius: 12px;
+  background: #f89738;
+  color: #fff !important;
+  font-size: clamp(1.38rem, 0.4vw + 1.2rem, 1.55rem);
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+  max-width: 28rem;
+  box-sizing: border-box;
+  min-height: 3rem;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media screen and (min-width: 480px) {
+  .pflege-hero__cta {
+    width: auto;
+    max-width: none;
+  }
+}
+
+.pflege-hero__cta:hover {
+  background: #cf6414;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.pflege-hero__cta svg {
+  flex-shrink: 0;
+}
+
+.pflege-hero__cta-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  line-height: 0;
+}
+
+.pflege-hero__cta--testpaket {
+  border: none;
+  font-family: inherit;
+}
+
+.pflege-hero__cta--category-modal {
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Dezentes Aufleuchten + leichtes Wachsen (alle ~5s) — ohne harten Glow-Ring */
+.pflege-cta--soft-pulse {
+  transform: scale(1);
+  animation: pflege-cta-soft-pulse 5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  will-change: transform, box-shadow, filter;
+}
+
+.pflege-cta--soft-pulse:hover {
+  animation-play-state: paused;
+}
+
+@keyframes pflege-cta-soft-pulse {
+  0%,
+  84%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 3px 14px rgba(11, 35, 71, 0.1);
+    filter: brightness(1);
+  }
+
+  91% {
+    transform: scale(1.035);
+    box-shadow: 0 10px 32px rgba(248, 151, 56, 0.22);
+    filter: brightness(1.05);
+  }
+
+  96% {
+    transform: scale(1.02);
+    box-shadow: 0 5px 20px rgba(248, 151, 56, 0.14);
+    filter: brightness(1.02);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pflege-cta--soft-pulse {
+    animation: none;
+    filter: none;
+  }
+}
+
+.pflege-hero__usps {
+  display: flex;
+  flex-direction: column;
+  gap: 0.72rem;
+  margin-top: 1.75rem;
+  padding: 0;
+  list-style: none;
+}
+
+.pflege-hero__usp {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.62rem;
+  font-size: 1.35rem;
+  line-height: 1.45;
+  color: var(--pflege-navy, #0b2347);
+}
+
+.pflege-hero__usp .pflege-icon {
+  color: var(--pflege-accent, #3f86d9);
+  margin-top: 0.12rem;
+  flex-shrink: 0;
+}
+
+.pflege-hero__media {
+  position: relative;
+  border-radius: var(--pflege-radius-card, 14px);
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.35);
+  aspect-ratio: 4 / 3;
+  max-height: 34rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (min-width: 990px) {
+  .pflege-hero__media {
+    aspect-ratio: 5 / 4;
+  }
+}
+
+.pflege-hero__media > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pflege-hero__media .placeholder-svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 2rem;
+}
+
+/* Trust-Bereich mittig unter dem Hero */
+.pflege-hero__trust-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: clamp(1.65rem, 3.2vw, 2.75rem);
+  padding-bottom: clamp(0.35rem, 1vw, 0.65rem);
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+.pflege-hero__trust-heading {
+  margin: 0;
+  padding: 0;
+  max-width: 44rem;
+  text-align: center;
+  font-family: var(--pflege-font-display, var(--font-body-family));
+  font-size: var(--pflege-home-section-heading-size);
+  font-weight: var(--pflege-home-section-heading-weight);
+  line-height: var(--pflege-home-section-heading-line-height);
+  letter-spacing: var(--pflege-home-section-heading-letter-spacing);
+  color: var(--pflege-home-section-heading-color);
+}
+
+.pflege-hero__trust {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: clamp(1.5rem, 3.5vw, 2.65rem) clamp(2rem, 4.5vw, 3.75rem);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 80rem;
+}
+
+.pflege-hero__trust-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  flex: 1 1 15rem;
+  max-width: 26rem;
+}
+
+/* Icon wie Referenz: Umriss in mittlerem Blau, auf hellem Kreis */
+.pflege-hero__trust-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: clamp(4.5rem, 8vw, 5.35rem);
+  height: clamp(4.5rem, 8vw, 5.35rem);
+  border-radius: 50%;
+  background: #e8f2fc;
+  line-height: 0;
+  color: #5891d7;
+  box-sizing: border-box;
+}
+
+.pflege-hero__trust-icon svg {
+  display: block;
+  width: 2.45rem;
+  height: 2.45rem;
+}
+
+.pflege-hero__trust-text {
+  font-size: clamp(1.3rem, 1.12rem + 0.42vw, 1.55rem);
+  font-weight: 500;
+  line-height: 1.38;
+  color: var(--pflege-navy, #0b2347);
+  letter-spacing: 0.01em;
+  max-width: 22rem;
+}
+
+@media screen and (min-width: 750px) {
+  .pflege-hero__trust {
+    flex-wrap: nowrap;
+  }
+
+  .pflege-hero__trust-item {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+}

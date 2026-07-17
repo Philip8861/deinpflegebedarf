@@ -1,0 +1,70 @@
+{% comment %}
+  Ratgeber-Hero: Bild + Text-Overlay (wie alltagshilfe-sued.de Ratgeber)
+{% endcomment %}
+{%- liquid
+  assign bridge_id = bridge_id | default: 'pflege-ratgeber'
+  if eyebrow == blank
+    assign eyebrow = 'Wissen, das entlastet'
+  endif
+  if heading == blank
+    assign heading = 'Ratgeber von Alltagshilfe-Süd'
+  endif
+  if lead == blank
+    assign lead = 'Praxistipps, Erklärungen und konkrete Hilfen rund um Pflege, Betreuung und Entlastung im Alltag.'
+  endif
+  if url == blank
+    assign url = 'https://www.alltagshilfe-sued.de/ratgeber'
+  endif
+  if label == blank
+    assign label = 'Zum Ratgeber weiterleiten'
+  endif
+  if body_text == blank
+    assign body_text = 'Unser Pflegeratgeber bietet Ihnen verständliches Wissen, praktische Tipps und wichtige Informationen rund um Pflege, Pflegehilfsmittel, Inkontinenzversorgung, Hautschutz, Pflegegrad und Unterstützung im Alltag. Einfach erklärt, alltagsnah geschrieben und darauf ausgelegt, Ihnen und Ihren Angehörigen im Pflegealltag wirklich weiterzuhelfen.'
+  endif
+-%}
+
+<div class="pflege-ratgeber-bridge__band">
+  <div class="pflege-ratgeber-bridge__inner">
+    <article class="pflege-ratgeber-bridge__hero">
+      <img
+        class="pflege-ratgeber-bridge__image"
+        src="{{ 'ratgeber.webp' | asset_url }}"
+        alt=""
+        width="1280"
+        height="720"
+        loading="eager"
+        decoding="async"
+      >
+
+      <div class="pflege-ratgeber-bridge__overlay">
+        <div class="pflege-ratgeber-bridge__copy">
+          <p class="pflege-ratgeber-bridge__eyebrow">
+            <span class="pflege-ratgeber-bridge__eyebrow-icon" aria-hidden="true">
+              {% render 'pflege-icon', icon: 'heart', width: 22 %}
+            </span>
+            <span>{{ eyebrow | escape }}</span>
+          </p>
+
+          <h1 id="pflege-ratgeber-title-{{ bridge_id }}" class="pflege-ratgeber-bridge__title">
+            {{ heading | escape }}
+          </h1>
+
+          <p class="pflege-ratgeber-bridge__lead">{{ lead | escape }}</p>
+
+          <a
+            class="pflege-ratgeber-bridge__cta pflege-ratgeber-bridge__cta--hero"
+            href="{{ url | escape }}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {{ label | escape }}
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <div class="pflege-ratgeber-bridge__below">
+      <p class="pflege-ratgeber-bridge__body">{{ body_text | escape }}</p>
+    </div>
+  </div>
+</div>

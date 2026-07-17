@@ -1,0 +1,253 @@
+/* Section: Abstand nach unten zum nächsten Block; oberen Abstand trägt der Bogen-Hintergrund */
+.pflege-product-finder {
+  font-family: var(--font-body-family, inherit);
+  font-style: var(--font-body-style, normal);
+  padding-top: 0;
+  padding-bottom: var(--pflege-home-section-stack, clamp(1.5rem, 3vw, 2rem));
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+/*
+  Sehr heller Streifen (etwas kräftiger als Seiten-Hintergrund ~#fefefe).
+  Oben und unten elliptischer Bogen — Überschrift + Produktfinder-Kasten in einer Fläche mit weichem Übergang zur Folgesection.
+*/
+.pflege-product-finder__backdrop {
+  margin-top: clamp(1.75rem, 5vw, 3.25rem);
+  --pflege-pf-band-pad-v: clamp(2.25rem, 5.5vw, 3.75rem);
+  padding: var(--pflege-pf-band-pad-v) 0 var(--pflege-pf-band-pad-v);
+  background: #f0f5fb;
+  /* Oben und unten: weicher elliptischer Bogen (oben zur vorherigen Fläche, unten zur folgenden Section) */
+  border-radius: var(
+    --pflege-backdrop-band-radius-vertical-both,
+    50% 50% 50% 50% / clamp(2rem, 5.5vw, 4rem) clamp(2rem, 5.5vw, 4rem) clamp(2rem, 5.5vw, 4rem) clamp(2rem, 5.5vw, 4rem)
+  );
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Überschrift liegt im Panel auf dem Hintergrundbild, oben zentriert */
+.pflege-product-finder__title-on-image {
+  font-family: var(--pflege-font-display, var(--font-body-family, inherit));
+  font-size: var(--pflege-home-section-heading-size);
+  font-weight: var(--pflege-home-section-heading-weight);
+  line-height: var(--pflege-home-section-heading-line-height);
+  letter-spacing: var(--pflege-home-section-heading-letter-spacing);
+  color: var(--pflege-home-section-heading-color);
+  margin: 0;
+  padding: 0 clamp(0.75rem, 2vw, 1.5rem);
+  text-align: center;
+  max-width: min(52rem, 96%);
+  width: 100%;
+  box-sizing: border-box;
+  text-shadow:
+    0 0 1.1rem rgba(255, 255, 255, 0.95),
+    0 0 0.45rem rgba(255, 255, 255, 0.9),
+    0 2px 4px rgba(255, 255, 255, 0.75);
+}
+
+.pflege-product-finder__shell {
+  max-width: none;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
+}
+
+.pflege-product-finder__panel {
+  position: relative;
+  width: 100%;
+  max-width: var(--pflege-hero-tile-max-width, min(100%, 1426px));
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: var(--pflege-radius-lg, 22px);
+  border: 1px solid var(--pflege-border, #e5eef8);
+  overflow: hidden;
+  box-sizing: border-box;
+  background-color: var(--pflege-bg-softer, #f5faff);
+  background-image: var(--pflege-product-finder-bg, none);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  display: flex;
+  flex-direction: column;
+  min-height: clamp(19.5rem, 42vw, 34rem);
+}
+
+/* Kein Vollflächen-Weiß — Hintergrundbild bleibt sichtbar; Lesbarkeit über Textschatten */
+.pflege-product-finder__inner {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: clamp(1.5rem, 3.2vw, 2.35rem);
+  width: 100%;
+  min-height: 0;
+  --pf-pf-inner-py: clamp(1.35rem, 3.2vw, 2.35rem);
+  padding-top: clamp(2rem, 4.35vw, 3.35rem);
+  padding-bottom: calc(var(--pf-pf-inner-py) * 1.25);
+  padding-left: clamp(1rem, 2.4vw, 2rem);
+  padding-right: clamp(1rem, 2.4vw, 2rem);
+  background: transparent;
+  box-sizing: border-box;
+}
+
+@media screen and (min-width: 750px) {
+  .pflege-product-finder__inner {
+    padding-left: clamp(1.5rem, 3vw, 3rem);
+    padding-right: clamp(1.5rem, 3vw, 3rem);
+  }
+}
+
+/* Sehr dezentes „Breathing“ über dem Bild, ohne es zu überdecken */
+.pflege-product-finder__panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.14) 0%,
+    rgba(255, 255, 255, 0.06) 40%,
+    rgba(255, 255, 255, 0.12) 100%
+  );
+}
+
+.pflege-product-finder__stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(1.85rem, 5vw, 3.35rem);
+  /* Breitere Spalte: weniger Zeilenumbrüche (≈ 3 Zeilen statt sehr schmal viele Umbrüche) */
+  max-width: min(56rem, 96%);
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.pflege-product-finder__lead {
+  width: 100%;
+  max-width: min(54rem, 100%);
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.pflege-product-finder__intro {
+  font-family: var(--font-body-family, inherit);
+  /* Größe wie zuvor (größer als Bestseller-Intro); Farbintensität wie .pflege-hero__sub */
+  font-size: clamp(1.48rem, 1.22rem + 1vw, 2.08rem);
+  line-height: 1.34;
+  font-weight: 400;
+  color: #3d556f;
+  margin: 0;
+  max-width: 100%;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  text-wrap: balance;
+  text-shadow:
+    0 0 0.85rem rgba(255, 255, 255, 0.88),
+    0 1px 2px rgba(255, 255, 255, 0.75);
+}
+
+.pflege-product-finder__intro--secondary {
+  margin-top: clamp(0.45rem, 1vw, 0.65rem);
+}
+
+.pflege-product-finder__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 1.15rem);
+  margin-top: 0;
+}
+
+.pflege-product-finder__actions--center {
+  justify-content: center;
+  width: 100%;
+}
+
+.pflege-product-finder__cta-wrap {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.pflege-product-finder__cta-icon,
+.pflege-product-finder__cta-icon .pflege-icon {
+  color: #fff;
+}
+
+.pflege-product-finder__cta-icon .pflege-icon svg {
+  width: 1.35em;
+  height: 1.35em;
+  stroke: currentColor;
+}
+
+/* Orange wie Theme-CTA (Hero / Footer) */
+.pflege-product-finder__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  padding: 1.38rem 2.85rem;
+  border-radius: 999px;
+  background: var(--pflege-cta, #f89738);
+  color: #fff !important;
+  font-size: clamp(1.28rem, 1.08rem + 0.52vw, 1.58rem);
+  font-weight: 700;
+  text-decoration: none;
+  border: none;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.15);
+  transition: background 0.2s ease, transform 0.2s ease;
+  min-height: 4.2rem;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pflege-product-finder__cta:hover {
+  background: var(--pflege-cta-hover, #dc7a22);
+}
+
+.pflege-product-finder__cta:focus-visible {
+  outline: 2px solid var(--pflege-cta, #f89738);
+  outline-offset: 3px;
+}
+
+.pflege-product-finder__cta svg {
+  flex-shrink: 0;
+  width: 1.78rem;
+  height: 1.78rem;
+}
+
+.pflege-product-finder__link-secondary {
+  font-size: clamp(1rem, 0.95rem + 0.15vw, 1.1rem);
+  font-weight: 600;
+  color: var(--pflege-accent, #3f86d9);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.pflege-product-finder__link-secondary:hover {
+  color: #2f73c4;
+}
+
+@media screen and (max-width: 599px) {
+  .pflege-product-finder__cta {
+    width: 100%;
+    max-width: min(100%, 34rem);
+  }
+}

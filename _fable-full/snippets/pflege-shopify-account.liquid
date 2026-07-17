@@ -1,0 +1,21 @@
+{%- comment -%}
+  Shopify Account Component (<shopify-account>) für neue Kundenkonten.
+  Menü-Links (Bestellungen, Profil, Abmelden) werden per JS eingefügt.
+{%- endcomment -%}
+<div
+  class="pflege-shopify-account-host"
+  data-pflege-account-orders-url="{{ routes.account_url }}"
+  data-pflege-account-profile-url="{{ routes.account_profile_url }}"
+  data-pflege-account-logout-url="{{ routes.account_logout_url }}"
+  data-pflege-account-orders-label="Bestellungen"
+  data-pflege-account-profile-label="Profil"
+  data-pflege-account-logout-label="Abmelden"
+>
+  <shopify-account>
+    <div slot="signed-out-avatar" class="pflege-shopify-account__signed-out">
+      <span class="pflege-main-nav__action-icon" aria-hidden="true">
+        <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
+      </span>
+    </div>
+  </shopify-account>
+</div>

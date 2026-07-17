@@ -1,0 +1,101 @@
+﻿{{ 'section-pflege-trust-bar.css' | asset_url | stylesheet_tag }}
+
+<section class="pflege-trust">
+  <div class="page-width">
+    <div class="pflege-trust__panel">
+      <div class="pflege-trust__grid">
+        {%- for block in section.blocks -%}
+          <div class="pflege-trust__col" {{ block.shopify_attributes }}>
+            {% render 'pflege-icon', icon: block.settings.icon, width: 24 %}
+            {%- if block.settings.title != blank -%}
+              <h3 class="pflege-trust__title">{{ block.settings.title | escape }}</h3>
+            {%- endif -%}
+            {%- if block.settings.text != blank -%}
+              <p class="pflege-trust__text">{{ block.settings.text | escape }}</p>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PflegeShop Trust-Bar",
+  "tag": "section",
+  "class": "pflege-trust-section",
+  "max_blocks": 8,
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Vorteil",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "package", "label": "Versand" },
+            { "value": "shield", "label": "Sicherheit" },
+            { "value": "sparkles", "label": "Komfort" },
+            { "value": "headset", "label": "Service" }
+          ],
+          "default": "package"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titel",
+          "default": "Schneller Versand"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Versand innerhalb von 1–3 Werktagen"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PflegeShop Trust-Bar",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "icon": "package",
+            "title": "Schneller Versand",
+            "text": "Versand innerhalb von 1–3 Werktagen"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "shield",
+            "title": "Sicher einkaufen",
+            "text": "SSL-verschlüsselt & sicher bezahlen"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "sparkles",
+            "title": "Pflegeleicht bestellen",
+            "text": "Einfach, schnell & bequem"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "headset",
+            "title": "Kompetenter Service",
+            "text": "Wir sind für Sie da"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

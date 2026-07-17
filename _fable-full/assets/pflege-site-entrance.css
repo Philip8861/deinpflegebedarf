@@ -1,0 +1,48 @@
+/* PflegeShop — Seiten-Einblendung deaktiviert beim Laden (s. pflege-site-entrance.js) */
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Dawn scroll-trigger: kein kurzes Ausblenden vor JS-Init */
+  body .scroll-trigger.animate--fade-in,
+  body .scroll-trigger.animate--slide-in,
+  html.pflege-site-entrance-ready .pflege-site-entrance-el,
+  html.pflege-site-entrance-ready .pflege-site-entrance-el--card,
+  html.pflege-site-entrance-ready .pflege-site-entrance-el--section {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+    filter: none !important;
+  }
+
+  html.pflege-site-entrance-ready #MainContent .scroll-trigger {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Produktbeschreibung sofort sichtbar */
+  .pflege-pdp-detail,
+  .pflege-pdp-detail .pflege-product-description-section,
+  .pflege-pdp-detail .pflege-product-description-section * {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.pflege-site-entrance-prep .pflege-site-entrance-el {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Pflegesets: sofort sichtbar — keine Wartezeit auf defer-JS */
+body.pflege-pflegesets-page .pflege-pflegesets .pflege-cat-card,
+body.pflege-pflegesets-page .pflege-pflegesets__title,
+body.pflege-pflegesets-page .pflege-pflegesets__sub,
+body.pflege-pflegesets-page .pflege-pflegesets-section .shopify-section {
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+}

@@ -1,0 +1,163 @@
+{% render 'pflege-cat-card-styles' %}
+{{ 'section-pflege-bestseller-row.css' | asset_url | stylesheet_tag }}
+{{ 'section-pflege-related-products.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign products_limit = section.settings.products_to_show | default: 4
+  assign intro_text = section.settings.intro | strip
+  assign view_all_href = section.settings.view_all_link
+  if view_all_href == blank
+    assign view_all_href = routes.all_products_collection_url
+  endif
+  assign view_all_text = section.settings.view_all_label | strip
+-%}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient pflege-related-products-wrap">
+  <product-recommendations
+    class="pflege-related-products section-{{ section.id }}-padding{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+    data-url="{{ routes.product_recommendations_url }}?limit={{ products_limit }}"
+    data-section-id="{{ section.id }}"
+    data-product-id="{{ product.id }}"
+  >
+    {% if recommendations.performed and recommendations.products_count > 0 %}
+      <section
+        class="pflege-bestseller pflege-related-products__row"
+        aria-labelledby="PflegeRelatedHeading-{{ section.id }}"
+      >
+        <div class="pflege-bestseller__shell">
+          <div class="pflege-bestseller__panel">
+            <header class="pflege-bestseller__head">
+              <div class="pflege-bestseller__head-text">
+                <h2 id="PflegeRelatedHeading-{{ section.id }}" class="pflege-bestseller__title">
+                  {{- section.settings.heading -}}
+                </h2>
+                {%- if intro_text != blank -%}
+                  <p class="pflege-bestseller__intro">{{ intro_text | escape | newline_to_br }}</p>
+                {%- endif -%}
+              </div>
+              {%- if section.settings.show_view_all_link and view_all_text != blank -%}
+                <a class="pflege-bestseller__view-all" href="{{ view_all_href }}">
+                  {{- view_all_text | escape -}}
+                </a>
+              {%- endif -%}
+            </header>
+            <div class="pflege-bestseller__grid">
+              {% for recommendation in recommendations.products limit: products_limit %}
+                {% render 'pflege-cat-card',
+                  card_product: recommendation,
+                  card_layout: 'horizontal',
+                  list_item: false,
+                  promo_badge_label: 'Unser Tipp!',
+                  promo_badge_variant: 'tip'
+                %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </section>
+    {% endif %}
+  </product-recommendations>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.related-products.name",
+  "tag": "section",
+  "class": "section pflege-related-products-section",
+  "disabled_on": {
+    "templates": ["cart"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:sections.related-products.settings.paragraph__1.content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "t:sections.related-products.settings.paragraph__1.default",
+      "label": "t:sections.related-products.settings.heading.label"
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Einleitung unter der Überschrift",
+      "info": "Optional. Gleiche Typografie wie „Beliebte Pflegeprodukte“ auf der Startseite.",
+      "default": "Passende Ergänzungen und Alternativen zu Ihrer aktuellen Auswahl."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all_link",
+      "default": false,
+      "label": "t:sections.related-products.settings.show_view_all_link.label"
+    },
+    {
+      "type": "text",
+      "id": "view_all_label",
+      "label": "t:sections.related-products.settings.view_all_label.label",
+      "default": "t:sections.related-products.settings.view_all_label.default",
+      "info": "t:sections.related-products.settings.view_all_label.info"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "t:sections.related-products.settings.view_all_link.label",
+      "info": "t:sections.related-products.settings.view_all_link.info"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 4,
+      "label": "t:sections.related-products.settings.products_to_show.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "info": "t:sections.all.colors.has_cards_info",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,193 @@
+{{ 'pflege-collection-page.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign col_handle_intro = collection.handle | downcase
+  if col_handle_intro == 'kostenfreie-pflegehilfsmittel' or col_handle_intro == 'pflegehilfsmittel-kostenfrei'
+    assign skip_intro_for_free_care = true
+  else
+    assign skip_intro_for_free_care = false
+  endif
+-%}
+{%- if skip_intro_for_free_care -%}
+  {%- comment -%} Inhalt über Section „PHM Kopfbereich“ (pflege-collection-free-care-top). {%- endcomment -%}
+{%- else -%}
+{%- liquid
+  assign intro_met = collection.metafields.pflege.intro.value | strip
+  assign hero_intro = intro_met | strip_html | strip
+  if hero_intro == blank
+    assign desc_plain = collection.description | strip_html | newline_to_br | strip_newlines
+    assign desc_plain = desc_plain | replace: '<br />', ' ' | replace: '<br>', ' ' | replace: '<br/>', ' ' | strip | truncate: 260
+    if desc_plain.size > 24
+      assign hero_intro = desc_plain
+    else
+      assign hero_intro = 'sections.pflege_collection.fallback_intro' | t: title: collection.title
+    endif
+  endif
+
+  assign finder_heading = section.settings.finder_heading_override | strip
+  if finder_heading == blank
+    assign finder_heading = collection.metafields.pflege.finder_heading.value | strip_html | strip
+  endif
+  if finder_heading == blank
+    assign finder_heading = 'sections.pflege_collection.finder_heading' | t
+  endif
+
+  assign finder_desc = section.settings.finder_body_override | strip
+  if finder_desc == blank
+    assign finder_desc = collection.metafields.pflege.finder_text.value | strip_html | strip
+  endif
+  if finder_desc == blank
+    assign finder_desc = 'sections.pflege_collection.finder_text_default' | t
+  endif
+
+  assign finder_href = section.settings.finder_link | strip
+  if finder_href == blank
+    assign finder_href = collection.metafields.pflege.finder_url.value | strip
+  endif
+  assign finder_open_popup = false
+  if finder_href == blank
+    assign finder_href = '#pflege-finder-open'
+    assign finder_open_popup = true
+  elsif finder_href == '#pflege-finder-open'
+    assign finder_open_popup = true
+  endif
+
+  # Sonderfall Kollektion hautpflege: H1 Hallo123 (früher im Kollektionsbanner).
+  assign pflege_col_seg = ''
+  if request.path contains '/collections/'
+    assign pflege_col_seg = request.path | split: '/collections/' | last | split: '/' | first | split: '?' | first | downcase | strip
+  endif
+  if pflege_col_seg == blank
+    assign pflege_col_seg = collection.handle | default: '' | downcase | strip
+  endif
+  assign pflege_intro_heading = collection.title
+  if pflege_col_seg == 'hautpflege' or collection.handle == 'hautpflege'
+    assign pflege_intro_heading = 'Hallo123'
+  endif
+-%}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section
+  class="pflege-category-intro section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }} {% if settings.animations_reveal_on_scroll %}scroll-trigger animate--fade-in{% endif %}"
+  id="PflegeCollectionIntro-{{ section.id }}"
+>
+  <div class="pflege-category-intro__shell page-width">
+    <div class="pflege-category-intro__hero-grid{% unless section.settings.show_finder_card %} pflege-category-intro__hero-grid--no-finder{% endunless %}">
+      <header class="pflege-category-intro__main">
+        <h1 class="pflege-category-intro__title">{{ pflege_intro_heading | escape }}</h1>
+        <p class="pflege-category-intro__lead">{{ hero_intro | escape }}</p>
+      </header>
+
+      {%- if section.settings.show_finder_card -%}
+      <aside class="pflege-category-intro__finder" aria-label="{{ 'sections.pflege_collection.finder_heading' | t }}">
+        <div class="pflege-category-intro__finder-card">
+          <div class="pflege-category-intro__finder-icon-wrap" aria-hidden="true">
+            {% render 'pflege-icon', icon: 'sparkles', width: 26 %}
+          </div>
+          <h2 class="pflege-category-intro__finder-heading">{{ finder_heading | escape }}</h2>
+          <p class="pflege-category-intro__finder-text">{{ finder_desc | escape }}</p>
+          <a
+            class="pflege-category-intro__finder-cta"
+            href="{{ finder_href | escape }}"
+            {% if finder_open_popup %}data-pflege-finder-open{% endif %}
+          >
+            {%- liquid
+              assign finder_cta_text = section.settings.finder_cta_label | strip
+              if finder_cta_text == blank
+                echo 'sections.pflege_collection.finder_cta' | t
+              else
+                echo finder_cta_text | escape
+              endif
+            -%}
+          </a>
+        </div>
+      </aside>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:sections.pflege_collection_intro.name",
+  "tag": "section",
+  "class": "pflege-collection-intro-section section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:sections.pflege_collection_intro.settings.paragraph_metafields.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_finder_card",
+      "label": "Produktfinder-Karte anzeigen",
+      "default": false,
+      "info": "Der Produktfinder ist derzeit deaktiviert — Karte standardmäßig ausblenden."
+    },
+    {
+      "type": "text",
+      "id": "finder_heading_override",
+      "label": "t:sections.pflege_collection_intro.settings.finder_heading_override.label"
+    },
+    {
+      "type": "textarea",
+      "id": "finder_body_override",
+      "label": "t:sections.pflege_collection_intro.settings.finder_body_override.label"
+    },
+    {
+      "type": "text",
+      "id": "finder_link",
+      "label": "t:sections.pflege_collection_intro.settings.finder_link.label",
+      "default": "#pflege-finder-open",
+      "info": "t:sections.pflege_collection_intro.settings.finder_link.info"
+    },
+    {
+      "type": "text",
+      "id": "finder_cta_label",
+      "label": "t:sections.pflege_collection_intro.settings.finder_cta_label.label",
+      "default": "Produktfinder starten",
+      "info": "t:sections.pflege_collection_intro.settings.finder_cta_label.info"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 72,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 72,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 24
+    }
+  ],
+  "presets": [{ "name": "t:sections.pflege_collection_intro.presets.name" }]
+}
+{% endschema %}

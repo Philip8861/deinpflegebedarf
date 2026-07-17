@@ -1,0 +1,43 @@
+{% comment %}
+  „Ihre Vorteile bei uns“ — zweispaltige Liste mit haken.webp.
+  Parameter (optional): heading, subtitle, section_id
+{% endcomment %}
+{%- liquid
+  assign adv_heading = heading
+  if adv_heading == blank
+    assign adv_heading = 'sections.pflege_collection_free_care.advantages_us_heading' | t
+  endif
+  assign adv_subtitle = subtitle
+  if adv_subtitle == blank
+    assign adv_subtitle = 'sections.pflege_collection_free_care.advantages_us_subtitle' | t
+  endif
+  assign adv_title_id = 'pflege-advantages-us-title'
+  if section_id != blank
+    assign adv_title_id = adv_title_id | append: '-' | append: section_id
+  endif
+-%}
+<section class="pflege-advantages-us" aria-labelledby="{{ adv_title_id }}">
+  <div class="pflege-advantages-us__backdrop">
+    <div class="pflege-advantages-us__inner">
+      <header class="pflege-advantages-us__head">
+        <h2 id="{{ adv_title_id }}" class="pflege-advantages-us__title">{{ adv_heading | escape }}</h2>
+        {%- if adv_subtitle != blank -%}
+          <p class="pflege-advantages-us__subtitle">{{ adv_subtitle | escape }}</p>
+        {%- endif -%}
+      </header>
+
+      <div class="pflege-advantages-us__grid">
+        <ul class="pflege-advantages-us__col" role="list">
+          {% render 'pflege-advantages-us-item', item_index: 1 %}
+          {% render 'pflege-advantages-us-item', item_index: 2 %}
+          {% render 'pflege-advantages-us-item', item_index: 3 %}
+        </ul>
+        <ul class="pflege-advantages-us__col" role="list">
+          {% render 'pflege-advantages-us-item', item_index: 4 %}
+          {% render 'pflege-advantages-us-item', item_index: 5 %}
+          {% render 'pflege-advantages-us-item', item_index: 6 %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

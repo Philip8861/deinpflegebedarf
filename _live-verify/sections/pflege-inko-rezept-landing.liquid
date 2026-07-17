@@ -1,0 +1,258 @@
+﻿{% comment %}
+  Landingpage: Inkontinenzversorgung auf Rezept — Hero wie Startseite + Testpaket-Popup.
+{% endcomment %}
+{{ 'section-pflege-hero.css' | asset_url | stylesheet_tag }}
+{{ 'section-pflege-collection-free-care.css' | asset_url | stylesheet_tag }}
+{{ 'component-pflege-contact-portrait.css' | asset_url | stylesheet_tag }}
+{{ 'section-pflege-inko-rezept-landing.css' | asset_url | stylesheet_tag }}
+{{ 'section-pflege-inko-testpaket-modal.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'pflege-inko-testpaket-modal.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign hero_asset = section.settings.hero_asset | default: 'Landing_page.webp'
+  assign hero_title_id = 'pflege-inko-rezept-hero-title-' | append: section.id
+-%}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign hero_badge = section.settings.badge | strip
+  if hero_badge == blank
+    assign hero_badge = 'sections.pflege_inko_rezept_landing.hero_badge' | t
+  endif
+  assign hero_line1 = section.settings.heading_line1
+  if hero_line1 == blank
+    assign hero_line1 = 'sections.pflege_inko_rezept_landing.heading_line1' | t
+  endif
+  assign hero_line2 = ''
+  assign hero_sub = section.settings.subheading
+  if hero_sub == blank
+    assign hero_sub = 'sections.pflege_inko_rezept_landing.hero_sub' | t
+  endif
+  assign hero_btn_label = section.settings.button_label
+  if hero_btn_label == blank
+    assign hero_btn_label = 'sections.pflege_inko_rezept_landing.button_label' | t
+  endif
+  assign hero_img_alt = section.settings.image_alt
+  if hero_img_alt == blank
+    assign hero_img_alt = 'sections.pflege_inko_rezept_landing.image_alt' | t
+  endif
+-%}
+
+<section
+  class="pflege-hero pflege-hero--inko-rezept pflege-hero--free-care section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient"
+  aria-labelledby="{{ hero_title_id }}"
+>
+  <div class="pflege-hero__shell">
+    {% render 'pflege-hero-asset-panel',
+      asset_file: hero_asset,
+      mobile_asset_file: 'rezept_einloesen.webp',
+      image_alt: hero_img_alt,
+      badge: hero_badge,
+      heading_line1: hero_line1,
+      heading_line2: hero_line2,
+      subheading: hero_sub,
+      button_label: hero_btn_label,
+      button_opens_testpaket: true,
+      title_id: hero_title_id
+    %}
+  </div>
+
+  <div class="pflege-inko-rezept-landing__trail">
+    {% render 'pflege-inko-rezept-below-hero', section: section %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Inko Rezept Landing",
+  "tag": "section",
+  "class": "pflege-inko-rezept-landing-section",
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Farbschema",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge",
+      "default": "Wir übernehmen die Organisation und Sie sparen Geld"
+    },
+    {
+      "type": "text",
+      "id": "heading_line1",
+      "label": "Überschrift",
+      "default": "Geld sparen: Inkontinenzversorgung auf Rezept"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Unterzeile",
+      "default": "Erhalten Sie bei uns ein kostenloses Testpaket und finden Sie unverbindlich das Produkt, das wirklich zu Ihnen passt."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button-Text",
+      "default": "Kostenloses Testpaket erhalten"
+    },
+    {
+      "type": "text",
+      "id": "hero_asset",
+      "label": "Theme-Asset Dateiname",
+      "default": "Landing_page.webp",
+      "info": "Bild aus dem Theme-Ordner assets/ (wie startseite_main.webp auf der Startseite)."
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Alt-Text Bild",
+      "default": "Inkontinenzversorgung auf Rezept"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Abstand oben",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Abstand unten",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Telefon-Beratung"
+    },
+    {
+      "type": "text",
+      "id": "phone_intro",
+      "label": "Telefon-Einleitung",
+      "default": "Gerne beraten wir Sie auch telefonisch unter:"
+    },
+    {
+      "type": "text",
+      "id": "phone_number",
+      "label": "Telefonnummer (Anzeige)",
+      "default": "07733 / 9488820"
+    },
+    {
+      "type": "text",
+      "id": "phone_link",
+      "label": "Telefon-Link",
+      "default": "tel:+4977339488820"
+    },
+    {
+      "type": "textarea",
+      "id": "phone_hint",
+      "label": "Telefon Zusatztext",
+      "default": "Wir beraten Sie persönlich und kostenlos zur passenden Inkontinenzversorgung."
+    },
+    {
+      "type": "header",
+      "content": "3 Schritte"
+    },
+    {
+      "type": "text",
+      "id": "steps_title",
+      "label": "Überschrift Schritte",
+      "default": "In 3 einfachen Schritten zum passenden Inkontinenzprodukt"
+    },
+    {
+      "type": "textarea",
+      "id": "steps_subtitle",
+      "label": "Untertitel Schritte",
+      "default": "Wir beraten Sie persönlich, klären Ihren Bedarf und senden auf Wunsch kostenlose Muster zu."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Schritt",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "file-text", "label": "Formular" },
+            { "value": "document", "label": "Formular mit Haken" },
+            { "value": "headset", "label": "Beratung" },
+            { "value": "gift", "label": "Geschenk" },
+            { "value": "package", "label": "Paket" }
+          ],
+          "default": "file-text"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titel",
+          "default": "Schritt"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Inko Rezept Landing",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "icon": "document",
+            "title": "Anfrage ausfüllen",
+            "text": "Teilen Sie uns Ihre Kontaktdaten und Wünsche mit."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "icon": "headset",
+            "title": "Wir melden uns persönlich",
+            "text": "Unser Team kontaktiert Sie werktags innerhalb von 24 Stunden."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "icon": "gift",
+            "title": "Produkt besprechen & Muster erhalten",
+            "text": "Wir finden gemeinsam die passende Lösung und senden auf Wunsch kostenlose Muster zu."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

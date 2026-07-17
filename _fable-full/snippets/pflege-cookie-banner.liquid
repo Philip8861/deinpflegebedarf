@@ -1,0 +1,44 @@
+{% comment %}
+  Cookie-Hinweis: deutsch, PflegeShop-Stil; nutzt Shopify Customer Privacy API (wie Standard-Banner).
+  Admin: Einstellungen → Kunden-Datenschutz / Cookie-Banner für die Zielregionen aktivieren.
+{% endcomment %}
+{{ 'component-pflege-cookie-banner.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign url_privacy = routes.root_url | append: 'pages/datenschutzerklaerung'
+  assign url_cookies = routes.root_url | append: 'pages/cookie-einstellungen'
+-%}
+
+<div
+  id="pflege-cookie-banner"
+  class="pflege-cookie-banner"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="pflege-cookie-banner-title"
+  aria-describedby="pflege-cookie-banner-desc"
+  hidden
+>
+  <div class="pflege-cookie-banner__panel">
+    <div class="pflege-cookie-banner__content">
+      <h2 id="pflege-cookie-banner-title" class="pflege-cookie-banner__title">Cookies &amp; Datenschutz</h2>
+      <p id="pflege-cookie-banner-desc" class="pflege-cookie-banner__text">
+        Wir verwenden Cookies und ähnliche Technologien, um den Shop bereitzustellen, die Nutzung auszuwerten und
+        Inhalte zu verbessern. Technisch notwendige Cookies können nicht abgewählt werden. Mit „Alle akzeptieren“
+        stimmen Sie optional Analyse- und Marketing-Cookies zu. Hinweise zur Verarbeitung finden Sie in unserer
+        <a href="{{ url_privacy }}">Datenschutzerklärung</a>; weitere Informationen zu den verwendeten Cookies finden Sie unter
+        <a href="{{ url_cookies }}">Cookie-Einstellungen</a>.
+      </p>
+    </div>
+    <div class="pflege-cookie-banner__actions">
+      <button type="button" class="pflege-cookie-banner__btn pflege-cookie-banner__btn--ghost" data-pflege-cookie-decline>
+        Nur notwendige
+      </button>
+      <button type="button" class="pflege-cookie-banner__btn pflege-cookie-banner__btn--primary" data-pflege-cookie-accept>
+        Alle akzeptieren
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="{{ 'pflege-cookie-consent.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'pflege-cookie-banner.js' | asset_url }}" defer="defer"></script>

@@ -1,0 +1,24 @@
+/**
+ * Einheitlicher Abstand zwischen Seitenbereichen (alle Templates).
+ * Orientierung: üblicher Homepage-Rhythmus (großzügige Section-Abstände).
+ */
+
+:root {
+  --pflege-section-gap: clamp(2rem, 3.5vw, 2.85rem);
+}
+
+/* Zwischenraum Sections (kleiner als Section-Padding, sonst doppelt zu viel Luft) */
+body:not(.template-cart) #MainContent > .shopify-section + .shopify-section {
+  margin-top: calc(var(--pflege-section-gap) * 0.55);
+}
+
+/* Footer-Stack (Vorteile → Kundenstimmen → FAQ) nach dem Hauptinhalt */
+body:not(.template-cart) #MainContent + .pflege-site-footer-stack {
+  margin-top: var(--pflege-section-gap);
+}
+
+/* Kontaktseite: kein Footer-Stack → normaler Abstand zum Shop-Footer */
+body.template-page-kontakt #MainContent,
+body.template-page-contact #MainContent {
+  padding-bottom: var(--pflege-section-gap);
+}

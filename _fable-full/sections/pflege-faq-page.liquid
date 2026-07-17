@@ -1,0 +1,85 @@
+{{ 'section-pflege-faq-accordion.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'pflege-faq-accordion.js' | asset_url }}" defer="defer"></script>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section
+  class="pflege-faq-accordion pflege-faq-accordion--page section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient"
+  aria-labelledby="pflege-faq-page-title-{{ section.id }}"
+  data-pflege-faq-accordion
+  data-first-open="false"
+  data-single-open="true"
+>
+  <div class="pflege-faq-accordion__backdrop">
+    <div class="pflege-faq-accordion__inner">
+      <header class="pflege-faq-accordion__head">
+        <h1 class="pflege-faq-accordion__title" id="pflege-faq-page-title-{{ section.id }}">
+          {{ 'sections.pflege_faq_page.heading' | t }}
+        </h1>
+
+        <div class="pflege-faq-accordion__intro pflege-faq-accordion__intro--page">
+          <p class="pflege-faq-accordion__intro-lead">{{ 'sections.pflege_faq_page.intro_lead' | t }}</p>
+        </div>
+      </header>
+
+      {% render 'pflege-faq-page-categories', section_id: section.id %}
+    </div>
+  </div>
+</section>
+
+{% render 'pflege-free-care-faq-schema',
+  locale_root: 'sections.pflege_faq_page',
+  faq_count: 65
+%}
+
+{% schema %}
+{
+  "name": "FAQ-Seite",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Farbschema",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Abstand oben",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Abstand unten",
+      "default": 88
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ-Seite"
+    }
+  ]
+}
+{% endschema %}

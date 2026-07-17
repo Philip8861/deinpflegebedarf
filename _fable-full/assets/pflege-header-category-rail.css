@@ -1,0 +1,265 @@
+/*
+ * Kategorie-Reiter unter der Hauptzeile (keine Überlappung mit zentrierter Suche).
+ * Optik: weiße Pill, Trennlinien, aktiver Tab hellblau wie Referenz.
+ */
+
+.pflege-main-nav-section .header-wrapper.pflege-main-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Zweite Zeile: gleiche horizontale Spanne wie Hero-Kachel / Bestseller-Panel (--pflege-hero-tile-max-width). */
+.pflege-main-nav-section .pflege-main-nav__cat-rail-row {
+  width: 100%;
+  max-width: var(--pflege-hero-tile-max-width, min(100%, 1426px));
+  margin-inline: auto;
+  min-width: 0;
+  flex: 0 0 auto;
+  padding-block: 0.2rem 0.45rem;
+  box-sizing: border-box;
+}
+
+.pflege-main-nav-section .pflege-main-nav__cat-rail-row .pflege-cat-rail {
+  width: 100%;
+  min-width: 0;
+}
+
+.pflege-cat-rail {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body-family), system-ui, sans-serif;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__bar {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  border-radius: 999px;
+  background: #fefefe;
+  border: 1px solid #e2e6ec;
+  box-shadow: 0 2px 10px rgba(11, 35, 71, 0.07);
+  overflow: hidden;
+  min-height: 48px;
+  display: flex;
+  align-items: stretch;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__list {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: stretch;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  gap: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__list::-webkit-scrollbar {
+  height: 3px;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__list::-webkit-scrollbar-thumb {
+  background: rgba(15, 79, 105, 0.2);
+  border-radius: 999px;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__cell {
+  flex: 1 1 0;
+  display: flex;
+  align-items: stretch;
+  min-width: 0;
+  border-right: 1px solid #e8eaed;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__cell:last-child {
+  border-right: none;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__link {
+  flex: 1 1 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-width: 0;
+  padding: 0.55rem clamp(0.35rem, 0.9vw, 0.75rem);
+  margin: 0;
+  text-decoration: none;
+  font-family: var(--font-body-family), system-ui, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: clamp(0.88rem, 0.72rem + 0.42vw, 1.08rem);
+  letter-spacing: 0.02em;
+  line-height: 1.25;
+  color: var(--pflege-heading-navy, #062a55);
+  -webkit-font-smoothing: antialiased;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-sizing: border-box;
+  white-space: nowrap;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  transition:
+    background 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__link:hover {
+  background: rgba(240, 247, 255, 0.55);
+  color: #0f4f69;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__link:focus-visible {
+  outline: 2px solid rgba(15, 79, 105, 0.45);
+  outline-offset: -2px;
+  z-index: 1;
+  position: relative;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  color: #0f4f69;
+  line-height: 0;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__link--active {
+  font-weight: 700;
+  color: var(--pflege-heading-navy, #062a55);
+  background: #f0f7ff;
+  box-shadow: inset 0 0 0 1px #cce3ff;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__link--active .pflege-cat-rail__icon {
+  color: #0f4f69;
+}
+
+@media screen and (min-width: 750px) {
+  .pflege-main-nav-section .pflege-main-nav__grid {
+    padding-bottom: 0.65rem;
+  }
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__bar.is-submenu-open {
+  overflow: visible;
+  z-index: 12;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__bar.is-submenu-open .pflege-cat-rail__list {
+  overflow: visible;
+}
+
+.pflege-main-nav-section .pflege-main-nav__cat-rail-row:has(.pflege-cat-rail__bar.is-submenu-open) {
+  overflow: visible;
+  z-index: 15;
+}
+
+.pflege-main-nav-section.section-header:has(.pflege-cat-rail__bar.is-submenu-open) {
+  z-index: 50;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__cell--has-submenu {
+  position: relative;
+  z-index: 13;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__link--submenu-toggle {
+  width: 100%;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__submenu-chevron {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #0f4f69;
+  transition: transform 0.2s ease;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__cell--has-submenu.is-open .pflege-cat-rail__submenu-chevron {
+  transform: rotate(180deg);
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__submenu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: max(100%, 17.5rem);
+  margin: 0;
+  padding: 0.55rem 0;
+  list-style: none;
+  border-radius: 14px;
+  background: #fefefe;
+  border: 1px solid #d8e3ef;
+  box-shadow: 0 14px 36px rgba(11, 35, 71, 0.16);
+  z-index: 30;
+  box-sizing: border-box;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__cell--has-submenu.is-open .pflege-cat-rail__submenu {
+  display: block;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__submenu[hidden] {
+  display: none;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__sublink {
+  display: block;
+  padding: 0.9rem 1.25rem;
+  text-decoration: none;
+  font-size: clamp(1.02rem, 0.9rem + 0.45vw, 1.2rem);
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+  color: var(--pflege-heading-navy, #062a55);
+  -webkit-text-fill-color: var(--pflege-heading-navy, #062a55);
+  white-space: nowrap;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__submenu li + li .pflege-cat-rail__sublink {
+  border-top: 1px solid #eef2f7;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__sublink:hover,
+.pflege-cat-rail--header-row .pflege-cat-rail__sublink:focus-visible {
+  background: #f0f7ff;
+  color: #0f4f69;
+  outline: none;
+}
+
+.pflege-cat-rail--header-row .pflege-cat-rail__sublink.is-active {
+  background: #f0f7ff;
+  color: var(--pflege-heading-navy, #062a55);
+}
+
+@media screen and (max-width: 749px) {
+  /* Gleiche Links in der Kategorienübersicht (Dialog); keine doppelte Leiste im Header. */
+  .pflege-main-nav-section .pflege-main-nav__cat-rail-row {
+    display: none !important;
+  }
+}

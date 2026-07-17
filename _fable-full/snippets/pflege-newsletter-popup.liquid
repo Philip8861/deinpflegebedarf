@@ -1,0 +1,120 @@
+{%- comment -%}
+  PflegeShop — Newsletter-Pop-Up (10 % Rabatt auf erste Bestellung)
+  - Wird ausschließlich auf der Startseite eingebunden (siehe layout/theme.liquid).
+  - Initial via [hidden] + aria-hidden="true" verborgen → keine SEO-Probleme
+    (Google bewertet das Pop-Up nicht als „intrusive interstitial“:
+     erst nach 20 s, mittig, klar schließbar, einfacher dismiss).
+  - Frequenz-Capping per localStorage (Schließen 30 Tage, Anmeldung 365 Tage)
+    erfolgt im JavaScript.
+{%- endcomment -%}
+
+{{ 'component-pflege-newsletter-popup.css' | asset_url | stylesheet_tag }}
+{%- comment -%} Zwei Schichten wie .pflege-category-modal::backdrop (Blur + rgba getrennt) {%- endcomment -%}
+<style>
+  .pflege-newsletter-popup__backdrop-blur {
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+  }
+  .pflege-newsletter-popup__backdrop-dim {
+    background: var(--pflege-overlay-backdrop, rgba(11, 35, 71, 0.56));
+  }
+</style>
+
+<aside
+  id="pflege-newsletter-popup"
+  class="pflege-newsletter-popup"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="pflege-newsletter-popup-title"
+  aria-describedby="pflege-newsletter-popup-desc"
+  aria-hidden="true"
+  hidden
+  data-popup-delay="10000"
+>
+  <div class="pflege-newsletter-popup__backdrop" data-pnp-close aria-hidden="true">
+    <span class="pflege-newsletter-popup__backdrop-blur"></span>
+    <span class="pflege-newsletter-popup__backdrop-dim"></span>
+  </div>
+
+  <div class="pflege-newsletter-popup__panel" role="document">
+    <button
+      type="button"
+      class="pflege-newsletter-popup__close"
+      data-pnp-close
+      aria-label="Pop-Up schließen"
+    >
+      <span class="svg-wrapper" aria-hidden="true">
+        {{- 'icon-close.svg' | inline_asset_content -}}
+      </span>
+    </button>
+
+    <div class="pflege-newsletter-popup__badge" aria-hidden="true">
+      <span class="pflege-newsletter-popup__badge-percent">10%</span>
+      <span class="pflege-newsletter-popup__badge-sub">Rabatt</span>
+    </div>
+
+    <h2 id="pflege-newsletter-popup-title" class="pflege-newsletter-popup__title">
+      10 % Rabatt auf Ihre erste Bestellung
+    </h2>
+
+    <p id="pflege-newsletter-popup-desc" class="pflege-newsletter-popup__text">
+      Melden Sie sich für unseren Newsletter an und erhalten Sie nützliche Pflegetipps,
+      neue Produkte sowie Ihren persönlichen 10 %-Gutschein direkt per E-Mail.
+    </p>
+
+    <div class="pflege-newsletter-popup__form-wrap">
+      {%- form 'customer', id: 'PflegeNewsletterPopupForm', class: 'pflege-newsletter-popup__form' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter,popup-10p">
+        {%- if form.posted_successfully? -%}
+          <p class="pflege-newsletter-popup__success" role="status" data-pnp-success>
+            Vielen Dank für Ihre Anmeldung! Den 10 %-Gutscheincode erhalten Sie in Kürze per E-Mail.
+          </p>
+          <button
+            type="button"
+            class="pflege-newsletter-popup__submit pflege-newsletter-popup__continue"
+            data-pnp-close
+          >
+            <span>Jetzt weiter shoppen</span>
+            <span class="pflege-newsletter-popup__submit-arrow" aria-hidden="true">→</span>
+          </button>
+        {%- else -%}
+          <label class="visually-hidden" for="PflegeNewsletterPopupEmail">E-Mail-Adresse</label>
+          <input
+            id="PflegeNewsletterPopupEmail"
+            type="email"
+            name="contact[email]"
+            class="pflege-newsletter-popup__input"
+            value="{{ form.email }}"
+            autocomplete="email"
+            autocapitalize="off"
+            autocorrect="off"
+            spellcheck="false"
+            placeholder="E-Mail-Adresse eingeben"
+            required
+            {% if form.errors %}
+              aria-invalid="true"
+              aria-describedby="PflegeNewsletterPopupErr"
+            {% endif %}
+          >
+          <button type="submit" class="pflege-newsletter-popup__submit" name="commit">
+            <span>Jetzt 10&nbsp;% sichern</span>
+            <span class="pflege-newsletter-popup__submit-arrow" aria-hidden="true">→</span>
+          </button>
+          {%- if form.errors -%}
+            <p id="PflegeNewsletterPopupErr" class="pflege-newsletter-popup__error" role="alert">
+              {{ form.errors.messages.email }}
+            </p>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endform -%}
+
+      <p class="pflege-newsletter-popup__legal">
+        Jederzeit abbestellbar. Mit der Anmeldung erklären Sie sich mit der
+        <a href="{{ routes.root_url }}pages/datenschutzerklaerung" rel="nofollow">Datenschutzerklärung</a>
+        einverstanden.
+      </p>
+    </div>
+  </div>
+</aside>
+
+<script src="{{ 'pflege-newsletter-popup.js' | asset_url }}" defer="defer"></script>

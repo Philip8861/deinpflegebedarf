@@ -1,0 +1,95 @@
+{% comment %}
+  PflegeShop — Unterer Produktbereich: ProductDescriptionSection.
+  Obere PDP (Galerie, Kaufspalte) bleibt in main-product unverändert.
+{% endcomment %}
+{{ 'section-pflege-product-detail-body.css' | asset_url | stylesheet_tag }}
+{{ 'section-pflege-product-description.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .pflege-pdp-detail.section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .pflege-pdp-detail.section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section
+  class="pflege-pdp-detail section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}"
+  aria-label="{{ section.settings.section_aria_label | escape }}"
+  {{ section.shopify_attributes }}
+>
+  <div class="page-width pflege-pdp-detail__shell">
+    {% render 'pflege-product-description-section',
+      product: product,
+      heading: section.settings.description_heading
+    %}
+  </div>
+</section>
+
+<script src="{{ 'pflege-product-description.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Pflege PDP-Detail",
+  "tag": "section",
+  "class": "section",
+  "enabled_on": {
+    "templates": ["product"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Zeigt die Shopify-Produktbeschreibung (product.description) als hochwertige Beschreibungskarte. Keine Metafeld-Blöcke mehr — Inhalte kommen ausschließlich aus dem Produkt-Admin."
+    },
+    {
+      "type": "text",
+      "id": "description_heading",
+      "label": "Überschrift Beschreibungskarte",
+      "default": "Beschreibung"
+    },
+    {
+      "type": "text",
+      "id": "section_aria_label",
+      "label": "Section ARIA",
+      "default": "Produktbeschreibung"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Farbschema",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Abstand oben",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Abstand unten",
+      "default": 72
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pflege PDP-Detail",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}

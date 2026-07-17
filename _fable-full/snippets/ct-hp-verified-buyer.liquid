@@ -1,0 +1,17 @@
+{% comment %}
+  Zeile unter Kund*innen-Name: blaues Häkchen + „Zertifizierter Käufer“
+{% endcomment %}
+<span class="ct-hp__verified">
+  <svg class="ct-hp__verified-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <circle class="ct-hp__verified-disc" cx="12" cy="12" r="10"/>
+    <path
+      class="ct-hp__verified-check"
+      fill="none"
+      stroke-width="2.35"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M7.2 12.1l3.2 3.2 6.4-6.4"
+    />
+  </svg>
+  <span class="ct-hp__verified-text">{{ 'sections.customer_testimonials_hp.verified_buyer' | t }}</span>
+</span>

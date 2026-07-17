@@ -1,0 +1,52 @@
+<div class="pflege-customer-login__card pflege-customer-login__card--benefits">
+  <h2 class="pflege-customer-login__benefits-title">
+    {{ title | default: 'Ihre Vorteile mit einem Konto' | escape }}
+  </h2>
+  <ul class="pflege-customer-login__benefits-list">
+    <li class="pflege-customer-login__benefit">
+      <span class="pflege-customer-login__benefit-icon">
+        {% render 'pflege-icon', icon: 'package', width: 32 %}
+      </span>
+      <div class="pflege-customer-login__benefit-copy">
+        <p class="pflege-customer-login__benefit-title">Bestellungen einsehen</p>
+        <p class="pflege-customer-login__benefit-text">Verfolgen Sie Status und Historie Ihrer Bestellungen jederzeit.</p>
+      </div>
+    </li>
+    <li class="pflege-customer-login__benefit">
+      <span class="pflege-customer-login__benefit-icon">
+        {% render 'pflege-icon', icon: 'truck', width: 32 %}
+      </span>
+      <div class="pflege-customer-login__benefit-copy">
+        <p class="pflege-customer-login__benefit-title">Lieferadressen verwalten</p>
+        <p class="pflege-customer-login__benefit-text">Speichern und aktualisieren Sie Ihre Adressen für schnelle Lieferungen.</p>
+      </div>
+    </li>
+    <li class="pflege-customer-login__benefit">
+      <span class="pflege-customer-login__benefit-icon">
+        {% render 'pflege-icon', icon: 'rotate-ccw', width: 32 %}
+      </span>
+      <div class="pflege-customer-login__benefit-copy">
+        <p class="pflege-customer-login__benefit-title">Schneller erneut bestellen</p>
+        <p class="pflege-customer-login__benefit-text">Lieblingsprodukte mit wenigen Klicks nachbestellen.</p>
+      </div>
+    </li>
+    <li class="pflege-customer-login__benefit">
+      <span class="pflege-customer-login__benefit-icon">
+        {% render 'pflege-icon', icon: 'user', width: 32 %}
+      </span>
+      <div class="pflege-customer-login__benefit-copy">
+        <p class="pflege-customer-login__benefit-title">Persönlicher Kundenbereich</p>
+        <p class="pflege-customer-login__benefit-text">Alle Daten und Einstellungen an einem sicheren Ort.</p>
+      </div>
+    </li>
+  </ul>
+  <hr class="pflege-customer-login__divider">
+  <div class="pflege-customer-login__trust">
+    <span class="pflege-customer-login__trust-icon">
+      {% render 'pflege-icon', icon: 'shield-check', width: 44 %}
+    </span>
+    <p class="pflege-customer-login__benefit-text">
+      Sicher, einfach und kostenlos — Ihre Daten werden vertraulich behandelt.
+    </p>
+  </div>
+</div>

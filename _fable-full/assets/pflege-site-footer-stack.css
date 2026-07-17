@@ -1,0 +1,85 @@
+/* Einheitlicher Block vor dem Shop-Footer: Vorteile → Kundenstimmen → FAQ */
+
+.pflege-site-footer-stack {
+  --pfs-stack-gap: calc(var(--pflege-section-gap, clamp(2rem, 3.5vw, 2.85rem)) * 0.85);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pfs-stack-gap);
+  width: 100%;
+  margin: 0;
+  padding: calc(var(--pflege-section-gap, clamp(2rem, 3.5vw, 2.85rem)) * 0.65) 0;
+  box-sizing: border-box;
+}
+
+.pflege-site-footer-stack > .shopify-section {
+  margin: 0;
+}
+
+/* ——— 1. Ihre Vorteile bei uns ——— */
+.pflege-site-footer-stack .pflege-advantages-us-section .pflege-advantages-us {
+  margin: 0;
+}
+
+.pflege-site-footer-stack .pflege-advantages-us__backdrop {
+  padding-top: var(--pflege-advantages-us-pad-block, clamp(3.25rem, 6vw, 5.25rem));
+  padding-bottom: var(--pflege-advantages-us-pad-block, clamp(3.25rem, 6vw, 5.25rem));
+}
+
+/* ——— 2. Kundenstimmen ——— */
+.pflege-site-footer-stack .customer-testimonials-hp-section .ct-hp {
+  background: #fff;
+}
+
+.pflege-site-footer-stack .customer-testimonials-hp-section .ct-hp__inner {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* PHM: Pflegebox-CTA unter Kundenstimmen */
+.pflege-site-footer-stack .pfc-free-care__testimonials-cta {
+  --pfc-cta: var(--pflege-cta, #f89738);
+  --pfc-cta-hover: var(--pflege-cta-hover, #dc7a22);
+  --pfc-navy: var(--pflege-navy, #0b2347);
+  width: 100%;
+  max-width: var(--pflege-hero-tile-max-width, min(100%, 1426px));
+  margin: 0 auto;
+  padding: 0 max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
+  box-sizing: border-box;
+}
+
+.pflege-site-footer-stack .pflege-bestseller--closing-cta--after-testimonials {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.pflege-site-footer-stack .pflege-bestseller--closing-cta--after-testimonials .pflege-bestseller__shell {
+  max-width: 100%;
+}
+
+/* ——— 3. FAQ (ganz unten vor Shop-Footer) ——— */
+.pflege-site-footer-stack .pflege-boxi-faq-strip-section .pflege-faq-strip-wrap,
+.pflege-site-footer-stack .pflege-faq-strip-wrap--pfc {
+  margin: 0;
+}
+
+.pflege-site-footer-stack .pflege-boxi-faq-strip-section .pflege-faq-strip-wrap > div,
+.pflege-site-footer-stack .pflege-faq-strip-wrap--pfc .pflege-faq-strip-wrap__pad {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.pflege-site-footer-stack .pflege-faq-strip-wrap .pflege-faq-accordion__backdrop {
+  padding-top: var(--pflege-faq-pad-block, clamp(3.25rem, 6vw, 5.25rem));
+  padding-bottom: var(--pflege-faq-pad-block, clamp(3.25rem, 6vw, 5.25rem));
+}
+
+.pflege-site-footer-stack .pflege-faq-strip-wrap--pfc .pflege-faq-accordion__inner {
+  padding-top: 0;
+}
+
+/* Abstand zum statischen Shop-Footer */
+.pflege-site-footer-stack + .pflege-footer-static,
+.pflege-site-footer-stack + footer,
+.pflege-site-footer-stack ~ .pflege-footer-static {
+  margin-top: 0;
+}

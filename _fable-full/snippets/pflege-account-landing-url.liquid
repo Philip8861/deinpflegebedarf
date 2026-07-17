@@ -1,0 +1,14 @@
+{%- comment -%}
+  URL der Theme-Account-Landing für Gäste (Output nur URL).
+{%- endcomment -%}
+{%- liquid
+  if pages['mein-konto'] != blank
+    echo pages['mein-konto'].url
+  elsif pages['mein-konto-1'] != blank
+    echo pages['mein-konto-1'].url
+  elsif pages.anmelden != blank
+    echo pages.anmelden.url
+  else
+    echo '/pages/mein-konto'
+  endif
+-%}

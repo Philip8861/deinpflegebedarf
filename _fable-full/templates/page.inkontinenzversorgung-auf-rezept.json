@@ -1,0 +1,68 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "pflege_inko_rezept_landing": {
+      "type": "pflege-inko-rezept-landing",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "icon": "document",
+            "title": "Anfrage ausfüllen",
+            "text": "Teilen Sie uns Ihre Kontaktdaten und Wünsche mit."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "icon": "headset",
+            "title": "Wir melden uns persönlich",
+            "text": "Unser Team kontaktiert Sie werktags innerhalb von 24 Stunden."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "icon": "gift",
+            "title": "Produkt besprechen & Muster erhalten",
+            "text": "Wir finden gemeinsam die passende Lösung und senden auf Wunsch kostenlose Muster zu."
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "badge": "Wir übernehmen die Organisation und Sie sparen Geld",
+        "heading_line1": "Geld sparen: Inkontinenzversorgung auf Rezept",
+        "subheading": "Erhalten Sie bei uns ein kostenloses Testpaket und finden Sie unverbindlich das Produkt, das wirklich zu Ihnen passt.",
+        "button_label": "Kostenloses Testpaket erhalten",
+        "hero_asset": "Landing_page.webp",
+        "mobile_hero_asset": "rezept_einloesen.webp",
+        "image_alt": "Inkontinenzversorgung auf Rezept",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "phone_intro": "Gerne beraten wir Sie auch telefonisch unter:",
+        "phone_number": "07733 / 9488820",
+        "phone_link": "tel:+4977339488820",
+        "phone_hint": "Wir beraten Sie persönlich und kostenlos zur passenden Inkontinenzversorgung.",
+        "steps_title": "In 3 einfachen Schritten zum passenden Inkontinenzprodukt",
+        "steps_subtitle": "Wir beraten Sie persönlich, klären Ihren Bedarf und senden auf Wunsch kostenlose Muster zu."
+      }
+    }
+  },
+  "order": [
+    "pflege_inko_rezept_landing"
+  ]
+}

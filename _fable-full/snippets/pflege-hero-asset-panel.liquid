@@ -1,0 +1,68 @@
+{% comment %}
+  Hero-Kachel mit Theme-Asset als Hintergrund (wie startseite_main auf der Startseite).
+  Parameter: asset_file, mobile_asset_file (optional), image_alt, badge, heading_line1,
+  heading_line2, subheading, button_label, button_link, button_opens_testpaket,
+  secondary_button_label, secondary_button_link, title_id, full_width
+{% endcomment %}
+{%- liquid
+  assign mobile_photo_w = mobile_asset_width | default: 750
+  assign mobile_photo_h = mobile_asset_height | default: 1200
+-%}
+{%- if mobile_asset_file != blank -%}
+  <div class="pflege-hero__panel pflege-hero__panel--mobile-free-care">
+    <img
+      class="pflege-hero__mobile-shop-photo"
+      src="{{ mobile_asset_file | asset_url }}"
+      alt="{{ image_alt | escape }}"
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+      width="{{ mobile_photo_w }}"
+      height="{{ mobile_photo_h }}"
+    >
+    <div class="pflege-hero__mobile-shop-overlay">
+      <div class="pflege-hero__content">
+        {% render 'pflege-hero-asset-panel-content',
+          badge: badge,
+          heading_line1: heading_line1,
+          heading_line2: heading_line2,
+          subheading: subheading,
+          title_id: title_id,
+          button_label: button_label,
+          button_link: button_link,
+          button_opens_testpaket: button_opens_testpaket,
+          secondary_button_label: secondary_button_label,
+          secondary_button_link: secondary_button_link
+        %}
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+<div class="pflege-hero__panel pflege-hero__panel--asset-bg{% if full_width %} pflege-hero__panel--fullwidth{% endif %}">
+  <div class="pflege-hero__asset-zoom">
+    <img
+      class="pflege-hero__asset-photo"
+      src="{{ asset_file | asset_url }}"
+      alt="{{ image_alt | escape }}"
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+    >
+  </div>
+  <div class="pflege-hero__grid pflege-hero__grid--asset-bg">
+    <div class="pflege-hero__content">
+      {% render 'pflege-hero-asset-panel-content',
+        badge: badge,
+        heading_line1: heading_line1,
+        heading_line2: heading_line2,
+        subheading: subheading,
+        title_id: title_id,
+        button_label: button_label,
+        button_link: button_link,
+        button_opens_testpaket: button_opens_testpaket,
+        secondary_button_label: secondary_button_label,
+        secondary_button_link: secondary_button_link
+      %}
+    </div>
+  </div>
+</div>

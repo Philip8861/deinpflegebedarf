@@ -1,0 +1,113 @@
+/* PflegeShop Produktfinder — Modal/Popup */
+
+.pflege-finder-modal {
+  width: min(52rem, calc(100vw - 1.5rem));
+  max-width: none;
+  max-height: calc(100dvh - 1.5rem);
+  padding: 0;
+  border: none;
+  border-radius: var(--pflege-radius-lg, 22px);
+  background: transparent;
+  overflow: visible;
+  color: var(--pflege-heading-navy, #062a55);
+}
+
+.pflege-finder-modal::backdrop {
+  background: var(--pflege-overlay-backdrop, rgba(11, 35, 71, 0.56));
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.pflege-finder-modal__panel {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100dvh - 1.5rem);
+  background: #fff;
+  border: 1px solid var(--pflege-border, #e5eef8);
+  border-radius: var(--pflege-radius-lg, 22px);
+  box-shadow: 0 18px 48px rgba(11, 35, 71, 0.18);
+  overflow: hidden;
+}
+
+.pflege-finder-modal__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.15rem 0.75rem;
+  border-bottom: 1px solid var(--pflege-border, #e5eef8);
+  background: var(--pflege-bg-softer, #f5faff);
+}
+
+.pflege-finder-modal__title {
+  margin: 0;
+  font-family: var(--pflege-font-display, inherit);
+  font-size: clamp(1.15rem, 1rem + 0.5vw, 1.45rem);
+  font-weight: 800;
+  color: var(--pflege-home-section-heading-color, #0f4f69);
+}
+
+.pflege-finder-modal__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--pflege-heading-navy, #062a55);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.pflege-finder-modal__close:hover {
+  background: var(--pflege-bg-soft, #eef6ff);
+}
+
+.pflege-finder-modal__close:focus-visible {
+  outline: 2px solid var(--pflege-accent, #3f86d9);
+  outline-offset: 2px;
+}
+
+.pflege-finder-quiz--modal {
+  overflow-y: auto;
+  padding: clamp(0.85rem, 2vw, 1.25rem);
+}
+
+.pflege-finder-quiz--modal .pflege-finder-quiz__intro--modal {
+  margin: 0 auto 0.85rem;
+  max-width: 40rem;
+  text-align: center;
+  font-size: 0.98rem;
+  line-height: 1.45;
+  color: #3d556f;
+}
+
+.pflege-finder-quiz--modal .pflege-finder-quiz__progress {
+  margin-top: 0;
+}
+
+.pflege-finder-quiz--modal .pflege-finder-quiz__viewport {
+  box-shadow: none;
+  border: none;
+  background: transparent;
+  padding: clamp(0.5rem, 1.5vw, 1rem) 0 0;
+}
+
+.pflege-finder-quiz--modal .pflege-finder-step__title {
+  font-size: clamp(1.15rem, 1rem + 0.5vw, 1.45rem);
+}
+
+@media screen and (max-width: 749px) {
+  .pflege-finder-modal {
+    width: calc(100% - (var(--pflege-modal-inset-x, clamp(0.85rem, 4.5vw, 1.25rem)) * 2));
+    max-height: calc(100% - (var(--pflege-modal-inset-y, clamp(1rem, 5vw, 1.35rem)) * 2));
+  }
+
+  .pflege-finder-modal__panel {
+    max-height: calc(100% - (var(--pflege-modal-inset-y, clamp(1rem, 5vw, 1.35rem)) * 2));
+  }
+}

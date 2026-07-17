@@ -1,0 +1,30 @@
+{%- comment -%}
+  Params:
+    - slot: 1 | 2 | 3 (Zahl oder String — wird normalisiert)
+    - setting_value: Inhalt aus section.settings.contents_N (von der Section durchgereicht)
+
+  Reihenfolge:
+    1) setting_value (Theme Editor / JSON)
+    2) Shop-Metafeld pflegeshop.pflegesets_contents_N (optional)
+    3) Snippet pflege-pflegeset-included-defaults
+{%- endcomment -%}
+{%- liquid
+  assign ix = slot | default: 0 | plus: 0
+  assign out = setting_value | strip
+
+  if out == blank and ix >= 1 and ix <= 3
+    case ix
+      when 1
+        assign out = shop.metafields.pflegeshop.pflegesets_contents_1.value | strip
+      when 2
+        assign out = shop.metafields.pflegeshop.pflegesets_contents_2.value | strip
+      when 3
+        assign out = shop.metafields.pflegeshop.pflegesets_contents_3.value | strip
+    endcase
+  endif
+-%}
+{%- if out == blank -%}
+  {%- render 'pflege-pflegeset-included-defaults', slot: ix -%}
+{%- else -%}
+  {{- out -}}
+{%- endif -%}

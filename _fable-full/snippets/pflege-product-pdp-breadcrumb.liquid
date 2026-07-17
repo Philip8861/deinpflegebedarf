@@ -1,0 +1,24 @@
+{% comment %}
+  Produkt-Breadcrumb unter dem Header (Referenzlayout).
+  Args: product, home_label (string), sep (string), aria_label (string), collection_hint (collection, optional — überschreibt Fallback)
+{% endcomment %}
+{%- liquid
+  assign bc_coll = collection_hint
+  if bc_coll == blank and product.collections.size > 0
+    assign bc_coll = product.collections.first
+  endif
+-%}
+<nav class="pflege-pdp-breadcrumb caption" aria-label="{{ aria_label | escape }}">
+  <ol class="pflege-pdp-breadcrumb__list list-unstyled">
+    <li class="pflege-pdp-breadcrumb__item">
+      <a href="{{ routes.root_url }}">{{ home_label | escape }}</a>
+    </li>
+    {%- if bc_coll != blank -%}
+      <li class="pflege-pdp-breadcrumb__sep" aria-hidden="true">{{ sep | escape }}</li>
+      <li class="pflege-pdp-breadcrumb__item">
+        <a href="{{ bc_coll.url }}">{{ bc_coll.title | escape }}</a>
+      </li>
+    {%- endif -%}
+  </ol>
+  <span class="visually-hidden" aria-current="page">{{ product.title | escape }}</span>
+</nav>

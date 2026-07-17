@@ -1,0 +1,242 @@
+{% comment %}
+  Kategorie „Kostenfreie Pflegehilfsmittel“ — Hero (wie Startseite), Vorteile, Hinweis vor Produktliste.
+{% endcomment %}
+{{ 'section-pflege-hero.css' | asset_url | stylesheet_tag }}
+{{ 'section-pflege-collection-free-care.css' | asset_url | stylesheet_tag }}
+{% render 'pflege-cat-card-styles' %}
+{{ 'section-pflege-bestseller-row.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign col_handle = collection.handle | downcase
+  assign show_free_care = false
+  if col_handle == 'kostenfreie-pflegehilfsmittel' or col_handle == 'pflegehilfsmittel-kostenfrei'
+    assign show_free_care = true
+  endif
+-%}
+{%- unless show_free_care -%}
+  {%- if request.design_mode -%}
+    <div class="page-width" style="padding:1rem 0;color:#6f7f95;font-size:1.1rem;">
+      Hinweis: Diese Section ist für die Kollektion „Kostenfreie Pflegehilfsmittel“ gedacht (Handle: kostenfreie-pflegehilfsmittel).
+    </div>
+  {%- endif -%}
+{%- else -%}
+  {%- liquid
+    assign pfc_external_config_url = 'https://www.alltagshilfe-sued.de/pflegehilfsmittel/pflegebox-konfigurator'
+    assign pfc_external_info_url = 'https://www.alltagshilfe-sued.de/pflegehilfsmittel/kostenfreie-pflegehilfsmittel'
+    assign pfc_config_url = section.settings.configurator_link | strip
+    if pfc_config_url == blank
+      assign pfc_config_url = pfc_external_config_url
+    endif
+    assign pfc_info_url = section.settings.info_link | strip
+    if pfc_info_url == blank
+      assign pfc_info_url = pfc_external_info_url
+    endif
+    assign pfc_closing_config_url = section.settings.configurator_link | strip
+    if pfc_closing_config_url == blank
+      assign pfc_closing_config_url = pfc_external_config_url
+    endif
+    assign pfc_closing_info_url = section.settings.info_link | strip
+    if pfc_closing_info_url == blank
+      assign pfc_closing_info_url = pfc_external_info_url
+    endif
+  -%}
+
+  {%- style -%}
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+    @media screen and (min-width: 750px) {
+      .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+    }
+  {%- endstyle -%}
+
+  {%- liquid
+    assign hero_badge = section.settings.badge | strip
+    if hero_badge == blank
+      assign hero_badge = 'sections.pflege_collection_free_care.hero_badge' | t
+    endif
+    assign hero_line1 = section.settings.heading_line1
+    if hero_line1 == blank
+      assign hero_line1 = 'sections.pflege_collection_free_care.hero_h1' | t
+    endif
+    assign hero_line2 = ''
+    assign hero_sub = section.settings.subheading
+    if hero_sub == blank
+      assign hero_sub = 'sections.pflege_collection_free_care.hero_sub' | t
+    endif
+    assign hero_btn_label = section.settings.button_label
+    if hero_btn_label == blank
+      assign hero_btn_label = 'sections.pflege_collection_free_care.cta_configure' | t
+    endif
+    assign hero_btn_link = section.settings.button_link | strip
+    if hero_btn_link == blank
+      assign hero_btn_link = pfc_external_config_url
+    endif
+    assign hero_secondary_label = section.settings.secondary_button_label
+    if hero_secondary_label == blank
+      assign hero_secondary_label = 'sections.pflege_collection_free_care.cta_more_info' | t
+    endif
+    assign hero_secondary_link = section.settings.secondary_button_link | strip
+    if hero_secondary_link == blank
+      assign hero_secondary_link = pfc_external_info_url
+    endif
+    assign hero_img_alt = section.settings.hero_image_alt
+    if hero_img_alt == blank
+      assign hero_img_alt = 'sections.pflege_collection_free_care.hero_image_alt' | t
+    endif
+    assign hero_asset_file = 'kostenfreie_pflegehilfsmittel.webp'
+    assign hero_title_id = 'pfc-free-care-hero-title-' | append: section.id
+    assign box_products_title = 'sections.pflege_collection_free_care.box_products_title' | t
+    assign box_products_intro = 'sections.pflege_collection_free_care.box_products_intro' | t
+    assign box_products_limit = section.settings.box_products_count | default: 11
+  -%}
+
+  <div class="pfc-free-care" id="pfc-free-care-top-{{ section.id }}">
+    <section class="pflege-hero pflege-hero--free-care" aria-labelledby="{{ hero_title_id }}">
+      <div class="pflege-hero__shell">
+        {% render 'pflege-hero-asset-panel',
+          asset_file: hero_asset_file,
+          mobile_asset_file: 'mobil_pflegebox.webp',
+          image_alt: hero_img_alt,
+          badge: hero_badge,
+          heading_line1: hero_line1,
+          heading_line2: hero_line2,
+          subheading: hero_sub,
+          button_label: hero_btn_label,
+          button_link: hero_btn_link,
+          secondary_button_label: hero_secondary_label,
+          secondary_button_link: hero_secondary_link,
+          title_id: hero_title_id
+        %}
+      </div>
+    </section>
+
+    <div class="pfc-free-care__box-products" id="pfc-box-products-{{ section.id }}">
+      {% render 'pflege-cat-product-grid-block',
+        title: box_products_title,
+        intro: box_products_intro,
+        collection: collection,
+        products_limit: box_products_limit
+      %}
+    </div>
+
+    <div class="pfc-free-care__closing-wrap pfc-free-care__below">
+      {% render 'pflege-free-care-closing-cta',
+        section_id: section.id,
+        config_url: pfc_closing_config_url,
+        info_url: pfc_closing_info_url
+      %}
+    </div>
+
+  </div>
+{%- endunless -%}
+
+{% schema %}
+{
+  "name": "PHM Kopfbereich",
+  "tag": "section",
+  "class": "pfc-free-care-top-section",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Hero-Kachel und Typografie wie Startseiten-Hero (startseite_main.webp). Bild: kostenfreie_pflegehilfsmittel.webp"
+    },
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge (wie Startseiten-Hero)",
+      "default": "Kostenfreie Pflegehilfsmittel ab Pflegegrad 1"
+    },
+    {
+      "type": "text",
+      "id": "heading_line1",
+      "label": "Überschrift",
+      "default": "Wussten Sie schon?"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Text",
+      "default": "Viele Produkte aus unserem Shop müssen Sie nicht selbst bezahlen. Ab Pflegegrad 1 können Sie Pflegehilfsmittel im Wert von bis zu 42 € monatlich kostenlos über die Pflegekasse erhalten."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button primär",
+      "default": "Pflegebox jetzt konfigurieren"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Link primärer Button",
+      "info": "Leer = alltagshilfe-sued.de/pflegehilfsmittel/pflegebox-konfigurator"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_label",
+      "label": "Button sekundär",
+      "default": "Weitere Infos"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "Link sekundärer Button",
+      "info": "Leer = alltagshilfe-sued.de/pflegehilfsmittel/kostenfreie-pflegehilfsmittel"
+    },
+    {
+      "type": "text",
+      "id": "hero_image_alt",
+      "label": "Alt-Text Bild",
+      "default": "Kostenfreie Pflegehilfsmittel für die häusliche Pflege"
+    },
+    {
+      "type": "url",
+      "id": "configurator_link",
+      "label": "Link Pflegebox-Konfigurator",
+      "info": "Hero-Button und Abschluss-CTA unter den Vorteilen"
+    },
+    {
+      "type": "url",
+      "id": "info_link",
+      "label": "Link „Mehr Infos“",
+      "info": "Hero, Abschluss-CTA. Leer = alltagshilfe-sued.de/kostenfreie-pflegehilfsmittel"
+    },
+    {
+      "type": "range",
+      "id": "box_products_count",
+      "min": 4,
+      "max": 50,
+      "step": 1,
+      "default": 11,
+      "label": "Pflegebox-Artikel (Anzahl Karten)",
+      "info": "Produktreihe direkt unter dem Hero: 4 Karten pro Reihe (Desktop), wie Hautpflege-Kategorieseiten."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Abstand unter dem Hero",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Abstand unten",
+      "default": 28
+    }
+  ],
+  "presets": [{ "name": "PHM Kopfbereich" }]
+}
+{% endschema %}

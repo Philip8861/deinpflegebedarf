@@ -1,0 +1,207 @@
+/* PflegeShop — Ratgeber-Hero (Text auf Bild) */
+
+.pflege-ratgeber-bridge--page-pad {
+  padding-top: 48px;
+  padding-bottom: 64px;
+}
+
+@media screen and (min-width: 750px) {
+  .pflege-ratgeber-bridge--page-pad {
+    padding-top: 64px;
+    padding-bottom: 80px;
+  }
+}
+
+.pflege-ratgeber-bridge {
+  --prb-petrol: #0f4f69;
+  --prb-navy: #0b2347;
+  --prb-text: #3d556f;
+  --prb-cta: var(--pflege-cta, #f89738);
+  --prb-cta-hover: var(--pflege-cta-hover, #dc7a22);
+  --prb-bg: #fafbfc;
+  --prb-hero-bg: #fafbfc;
+
+  font-family: var(--font-body-family, inherit);
+  color: var(--prb-navy);
+  background: var(--prb-bg);
+}
+
+.pflege-ratgeber-bridge__band {
+  padding: 0 max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px))
+    0 max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
+}
+
+.pflege-ratgeber-bridge__inner {
+  width: 100%;
+  max-width: var(--pflege-hero-tile-max-width, min(100%, 1426px));
+  margin: 0 auto;
+}
+
+/* Original: Bild bestimmt die Höhe */
+.pflege-ratgeber-bridge__hero {
+  position: relative;
+  width: 100%;
+  border-radius: clamp(16px, 2.5vw, 24px);
+  overflow: hidden;
+  background: var(--prb-hero-bg);
+  box-shadow: 0 12px 40px -16px rgba(11, 35, 71, 0.2);
+}
+
+.pflege-ratgeber-bridge__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: clamp(16rem, 42vw, 26rem);
+  object-fit: cover;
+  object-position: center center;
+}
+
+.pflege-ratgeber-bridge__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1.25rem, 3.5vw, 3rem);
+  padding-left: clamp(3.25rem, 11vw, 8.5rem);
+  box-sizing: border-box;
+  background: linear-gradient(
+    100deg,
+    rgba(250, 251, 252, 0.97) 0%,
+    rgba(250, 251, 252, 0.88) 40%,
+    rgba(250, 251, 252, 0.45) 58%,
+    transparent 72%
+  );
+}
+
+/* Breiter Textblock — nutzt die linke Bannerhälfte */
+.pflege-ratgeber-bridge__copy {
+  width: min(58%, 52rem);
+  max-width: 100%;
+  text-align: left;
+}
+
+.pflege-ratgeber-bridge__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0 0 clamp(0.65rem, 1.5vw, 0.9rem);
+  font-size: clamp(0.78rem, 0.72rem + 0.2vw, 0.92rem);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--prb-petrol);
+  line-height: 1.3;
+}
+
+.pflege-ratgeber-bridge__eyebrow-icon {
+  display: inline-flex;
+  color: var(--prb-cta);
+  line-height: 0;
+}
+
+.pflege-ratgeber-bridge__title {
+  margin: 0 0 clamp(0.75rem, 1.5vw, 1rem);
+  font-family: var(--pflege-font-display, var(--font-body-family, inherit));
+  font-size: clamp(1.85rem, 1.35rem + 2.2vw, 3rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  color: var(--prb-petrol);
+}
+
+.pflege-ratgeber-bridge__lead {
+  margin: 0 0 clamp(1.25rem, 2.5vw, 1.75rem);
+  font-size: clamp(1.02rem, 0.96rem + 0.35vw, 1.25rem);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--prb-text);
+  max-width: none;
+}
+
+.pflege-ratgeber-bridge__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.85rem;
+  padding: 0.7rem 1.65rem;
+  border-radius: var(--pflege-radius-pill, 999px);
+  font-size: clamp(1rem, 0.94rem + 0.2vw, 1.12rem);
+  font-weight: 700;
+  text-decoration: none;
+  color: #fff !important;
+  background: var(--prb-cta);
+  border: 2px solid var(--prb-cta);
+  box-shadow: 0 8px 22px -10px rgba(248, 151, 56, 0.55);
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.pflege-ratgeber-bridge__cta:hover {
+  background: var(--prb-cta-hover);
+  border-color: var(--prb-cta-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px -10px rgba(248, 151, 56, 0.55);
+}
+
+.pflege-ratgeber-bridge__cta:focus-visible {
+  outline: 2px solid var(--prb-petrol);
+  outline-offset: 3px;
+}
+
+/* Hero-Banner: größerer Button */
+.pflege-ratgeber-bridge__cta--hero {
+  min-height: clamp(3.35rem, 5vw, 4rem);
+  padding: 0.95rem clamp(2rem, 3.5vw, 2.75rem);
+  font-size: clamp(1.12rem, 1rem + 0.45vw, 1.38rem);
+}
+
+/* Text zentriert unter dem Hero */
+.pflege-ratgeber-bridge__below {
+  margin-top: clamp(2rem, 4vw, 3rem);
+  margin-left: auto;
+  margin-right: auto;
+  max-width: min(56rem, 92%);
+  text-align: center;
+}
+
+.pflege-ratgeber-bridge__body {
+  margin: 0;
+  font-size: clamp(1.2rem, 1.05rem + 0.65vw, 1.55rem);
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--prb-text);
+}
+
+@media screen and (min-width: 990px) {
+  .pflege-ratgeber-bridge__overlay {
+    padding-left: clamp(4.5rem, 12vw, 10rem);
+  }
+
+  .pflege-ratgeber-bridge__copy {
+    width: min(56%, 54rem);
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .pflege-ratgeber-bridge__overlay {
+    align-items: flex-end;
+    padding-left: 1.5rem;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(250, 251, 252, 0.55) 35%,
+      rgba(250, 251, 252, 0.96) 68%,
+      rgba(250, 251, 252, 0.98) 100%
+    );
+  }
+
+  .pflege-ratgeber-bridge__copy {
+    width: 100%;
+  }
+
+  .pflege-ratgeber-bridge__image {
+    min-height: clamp(22rem, 70vw, 28rem);
+    object-position: center top;
+  }
+}

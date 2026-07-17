@@ -1,0 +1,28 @@
+<section class="pflege-pdp-service-foot page-width" aria-label="{{ 'products.product.pflege_pdp.service_foot_aria' | t }}">
+  <ul class="pflege-pdp-service-foot__list list-unstyled" role="list">
+    <li class="pflege-pdp-service-foot__item" role="listitem">
+      {% render 'pflege-icon', icon: 'package', width: 22 %}
+      <div class="pflege-pdp-service-foot__copy">
+        <span class="pflege-pdp-service-foot__title">{{ 'products.product.pflege_pdp.service_foot_shipping_title' | t }}</span>
+        <span class="pflege-pdp-service-foot__sub">{{ 'products.product.pflege_pdp.service_foot_shipping_sub' | t }}</span>
+      </div>
+    </li>
+    <li class="pflege-pdp-service-foot__item" role="listitem">
+      {% render 'pflege-icon', icon: 'headset', width: 22 %}
+      <div class="pflege-pdp-service-foot__copy">
+        <span class="pflege-pdp-service-foot__title">{{ 'products.product.pflege_pdp.service_foot_support_title' | t }}</span>
+        <span class="pflege-pdp-service-foot__sub">{{ 'products.product.pflege_pdp.service_foot_support_sub' | t }}</span>
+      </div>
+    </li>
+    <li class="pflege-pdp-service-foot__item" role="listitem">
+      {% render 'pflege-icon', icon: 'badge-check', width: 22 %}
+      <div class="pflege-pdp-service-foot__copy">
+        <span class="pflege-pdp-service-foot__title">{{ 'products.product.pflege_pdp.service_foot_quality_title' | t }}</span>
+        {%- assign service_foot_quality_sub = 'products.product.pflege_pdp.service_foot_quality_sub' | t -%}
+        {%- if service_foot_quality_sub != blank -%}
+          <span class="pflege-pdp-service-foot__sub">{{ service_foot_quality_sub }}</span>
+        {%- endif -%}
+      </div>
+    </li>
+  </ul>
+</section>

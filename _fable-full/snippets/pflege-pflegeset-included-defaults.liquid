@@ -1,0 +1,26 @@
+{%- comment -%}
+  Param: slot (1–3, Zahl oder String). Liste pro Kachel wenn keine Theme-/Metafeld-Inhalte.
+{%- endcomment -%}
+{%- liquid
+  assign ix = slot | default: 0 | plus: 0
+-%}
+{%- case ix -%}
+  {%- when 1 -%}
+• Tiga Soft Einlagen Gr. S (16 Stück)
+• Sensiderm Barriercreme (75 ml)
+• Mildes Waschgel ohne Parfum (250 ml)
+• Nitril-Einmalhandschuhe (10 Paar)
+• All-in-One Feuchttücher (48 Stück)
+  {%- when 2 -%}
+• Comfort Plus Inkontinenzhosen Gr. L (14 Stück)
+• Pflegebad-Öl beruhigend (200 ml)
+• Hautmilch rückfettend (400 ml)
+• Zellstoff-Vliesunterlagen (30 Stück)
+• Mundhygiene-Sticks einzeln verpackt (12 Stück)
+  {%- when 3 -%}
+• Super-Saugvorlagen Gr. M (18 Stück)
+• Zinkpaste für gereizte Haut (100 g)
+• Desinfektionsreiniger für Oberflächen (500 ml)
+• Betteinlage Frottee waschbar (1 Stück)
+• Körperlotion unparfümiert (300 ml)
+{%- endcase -%}

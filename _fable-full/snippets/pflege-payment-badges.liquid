@@ -1,0 +1,85 @@
+{% comment %}
+  Zahlungsarten-Logos (Visa, Mastercard, PayPal, Google Pay, Klarna).
+  Accepts: layout — "pdp-strip" für flache Kaufbox-Zeile ohne Einzelkästen
+{% endcomment %}
+{% liquid
+  assign layout_mode = layout | default: 'default'
+  assign badge_class = 'pflege-pay-badges'
+  if layout_mode == 'pdp-strip'
+    assign badge_class = badge_class | append: ' pflege-pay-badges--pdp-strip'
+  elsif layout_mode == 'pdp-grid'
+    assign badge_class = badge_class | append: ' pflege-pay-badges--pdp-grid'
+  endif
+%}
+<div class="{{ badge_class }}">
+  <div
+    class="pflege-pay-badges__strip"
+    role="list"
+    aria-label="{{ 'products.product.pflege_cart.pay_methods_aria' | t }}"
+  >
+    <span class="pflege-pay-badges__item" role="listitem">
+      <img
+        src="{{ 'Visa_logo.webp' | asset_url }}"
+        alt="Visa"
+        class="pflege-pay-badges__logo"
+        width="65"
+        height="40"
+        loading="lazy"
+        decoding="async"
+      >
+    </span>
+    <span class="pflege-pay-badges__item" role="listitem">
+      <img
+        src="{{ 'Mastercard.webp' | asset_url }}"
+        alt="Mastercard"
+        class="pflege-pay-badges__logo"
+        width="65"
+        height="40"
+        loading="lazy"
+        decoding="async"
+      >
+    </span>
+    <span class="pflege-pay-badges__item" role="listitem">
+      <a
+        href="https://www.paypal.com/de/webapps/mpp/paypal-popup"
+        target="_blank"
+        rel="noopener noreferrer"
+        title="So funktioniert PayPal"
+        aria-label="PayPal — So funktioniert PayPal (neues Fenster)"
+        class="pflege-pay-badges__link"
+      >
+        <img
+          src="{{ 'paypal-logo.png' | asset_url }}"
+          alt="PayPal"
+          class="pflege-pay-badges__logo pflege-pay-badges__logo--wide"
+          width="100"
+          height="26"
+          loading="lazy"
+          decoding="async"
+        >
+      </a>
+    </span>
+    <span class="pflege-pay-badges__item" role="listitem">
+      <img
+        src="{{ 'google-pay.svg' | asset_url }}"
+        alt="Google Pay"
+        class="pflege-pay-badges__logo pflege-pay-badges__logo--wide"
+        width="82"
+        height="34"
+        loading="lazy"
+        decoding="async"
+      >
+    </span>
+    <span class="pflege-pay-badges__item" role="listitem">
+      <img
+        src="{{ 'klarna.svg' | asset_url }}"
+        alt="Klarna"
+        class="pflege-pay-badges__logo pflege-pay-badges__logo--wide"
+        width="90"
+        height="38"
+        loading="lazy"
+        decoding="async"
+      >
+    </span>
+  </div>
+</div>

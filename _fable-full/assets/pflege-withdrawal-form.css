@@ -1,0 +1,581 @@
+/* Elektronische Widerrufsfunktion — deinpflegebedarf.de */
+
+.pflege-withdrawal {
+  margin-top: clamp(2.5rem, 4.5vw, 3.25rem);
+  padding-top: clamp(1.75rem, 3vw, 2.25rem);
+  border-top: 1px solid var(--pflege-border, #e5eef8);
+  max-width: min(36rem, 100%);
+}
+
+.pflege-withdrawal--top {
+  margin-top: 0;
+  margin-bottom: clamp(2rem, 3.5vw, 2.75rem);
+  padding-top: 0;
+  padding-bottom: clamp(1.75rem, 3vw, 2.25rem);
+  border-top: none;
+  border-bottom: 1px solid var(--pflege-border, #e5eef8);
+  max-width: 100%;
+}
+
+.pflege-withdrawal__lead--note {
+  margin-bottom: 1.25rem;
+  color: var(--pflege-muted, #6f7f95);
+  font-size: clamp(0.96rem, 0.92rem + 0.12vw, 1.04rem);
+}
+
+.pflege-withdrawal__heading {
+  margin: 0 0 0.65rem;
+  font-family: var(--pflege-font-display, var(--font-body-family, inherit));
+  font-size: clamp(1.22rem, 1.05rem + 0.45vw, 1.48rem);
+  font-weight: 800;
+  line-height: 1.28;
+  letter-spacing: -0.02em;
+  color: var(--pflege-home-section-heading-color, #0f4f69);
+}
+
+.pflege-withdrawal__lead,
+.pflege-withdrawal__fineprint {
+  margin: 0 0 1rem;
+  font-size: clamp(1rem, 0.96rem + 0.15vw, 1.08rem);
+  line-height: 1.55;
+  color: var(--pflege-muted, #6f7f95);
+}
+
+.pflege-withdrawal__lead {
+  color: var(--pflege-navy, #0b2347);
+}
+
+.pflege-withdrawal__toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: min(24rem, 100%);
+  min-height: 3.5rem;
+  padding: 1rem 2.1rem;
+  border: none;
+  border-radius: var(--pflege-radius-card, 14px);
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1.12rem, 1.02rem + 0.35vw, 1.28rem);
+  font-weight: 800;
+  line-height: 1.2;
+  color: #fff;
+  background: var(--pflege-home-section-heading-color, #0f4f69);
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+  box-shadow: 0 2px 10px rgba(15, 79, 105, 0.18);
+}
+
+@media screen and (min-width: 480px) {
+  .pflege-withdrawal__toggle {
+    width: auto;
+    min-width: min(20rem, 100%);
+  }
+}
+
+.pflege-withdrawal__toggle:hover,
+.pflege-withdrawal__toggle:focus-visible {
+  background: #0c3f54;
+  outline: 2px solid var(--pflege-accent, #3f86d9);
+  outline-offset: 3px;
+}
+
+.pflege-withdrawal__panel {
+  margin-top: clamp(1.25rem, 2.2vw, 1.65rem);
+}
+
+.pflege-withdrawal__panel[hidden] {
+  display: none;
+}
+
+.pflege-withdrawal__form {
+  padding: clamp(1.25rem, 2.5vw, 1.65rem);
+  border: 1px solid var(--pflege-border, #e5eef8);
+  border-radius: var(--pflege-radius-lg, 22px);
+  background: var(--pflege-bg-softer, #f5faff);
+}
+
+.pflege-withdrawal__fields {
+  display: grid;
+  gap: clamp(1rem, 1.8vw, 1.25rem);
+  margin-bottom: clamp(1.15rem, 2vw, 1.4rem);
+}
+
+@media screen and (min-width: 600px) {
+  .pflege-withdrawal__fields {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .pflege-withdrawal__field--half {
+    grid-column: span 1;
+  }
+
+  .pflege-withdrawal__field:not(.pflege-withdrawal__field--half):not(.pflege-withdrawal__field--check) {
+    grid-column: 1 / -1;
+  }
+}
+
+.pflege-withdrawal__label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: clamp(0.98rem, 0.94rem + 0.1vw, 1.05rem);
+  font-weight: 600;
+  color: var(--pflege-navy, #0b2347);
+}
+
+.pflege-withdrawal__req {
+  margin-left: 0.15rem;
+  text-decoration: none;
+  color: #b42318;
+}
+
+.pflege-withdrawal__optional {
+  font-weight: 500;
+  color: var(--pflege-muted, #6f7f95);
+}
+
+.pflege-withdrawal__input,
+.pflege-withdrawal__textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--pflege-border, #e5eef8);
+  border-radius: 10px;
+  font-family: var(--font-body-family, inherit);
+  font-size: 1rem;
+  line-height: 1.4;
+  color: var(--pflege-navy, #0b2347);
+  background: #fff;
+}
+
+.pflege-withdrawal__input:focus,
+.pflege-withdrawal__textarea:focus {
+  outline: 2px solid var(--pflege-accent, #3f86d9);
+  outline-offset: 1px;
+  border-color: var(--pflege-accent, #3f86d9);
+}
+
+.pflege-withdrawal__field--check {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  grid-column: 1 / -1;
+}
+
+.pflege-withdrawal__checkbox {
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-top: 0.2rem;
+  flex-shrink: 0;
+}
+
+.pflege-withdrawal__check-label {
+  font-size: clamp(1rem, 0.96rem + 0.1vw, 1.06rem);
+  line-height: 1.45;
+  color: var(--pflege-navy, #0b2347);
+}
+
+.pflege-withdrawal__submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.85rem;
+  padding: 0.65rem 1.5rem;
+  border: none;
+  border-radius: var(--pflege-radius-card, 14px);
+  font-family: var(--font-body-family, inherit);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--pflege-cta, #f89738);
+  cursor: pointer;
+}
+
+.pflege-withdrawal__submit:hover,
+.pflege-withdrawal__submit:focus-visible {
+  filter: brightness(0.95);
+  outline: 2px solid var(--pflege-home-section-heading-color, #0f4f69);
+  outline-offset: 3px;
+}
+
+.pflege-withdrawal__alert {
+  padding: 1rem 1.1rem;
+  border-radius: 12px;
+  margin-bottom: 1.15rem;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.pflege-withdrawal__alert--success {
+  background: #eaf5ee;
+  border: 1px solid #b9d9c3;
+  color: #1f5235;
+}
+
+.pflege-withdrawal__alert--error {
+  background: #fdecea;
+  border: 1px solid #f3c1bb;
+  color: #5c201a;
+}
+
+.pflege-withdrawal__field-error {
+  margin: 0.35rem 0 0;
+  font-size: 0.92rem;
+  line-height: 1.4;
+  color: #b42318;
+}
+
+.pflege-withdrawal__field-error[hidden] {
+  display: none;
+}
+
+.pflege-withdrawal--standalone {
+  margin-top: clamp(1.25rem, 2.5vw, 1.75rem);
+  max-width: min(42rem, 100%);
+  border-top: none;
+  padding-top: 0;
+}
+
+.pflege-withdrawal__page-intro {
+  margin: 0 0 clamp(1.25rem, 2.2vw, 1.65rem);
+  font-size: clamp(1rem, 0.96rem + 0.15vw, 1.08rem);
+  line-height: 1.55;
+  color: var(--pflege-navy, #0b2347);
+}
+
+.pflege-withdrawal__cta-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.85rem;
+  padding: 0.65rem 1.35rem;
+  border-radius: var(--pflege-radius-card, 14px);
+  font-weight: 700;
+  text-decoration: none;
+  color: #fff;
+  background: var(--pflege-home-section-heading-color, #0f4f69);
+}
+
+.pflege-withdrawal__cta-link:hover,
+.pflege-withdrawal__cta-link:focus-visible {
+  background: #0c3f54;
+  outline: 2px solid var(--pflege-accent, #3f86d9);
+  outline-offset: 3px;
+}
+
+.pflege-withdrawal__required-note {
+  margin: 0 0 1rem;
+  font-size: 0.92rem;
+  color: var(--pflege-muted, #6f7f95);
+}
+
+.pflege-withdrawal__hint {
+  margin: 0 0 0.45rem;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: var(--pflege-muted, #6f7f95);
+}
+
+.pflege-withdrawal__fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pflege-withdrawal__radios {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.pflege-withdrawal__radio {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 1rem;
+  line-height: 1.45;
+  color: var(--pflege-navy, #0b2347);
+  cursor: pointer;
+}
+
+.pflege-withdrawal__radio input {
+  margin-top: 0.2rem;
+  flex-shrink: 0;
+}
+
+.pflege-withdrawal__radio input:focus-visible {
+  outline: 2px solid var(--pflege-accent, #3f86d9);
+  outline-offset: 2px;
+}
+
+.pflege-withdrawal__field--full {
+  grid-column: 1 / -1;
+}
+
+.pflege-withdrawal__privacy {
+  margin: 0 0 1rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--pflege-muted, #6f7f95);
+}
+
+.pflege-withdrawal__privacy a {
+  color: var(--pflege-home-section-heading-color, #0f4f69);
+  font-weight: 600;
+}
+
+.pflege-withdrawal__step-title {
+  margin: 0 0 1rem;
+  font-size: clamp(1.15rem, 1.02rem + 0.35vw, 1.35rem);
+  font-weight: 800;
+  color: var(--pflege-home-section-heading-color, #0f4f69);
+}
+
+.pflege-withdrawal__summary {
+  margin: 0 0 1rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--pflege-border, #e5eef8);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.pflege-withdrawal__summary-row {
+  display: grid;
+  grid-template-columns: minmax(7rem, 9.5rem) 1fr;
+  gap: 0.35rem 0.75rem;
+  margin-bottom: 0.55rem;
+}
+
+.pflege-withdrawal__summary-row:last-child {
+  margin-bottom: 0;
+}
+
+.pflege-withdrawal__summary-row dt {
+  margin: 0;
+  font-weight: 700;
+  color: var(--pflege-muted, #6f7f95);
+}
+
+.pflege-withdrawal__summary-row dd {
+  margin: 0;
+  word-break: break-word;
+}
+
+.pflege-withdrawal__declaration-preview {
+  margin: 0 0 1rem;
+  padding: 0.85rem 1rem;
+  border-left: 3px solid var(--pflege-home-section-heading-color, #0f4f69);
+  font-size: 0.98rem;
+  line-height: 1.5;
+  color: var(--pflege-navy, #0b2347);
+  background: #fff;
+}
+
+.pflege-withdrawal__step-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.pflege-withdrawal__secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.85rem;
+  padding: 0.65rem 1.25rem;
+  border: 1px solid var(--pflege-home-section-heading-color, #0f4f69);
+  border-radius: var(--pflege-radius-card, 14px);
+  font-family: var(--font-body-family, inherit);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--pflege-home-section-heading-color, #0f4f69);
+  background: #fff;
+  cursor: pointer;
+}
+
+.pflege-withdrawal__secondary:hover,
+.pflege-withdrawal__secondary:focus-visible {
+  background: var(--pflege-bg-softer, #f5faff);
+  outline: 2px solid var(--pflege-accent, #3f86d9);
+  outline-offset: 3px;
+}
+
+.pflege-withdrawal__submit[aria-busy='true'] {
+  opacity: 0.85;
+  cursor: wait;
+}
+
+.pflege-withdrawal__submit-status {
+  margin: 0.75rem 0 0;
+  font-size: 0.95rem;
+  color: var(--pflege-muted, #6f7f95);
+}
+
+.pflege-withdrawal__success-title {
+  margin: 0 0 0.75rem;
+  font-size: clamp(1.25rem, 1.1rem + 0.45vw, 1.55rem);
+  font-weight: 800;
+  color: var(--pflege-home-section-heading-color, #0f4f69);
+}
+
+.pflege-withdrawal__success-lead,
+.pflege-withdrawal__success-case,
+.pflege-withdrawal__success-note {
+  margin: 0 0 0.85rem;
+  font-size: clamp(1rem, 0.96rem + 0.1vw, 1.06rem);
+  line-height: 1.55;
+  color: var(--pflege-navy, #0b2347);
+}
+
+.pflege-withdrawal__body-hidden {
+  display: none !important;
+}
+
+@media screen and (max-width: 479px) {
+  .pflege-withdrawal__summary-row {
+    grid-template-columns: 1fr;
+    gap: 0.15rem;
+  }
+
+  .pflege-withdrawal__step-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .pflege-withdrawal__submit,
+  .pflege-withdrawal__secondary {
+    width: 100%;
+  }
+}
+
+.pflege-withdrawal__field-error a {
+  color: inherit;
+}
+
+/* Eingangsbestätigung nach Absenden */
+.pflege-withdrawal__receipt {
+  margin-top: 1.15rem;
+  padding: clamp(1.15rem, 2vw, 1.45rem);
+  border: 1px solid #b9d9c3;
+  border-radius: var(--pflege-radius-lg, 22px);
+  background: #fff;
+}
+
+.pflege-withdrawal__receipt-title {
+  margin: 0 0 0.65rem;
+  font-size: clamp(1.1rem, 1rem + 0.25vw, 1.25rem);
+  font-weight: 800;
+  color: var(--pflege-home-section-heading-color, #0f4f69);
+}
+
+.pflege-withdrawal__receipt-meta,
+.pflege-withdrawal__receipt-lead,
+.pflege-withdrawal__receipt-hint,
+.pflege-withdrawal__email-note {
+  margin: 0 0 0.85rem;
+  font-size: clamp(0.98rem, 0.94rem + 0.1vw, 1.05rem);
+  line-height: 1.55;
+  color: var(--pflege-navy, #0b2347);
+}
+
+.pflege-withdrawal__receipt-dl {
+  margin: 0 0 1rem;
+}
+
+.pflege-withdrawal__receipt-row {
+  display: grid;
+  grid-template-columns: minmax(5.5rem, 7rem) 1fr;
+  gap: 0.35rem 0.75rem;
+  margin-bottom: 0.45rem;
+}
+
+.pflege-withdrawal__receipt-row dt {
+  margin: 0;
+  font-weight: 700;
+  color: var(--pflege-muted, #6f7f95);
+}
+
+.pflege-withdrawal__receipt-row dd {
+  margin: 0;
+}
+
+.pflege-withdrawal__receipt-pre {
+  margin: 0;
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  background: var(--pflege-bg-softer, #f5faff);
+  font-family: inherit;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: var(--pflege-navy, #0b2347);
+}
+
+.pflege-withdrawal__print {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.65rem;
+  padding: 0.55rem 1.2rem;
+  border: 1px solid var(--pflege-home-section-heading-color, #0f4f69);
+  border-radius: 10px;
+  font-family: var(--font-body-family, inherit);
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--pflege-home-section-heading-color, #0f4f69);
+  background: #fff;
+  cursor: pointer;
+}
+
+.pflege-withdrawal__print:hover,
+.pflege-withdrawal__print:focus-visible {
+  background: var(--pflege-bg-softer, #f5faff);
+  outline: 2px solid var(--pflege-accent, #3f86d9);
+  outline-offset: 2px;
+}
+
+.pflege-withdrawal__body-hint {
+  margin: 0 0 0.45rem;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: var(--pflege-muted, #6f7f95);
+}
+
+.pflege-withdrawal__textarea--body {
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.pflege-withdrawal__field--body {
+  grid-column: 1 / -1;
+}
+
+.pflege-withdrawal__email-note {
+  margin-top: 1rem;
+  color: var(--pflege-muted, #6f7f95);
+}
+
+@media print {
+  body.pflege-withdrawal-print-mode * {
+    visibility: hidden;
+  }
+
+  body.pflege-withdrawal-print-mode #pflege-withdrawal-receipt,
+  body.pflege-withdrawal-print-mode #pflege-withdrawal-receipt * {
+    visibility: visible;
+  }
+
+  body.pflege-withdrawal-print-mode #pflege-withdrawal-receipt {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    max-width: none;
+    border: none;
+    padding: 1rem;
+  }
+
+  body.pflege-withdrawal-print-mode .pflege-withdrawal__print {
+    display: none;
+  }
+}

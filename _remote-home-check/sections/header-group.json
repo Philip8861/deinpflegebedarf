@@ -1,0 +1,70 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.header.name",
+  "type": "header",
+  "sections": {
+    "pflege_service_bar": {
+      "type": "pflege-service-bar",
+      "blocks": {
+        "svc_ship": {
+          "type": "item",
+          "settings": {
+            "icon": "truck",
+            "text": "Schneller Versand in 1–2 Tagen"
+          }
+        },
+        "svc_phone": {
+          "type": "item",
+          "settings": {
+            "icon": "headset",
+            "text": "Persönliche Beratung 08334 / 9893330",
+            "link": "tel:+4983349893330"
+          }
+        },
+        "svc_invoice": {
+          "type": "item",
+          "settings": {
+            "icon": "document",
+            "text": "Kostenübernahme mit Rezept möglich"
+          }
+        }
+      },
+      "block_order": [
+        "svc_ship",
+        "svc_phone",
+        "svc_invoice"
+      ],
+      "settings": {}
+    },
+    "pflege_hauptleiste": {
+      "type": "pflege-main-nav",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "menu_color_scheme": "scheme-1",
+        "menu_label": "Produktbereiche",
+        "search_placeholder": "Produkte suchen...",
+        "category_overview_label": "Kategorienübersicht",
+        "finder_promo_text": "Inkontinenzversorgung auf Rezept möglich — kostenlose Musterprodukte zum Testen.",
+        "finder_promo_button_label": "Kostenlose Musterprodukte erhalten",
+        "finder_promo_button_link": "",
+        "logo_width": 220,
+        "logo_height": 48,
+        "account_heading": "Mein Konto",
+        "account_sub_guest": "Anmelden",
+        "cart_heading": "Warenkorb"
+      }
+    }
+  },
+  "order": [
+    "pflege_service_bar",
+    "pflege_hauptleiste"
+  ]
+}

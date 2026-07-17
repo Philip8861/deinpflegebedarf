@@ -1,0 +1,95 @@
+{% comment %}
+  Schnell‑USPs in der Kaufspalte — Metafeld custom.usps oder Fallback (3 Punkte).
+{% endcomment %}
+{%- liquid
+  assign mf = product.metafields.custom.usps
+  assign icons = 'badge-check,user,cross-medical' | split: ','
+  assign usp_written = false
+%}
+<div class="pflege-buy-usps" {{ block.shopify_attributes }}>
+  {%- if mf.value != blank and mf.value.size > 0 -%}
+    {% assign usp_written = true %}
+    <ul class="pflege-buy-usps__list list-unstyled" role="list">
+      {%- for u in mf.value limit: 3 -%}
+        <li class="pflege-buy-usps__item">
+          <span class="pflege-buy-usps__icon">
+            {% assign icon_pick = icons[forloop.index0] %}
+            {% if icon_pick == blank %}
+              {% assign icon_pick = 'hand' %}
+            {% endif %}
+            {% render 'pflege-icon', icon: icon_pick, width: 24 %}
+          </span>
+          <span class="pflege-buy-usps__label">
+            {%- if u.value != blank %}
+              {{- u.value -}}
+            {%- else %}
+              {{- u -}}
+            {%- endif %}
+          </span>
+        </li>
+      {%- endfor -%}
+    </ul>
+  {%- elsif mf != blank and mf != empty -%}
+    {%- assign raw = mf | metafield_text | strip -%}
+    {%- assign segs = raw | split: '|' -%}
+    {%- if segs.size <= 1 %}
+      {%- assign segs = raw | split: ',' %}
+    {%- endif %}
+    {%- assign seg_idx = 0 -%}
+    {%- if raw != blank %}
+      {% capture nonempty %}
+      {%- for line in segs limit: 6 %}
+        {% assign tt = line | strip %}
+        {%- if tt != blank %}1{% endif %}
+      {%- endfor %}
+      {% endcapture %}
+      {%- if nonempty contains '1' %}
+        {% assign usp_written = true %}
+        <ul class="pflege-buy-usps__list list-unstyled" role="list">
+          {%- assign shown = 0 -%}
+          {%- for line in segs %}
+            {%- assign t = line | strip %}
+            {%- if t == blank %}
+              {% continue %}
+            {% endif %}
+            {% if shown >= 3 %}
+              {% break %}
+            {% endif %}
+            {% assign shown = shown | plus: 1 %}
+            <li class="pflege-buy-usps__item">
+              <span class="pflege-buy-usps__icon">
+                {% assign ip = icons[seg_idx] %}
+                {% assign seg_idx = seg_idx | plus: 1 %}
+                {% if ip == blank %}
+                  {% assign ip = 'hand' %}
+                {% endif %}
+                {% render 'pflege-icon', icon: ip, width: 24 %}
+              </span>
+              <span class="pflege-buy-usps__label">{{ t | escape }}</span>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif %}
+    {%- endif %}
+  {%- endif -%}
+
+  {%- unless usp_written -%}
+    <ul class="pflege-buy-usps__list list-unstyled" role="list">
+      {%- for i in (1..3) -%}
+        <li class="pflege-buy-usps__item">
+          <span class="pflege-buy-usps__icon">
+            {% assign ip = icons[forloop.index0] %}
+            {% render 'pflege-icon', icon: ip, width: 24 %}
+          </span>
+          <span class="pflege-buy-usps__label">
+            {%- case i -%}
+              {%- when 1 %}{{ 'products.product.pflege_pdp.quick_usp_fallback_1' | t }}
+              {%- when 2 %}{{ 'products.product.pflege_pdp.quick_usp_fallback_2' | t }}
+              {%- when 3 %}{{ 'products.product.pflege_pdp.quick_usp_fallback_3' | t }}
+            {%- endcase -%}
+          </span>
+        </li>
+      {%- endfor -%}
+    </ul>
+  {%- endunless -%}
+</div>

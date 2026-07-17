@@ -1,0 +1,289 @@
+(function () {
+  'use strict';
+
+  var SIGNIN_TITLE = 'Mein Konto';
+
+  var ACCOUNT_ICONS = {
+    orders:
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 8h6"/><path d="M9 12h6"/><path d="M9 16h4"/></svg>',
+    user:
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+    'log-out':
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>',
+    chevron:
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M8.537.808a.5.5 0 0 1 .817-.162l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 1 1-.708-.708L11.793 5.5H1a.5.5 0 0 1 0-1h10.793L8.646 1.354a.5.5 0 0 1-.109-.546" clip-rule="evenodd"/></svg>'
+  };
+
+  function buildAccountLink(url, label, iconKey, extraClass, rel) {
+    var icon = ACCOUNT_ICONS[iconKey] || '';
+    var className = 'pflege-account-sheet-link' + (extraClass ? ' ' + extraClass : '');
+    var relAttr = rel ? ' rel="' + rel + '"' : '';
+    return (
+      '<a href="' +
+      url +
+      '" class="' +
+      className +
+      '"' +
+      relAttr +
+      '>' +
+      '<span class="pflege-account-sheet-link__icon">' +
+      icon +
+      '</span>' +
+      '<span class="pflege-account-sheet-link__label">' +
+      label +
+      '</span>' +
+      '<span class="pflege-account-sheet-link__chevron">' +
+      ACCOUNT_ICONS.chevron +
+      '</span>' +
+      '</a>'
+    );
+  }
+
+  function getAccountButton(accountEl) {
+    if (!accountEl) return null;
+    if (accountEl.shadowRoot) {
+      var partBtn = accountEl.shadowRoot.querySelector('[part="signed-out-avatar"]');
+      if (partBtn) return partBtn;
+      var anyBtn = accountEl.shadowRoot.querySelector('button.account-button');
+      if (anyBtn) return anyBtn;
+      anyBtn = accountEl.shadowRoot.querySelector('button');
+      if (anyBtn) return anyBtn;
+    }
+    var slotted = accountEl.querySelector('[slot="signed-out-avatar"]');
+    if (slotted) {
+      var closestBtn = slotted.closest('button');
+      if (closestBtn) return closestBtn;
+    }
+    return null;
+  }
+
+  function closeNavigationOverlays() {
+    document.querySelectorAll('header-drawer').forEach(function (drawer) {
+      if (typeof drawer.closeMenuDrawer === 'function') {
+        drawer.closeMenuDrawer();
+      }
+    });
+    document.querySelectorAll('.menu-drawer-container details[open]').forEach(function (details) {
+      details.removeAttribute('open');
+    });
+  }
+
+  function openAccountSheet(accountEl) {
+    if (!accountEl) return;
+    closeNavigationOverlays();
+    if (typeof accountEl.showModal === 'function') {
+      accountEl.showModal();
+      return;
+    }
+    if (typeof accountEl.show === 'function') {
+      accountEl.show();
+      return;
+    }
+    var btn = getAccountButton(accountEl);
+    if (btn) btn.click();
+  }
+
+  function getSheetRoot(accountEl) {
+    if (!accountEl.shadowRoot) return null;
+    var dialog = accountEl.shadowRoot.querySelector('dialog[open]');
+    if (!dialog) return null;
+    return dialog.querySelector('.account') || dialog;
+  }
+
+  function injectSheetStyles(accountEl) {
+    if (!accountEl.shadowRoot) return;
+    if (accountEl.shadowRoot.getElementById('pflege-account-sheet-style-v6')) return;
+
+    var style = document.createElement('style');
+    style.id = 'pflege-account-sheet-style-v6';
+    style.textContent =
+      'nav:not(#pflege-account-links), [role="navigation"]:not(#pflege-account-links) { display: none !important; }' +
+      '@media (max-width: 989px) {' +
+      '.dialog[open] {' +
+      'border-top-left-radius: 14px !important;' +
+      'border-top-right-radius: 14px !important;' +
+      '}' +
+      '}' +
+      '.pflege-account-sheet-links {' +
+      'margin-top: 1.25rem;' +
+      'padding: 0.65rem;' +
+      'border: 1px solid rgba(216, 226, 238, 0.65);' +
+      'border-radius: 14px;' +
+      'background: #ffffff;' +
+      'box-shadow: 0 10px 28px rgba(20, 73, 110, 0.06);' +
+      'display: flex;' +
+      'flex-direction: column;' +
+      'gap: 0.2rem;' +
+      '}' +
+      '.pflege-account-sheet-link {' +
+      'display: flex;' +
+      'align-items: center;' +
+      'gap: 0.85rem;' +
+      'padding: 0.55rem 0.65rem;' +
+      'border-radius: 10px;' +
+      'color: #062a55;' +
+      'font-size: 15px;' +
+      'font-weight: 700;' +
+      'text-decoration: none;' +
+      'line-height: 1.35;' +
+      'transition: background 0.18s ease;' +
+      '}' +
+      '.pflege-account-sheet-link:hover, .pflege-account-sheet-link:focus-visible {' +
+      'background: #f4f9ff;' +
+      'outline: none;' +
+      '}' +
+      '.pflege-account-sheet-link__icon {' +
+      'flex: 0 0 auto;' +
+      'display: inline-flex;' +
+      'align-items: center;' +
+      'justify-content: center;' +
+      'width: 40px;' +
+      'height: 40px;' +
+      'border-radius: 999px;' +
+      'background: #f4f9ff;' +
+      'color: #075f84;' +
+      '}' +
+      '.pflege-account-sheet-link__icon svg {' +
+      'width: 20px;' +
+      'height: 20px;' +
+      'display: block;' +
+      '}' +
+      '.pflege-account-sheet-link__label {' +
+      'flex: 1 1 auto;' +
+      'letter-spacing: 0.01em;' +
+      '}' +
+      '.pflege-account-sheet-link__chevron {' +
+      'flex: 0 0 auto;' +
+      'display: inline-flex;' +
+      'align-items: center;' +
+      'justify-content: center;' +
+      'color: #0b6edc;' +
+      'opacity: 0.5;' +
+      'transition: opacity 0.18s ease, transform 0.18s ease;' +
+      '}' +
+      '.pflege-account-sheet-link__chevron svg {' +
+      'width: 14px;' +
+      'height: 10px;' +
+      'display: block;' +
+      '}' +
+      '.pflege-account-sheet-link:hover .pflege-account-sheet-link__chevron, .pflege-account-sheet-link:focus-visible .pflege-account-sheet-link__chevron {' +
+      'opacity: 0.85;' +
+      'transform: translateX(2px);' +
+      '}' +
+      '.pflege-account-sheet-link--logout {' +
+      'color: #66758d;' +
+      'font-weight: 600;' +
+      '}' +
+      '.pflege-account-sheet-link--logout .pflege-account-sheet-link__icon {' +
+      'background: #f8fbff;' +
+      'color: #66758d;' +
+      '}' +
+      '.pflege-account-sheet-link--logout .pflege-account-sheet-link__chevron {' +
+      'color: #66758d;' +
+      'opacity: 0.4;' +
+      '}';
+
+    accountEl.shadowRoot.appendChild(style);
+  }
+
+  function injectAccountLinks(accountEl, host) {
+    if (!accountEl.shadowRoot || !host) return;
+    injectSheetStyles(accountEl);
+
+    var root = accountEl.shadowRoot;
+    if (root.getElementById('pflege-account-links')) return;
+
+    var sheet = getSheetRoot(accountEl);
+    if (!sheet) return;
+
+    var ordersUrl = host.dataset.pflegeAccountOrdersUrl || '/account';
+    var profileUrl = host.dataset.pflegeAccountProfileUrl || '/account/profile';
+    var logoutUrl = host.dataset.pflegeAccountLogoutUrl || '/account/logout';
+    var ordersLabel = host.dataset.pflegeAccountOrdersLabel || 'Bestellungen';
+    var profileLabel = host.dataset.pflegeAccountProfileLabel || 'Profil';
+    var logoutLabel = host.dataset.pflegeAccountLogoutLabel || 'Abmelden';
+
+    var wrap = document.createElement('nav');
+    wrap.id = 'pflege-account-links';
+    wrap.className = 'pflege-account-sheet-links';
+    wrap.setAttribute('aria-label', 'Kundenbereich');
+
+    wrap.innerHTML =
+      buildAccountLink(ordersUrl, ordersLabel, 'orders') +
+      buildAccountLink(profileUrl, profileLabel, 'user') +
+      buildAccountLink(logoutUrl, logoutLabel, 'log-out', 'pflege-account-sheet-link--logout', 'nofollow');
+
+    sheet.appendChild(wrap);
+  }
+
+  function customizeSheetTitle(accountEl) {
+    if (!accountEl.shadowRoot) return;
+    accountEl.shadowRoot.querySelectorAll('h1, h2, h3').forEach(function (node) {
+      if (node.children.length > 0) return;
+      var t = (node.textContent || '').trim().toLowerCase();
+      if (
+        t.includes('sign in') ||
+        t.includes('anmelden') ||
+        t.includes('log in') ||
+        t.includes('check your email') ||
+        (t.includes('e-mail') && t.includes('code')) ||
+        t.includes('mit e-mail')
+      ) {
+        node.textContent = SIGNIN_TITLE;
+      }
+    });
+  }
+
+  function customizeSheet(accountEl, host) {
+    customizeSheetTitle(accountEl);
+    injectAccountLinks(accountEl, host);
+  }
+
+  function bindTrigger(trigger) {
+    if (trigger.dataset.pflegeAccountBound) return;
+    trigger.dataset.pflegeAccountBound = 'true';
+
+    var accountEl = trigger.querySelector('shopify-account');
+    if (!accountEl) return;
+    var host = trigger.querySelector('.pflege-shopify-account-host') || trigger;
+
+    customElements.whenDefined('shopify-account').then(function () {
+      if (accountEl.shadowRoot) injectSheetStyles(accountEl);
+    });
+
+    accountEl.addEventListener('open', function () {
+      window.setTimeout(function () {
+        customizeSheet(accountEl, host);
+      }, 80);
+      window.setTimeout(function () {
+        customizeSheet(accountEl, host);
+      }, 350);
+    });
+
+    trigger.addEventListener('click', function (e) {
+      if (e.target.closest('shopify-account')) return;
+      e.preventDefault();
+      e.stopPropagation();
+      openAccountSheet(accountEl);
+    });
+
+    trigger.addEventListener('keydown', function (e) {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      if (e.target.closest('shopify-account')) return;
+      e.preventDefault();
+      openAccountSheet(accountEl);
+    });
+  }
+
+  function init() {
+    document.querySelectorAll('[data-pflege-account-trigger]').forEach(bindTrigger);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  document.addEventListener('shopify:section:load', init);
+})();

@@ -1,0 +1,4 @@
+/* Überall gleiche Grundstärke wie Theme-Körperschrift (—font-body-weight), z. B. Nunito Sans Extrabold. */
+body * {
+  font-weight: var(--font-body-weight) !important;
+}

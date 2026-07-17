@@ -1,0 +1,42 @@
+{% comment %}
+  Pflege PDP – hellblauer Vertrauensblock unterhalb der Kaufzeile (Mockup).
+{% endcomment %}
+<div class="pflege-product__cart-extras pflege-product__cart-extras--mockup-only">
+  <div class="pflege-product__trust-panel" role="presentation">
+    <div class="pflege-product__trust-panel-row">
+      {% render 'pflege-icon', icon: 'truck', width: 22 %}
+      <span class="pflege-product__trust-copy">
+        <span class="pflege-product__trust-panel-text">{{ 'products.product.pflege_cart.trust_ship_title' | t }}</span>
+        {% assign _ts = 'products.product.pflege_cart.trust_ship_sub' | t %}
+        {% if _ts != blank %}<span class="pflege-product__trust-panel-sub">{{ _ts }}</span>{% endif %}
+      </span>
+    </div>
+    <div class="pflege-product__trust-panel-row">
+      {% render 'pflege-icon', icon: 'lock', width: 22 %}
+      <span class="pflege-product__trust-copy">
+        <span class="pflege-product__trust-panel-text">{{ 'products.product.pflege_cart.trust_payment_title' | t }}</span>
+      </span>
+    </div>
+    <div class="pflege-product__trust-panel-row">
+      {% render 'pflege-icon', icon: 'badge-check', width: 22 %}
+      <span class="pflege-product__trust-copy">
+        <span class="pflege-product__trust-panel-text">{{ 'products.product.pflege_cart.trust_quality_title' | t }}</span>
+        {% assign _tq = 'products.product.pflege_cart.trust_quality_sub' | t %}
+        {% if _tq != blank %}<span class="pflege-product__trust-panel-sub">{{ _tq }}</span>{% endif %}
+      </span>
+    </div>
+    <div class="pflege-product__trust-panel-row">
+      {% render 'pflege-icon', icon: 'package', width: 22 %}
+      <span class="pflege-product__trust-copy">
+        <span class="pflege-product__trust-panel-text">{{ 'products.product.pflege_cart.trust_discrete_title' | t }}</span>
+        {% assign _td = 'products.product.pflege_cart.trust_discrete_sub' | t %}
+        {% if _td != blank %}<span class="pflege-product__trust-panel-sub">{{ _td }}</span>{% endif %}
+      </span>
+    </div>
+  </div>
+
+  <div class="pflege-product__pay-methods" aria-label="{{ 'products.product.pflege_cart.pay_methods_aria' | t }}">
+    <p class="pflege-product__pay-methods-label">{{ 'products.product.pflege_cart.pay_methods_label' | t }}</p>
+    {% render 'pflege-payment-badges', compact: true %}
+  </div>
+</div>

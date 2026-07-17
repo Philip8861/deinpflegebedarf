@@ -1,0 +1,32 @@
+{% comment %} Fallback, wenn die Seite im Admin die Standard-Vorlage „page“ nutzt. {% endcomment %}
+{%- liquid
+  assign root = routes.root_url
+  assign url_widerruf = root | append: 'pages/widerrufsbelehrung'
+  assign url_impressum = root | append: 'pages/impressum'
+  assign url_agb = root | append: 'pages/agb'
+  assign url_datenschutz = root | append: 'pages/datenschutzerklaerung'
+  assign url_kontakt = root | append: 'pages/kontakt'
+-%}
+{{ 'section-pflege-legal-page.css' | asset_url | stylesheet_tag }}
+{% render 'pflege-legal-page-view',
+  padding_class: 'pflege-legal--page-pad',
+  color_scheme: 'scheme-1',
+  legal_meta_date: 'Mai 2026',
+  legal_title_fallback: 'Versand & Zahlung',
+  current_handle: 'versand-zahlung',
+  url_impressum: url_impressum,
+  url_widerruf: url_widerruf,
+  url_agb: url_agb,
+  url_datenschutz: url_datenschutz,
+  body_html: '',
+  use_impressum_body: false,
+  use_agb_body: false,
+  use_widerrufsbelehrung_body: false,
+  use_datenschutz_body: false,
+  use_versand_zahlung_body: true,
+  shipping_standard: '4,90',
+  shipping_free_from: '150,00',
+  url_kontakt: url_kontakt,
+  show_withdrawal_form: false,
+  legal_plain: true
+%}

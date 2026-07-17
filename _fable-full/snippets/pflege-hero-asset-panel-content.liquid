@@ -1,0 +1,57 @@
+{% comment %}
+  Text + Buttons für Hero-Asset-Kachel (Desktop-Overlay und Mobil-Foto-Overlay).
+  Parameter: badge, heading_line1, heading_line2, subheading, title_id,
+  button_label, button_link, button_opens_testpaket,
+  secondary_button_label, secondary_button_link
+{% endcomment %}
+{%- if badge != blank -%}
+  <p class="pflege-hero__badge">{{ badge | escape }}</p>
+{%- endif -%}
+{%- if title_id != blank -%}
+  <h1{% if title_id != blank %} id="{{ title_id }}"{% endif %} class="pflege-hero__title">
+    {{- heading_line1 | escape -}}
+    {%- if heading_line2 != blank -%}
+      <br><span>{{ heading_line2 | escape }}</span>
+    {%- endif -%}
+  </h1>
+{%- else -%}
+  <h1 class="pflege-hero__title">
+    {{- heading_line1 | escape -}}
+    {%- if heading_line2 != blank -%}
+      <br><span>{{ heading_line2 | escape }}</span>
+    {%- endif -%}
+  </h1>
+{%- endif -%}
+{%- if subheading != blank -%}
+  <p class="pflege-hero__sub">{{ subheading | escape }}</p>
+{%- endif -%}
+{%- if button_label != blank or secondary_button_label != blank -%}
+  <div class="pflege-hero__actions">
+    {%- if button_label != blank -%}
+      {%- if button_opens_testpaket -%}
+        <button
+          type="button"
+          class="pflege-hero__cta pflege-hero__cta--testpaket pflege-cta--soft-pulse"
+          data-pflege-inko-testpaket-open
+        >
+          <span class="pflege-hero__cta-icon" aria-hidden="true">
+            {% render 'pflege-icon', icon: 'gift', width: 22 %}
+          </span>
+          {{- button_label | escape -}}
+        </button>
+      {%- else -%}
+        <a class="pflege-hero__cta pflege-hero__cta--configure" href="{{ button_link | default: '#' | escape }}">
+          <span class="pflege-hero__cta-gear" aria-hidden="true">
+            {% render 'pflege-icon', icon: 'settings', width: 22 %}
+          </span>
+          {{- button_label | escape -}}
+        </a>
+      {%- endif -%}
+    {%- endif -%}
+    {%- if secondary_button_label != blank -%}
+      <a class="pflege-hero__cta pflege-hero__cta--secondary" href="{{ secondary_button_link | default: '#' | escape }}">
+        {{- secondary_button_label | escape -}}
+      </a>
+    {%- endif -%}
+  </div>
+{%- endif -%}

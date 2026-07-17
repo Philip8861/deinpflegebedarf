@@ -1,0 +1,353 @@
+/* PflegeShop — Newsletter-Pop-Up (10 % Rabatt) */
+
+.pflege-newsletter-popup {
+  --pnp-navy: var(--pflege-navy, #0b2347);
+  --pnp-sky: var(--pflege-accent, #5891d7);
+  --pnp-sky-soft: rgba(88, 145, 215, 0.12);
+  --pnp-border: rgba(88, 145, 215, 0.28);
+  --pnp-cta: #f89738;
+  --pnp-cta-hover: #dc7a22;
+  --pnp-input-border: #dce7f5;
+  --pnp-shadow: 0 22px 60px rgba(11, 35, 71, 0.22), 0 6px 18px rgba(11, 35, 71, 0.08);
+  position: fixed;
+  inset: 0;
+  z-index: 10300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 4vw, 2rem);
+  box-sizing: border-box;
+}
+
+.pflege-newsletter-popup[hidden] {
+  display: none !important;
+}
+
+.pflege-newsletter-popup__backdrop {
+  position: fixed;
+  inset: 0;
+  cursor: pointer;
+  animation: pnpFade 220ms ease-out both;
+  z-index: 0;
+}
+
+.pflege-newsletter-popup__backdrop-blur,
+.pflege-newsletter-popup__backdrop-dim {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.pflege-newsletter-popup__backdrop-blur {
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  background: transparent;
+}
+
+.pflege-newsletter-popup__backdrop-dim {
+  background: var(--pflege-overlay-backdrop, rgba(11, 35, 71, 0.56));
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .pflege-newsletter-popup__backdrop-dim {
+    background: rgba(11, 35, 71, 0.88);
+  }
+}
+
+.pflege-newsletter-popup__panel {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 600px;
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+  background: #fefefe;
+  border: 1px solid rgba(88, 145, 215, 0.22);
+  border-radius: 26px;
+  box-shadow: var(--pnp-shadow);
+  padding: clamp(1.85rem, 5vw, 3rem) clamp(1.75rem, 5vw, 2.75rem) clamp(1.75rem, 4.5vw, 2.5rem);
+  text-align: center;
+  font-family: var(--font-body-family, inherit);
+  color: var(--pnp-navy);
+  animation: pnpPop 280ms cubic-bezier(0.2, 0.85, 0.3, 1.05) both;
+}
+
+.pflege-newsletter-popup__close {
+  position: absolute;
+  top: 0.95rem;
+  right: 0.95rem;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  border: none;
+  background: rgba(11, 35, 71, 0.05);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--pnp-navy);
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.pflege-newsletter-popup__close:hover {
+  background: rgba(11, 35, 71, 0.1);
+  color: var(--pnp-cta);
+}
+
+.pflege-newsletter-popup__close:focus-visible {
+  outline: 2px solid var(--pnp-sky);
+  outline-offset: 2px;
+}
+
+.pflege-newsletter-popup__close .svg-wrapper svg {
+  width: 1.3rem;
+  height: 1.3rem;
+  display: block;
+}
+
+.pflege-newsletter-popup__badge {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 6.75rem;
+  height: 6.75rem;
+  margin: 0 auto 1.05rem;
+  border-radius: 50%;
+  background: var(--pnp-cta);
+  color: #fff;
+  box-shadow: 0 10px 22px rgba(255, 121, 31, 0.3);
+}
+
+.pflege-newsletter-popup__badge-percent {
+  font-size: 1.95rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.01em;
+}
+
+.pflege-newsletter-popup__badge-sub {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1;
+  margin-top: 0.22rem;
+}
+
+.pflege-newsletter-popup__title {
+  margin: 0 0 0.7rem;
+  font-size: clamp(1.75rem, 1.4rem + 1.3vw, 2.3rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.005em;
+  color: var(--pnp-navy);
+}
+
+.pflege-newsletter-popup__text {
+  margin: 0 0 1.7rem;
+  font-size: 1.3rem;
+  line-height: 1.55;
+  color: rgba(11, 35, 71, 0.82);
+}
+
+.pflege-newsletter-popup__form-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1.05rem;
+}
+
+.pflege-newsletter-popup__form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.pflege-newsletter-popup__input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1.2rem 1.4rem;
+  font-family: inherit;
+  font-size: 1.3rem;
+  line-height: 1.3;
+  color: var(--pnp-navy);
+  background: #fefefe;
+  border: 1px solid var(--pnp-input-border);
+  border-radius: 14px;
+  outline: none;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.pflege-newsletter-popup__input::placeholder {
+  color: rgba(11, 35, 71, 0.45);
+}
+
+.pflege-newsletter-popup__input:focus,
+.pflege-newsletter-popup__input:focus-visible {
+  border-color: var(--pnp-sky);
+  box-shadow: 0 0 0 3px rgba(88, 145, 215, 0.22);
+}
+
+.pflege-newsletter-popup__input[aria-invalid='true'] {
+  border-color: #d84444;
+  box-shadow: 0 0 0 3px rgba(216, 68, 68, 0.18);
+}
+
+.pflege-newsletter-popup__submit {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  width: 100%;
+  padding: 1.25rem 1.75rem;
+  font-family: inherit;
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  color: #fff;
+  background: var(--pnp-cta);
+  border: 1px solid rgba(11, 35, 71, 0.06);
+  border-radius: 14px;
+  box-shadow: 0 6px 16px rgba(255, 121, 31, 0.28);
+  text-decoration: none;
+  text-align: center;
+  transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+a.pflege-newsletter-popup__submit {
+  text-decoration: none;
+}
+
+.pflege-newsletter-popup__continue {
+  margin: 1.1rem auto 0;
+  max-width: 22rem;
+}
+
+.pflege-newsletter-popup__submit:hover {
+  background: var(--pnp-cta-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(255, 121, 31, 0.34);
+}
+
+.pflege-newsletter-popup__submit:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(255, 121, 31, 0.45);
+}
+
+.pflege-newsletter-popup__submit-arrow {
+  font-size: 1.05em;
+  line-height: 1;
+}
+
+.pflege-newsletter-popup__error {
+  margin: 0;
+  font-size: 1.18rem;
+  color: #c12c2c;
+  text-align: left;
+}
+
+.pflege-newsletter-popup__success {
+  margin: 0;
+  padding: 1.05rem 1.25rem;
+  font-size: 1.28rem;
+  line-height: 1.45;
+  color: #1e8f5a;
+  background: rgba(30, 143, 90, 0.08);
+  border: 1px solid rgba(30, 143, 90, 0.22);
+  border-radius: 14px;
+}
+
+.pflege-newsletter-popup__legal {
+  margin: 0;
+  font-size: 1.08rem;
+  line-height: 1.5;
+  color: rgba(11, 35, 71, 0.6);
+}
+
+.pflege-newsletter-popup__legal a {
+  color: var(--pnp-sky);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.pflege-newsletter-popup__legal a:hover {
+  color: var(--pnp-navy);
+}
+
+/* Body-Scroll-Lock, wenn Pop-Up offen */
+html.pflege-popup-open,
+html.pflege-popup-open body {
+  overflow: hidden !important;
+}
+
+@keyframes pnpFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pnpPop {
+  from { opacity: 0; transform: translateY(8px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media screen and (max-width: 749px) {
+  .pflege-newsletter-popup {
+    padding: var(--pflege-modal-inset-y, clamp(1rem, 5vw, 1.35rem))
+      var(--pflege-modal-inset-x, clamp(0.85rem, 4.5vw, 1.25rem));
+    padding-top: max(var(--pflege-modal-inset-y, clamp(1rem, 5vw, 1.35rem)), env(safe-area-inset-top, 0px));
+    padding-bottom: max(var(--pflege-modal-inset-y, clamp(1rem, 5vw, 1.35rem)), env(safe-area-inset-bottom, 0px));
+    align-items: center;
+  }
+
+  .pflege-newsletter-popup__panel {
+    max-width: 100%;
+    padding: 1.85rem 1.45rem 1.65rem;
+    border-radius: var(--pflege-radius-lg, 22px);
+  }
+
+  .pflege-newsletter-popup__title {
+    font-size: 1.6rem;
+  }
+
+  .pflege-newsletter-popup__text {
+    font-size: 1.18rem;
+    margin-bottom: 1.35rem;
+  }
+
+  .pflege-newsletter-popup__badge {
+    width: 5.6rem;
+    height: 5.6rem;
+  }
+
+  .pflege-newsletter-popup__badge-percent {
+    font-size: 1.62rem;
+  }
+
+  .pflege-newsletter-popup__input {
+    font-size: 1.18rem;
+    padding: 1.05rem 1.2rem;
+  }
+
+  .pflege-newsletter-popup__submit {
+    font-size: 1.22rem;
+    padding: 1.1rem 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pflege-newsletter-popup__backdrop {
+    animation: none;
+    opacity: 1;
+  }
+
+  .pflege-newsletter-popup__panel {
+    animation: none;
+  }
+}

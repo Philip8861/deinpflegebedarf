@@ -1,0 +1,30 @@
+{% comment %}
+  PDP – Payment-/Trust-Footer innerhalb trust-unified (ohne verschachtelte Boxen).
+{% endcomment %}
+<div
+  class="pflege-product__trust-footer"
+  aria-label="{{ 'products.product.pflege_cart.pay_trust_aria' | t }}"
+>
+  <div class="pflege-product__trust-panel-row pflege-product__trust-panel-row--stacked">
+    <span class="pflege-product__trust-panel-row__icon" aria-hidden="true">
+      {% render 'pflege-icon', icon: 'shield', width: 26 %}
+    </span>
+    <span class="pflege-product__trust-copy">
+      <span class="pflege-product__trust-panel-text">{{ 'products.product.pflege_cart.pay_trust_title' | t }}</span>
+      <span class="pflege-product__trust-panel-sub">{{ 'products.product.pflege_cart.pay_trust_desc' | t }}</span>
+    </span>
+  </div>
+
+  <ul class="pflege-product__trust-chips" role="list">
+    <li class="pflege-product__trust-chip" role="listitem">
+      <span class="pflege-product__trust-chip__check" aria-hidden="true">✓</span>
+      {{ 'products.product.pflege_cart.pay_trust_badge_ssl' | t }}
+    </li>
+    <li class="pflege-product__trust-chip" role="listitem">
+      <span class="pflege-product__trust-chip__check" aria-hidden="true">✓</span>
+      {{ 'products.product.pflege_cart.pay_trust_badge_packaging' | t }}
+    </li>
+  </ul>
+
+  {% render 'pflege-payment-badges', layout: 'pdp-strip' %}
+</div>

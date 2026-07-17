@@ -1,0 +1,30 @@
+{% comment %}
+  Desktop: Kategorie-Pill unter der Hauptzeile. Erwartet URL/Aktiv-Flags von sections/pflege-main-nav.liquid (render-Parameter).
+{% endcomment %}
+{{ 'pflege-header-category-rail.css' | asset_url | stylesheet_tag }}
+
+<nav class="pflege-cat-rail pflege-cat-rail--header-row" aria-label="{{ 'sections.pflege_header_category_rail.nav_aria' | t }}">
+  <div class="pflege-cat-rail__bar">
+    <ul class="pflege-cat-rail__list list-unstyled" role="list">
+      {% render 'pflege-category-overview-links',
+        variant: 'rail',
+        url_free_care: url_free_care,
+        url_ink: url_ink,
+        url_ink_rezept: url_ink_rezept,
+        url_body: url_body,
+        url_skin: url_skin,
+        url_gloves: url_gloves,
+        url_des: url_des,
+        url_ver: url_ver,
+        active_free_care: active_free_care,
+        active_ink: active_ink,
+        active_ink_rezept: active_ink_rezept,
+        active_body: active_body,
+        active_skin: active_skin,
+        active_gloves: active_gloves,
+        active_des: active_des,
+        active_ver: active_ver
+      %}
+    </ul>
+  </div>
+</nav>

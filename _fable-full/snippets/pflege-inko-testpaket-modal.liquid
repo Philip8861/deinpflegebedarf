@@ -1,0 +1,258 @@
+{%- liquid
+  assign modal_suffix = modal_suffix | default: ''
+  if modal_suffix == blank and section != blank
+    assign modal_suffix = section.id
+  endif
+  if modal_suffix == blank
+    assign modal_suffix = 'default'
+  endif
+  assign url_privacy = routes.root_url | append: 'pages/datenschutzerklaerung'
+  assign modal_id = 'PflegeInkoTestpaketModal-' | append: modal_suffix
+  assign inko_form_id = 'PflegeInkoTestpaketForm-' | append: modal_suffix
+-%}
+
+<dialog
+  id="{{ modal_id }}"
+  class="pflege-inko-modal"
+  data-pflege-inko-testpaket-modal
+  closedby="closerequest"
+  aria-labelledby="{{ modal_id }}-title"
+  aria-describedby="{{ modal_id }}-subtitle"
+>
+  <div class="pflege-inko-modal__panel">
+    <button
+      type="button"
+      class="pflege-inko-modal__close"
+      data-pflege-inko-modal-close
+      aria-label="Modal schließen"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="M6 6l12 12"/></svg>
+    </button>
+
+    <div class="pflege-inko-modal__content" data-pflege-inko-main>
+      <header class="pflege-inko-modal__header">
+        <h2 id="{{ modal_id }}-title" class="pflege-inko-modal__title">
+          Kostenloses Testpaket anfordern
+        </h2>
+        <p id="{{ modal_id }}-subtitle" class="pflege-inko-modal__subtitle">
+          In 3 einfachen Schritten zu Ihrer passenden Inkontinenzversorgung.
+        </p>
+      </header>
+
+      <div class="pflege-inko-modal__body">
+      <div class="pflege-inko-modal__steps" aria-label="Ablauf in drei Schritten">
+        <article class="pflege-inko-modal__step">
+          <span class="pflege-inko-modal__step-num" aria-hidden="true">1</span>
+          <span class="pflege-inko-modal__step-icon" aria-hidden="true">
+            {% render 'pflege-icon', icon: 'file-text', width: 24 %}
+          </span>
+          <div class="pflege-inko-modal__step-copy">
+            <h3 class="pflege-inko-modal__step-title">Daten ausfüllen</h3>
+            <p class="pflege-inko-modal__step-text">Teilen Sie uns Ihre Kontaktdaten und Wünsche mit.</p>
+          </div>
+        </article>
+
+        <article class="pflege-inko-modal__step">
+          <span class="pflege-inko-modal__step-num" aria-hidden="true">2</span>
+          <span class="pflege-inko-modal__step-icon" aria-hidden="true">
+            {% render 'pflege-icon', icon: 'headset', width: 24 %}
+          </span>
+          <div class="pflege-inko-modal__step-copy">
+            <h3 class="pflege-inko-modal__step-title">Wir melden uns an Werktagen innerhalb von 24 Stunden bei Ihnen</h3>
+            <p class="pflege-inko-modal__step-text">Unser Team setzt sich schnellstmöglich mit Ihnen in Verbindung.</p>
+          </div>
+        </article>
+
+        <article class="pflege-inko-modal__step">
+          <span class="pflege-inko-modal__step-num" aria-hidden="true">3</span>
+          <span class="pflege-inko-modal__step-icon pflege-inko-modal__step-icon--gift" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C9 3 12 8 12 8"/><path d="M16.5 8a2.5 2.5 0 0 0 0-5C15 3 12 8 12 8"/></svg>
+          </span>
+          <div class="pflege-inko-modal__step-copy">
+            <h3 class="pflege-inko-modal__step-title">Passendes Produkt auswählen und Gratis-Muster erhalten</h3>
+            <p class="pflege-inko-modal__step-text">Wir finden gemeinsam die passende Lösung für Sie.</p>
+          </div>
+        </article>
+
+        <aside class="pflege-inko-modal__secure" aria-label="Datenschutzhinweis">
+          <span class="pflege-inko-modal__secure-icon" aria-hidden="true">
+            {% render 'pflege-icon', icon: 'shield', width: 18 %}
+          </span>
+          <div class="pflege-inko-modal__secure-copy">
+            <p class="pflege-inko-modal__secure-title">Ihre Daten sind bei uns sicher</p>
+            <p class="pflege-inko-modal__secure-text">Wir behandeln Ihre Daten vertraulich und verwenden sie ausschließlich zur Bearbeitung Ihrer Anfrage.</p>
+          </div>
+        </aside>
+      </div>
+
+      <div class="pflege-inko-modal__form-wrap">
+        <div class="pflege-inko-modal__form-panel" data-pflege-inko-form-panel>
+          {%- form 'contact', id: inko_form_id, class: 'pflege-inko-modal__form' -%}
+            {%- capture inko_return_to -%}{{ request.origin }}{{ request.path }}?pflege_inko_sent=1{%- endcapture -%}
+            <input type="hidden" name="return_to" value="{{ inko_return_to | strip }}">
+            <input type="hidden" name="contact[tags]" value="testpaket, inkontinenz, deinpflegebedarf">
+            <input type="hidden" name="contact[subject]" value="Kostenloses Testpaket Inkontinenzversorgung">
+            <input type="hidden" name="contact[Betreff]" value="Testpaket Inkontinenzversorgung">
+            {%- if form.posted_successfully? -%}
+              <span hidden data-pflege-inko-sent-marker></span>
+            {%- elsif form.errors -%}
+              <span hidden data-pflege-inko-sent-error></span>
+            {%- endif -%}
+            <input type="hidden" name="contact[name]" value="" data-pflege-inko-name>
+            <input type="hidden" name="contact[body]" value="" data-pflege-inko-body>
+
+            <div class="pflege-inko-modal__fields pflege-inko-modal__fields--split">
+              <div class="pflege-inko-modal__field">
+                <label class="pflege-inko-modal__label" for="{{ modal_id }}-firstname">
+                  Vorname <span class="pflege-inko-modal__req" aria-hidden="true">*</span>
+                </label>
+                <input
+                  class="pflege-inko-modal__input"
+                  type="text"
+                  id="{{ modal_id }}-firstname"
+                  name="contact[Vorname]"
+                  autocomplete="given-name"
+                  placeholder="Vorname"
+                  required
+                  aria-required="true"
+                  data-pflege-inko-field="firstname"
+                >
+              </div>
+              <div class="pflege-inko-modal__field">
+                <label class="pflege-inko-modal__label" for="{{ modal_id }}-lastname">
+                  Nachname <span class="pflege-inko-modal__req" aria-hidden="true">*</span>
+                </label>
+                <input
+                  class="pflege-inko-modal__input"
+                  type="text"
+                  id="{{ modal_id }}-lastname"
+                  name="contact[Nachname]"
+                  autocomplete="family-name"
+                  placeholder="Nachname"
+                  required
+                  aria-required="true"
+                  data-pflege-inko-field="lastname"
+                >
+              </div>
+            </div>
+
+            <div class="pflege-inko-modal__field">
+              <label class="pflege-inko-modal__label" for="{{ modal_id }}-phone">
+                Telefonnummer <span class="pflege-inko-modal__req" aria-hidden="true">*</span>
+              </label>
+              <input
+                class="pflege-inko-modal__input"
+                type="tel"
+                id="{{ modal_id }}-phone"
+                name="contact[phone]"
+                autocomplete="tel"
+                placeholder="z. B. 0176 12345678"
+                required
+                aria-required="true"
+                data-pflege-inko-field="phone"
+              >
+            </div>
+
+            <div class="pflege-inko-modal__field">
+              <label class="pflege-inko-modal__label" for="{{ modal_id }}-reachability">
+                Wann sind Sie telefonisch am besten erreichbar?
+                <span class="pflege-inko-modal__req" aria-hidden="true">*</span>
+              </label>
+              <select
+                class="pflege-inko-modal__select"
+                id="{{ modal_id }}-reachability"
+                name="contact[Erreichbarkeit]"
+                required
+                aria-required="true"
+                data-pflege-inko-field="reachability"
+              >
+                <option value="" selected disabled>Bitte wählen</option>
+                <option value="08:00–10:00 Uhr">08:00–10:00 Uhr</option>
+                <option value="10:00–12:00 Uhr">10:00–12:00 Uhr</option>
+                <option value="12:00–14:00 Uhr">12:00–14:00 Uhr</option>
+                <option value="14:00–16:00 Uhr">14:00–16:00 Uhr</option>
+              </select>
+            </div>
+
+            <div class="pflege-inko-modal__field">
+              <label class="pflege-inko-modal__label" for="{{ modal_id }}-email">
+                E-Mail <span class="pflege-inko-modal__req" aria-hidden="true">*</span>
+              </label>
+              <input
+                class="pflege-inko-modal__input"
+                type="email"
+                id="{{ modal_id }}-email"
+                name="contact[email]"
+                autocomplete="email"
+                spellcheck="false"
+                autocapitalize="off"
+                placeholder="z. B. name@beispiel.de"
+                required
+                aria-required="true"
+                data-pflege-inko-field="email"
+              >
+            </div>
+
+            <div class="pflege-inko-modal__field">
+              <label class="pflege-inko-modal__label" for="{{ modal_id }}-message">Nachricht (optional)</label>
+              <textarea
+                class="pflege-inko-modal__textarea"
+                id="{{ modal_id }}-message"
+                name="contact[Nachricht]"
+                rows="3"
+                placeholder="z. B. Informationen zu Ihren Bedürfnissen, bevorzugte Produkte oder Fragen ..."
+                data-pflege-inko-field="message"
+              ></textarea>
+            </div>
+
+            <div class="pflege-inko-modal__consent">
+              <label class="pflege-inko-modal__consent-label" for="{{ modal_id }}-consent">
+                <input
+                  type="checkbox"
+                  class="pflege-inko-modal__consent-input"
+                  id="{{ modal_id }}-consent"
+                  name="contact[Datenschutz]"
+                  value="Ja"
+                  required
+                  aria-required="true"
+                  data-pflege-inko-field="consent"
+                >
+                <span class="pflege-inko-modal__consent-box" aria-hidden="true"></span>
+                <span class="pflege-inko-modal__consent-text">
+                  Ich stimme der Verarbeitung meiner Daten gemäß der {% if url_privacy != blank %}<a href="{{ url_privacy }}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Datenschutzerklärung</a>{% else %}Datenschutzerklärung{% endif %} zu. Weitere Informationen finden Sie in unserer {% if url_privacy != blank %}<a href="{{ url_privacy }}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Datenschutzerklärung</a>{% else %}Datenschutzerklärung{% endif %}.
+                </span>
+              </label>
+            </div>
+
+            <p class="pflege-inko-modal__form-error" data-pflege-inko-form-error hidden role="alert"></p>
+
+            <button type="button" class="pflege-inko-modal__submit" data-pflege-inko-submit>
+              Jetzt kostenlos anfragen
+            </button>
+
+            <p class="pflege-inko-modal__trust">
+              <span class="pflege-inko-modal__trust-icon" aria-hidden="true">
+                {% render 'pflege-icon', icon: 'lock', width: 14 %}
+              </span>
+              Unverbindlich. Kostenlos. Ohne Verpflichtung.
+            </p>
+          {%- endform -%}
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div class="pflege-inko-modal__success-screen" data-pflege-inko-success hidden role="status" aria-live="polite">
+      <span class="pflege-inko-modal__success-icon" aria-hidden="true">
+        {% render 'pflege-icon', icon: 'badge-check', width: 34 %}
+      </span>
+      <h3 class="pflege-inko-modal__success-title">Vielen Dank!</h3>
+      <p class="pflege-inko-modal__success-text">
+        Wir haben Ihre Anfrage erhalten und melden uns an Werktagen innerhalb von 24 Stunden bei Ihnen.
+      </p>
+      <button type="button" class="pflege-inko-modal__success-btn" data-pflege-inko-modal-close>
+        Schließen
+      </button>
+    </div>
+  </div>
+</dialog>

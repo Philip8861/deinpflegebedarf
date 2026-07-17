@@ -1,0 +1,214 @@
+{{ 'component-cart.css' | asset_url | stylesheet_tag }}
+{{ 'section-pflege-cart-page.css' | asset_url | stylesheet_tag }}
+{{ 'component-totals.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'component-discounts.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div
+  class="gradient color-{{ section.settings.color_scheme }}{% if cart == empty %} is-empty{% endif %}"
+  id="main-cart-footer"
+  data-id="{{ section.id }}"
+>
+  <div class="page-width pflege-cart-aside__inner">
+    <div class="cart__footer isolate section-{{ section.id }}-padding pflege-cart-aside__footer">
+      {%- if settings.show_cart_note -%}
+        <cart-note class="cart__note field pflege-cart-note">
+          <label for="Cart-note">{{ 'sections.cart.note' | t }}</label>
+          <textarea
+            class="text-area field__input"
+            name="note"
+            form="cart"
+            id="Cart-note"
+            placeholder="{{ 'sections.cart.note' | t }}"
+          >{{ cart.note }}</textarea>
+        </cart-note>
+      {%- endif -%}
+
+      <div class="cart__blocks pflege-cart-aside__blocks">
+        {% for block in section.blocks %}
+          {%- case block.type -%}
+            {%- when '@app' -%}
+              {% render block %}
+            {%- when 'subtotal' -%}
+              <div class="js-contents" {{ block.shopify_attributes }}>
+                <div class="pflege-cart-summary pflege-cart-card">
+                  <h2 class="pflege-cart-summary__heading">{{ 'sections.cart.pflege.summary_title' | t }}</h2>
+
+                  <div class="pflege-cart-summary__rows">
+                    <div class="pflege-cart-summary__row">
+                      <span>{{ 'sections.cart.pflege.subtotal' | t }}</span>
+                      <span class="pflege-cart-summary__value">{{ cart.items_subtotal_price | money }}</span>
+                    </div>
+
+                    <div class="pflege-cart-summary__row">
+                      <span>{{ 'sections.cart.pflege.shipping' | t }}</span>
+                      <span class="pflege-cart-summary__value pflege-cart-summary__muted pflege-cart-summary__shipping-note">
+                        {{- 'sections.cart.pflege.shipping_note' | t -}}
+                      </span>
+                    </div>
+
+                    {%- if cart.cart_level_discount_applications.size > 0 -%}
+                      {%- for discount in cart.cart_level_discount_applications -%}
+                        <div class="pflege-cart-summary__row pflege-cart-summary__row--discount">
+                          <span>
+                            {{ 'sections.cart.pflege.discount_with_code' | t: code: discount.title }}
+                          </span>
+                          <span class="pflege-cart-summary__discount-value"
+                            >-{{ discount.total_allocated_amount | money -}}
+                          </span>
+                        </div>
+                      {%- endfor -%}
+                    {%- endif -%}
+
+                    <hr class="pflege-cart-summary__rule">
+
+                    <div class="pflege-cart-summary__row pflege-cart-summary__row--grand">
+                      <span>{{ 'sections.cart.pflege.grand_total' | t }}</span>
+                      <span class="pflege-cart-summary__grand-value">{{ cart.total_price | money }}</span>
+                    </div>
+
+                    <p class="pflege-cart-summary__vat caption">{{ 'sections.cart.pflege.vat_included' | t }}</p>
+                  </div>
+
+                  <div class="pflege-cart-summary__cta-band">
+                    <div class="cart__ctas">
+                      <button
+                        type="submit"
+                        id="checkout"
+                        class="cart__checkout-button button pflege-cart-summary__checkout"
+                        name="checkout"
+                        {% if cart == empty %}
+                          disabled
+                        {% endif %}
+                        form="cart"
+                      >
+                        <span>{{ 'sections.cart.checkout' | t }}</span>
+                        <span class="pflege-cart-summary__checkout-arrow" aria-hidden="true">→</span>
+                      </button>
+                    </div>
+
+                    <a
+                      href="{{ routes.all_products_collection_url }}"
+                      class="button button--secondary pflege-cart-summary__continue"
+                    >
+                      {{- 'sections.cart.pflege.continue_shopping' | t -}}
+                    </a>
+
+                    <ul class="pflege-cart-summary__trust list-unstyled" role="list">
+                      <li class="pflege-cart-summary__trust-item">
+                        <span class="pflege-cart-summary__trust-icon" aria-hidden="true">
+                          {% render 'pflege-icon', icon: 'lock', width: 20 %}
+                        </span>
+                        <span class="pflege-cart-summary__trust-text">
+                          <strong>{{ 'sections.cart.pflege.trust_pay_title' | t }}</strong>
+                          <span class="caption">{{ 'sections.cart.pflege.trust_pay_sub' | t }}</span>
+                        </span>
+                      </li>
+                      <li class="pflege-cart-summary__trust-item">
+                        <span class="pflege-cart-summary__trust-icon" aria-hidden="true">
+                          {% render 'pflege-icon', icon: 'shield', width: 20 %}
+                        </span>
+                        <span class="pflege-cart-summary__trust-text">
+                          <strong>{{ 'sections.cart.pflege.trust_buyer_title' | t }}</strong>
+                          <span class="caption">{{ 'sections.cart.pflege.trust_buyer_sub' | t }}</span>
+                        </span>
+                      </li>
+                      <li class="pflege-cart-summary__trust-item">
+                        <span class="pflege-cart-summary__trust-icon" aria-hidden="true">
+                          {% render 'pflege-icon', icon: 'badge-check', width: 20 %}
+                        </span>
+                        <span class="pflege-cart-summary__trust-text">
+                          <strong>{{ 'sections.cart.pflege.trust_quality_title' | t }}</strong>
+                          <span class="caption">{{ 'sections.cart.pflege.trust_quality_sub' | t }}</span>
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                {%- if cart != empty -%}
+                  <div class="pflege-cart-stack-below-summary medium-hide large-up-hide">
+                    <div class="pflege-cart-promo--under-summary">
+                      {% render 'pflege-cart-promo-row' %}
+                    </div>
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- when 'buttons' -%}
+              <div {{ block.shopify_attributes }}></div>
+          {%- endcase -%}
+        {% endfor %}
+
+        <div id="cart-errors" class="pflege-cart-errors" role="alert"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-cart-footer.name",
+  "class": "cart__footer-wrapper pflege-cart-section pflege-cart-section--aside",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },    
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "subtotal",
+      "name": "t:sections.main-cart-footer.blocks.subtotal.name",
+      "limit": 1
+    },
+    {
+      "type": "buttons",
+      "name": "t:sections.main-cart-footer.blocks.buttons.name",
+      "limit": 1
+    },
+    {
+      "type": "@app"
+    }
+  ]
+}
+{% endschema %}

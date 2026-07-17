@@ -1,0 +1,198 @@
+{{ 'pflege-customer-shared.css' | asset_url | stylesheet_tag }}
+{{ 'section-pflege-customer-login.css' | asset_url | stylesheet_tag }}
+{{ 'section-pflege-customer-account.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign contact_url = section.settings.contact_page_url
+  if contact_url == blank
+    assign contact_url = '/pages/kontakt'
+  endif
+-%}
+
+<section class="pflege-customer-account-page" aria-labelledby="pflege-account-title">
+  <div class="pflege-customer-account-page__backdrop">
+    <div class="pflege-customer-account-page__inner">
+      <header class="pflege-customer-account-page__header">
+        <div>
+          <h1 id="pflege-account-title" class="pflege-customer-account-page__greeting">
+            {%- if customer.first_name != blank -%}
+              {{ section.settings.greeting | escape }} {{ customer.first_name | escape }}
+            {%- else -%}
+              {{ section.settings.greeting_fallback | escape }}
+            {%- endif -%}
+          </h1>
+          <p class="pflege-customer-account-page__greeting-sub">
+            {{ section.settings.subtitle | escape }}
+          </p>
+        </div>
+        <a href="{{ routes.account_logout_url }}" class="pflege-customer-account-page__logout">
+          {% render 'pflege-icon', icon: 'log-in', width: 18 %}
+          {{ 'customer.log_out' | t }}
+        </a>
+      </header>
+
+      <nav class="pflege-customer-account-page__tiles" aria-label="Kundenbereich Navigation">
+        <a href="#pflege-account-orders" class="pflege-customer-account-page__tile">
+          <span class="pflege-customer-account-page__tile-icon">
+            {% render 'pflege-icon', icon: 'package', width: 22 %}
+          </span>
+          <span class="pflege-customer-account-page__tile-title">{{ section.settings.tile_orders_title | escape }}</span>
+          <span class="pflege-customer-account-page__tile-text">{{ section.settings.tile_orders_text | escape }}</span>
+        </a>
+        <a href="{{ routes.account_addresses_url }}" class="pflege-customer-account-page__tile">
+          <span class="pflege-customer-account-page__tile-icon">
+            {% render 'pflege-icon', icon: 'truck', width: 22 %}
+          </span>
+          <span class="pflege-customer-account-page__tile-title">{{ section.settings.tile_addresses_title | escape }}</span>
+          <span class="pflege-customer-account-page__tile-text">{{ section.settings.tile_addresses_text | escape }}</span>
+        </a>
+        <a href="{{ contact_url }}" class="pflege-customer-account-page__tile">
+          <span class="pflege-customer-account-page__tile-icon">
+            {% render 'pflege-icon', icon: 'headset', width: 22 %}
+          </span>
+          <span class="pflege-customer-account-page__tile-title">{{ section.settings.tile_help_title | escape }}</span>
+          <span class="pflege-customer-account-page__tile-text">{{ section.settings.tile_help_text | escape }}</span>
+        </a>
+      </nav>
+
+      <div id="pflege-account-orders" class="pflege-customer-account-page__panel">
+        <h2 class="pflege-customer-account-page__panel-title">{{ 'customer.orders.title' | t }}</h2>
+
+        {% paginate customer.orders by 10 %}
+          {%- if customer.orders.size > 0 -%}
+            <div class="pflege-customer-account-page__orders">
+              {%- for order in customer.orders -%}
+                <a href="{{ order.customer_url }}" class="pflege-customer-account-page__order-card">
+                  <span class="pflege-customer-account-page__order-name">{{ order.name }}</span>
+                  <span class="pflege-customer-account-page__order-total">{{ order.total_net_amount | money_with_currency }}</span>
+                  <span class="pflege-customer-account-page__order-meta">
+                    <span>{{ order.created_at | time_tag: format: 'date' }}</span>
+                    <span class="pflege-customer-account-page__badge">{{ order.financial_status_label }}</span>
+                    <span class="pflege-customer-account-page__badge">{{ order.fulfillment_status_label }}</span>
+                  </span>
+                </a>
+              {%- endfor -%}
+            </div>
+
+            {%- if paginate.pages > 1 -%}
+              <nav class="pflege-customer-account-page__pagination" role="navigation" aria-label="{{ 'general.pagination.label' | t }}">
+                <ul role="list">
+                  {%- if paginate.previous -%}
+                    <li>
+                      <a href="{{ paginate.previous.url }}" aria-label="{{ 'general.pagination.previous' | t }}">‹</a>
+                    </li>
+                  {%- endif -%}
+                  {%- for part in paginate.parts -%}
+                    <li>
+                      {%- if part.is_link -%}
+                        <a href="{{ part.url }}" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">{{ part.title }}</a>
+                      {%- elsif part.title == paginate.current_page -%}
+                        <span aria-current="page">{{ part.title }}</span>
+                      {%- else -%}
+                        <span>{{ part.title }}</span>
+                      {%- endif -%}
+                    </li>
+                  {%- endfor -%}
+                  {%- if paginate.next -%}
+                    <li>
+                      <a href="{{ paginate.next.url }}" aria-label="{{ 'general.pagination.next' | t }}">›</a>
+                    </li>
+                  {%- endif -%}
+                </ul>
+              </nav>
+            {%- endif -%}
+          {%- else -%}
+            <div class="pflege-customer-account-page__empty">
+              <p>{{ section.settings.empty_orders | escape }}</p>
+              <a href="{{ routes.root_url }}" class="pflege-customer-account-page__btn">
+                {{ section.settings.empty_cta | escape }}
+              </a>
+            </div>
+          {%- endif -%}
+        {% endpaginate %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Pflege Kundenbereich",
+  "tag": "section",
+  "class": "section-pflege-customer-account",
+  "settings": [
+    {
+      "type": "text",
+      "id": "greeting",
+      "label": "Begrüßung",
+      "default": "Willkommen,"
+    },
+    {
+      "type": "text",
+      "id": "greeting_fallback",
+      "label": "Begrüßung ohne Name",
+      "default": "Willkommen in Ihrem Kundenbereich"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Untertitel",
+      "default": "Verwalten Sie Bestellungen, Adressen und Ihre persönlichen Daten."
+    },
+    {
+      "type": "text",
+      "id": "tile_orders_title",
+      "label": "Kachel Bestellungen Titel",
+      "default": "Meine Bestellungen"
+    },
+    {
+      "type": "text",
+      "id": "tile_orders_text",
+      "label": "Kachel Bestellungen Text",
+      "default": "Status und Historie einsehen"
+    },
+    {
+      "type": "text",
+      "id": "tile_addresses_title",
+      "label": "Kachel Adressen Titel",
+      "default": "Meine Adressen"
+    },
+    {
+      "type": "text",
+      "id": "tile_addresses_text",
+      "label": "Kachel Adressen Text",
+      "default": "Lieferadressen verwalten"
+    },
+    {
+      "type": "text",
+      "id": "tile_help_title",
+      "label": "Kachel Hilfe Titel",
+      "default": "Kontakt & Hilfe"
+    },
+    {
+      "type": "text",
+      "id": "tile_help_text",
+      "label": "Kachel Hilfe Text",
+      "default": "Wir helfen Ihnen gerne weiter"
+    },
+    {
+      "type": "url",
+      "id": "contact_page_url",
+      "label": "Kontaktseite",
+      "info": "Standard: /pages/kontakt"
+    },
+    {
+      "type": "text",
+      "id": "empty_orders",
+      "label": "Leerer Zustand Text",
+      "default": "Sie haben noch keine Bestellungen. Stöbern Sie in unserem Shop und finden Sie passende Pflegeprodukte."
+    },
+    {
+      "type": "text",
+      "id": "empty_cta",
+      "label": "Leerer Zustand Button",
+      "default": "Zum Shop"
+    }
+  ]
+}
+{% endschema %}

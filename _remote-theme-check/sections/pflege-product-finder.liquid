@@ -1,0 +1,110 @@
+{{ 'section-pflege-hero.css' | asset_url | stylesheet_tag }}
+{{ 'section-pflege-product-finder.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign finder_bg_url = 'produktfinder1.webp' | asset_url
+  assign finder_bg_cb = section.settings.bg_refresh_token | strip
+  if finder_bg_cb != blank
+    if finder_bg_url contains '?'
+      assign finder_bg_url = finder_bg_url | append: '&pflegepf=' | append: finder_bg_cb
+    else
+      assign finder_bg_url = finder_bg_url | append: '?pflegepf=' | append: finder_bg_cb
+    endif
+  endif
+-%}
+
+<section id="inkontinenz-auf-rezept-promo" class="pflege-product-finder" {{ section.shopify_attributes }}>
+  <div class="pflege-product-finder__backdrop">
+    <div class="pflege-product-finder__shell">
+      <div
+        class="pflege-product-finder__panel"
+        style="--pflege-product-finder-bg: url('{{ finder_bg_url }}');"
+      >
+        <div class="pflege-product-finder__inner">
+          {%- if section.settings.heading != blank -%}
+            <h2 class="pflege-product-finder__title-on-image">{{ section.settings.heading | escape }}</h2>
+          {%- endif -%}
+          <div class="pflege-product-finder__stack">
+            <div class="pflege-product-finder__lead">
+              {%- if section.settings.intro != blank -%}
+                <p class="pflege-product-finder__intro">{{ section.settings.intro | escape }}</p>
+              {%- endif -%}
+              {%- if section.settings.intro_secondary != blank -%}
+                <p class="pflege-product-finder__intro pflege-product-finder__intro--secondary">
+                  {{ section.settings.intro_secondary | escape }}
+                </p>
+              {%- endif -%}
+            </div>
+
+            <div class="pflege-product-finder__actions pflege-product-finder__actions--center">
+              {%- if section.settings.primary_label != blank -%}
+                <div class="pflege-product-finder__cta-wrap">
+                  <button
+                    type="button"
+                    class="pflege-product-finder__cta pflege-hero__cta--testpaket pflege-cta--soft-pulse"
+                    data-pflege-inko-testpaket-open
+                  >
+                    <span class="pflege-hero__cta-icon pflege-product-finder__cta-icon" aria-hidden="true">
+                      {% render 'pflege-icon', icon: 'gift', width: 24 %}
+                    </span>
+                    {{- section.settings.primary_label | escape -}}
+                  </button>
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Inko auf Rezept Promo",
+  "tag": "section",
+  "class": "pflege-product-finder-section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Hintergrund: Theme-Asset assets/produktfinder1.webp. Nach Bildtausch im Theme: „Cache“-Zahl erhöhen und speichern (CDN/Browser)."
+    },
+    {
+      "type": "text",
+      "id": "bg_refresh_token",
+      "label": "Hintergrundbild — Cache leeren (Zahl)",
+      "default": "1",
+      "info": "Nach jedem Austausch von produktfinder1.webp diese Zahl um 1 erhöhen (1→2→3…). Umgeht Browser- und CDN-Zwischenspeicher."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Hauptüberschrift",
+      "default": "Inkontinenzversorgung auf Rezept möglich."
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Text Zeile 1",
+      "default": "Kontaktieren Sie uns und erhalten Sie kostenlose Musterprodukte zum Testen."
+    },
+    {
+      "type": "textarea",
+      "id": "intro_secondary",
+      "label": "Text Zeile 2",
+      "default": "Wir beraten Sie persönlich und finden gemeinsam das passende Produkt für Ihre Bedürfnisse."
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "Button — Text",
+      "default": "Kostenlose Musterprodukte erhalten"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Inkontinenz auf Rezept Promo"
+    }
+  ]
+}
+{% endschema %}

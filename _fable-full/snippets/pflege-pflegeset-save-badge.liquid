@@ -1,0 +1,16 @@
+{% comment %}
+  Spar-Badge für Pflegeset-Produkte (S 3%, M 5%, L 9%).
+  Parameter: card_product, handle_fallback (optional)
+{% endcomment %}
+{%- liquid
+  assign save_badge = ''
+
+  capture save_percent_raw
+    render 'pflege-pflegeset-save-percent', card_product: card_product, handle_fallback: handle_fallback
+  endcapture
+  assign save_percent = save_percent_raw | strip | plus: 0
+
+  if save_percent > 0
+    assign save_badge = 'Sie sparen ' | append: save_percent | append: '%'
+  endif
+-%}{{ save_badge }}

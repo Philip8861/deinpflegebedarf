@@ -1,0 +1,568 @@
+/* PflegeShop — Kundenbereich Dashboard, Adressen, Bestellung */
+
+.pflege-customer-account-page__inner {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.pflege-customer-account-page__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+  margin-bottom: clamp(1.5rem, 3vw, 2rem);
+}
+
+.pflege-customer-account-page__greeting {
+  margin: 0;
+  color: var(--pflege-ca-heading);
+  font-size: clamp(1.5rem, 2.5vw, 1.75rem);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.pflege-customer-account-page__greeting-sub {
+  margin: 0.5rem 0 0;
+  color: var(--pflege-ca-muted);
+  font-size: 15px;
+  line-height: 1.5;
+  font-weight: 600;
+  max-width: 36rem;
+}
+
+.pflege-customer-account-page__logout {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1rem;
+  border-radius: var(--pflege-ca-radius-sm);
+  border: 1px solid var(--pflege-ca-border);
+  background: var(--pflege-ca-bg);
+  color: var(--pflege-ca-navy);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+
+.pflege-customer-account-page__logout:hover,
+.pflege-customer-account-page__logout:focus-visible {
+  background: #f8fbff;
+  border-color: #c8d8e8;
+  outline: none;
+}
+
+.pflege-customer-account-page__tiles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: clamp(1.75rem, 3vw, 2.25rem);
+}
+
+.pflege-customer-account-page__tile {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: 1.25rem 1.15rem;
+  border-radius: var(--pflege-ca-radius);
+  border: 1px solid rgba(216, 226, 238, 0.55);
+  background: var(--pflege-ca-bg);
+  box-shadow: var(--pflege-ca-shadow-soft);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+.pflege-customer-account-page__tile:hover,
+.pflege-customer-account-page__tile:focus-visible {
+  border-color: color-mix(in srgb, var(--pflege-ca-link) 35%, var(--pflege-ca-border));
+  box-shadow: var(--pflege-ca-shadow);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.pflege-customer-account-page__tile-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  background: var(--pflege-ca-bg-soft);
+  color: #075f84;
+}
+
+.pflege-customer-account-page__tile-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--pflege-ca-navy);
+}
+
+.pflege-customer-account-page__tile-text {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+  font-weight: 600;
+  color: var(--pflege-ca-muted);
+}
+
+.pflege-customer-account-page__panel {
+  background: var(--pflege-ca-bg);
+  border: 1px solid rgba(216, 226, 238, 0.45);
+  border-radius: var(--pflege-ca-radius);
+  box-shadow: var(--pflege-ca-shadow-soft);
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+}
+
+.pflege-customer-account-page__panel-title {
+  margin: 0 0 1.25rem;
+  color: var(--pflege-ca-heading);
+  font-size: 1.125rem;
+  font-weight: 800;
+}
+
+.pflege-customer-account-page__orders {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.pflege-customer-account-page__order-card {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.35rem 1rem;
+  padding: 1rem 1.1rem;
+  border-radius: var(--pflege-ca-radius-sm);
+  border: 1px solid var(--pflege-ca-border);
+  background: #fafcff;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.18s ease, background 0.18s ease;
+}
+
+.pflege-customer-account-page__order-card:hover,
+.pflege-customer-account-page__order-card:focus-visible {
+  border-color: color-mix(in srgb, var(--pflege-ca-link) 40%, var(--pflege-ca-border));
+  background: #f4f9ff;
+  outline: none;
+}
+
+.pflege-customer-account-page__order-name {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--pflege-ca-link);
+}
+
+.pflege-customer-account-page__order-total {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--pflege-ca-navy);
+  text-align: right;
+}
+
+.pflege-customer-account-page__order-meta {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--pflege-ca-muted);
+}
+
+.pflege-customer-account-page__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: #eef6ff;
+  border: 1px solid #d8eafe;
+  font-size: 12px;
+  font-weight: 700;
+  color: #07516d;
+}
+
+.pflege-customer-account-page__empty {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.pflege-customer-account-page__empty p {
+  margin: 0 0 1.25rem;
+  color: var(--pflege-ca-muted);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.pflege-customer-account-page__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding: 0 1.25rem;
+  border-radius: var(--pflege-ca-radius-sm);
+  border: none;
+  background: var(--pflege-ca-accent);
+  color: #fff;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(255, 127, 22, 0.18);
+  transition: background 0.18s ease;
+}
+
+.pflege-customer-account-page__btn:hover,
+.pflege-customer-account-page__btn:focus-visible {
+  background: var(--pflege-ca-accent-hover);
+  outline: none;
+}
+
+.pflege-customer-account-page__btn--secondary {
+  background: var(--pflege-ca-bg);
+  border: 1px solid var(--pflege-ca-border);
+  color: var(--pflege-ca-navy);
+  box-shadow: none;
+}
+
+.pflege-customer-account-page__btn--secondary:hover,
+.pflege-customer-account-page__btn--secondary:focus-visible {
+  background: #f8fbff;
+}
+
+.pflege-customer-account-page__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+  color: var(--pflege-ca-link);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.pflege-customer-account-page__back:hover,
+.pflege-customer-account-page__back:focus-visible {
+  text-decoration: underline;
+  outline: none;
+}
+
+/* Adressen */
+.pflege-customer-account-page__address-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.pflege-customer-account-page__address-card {
+  padding: 1.15rem;
+  border-radius: var(--pflege-ca-radius-sm);
+  border: 1px solid var(--pflege-ca-border);
+  background: #fafcff;
+}
+
+.pflege-customer-account-page__address-card--default {
+  border-color: color-mix(in srgb, var(--pflege-ca-accent) 45%, var(--pflege-ca-border));
+  background: linear-gradient(180deg, #fffaf5 0%, #fafcff 100%);
+}
+
+.pflege-customer-account-page__address-default-badge {
+  display: inline-flex;
+  margin-bottom: 0.65rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--pflege-ca-accent) 12%, #fff);
+  border: 1px solid color-mix(in srgb, var(--pflege-ca-accent) 35%, #ffe0c4);
+  font-size: 11px;
+  font-weight: 800;
+  color: #9a4a00;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.pflege-customer-account-page__address-text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  font-weight: 500;
+  color: var(--pflege-ca-navy);
+}
+
+.pflege-customer-account-page__address-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.pflege-customer-account-page__address-form {
+  margin-top: 1.25rem;
+  padding: 1.25rem;
+  border-radius: var(--pflege-ca-radius-sm);
+  border: 1px solid var(--pflege-ca-border);
+  background: #fafcff;
+}
+
+.pflege-customer-account-page__address-form[hidden],
+.pflege-customer-account-page [hidden] {
+  display: none !important;
+}
+
+.pflege-customer-account-page__form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.pflege-customer-account-page .pflege-customer-login__input {
+  padding-left: 14px;
+  padding-right: 14px;
+  height: 48px;
+}
+
+.pflege-customer-account-page__form-grid--full {
+  grid-column: 1 / -1;
+}
+
+.pflege-customer-account-page.addresses [aria-expanded='false'] ~ div[id] {
+  display: none;
+}
+
+.pflege-customer-account-page.addresses [aria-expanded='true'] ~ div[id] {
+  display: block;
+}
+
+.pflege-customer-account-page__form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1.25rem;
+}
+
+.pflege-customer-account-page__select-wrap {
+  margin-bottom: 1rem;
+}
+
+.pflege-customer-account-page__select-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--pflege-ca-navy);
+}
+
+.pflege-customer-account-page__select {
+  width: 100%;
+  height: 48px;
+  padding: 0 2.5rem 0 0.85rem;
+  border: 1px solid var(--pflege-ca-border);
+  border-radius: var(--pflege-ca-radius-sm);
+  background: #fff;
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--pflege-ca-navy);
+}
+
+.pflege-customer-account-page__checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--pflege-ca-navy);
+}
+
+/* Bestelldetail */
+.pflege-customer-account-page__order-header {
+  margin-bottom: 1.5rem;
+}
+
+.pflege-customer-account-page__order-header h1 {
+  margin: 0 0 0.35rem;
+  color: var(--pflege-ca-heading);
+  font-size: clamp(1.35rem, 2.5vw, 1.65rem);
+  font-weight: 800;
+}
+
+.pflege-customer-account-page__order-header p {
+  margin: 0;
+  color: var(--pflege-ca-muted);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.pflege-customer-account-page__order-layout {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.pflege-customer-account-page__line-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.pflege-customer-account-page__line-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.25rem 1rem;
+  padding: 1rem;
+  border-radius: var(--pflege-ca-radius-sm);
+  border: 1px solid var(--pflege-ca-border);
+  background: #fafcff;
+}
+
+.pflege-customer-account-page__line-item-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--pflege-ca-navy);
+}
+
+.pflege-customer-account-page__line-item-title a {
+  color: var(--pflege-ca-link);
+  text-decoration: none;
+}
+
+.pflege-customer-account-page__line-item-title a:hover {
+  text-decoration: underline;
+}
+
+.pflege-customer-account-page__line-item-price {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--pflege-ca-navy);
+  text-align: right;
+}
+
+.pflege-customer-account-page__line-item-meta {
+  grid-column: 1 / -1;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--pflege-ca-muted);
+  line-height: 1.45;
+}
+
+.pflege-customer-account-page__totals {
+  margin-top: 1rem;
+  border-top: 1px solid var(--pflege-ca-border);
+  padding-top: 0.75rem;
+}
+
+.pflege-customer-account-page__total-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.45rem 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--pflege-ca-muted);
+}
+
+.pflege-customer-account-page__total-row--grand {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--pflege-ca-navy);
+  border-top: 1px solid var(--pflege-ca-border);
+  margin-top: 0.35rem;
+  padding-top: 0.75rem;
+}
+
+.pflege-customer-account-page__address-panels {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.pflege-customer-account-page__address-panel h2 {
+  margin: 0 0 0.5rem;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--pflege-ca-heading);
+}
+
+.pflege-customer-account-page__address-panel p {
+  margin: 0 0 0.75rem;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--pflege-ca-muted);
+}
+
+.pflege-customer-account-page__pagination {
+  margin-top: 1.25rem;
+}
+
+.pflege-customer-account-page__pagination ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pflege-customer-account-page__pagination a,
+.pflege-customer-account-page__pagination span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--pflege-ca-border);
+  background: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--pflege-ca-navy);
+  text-decoration: none;
+}
+
+.pflege-customer-account-page__pagination a:hover,
+.pflege-customer-account-page__pagination a:focus-visible {
+  border-color: var(--pflege-ca-link);
+  outline: none;
+}
+
+.pflege-customer-account-page__pagination [aria-current='page'] {
+  background: var(--pflege-ca-bg-soft);
+  border-color: color-mix(in srgb, var(--pflege-ca-link) 40%, var(--pflege-ca-border));
+}
+
+@media screen and (max-width: 900px) {
+  .pflege-customer-account-page__tiles {
+    grid-template-columns: 1fr;
+  }
+
+  .pflege-customer-account-page__address-panels {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .pflege-customer-account-page__form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pflege-customer-account-page__card--login,
+  .pflege-customer-account-page__card--register {
+    padding: 32px 24px;
+  }
+}
+
+/* Reuse login form styles inside account pages */
+.pflege-customer-account-page .pflege-customer-login__field,
+.pflege-customer-account-page .pflege-customer-login__label,
+.pflege-customer-account-page .pflege-customer-login__input,
+.pflege-customer-account-page .pflege-customer-login__btn,
+.pflege-customer-account-page .pflege-customer-login__errors,
+.pflege-customer-account-page .pflege-customer-login__input-wrap {
+  /* inherited from section-pflege-customer-login.css when loaded */
+}

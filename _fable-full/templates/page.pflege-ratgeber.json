@@ -1,0 +1,25 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "pflege_ratgeber": {
+      "type": "pflege-ratgeber-bridge",
+      "settings": {
+        "eyebrow": "Wissen, das entlastet",
+        "heading": "Ratgeber von Alltagshilfe-Süd",
+        "lead": "Praxistipps, Erklärungen und konkrete Hilfen rund um Pflege, Betreuung und Entlastung im Alltag.",
+        "external_url": "https://www.alltagshilfe-sued.de/ratgeber",
+        "button_label": "Zum Ratgeber weiterleiten",
+        "body_text": "Unser Pflegeratgeber bietet Ihnen verständliches Wissen, praktische Tipps und wichtige Informationen rund um Pflege, Pflegehilfsmittel, Inkontinenzversorgung, Hautschutz, Pflegegrad und Unterstützung im Alltag. Einfach erklärt, alltagsnah geschrieben und darauf ausgelegt, Ihnen und Ihren Angehörigen im Pflegealltag wirklich weiterzuhelfen."
+      }
+    }
+  },
+  "order": ["pflege_ratgeber"]
+}

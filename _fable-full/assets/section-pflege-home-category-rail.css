@@ -1,0 +1,136 @@
+/* PflegeShop — horizontale Kategorie-Leiste (Startseite, unter Header) */
+.pflege-category-rail-section {
+  --pflege-rail-bg: var(--pflege-surface-mist, #f5faff);
+  --pflege-rail-border: var(--pflege-border-soft, #d8eafe);
+}
+
+.pflege-category-rail {
+  padding-bottom: clamp(0.5rem, 1.25vw, 0.95rem);
+}
+
+/* Nur auf der Index-Seite mit Hero: dichter Bezug zur Hero-Kachel */
+body.template-index .pflege-category-rail-section {
+  padding-top: clamp(0.15rem, 0.85vw, 0.55rem);
+}
+
+.pflege-category-rail.pflege-category-rail--full-bleed .pflege-category-rail__shell--bleed {
+  max-width: none;
+  width: 100%;
+  margin-inline: 0;
+  padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
+}
+
+.pflege-category-rail__shell {
+  box-sizing: border-box;
+}
+
+.pflege-category-rail__heading {
+  margin: 0;
+}
+
+.pflege-category-rail__track {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 0.5rem;
+  padding: 0.55rem 0.65rem;
+  min-height: 4rem;
+  max-height: 4.5rem;
+  box-sizing: border-box;
+  border-radius: 18px;
+  border: 1px solid var(--pflege-rail-border);
+  background: var(--pflege-rail-bg);
+  box-shadow: 0 1px 0 rgba(11, 109, 236, 0.04);
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(11, 109, 236, 0.25) transparent;
+}
+
+.pflege-category-rail__track::-webkit-scrollbar {
+  height: 6px;
+}
+
+.pflege-category-rail__track::-webkit-scrollbar-thumb {
+  background: rgba(11, 109, 236, 0.22);
+  border-radius: 999px;
+}
+
+.pflege-category-rail__item {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.45rem 1rem 0.45rem 0.85rem;
+  min-height: 2.95rem;
+  border-radius: 999px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--pflege-heading-navy, #062a55);
+  font-size: clamp(0.82rem, 0.74rem + 0.35vw, 1.02rem);
+  font-weight: 600;
+  letter-spacing: 0.015em;
+  line-height: 1.25;
+  white-space: nowrap;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.22s ease,
+    color 0.2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pflege-category-rail__item:hover,
+  .pflege-category-rail__item:focus-visible {
+    outline: none;
+    background: #fff;
+    border-color: rgba(143, 190, 255, 0.65);
+    box-shadow: 0 2px 12px rgba(11, 109, 236, 0.07);
+  }
+}
+
+.pflege-category-rail__item.is-active {
+  background: #eaf4ff;
+  border-color: #b7d8ff;
+  color: var(--pflege-link-blue, #0b6edc);
+  box-shadow: 0 1px 0 rgba(11, 109, 236, 0.06);
+}
+
+.pflege-category-rail__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--pflege-link-blue, #0b6edc);
+}
+
+.pflege-category-rail__item.is-active .pflege-category-rail__icon {
+  color: var(--pflege-link-blue, #0b6edc);
+}
+
+.pflege-category-rail__label {
+  max-width: 14rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 749px) {
+  .pflege-category-rail__track {
+    gap: 0.4rem;
+    padding: 0.45rem 0.5rem;
+    min-height: 3.65rem;
+  }
+
+  .pflege-category-rail__item {
+    padding: 0.4rem 0.85rem 0.4rem 0.7rem;
+    font-size: max(0.86rem, 14px);
+  }
+
+  .pflege-category-rail__label {
+    max-width: 11rem;
+  }
+}

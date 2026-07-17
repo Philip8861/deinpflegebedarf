@@ -1,0 +1,27 @@
+{% comment %}
+  Rundes Kontakt-Foto mit Rahmen in Überschriftenfarbe.
+  Parameter: class (optional), alt (optional), decorative (optional)
+{% endcomment %}
+{%- liquid
+  assign portrait_class = 'pflege-contact-portrait'
+  if class != blank
+    assign portrait_class = portrait_class | append: ' ' | append: class
+  endif
+  assign portrait_alt = alt | default: ''
+-%}
+<div
+  class="{{ portrait_class }}"
+  {% if decorative %}
+    aria-hidden="true"
+  {% endif %}
+>
+  <img
+    class="pflege-contact-portrait__img"
+    src="{{ 'kontakt.webp' | asset_url }}"
+    alt="{% unless decorative %}{{ portrait_alt | escape }}{% endunless %}"
+    loading="lazy"
+    width="315"
+    height="312"
+    decoding="async"
+  >
+</div>

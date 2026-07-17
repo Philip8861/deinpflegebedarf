@@ -1,0 +1,823 @@
+<link rel="stylesheet" href="{{ 'component-list-menu.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-search.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-menu-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-cart-notification.css' | asset_url }}" media="print" onload="this.media='all'">
+
+{%- if settings.predictive_search_enabled -%}
+  <link rel="stylesheet" href="{{ 'component-price.css' | asset_url }}" media="print" onload="this.media='all'">
+{%- endif -%}
+
+<script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'pflege-category-modal.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'pflege-cat-rail-submenu.js' | asset_url }}" defer="defer"></script>
+
+{{ 'section-pflege-main-nav.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign root = routes.root_url
+
+  if collections.desinfektion != blank
+    assign url_des = collections.desinfektion.url
+  else
+    assign url_des = root | append: 'collections/desinfektion'
+  endif
+  if collections.pflegeartikel != blank
+    assign url_pf = collections.pflegeartikel.url
+  else
+    assign url_pf = root | append: 'collections/pflegeartikel'
+  endif
+  if collections['hautschutz-hautpflege'] != blank
+    assign url_hh = collections['hautschutz-hautpflege'].url
+  elsif collections['hauschutz-hautpflege'] != blank
+    assign url_hh = collections['hauschutz-hautpflege'].url
+  else
+    assign url_hh = root | append: 'collections/hautschutz-hautpflege'
+  endif
+  if collections.verbrauchsartikel != blank
+    assign url_ver = collections.verbrauchsartikel.url
+  else
+    assign url_ver = root | append: 'collections/verbrauchsartikel'
+  endif
+
+  if collections['inkontinenzversorgung'] != blank
+    assign url_ink = collections['inkontinenzversorgung'].url
+  elsif collections['inkontinenz'] != blank
+    assign url_ink = collections['inkontinenz'].url
+  else
+    assign url_ink = root | append: 'collections/inkontinenzversorgung'
+  endif
+
+  if pages['inkontinenzversorgung-auf-rezept'] != blank
+    assign url_ink_rezept = pages['inkontinenzversorgung-auf-rezept'].url
+  elsif pages['inkontinenzversrogung-auf-rezept'] != blank
+    assign url_ink_rezept = pages['inkontinenzversrogung-auf-rezept'].url
+  else
+    assign url_ink_rezept = root | append: 'pages/inkontinenzversorgung-auf-rezept'
+  endif
+
+  if collections['koerperpflege'] != blank
+    assign url_body = collections['koerperpflege'].url
+  elsif collections['korperpflege'] != blank
+    assign url_body = collections['korperpflege'].url
+  else
+    assign url_body = root | append: 'collections/koerperpflege'
+  endif
+
+  if collections['hautpflege'] != blank
+    assign url_skin = collections['hautpflege'].url
+  else
+    assign url_skin = root | append: 'collections/hautpflege'
+  endif
+
+  if collections['schutz-handschuhe'] != blank
+    assign url_gloves = collections['schutz-handschuhe'].url
+  elsif collections['schutz-und-handschuhe'] != blank
+    assign url_gloves = collections['schutz-und-handschuhe'].url
+  elsif collections['handschuhe'] != blank
+    assign url_gloves = collections['handschuhe'].url
+  else
+    assign url_gloves = root | append: 'collections/schutz-handschuhe'
+  endif
+
+  if collections['kostenfreie-pflegehilfsmittel'] != blank
+    assign url_free_care = collections['kostenfreie-pflegehilfsmittel'].url
+  elsif collections['pflegehilfsmittel-kostenfrei'] != blank
+    assign url_free_care = collections['pflegehilfsmittel-kostenfrei'].url
+  else
+    assign url_free_care = root | append: 'collections/kostenfreie-pflegehilfsmittel'
+  endif
+
+  if collections['pflegesets'] != blank
+    assign url_pflegesets = collections['pflegesets'].url
+  elsif pages['pflegesets'] != blank
+    assign url_pflegesets = pages['pflegesets'].url
+  else
+    assign url_pflegesets = root | append: 'collections/pflegesets'
+  endif
+
+  assign finder_modal_href = section.settings.finder_promo_button_link | strip
+  assign finder_open_testpaket = false
+  if finder_modal_href == blank
+    assign finder_open_testpaket = true
+  endif
+
+  assign active_des = false
+  assign active_pf = false
+  assign active_hh = false
+  assign active_ver = false
+  assign active_ink = false
+  assign active_ink_rezept = false
+  assign active_body = false
+  assign active_skin = false
+  assign active_gloves = false
+  assign active_free_care = false
+  assign active_pflegesets = false
+
+  if request.page_type == 'collection'
+    case collection.handle
+      when 'desinfektion'
+        assign active_des = true
+      when 'pflegeartikel'
+        assign active_pf = true
+      when 'hautschutz-hautpflege'
+        assign active_hh = true
+      when 'hauschutz-hautpflege'
+        assign active_hh = true
+      when 'verbrauchsartikel'
+        assign active_ver = true
+      when 'inkontinenzversorgung', 'inkontinenz'
+        assign active_ink = true
+      when 'koerperpflege', 'korperpflege'
+        assign active_body = true
+      when 'hautpflege'
+        assign active_skin = true
+      when 'schutz-handschuhe', 'schutz-und-handschuhe', 'handschuhe'
+        assign active_gloves = true
+      when 'kostenfreie-pflegehilfsmittel', 'pflegehilfsmittel-kostenfrei'
+        assign active_free_care = true
+      when 'pflegesets'
+        assign active_pflegesets = true
+    endcase
+  endif
+
+  if request.page_type == 'page' and page != blank
+    if page.handle == 'inkontinenzversorgung-auf-rezept' or page.handle == 'inkontinenzversrogung-auf-rezept'
+      assign active_ink_rezept = true
+    endif
+    if page.handle == 'pflegesets'
+      assign active_pflegesets = true
+    endif
+  endif
+
+  if request.page_type == 'product' and product != blank
+    assign rail_cat = ''
+    for c in product.collections
+      if c.handle == 'kostenfreie-pflegehilfsmittel' or c.handle == 'pflegehilfsmittel-kostenfrei'
+        assign rail_cat = 'free_care'
+        break
+      endif
+    endfor
+    if rail_cat == ''
+      for c in product.collections
+        if c.handle == 'inkontinenzversorgung' or c.handle == 'inkontinenz'
+          assign rail_cat = 'ink'
+          break
+        endif
+      endfor
+    endif
+    if rail_cat == ''
+      for c in product.collections
+        if c.handle == 'koerperpflege' or c.handle == 'korperpflege'
+          assign rail_cat = 'body'
+          break
+        endif
+      endfor
+    endif
+    if rail_cat == ''
+      for c in product.collections
+        if c.handle == 'hautpflege'
+          assign rail_cat = 'skin'
+          break
+        endif
+      endfor
+    endif
+    if rail_cat == ''
+      for c in product.collections
+        if c.handle == 'hautschutz-hautpflege' or c.handle == 'hauschutz-hautpflege'
+          assign rail_cat = 'skin'
+          break
+        endif
+      endfor
+    endif
+    if rail_cat == ''
+      for c in product.collections
+        if c.handle == 'schutz-handschuhe' or c.handle == 'schutz-und-handschuhe' or c.handle == 'handschuhe'
+          assign rail_cat = 'gloves'
+          break
+        endif
+      endfor
+    endif
+    if rail_cat == ''
+      for c in product.collections
+        if c.handle == 'desinfektion'
+          assign rail_cat = 'des'
+          break
+        endif
+      endfor
+    endif
+    if rail_cat == ''
+      for c in product.collections
+        if c.handle == 'verbrauchsartikel'
+          assign rail_cat = 'ver'
+          break
+        endif
+      endfor
+    endif
+    if rail_cat == ''
+      for c in product.collections
+        if c.handle == 'pflegesets'
+          assign rail_cat = 'pflegesets'
+          break
+        endif
+      endfor
+    endif
+    if rail_cat == '' and product.handle contains 'pflegeset'
+      assign rail_cat = 'pflegesets'
+    endif
+    case rail_cat
+      when 'free_care'
+        assign active_free_care = true
+      when 'ink'
+        assign active_ink = true
+      when 'body'
+        assign active_body = true
+      when 'skin'
+        assign active_skin = true
+      when 'gloves'
+        assign active_gloves = true
+      when 'des'
+        assign active_des = true
+      when 'ver'
+        assign active_ver = true
+      when 'pflegesets'
+        assign active_pflegesets = true
+    endcase
+  endif
+
+  assign category_nav_active = false
+  if active_des or active_pf or active_hh or active_ver or active_ink or active_ink_rezept or active_body or active_skin or active_gloves or active_free_care or active_pflegesets
+    assign category_nav_active = true
+  endif
+-%}
+
+{%- comment -%}
+  Robustes Critical-CSS direkt in der Section: garantiert vor section-pflege-main-nav.css aktiv,
+  damit der „Kategorien“-Bereich nie leer ist und die Grid-Spalten nie kollabieren.
+  Sync-Marker v11 (2026): Desktop-Produktsuche zentriert zur Bildschirmmitte (absolute Layer).
+{%- endcomment -%}
+<style id="pflege-main-nav-critical-{{ section.id }}">
+  .pflege-main-nav-section.section-header {
+    --pflege-header-cluster-gap: clamp(1rem, 1.85vw, 1.5rem);
+    --pflege-header-actions-gap: clamp(1rem, 1.55vw, 1.45rem);
+    --pflege-action-icon-box: 3.65rem;
+    --pflege-action-icon-svg: 3.28rem;
+    --pflege-cart-svg-scale: 0.9;
+    --pflege-nav-search-max-width: min(calc(41rem * 4 / 3), 100%);
+    --pflege-nav-search-min-width: 15rem;
+    --pflege-nav-search-screen-gutter: clamp(8rem, 16vw, 20rem);
+    --pflege-nav-pill-min-height: 3.25rem;
+    --pflege-nav-pill-pad-inline: clamp(1.375rem, 2vw, 1.75rem);
+    --pflege-nav-pill-font-size: 1.595rem;
+  }
+  .pflege-main-nav-section .pflege-main-nav__grid {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .pflege-main-nav-section .pflege-main-nav__category-dialog-trigger-wrap {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+  .pflege-main-nav-section .pflege-main-nav__category-dialog-trigger {
+    appearance: none;
+    -webkit-appearance: none;
+    font: inherit;
+    cursor: pointer;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.62rem;
+    min-height: var(--pflege-nav-pill-min-height, 3.25rem);
+    height: var(--pflege-nav-pill-min-height, 3.25rem);
+    padding: 0 var(--pflege-nav-pill-pad-inline, clamp(22px, 2.8vw, 28px));
+    border-radius: var(--pflege-radius-pill, 999px);
+    font-size: var(--pflege-nav-pill-font-size, 1.595rem);
+    font-weight: 700;
+    line-height: 1.2;
+    white-space: nowrap;
+    letter-spacing: 0.03em;
+    background: rgb(var(--color-background, 254 254 254));
+    border: 1px solid var(--pflege-main-search-border, #dfe6ef);
+    box-shadow: none;
+    text-decoration: none;
+    width: 100%;
+    max-width: 100%;
+    transition: border-color 0.22s ease, box-shadow 0.28s ease;
+  }
+  .pflege-main-nav-section .pflege-main-nav__category-menu-icon.pflege-icon {
+    flex-shrink: 0;
+    color: var(--pflege-link-blue, #0b6edc);
+    line-height: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pflege-main-nav-section .pflege-main-nav__category-label {
+    flex: 1 1 auto;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+    font-weight: inherit;
+    letter-spacing: inherit;
+    font-size: inherit;
+    color: var(--pflege-heading-navy, #062a55);
+    -webkit-text-fill-color: var(--pflege-heading-navy, #062a55);
+  }
+  .pflege-main-nav-section .pflege-main-nav__category-trigger-chevron {
+    flex-shrink: 0;
+    width: 0.92rem;
+    height: 0.92rem;
+    display: inline-flex;
+    line-height: 0;
+    color: var(--pflege-link-blue, #0b6edc);
+  }
+  @media screen and (min-width: 750px) {
+    .pflege-main-nav-section .pflege-main-nav__category-label {
+      flex: none;
+      text-align: inherit;
+    }
+    .pflege-main-nav-section .pflege-main-nav__grid {
+      display: flex !important;
+      flex-direction: row !important;
+      flex-wrap: nowrap !important;
+      align-items: center !important;
+      gap: var(--pflege-header-cluster-gap) !important;
+      position: relative !important;
+    }
+    .pflege-main-nav-section .pflege-main-nav__actions {
+      display: flex !important;
+      align-items: center !important;
+      gap: var(--pflege-header-actions-gap) !important;
+      flex: 0 0 auto !important;
+      margin-left: auto !important;
+    }
+    .pflege-main-nav-section .pflege-main-nav__logo,
+    .pflege-main-nav-section .pflege-main-nav__nav {
+      flex: 0 0 auto !important;
+    }
+    .pflege-main-nav-section predictive-search.pflege-main-nav__search-host {
+      position: absolute !important;
+      left: 50% !important;
+      top: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      flex: none !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: center !important;
+      align-items: stretch !important;
+      min-width: 0 !important;
+      width: min(var(--pflege-nav-search-max-width, min(calc(41rem * 4 / 3), 100%)), calc(100% - var(--pflege-nav-search-screen-gutter, clamp(8rem, 16vw, 20rem)))) !important;
+      max-width: var(--pflege-nav-search-max-width, min(calc(41rem * 4 / 3), 100%)) !important;
+      z-index: 2 !important;
+    }
+    .pflege-main-nav-section predictive-search.pflege-main-nav__search-host .pflege-main-nav__search {
+      width: 100% !important;
+      max-width: none !important;
+    }
+    .pflege-main-nav-section .pflege-main-nav__grid > form.pflege-main-nav__search {
+      position: absolute !important;
+      left: 50% !important;
+      top: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      flex: none !important;
+      min-width: min(var(--pflege-nav-search-min-width, 15rem), 100%) !important;
+      width: min(var(--pflege-nav-search-max-width, min(calc(41rem * 4 / 3), 100%)), calc(100% - var(--pflege-nav-search-screen-gutter, clamp(8rem, 16vw, 20rem)))) !important;
+      max-width: var(--pflege-nav-search-max-width, min(calc(41rem * 4 / 3), 100%)) !important;
+      margin: 0 !important;
+      z-index: 2 !important;
+    }
+    .pflege-main-nav-section .pflege-main-nav__drawer-slot {
+      display: none !important;
+    }
+    .pflege-main-nav-section .pflege-main-nav__logo {
+      transform: translateY(-0.2rem) !important;
+    }
+    .pflege-main-nav-section .pflege-main-nav__nav {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      width: auto !important;
+      min-width: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    .pflege-main-nav-section .header-wrapper.pflege-main-nav {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: stretch !important;
+    }
+    .pflege-main-nav-section .pflege-main-nav__cat-rail-row {
+      width: 100% !important;
+      max-width: var(--pflege-hero-tile-max-width, min(100%, 1426px)) !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      min-width: 0 !important;
+      flex: 0 0 auto !important;
+    }
+    .pflege-main-nav-section .pflege-main-nav__category-dialog-trigger-wrap {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: flex-start !important;
+      width: auto !important;
+      max-width: 100%;
+    }
+    .pflege-main-nav-section .pflege-main-nav__category-dialog-trigger {
+      width: auto !important;
+    }
+    .pflege-main-nav-section .pflege-main-nav__action--shopify-account,
+    .pflege-main-nav-section .pflege-main-nav__action--cart {
+      gap: 0.935rem !important;
+      align-items: center !important;
+      align-self: center !important;
+    }
+    .pflege-main-nav-section shopify-account:not(:defined) {
+      min-width: var(--pflege-action-icon-box, 3.65rem) !important;
+      min-height: var(--pflege-action-icon-box, 3.65rem) !important;
+    }
+    .pflege-main-nav-section .pflege-main-nav__cart-graphic {
+      position: relative !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: var(--pflege-action-icon-box, 3.65rem) !important;
+      height: var(--pflege-action-icon-box, 3.65rem) !important;
+      flex-shrink: 0 !important;
+    }
+    .pflege-main-nav-section .pflege-main-nav__cart-graphic .cart-count-bubble {
+      left: auto !important;
+      right: -0.1rem !important;
+      bottom: auto !important;
+      top: -0.12rem !important;
+      transform: none !important;
+      width: 1.55rem !important;
+      height: 1.55rem !important;
+      font-size: 0.82rem !important;
+      font-weight: 700 !important;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    #PflegeCategoryDialog-{{ section.id }}.pflege-category-modal {
+      position: fixed !important;
+      inset: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0) env(safe-area-inset-bottom, 0)
+        env(safe-area-inset-left, 0) !important;
+      width: calc(100% - (clamp(0.85rem, 4.5vw, 1.25rem) * 2)) !important;
+      max-width: calc(100% - (clamp(0.85rem, 4.5vw, 1.25rem) * 2)) !important;
+      margin: auto !important;
+      box-sizing: border-box !important;
+    }
+  }
+</style>
+
+<div class="header-wrapper pflege-main-nav pflege-main-nav--full-bleed color-{{ section.settings.color_scheme }} gradient">
+  <div class="pflege-main-nav__grid">
+    <div class="pflege-main-nav__logo">
+      <a href="{{ routes.root_url }}" class="pflege-main-nav__logo-link">
+        {% render 'pflege-logo-webp',
+          img_class: 'pflege-main-nav__logo-img',
+          logo_width: section.settings.logo_width,
+          logo_height: section.settings.logo_height
+        %}
+      </a>
+    </div>
+
+    <nav
+      class="pflege-main-nav__nav"
+      aria-label="{{ section.settings.menu_label | escape }}"
+      data-pflege-nav="category-overview-dialog"
+    >
+      <div class="pflege-main-nav__category-dialog-trigger-wrap">
+        <button
+          type="button"
+          class="pflege-main-nav__category-dialog-trigger{% if category_nav_active %} is-active-context{% endif %}"
+          id="PflegeCategoryTrigger-{{ section.id }}"
+          aria-haspopup="dialog"
+          aria-expanded="false"
+          aria-controls="PflegeCategoryDialog-{{ section.id }}"
+        >
+          {% render 'pflege-icon', icon: 'menu', width: 20, class: 'pflege-main-nav__category-menu-icon' %}
+          <span class="pflege-main-nav__category-label">{{ section.settings.category_overview_label | escape }}</span>
+          <span class="pflege-main-nav__category-trigger-chevron" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3.6 5.3 7 8.65 10.36 5.3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </button>
+      </div>
+    </nav>
+
+    {%- if settings.predictive_search_enabled -%}
+      <predictive-search class="pflege-main-nav__search-host" data-loading-text="{{ 'accessibility.loading' | t }}">
+    {%- endif -%}
+    <form class="pflege-main-nav__search" action="{{ routes.search_url }}" method="get" role="search">
+      <input type="hidden" name="options[prefix]" value="last">
+      <label class="visually-hidden" for="PflegeMainNavSearch-{{ section.id }}">
+        {{- section.settings.search_placeholder | escape -}}
+      </label>
+      <input
+        id="PflegeMainNavSearch-{{ section.id }}"
+        class="pflege-main-nav__search-input"
+        type="search"
+        name="q"
+        value="{{ search.terms | escape }}"
+        placeholder="{{ section.settings.search_placeholder | escape }}"
+        autocomplete="off"
+        {%- if settings.predictive_search_enabled -%}
+          role="combobox"
+          aria-expanded="false"
+          aria-owns="predictive-search-results"
+          aria-controls="predictive-search-results"
+          aria-haspopup="listbox"
+          aria-autocomplete="list"
+          autocorrect="off"
+          autocapitalize="off"
+          spellcheck="false"
+        {%- endif -%}
+      >
+      {%- if settings.predictive_search_enabled -%}
+        <button
+          type="reset"
+          class="pflege-main-nav__search-reset{% if search.terms == blank %} hidden{% endif %}"
+          aria-label="{{ 'general.search.reset' | t }}"
+        >
+          <span class="svg-wrapper">{{ 'icon-reset.svg' | inline_asset_content }}</span>
+        </button>
+      {%- endif -%}
+      <button type="submit" class="pflege-main-nav__search-submit" aria-label="{{ 'general.search.search' | t }}">
+        <span class="svg-wrapper">{{ 'icon-search.svg' | inline_asset_content }}</span>
+      </button>
+    </form>
+    {%- if settings.predictive_search_enabled -%}
+      <div
+        class="predictive-search predictive-search--header pflege-main-nav__predictive-panel"
+        tabindex="-1"
+        data-predictive-search
+      >
+        {%- render 'loading-spinner', class: 'predictive-search__loading-state' -%}
+      </div>
+      <span class="predictive-search-status visually-hidden" role="status" aria-hidden="true"></span>
+      </predictive-search>
+    {%- endif -%}
+
+    <div class="pflege-main-nav__actions">
+      {%- if shop.customer_accounts_enabled -%}
+        <div
+          class="pflege-main-nav__action pflege-main-nav__action--account pflege-main-nav__action--shopify-account"
+          data-pflege-account-trigger
+          role="group"
+          aria-label="{{ section.settings.account_heading | escape }}"
+        >
+          {% render 'pflege-shopify-account' %}
+            <span class="pflege-main-nav__stack pflege-main-nav__stack--account-label">
+            <strong class="pflege-main-nav__stack-title">{{ section.settings.account_heading | escape }}</strong>
+            {%- if customer -%}
+              <span class="pflege-main-nav__stack-sub">{{ 'customer.account_fallback' | t }}</span>
+            {%- else -%}
+              <span class="pflege-main-nav__stack-sub pflege-main-nav__stack-sub--rhythm" aria-hidden="true">&nbsp;</span>
+            {%- endif -%}
+          </span>
+        </div>
+      {%- endif -%}
+
+      <div class="pflege-main-nav__action pflege-main-nav__action--cart">
+        <a
+          href="{{ routes.cart_url }}"
+          id="pflege-cart-icon-bubble"
+          class="pflege-main-nav__cart-hit pflege-main-nav__cart-icon link focus-inset"
+          aria-label="{{ section.settings.cart_heading | escape }}"
+        >
+          <span id="pflege-cart-icon-contents" class="pflege-main-nav__cart-graphic" aria-hidden="true">
+            {% render 'pflege-cart-icon-inner' %}
+          </span>
+          <div class="pflege-main-nav__stack">
+            <strong class="pflege-main-nav__stack-title">{{ section.settings.cart_heading | escape }}</strong>
+            <span class="pflege-main-nav__cart-total" data-pflege-cart-total>{{ cart.total_price | money }}</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="pflege-main-nav__cat-rail-row">
+    {% render 'pflege-header-category-rail',
+      url_free_care: url_free_care,
+      url_ink: url_ink,
+      url_ink_rezept: url_ink_rezept,
+      url_body: url_body,
+      url_skin: url_skin,
+      url_gloves: url_gloves,
+      url_des: url_des,
+      url_ver: url_ver,
+      active_free_care: active_free_care,
+      active_ink: active_ink,
+      active_ink_rezept: active_ink_rezept,
+      active_body: active_body,
+      active_skin: active_skin,
+      active_gloves: active_gloves,
+      active_des: active_des,
+      active_ver: active_ver
+    %}
+  </div>
+</div>
+
+<dialog
+  class="pflege-category-modal gradient color-{{ section.settings.color_scheme }}"
+  id="PflegeCategoryDialog-{{ section.id }}"
+  aria-labelledby="PflegeCategoryHeading-{{ section.id }}"
+  aria-modal="true"
+  data-trigger-id="PflegeCategoryTrigger-{{ section.id }}"
+>
+  <div class="pflege-category-modal__panel">
+    <div class="pflege-category-modal__head">
+      <h2 id="PflegeCategoryHeading-{{ section.id }}" class="pflege-category-modal__title">
+        {{ section.settings.category_overview_label | escape }}
+      </h2>
+      <button
+        type="button"
+        class="pflege-category-modal__close"
+        aria-label="{{ 'accessibility.close' | t }}"
+        data-category-modal-close
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <ul class="pflege-category-modal__list" role="list">
+      {% render 'pflege-category-overview-links',
+        variant: 'modal',
+        url_free_care: url_free_care,
+        url_ink: url_ink,
+        url_ink_rezept: url_ink_rezept,
+        url_body: url_body,
+        url_skin: url_skin,
+        url_gloves: url_gloves,
+        url_des: url_des,
+        url_ver: url_ver,
+        url_pflegesets: url_pflegesets,
+        active_free_care: active_free_care,
+        active_ink: active_ink,
+        active_ink_rezept: active_ink_rezept,
+        active_body: active_body,
+        active_skin: active_skin,
+        active_gloves: active_gloves,
+        active_des: active_des,
+        active_ver: active_ver,
+        active_pflegesets: active_pflegesets
+      %}
+    </ul>
+
+    <div class="pflege-category-modal__promo">
+      {%- if section.settings.finder_promo_text != blank -%}
+        <p class="pflege-category-modal__promo-copy">{{ section.settings.finder_promo_text | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.finder_promo_button_label != blank -%}
+        {%- if finder_open_testpaket -%}
+          <button
+            type="button"
+            class="pflege-category-modal__cta"
+            data-category-modal-close
+            data-pflege-inko-testpaket-open
+          >
+            {{- section.settings.finder_promo_button_label | escape -}}
+          </button>
+        {%- else -%}
+          <a
+            class="pflege-category-modal__cta"
+            href="{{ finder_modal_href }}"
+            data-category-modal-close
+          >
+            {{- section.settings.finder_promo_button_label | escape -}}
+          </a>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+  </div>
+</dialog>
+
+{%- if settings.cart_type == 'notification' -%}
+  {%- render 'cart-notification', color_scheme: section.settings.color_scheme, desktop_menu_type: 'dropdown' -%}
+{%- endif -%}
+
+<div class="visually-hidden" aria-hidden="true">
+  <a href="{{ routes.cart_url }}" id="cart-icon-bubble">{% render 'pflege-cart-icon-inner' %}</a>
+</div>
+
+{% schema %}
+{
+  "name": "PflegeShop Hauptleiste",
+  "tag": "section",
+  "class": "pflege-main-nav-section section-header",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Farbschema",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color_scheme",
+      "id": "menu_color_scheme",
+      "label": "Farbschema Mobil-Menü (Drawer)",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "menu_label",
+      "label": "Navigations-Beschriftung (aria)",
+      "default": "Produktbereiche"
+    },
+    {
+      "type": "text",
+      "id": "search_placeholder",
+      "label": "Suchfeld Platzhalter",
+      "default": "Produkte suchen..."
+    },
+    {
+      "type": "text",
+      "id": "category_overview_label",
+      "label": "Kategorieübersicht — Text (Button & Popup-Titel)",
+      "default": "Kategorienübersicht"
+    },
+    {
+      "type": "textarea",
+      "id": "finder_promo_text",
+      "label": "Hinweistext im Kategorien-Popup",
+      "default": "Inkontinenzversorgung auf Rezept möglich — kostenlose Musterprodukte zum Testen."
+    },
+    {
+      "type": "text",
+      "id": "finder_promo_button_label",
+      "label": "Button-Beschriftung im Kategorien-Popup",
+      "default": "Kostenlose Musterprodukte erhalten"
+    },
+    {
+      "type": "url",
+      "id": "finder_promo_button_link",
+      "label": "Button-Link (optional)",
+      "info": "Leer lassen = Testpaket-Popup öffnen."
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 80,
+      "max": 320,
+      "step": 4,
+      "unit": "px",
+      "label": "Logo Breite",
+      "default": 240
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "min": 24,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "Logo Höhe (Attribut)",
+      "default": 52
+    },
+    {
+      "type": "text",
+      "id": "account_heading",
+      "label": "Konto Überschrift",
+      "default": "Mein Konto"
+    },
+    {
+      "type": "text",
+      "id": "account_sub_guest",
+      "label": "Konto Unterzeile (Gast)",
+      "default": "Anmelden"
+    },
+    {
+      "type": "url",
+      "id": "login_page_url",
+      "label": "Anmeldeseite (klassische Konten)",
+      "info": "Nur bei klassischen Kundenkonten. Neue Kundenkonten nutzen das Shopify Account Component im Header."
+    },
+    {
+      "type": "link_list",
+      "id": "customer_account_menu",
+      "label": "Kundenkonto-Menü (Account Component)",
+      "default": "customer-account-main-menu",
+      "info": "Menü für das Shopify Account Sheet. Standard: customer-account-main-menu"
+    },
+    {
+      "type": "text",
+      "id": "cart_heading",
+      "label": "Warenkorb Überschrift",
+      "default": "Warenkorb"
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "PflegeShop Hauptleiste"
+    }
+  ]
+}
+{% endschema %}

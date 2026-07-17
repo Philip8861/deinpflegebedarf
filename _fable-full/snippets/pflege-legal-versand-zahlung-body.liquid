@@ -1,0 +1,212 @@
+﻿{% comment %}
+  Versand & Zahlung — deinpflegebedarf.de, Stand Mai 2026
+  Beträge: shipping_standard, shipping_free_from (Section-Einstellungen)
+{% endcomment %}
+{%- liquid
+  assign vz_root = routes.root_url
+  if url_widerruf == blank
+    assign url_widerruf = vz_root | append: 'pages/widerrufsbelehrung'
+  endif
+  if url_kontakt == blank
+    assign url_kontakt = vz_root | append: 'pages/kontakt'
+  endif
+  assign vz_standard = shipping_standard | default: '4,90' | strip
+  assign vz_free_from = shipping_free_from | default: '150,00' | strip
+-%}
+
+<p>
+  Auf dieser Seite finden Sie alle wichtigen Informationen zu Versand, Lieferzeiten, Versandkosten und Zahlungsarten in
+  unserem Online-Shop <strong>deinpflegebedarf.de</strong>.
+</p>
+
+<h2>1. Liefergebiet</h2>
+<p>Wir liefern innerhalb Deutschlands.</p>
+<p>
+  Eine Lieferung ins Ausland bieten wir derzeit nicht an. Sollte sich dies zukünftig ändern, werden wir die
+  Versandinformationen entsprechend aktualisieren.
+</p>
+
+<h2>2. Lieferzeit</h2>
+<p>
+  Die Lieferzeit beträgt in der Regel <strong>1–3 Werktage</strong> nach Zahlungseingang bzw. nach erfolgreicher
+  Zahlungsbestätigung.
+</p>
+<p>
+  Bei einzelnen Produkten kann eine abweichende Lieferzeit gelten. In diesem Fall wird die jeweilige Lieferzeit direkt
+  beim Produkt oder im Bestellprozess angezeigt.
+</p>
+<p>Bitte beachten Sie, dass an Sonn- und Feiertagen keine Zustellung erfolgt.</p>
+<p>
+  Wenn Sie mehrere Artikel mit unterschiedlichen Lieferzeiten bestellen, versenden wir die Ware nach Möglichkeit
+  gemeinsam. In diesem Fall richtet sich die Lieferzeit nach dem Artikel mit der längsten Lieferzeit, sofern im
+  Bestellprozess nichts anderes angegeben ist.
+</p>
+
+<h2>3. Versandkosten</h2>
+<p>
+  Die Versandkosten werden im Warenkorb und im Checkout vor Abschluss der Bestellung deutlich angezeigt.
+</p>
+<p>Für Lieferungen innerhalb Deutschlands berechnen wir Versandkosten wie folgt:</p>
+<ul>
+  <li>Standardversand innerhalb Deutschlands: <strong>{{ vz_standard }} €</strong></li>
+  <li>Ab einem Bestellwert von <strong>{{ vz_free_from }} €</strong> liefern wir versandkostenfrei.</li>
+</ul>
+<p>Alle angegebenen Versandkosten verstehen sich inklusive gesetzlicher Umsatzsteuer, sofern diese anfällt.</p>
+
+<h2>4. Versanddienstleister</h2>
+<p>Der Versand erfolgt mit einem von uns ausgewählten Versanddienstleister.</p>
+<p>
+  Je nach Bestellung, Paketgröße, Gewicht und Lieferadresse kann der Versand insbesondere über DHL, Deutsche Post, DPD,
+  GLS, Hermes oder einen vergleichbaren Versanddienstleister erfolgen.
+</p>
+<p>
+  Sobald Ihre Bestellung versendet wurde, erhalten Sie, sofern verfügbar, eine Versandbestätigung mit
+  Sendungsverfolgung.
+</p>
+
+<h2>5. Teillieferungen</h2>
+<p>Wir sind zu Teillieferungen berechtigt, soweit dies für Sie zumutbar ist.</p>
+<p>
+  Wenn eine Bestellung aus mehreren Paketen oder Teillieferungen besteht, entstehen Ihnen dadurch keine zusätzlichen
+  Versandkosten, sofern nicht ausdrücklich etwas anderes vereinbart wurde.
+</p>
+
+<h2>6. Nicht zustellbare Pakete</h2>
+<p>Bitte achten Sie darauf, dass Ihre Lieferadresse korrekt und vollständig angegeben ist.</p>
+<p>
+  Wenn ein Paket aufgrund einer fehlerhaften Adresse, Nichtabholung oder Annahmeverweigerung an uns zurückgesendet wird,
+  setzen wir uns mit Ihnen in Verbindung.
+</p>
+<p>
+  Zusätzliche Kosten für einen erneuten Versand können berechnet werden, wenn die Rücksendung durch fehlerhafte Angaben
+  oder Nichtabholung verursacht wurde.
+</p>
+
+<h2>7. Transportschäden</h2>
+<p>Bitte prüfen Sie die Lieferung nach Erhalt.</p>
+<p>
+  Sollte die Ware beschädigt bei Ihnen ankommen, kontaktieren Sie uns bitte möglichst zeitnah unter:
+</p>
+<p>
+  E-Mail: <a href="mailto:deinpflegebedarf@alltagshilfe-sued.de">deinpflegebedarf@alltagshilfe-sued.de</a><br>
+  Telefon: <a href="tel:+4977339488820">07733 / 9488820</a>
+</p>
+<p>
+  Für Verbraucher gilt: Ihre gesetzlichen Gewährleistungsrechte bleiben auch dann uneingeschränkt bestehen, wenn Sie einen
+  Transportschaden nicht sofort melden. Eine schnelle Meldung hilft uns jedoch, Ansprüche gegenüber dem
+  Versanddienstleister geltend zu machen.
+</p>
+
+<h2>8. Zahlungsarten</h2>
+<p>In unserem Online-Shop stehen Ihnen folgende Zahlungsarten zur Verfügung:</p>
+<ul>
+  <li>Klarna</li>
+  <li>PayPal</li>
+  <li>Visa</li>
+  <li>Mastercard</li>
+  <li>Google Pay</li>
+</ul>
+<p>Die jeweils verfügbaren Zahlungsarten werden Ihnen im Checkout angezeigt.</p>
+
+<h2>9. Zahlung mit Klarna</h2>
+<p>Bei Auswahl einer Klarna-Zahlungsart erfolgt die Zahlungsabwicklung über Klarna.</p>
+<p>
+  Je nach Verfügbarkeit können Klarna-Zahlungsarten wie Rechnung, Sofortzahlung, Ratenzahlung oder andere Klarna-Dienste
+  angeboten werden.
+</p>
+<p>
+  Die konkret verfügbaren Klarna-Zahlungsarten werden im Checkout angezeigt. Für die Nutzung einzelner Klarna-Zahlungsarten
+  kann Klarna eine Identitäts- oder Bonitätsprüfung durchführen.
+</p>
+
+<h2>10. Zahlung mit PayPal</h2>
+<p>
+  Bei Zahlung mit PayPal werden Sie im Bestellprozess zu PayPal weitergeleitet oder die Zahlung wird über die
+  PayPal-Zahlungsabwicklung durchgeführt.
+</p>
+<p>
+  Um den Rechnungsbetrag über PayPal bezahlen zu können, müssen Sie dort registriert sein oder sich im Rahmen der Zahlung
+  legitimieren.
+</p>
+<p>Nach erfolgreicher Zahlungsbestätigung wird Ihre Bestellung weiterbearbeitet.</p>
+
+<h2>11. Zahlung mit Visa oder Mastercard</h2>
+<p>Sie können Ihre Bestellung per Kreditkarte mit Visa oder Mastercard bezahlen.</p>
+<p>
+  Die Belastung Ihrer Karte erfolgt im Rahmen des Bestellabschlusses bzw. nach erfolgreicher Zahlungsautorisierung.
+</p>
+<p>
+  Die Zahlungsabwicklung erfolgt über die im Shop eingebundenen Zahlungsdienstleister. Wir speichern keine vollständigen
+  Kreditkartendaten.
+</p>
+
+<h2>12. Zahlung mit Google Pay</h2>
+<p>
+  Bei Zahlung mit Google Pay erfolgt die Zahlungsabwicklung über Google Pay bzw. die dort hinterlegte Zahlungsart.
+</p>
+<p>Die Zahlung wird im Bestellprozess autorisiert und nach erfolgreicher Bestätigung weiterverarbeitet.</p>
+
+<h2>13. Fälligkeit der Zahlung</h2>
+<p>
+  Der Kaufpreis ist im Rahmen des Bestellabschlusses fällig, sofern bei der ausgewählten Zahlungsart nichts anderes
+  angegeben ist.
+</p>
+<p>
+  Bei Zahlungsarten wie Klarna können abweichende Zahlungsfristen gelten. Maßgeblich sind die im Checkout angezeigten
+  Bedingungen des jeweiligen Zahlungsdienstleisters.
+</p>
+
+<h2>14. Sicherheit bei der Zahlung</h2>
+<p>Unser Online-Shop nutzt eine verschlüsselte Verbindung.</p>
+<p>
+  Sie erkennen eine verschlüsselte Verbindung in der Regel daran, dass die Adresszeile Ihres Browsers mit „https://“
+  beginnt und ein Schloss-Symbol angezeigt wird.
+</p>
+<p>
+  Zahlungsdaten werden über die jeweils eingebundenen Zahlungsdienstleister verarbeitet. Wir erhalten in der Regel keine
+  vollständigen Kreditkartennummern oder vollständigen Zahlungsdaten.
+</p>
+
+<h2>15. Rechnung und Bestellbestätigung</h2>
+<p>Nach Abschluss Ihrer Bestellung erhalten Sie eine Bestellbestätigung per E-Mail.</p>
+<p>
+  Eine Rechnung oder Zahlungsübersicht erhalten Sie je nach Zahlungsart direkt von uns, über Shopify oder über den
+  jeweiligen Zahlungsdienstleister.
+</p>
+<p>Bitte prüfen Sie auch Ihren Spam-Ordner, falls Sie keine E-Mail erhalten.</p>
+
+<h2>16. Rücksendung und Widerruf</h2>
+<p>
+  Informationen zum Widerrufsrecht, zur Rücksendung und zum Muster-Widerrufsformular finden Sie auf unserer Seite
+  <a href="{{ url_widerruf }}">Widerrufsbelehrung</a>.
+</p>
+<p>
+  Die unmittelbaren Kosten der Rücksendung trägt der Kunde, sofern in der Widerrufsbelehrung nichts anderes angegeben ist.
+</p>
+<p>
+  Bei mangelhafter, beschädigter oder falsch gelieferter Ware bleiben Ihre gesetzlichen Rechte selbstverständlich
+  unberührt.
+</p>
+
+<h2>17. Kontakt bei Fragen zu Versand und Zahlung</h2>
+<p>Bei Fragen zu Versand, Zahlung, Lieferung oder Ihrer Bestellung erreichen Sie uns unter:</p>
+<p>
+  <strong>deinPflegebedarf</strong><br>
+  V. Maucher und Philip Sonntag GbR<br>
+  Alltagshilfe Süd<br>
+  Hinter den Gärten 10<br>
+  87730 Bad Grönenbach<br>
+  Deutschland
+</p>
+<p>
+  Telefon: <a href="tel:+4977339488820">07733 / 9488820</a><br>
+  E-Mail: <a href="mailto:deinpflegebedarf@alltagshilfe-sued.de">deinpflegebedarf@alltagshilfe-sued.de</a>
+</p>
+<p>
+  Weitere Kontaktmöglichkeiten: <a href="{{ url_kontakt }}">Kontaktseite</a>
+</p>
+<p>
+  <strong>Unsere Servicezeiten:</strong><br>
+  Mo.–Do.: 8:30 – 16:00 Uhr<br>
+  Freitag: 8:30 – 12:00 Uhr
+</p>

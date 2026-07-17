@@ -1,0 +1,184 @@
+{% comment %}
+  Gemeinsames Markup für Rechtsseiten.
+  legal_plain: true → schlichtes Impressum (Überschrift, darunter Text)
+{% endcomment %}
+
+<section
+  class="pflege-legal color-{{ color_scheme | default: 'scheme-1' }} gradient {{ padding_class }}{% if legal_plain %} pflege-legal--plain{% endif %}"
+  aria-labelledby="pflege-legal-heading"
+  {% unless legal_plain %}data-pflege-legal{% endunless %}
+>
+  <div class="pflege-legal__shell">
+    {%- if legal_plain -%}
+      <div class="pflege-legal__plain-stack">
+        <header class="pflege-legal__header">
+          <h1 id="pflege-legal-heading" class="pflege-legal__title">
+            {%- if page != blank and page.title != blank -%}
+              {{ page.title | escape }}
+            {%- else -%}
+              {{ legal_title_fallback | escape }}
+            {%- endif -%}
+          </h1>
+          {%- if legal_meta_date != blank -%}
+            <p class="pflege-legal__stand">Stand: {{ legal_meta_date | escape }}</p>
+          {%- endif -%}
+        </header>
+
+        {%- if show_withdrawal_form -%}
+          {% render 'pflege-withdrawal-form', placement: 'top', standalone: withdrawal_standalone, email_webhook_url: widerruf_email_webhook_url %}
+        {%- endif -%}
+
+        {%- unless withdrawal_page_only -%}
+        <div class="pflege-legal__content rte">
+          {%- liquid
+            assign legal_page_body = page.content | strip_html | strip
+          -%}
+          {%- if body_html != blank -%}
+            {{ body_html }}
+          {%- elsif use_impressum_body -%}
+            {% render 'pflege-legal-impressum-body' %}
+          {%- elsif use_agb_body -%}
+            {% render 'pflege-legal-agb-body' %}
+          {%- elsif use_widerrufsbelehrung_body -%}
+            {% render 'pflege-legal-widerrufsbelehrung-body' %}
+          {%- elsif use_datenschutz_body -%}
+            {% render 'pflege-legal-datenschutz-body' %}
+          {%- elsif use_versand_zahlung_body -%}
+            {% render 'pflege-legal-versand-zahlung-body',
+              shipping_standard: shipping_standard,
+              shipping_free_from: shipping_free_from,
+              url_widerruf: url_widerruf,
+              url_kontakt: url_kontakt
+            %}
+          {%- elsif legal_page_body != blank -%}
+            {{ page.content }}
+          {%- else -%}
+            <p class="pflege-legal__empty">
+              Bitte tragen Sie den Inhalt dieser Seite im Shopify-Admin unter
+              <em>Online Shop → Seiten</em> ein.
+            </p>
+          {%- endif -%}
+        </div>
+        {%- endunless -%}
+      </div>
+    {%- else -%}
+      <header class="pflege-legal__header">
+        {%- if legal_eyebrow != blank -%}
+          <p class="pflege-legal__eyebrow">{{ legal_eyebrow | escape }}</p>
+        {%- endif -%}
+        <h1 id="pflege-legal-heading" class="pflege-legal__title">
+          {%- if page != blank and page.title != blank -%}
+            {{ page.title | escape }}
+          {%- else -%}
+            {{ legal_title_fallback | escape }}
+          {%- endif -%}
+        </h1>
+        {%- if legal_subtitle != blank -%}
+          <p class="pflege-legal__subtitle">{{ legal_subtitle | escape }}</p>
+        {%- endif -%}
+        {%- if legal_meta_date != blank -%}
+          <p class="pflege-legal__meta">
+            <span class="pflege-legal__meta-label">{{ meta_label | default: 'Stand' | escape }}:</span>
+            <span class="pflege-legal__meta-value">{{ legal_meta_date | escape }}</span>
+          </p>
+        {%- endif -%}
+      </header>
+
+      <div class="pflege-legal__grid{% if legal_show_toc or legal_show_related %}{% else %} pflege-legal__grid--single{% endif %}">
+        {%- if legal_show_toc or legal_show_related -%}
+          <aside class="pflege-legal__aside" aria-label="Navigation">
+            {%- if legal_show_toc -%}
+              <nav
+                class="pflege-legal__toc"
+                aria-label="Inhaltsverzeichnis"
+                data-pflege-legal-toc
+                data-empty-text="{{ 'Kein Inhaltsverzeichnis verfügbar.' | escape }}"
+                hidden
+              >
+                <p class="pflege-legal__aside-title">{{ legal_toc_title | default: 'Inhalt' | escape }}</p>
+                <ol class="pflege-legal__toc-list" data-pflege-legal-toc-list></ol>
+              </nav>
+            {%- endif -%}
+
+            {%- if legal_show_related -%}
+              <nav class="pflege-legal__related" aria-label="Weitere Rechtsseiten">
+                <p class="pflege-legal__aside-title">{{ legal_related_title | default: 'Rechtliches' | escape }}</p>
+                <ul class="pflege-legal__related-list" role="list">
+                  <li>
+                    <a
+                      class="pflege-legal__related-link{% if current_handle == 'impressum' %} is-active{% endif %}"
+                      href="{{ url_impressum }}"
+                    >
+                      Impressum
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="pflege-legal__related-link{% if current_handle contains 'widerruf' %} is-active{% endif %}"
+                      href="{{ url_widerruf }}"
+                    >
+                      Widerrufsbelehrung
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="pflege-legal__related-link{% if current_handle == 'agb' %} is-active{% endif %}"
+                      href="{{ url_agb }}"
+                    >
+                      AGB
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="pflege-legal__related-link{% if current_handle contains 'datenschutz' %} is-active{% endif %}"
+                      href="{{ url_datenschutz }}"
+                    >
+                      Datenschutzerklärung
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            {%- endif -%}
+          </aside>
+        {%- endif -%}
+
+        <article class="pflege-legal__article">
+          {%- if legal_highlight_text != blank -%}
+            <aside class="pflege-legal__notice" role="note">
+              {%- if legal_highlight_title != blank -%}
+                <p class="pflege-legal__notice-title">{{ legal_highlight_title | escape }}</p>
+              {%- endif -%}
+              <div class="pflege-legal__notice-body rte">{{ legal_highlight_text }}</div>
+            </aside>
+          {%- endif -%}
+
+          <div class="pflege-legal__content rte" data-pflege-legal-content>
+            {%- liquid
+              assign legal_page_body = page.content | strip_html | strip
+            -%}
+            {%- if body_html != blank -%}
+              {{ body_html }}
+            {%- elsif legal_page_body != blank -%}
+              {{ page.content }}
+            {%- else -%}
+              <p class="pflege-legal__empty">
+                Bitte tragen Sie den Inhalt dieser Seite im Shopify-Admin unter
+                <em>Online Shop → Seiten</em> ein oder hinterlegen Sie den Text in den
+                Einstellungen dieser Section.
+              </p>
+            {%- endif -%}
+          </div>
+
+          {%- if legal_contact_text != blank -%}
+            <aside class="pflege-legal__contact">
+              {%- if legal_contact_title != blank -%}
+                <p class="pflege-legal__contact-title">{{ legal_contact_title | escape }}</p>
+              {%- endif -%}
+              <div class="pflege-legal__contact-body rte">{{ legal_contact_text }}</div>
+            </aside>
+          {%- endif -%}
+        </article>
+      </div>
+    {%- endif -%}
+  </div>
+</section>

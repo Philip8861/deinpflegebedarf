@@ -1,0 +1,192 @@
+/* Shopify-Standard-Banner: ausgeblendet, Consent läuft über PflegeShop-Banner + dieselbe API */
+#shopify-pc__banner,
+.shopify-pc__banner,
+.shopify-pc__banner__dialog {
+  display: none !important;
+  visibility: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  height: 0 !important;
+  max-height: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+/* PflegeShop — Cookie-Leiste (untere Kante, Stil wie Footer/Service-Leiste) */
+.pflege-cookie-banner {
+  --pflege-cookie-navy: var(--pflege-navy, #0b2347);
+  --pflege-cookie-accent: var(--pflege-accent, #3f86d9);
+  --pflege-cookie-cta: #f89738;
+  --pflege-cookie-cta-hover: #dc7a22;
+  --pflege-cookie-border: var(--pflege-border, #e5eef8);
+  --pflege-cookie-panel: var(--pflege-bg-soft, #eef6ff);
+  position: fixed;
+  z-index: 10250;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 0 env(safe-area-inset-right, 0) env(safe-area-inset-bottom, 0) env(safe-area-inset-left, 0);
+  pointer-events: none;
+}
+
+.pflege-cookie-banner[hidden] {
+  display: none !important;
+}
+
+.pflege-cookie-banner__panel {
+  pointer-events: auto;
+  max-width: min(100%, 1426px);
+  margin: 0 auto;
+  padding: clamp(1.25rem, 3.4vw, 1.75rem) max(1rem, var(--pflege-inline-gutter, 1rem));
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem 1.5rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.97) 0%, var(--pflege-cookie-panel) 100%);
+  border: 1px solid var(--pflege-cookie-border);
+  border-bottom: none;
+  border-radius: clamp(12px, 2vw, 18px) clamp(12px, 2vw, 18px) 0 0;
+  box-shadow:
+    0 -2px 20px rgba(11, 35, 71, 0.08),
+    0 -1px 0 rgba(11, 35, 71, 0.04);
+  box-sizing: border-box;
+}
+
+.pflege-cookie-banner__content {
+  flex: 1 1 min(100%, 36rem);
+  min-width: 0;
+}
+
+.pflege-cookie-banner__title {
+  margin: 0 0 0.55rem;
+  font-size: clamp(1.12rem, 1rem + 0.45vw, 1.32rem);
+  font-weight: 600;
+  font-family: var(--font-body-family, inherit);
+  line-height: 1.3;
+  color: var(--pflege-cookie-navy);
+}
+
+.pflege-cookie-banner__text {
+  margin: 0;
+  font-size: clamp(0.98rem, 0.9rem + 0.22vw, 1.08rem);
+  line-height: 1.58;
+  font-weight: 400;
+  color: rgba(11, 35, 71, 0.85);
+}
+
+.pflege-cookie-banner__text a {
+  color: var(--pflege-cookie-accent);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  font-weight: 500;
+}
+
+.pflege-cookie-banner__text a:hover {
+  color: var(--pflege-cookie-navy);
+}
+
+.pflege-cookie-banner__actions {
+  flex: 0 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.55rem 0.65rem;
+}
+
+.pflege-cookie-banner__btn {
+  cursor: pointer;
+  appearance: none;
+  font-family: var(--font-body-family, inherit);
+  font-size: 1.14rem;
+  font-weight: 600;
+  line-height: 1.25;
+  padding: 0.92rem 1.55rem;
+  min-height: 3.35rem;
+  border-radius: 0.55rem;
+  border: 1px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.pflege-cookie-banner__btn--primary {
+  background: var(--pflege-cookie-cta);
+  color: #fff;
+  border-color: rgba(11, 35, 71, 0.12);
+  box-shadow: 0 2px 6px rgba(234, 112, 0, 0.35);
+  font-size: 1.18rem;
+  font-weight: 700;
+  min-height: 3.55rem;
+  padding: 0.95rem 1.65rem;
+}
+
+.pflege-cookie-banner__btn--primary:hover {
+  background: var(--pflege-cookie-cta-hover);
+  filter: none;
+}
+
+.pflege-cookie-banner__btn--primary:focus-visible {
+  outline: 2px solid var(--pflege-cookie-cta);
+  outline-offset: 2px;
+}
+
+.pflege-cookie-banner__btn--ghost {
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--pflege-cookie-navy);
+  border-color: var(--pflege-cookie-border);
+}
+
+.pflege-cookie-banner__btn--ghost:hover {
+  border-color: rgba(234, 112, 0, 0.55);
+  color: var(--pflege-cookie-cta-hover);
+}
+
+.pflege-cookie-banner__btn--ghost:focus-visible {
+  outline: 2px solid var(--pflege-cookie-navy);
+  outline-offset: 2px;
+}
+
+@media screen and (max-width: 749px) {
+  .pflege-cookie-banner__panel {
+    padding-top: clamp(1.35rem, 4vw, 1.85rem);
+    padding-bottom: clamp(1.35rem, 4vw, 1.85rem);
+  }
+
+  .pflege-cookie-banner__actions {
+    width: 100%;
+    justify-content: stretch;
+    gap: 0.65rem 0.75rem;
+  }
+
+  .pflege-cookie-banner__btn {
+    flex: 1 1 auto;
+    min-width: calc(50% - 0.35rem);
+    text-align: center;
+    justify-content: center;
+    min-height: 3.45rem;
+    font-size: 1.16rem;
+    padding-block: 1rem;
+  }
+
+  .pflege-cookie-banner__btn--primary {
+    min-height: 3.75rem;
+    font-size: 1.2rem;
+    padding-block: 1.05rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pflege-cookie-banner__btn {
+    transition: none;
+  }
+}

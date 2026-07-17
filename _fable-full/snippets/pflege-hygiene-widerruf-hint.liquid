@@ -1,0 +1,22 @@
+{% comment %}
+  Dezenter Hinweis zum Widerrufsausschluss bei entsiegelten Hygieneartikeln.
+  NICHT pauschal einbinden — nur gezielt rendern, z. B.:
+
+  Produktseite (product.liquid / main-product):
+    {% if product.tags contains 'hygiene' or product.tags contains 'inkontinenz' %}
+      {% render 'pflege-hygiene-widerruf-hint' %}
+    {% endif %}
+
+  Warenkorb (cart-drawer / cart-items), wenn Hygiene-Produkt im Warenkorb:
+    per Liquid-Schleife über cart.items und product.tags prüfen.
+
+  Collection „kostenfreie-pflegehilfsmittel“: optional unter Produktliste.
+
+  Metafeld-Alternative: product.metafields.custom.hygiene_widerruf_hinweis == true
+{% endcomment %}
+<p class="pflege-hygiene-widerruf-hint" role="note">
+  <span class="pflege-hygiene-widerruf-hint__label">Hinweis:</span>
+  Bei versiegelten Hygieneartikeln kann das Widerrufsrecht ausgeschlossen sein, wenn die Versiegelung nach der
+  Lieferung entfernt wurde.
+  <a class="pflege-hygiene-widerruf-hint__link" href="{{ routes.root_url }}pages/widerrufsbelehrung">Mehr in der Widerrufsbelehrung</a>
+</p>

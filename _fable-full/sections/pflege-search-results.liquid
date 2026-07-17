@@ -1,0 +1,236 @@
+{{ 'section-pflege-search-results.css' | asset_url | stylesheet_tag }}
+{% render 'pflege-cat-card-styles' %}
+
+{%- if settings.predictive_search_enabled -%}
+  {{ 'component-predictive-search.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+
+<script src="{{ 'main-search.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign sort_by = search.sort_by | default: search.default_sort_by
+  assign terms = search.terms | escape
+  assign search_url = '?q=' | append: terms | append: '&options%5Bprefix%5D=last&sort_by=' | append: sort_by
+-%}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{% paginate search.results by 24 %}
+  <section
+    class="pflege-search section-{{ section.id }}-padding"
+    id="PflegeSearch-{{ section.id }}"
+    aria-labelledby="PflegeSearchTitle-{{ section.id }}"
+  >
+    <div class="pflege-search__shell">
+      <header class="pflege-search__header">
+        <h1 class="pflege-search__title" id="PflegeSearchTitle-{{ section.id }}">
+          {%- if search.performed -%}
+            {{ 'templates.search.title' | t }}
+          {%- else -%}
+            {{ 'general.search.search' | t }}
+          {%- endif -%}
+        </h1>
+
+        <div class="pflege-search__form-wrap">
+          {%- if settings.predictive_search_enabled -%}
+            <predictive-search data-loading-text="{{ 'accessibility.loading' | t }}">
+          {%- endif -%}
+          <main-search>
+            <form action="{{ routes.search_url }}" method="get" role="search" class="pflege-search__form">
+              <label class="visually-hidden" for="PflegeSearchInput-{{ section.id }}">
+                {{ 'general.search.search' | t }}
+              </label>
+              <input
+                id="PflegeSearchInput-{{ section.id }}"
+                class="pflege-search__input"
+                type="search"
+                name="q"
+                value="{{ search.terms | escape }}"
+                placeholder="{{ 'general.search.search' | t }}"
+                {%- if settings.predictive_search_enabled -%}
+                  role="combobox"
+                  aria-expanded="false"
+                  aria-owns="predictive-search-results"
+                  aria-controls="predictive-search-results"
+                  aria-haspopup="listbox"
+                  aria-autocomplete="list"
+                  autocorrect="off"
+                  autocomplete="off"
+                  autocapitalize="off"
+                  spellcheck="false"
+                {%- endif -%}
+              >
+              <input name="options[prefix]" type="hidden" value="last">
+
+              {%- if settings.predictive_search_enabled -%}
+                <div class="predictive-search predictive-search--search-template" tabindex="-1" data-predictive-search>
+                  {%- render 'loading-spinner', class: 'predictive-search__loading-state' -%}
+                </div>
+                <span class="predictive-search-status visually-hidden" role="status" aria-hidden="true"></span>
+              {%- endif -%}
+
+              <button
+                type="reset"
+                class="pflege-search__reset reset__button{% if search.terms == blank %} hidden{% endif %}"
+                aria-label="{{ 'general.search.reset' | t }}"
+              >
+                <span class="svg-wrapper">{{ 'icon-reset.svg' | inline_asset_content }}</span>
+              </button>
+              <button type="submit" class="pflege-search__submit search__button" aria-label="{{ 'general.search.search' | t }}">
+                <span class="svg-wrapper">{{ 'icon-search.svg' | inline_asset_content }}</span>
+              </button>
+            </form>
+          </main-search>
+          {%- if settings.predictive_search_enabled -%}
+            </predictive-search>
+          {%- endif -%}
+        </div>
+
+        {%- if search.performed and search.results_count == 0 -%}
+          <p class="pflege-search__status" role="status">
+            {{ 'templates.search.no_results' | t: terms: search.terms }}
+          </p>
+        {%- endif -%}
+      </header>
+
+      {%- if search.performed and search.results_count > 0 -%}
+        <div class="pflege-search__toolbar">
+          <p class="pflege-search__count" role="status">
+            {{ 'templates.search.results_with_count_and_term' | t: terms: search.terms, count: search.results_count }}
+          </p>
+
+          {%- if section.settings.enable_sorting and search.sort_options.size > 1 -%}
+            <div class="pflege-search__sort-wrap">
+              <label class="pflege-search__sort-label" for="PflegeSearchSort-{{ section.id }}">
+                {{ 'products.facets.sort_by_label' | t }}
+              </label>
+              <select
+                id="PflegeSearchSort-{{ section.id }}"
+                class="pflege-search__sort"
+                aria-describedby="a11y-refresh-page-message"
+                data-pflege-search-sort
+              >
+                {%- for option in search.sort_options -%}
+                  <option
+                    value="{{ option.value | escape }}"
+                    {% if option.value == sort_by %}
+                      selected
+                    {% endif %}
+                  >
+                    {{ option.name | escape }}
+                  </option>
+                {%- endfor -%}
+              </select>
+            </div>
+          {%- endif -%}
+        </div>
+
+        <ul class="pflege-cat-filtered__grid" role="list">
+          {%- for item in search.results -%}
+            {%- case item.object_type -%}
+              {%- when 'product' -%}
+                {% render 'pflege-cat-card', card_product: item %}
+              {%- when 'article' -%}
+                <li class="pflege-search__content-card">
+                  <article class="pflege-search__content-inner">
+                    <span class="pflege-search__content-badge">{{ 'blogs.article.blog' | t | default: 'Artikel' }}</span>
+                    <h2 class="pflege-search__content-title">
+                      <a href="{{ item.url }}">{{ item.title | escape }}</a>
+                    </h2>
+                    {%- if section.settings.article_show_date -%}
+                      <p class="pflege-search__content-meta">{{ item.published_at | time_tag: format: 'date' }}</p>
+                    {%- endif -%}
+                  </article>
+                </li>
+              {%- when 'page' -%}
+                <li class="pflege-search__content-card">
+                  <article class="pflege-search__content-inner">
+                    <span class="pflege-search__content-badge">{{ 'templates.search.page' | t }}</span>
+                    <h2 class="pflege-search__content-title">
+                      <a href="{{ item.url }}">{{ item.title | escape }}</a>
+                    </h2>
+                  </article>
+                </li>
+            {%- endcase -%}
+          {%- endfor -%}
+        </ul>
+
+        {%- if paginate.pages > 1 -%}
+          <div class="pflege-search__pagination">
+            {% render 'pagination', paginate: paginate %}
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+  </section>
+
+  {%- if section.settings.enable_sorting and search.sort_options.size > 1 -%}
+    <script>
+      (function () {
+        var select = document.getElementById('PflegeSearchSort-{{ section.id }}');
+        if (!select) return;
+        select.addEventListener('change', function () {
+          var params = new URLSearchParams(window.location.search);
+          params.set('sort_by', select.value);
+          if (!params.get('q')) params.set('q', {{ search.terms | json }});
+          if (!params.get('options[prefix]')) params.set('options[prefix]', 'last');
+          window.location.search = params.toString();
+        });
+      })();
+    </script>
+  {%- endif -%}
+{% endpaginate %}
+
+{% schema %}
+{
+  "name": "Pflege Suchergebnisse",
+  "tag": "section",
+  "class": "pflege-search-section section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_sorting",
+      "default": true,
+      "label": "Sortierung anzeigen"
+    },
+    {
+      "type": "checkbox",
+      "id": "article_show_date",
+      "default": true,
+      "label": "Datum bei Artikeln anzeigen"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Abstand oben",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Abstand unten",
+      "default": 36
+    }
+  ]
+}
+{% endschema %}

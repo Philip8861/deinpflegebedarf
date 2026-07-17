@@ -1,0 +1,423 @@
+/* PflegeShop — Service-Leiste (schlanke Einzeile, responsive Schrift) */
+
+.shopify-section-group-header-group {
+  background-color: #f0f5fb;
+}
+
+.shopify-section.pflege-service-bar-section {
+  --pflege-svc-font: clamp(11px, 2.75vw, 14px);
+  --pflege-svc-line: clamp(13px, 3.1vw, 16px);
+  --pflege-svc-icon: clamp(12px, 2.65vw, 16px);
+  --pflege-svc-bar-h: 31px;
+  --pflege-svc-inner-h: 30px;
+  --pflege-svc-gap: clamp(0.35rem, 2.5vw, 0.65rem);
+  margin: 0;
+  padding: 0;
+  height: var(--pflege-svc-bar-h);
+  max-height: var(--pflege-svc-bar-h);
+  overflow: hidden;
+  box-sizing: border-box;
+  background-color: #f0f5fb;
+  line-height: 0;
+}
+
+@media screen and (min-width: 750px) {
+  .shopify-section.pflege-service-bar-section {
+    --pflege-svc-font: 14px;
+    --pflege-svc-line: 16px;
+    --pflege-svc-icon: 16px;
+    --pflege-svc-gap: clamp(0.45rem, 3vw, 1.75rem);
+  }
+}
+
+.pflege-service-bar {
+  background-color: #f0f5fb !important;
+  border-bottom: 1px solid var(--pflege-border, #e5eef8);
+  --pflege-service-hover-glow: 88, 145, 215;
+  margin: 0;
+  padding: 0;
+  height: var(--pflege-svc-bar-h, 31px);
+  max-height: var(--pflege-svc-bar-h, 31px);
+  overflow: hidden;
+  box-sizing: border-box;
+  line-height: 0;
+}
+
+.pflege-service-bar .pflege-service-bar__inner.page-width {
+  margin: 0 auto;
+  box-sizing: border-box;
+  height: var(--pflege-svc-inner-h, 30px);
+  min-height: 0;
+  max-height: var(--pflege-svc-inner-h, 30px);
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: max(0.75rem, env(safe-area-inset-left, 0px));
+  padding-right: max(0.75rem, env(safe-area-inset-right, 0px));
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  gap: var(--pflege-svc-gap, 0.45rem);
+  line-height: normal;
+}
+
+.pflege-service-bar .pflege-service-bar__inner.page-width::-webkit-scrollbar {
+  display: none;
+}
+
+@media screen and (min-width: 750px) {
+  .pflege-service-bar .pflege-service-bar__inner.page-width {
+    padding-left: max(1rem, env(safe-area-inset-left, 0px));
+    padding-right: max(1rem, env(safe-area-inset-right, 0px));
+    justify-content: center;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .pflege-service-bar .pflege-service-bar__inner.page-width {
+    gap: 0.65rem clamp(1rem, 4vw, 2.5rem);
+  }
+}
+
+.pflege-service-bar__item {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  max-height: var(--pflege-svc-line, 16px);
+  line-height: var(--pflege-svc-line, 16px);
+}
+
+.pflege-service-bar__body {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(0.25rem, 1.5vw, 0.35rem);
+  margin: 0;
+  padding: 0;
+  font-size: var(--pflege-svc-font, 14px);
+  font-weight: 500;
+  font-synthesis: none;
+  line-height: var(--pflege-svc-line, 16px);
+  max-height: var(--pflege-svc-line, 16px);
+  color: rgba(11, 35, 71, 0.88);
+  white-space: nowrap;
+  text-align: left;
+  flex: 0 0 auto;
+  opacity: 1;
+  animation: none;
+  transform: none;
+  filter: none;
+}
+
+.pflege-service-bar__text,
+.pflege-service-bar__body > .pflege-service-bar__text {
+  margin: 0;
+  padding: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  font-family: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  max-height: inherit;
+  color: inherit;
+  white-space: nowrap;
+}
+
+.pflege-service-bar__copy,
+a.pflege-service-bar__copy.pflege-service-bar__link {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  font-family: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  max-height: inherit;
+}
+
+.pflege-service-bar__line {
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+  line-height: inherit;
+}
+
+.pflege-service-bar__line--main {
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
+  white-space: nowrap;
+}
+
+.pflege-service-bar__line--sub {
+  font-size: 0.86em;
+  font-weight: 400;
+  line-height: inherit;
+  color: inherit;
+  opacity: 0.68;
+}
+
+.pflege-service-bar__body a.pflege-service-bar__copy,
+.pflege-service-bar__body a.pflege-service-bar__text {
+  cursor: pointer;
+}
+
+.pflege-service-bar a.pflege-service-bar__link {
+  font-size: inherit !important;
+  font-weight: 500 !important;
+  line-height: inherit !important;
+  max-height: inherit !important;
+  letter-spacing: inherit !important;
+  font-family: inherit !important;
+  color: rgba(11, 35, 71, 0.88) !important;
+  text-decoration: none;
+  border-radius: 0.35rem;
+  transition: color 0.2s ease, text-shadow 0.28s ease, text-decoration-color 0.2s ease;
+}
+
+.pflege-service-bar__link:hover {
+  text-decoration: underline;
+  color: var(--pflege-accent, #3f86d9);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pflege-service-bar__link:hover,
+  .pflege-service-bar__link:focus-visible {
+    text-shadow:
+      0 0 8px rgba(var(--pflege-service-hover-glow), 0.22),
+      0 0 16px rgba(var(--pflege-service-hover-glow), 0.08);
+  }
+
+  .pflege-service-bar__item:has(.pflege-service-bar__link:hover) .pflege-icon,
+  .pflege-service-bar__item:has(.pflege-service-bar__link:focus-visible) .pflege-icon {
+    filter: drop-shadow(0 0 5px rgba(var(--pflege-service-hover-glow), 0.28));
+  }
+}
+
+.pflege-service-bar__link--tel {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.15em;
+}
+
+.pflege-service-bar__link--tel:hover {
+  text-decoration-color: currentColor;
+}
+
+.pflege-service-bar__body .pflege-icon {
+  flex-shrink: 0;
+  width: var(--pflege-svc-icon, 16px);
+  height: var(--pflege-svc-icon, 16px);
+  max-height: var(--pflege-svc-icon, 16px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  color: var(--pflege-accent, #3f86d9);
+}
+
+.pflege-service-bar__body .pflege-icon svg {
+  display: block;
+  width: var(--pflege-svc-icon, 16px);
+  height: var(--pflege-svc-icon, 16px);
+  max-height: var(--pflege-svc-icon, 16px);
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+.template-index .pflege-service-bar__body {
+  opacity: 1;
+  animation: none;
+  transform: none;
+  filter: none;
+}
+
+/* --- Mobil: Wechsel „Rezept einlösen“ ↔ Versand (Desktop unverändert) --- */
+.pflege-service-bar__mobile-rotate {
+  display: none;
+}
+
+@media screen and (max-width: 749px) {
+  .shopify-section.pflege-service-bar-section {
+    --pflege-svc-bar-h: 37px;
+    --pflege-svc-inner-h: 36px;
+  }
+
+  .pflege-service-bar__item--desktop {
+    display: none !important;
+  }
+
+  .pflege-service-bar .pflege-service-bar__inner.page-width {
+    justify-content: center !important;
+    overflow: hidden !important;
+  }
+
+  .pflege-service-bar__mobile-rotate {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  .pflege-service-bar__rotate-viewport {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    height: var(--pflege-btn-link-lh, clamp(1.125rem, 4.8vw, 1.375rem));
+    overflow: hidden;
+  }
+
+  .pflege-service-bar__rotate-slide--1 {
+    font-size: var(--pflege-btn-link-fs, clamp(0.9375rem, 4.2vw, 1.125rem));
+    line-height: var(--pflege-btn-link-lh, clamp(1.125rem, 4.8vw, 1.375rem));
+  }
+
+  .pflege-service-bar__rotate-slide {
+    position: absolute;
+    inset: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.3rem, 1.5vw, 0.4rem);
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: var(--pflege-svc-font, 13px);
+    font-weight: 600;
+    line-height: var(--pflege-svc-line, 16px);
+    color: rgba(11, 35, 71, 0.92);
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(100%);
+    animation: pflege-svc-rotate-a 9s ease-in-out infinite;
+    will-change: opacity, transform;
+  }
+
+  .pflege-service-bar__rotate-slide--2 {
+    animation-name: pflege-svc-rotate-b;
+  }
+
+  .pflege-service-bar__rotate-slide--1 .pflege-icon {
+    color: var(--pflege-heading-navy, #062a55);
+  }
+
+  .pflege-service-bar__rotate-slide--1 .pflege-icon svg {
+    width: clamp(14px, 3.4vw, 17px);
+    height: clamp(14px, 3.4vw, 17px);
+  }
+
+  .pflege-service-bar__rotate-slide .pflege-icon {
+    flex-shrink: 0;
+    color: var(--pflege-accent, #3f86d9);
+    line-height: 0;
+  }
+
+  .pflege-service-bar__rotate-slide .pflege-icon svg {
+    width: var(--pflege-svc-icon, 14px);
+    height: var(--pflege-svc-icon, 14px);
+  }
+
+  .pflege-service-bar__rotate-btn {
+    margin: 0;
+    padding: 0 0.35rem;
+    border: none;
+    background: none;
+    font-family: var(--font-body-family, inherit);
+    font-size: var(--pflege-btn-link-fs, clamp(0.9375rem, 4.2vw, 1.125rem));
+    font-weight: 800;
+    line-height: var(--pflege-btn-link-lh, clamp(1.125rem, 4.8vw, 1.375rem));
+    min-height: var(--pflege-btn-link-min-h, 2.75rem);
+    color: var(--pflege-heading-navy, #062a55);
+    -webkit-text-fill-color: var(--pflege-heading-navy, #062a55);
+    text-decoration: underline;
+    text-decoration-color: rgba(6, 42, 85, 0.38);
+    text-underline-offset: 0.14em;
+    cursor: pointer;
+    white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .pflege-service-bar__rotate-btn:focus-visible {
+    outline: 2px solid var(--pflege-heading-navy, #062a55);
+    outline-offset: 2px;
+    border-radius: 0.2rem;
+  }
+
+  .pflege-service-bar__rotate-text {
+    font-weight: 600;
+    color: rgba(11, 35, 71, 0.92);
+  }
+}
+
+@keyframes pflege-svc-rotate-a {
+  0%,
+  4% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+
+  8%,
+  42% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  46%,
+  96% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes pflege-svc-rotate-b {
+  0%,
+  46% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+
+  50%,
+  88% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  92%,
+  100% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+}
+
+@media screen and (max-width: 749px) and (prefers-reduced-motion: reduce) {
+  .pflege-service-bar__rotate-slide {
+    animation: none;
+    position: static;
+    opacity: 0;
+    transform: none;
+  }
+
+  .pflege-service-bar__rotate-slide--1 {
+    opacity: 1;
+  }
+
+  .pflege-service-bar__rotate-viewport {
+    display: flex;
+    justify-content: center;
+    height: auto;
+    min-height: var(--pflege-svc-line, 16px);
+  }
+}

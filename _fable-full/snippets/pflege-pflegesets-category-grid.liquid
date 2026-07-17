@@ -1,0 +1,193 @@
+{% comment %}
+
+  Pflegesets-Seite — nur Kategorie-Karten (wie Hautpflege, Desinfektion …).
+
+  Kein Promo-Fallback.
+
+{% endcomment %}
+
+{%- liquid
+
+  assign pfs = pfs_section.settings
+
+  assign col = pflege_col
+
+
+
+  if col == blank and pfs.pflegesets_collection != blank
+
+    assign col = pfs.pflegesets_collection
+
+  endif
+
+  if col == blank and collection != blank and collection.handle == 'pflegesets'
+
+    assign col = collection
+
+  endif
+
+  if col == blank and collections['pflegesets'] != blank
+
+    assign col = collections['pflegesets']
+
+  endif
+
+
+
+  assign rendered_count = 0
+
+  assign col_count = 0
+
+  if col != blank
+
+    assign col_count = col.all_products_count
+
+  endif
+
+-%}
+
+
+
+{%- if col != blank and col_count > 0 -%}
+
+  {%- for card_product in col.products limit: 3 -%}
+
+    {%- capture slot_meta -%}
+      {%- render 'pflege-pflegeset-slot-meta',
+        card_product: card_product,
+        slot_index: forloop.index,
+        slot_order: 'collection',
+        pfs_section: pfs_section
+      -%}
+    {%- endcapture -%}
+    {%- assign slot_parts = slot_meta | strip | split: '|||' -%}
+    {%- assign save_badge = slot_parts[1] -%}
+    {%- assign rendered_count = rendered_count | plus: 1 -%}
+    {% render 'pflege-cat-card',
+      card_product: card_product,
+      list_item: true,
+      media_badge_label: save_badge,
+      card_mode: 'pflegeset'
+    %}
+
+  {%- endfor -%}
+
+{%- else -%}
+
+  {%- liquid
+
+    assign ha = pfs.handle_1 | default: 'pflegeset-grosse-s' | strip
+
+    assign hb = pfs.handle_2 | default: 'pflegeset-grosse-l' | strip
+
+    assign hc = pfs.handle_3 | default: 'pflegeset-grosse-m' | strip
+
+    assign slot_handles = ha | append: '|||' | append: hb | append: '|||' | append: hc | split: '|||'
+
+  -%}
+
+  {%- for handle_raw in slot_handles -%}
+
+    {%- assign handle = handle_raw | strip -%}
+
+    {%- liquid
+
+      assign card_product = nil
+
+      case forloop.index
+
+        when 1
+
+          if pfs.product_1 != blank
+
+            assign card_product = pfs.product_1
+
+          endif
+
+        when 2
+
+          if pfs.product_2 != blank
+
+            assign card_product = pfs.product_2
+
+          endif
+
+        when 3
+
+          if pfs.product_3 != blank
+
+            assign card_product = pfs.product_3
+
+          endif
+
+      endcase
+
+      if card_product == blank
+
+        assign card_product = all_products[handle]
+
+      endif
+
+    -%}
+
+    {%- if card_product != blank -%}
+
+      {%- capture slot_meta -%}
+        {%- render 'pflege-pflegeset-slot-meta',
+          card_product: card_product,
+          handle_fallback: handle,
+          slot_index: forloop.index,
+          slot_order: 'handles',
+          pfs_section: pfs_section
+        -%}
+      {%- endcapture -%}
+      {%- assign slot_parts = slot_meta | strip | split: '|||' -%}
+      {%- assign save_badge = slot_parts[1] -%}
+      {%- assign rendered_count = rendered_count | plus: 1 -%}
+      {% render 'pflege-cat-card',
+        card_product: card_product,
+        list_item: true,
+        media_badge_label: save_badge,
+        card_mode: 'pflegeset'
+      %}
+
+    {%- endif -%}
+
+  {%- endfor -%}
+
+{%- endif -%}
+
+
+
+{%- if rendered_count == 0 -%}
+
+  <li class="pflege-pflegesets__empty-item">
+
+    <div class="pflege-pflegesets__empty">
+
+      <p class="pflege-pflegesets__empty-title">Pflegesets konnten nicht geladen werden</p>
+
+      <p class="pflege-pflegesets__empty-text">
+
+        {%- if col == blank -%}
+
+          Kollektion <strong>pflegesets</strong> wurde nicht gefunden.
+
+        {%- elsif col_count == 0 -%}
+
+          Kollektion <strong>{{ col.title | escape }}</strong> ist leer — bitte die 3 Set-Produkte hinzufügen.
+
+        {%- else -%}
+
+          Produkte konnten nicht geladen werden.
+
+        {%- endif -%}
+
+      </p>
+
+    </div>
+
+  </li>
+
+{%- endif -%}
+

@@ -1,0 +1,235 @@
+{{ 'section-pflege-account-landing.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign contact_url = section.settings.contact_page_url
+  if contact_url == blank
+    assign contact_url = '/pages/kontakt'
+  endif
+  assign auth_url = blank
+  capture auth_url
+    render 'pflege-customer-auth-url'
+  endcapture
+  assign auth_url = auth_url | strip
+-%}
+
+<section class="pflege-account-landing" aria-labelledby="pflege-account-landing-title">
+  <div class="pflege-account-landing__backdrop">
+    <div class="pflege-account-landing__inner">
+      <div class="pflege-account-landing__hero">
+        <div class="pflege-account-landing__logo-wrap">
+          <a href="{{ routes.root_url }}" class="pflege-account-landing__logo-link">
+            {% render 'pflege-logo-webp',
+              img_class: 'pflege-account-landing__logo-img',
+              logo_width: 220,
+              logo_height: 48
+            %}
+          </a>
+        </div>
+
+        <h1 id="pflege-account-landing-title" class="pflege-account-landing__title">
+          {{ section.settings.title | escape }}
+        </h1>
+        <p class="pflege-account-landing__subtitle">
+          {{ section.settings.subtitle | escape }}
+        </p>
+
+        <div class="pflege-account-landing__actions">
+          <a href="{{ auth_url }}" class="pflege-account-landing__btn pflege-account-landing__btn--primary" rel="nofollow">
+            {% render 'pflege-icon', icon: 'log-in', width: 18 %}
+            {%- if customer -%}
+              {{ section.settings.login_button_logged_in | escape }}
+            {%- else -%}
+              {{ section.settings.login_button | escape }}
+            {%- endif -%}
+          </a>
+          <a href="{{ routes.root_url }}" class="pflege-account-landing__btn pflege-account-landing__btn--secondary">
+            {% render 'pflege-icon', icon: 'shopping-bag', width: 18 %}
+            {{ section.settings.shop_button | escape }}
+          </a>
+        </div>
+
+        {%- if customer -%}
+          <p class="pflege-account-landing__logged-hint">
+            {{ section.settings.logged_in_hint | escape }}
+          </p>
+        {%- endif -%}
+      </div>
+
+      <div class="pflege-account-landing__benefits">
+        <h2 class="pflege-account-landing__benefits-title">
+          {{ section.settings.benefits_heading | escape }}
+        </h2>
+        <div class="pflege-account-landing__grid">
+          <article class="pflege-account-landing__card">
+            <span class="pflege-account-landing__card-icon">
+              {% render 'pflege-icon', icon: 'package', width: 22 %}
+            </span>
+            <h3 class="pflege-account-landing__card-title">{{ section.settings.benefit_1_title | escape }}</h3>
+            <p class="pflege-account-landing__card-text">{{ section.settings.benefit_1_text | escape }}</p>
+          </article>
+          <article class="pflege-account-landing__card">
+            <span class="pflege-account-landing__card-icon">
+              {% render 'pflege-icon', icon: 'truck', width: 22 %}
+            </span>
+            <h3 class="pflege-account-landing__card-title">{{ section.settings.benefit_2_title | escape }}</h3>
+            <p class="pflege-account-landing__card-text">{{ section.settings.benefit_2_text | escape }}</p>
+          </article>
+          <article class="pflege-account-landing__card">
+            <span class="pflege-account-landing__card-icon">
+              {% render 'pflege-icon', icon: 'rotate-ccw', width: 22 %}
+            </span>
+            <h3 class="pflege-account-landing__card-title">{{ section.settings.benefit_3_title | escape }}</h3>
+            <p class="pflege-account-landing__card-text">{{ section.settings.benefit_3_text | escape }}</p>
+          </article>
+          <article class="pflege-account-landing__card">
+            <span class="pflege-account-landing__card-icon">
+              {% render 'pflege-icon', icon: 'headset', width: 22 %}
+            </span>
+            <h3 class="pflege-account-landing__card-title">{{ section.settings.benefit_4_title | escape }}</h3>
+            <p class="pflege-account-landing__card-text">{{ section.settings.benefit_4_text | escape }}</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="pflege-account-landing__service">
+        <div class="pflege-account-landing__service-copy">
+          <h2 class="pflege-account-landing__service-title">{{ section.settings.service_title | escape }}</h2>
+          <p class="pflege-account-landing__service-text">{{ section.settings.service_text | escape }}</p>
+        </div>
+        <a href="{{ contact_url }}" class="pflege-account-landing__btn pflege-account-landing__btn--secondary">
+          {% render 'pflege-icon', icon: 'mail', width: 18 %}
+          {{ section.settings.service_button | escape }}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Account Landing",
+  "tag": "section",
+  "class": "section-pflege-account-landing",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Headline",
+      "default": "Mein Konto"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subline",
+      "default": "Melde dich an, um deine Bestellungen, Lieferadressen und persönlichen Daten sicher zu verwalten."
+    },
+    {
+      "type": "text",
+      "id": "login_button",
+      "label": "Login-Button (Gast)",
+      "default": "Einloggen / Kundenkonto öffnen"
+    },
+    {
+      "type": "text",
+      "id": "login_button_logged_in",
+      "label": "Login-Button (eingeloggt)",
+      "default": "Kundenkonto öffnen"
+    },
+    {
+      "type": "text",
+      "id": "logged_in_hint",
+      "label": "Hinweis eingeloggt",
+      "default": "Sie sind angemeldet — öffnen Sie Ihr Kundenkonto für Bestellungen und Adressen."
+    },
+    {
+      "type": "text",
+      "id": "shop_button",
+      "label": "Shop-Button",
+      "default": "Zum Shop"
+    },
+    {
+      "type": "text",
+      "id": "benefits_heading",
+      "label": "Vorteile Überschrift",
+      "default": "Das erwartet Sie im Kundenkonto"
+    },
+    {
+      "type": "text",
+      "id": "benefit_1_title",
+      "label": "Vorteil 1 Titel",
+      "default": "Bestellungen einsehen"
+    },
+    {
+      "type": "textarea",
+      "id": "benefit_1_text",
+      "label": "Vorteil 1 Text",
+      "default": "Behalte den Überblick über deine letzten Bestellungen und den aktuellen Status."
+    },
+    {
+      "type": "text",
+      "id": "benefit_2_title",
+      "label": "Vorteil 2 Titel",
+      "default": "Lieferadressen verwalten"
+    },
+    {
+      "type": "textarea",
+      "id": "benefit_2_text",
+      "label": "Vorteil 2 Text",
+      "default": "Passe deine gespeicherten Adressen bequem im Kundenkonto an."
+    },
+    {
+      "type": "text",
+      "id": "benefit_3_title",
+      "label": "Vorteil 3 Titel",
+      "default": "Schneller nachbestellen"
+    },
+    {
+      "type": "textarea",
+      "id": "benefit_3_text",
+      "label": "Vorteil 3 Text",
+      "default": "Finde deine bisherigen Produkte schneller wieder."
+    },
+    {
+      "type": "text",
+      "id": "benefit_4_title",
+      "label": "Vorteil 4 Titel",
+      "default": "Hilfe & Beratung"
+    },
+    {
+      "type": "textarea",
+      "id": "benefit_4_text",
+      "label": "Vorteil 4 Text",
+      "default": "Unser Team unterstützt dich bei Fragen zu Pflegebedarf, Pflegehilfsmitteln und Inkontinenzversorgung."
+    },
+    {
+      "type": "text",
+      "id": "service_title",
+      "label": "Service Titel",
+      "default": "Persönliche Unterstützung benötigt?"
+    },
+    {
+      "type": "textarea",
+      "id": "service_text",
+      "label": "Service Text",
+      "default": "Bei Fragen zu Pflegehilfsmitteln, Rezepten, Inkontinenzversorgung oder deiner Bestellung hilft dir unser Team gerne weiter."
+    },
+    {
+      "type": "text",
+      "id": "service_button",
+      "label": "Service Button",
+      "default": "Kontakt aufnehmen"
+    },
+    {
+      "type": "url",
+      "id": "contact_page_url",
+      "label": "Kontaktseite",
+      "info": "Standard: /pages/kontakt"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Account Landing"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,26 @@
+{% comment %}
+  Optional: Section für Theme-Editor. Startseite rendert dieselben Inhalte zusätzlich
+  via snippets/pflege-hero-trust-inner.liquid in layout/theme.liquid (zuverlässige Reihenfolge).
+{% endcomment %}
+{% render 'pflege-hero-trust-inner', trust_heading: section.settings.trust_heading %}
+
+{% schema %}
+{
+  "name": "PflegeShop Vorteile",
+  "tag": "section",
+  "class": "pflege-hero-trust-section section-pflege-hero-trust",
+  "settings": [
+    {
+      "type": "text",
+      "id": "trust_heading",
+      "label": "Überschrift",
+      "default": "Ihre Vorteile im Überblick"
+    }
+  ],
+  "presets": [
+    {
+      "name": "PflegeShop Vorteile"
+    }
+  ]
+}
+{% endschema %}

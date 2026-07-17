@@ -1,0 +1,12 @@
+{%- comment -%}
+  Minimaler Platzhalter für cart-notification.js: nur ID-Ziel für den zuletzt hinzugefügten Artikel.
+  Bild und Produktdetails werden im Pop-up nicht mehr angezeigt.
+{%- endcomment -%}
+{%- if cart != empty -%}
+  {%- for item in cart.items -%}
+    <div
+      id="cart-notification-product-{{ item.key }}"
+      class="cart-notification-product cart-notification-product--empty"
+    ></div>
+  {%- endfor -%}
+{%- endif -%}

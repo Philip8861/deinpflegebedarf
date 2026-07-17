@@ -1,0 +1,52 @@
+{% comment %}
+  Dynamische Sterne (voll / teilweise / leer) für Bewertungsanzeigen.
+  Parameter:
+  - rating: Zahl 0–5 (Dezimalwerte möglich, z. B. 4.5)
+  - max: optional, Standard 5
+  - aria_label: optional
+  - class_prefix: optional, Standard ct-hp-rating
+{% endcomment %}
+{%- liquid
+  assign max_stars = max | default: 5 | plus: 0
+  assign rating_num = rating | default: 0 | replace: ',', '.' | plus: 0.0
+
+  if rating_num < 0
+    assign rating_num = 0
+  endif
+  if rating_num > max_stars
+    assign rating_num = max_stars | plus: 0.0
+  endif
+
+  assign rating_rounded = rating_num | round: 1
+  assign rating_de = rating_rounded | replace: '.', ','
+
+  if aria_label == blank
+    assign aria_label = rating_de | append: ' von ' | append: max_stars | append: ' Sternen'
+  endif
+
+  assign star_prefix = class_prefix | default: 'ct-hp-rating'
+-%}
+<div class="{{ star_prefix }}__stars" role="img" aria-label="{{ aria_label | escape }}">
+  {%- for i in (1..max_stars) -%}
+    {%- liquid
+      assign star_index = forloop.index0
+      assign fill_raw = rating_num | minus: star_index
+      assign fill_pct = 0
+      if fill_raw >= 1
+        assign fill_pct = 100
+      elsif fill_raw > 0
+        assign fill_pct = fill_raw | times: 100 | round
+      endif
+    -%}
+    <span class="{{ star_prefix }}__star" aria-hidden="true">
+      <svg class="{{ star_prefix }}__icon {{ star_prefix }}__icon--empty" viewBox="0 0 24 24" focusable="false">
+        <path d="M12 3.2l2.55 5.17 5.7.83-4.12 4.02.97 5.68L12 16.9l-5.1 2.68.97-5.68-4.12-4.02 5.7-.83L12 3.2z"/>
+      </svg>
+      <span class="{{ star_prefix }}__fill" style="width: {{ fill_pct }}%;">
+        <svg class="{{ star_prefix }}__icon {{ star_prefix }}__icon--full" viewBox="0 0 24 24" focusable="false">
+          <path d="M12 3.2l2.55 5.17 5.7.83-4.12 4.02.97 5.68L12 16.9l-5.1 2.68.97-5.68-4.12-4.02 5.7-.83L12 3.2z"/>
+        </svg>
+      </span>
+    </span>
+  {%- endfor -%}
+</div>

@@ -1,0 +1,187 @@
+{% comment %}
+  PAngV-Einheitspreis — Shopify oder automatische Erkennung aus Produkt-/Variantentitel.
+
+  Accepts:
+  - variant: {Object} Variant
+  - product: {Object} Product
+  - text_only: {Boolean} Nur Text ausgeben
+  - class: {String} Zusätzliche CSS-Klasse
+{% endcomment %}
+{%- liquid
+  assign unit_variant = variant
+  if unit_variant == blank
+    assign unit_variant = product.selected_or_first_available_variant
+  endif
+
+  assign grundpreis_text = ''
+  assign grundpreis_native = false
+  assign unit_sep = 'products.product.pflege_cart.unit_price_sep' | t
+  assign unit_liter = 'products.product.pflege_cart.unit_price_liter' | t
+  assign unit_piece = 'products.product.pflege_cart.unit_price_piece' | t
+  assign unit_kg = 'products.product.pflege_cart.unit_price_kg' | t
+
+  if unit_variant.unit_price_measurement
+    assign ref_unit = unit_variant.unit_price_measurement.reference_unit | downcase
+    if ref_unit == 'l'
+      assign grundpreis_text = unit_variant.unit_price | money | append: ' ' | append: unit_sep | append: ' ' | append: unit_liter
+    elsif ref_unit == 'kg'
+      assign grundpreis_text = unit_variant.unit_price | money | append: ' ' | append: unit_sep | append: ' ' | append: unit_kg
+    elsif ref_unit == 'g'
+      assign grundpreis_text = unit_variant.unit_price | money | append: ' ' | append: unit_sep | append: ' ' | append: unit_kg
+    elsif unit_variant.unit_price != unit_variant.price
+      assign grundpreis_text = unit_variant.unit_price | money | append: ' ' | append: unit_sep | append: ' ' | append: unit_piece
+    endif
+    assign grundpreis_native = true
+  else
+    assign blob = product.title | append: ' ' | append: unit_variant.title | append: ' ' | append: product.type | downcase
+    assign title_lower = product.title | downcase
+    assign variant_lower = unit_variant.title | downcase
+
+    assign pack_count = 0
+
+    if variant_lower contains 'stk'
+      assign stk_left = variant_lower | split: 'stk' | first | strip
+      assign pack_token = stk_left | split: ' ' | last | strip
+      assign pack_count = pack_token | plus: 0
+    endif
+
+    if pack_count <= 1
+      assign pack_paren = product.title | split: '(' | last | split: ')' | first | downcase | strip
+      if pack_paren contains 'stück' or pack_paren contains 'stk' or pack_paren contains 'st.'
+        assign pack_token = pack_paren | remove: 'stück' | remove: 'stk.' | remove: 'stk' | remove: 'st.' | strip
+        assign pack_count = pack_token | plus: 0
+      endif
+    endif
+
+    if pack_count <= 1
+      if product.title contains 'Stück' or product.title contains 'stück'
+        assign pre_stueck = product.title | split: 'Stück' | first
+        if pre_stueck == product.title
+          assign pre_stueck = product.title | split: 'stück' | first
+        endif
+        assign pack_token = pre_stueck | split: ' ' | last | remove: '–' | remove: '-' | strip
+        assign pack_count = pack_token | plus: 0
+      endif
+    endif
+
+    assign is_inko = false
+    if blob contains 'inkontinenz' or blob contains 'einlagen' or blob contains ' pants' or blob contains 'windel' or blob contains 'vorlage' or blob contains 'slip' or blob contains 'fixierhöschen' or blob contains 'netzhose'
+      assign is_inko = true
+    endif
+
+    assign is_liquid = false
+    if blob contains 'flasche' or blob contains 'sprüh' or blob contains 'lotion' or blob contains 'shampoo' or blob contains 'gel' or blob contains 'balsam' or blob contains 'creme' or blob contains 'paste' or blob contains 'wasch' or blob contains 'desinfekt' or blob contains 'zahnpasta' or blob contains 'spuckbeutel' or blob contains 'öl' or blob contains ' tonic' or blob contains ' serum' or blob contains ' milch'
+      assign is_liquid = true
+    endif
+
+    assign title_has_pack_ml = false
+    if title_lower contains 'ml'
+      assign title_has_pack_ml = true
+    endif
+
+    assign use_liter_price = false
+    assign ml_num = 0
+
+    if title_has_pack_ml
+      assign ml_left = product.title | split: 'ml' | first | split: 'ML' | first
+      assign ml_token = ml_left | split: ' ' | last | replace: ',', '.' | strip
+      assign ml_num = ml_token | plus: 0
+      if ml_num > 0
+        assign use_liter_price = true
+      endif
+    endif
+
+    if use_liter_price == false and is_liquid and blob contains 'ml'
+      if title_has_pack_ml
+        assign ml_left = product.title | split: 'ml' | first
+        assign ml_token = ml_left | split: ' ' | last | replace: ',', '.' | strip
+        assign ml_num = ml_token | plus: 0
+      else
+        assign ml_paren = unit_variant.title | split: '(' | last | split: ')' | first | downcase | strip
+        if ml_paren contains 'ml'
+          assign ml_token = ml_paren | remove: 'ca' | remove: 'ca.' | remove: 'ml' | strip | replace: ',', '.'
+          assign ml_num = ml_token | plus: 0
+        endif
+      endif
+      if ml_num > 0
+        unless is_inko
+          assign use_liter_price = true
+        endunless
+      endif
+    endif
+
+    if pack_count > 1
+      assign piece_cents = unit_variant.price | divided_by: pack_count
+      assign grundpreis_text = piece_cents | money | append: ' ' | append: unit_sep | append: ' ' | append: unit_piece
+    elsif use_liter_price and ml_num > 0
+      assign liter_cents = unit_variant.price | times: 1000 | divided_by: ml_num
+      assign grundpreis_text = liter_cents | money | append: ' ' | append: unit_sep | append: ' ' | append: unit_liter
+    elsif grundpreis_text == blank and blob contains 'kg'
+      assign kg_paren = unit_variant.title | split: '(' | last | split: ')' | first | downcase | strip
+      unless kg_paren contains 'kg'
+        assign kg_paren = product.title | split: '(' | last | split: ')' | first | downcase | strip
+      endunless
+      if kg_paren contains 'kg'
+        assign kg_val = kg_paren | remove: 'kg' | strip | replace: ',', '.'
+        assign kg_num = kg_val | plus: 0
+        if kg_num > 0
+          assign kg_cents = unit_variant.price | divided_by: kg_num
+          assign grundpreis_text = kg_cents | money | append: ' ' | append: unit_sep | append: ' ' | append: unit_kg
+        endif
+      endif
+    endif
+
+    if grundpreis_text == blank
+      assign g_paren = unit_variant.title | split: '(' | last | split: ')' | first | downcase | strip
+      if g_paren == blank
+        assign g_paren = product.title | split: '(' | last | split: ')' | first | downcase | strip
+      endif
+      if g_paren contains 'gramm'
+        assign g_val = g_paren | remove: 'gramm' | strip | replace: ',', '.'
+        assign g_num = g_val | plus: 0
+        if g_num > 0
+          assign kg_cents = unit_variant.price | times: 1000 | divided_by: g_num
+          assign grundpreis_text = kg_cents | money | append: ' ' | append: unit_sep | append: ' ' | append: unit_kg
+        endif
+      elsif g_paren contains 'g'
+        unless g_paren contains 'kg'
+          unless g_paren contains 'ml'
+            assign g_val = g_paren | remove: 'g' | strip | replace: ',', '.'
+            assign g_num = g_val | plus: 0
+            if g_num > 0
+              assign kg_cents = unit_variant.price | times: 1000 | divided_by: g_num
+              assign grundpreis_text = kg_cents | money | append: ' ' | append: unit_sep | append: ' ' | append: unit_kg
+            endif
+          endunless
+        endunless
+      endif
+    endif
+  endif
+-%}
+{%- if text_only -%}
+  {{- grundpreis_text -}}
+{%- elsif grundpreis_text != blank -%}
+  <p
+    class="pflege-grundpreis{% if class != blank %} {{ class }}{% endif %}{% unless grundpreis_native %} pflege-grundpreis--computed{% endunless %}"
+    data-pflege-grundpreis
+    data-variant-price="{{ unit_variant.price }}"
+    data-variant-title="{{ unit_variant.title | escape }}"
+    data-product-title="{{ product.title | escape }}"
+    data-product-type="{{ product.type | escape }}"
+    {% if grundpreis_native %}data-grundpreis-native="true"{% endif %}
+  >
+    <span class="pflege-grundpreis__value" data-pflege-grundpreis-text>{{ grundpreis_text }}</span>
+  </p>
+{%- else -%}
+  <p
+    class="pflege-grundpreis pflege-grundpreis--pending{% if class != blank %} {{ class }}{% endif %}"
+    data-pflege-grundpreis
+    data-variant-price="{{ unit_variant.price }}"
+    data-variant-title="{{ unit_variant.title | escape }}"
+    data-product-title="{{ product.title | escape }}"
+    data-product-type="{{ product.type | escape }}"
+    hidden
+  >
+    <span class="pflege-grundpreis__value" data-pflege-grundpreis-text></span>
+  </p>
+{%- endif -%}

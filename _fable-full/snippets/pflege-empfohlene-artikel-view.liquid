@@ -1,0 +1,33 @@
+{% comment %}
+  Gemeinsame Ansicht für Section + 404-Fallback.
+  Parameter:
+  - section_id (string)
+  - pflegebox_url (optional)
+  - pflegehilfsmittel_url (optional)
+{% endcomment %}
+
+{%- liquid
+  assign pflegebox_url = pflegebox_url | default: '/products/pflegebox'
+  assign pflegehilfsmittel_url = pflegehilfsmittel_url | default: '/pages/pflegehilfsmittel'
+-%}
+
+<section
+  class="pflege-empfohlene-artikel section-{{ section_id }}-padding color-scheme-1 gradient"
+  data-pflege-empfohlene-artikel
+  data-pflegebox-url="{{ pflegebox_url | escape }}"
+  data-pflegehilfsmittel-url="{{ pflegehilfsmittel_url | escape }}"
+  aria-labelledby="pflege-empfohlene-title-{{ section_id }}"
+>
+  <div class="pflege-empfohlene-artikel__shell">
+    <noscript>
+      <p class="pflege-finder-quiz__nojs">
+        Diese Seite benötigt JavaScript. Bitte aktivieren Sie JavaScript oder starten Sie den
+        <a href="#pflege-finder-open">Produktfinder</a>.
+      </p>
+    </noscript>
+
+    <div class="pflege-empfohlene-artikel__viewport" data-pflege-empfohlene-viewport>
+      <p class="pflege-empfohlene-artikel__loading">Empfehlungen werden geladen …</p>
+    </div>
+  </div>
+</section>

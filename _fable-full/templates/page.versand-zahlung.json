@@ -1,0 +1,38 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "pflege_legal": {
+      "type": "pflege-legal-page",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "eyebrow": "",
+        "title_fallback": "Versand & Zahlung",
+        "subtitle": "",
+        "meta_label": "Stand",
+        "meta_date": "Mai 2026",
+        "shipping_standard_cost": "4,90",
+        "shipping_free_from": "150,00",
+        "highlight_title": "",
+        "highlight_text": "",
+        "show_toc": false,
+        "toc_title": "Inhalt",
+        "show_related": false,
+        "related_title": "Weitere Informationen",
+        "body_text": "",
+        "contact_title": "",
+        "contact_text": "",
+        "padding_top": 64,
+        "padding_bottom": 80
+      }
+    }
+  },
+  "order": ["pflege_legal"]
+}

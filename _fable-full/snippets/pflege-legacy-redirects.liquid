@@ -1,0 +1,91 @@
+{%- comment -%}
+  PflegeShop: Weiterleitungen im &lt;head&gt; (ohne sichtbare Zwischenseite).
+  — pflegewissen → https://www.alltagshilfe-sued.de/ratgeber (direkt)
+  — pflegeratgeber: Brückenseite im Theme (kein Auto-Redirect)
+  — /policies/refund-policy → /pages/widerrufsbelehrung
+  — /pages/widerrufsrecht → /pages/widerrufsbelehrung (alte URL)
+  — /pages/datenschutz und /pages/datenschutzerklärung → /pages/datenschutzerklaerung
+  Admin-URL-Weiterleitung zusätzlich möglich (301).
+{%- endcomment -%}
+{%- liquid
+  assign pflege_ratgeber_ext = 'https://www.alltagshilfe-sued.de/ratgeber'
+  assign pflege_widerruf_page_url = routes.root_url | append: 'pages/widerrufsbelehrung'
+  assign pflege_agb_page_url = routes.root_url | append: 'pages/agb'
+  assign pflege_datenschutz_page_url = routes.root_url | append: 'pages/datenschutzerklaerung'
+  assign pflege_versand_page_url = routes.root_url | append: 'pages/versand-zahlung'
+-%}
+{%- if request.page_type == 'policy' and policy != blank and policy.handle == 'shipping-policy' -%}
+  <link rel="canonical" href="{{ pflege_versand_page_url | escape }}">
+  <meta http-equiv="refresh" content="0;url={{ pflege_versand_page_url | escape }}">
+  <script>
+    window.location.replace({{ pflege_versand_page_url | json }});
+  </script>
+{%- elsif request.path == '/policies/shipping-policy' -%}
+  <link rel="canonical" href="{{ pflege_versand_page_url | escape }}">
+  <meta http-equiv="refresh" content="0;url={{ pflege_versand_page_url | escape }}">
+  <script>
+    window.location.replace({{ pflege_versand_page_url | json }});
+  </script>
+{%- endif -%}
+{%- if request.page_type == 'policy' and policy != blank and policy.handle == 'refund-policy' -%}
+  <link rel="canonical" href="{{ pflege_widerruf_page_url | escape }}">
+  <meta http-equiv="refresh" content="0;url={{ pflege_widerruf_page_url | escape }}">
+  <script>
+    window.location.replace({{ pflege_widerruf_page_url | json }});
+  </script>
+{%- elsif request.path == '/policies/refund-policy' -%}
+  <link rel="canonical" href="{{ pflege_widerruf_page_url | escape }}">
+  <meta http-equiv="refresh" content="0;url={{ pflege_widerruf_page_url | escape }}">
+  <script>
+    window.location.replace({{ pflege_widerruf_page_url | json }});
+  </script>
+{%- elsif request.page_type == 'policy' and policy != blank and policy.handle == 'terms-of-service' -%}
+  <link rel="canonical" href="{{ pflege_agb_page_url | escape }}">
+  <meta http-equiv="refresh" content="0;url={{ pflege_agb_page_url | escape }}">
+  <script>
+    window.location.replace({{ pflege_agb_page_url | json }});
+  </script>
+{%- elsif request.path == '/policies/terms-of-service' -%}
+  <link rel="canonical" href="{{ pflege_agb_page_url | escape }}">
+  <meta http-equiv="refresh" content="0;url={{ pflege_agb_page_url | escape }}">
+  <script>
+    window.location.replace({{ pflege_agb_page_url | json }});
+  </script>
+{%- elsif request.page_type == 'policy' and policy != blank and policy.handle == 'privacy-policy' -%}
+  <link rel="canonical" href="{{ pflege_datenschutz_page_url | escape }}">
+  <meta http-equiv="refresh" content="0;url={{ pflege_datenschutz_page_url | escape }}">
+  <script>
+    window.location.replace({{ pflege_datenschutz_page_url | json }});
+  </script>
+{%- elsif request.path == '/policies/privacy-policy' -%}
+  <link rel="canonical" href="{{ pflege_datenschutz_page_url | escape }}">
+  <meta http-equiv="refresh" content="0;url={{ pflege_datenschutz_page_url | escape }}">
+  <script>
+    window.location.replace({{ pflege_datenschutz_page_url | json }});
+  </script>
+{%- endif -%}
+{%- if request.page_type == 'page' and page.handle == 'pflegewissen' -%}
+  <link rel="canonical" href="{{ pflege_ratgeber_ext | escape }}">
+  <meta http-equiv="refresh" content="0;url={{ pflege_ratgeber_ext | escape }}">
+  <script>
+    window.location.replace({{ pflege_ratgeber_ext | json }});
+  </script>
+{%- elsif request.page_type == 'page' and page.handle == 'datenschutz' -%}
+  <link rel="canonical" href="{{ pflege_datenschutz_page_url | escape }}">
+  <meta http-equiv="refresh" content="0;url={{ pflege_datenschutz_page_url | escape }}">
+  <script>
+    window.location.replace({{ pflege_datenschutz_page_url | json }});
+  </script>
+{%- elsif request.page_type == 'page' and page.handle == 'datenschutzerklärung' -%}
+  <link rel="canonical" href="{{ pflege_datenschutz_page_url | escape }}">
+  <meta http-equiv="refresh" content="0;url={{ pflege_datenschutz_page_url | escape }}">
+  <script>
+    window.location.replace({{ pflege_datenschutz_page_url | json }});
+  </script>
+{%- elsif request.path == '/pages/datenschutz' or request.path == '/pages/datenschutzerklärung' -%}
+  <link rel="canonical" href="{{ pflege_datenschutz_page_url | escape }}">
+  <meta http-equiv="refresh" content="0;url={{ pflege_datenschutz_page_url | escape }}">
+  <script>
+    window.location.replace({{ pflege_datenschutz_page_url | json }});
+  </script>
+{%- endif -%}

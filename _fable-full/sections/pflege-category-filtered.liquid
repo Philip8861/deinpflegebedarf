@@ -1,0 +1,485 @@
+{%- liquid
+  assign category_slug = collection.handle | default: 'desinfektion'
+  assign cat_heading = section.settings.heading | default: collection.title
+  if cat_heading == blank
+    assign cat_heading = collection.title
+  endif
+  assign cat_description = section.settings.description
+  if cat_description == blank
+    assign cat_description = collection.description | strip_html | strip
+  endif
+  if cat_description == blank
+    if category_slug == 'inkontinenzversorgung' or category_slug == 'inkontinenz'
+      assign cat_description = 'sections.pflege_category_filtered.inkontinenzversorgung.description' | t
+    elsif category_slug == 'hautpflege' or category_slug == 'hautschutz-hautpflege' or category_slug == 'hauschutz-hautpflege'
+      assign cat_description = 'sections.pflege_category_filtered.hautpflege.description' | t
+    elsif category_slug == 'verbrauchsartikel'
+      assign cat_description = 'sections.pflege_category_filtered.verbrauchsartikel.description' | t
+    elsif category_slug == 'koerperpflege' or category_slug == 'korperpflege'
+      assign cat_description = 'sections.pflege_category_filtered.koerperpflege.description' | t
+    elsif category_slug == 'schutz-handschuhe' or category_slug == 'schutz-und-handschuhe' or category_slug == 'handschuhe'
+      assign cat_description = 'sections.pflege_category_filtered.schutz_handschuhe.description' | t
+    else
+      assign cat_description = 'Unsere Desinfektionsprodukte bieten zuverlässigen Schutz für Hände und Oberflächen – für Pflege, Haushalt, Praxis und Alltag. Wählen Sie zwischen Händedesinfektion, Flächendesinfektion, Körperdesinfektion, Tüchern, Gelen und Sprays.'
+    endif
+  endif
+
+  assign show_promo_banner = section.settings.show_promo_banner
+  if category_slug == 'inkontinenzversorgung' or category_slug == 'inkontinenz'
+    if section.settings.show_promo_banner == nil
+      assign show_promo_banner = true
+    endif
+  else
+    assign show_promo_banner = false
+  endif
+
+  assign promo_heading = section.settings.promo_heading
+  if promo_heading == blank
+    assign promo_heading = 'sections.pflege_category_filtered.inkontinenzversorgung.promo_heading' | t
+  endif
+  assign promo_text = section.settings.promo_text
+  if promo_text == blank
+    assign promo_text = 'sections.pflege_category_filtered.inkontinenzversorgung.promo_text' | t
+  endif
+  assign promo_button_label = section.settings.promo_button_label
+  if promo_button_label == blank
+    assign promo_button_label = 'sections.pflege_category_filtered.inkontinenzversorgung.promo_button_label' | t
+  endif
+  assign promo_button_link = section.settings.promo_button_link | default: '#'
+  assign promo_image = section.settings.promo_image
+  if promo_image == blank
+    if category_slug == 'inkontinenzversorgung' or category_slug == 'inkontinenz'
+      assign promo_image_asset = 'Inkontinenzversorgung_start.webp'
+    else
+      assign promo_image_asset = 'Inkontinenzversorgung_start.webp'
+    endif
+  endif
+
+  assign hide_category_intro = false
+  assign promo_fullwidth = false
+  if category_slug == 'inkontinenzversorgung' or category_slug == 'inkontinenz'
+    assign hide_category_intro = true
+    assign promo_fullwidth = true
+  endif
+-%}
+
+{% render 'pflege-cat-card-styles' %}
+{%- if promo_fullwidth -%}
+  {{ 'section-pflege-inko-testpaket-modal.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'pflege-inko-testpaket-modal.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+<script src="{{ 'pflege-category-attributes.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'pflege-category-filter.js' | asset_url }}" defer="defer"></script>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+  {%- if promo_fullwidth -%}
+  .section-{{ section.id }}-padding {
+    padding-top: 12px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: 16px;
+    }
+  }
+  {%- endif -%}
+{%- endstyle -%}
+
+{%- capture cat_products_json -%}
+[
+{%- paginate collection.products by 250 -%}
+  {%- for product in collection.products -%}
+    {%- liquid
+      assign card_variant = product.selected_or_first_available_variant
+      assign subtitle = product.metafields.pflege.card_subtitle.value | strip
+      if subtitle == blank
+        assign subtitle = product.metafields.custom.beschreibung.value | strip_html | strip | truncate: 120
+      endif
+      if subtitle == blank and product.type != blank
+        assign subtitle = product.type
+      endif
+
+      assign option_values = ''
+      for variant in product.variants limit: 12
+        if variant.option1 != blank
+          assign option_values = option_values | append: variant.option1 | append: '||'
+        endif
+        if variant.option2 != blank
+          assign option_values = option_values | append: variant.option2 | append: '||'
+        endif
+        if variant.option3 != blank
+          assign option_values = option_values | append: variant.option3 | append: '||'
+        endif
+      endfor
+      assign option_values_arr = option_values | split: '||'
+
+      assign unit_price_label = ''
+      capture unit_price_label
+        render 'pflege-grundpreis', variant: card_variant, product: product, text_only: true
+      endcapture
+      assign unit_price_label = unit_price_label | strip
+
+      if settings.currency_code_enabled
+        assign price_label = product.price_min | money_with_currency
+      else
+        assign price_label = product.price_min | money
+      endif
+    -%}
+    {
+      "id": {{ product.id | json }},
+      "handle": {{ product.handle | json }},
+      "title": {{ product.title | json }},
+      "url": {{ product.url | json }},
+      "vendor": {{ product.vendor | json }},
+      "type": {{ product.type | json }},
+      "tags": {{ product.tags | json }},
+      "subtitle": {{ subtitle | json }},
+      "priceMin": {{ product.price_min }},
+      "priceMax": {{ product.price_max }},
+      "priceFormatted": {{ price_label | json }},
+      "unitPriceFormatted": {{ unit_price_label | json }},
+      "available": {{ product.available | json }},
+      "variantId": {{ card_variant.id | json }},
+      "variantsCount": {{ product.variants.size }},
+      "categorySlug": {{ category_slug | json }},
+      "image": {% if product.featured_media %}{{ product.featured_media | image_url: width: 960 | json }}{% else %}""{% endif %},
+      "imageAlt": {{ product.featured_media.alt | default: product.title | json }},
+      "optionValues": {{ option_values_arr | json }}
+    }{% unless forloop.last %},{% endunless %}
+  {%- endfor -%}
+{%- endpaginate -%}
+]
+{%- endcapture -%}
+
+<section
+  class="pflege-cat-filtered section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}{% if promo_fullwidth %} pflege-cat-filtered--inko{% endif %}"
+  id="PflegeCategoryFiltered-{{ section.id }}"
+  data-pflege-category-filtered
+  aria-labelledby="PflegeCatHeading-{{ section.id }}"
+>
+  {%- if show_promo_banner and promo_fullwidth -%}
+    <div class="pflege-cat-filtered__promo pflege-cat-filtered__promo--fullwidth">
+      <div class="pflege-cat-filtered__promo-inner">
+        <div class="pflege-cat-filtered__promo-copy">
+          <h2 class="pflege-cat-filtered__promo-title">
+            {%- assign promo_heading_parts = promo_heading | split: 'Sparen Sie Geld:' -%}
+            {%- if promo_heading_parts.size > 1 -%}
+              <span class="pflege-cat-filtered__promo-title-lead">Sparen Sie Geld:</span>
+              <span class="pflege-cat-filtered__promo-title-rest">{{ promo_heading_parts[1] | strip | escape }}</span>
+            {%- else -%}
+              {{- promo_heading | escape -}}
+            {%- endif -%}
+          </h2>
+          {%- if promo_text != blank -%}
+            <p class="pflege-cat-filtered__promo-lead">{{ promo_text | escape }}</p>
+          {%- endif -%}
+          {%- if promo_button_label != blank -%}
+            <button
+              type="button"
+              class="pflege-cat-filtered__promo-cta"
+              data-pflege-inko-testpaket-open
+            >
+              {% render 'pflege-icon', icon: 'gift', width: 28, class: 'pflege-cat-filtered__promo-cta-icon' %}
+              {{ promo_button_label | escape }}
+            </button>
+          {%- endif -%}
+        </div>
+        <div class="pflege-cat-filtered__promo-media" aria-hidden="true">
+          {%- if promo_image != blank -%}
+            {{
+              promo_image
+              | image_url: width: 1600
+              | image_tag:
+                class: 'pflege-cat-filtered__promo-img',
+                loading: 'eager',
+                widths: '800, 1000, 1200, 1600',
+                sizes: '100vw',
+                alt: ''
+            }}
+          {%- else -%}
+            <img
+              class="pflege-cat-filtered__promo-img"
+              src="{{ promo_image_asset | asset_url }}"
+              alt=""
+              loading="eager"
+              width="1629"
+              height="289"
+            >
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+
+
+  <div class="pflege-cat-filtered__shell">
+    {%- if show_promo_banner and promo_fullwidth == false -%}
+      <div class="pflege-cat-filtered__promo">
+        <div class="pflege-cat-filtered__promo-inner">
+          <div class="pflege-cat-filtered__promo-copy">
+            <h2 class="pflege-cat-filtered__promo-title">{{ promo_heading | escape }}</h2>
+            {%- if promo_text != blank -%}
+              <p class="pflege-cat-filtered__promo-lead">{{ promo_text | escape }}</p>
+            {%- endif -%}
+            {%- if promo_button_label != blank -%}
+              <a class="pflege-cat-filtered__promo-cta" href="{{ promo_button_link }}">
+                {% render 'pflege-icon', icon: 'gift', width: 28, class: 'pflege-cat-filtered__promo-cta-icon' %}
+                {{ promo_button_label | escape }}
+              </a>
+            {%- endif -%}
+          </div>
+          <div class="pflege-cat-filtered__promo-media" aria-hidden="true">
+            {%- if promo_image != blank -%}
+              {{
+                promo_image
+                | image_url: width: 1400
+                | image_tag:
+                  class: 'pflege-cat-filtered__promo-img',
+                  loading: 'eager',
+                  widths: '700, 900, 1200, 1400',
+                  sizes: '(min-width: 990px) 52vw, 100vw',
+                  alt: ''
+              }}
+            {%- else -%}
+              <img
+                class="pflege-cat-filtered__promo-img"
+                src="{{ promo_image_asset | asset_url }}"
+                alt=""
+                loading="eager"
+                width="1400"
+                height="420"
+              >
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    {%- endif -%}
+
+    <header class="pflege-cat-filtered__header">
+      {%- unless hide_category_intro -%}
+        <div class="pflege-cat-filtered__intro">
+          <h1 class="pflege-cat-filtered__title" id="PflegeCatHeading-{{ section.id }}">{{ cat_heading | escape }}</h1>
+          <p class="pflege-cat-filtered__lead">{{ cat_description | escape }}</p>
+        </div>
+      {%- else -%}
+        <h1 class="visually-hidden" id="PflegeCatHeading-{{ section.id }}">{{ cat_heading | escape }}</h1>
+      {%- endunless -%}
+
+      <div class="pflege-cat-filtered__toolbar pflege-cat-filtered__toolbar--desktop">
+        <p class="pflege-cat-filtered__count" data-product-count>
+          {{ collection.products_count }}
+          {%- if collection.products_count == 1 -%}
+            Produkt gefunden
+          {%- else -%}
+            Produkte gefunden
+          {%- endif -%}
+        </p>
+        <div class="pflege-cat-filtered__sort-wrap">
+          <label class="pflege-cat-filtered__sort-label" for="PflegeCatSortDesktop-{{ section.id }}">Sortieren nach:</label>
+          <select
+            id="PflegeCatSortDesktop-{{ section.id }}"
+            class="pflege-cat-filtered__sort"
+            data-pflege-cat-sort
+          >
+            <option value="manual" selected>Am relevantesten</option>
+            <option value="price-ascending">Preis aufsteigend</option>
+            <option value="price-descending">Preis absteigend</option>
+            <option value="title-ascending">Name A–Z</option>
+            <option value="title-descending">Name Z–A</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="pflege-cat-filtered__toolbar pflege-cat-filtered__toolbar--mobile">
+        <button
+          type="button"
+          class="pflege-cat-filtered__filter-btn"
+          data-pflege-cat-filter-toggle
+          aria-expanded="false"
+          aria-controls="PflegeCatDrawer-{{ section.id }}"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+          Filter
+        </button>
+        <p class="pflege-cat-filtered__count pflege-cat-filtered__count--mobile" data-product-count>
+          {{ collection.products_count }}
+          {%- if collection.products_count == 1 -%}
+            Produkt gefunden
+          {%- else -%}
+            Produkte gefunden
+          {%- endif -%}
+        </p>
+        <div class="pflege-cat-filtered__sort-wrap pflege-cat-filtered__sort-wrap--mobile">
+          <label class="visually-hidden" for="PflegeCatSortMobile-{{ section.id }}">Sortieren nach</label>
+          <select id="PflegeCatSortMobile-{{ section.id }}" class="pflege-cat-filtered__sort" data-pflege-cat-sort aria-label="Sortieren nach">
+            <option value="manual" selected>Am relevantesten</option>
+            <option value="price-ascending">Preis ↑</option>
+            <option value="price-descending">Preis ↓</option>
+            <option value="title-ascending">A–Z</option>
+            <option value="title-descending">Z–A</option>
+          </select>
+        </div>
+      </div>
+    </header>
+
+    <div class="pflege-cat-filtered__layout">
+      <aside class="pflege-cat-filtered__sidebar" aria-label="Produktfilter">
+        <div class="pflege-cat-filter__panel">
+          <button type="button" class="pflege-cat-filter__reset" data-pflege-cat-reset>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9"/><path d="M3 4v5h5"/></svg>
+            Filter zurücksetzen
+          </button>
+          <form class="pflege-cat-filter__form" data-pflege-cat-filter-form data-pflege-cat-filters-desktop></form>
+        </div>
+      </aside>
+
+      <div class="pflege-cat-filtered__main">
+        <div class="pflege-cat-filtered__empty" data-pflege-cat-empty hidden>
+          <div class="pflege-cat-filtered__empty-inner">
+            <h2 class="pflege-cat-filtered__empty-title">Keine passenden Produkte gefunden</h2>
+            <p class="pflege-cat-filtered__empty-text">Entfernen Sie einzelne Filter oder setzen Sie alle Filter zurück.</p>
+            <button type="button" class="pflege-cat-filtered__empty-btn" data-pflege-cat-reset>Filter zurücksetzen</button>
+          </div>
+        </div>
+
+        <ul class="pflege-cat-filtered__grid" data-pflege-cat-grid role="list" aria-live="polite"></ul>
+
+        {% render 'pflege-category-trust-bar' %}
+      </div>
+    </div>
+  </div>
+
+  <div
+    id="PflegeCatDrawer-{{ section.id }}"
+    class="pflege-cat-filtered__drawer"
+    data-pflege-cat-drawer
+    hidden
+    aria-hidden="true"
+    aria-modal="true"
+    role="dialog"
+    aria-labelledby="PflegeCatDrawerTitle-{{ section.id }}"
+  >
+    <div class="pflege-cat-filtered__drawer-backdrop" data-pflege-cat-drawer-close aria-hidden="true">
+      <span class="pflege-cat-filtered__drawer-backdrop-blur" aria-hidden="true"></span>
+      <span class="pflege-cat-filtered__drawer-backdrop-dim" aria-hidden="true"></span>
+    </div>
+    <div class="pflege-cat-filtered__drawer-panel">
+      <div class="pflege-cat-filtered__drawer-head">
+        <h2 class="pflege-cat-filtered__drawer-title" id="PflegeCatDrawerTitle-{{ section.id }}">Filter</h2>
+        <button type="button" class="pflege-cat-filtered__drawer-close" data-pflege-cat-drawer-close aria-label="Filter schließen">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="pflege-cat-filtered__drawer-body">
+        <form class="pflege-cat-filter__form" data-pflege-cat-filter-form data-pflege-cat-filters-drawer></form>
+      </div>
+      <div class="pflege-cat-filtered__drawer-foot">
+        <button type="button" class="pflege-cat-filtered__drawer-apply" data-pflege-cat-drawer-apply>Produkte anzeigen</button>
+        <button type="button" class="pflege-cat-filtered__drawer-reset" data-pflege-cat-reset>Filter zurücksetzen</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="application/json" data-pflege-cat-config>
+    {
+      "collectionHandle": {{ collection.handle | json }},
+      "products": {{ cat_products_json | strip }}
+    }
+  </script>
+</section>
+
+{% schema %}
+{
+  "name": "Kategorie mit Filter",
+  "tag": "section",
+  "class": "pflege-category-filtered-section section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Überschrift",
+      "default": "Hände- und Flächendesinfektion"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Beschreibung",
+      "default": "Unsere Desinfektionsprodukte bieten zuverlässigen Schutz für Hände und Oberflächen – für Pflege, Haushalt, Praxis und Alltag. Wählen Sie zwischen Händedesinfektion, Flächendesinfektion, Körperdesinfektion, Tüchern, Gelen und Sprays."
+    },
+    {
+      "type": "header",
+      "content": "Inkontinenz-Banner"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_promo_banner",
+      "label": "Promo-Banner anzeigen (Inkontinenz)",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "promo_heading",
+      "label": "Banner-Überschrift",
+      "default": "Sparen Sie Geld: Inkontinenzversorgung mit Rezeptabrechnung möglich!"
+    },
+    {
+      "type": "textarea",
+      "id": "promo_text",
+      "label": "Banner-Text",
+      "default": "Fordern Sie unser kostenloses Testpaket an und finden Sie unverbindlich das Produkt, das wirklich zu Ihnen passt. Wir übernehmen die Organisation und Abrechnung für Sie!"
+    },
+    {
+      "type": "text",
+      "id": "promo_button_label",
+      "label": "Banner-Button",
+      "default": "Kostenloses Testpaket erhalten"
+    },
+    {
+      "type": "url",
+      "id": "promo_button_link",
+      "label": "Banner-Button-Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "promo_image",
+      "label": "Banner-Bild (optional, sonst Theme-Asset)"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Farbschema",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Abstand oben",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Abstand unten",
+      "default": 48
+    }
+  ],
+  "presets": [{ "name": "Kategorie mit Filter" }]
+}
+{% endschema %}

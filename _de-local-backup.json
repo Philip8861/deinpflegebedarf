@@ -1,0 +1,1088 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "general": {
+    "password_page": {
+      "login_form_heading": "Shop mit Passwort betreten:",
+      "login_password_button": "Mit Passwort betreten",
+      "login_form_password_label": "Passwort",
+      "login_form_password_placeholder": "Dein Passwort",
+      "login_form_error": "Falsches Passwort!",
+      "login_form_submit": "Eingeben",
+      "admin_link_html": "Bist du der Shop-Inhaber? <a href=\"/admin\" class=\"link underlined-link\">Hier einloggen</a>",
+      "powered_by_shopify_html": "Dieser Shop wird unterstützt von {{ shopify }}"
+    },
+    "social": {
+      "alt_text": {
+        "share_on_facebook": "Auf Facebook teilen",
+        "share_on_twitter": "Auf X teilen",
+        "share_on_pinterest": "Auf Pinterest pinnen"
+      },
+      "links": {
+        "twitter": "X (Twitter)",
+        "facebook": "Facebook",
+        "pinterest": "Pinterest",
+        "instagram": "Instagram",
+        "tumblr": "Tumblr",
+        "snapchat": "Snapchat",
+        "youtube": "YouTube",
+        "vimeo": "Vimeo",
+        "tiktok": "TikTok"
+      }
+    },
+    "continue_shopping": "Weiter einkaufen",
+    "pagination": {
+      "label": "Seitennummerierung",
+      "page": "Seite {{ number }}",
+      "next": "Nächste Seite",
+      "previous": "Vorherige Seite"
+    },
+    "search": {
+      "search": "Suchen",
+      "reset": "Suchbegriff zurücksetzen",
+      "heading": {
+        "one": "{{ count }} Ergebnis",
+        "other": "{{ count }} Ergebnisse"
+      },
+      "results_with_count": {
+        "one": "{{ count }} Ergebnis für „{{ terms }}“",
+        "other": "{{ count }} Ergebnisse für „{{ terms }}“"
+      }
+    },
+    "meta": {
+      "tags": "Getaggt mit „{{ tags }}“",
+      "page": "Seite {{ page }}"
+    },
+    "cart": {
+      "view": "Warenkorb anzeigen ({{ count }})",
+      "item_added": "In den Warenkorb gelegt",
+      "view_empty_cart": "Warenkorb anzeigen",
+      "notification_heading": "Prima, der Artikel wartet jetzt im Warenkorb auf dich!",
+      "notification_subtext": "",
+      "notification_recos_heading": "Oft zusammen gekauft: hilfreiche Produkte für die häusliche Pflege",
+      "notification_checkout": "Zur Kasse",
+      "notification_continue": "Weiter einkaufen",
+      "notification_qty": {
+        "one": "{{ count }} Artikel",
+        "other": "{{ count }} Artikel"
+      },
+      "trust_pay_title": "Sichere Zahlung",
+      "trust_pay_sub": "SSL-verschlüsselt",
+      "trust_quality_title": "100% geprüfte Qualität",
+      "trust_quality_sub": "Sorgfältig ausgewählte Produkte",
+      "trust_ship_title": "Schneller Versand",
+      "trust_ship_sub": "in 1 - 2 Tagen"
+    },
+    "share": {
+      "copy_to_clipboard": "Link kopieren",
+      "share_url": "Link",
+      "success_message": "Link in die Zwischenablage kopiert",
+      "close": "Teilen schließen"
+    },
+    "slider": {
+      "of": "von",
+      "next_slide": "Nach rechts schieben",
+      "previous_slide": "Nach links schieben",
+      "name": "Slider"
+    }
+  },
+  "newsletter": {
+    "label": "E-Mail",
+    "success": "Danke für deine Anmeldung",
+    "button_label": "Abonnieren"
+  },
+  "accessibility": {
+    "skip_to_text": "Direkt zum Inhalt",
+    "close": "Schließen",
+    "unit_price_separator": "pro",
+    "vendor": "Anbieter:",
+    "error": "Fehler",
+    "refresh_page": "Wenn du dich für eine Auswahl entscheidest, wird die Seite komplett aktualisiert.",
+    "link_messages": {
+      "new_window": "Wird in einem neuen Fenster geöffnet.",
+      "external": "Öffnet externe Webseite."
+    },
+    "loading": "Wird geladen ...",
+    "skip_to_product_info": "Zu Produktinformationen springen",
+    "total_reviews": "Bewertungen insgesamt",
+    "star_reviews_info": "{{ rating_value }} von {{ rating_max }} Sternen",
+    "collapsible_content_title": "Einklappbarer Inhalt",
+    "complementary_products": "Ergänzende Produkte"
+  },
+  "blogs": {
+    "article": {
+      "blog": "Blog",
+      "read_more_title": "Weiterlesen: {{ title }}",
+      "comments": {
+        "one": "{{ count }} Kommentar",
+        "other": "{{ count }} Kommentare"
+      },
+      "moderated": "Bitte beachte, dass Kommentare vor der Veröffentlichung freigegeben werden müssen.",
+      "comment_form_title": "Hinterlasse einen Kommentar",
+      "name": "Name",
+      "email": "E-Mail",
+      "message": "Kommentar",
+      "post": "Kommentar posten",
+      "back_to_blog": "Zurück zum Blog",
+      "share": "Diesen Artikel teilen",
+      "success": "Dein Kommentar wurde erfolgreich gepostet! Vielen Dank!",
+      "success_moderated": "Dein Kommentar wurde erfolgreich gepostet. Da unser Blog moderiert wird, werden wir ihn erst kurze Zeit später veröffentlichen."
+    }
+  },
+  "onboarding": {
+    "product_title": "Beispiel für Produkttitel",
+    "collection_title": "Name deiner Kollektion"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "In den Warenkorb",
+      "description": "Beschreibung",
+      "on_sale": "Angebot",
+      "quantity": {
+        "label": "Anzahl",
+        "input_label": "Anzahl von {{ product }}",
+        "increase": "Erhöhe die Menge für {{ product }}",
+        "decrease": "Verringere die Menge für {{ product }}",
+        "minimum_of": "Mindestens {{ quantity }}",
+        "maximum_of": "Maximal {{ quantity }}",
+        "multiples_of": "In {{ quantity }}er Schritten",
+        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}</span> im Warenkorb",
+        "note": "Mengenregeln anzeigen",
+        "min_of": "Mindestens {{ quantity }}",
+        "max_of": "Höchstens {{ quantity }}",
+        "in_cart_aria_label": "Menge ({{ quantity }} im Warenkorb)"
+      },
+      "price": {
+        "from_price_html": "Von {{ price }}",
+        "regular_price": "Normaler Preis",
+        "sale_price": "Verkaufspreis",
+        "unit_price": "Grundpreis"
+      },
+      "share": "Dieses Produkt teilen",
+      "sold_out": "Ausverkauft",
+      "unavailable": "Nicht verfügbar",
+      "vendor": "Anbieter",
+      "video_exit_message": "{{ title }} öffnet das Video auf derselben Seite im Vollbildmodus.",
+      "xr_button": "In deinem Bereich ansehen",
+      "xr_button_label": "\"Ansicht in deinem Raum\" lädt den Artikel in ein Augmented-Reality-Fenster",
+      "pickup_availability": {
+        "view_store_info": "Shop-Informationen anzeigen",
+        "check_other_stores": "Verfügbarkeit in anderen Shops überprüfen",
+        "pick_up_available": "Abholung verfügbar",
+        "pick_up_available_at_html": "Abholung bei <span class=\"color-foreground\">{{ location_name }}</span> verfügbar",
+        "pick_up_unavailable_at_html": "Abholung bei <span class=\"color-foreground\">{{ location_name }}</span> derzeit nicht verfügbar",
+        "unavailable": "Verfügbarkeit für Abholungen konnte nicht geladen werden",
+        "refresh": "Aktualisieren"
+      },
+      "media": {
+        "open_media": "Medien {{ index }} in Modal öffnen",
+        "play_model": "3D-Viewer abspielen",
+        "play_video": "Video abspielen",
+        "gallery_viewer": "Galerie-Viewer",
+        "load_image": "Bild {{ index }} in Galerieansicht laden",
+        "load_model": "3D-Modell {{ index }} in Galerieansicht laden",
+        "load_video": "Video {{ index }} in Galerieansicht abspielen",
+        "image_available": "Bild {{ index }} ist nun in der Galerieansicht verfügbar"
+      },
+      "nested_label": "{{ title }} für {{ parent_title }}",
+      "view_full_details": "Vollständige Details anzeigen",
+      "shipping_policy_html": "<a href=\"{{ link }}\">Versand</a> wird an der Kasse berechnet",
+      "choose_options": "Optionen auswählen",
+      "choose_product_options": "Optionen für {{ product_name }} auswählen",
+      "value_unavailable": "{{ option_value }} – nicht verfügbar",
+      "variant_sold_out_or_unavailable": "Variante ausverkauft oder nicht verfügbar",
+      "inventory_in_stock": "Sofort lieferbar",
+      "inventory_in_stock_show_count": "{{ quantity }} auf Lager",
+      "inventory_low_stock": "Niedriger Lagerbestand",
+      "inventory_low_stock_show_count": "Niedriger Lagerbestand: {{ quantity }} verbleibend",
+      "inventory_out_of_stock": "Nicht vorrätig",
+      "inventory_out_of_stock_continue_selling": "Sofort lieferbar",
+      "pflege_cart": {
+        "wishlist": "Auf den Merkzettel",
+        "delivery_eta": "in 1–2 Werktagen bei dir",
+        "trust_ship_title": "Kostenloser Versand ab 150 €",
+        "trust_ship_sub": "",
+        "trust_payment_title": "Sichere Zahlung",
+        "trust_quality_title": "100 % geprüfte Qualität",
+        "trust_quality_sub": "Sorgfältig ausgewählte Produkte",
+        "trust_discrete_title": "100 % diskreter Versand",
+        "trust_discrete_sub": "Neutrale Verpackung, unauffällig zugestellt",
+        "pay_methods_label": "Sicher bezahlen mit",
+        "pay_methods_aria": "Akzeptierte Zahlungsarten",
+        "pay_trust_title": "100 % sichere Bezahlung & diskreter Versand",
+        "pay_trust_desc": "Zahle bequem mit den bekannten Zahlungsarten. Deine Bestellung wird neutral verpackt und unauffällig zugestellt.",
+        "pay_trust_badge_ssl": "SSL-verschlüsselt",
+        "pay_trust_badge_packaging": "Neutrale Verpackung",
+        "pay_trust_aria": "Sichere Bezahlung und diskreter Versand",
+        "trust_care_title": "Von Pflegekräften empfohlen",
+        "trust_care_sub": "Vertrauen, das zählt"
+      },
+      "pflege_pdp": {
+        "tabs_aria": "Produktdetails und Bewertungen",
+        "reviews_placeholder": "Binden Sie z. B. die Shopify Produktbewertungen oder eine App ein – dann erscheint der Inhalt in diesem Bereich automatisch hier.",
+        "reviews_link_suffix": "Kundenbewertungen",
+        "bestseller_badge": "Bestseller",
+        "rating_placeholder": "Noch keine Bewertungen vorhanden.",
+        "claims_aria": "Ausgewählte Produktdetails und Vorteile",
+        "claim_fallback_1": "Für empfindliche Haut und sanfte Anwendung geeignet",
+        "claim_fallback_2": "Pflegende, ausgewogene Rezeptur",
+        "claim_fallback_3": "Geeignet für den Pflege- und häuslichen Bereich",
+        "claim_fallback_4": "Verlässliche Qualität und dokumentierte Produktinfos",
+        "quick_usp_fallback_1": "Geprüfte Qualität",
+        "quick_usp_fallback_2": "Von Pflegekräften empfohlen",
+        "quick_usp_fallback_3": "Für die häusliche & professionelle Pflege",
+        "quick_usp_fallback_4": "Verlässliche Qualität aus dem Pflegebereich",
+        "service_foot_aria": "Service und Rahmenbedingungen",
+        "service_foot_shipping_title": "Schneller Versand",
+        "service_foot_shipping_sub": "In 1–2 Tagen bei dir",
+        "service_foot_support_title": "Persönliche Beratung",
+        "service_foot_support_sub": "08334 / 9893330",
+        "service_foot_quality_title": "Versandfertig in 1-2 Tagen",
+        "service_foot_quality_sub": "",
+        "unified_info_aria": "Produktinformationen und Downloads",
+        "hilfsmittelnummer_label": "Hilfsmittelnummer:",
+        "product_sheet_download": "Produktblatt herunterladen",
+        "unified_placeholder_beschreibung": "Hier erscheint die Produktbeschreibung, sobald das Metafeld „Beschreibung“ (custom.beschreibung) im Admin befüllt ist.",
+        "unified_placeholder_anwendung": "Hier erscheint die Anwendung, sobald das Metafeld „Anwendung“ (custom.anwendung) befüllt ist.",
+        "unified_placeholder_produkteigenschaften": "Hier erscheinen die Produkteigenschaften, sobald das Metafeld „Produkteigenschaften“ (custom.produkteigenschaften) befüllt ist.",
+        "unified_placeholder_hilfsmittel": "wird ergänzt",
+        "unified_placeholder_pdf": "Produktblatt: noch kein PDF hinterlegt (Metafeld z. B. custom.produktblatt).",
+        "meta_strip_aria": "Kurzinfos zum Produkt",
+        "meta_strip_title_beschreibung": "Beschreibung",
+        "meta_strip_title_anwendung": "Anwendung",
+        "meta_strip_title_eigenschaften": "Produkteigenschaften",
+        "meta_strip_title_hilfsmittel": "Hilfsmittelnummer",
+        "meta_strip_title_pdf": "Produktblatt",
+        "meta_strip_placeholder_body": "Inhalt folgt – bitte Metafeld im Shopify-Admin befüllen."
+      },
+      "sku": "SKU",
+      "volume_pricing": {
+        "title": "Volumenabhängige Preisgestaltung",
+        "note": "Volumenabhängige Preisgestaltung verfügbar",
+        "minimum": "{{ quantity }}+",
+        "price_range": "{{ minimum }}–{{ maximum }}",
+        "price_at_each_html": "bei {{ price }}/Stück"
+      },
+      "product_variants": "Produktvarianten",
+      "taxes_included": "Inkl. Steuern.",
+      "duties_included": "Inkl. Zollgebühren.",
+      "duties_and_taxes_included": "Inkl. Zollgebühren und Steuern."
+    },
+    "modal": {
+      "label": "Medien-Galerie"
+    },
+    "facets": {
+      "apply": "Anwenden",
+      "clear": "Löschen",
+      "clear_all": "Alle entfernen",
+      "from": "Von",
+      "filter_and_sort": "Filtern und sortieren",
+      "filter_by_label": "Filter:",
+      "filter_button": "Filter",
+      "filters_selected": {
+        "one": "{{ count }} ausgewählt",
+        "other": "{{ count }} ausgewählt"
+      },
+      "max_price": "Der höchste Preis ist {{ price }}",
+      "product_count": {
+        "one": "{{ product_count }} von {{ count }} Produkt",
+        "other": "{{ product_count }} von {{ count }} Produkten"
+      },
+      "product_count_simple": {
+        "one": "{{ count }} Produkt",
+        "other": "{{ count }} Produkte"
+      },
+      "reset": "Zurücksetzen",
+      "sort_button": "Sortieren",
+      "sort_by_label": "Sortieren nach:",
+      "to": "Bis",
+      "clear_filter": "Filter entfernen",
+      "filter_selected_accessibility": "{{ type }} ({{ count }} Filter ausgewählt)",
+      "show_more": "Mehr anzeigen",
+      "show_less": "Weniger anzeigen",
+      "filter_and_operator_subtitle": "Allen entsprechen"
+    }
+  },
+  "templates": {
+    "search": {
+      "no_results": "Keine Ergebnisse gefunden für \"{{ terms }}\". Überprüfe die Schreibweise oder versuche es mit einer anderen Suchanfrage.",
+      "results_with_count": {
+        "one": "{{ count }} Ergebnis",
+        "other": "{{ count }} Ergebnisse"
+      },
+      "title": "Suchergebnisse",
+      "page": "Seite",
+      "products": "Produkte",
+      "search_for": "Suchbegriff: „{{ terms }}“",
+      "results_with_count_and_term": {
+        "one": "{{ count }} Ergebnis für \"{{ terms }}\" gefunden",
+        "other": "{{ count }} Ergebnisse für \"{{ terms }}\" gefunden"
+      },
+      "results_pages_with_count": {
+        "one": "{{ count }} Seite",
+        "other": "{{ count }} Seiten"
+      },
+      "results_suggestions_with_count": {
+        "one": "{{ count }} Vorschlag",
+        "other": "{{ count }} Vorschläge"
+      },
+      "results_products_with_count": {
+        "one": "{{ count }} Produkt",
+        "other": "{{ count }} Produkte"
+      },
+      "suggestions": "Vorschläge",
+      "pages": "Seiten"
+    },
+    "cart": {
+      "cart": "Warenkorb"
+    },
+    "contact": {
+      "form": {
+        "name": "Name",
+        "email": "E-Mail",
+        "phone": "Telefonnummer",
+        "comment": "Kommentar",
+        "send": "Senden",
+        "post_success": "Danke, dass du uns kontaktiert hast. Wir werden uns so schnell wie möglich bei dir melden.",
+        "error_heading": "Bitte passe Folgendes an:",
+        "title": "Kontaktformular"
+      }
+    },
+    "404": {
+      "title": "in Arbeit",
+      "subtext": "404"
+    }
+  },
+  "sections": {
+    "header": {
+      "announcement": "Ankündigung",
+      "menu": "Menü",
+      "cart_count": {
+        "one": "{{ count }} Artikel",
+        "other": "{{ count }} Artikel"
+      }
+    },
+    "related_products": {
+      "view_all": "Alle anzeigen →"
+    },
+    "pflege_header_category_rail": {
+      "nav_aria": "Produktkategorien",
+      "cat_free_care": "Kostenfreie Pflegehilfsmittel",
+      "cat_ink": "Inkontinenzversorgung",
+      "cat_body": "Körperpflege",
+      "cat_skin": "Hautpflege",
+      "cat_gloves": "Schutz & Handschuhe",
+      "cat_des": "Hände und Flächendesinfektion",
+      "cat_consumables": "Verbrauchsartikel"
+    },
+    "pflege_collection_bottom_content": {
+      "default_aria": "Ausführliche Informationen zur Kategorie"
+    },
+    "pflege_collection": {
+      "finder_heading": "Unsicher, welches Produkt passt?",
+      "finder_text_default": "Unser Produktfinder hilft Ihnen in wenigen Schritten zur passenden Auswahl.",
+      "finder_cta": "Produktfinder starten",
+      "fallback_intro": "In der Kategorie {{ title }} finden Sie durchdacht zusammengestellte Produkte für Ihren Pflegebedarf.",
+      "fallback_usp_1": "Hohe Qualität und verlässliche Markenstandards.",
+      "fallback_usp_2": "Klare Produktwahl und übersichtliche Darstellung.",
+      "fallback_usp_3": "Persönlicher Service und Beratung bei der Auswahl.",
+      "seo_fallback": "Die folgenden Produkte in {{ title }} können Sie bequem online bestellen. Sie profitieren von schneller Orientierung und vollständigen Detailseiten je Artikel.",
+      "view_details": "Details ansehen",
+      "view_details_aria": "{{ title }} — Details zur Produktseite",
+      "usp_list_label": "Vorteile in dieser Kategorie"
+    },
+    "pflege_category_filtered": {
+      "desinfektion": {
+        "meta_title": "Hände- & Flächendesinfektion online kaufen | Desinfektionsmittel",
+        "meta_description": "Händedesinfektion, Flächendesinfektion, Desinfektionstücher, Gele & Sprays für Pflege, Praxis und Haushalt. Nach Typ filtern, vergleichen und sicher online bestellen."
+      },
+      "hautpflege": {
+        "meta_title": "Hautpflege online kaufen | Cremes, Lotionen & Hautschutz",
+        "meta_description": "Hautpflege für Pflege & Alltag: Cremes, Lotionen, Waschprodukte und Barriercremes bei trockener, sensibler oder gereizter Haut. Filtern und bequem bestellen.",
+        "description": "Pflegende Cremes, Lotionen, Waschprodukte und Hautschutz für den Alltag in Pflege, Haushalt und Praxis. Finden Sie passende Produkte für normale, trockene, sensible oder gereizte Haut – von der Körperpflege bis zur Wund- und Inkontinenzversorgung."
+      },
+      "inkontinenzversorgung": {
+        "meta_title": "Inkontinenzversorgung online kaufen | Slips, Pants & Einlagen",
+        "meta_description": "Diskreter Schutz bei Blasenschwäche: Inkontinenzslips, Pants, Einlagen, Vorlagen und Bettschutzeinlagen. Nach Saugstärke, Größe und Marke filtern – Rezeptabrechnung möglich.",
+        "heading": "Inkontinenzversorgung",
+        "description": "Diskreter und zuverlässiger Schutz bei Blasenschwäche und Inkontinenz – für Zuhause, unterwegs und nachts. Finden Sie passende Inkontinenzslips, Pants, Einlagen, Vorlagen oder Bettschutzeinlagen in der richtigen Saugstärke und Größe. Filtern Sie nach Produkttyp, Marke und Geschlecht und bestellen Sie bequem nach Hause.",
+        "promo_heading": "Sparen Sie Geld: Inkontinenzversorgung mit Rezeptabrechnung möglich!",
+        "promo_text": "Fordern Sie unser kostenloses Testpaket an und finden Sie unverbindlich das Produkt, das wirklich zu Ihnen passt. Wir übernehmen die Organisation und Abrechnung für Sie!",
+        "promo_button_label": "Kostenloses Testpaket erhalten"
+      },
+      "verbrauchsartikel": {
+        "meta_title": "Verbrauchsartikel online kaufen | Einweg & Pflegebedarf",
+        "meta_description": "Verbrauchsartikel für Pflege und Haushalt: Bettschutzeinlagen, Schutzschürzen, Masken, Tücher und Entsorgung. Nach Typ filtern und bequem bestellen.",
+        "description": "Einwegartikel und Verbrauchsmaterial für Pflege, Haushalt und Praxis – von Bettschutzeinlagen über Schutzschürzen bis zu Entsorgungsbeuteln. Filtern Sie nach Produkttyp, Material, Saugstärke, Verpackung, Marke und Preis."
+      },
+      "koerperpflege": {
+        "meta_title": "Körperpflege online kaufen | Waschutensilien & Pflegeprodukte",
+        "meta_description": "Körperpflege für den Pflegealltag: Waschhandschuhe, Shampoo, Duschgel, Zahnpflege und mehr. Nach Produkttyp und Anwendungsbereich filtern.",
+        "description": "Waschhandschuhe, Shampoo, Duschgel, Zahnpflege und mehr für den Pflegealltag – bei Bettlägerigkeit, im Bad oder unterwegs. Filtern Sie nach Produkttyp, Anwendungsbereich und Eigenschaften."
+      },
+      "schutz_handschuhe": {
+        "meta_title": "Schutz & Handschuhe online kaufen | Einmalhandschuhe & Schutz",
+        "meta_description": "Einmalhandschuhe, Schutzmasken, Schürzen und Schutzbekleidung für Pflege, Praxis und Haushalt. Nach Material, Größe, Schutzklasse und Marke filtern.",
+        "description": "Einmalhandschuhe in Nitril, Latex und Vinyl, dazu Masken, Schürzen, Überschuhe und Schutzbekleidung für Pflege, Praxis und Haushalt. Filtern Sie nach Produkttyp, Material, Handschuhgröße, Schutzklasse, Verpackung und Marke."
+      }
+    },
+    "pflege_collection_free_care": {
+      "meta_title": "Kostenfreie Pflegehilfsmittel ab Pflegegrad 1 | Pflegebox konfigurieren",
+      "meta_description": "Sichern Sie sich Pflegehilfsmittel im Wert von bis zu 42 € monatlich kostenlos ab Pflegegrad 1. Wunschbox konfigurieren, Antrag stellen lassen und bequem beliefern lassen.",
+      "hero_badge": "Kostenfreie Pflegehilfsmittel ab Pflegegrad 1",
+      "hero_image_alt": "Kostenfreie Pflegehilfsmittel für die häusliche Pflege",
+      "hero_h1": "Wussten Sie schon?",
+      "hero_h2": "",
+      "hero_sub": "Viele Produkte aus unserem Shop müssen Sie nicht selbst bezahlen. Ab Pflegegrad 1 können Sie Pflegehilfsmittel im Wert von bis zu 42 € monatlich kostenlos über die Pflegekasse erhalten.",
+      "hero_p1": "Viele Produkte aus unserem Shop müssen Sie nicht selbst bezahlen. Ab Pflegegrad 1 können Sie Pflegehilfsmittel im Wert von bis zu 42 € monatlich kostenlos über die Pflegekasse erhalten.",
+      "hero_p2": "Dazu gehören zum Beispiel Einmalhandschuhe, Händedesinfektion, Flächendesinfektion, Schutzschürzen, Mundschutz, FFP2-Masken und Bettschutzeinlagen zum Einmalgebrauch.",
+      "hero_p3": "Über unseren Pflegebox-Konfigurator stellen Sie Ihre Wunschbox einfach online zusammen. Wir übernehmen anschließend die weiteren Formalitäten mit der Pflegekasse für Sie.",
+      "trust_kassen": "Zugelassen bei allen Krankenkassen in Deutschland.",
+      "cta_configure": "Pflegebox jetzt konfigurieren",
+      "cta_more_info": "Weitere Infos",
+      "cta_check_configure": "Anspruch prüfen und Box konfigurieren",
+      "cta_configure_box": "Jetzt Pflegebox konfigurieren",
+      "cta_more_info_view": "Mehr Infos ansehen",
+      "benefit_1_title": "Bis zu 42 € monatlich",
+      "benefit_1_text": "Die Pflegekasse übernimmt Pflegehilfsmittel zum Verbrauch bis zur gesetzlichen Höchstgrenze.",
+      "benefit_2_title": "Bereits ab Pflegegrad 1",
+      "benefit_2_text": "Der Anspruch besteht schon ab Pflegegrad 1 bei häuslicher Pflege.",
+      "benefit_3_title": "Keine Belege jeden Monat",
+      "benefit_3_text": "Nach Genehmigung läuft die Belieferung und Abrechnung automatisch.",
+      "benefit_4_title": "Wir übernehmen die Formalitäten",
+      "benefit_4_text": "Sie konfigurieren Ihre Wunschbox, wir kümmern uns um den Antrag bei der Pflegekasse.",
+      "pregrid_aria": "Hinweis vor der Produktübersicht",
+      "pregrid_text": "Sie können diese Produkte weiterhin direkt im Shop kaufen. Wenn jedoch ein Pflegegrad vorliegt, lohnt sich in vielen Fällen der Weg über unsere kostenfreie Pflegebox. So sparen Sie unnötige Ausgaben und nutzen Ihren gesetzlichen Anspruch.",
+      "box_products_title": "Artikel die in der kostenfreien Pflegebox enthalten sind",
+      "box_products_intro": "Jetzt konfigurieren und bis zu 504€ im Jahr sparen!",
+      "advantages_us_heading": "Ihre Vorteile bei uns",
+      "advantages_us_subtitle": "",
+      "advantages_us_item_1_title": "Inkontinenzversorgung bequem per Rezept",
+      "advantages_us_item_1_text": "Auf Wunsch mit Rezeptabrechnung möglich. Die passenden Produkte werden direkt nach Hause geliefert. So sparen Sie sich den Weg zur Apotheke.",
+      "advantages_us_item_2_title": "Geprüfte Qualität durch Pflegekräfte",
+      "advantages_us_item_2_text": "Unsere Produktauswahl wird mit pflegefachlicher Erfahrung geprüft. So können Sie sich auf eine Versorgung verlassen, die zu Ihnen passt.",
+      "advantages_us_item_3_title": "Schneller Versand nach Hause",
+      "advantages_us_item_3_text": "Diskret, zuverlässig und direkt an Ihre Wunschadresse geliefert.",
+      "advantages_us_item_4_title": "Sichere Zahlung und Rezeptabwicklung",
+      "advantages_us_item_4_text": "Vertrauliche Daten werden geschützt verarbeitet, egal ob Rezeptabrechnung oder normale Bestellung.",
+      "advantages_us_item_5_title": "Persönlicher Kundenservice",
+      "advantages_us_item_5_text": "Bei Fragen zur Auswahl, Bestellung oder Versorgung erhalten Sie schnelle und verständliche Unterstützung.",
+      "advantages_us_item_6_title": "Einfache Nachbestellung",
+      "advantages_us_item_6_text": "Wiederkehrende Produkte lassen sich unkompliziert erneut bestellen. Das ist praktisch für Ihre regelmäßige Versorgung.",
+      "box_products_view_all": "Alle Pflegebox-Artikel →",
+      "faq_heading": "Häufige Fragen",
+      "faq_intro": "Antworten zur 42-Euro-Pauschale und Ihrer kostenfreien Pflegebox.",
+      "faq_1_q": "Erhalte ich hier auf deinpflegebedarf.de die Pflegebox?",
+      "faq_1_a": "<p>Nein. Die Pflegebox können Sie auf <a href=\"https://www.alltagshilfe-sued.de/pflegehilfsmittel/pflegebox-konfigurator\" rel=\"noopener noreferrer\">alltagshilfe-sued.de/pflegehilfsmittel/pflegebox-konfigurator</a> konfigurieren.</p>",
+      "faq_2_q": "Was sind zum Verbrauch bestimmte Pflegehilfsmittel für 42 Euro?",
+      "faq_2_a": "Das sind Hygieneartikel, die zur häuslichen Pflege benötigt werden und nur einmal verwendet werden können. Die Pflegekasse übernimmt hierfür die Kosten von bis zu 42 € pro Monat.",
+      "faq_3_q": "Wer hat Anspruch auf die 42 Euro Pauschale?",
+      "faq_3_a": "Anspruch haben alle Pflegebedürftigen, die einen anerkannten Pflegegrad (1 bis 5) haben.",
+      "faq_4_q": "Reicht Pflegegrad 1 für den Erhalt der Pflegehilfsmittel aus?",
+      "faq_4_a": "Ja. Bereits ab Pflegegrad 1 besteht der volle gesetzliche Anspruch auf die monatliche Pauschale von 42 €.",
+      "faq_5_q": "Welche Produkte sind in einer typischen Pflegebox enthalten?",
+      "faq_5_a": "Typische Produkte sind: Einmalhandschuhe, Flächendesinfektionsmittel, Händedesinfektion, Bettschutzeinlagen (Einmalgebrauch), Schutzschürzen und Mundschutz (FFP2 oder medizinisch).",
+      "faq_6_q": "Wie beantrage ich die 42 Euro bei der Pflegekasse?",
+      "faq_6_a": "Sie erstellen im Pflegebox-Konfigurator Ihre Wunschbox, wir übernehmen alle weiteren Formalitäten für Sie!",
+      "faq_7_q": "Sind die Pflegehilfsmittel wirklich zu 100 % kostenlos?",
+      "faq_7_a": "Ganz einfach: Ja! Wir sind zugelassen bei allen Krankenkassen in Deutschland, diese übernehmen die Kosten ab Pflegegrad 1.",
+      "faq_8_q": "Muss ich jeden Monat neue Belege einreichen?",
+      "faq_8_a": "Nein. Sobald der Dauerantrag von der Pflegekasse genehmigt wurde, erfolgt die Belieferung und Abrechnung automatisch.",
+      "faq_9_q": "Kann man die 42 Euro Pauschale auch rückwirkend beantragen?",
+      "faq_9_a": "Eine rückwirkende Erstattung ist schwierig und meist nur für den Monat der Antragstellung möglich. Es empfiehlt sich daher, den Antrag so früh wie möglich zu stellen.",
+      "faq_10_q": "Was passiert, wenn ich in einem Monat weniger als 42 Euro verbrauche?",
+      "faq_10_a": "Der Betrag ist eine Höchstgrenze. Nicht genutztes Budget verfällt am Ende des Monats und kann nicht in den nächsten Monat übertragen oder bar ausgezahlt werden.",
+      "faq_11_q": "Besteht der Anspruch auch bei einer Unterbringung im Pflegeheim?",
+      "faq_11_a": "Nein. Der Anspruch besteht nur für die häusliche Pflege. In stationären Einrichtungen ist das Heim für die Bereitstellung von Hygieneartikeln zuständig.",
+      "faq_12_q": "Kann ich die Auswahl der Produkte in meiner Box monatlich ändern?",
+      "faq_12_a": "Das ist problemlos möglich – kontaktieren Sie uns einfach über die Kontaktseite.",
+      "faq_13_q": "Wie lange dauert die Genehmigung durch die Pflegekasse?",
+      "faq_13_a": "Dies ist unterschiedlich und abhängig von Ihrer Pflegekasse. In der Regel erhalten Sie Ihre Pflegebox jedoch nach etwa 5–7 Werktagen.",
+      "faq_14_q": "Werden auch FFP2-Masken über die Pauschale finanziert?",
+      "faq_14_a": "Ja, seit der Corona-Pandemie sind Masken fester Bestandteil des erstattungsfähigen Hilfsmittelverzeichnisses (Produktgruppe 54).",
+      "faq_15_q": "Was ist der Unterschied zwischen technischen Hilfsmitteln und Pflegehilfsmitteln zum Verbrauch?",
+      "faq_15_a": "Technische Hilfsmittel (PG 50) sind langlebige Dinge wie Pflegebetten oder Rollstühle. Zum Verbrauch bestimmte Hilfsmittel (PG 54) sind Hygieneartikel wie Handschuhe, die täglich entsorgt werden.",
+      "closing_title": "Sichern Sie sich Ihre Pflegehilfsmittel kostenlos ab Pflegegrad 1",
+      "closing_text": "Nutzen Sie Ihren gesetzlichen Anspruch und stellen Sie Ihre Pflegebox bequem online zusammen. Unser Konfigurator führt Sie Schritt für Schritt durch die Auswahl.",
+      "testimonials_cta_title": "Ihre Pflegebox kostenlos erhalten",
+      "testimonials_cta_text": "Ab Pflegegrad 1 stehen Ihnen monatlich Pflegehilfsmittel im Wert von bis zu 42 Euro zu. Wählen Sie Ihre Produkte bequem online aus und lassen Sie sich Schritt für Schritt durch die Zusammenstellung führen."
+    },
+    "pflege_faq_accordion": {
+      "heading": "Häufige Fragen",
+      "intro_html": "Antworten zu Bestellung, Versorgung und Lieferung. Mehr zur {{ link }} und zu kostenfreien Pflegehilfsmitteln finden Sie in unseren Kategorien.",
+      "intro_link_label": "Inkontinenzversorgung",
+      "faq_1_q": "Wie funktioniert die Rezeptabrechnung bei Inkontinenzprodukten?",
+      "faq_1_a": "<p>Auf Wunsch übernehmen wir die <strong>Abrechnung mit Ihrer Krankenkasse</strong>. Sie bestellen die passenden Produkte bei uns, wir prüfen die Angaben und kümmern uns um die formale Abwicklung. So entfällt der Gang zur Apotheke.</p>",
+      "faq_2_q": "Wie läuft der Versand nach Hause ab?",
+      "faq_2_a": "<p>Nach Bestellung und Prüfung Ihrer Angaben verpacken wir die Ware <strong>diskret und sicher</strong> und senden sie an Ihre Wunschadresse. Lieferzeit und Versanddetails sehen Sie im Bestellprozess und in der Bestätigung.</p>",
+      "faq_3_q": "Muss ich noch selbst in die Apotheke gehen?",
+      "faq_3_a": "<p>Nein. Bei Rezeptabrechnung oder kostenfreier Pflegebox-Versorgung liefern wir <strong>direkt zu Ihnen nach Hause</strong>. Das spart Zeit und erleichtert die regelmäßige Versorgung im Alltag.</p>",
+      "faq_4_q": "Wie werden die Produkte ausgewählt und geprüft?",
+      "faq_4_a": "<p>Unsere Auswahl orientiert sich an <strong>pflegefachlicher Praxis</strong>. Wir achten auf verlässliche Qualität, passende Größen und eine übersichtliche Produktpalette, damit Sie schnell eine passende Lösung finden.</p>",
+      "faq_5_q": "Ich bin unsicher bei der Produktwahl – wer hilft mir?",
+      "faq_5_a": "<p>Unser Kundenservice unterstützt Sie bei Fragen zu <strong>Größen, Mengen und Bestellablauf</strong>. Bei medizinischen Entscheidungen wenden Sie sich zusätzlich an Ihre Ärztin, Ihren Arzt oder Ihre Pflegefachkraft.</p>",
+      "faq_6_q": "Wie funktioniert die Nachbestellung für die regelmäßige Versorgung?",
+      "faq_6_a": "<p>Bereits bestellte Artikel können Sie <strong>unkompliziert erneut bestellen</strong>. Bei genehmigter Pflegebox oder laufender Rezeptversorgung läuft die Belieferung nach Freigabe in der Regel automatisch weiter.</p>"
+    },
+    "pflege_site_footer_stack": {
+      "aria_label": "Vorteile, Kundenstimmen und häufige Fragen"
+    },
+    "pflege_boxi_faq_strip": {
+      "heading": "Häufige Fragen",
+      "intro_default": "Antworten zum Bestellvorgang, Versand, Rückgabe und Ablauf",
+      "load_more": "Weitere Fragen und Antworten laden",
+      "load_less": "Weniger Fragen anzeigen"
+    },
+    "customer_testimonials_hp": {
+      "dots_label": "Kundenstimmen auswählen",
+      "dot_aria": "Kundenstimme {{ index }} anzeigen",
+      "show_less": "Weniger anzeigen",
+      "chevron_down": "▼",
+      "verified_buyer": "Zertifizierter Käufer",
+      "review_submit": "Bewertung abgeben",
+      "review_lastname": "Nachname",
+      "review_firstname": "Vorname",
+      "review_email": "E-Mail",
+      "review_message": "Nachricht",
+      "review_send": "Bewertung senden",
+      "review_required_note": "Alle mit * markierten Felder sind Pflichtfelder.",
+      "review_success": "Vielen Dank! Ihre Bewertung wurde übermittelt und wird geprüft.",
+      "review_error": "Bitte prüfen Sie die markierten Felder und versuchen Sie es erneut."
+    },
+    "cart": {
+      "title": "Warenkorb",
+      "caption": "Artikel im Warenkorb",
+      "remove_title": "{{ title }} aus Warenkorb entfernen",
+      "note": "Spezielle Bestellanweisungen",
+      "checkout": "Zur Kasse",
+      "empty": "Dein Warenkorb ist leer",
+      "cart_error": "Beim Aktualisieren deines Warenkorbs ist ein Fehler aufgetreten. Bitte versuche es erneut.",
+      "cart_quantity_error_html": "Du kannst deinem Warenkorb nur {{ quantity }} Stück dieses Artikels hinzufügen.",
+      "headings": {
+        "product": "Produkt",
+        "price": "Preis",
+        "total": "Gesamt",
+        "quantity": "Anzahl",
+        "image": "Produktbild",
+        "unit_price": "Einzelpreis"
+      },
+      "update": "Aktualisieren",
+      "login": {
+        "title": "Hast du ein Konto?",
+        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Logge dich ein</a>, damit es an der Kasse schneller geht."
+      },
+      "estimated_total": "Geschätzte Gesamtkosten",
+      "new_estimated_total": "Neuer geschätzter Gesamtbetrag",
+      "duties_and_taxes_included_shipping_at_checkout_with_policy_html": "Inkl. Zollgebühren und Steuern. Rabatte und <a href=\"{{ link }}\">Versand</a> werden an der Kasse berechnet.",
+      "duties_and_taxes_included_shipping_at_checkout_without_policy": "Inkl. Zollgebühren und Steuern. Rabatte und Versand werden an der Kasse berechnet.",
+      "taxes_included_shipping_at_checkout_with_policy_html": "Inkl. Steuern. Rabatte und <a href=\"{{ link }}\">Versand</a> werden an der Kasse berechnet.",
+      "taxes_included_shipping_at_checkout_without_policy": "Inkl. Steuern. Rabatte und Versand werden an der Kasse berechnet.",
+      "duties_included_taxes_at_checkout_shipping_at_checkout_with_policy_html": "Inkl. Zollgebühren. Steuern, Rabatte und <a href=\"{{ link }}\">Versand</a> werden an der Kasse berechnet.",
+      "duties_included_taxes_at_checkout_shipping_at_checkout_without_policy": "Inkl. Zollgebühren. Steuern, Rabatte und Versand werden an der Kasse berechnet.",
+      "taxes_at_checkout_shipping_at_checkout_with_policy_html": "Steuern, Rabatte und <a href=\"{{ link }}\">Versand</a> werden an der Kasse berechnet.",
+      "taxes_at_checkout_shipping_at_checkout_without_policy": "Steuern, Rabatte und Versand werden an der Kasse berechnet.",
+      "pflege": {
+        "breadcrumb_nav": "Navigationspfad",
+        "breadcrumb_home": "Startseite",
+        "breadcrumb_cart": "Warenkorb",
+        "empty_title": "Ihr Warenkorb ist leer",
+        "empty_text": "Entdecken Sie unsere Pflegeprodukte und finden Sie passende Artikel für Ihren Pflegealltag.",
+        "empty_cta": "Zu Kontakt",
+        "summary_title": "Bestellübersicht",
+        "subtotal": "Zwischensumme",
+        "shipping": "Versand",
+        "shipping_note": "wird berechnet",
+        "discount_with_code": "Rabatt ({{ code }})",
+        "grand_total": "Gesamtsumme",
+        "vat_included": "inkl. MwSt.",
+        "continue_shopping": "Weiter einkaufen",
+        "coupon_title": "Gutschein einlösen",
+        "coupon_placeholder": "Gutscheincode eingeben",
+        "coupon_submit": "Einlösen",
+        "coupon_hint": "Nach dem Einlösen wird die Seite neu geladen; Rabatte erscheinen in der Bestellübersicht.",
+        "availability_in_stock": "Sofort lieferbar!",
+        "price_unit_label": "Stückpreis",
+        "price_line_label": "Gesamtpreis",
+        "service_strip_label": "Service und Vorteile",
+        "service_ship": "Schneller Versand in 1–2 Tagen",
+        "service_phone": "Persönliche Beratung 08334 / 9893330",
+        "service_quality": "100% geprüfte Qualität",
+        "free_shipping_title": "Kostenloser Versand ab 150 €",
+        "free_shipping_remaining": "Noch {{ amount }} bis zum kostenlosen Versand.",
+        "free_shipping_qualified": "Sie erhalten kostenlosen Versand.",
+        "trust_pay_title": "Sicher bezahlen",
+        "trust_pay_sub": "Versandfertig innerhalb 1–2 Tagen",
+        "trust_buyer_title": "Käuferschutz",
+        "trust_buyer_sub": "Viele sichere Zahlungsmethoden",
+        "trust_quality_title": "100% geprüfte Qualität",
+        "trust_quality_sub": "Sorgfältig ausgewählte Produkte",
+        "recommendations_title": "Das könnten Ihnen auch gefallen",
+        "recommendations_view_all": "Alle ansehen →",
+        "recommendations_du_title": "Das könnte dir auch gefallen!",
+        "recommendations_bestseller_title": "Beliebte Pflegeprodukte",
+        "recommendations_bestseller_intro": "Ausgewählte Artikel, die andere Kundinnen und Kunden besonders oft gewählt haben.",
+        "recommendations_bestseller_view_all": "Zur gesamten Auswahl →"
+      }
+    },
+    "footer": {
+      "payment": "Zahlungsmethoden"
+    },
+    "featured_blog": {
+      "view_all": "Alle anzeigen",
+      "onboarding_title": "Blog-Beitrag",
+      "onboarding_content": "Verschaffe deinen Kunden eine Übersicht über deinen Blog-Beitrag"
+    },
+    "featured_collection": {
+      "view_all": "Alle anzeigen",
+      "view_all_label": "Alle Produkte in der Kollektion {{ collection_name }} anzeigen"
+    },
+    "collection_list": {
+      "view_all": "Alle anzeigen"
+    },
+    "collection_template": {
+      "title": "Kategorie",
+      "empty": "Keine Produkte gefunden",
+      "use_fewer_filters_html": "Verwende weniger Filter oder <a class=\"{{ class }}\" href=\"{{ link }}\">entferne alle</a>"
+    },
+    "video": {
+      "load_video": "Video laden: {{ description }}"
+    },
+    "slideshow": {
+      "load_slide": "Folie laden",
+      "previous_slideshow": "Vorherige Folie",
+      "next_slideshow": "Nächste Folie",
+      "pause_slideshow": "Slideshow pausieren",
+      "play_slideshow": "Slideshow abspielen",
+      "carousel": "Karussell",
+      "slide": "Folie"
+    },
+    "page": {
+      "title": "Seitentitel"
+    },
+    "announcements": {
+      "previous_announcement": "Vorherige Ankündigung",
+      "next_announcement": "Nächste Ankündigung",
+      "carousel": "Karussell",
+      "announcement": "Ankündigung",
+      "announcement_bar": "Ankündigungsleiste"
+    },
+    "quick_order_list": {
+      "product_total": "Produktzwischensumme",
+      "view_cart": "Warenkorb ansehen",
+      "each": "{{ money }}/Stück",
+      "product": "Produkt",
+      "variant": "Variante",
+      "variant_total": "Varianten insgesamt",
+      "items_added": {
+        "one": "{{ quantity }} Artikel hinzugefügt",
+        "other": "{{ quantity }} Artikel hinzugefügt"
+      },
+      "items_removed": {
+        "one": "{{ quantity }} Artikel entfernt",
+        "other": "{{ quantity }} Artikel entfernt"
+      },
+      "product_variants": "Produktvarianten",
+      "total_items": "Artikel gesamt",
+      "remove_all_items_confirmation": "Alle {{ quantity }} Artikel aus deinem Warenkorb entfernen?",
+      "remove_all": "Alle entfernen",
+      "cancel": "Abbrechen",
+      "remove_all_single_item_confirmation": "1 Artikel aus dem Warenkorb entfernen?",
+      "min_error": "Dieser Artikel hat ein Minimum von {{ min }}",
+      "max_error": "Dieser Artikel hat ein Maximum von {{ max }}",
+      "step_error": "Du kannst diesen Artikel nur in Abstufungen von {{ step }} hinzufügen."
+    },
+    "pflege_faq_page": {
+      "faq_1_q": "Wie kann ich bei deinpflegebedarf.de bestellen?",
+      "faq_1_a": "<p>Sie können Ihre gewünschten Produkte direkt in unserem Online-Shop auswählen, in den Warenkorb legen und anschließend über den Checkout bestellen. Vor dem Absenden der Bestellung können Sie Ihre Angaben nochmals prüfen und korrigieren.</p>",
+      "faq_2_q": "Erhalte ich eine Bestellbestätigung?",
+      "faq_2_a": "<p>Ja. Nach Abschluss Ihrer Bestellung erhalten Sie eine Bestellbestätigung per E-Mail. Bitte prüfen Sie auch Ihren Spam-Ordner, falls die E-Mail nicht direkt sichtbar ist.</p>",
+      "faq_3_q": "Kann ich meine Bestellung nachträglich ändern?",
+      "faq_3_a": "<p>Bitte kontaktieren Sie uns so schnell wie möglich, wenn Sie eine Bestellung ändern möchten. Solange die Bestellung noch nicht verarbeitet oder versendet wurde, prüfen wir gerne, ob eine Änderung noch möglich ist.</p>",
+      "faq_4_q": "Kann ich meine Bestellung stornieren?",
+      "faq_4_a": "<p>Wenn Ihre Bestellung noch nicht versendet wurde, können Sie uns kontaktieren und eine Stornierung anfragen. Sollte die Bestellung bereits versendet worden sein, können Sie als Verbraucher Ihr gesetzliches Widerrufsrecht nutzen. Weitere Informationen finden Sie auf unserer Seite <a href=\"https://deinpflegebedarf.de/pages/widerrufsbelehrung\">Widerrufsbelehrung</a>.</p>",
+      "faq_5_q": "Kann ich auch ohne Kundenkonto bestellen?",
+      "faq_5_a": "<p>Ob eine Bestellung als Gast oder mit Kundenkonto möglich ist, hängt von den aktuell im Shop aktivierten Einstellungen ab. Wenn ein Kundenkonto genutzt wird, können Sie dort je nach Funktion Ihre Bestellungen und Daten einsehen.</p>",
+      "faq_6_q": "Ich habe keine Bestellbestätigung erhalten. Was kann ich tun?",
+      "faq_6_a": "<p>Bitte prüfen Sie zuerst Ihren Spam-Ordner und kontrollieren Sie, ob die E-Mail-Adresse korrekt eingegeben wurde. Wenn Sie keine Bestätigung finden, kontaktieren Sie uns bitte mit Ihrem Namen und möglichst weiteren Angaben zur Bestellung.</p>",
+      "faq_7_q": "Wohin liefert deinpflegebedarf.de?",
+      "faq_7_a": "<p>Wir liefern innerhalb Deutschlands. Eine Lieferung ins Ausland bieten wir derzeit nicht an.</p>",
+      "faq_8_q": "Wie lange dauert die Lieferung?",
+      "faq_8_a": "<p>Die Lieferzeit beträgt in der Regel 2 bis 5 Werktage nach Zahlungseingang bzw. nach erfolgreicher Zahlungsbestätigung. Bei einzelnen Produkten kann eine abweichende Lieferzeit gelten. In diesem Fall wird diese direkt beim Produkt oder im Bestellprozess angezeigt.</p>",
+      "faq_9_q": "Wie hoch sind die Versandkosten?",
+      "faq_9_a": "<p>Die Versandkosten werden im Warenkorb und im Checkout vor Abschluss der Bestellung deutlich angezeigt.</p><p>Standardversand innerhalb Deutschlands: <strong>4,90 €</strong></p><p>Ab einem Bestellwert von <strong>150,00 €</strong> liefern wir versandkostenfrei.</p><p>Weitere Details finden Sie auf der Seite <a href=\"https://deinpflegebedarf.de/pages/versand-zahlung\">Versand &amp; Zahlung</a>.</p>",
+      "faq_10_q": "Mit welchem Versanddienstleister wird geliefert?",
+      "faq_10_a": "<p>Der Versand erfolgt mit einem von uns ausgewählten Versanddienstleister. Je nach Bestellung, Paketgröße, Gewicht und Lieferadresse kann der Versand insbesondere über DHL, Deutsche Post, DPD, GLS, Hermes oder einen vergleichbaren Versanddienstleister erfolgen.</p>",
+      "faq_11_q": "Erhalte ich eine Sendungsverfolgung?",
+      "faq_11_a": "<p>Wenn eine Sendungsverfolgung verfügbar ist, erhalten Sie nach Versand Ihrer Bestellung eine Versandbestätigung mit Tracking-Link per E-Mail.</p>",
+      "faq_12_q": "Was passiert, wenn mein Paket nicht zugestellt werden kann?",
+      "faq_12_a": "<p>Bitte achten Sie darauf, Ihre Lieferadresse vollständig und korrekt anzugeben. Wenn ein Paket aufgrund einer fehlerhaften Adresse, Nichtabholung oder Annahmeverweigerung an uns zurückgesendet wird, setzen wir uns mit Ihnen in Verbindung. Zusätzliche Kosten für einen erneuten Versand können entstehen, wenn die Rücksendung durch fehlerhafte Angaben oder Nichtabholung verursacht wurde.</p>",
+      "faq_13_q": "Kann ich an eine Packstation liefern lassen?",
+      "faq_13_a": "<p>Wenn der jeweilige Versanddienstleister eine Lieferung an Packstationen unterstützt, kann dies möglich sein. Bitte achten Sie darauf, die Adresse vollständig und korrekt anzugeben. Ob eine Packstation im Einzelfall beliefert werden kann, hängt vom Versanddienstleister, Paketformat und Produkt ab.</p>",
+      "faq_14_q": "Kann meine Bestellung in mehreren Paketen kommen?",
+      "faq_14_a": "<p>Ja, in Einzelfällen kann eine Bestellung in mehreren Paketen oder Teillieferungen versendet werden. Dadurch entstehen Ihnen keine zusätzlichen Versandkosten, sofern nicht ausdrücklich etwas anderes vereinbart wurde.</p>",
+      "faq_15_q": "Welche Zahlungsarten bietet ihr an?",
+      "faq_15_a": "<p>In unserem Online-Shop stehen Ihnen folgende Zahlungsarten zur Verfügung:</p><ul><li>Klarna</li><li>PayPal</li><li>Visa</li><li>Mastercard</li><li>Google Pay</li></ul><p>Die tatsächlich verfügbaren Zahlungsarten werden Ihnen im Checkout angezeigt.</p>",
+      "faq_16_q": "Wann wird meine Zahlung fällig?",
+      "faq_16_a": "<p>Der Kaufpreis ist im Rahmen des Bestellabschlusses fällig, sofern bei der gewählten Zahlungsart nichts anderes angegeben ist. Bei Klarna können je nach gewählter Zahlungsart abweichende Zahlungsfristen gelten.</p>",
+      "faq_17_q": "Kann ich mit Klarna bezahlen?",
+      "faq_17_a": "<p>Ja, sofern Klarna im Checkout für Ihre Bestellung verfügbar ist. Je nach Verfügbarkeit können Klarna-Zahlungsarten wie Rechnung, Sofortzahlung, Ratenzahlung oder andere Klarna-Dienste angeboten werden. Die konkret verfügbaren Optionen werden im Checkout angezeigt.</p>",
+      "faq_18_q": "Kann ich mit PayPal bezahlen?",
+      "faq_18_a": "<p>Ja. Bei Zahlung mit PayPal werden Sie im Bestellprozess zu PayPal weitergeleitet oder die Zahlung wird über die PayPal-Zahlungsabwicklung durchgeführt. Nach erfolgreicher Zahlungsbestätigung wird Ihre Bestellung weiterbearbeitet.</p>",
+      "faq_19_q": "Kann ich mit Kreditkarte bezahlen?",
+      "faq_19_a": "<p>Ja. Sie können Ihre Bestellung mit Visa oder Mastercard bezahlen, sofern diese Zahlungsart im Checkout angezeigt wird.</p>",
+      "faq_20_q": "Kann ich mit Google Pay bezahlen?",
+      "faq_20_a": "<p>Ja, sofern Google Pay im Checkout für Ihr Gerät und Ihre Zahlungsart verfügbar ist.</p>",
+      "faq_21_q": "Speichert ihr meine Kreditkartendaten?",
+      "faq_21_a": "<p>Nein. Wir speichern keine vollständigen Kreditkartendaten. Die Zahlungsabwicklung erfolgt über die eingebundenen Zahlungsdienstleister bzw. die technische Zahlungsinfrastruktur des Shops.</p>",
+      "faq_22_q": "Ist die Zahlung sicher?",
+      "faq_22_a": "<p>Ja. Unser Online-Shop nutzt eine verschlüsselte Verbindung. Sie erkennen dies in der Regel daran, dass die Adresszeile Ihres Browsers mit „https://“ beginnt und ein Schloss-Symbol angezeigt wird.</p>",
+      "faq_23_q": "Welche Produkte finde ich bei deinpflegebedarf.de?",
+      "faq_23_a": "<p>In unserem Shop finden Sie Pflegebedarf für den Alltag, insbesondere Pflegeprodukte, Hygieneartikel, Inkontinenzprodukte und weitere Artikel, die pflegebedürftige Menschen, Angehörige und Pflegepersonen im Alltag unterstützen können.</p>",
+      "faq_24_q": "Sind die Produkte für Senioren und pflegebedürftige Menschen geeignet?",
+      "faq_24_a": "<p>Viele unserer Produkte sind speziell für den Pflegealltag, ältere Menschen, pflegebedürftige Personen und unterstützende Angehörige gedacht. Bitte beachten Sie die jeweiligen Produktbeschreibungen, Größenangaben und Anwendungshinweise.</p>",
+      "faq_25_q": "Kann ich mich beraten lassen, wenn ich unsicher bin?",
+      "faq_25_a": "<p>Ja. Wenn Sie unsicher sind, welches Produkt passend ist, können Sie uns gerne kontaktieren. Wir helfen Ihnen im Rahmen unserer Möglichkeiten weiter.</p><p>Telefon: <a href=\"tel:+4983349893330\">08334 / 9893330</a><br>E-Mail: <a href=\"mailto:deinpflegebedarf@alltagshilfe-sued.de\">deinpflegebedarf@alltagshilfe-sued.de</a></p>",
+      "faq_26_q": "Wie finde ich die passende Größe bei Inkontinenzprodukten?",
+      "faq_26_a": "<p>Achten Sie bei Inkontinenzprodukten auf die Größenangaben, den Hüft- oder Taillenumfang, die Saugstärke und die jeweilige Anwendungssituation. Die passende Größe ist wichtig, damit das Produkt gut sitzt, sicher hält und angenehm getragen werden kann.</p>",
+      "faq_27_q": "Worauf sollte ich bei Inkontinenzprodukten achten?",
+      "faq_27_a": "<p>Wichtig sind vor allem passende Größe, Saugstärke, Hautverträglichkeit, Tragekomfort und die Alltagssituation. Je nachdem, ob das Produkt tagsüber, nachts, unterwegs oder bei stärkerer Inkontinenz genutzt wird, können unterschiedliche Produkte sinnvoll sein.</p>",
+      "faq_28_q": "Was bedeutet Saugstärke bei Inkontinenzprodukten?",
+      "faq_28_a": "<p>Die Saugstärke beschreibt, wie viel Flüssigkeit ein Produkt aufnehmen kann. Eine höhere Saugstärke kann bei stärkerer Inkontinenz oder längerer Tragedauer sinnvoll sein. Gleichzeitig sollte das Produkt gut sitzen und zur persönlichen Situation passen.</p>",
+      "faq_29_q": "Warum ist Hautschutz im Pflegealltag wichtig?",
+      "faq_29_a": "<p>Hautschutz kann im Pflegealltag wichtig sein, weil empfindliche oder beanspruchte Haut besonderen Schutz benötigt. Besonders bei Inkontinenz, häufigem Waschen oder längerer Belastung der Haut können geeignete Pflege- und Schutzprodukte helfen, die Haut zu unterstützen.</p>",
+      "faq_30_q": "Was ist der Unterschied zwischen Pflegeprodukten und Hygieneartikeln?",
+      "faq_30_a": "<p>Pflegeprodukte dienen häufig der Reinigung, Pflege oder Unterstützung der Haut. Hygieneartikel werden vor allem genutzt, um Sauberkeit, Schutz und Hygiene im Alltag sicherzustellen. Viele Produkte überschneiden sich im Pflegealltag, zum Beispiel bei Inkontinenzversorgung, Hautschutz oder Körperpflege.</p>",
+      "faq_31_q": "Sind die Produkte auch für pflegende Angehörige geeignet?",
+      "faq_31_a": "<p>Ja. Viele Produkte in unserem Shop sind auch für Angehörige gedacht, die eine Person zu Hause unterstützen oder pflegen. Sie können helfen, den Pflegealltag hygienischer, sicherer und einfacher zu gestalten.</p>",
+      "faq_32_q": "Kann ich Produkte für eine andere Person bestellen?",
+      "faq_32_a": "<p>Ja. Sie können Produkte auch für Angehörige oder eine andere pflegebedürftige Person bestellen. Bitte achten Sie darauf, die korrekte Lieferadresse anzugeben und die Produkte passend zum Bedarf der Person auszuwählen.</p>",
+      "faq_33_q": "Was sind Pflegehilfsmittel?",
+      "faq_33_a": "<p>Pflegehilfsmittel sind Produkte, die die häusliche Pflege erleichtern, Beschwerden lindern oder eine selbstständigere Lebensführung unterstützen können. Dazu können je nach Situation zum Verbrauch bestimmte Pflegehilfsmittel oder andere unterstützende Produkte gehören.</p>",
+      "faq_34_q": "Kann ich Pflegeprodukte über die Pflegekasse abrechnen?",
+      "faq_34_a": "<p>Bestimmte Pflegehilfsmittel zum Verbrauch können bei bestehendem Pflegegrad unter bestimmten Voraussetzungen über die Pflegekasse abgerechnet werden. Ob und in welchem Umfang eine Kostenübernahme möglich ist, hängt von Ihrer persönlichen Situation und den Vorgaben der Pflegekasse ab.</p>",
+      "faq_35_q": "Was ist eine Pflegebox?",
+      "faq_35_a": "<p>Eine Pflegebox enthält typischerweise zum Verbrauch bestimmte Pflegehilfsmittel für die häusliche Pflege. Welche Produkte enthalten sind und ob eine Kostenübernahme durch die Pflegekasse möglich ist, hängt von den jeweiligen Voraussetzungen, dem Anbieter und der Genehmigung der Pflegekasse ab.</p>",
+      "faq_36_q": "Bietet ihr eine Pflegebox an?",
+      "faq_36_a": "<p>Unser Sortiment richtet sich an Menschen, die Pflegebedarf für den Alltag suchen. Ob und in welcher Form Pflegeboxen oder abrechenbare Pflegehilfsmittel angeboten werden, entnehmen Sie bitte den aktuellen Informationen im Shop oder kontaktieren Sie uns direkt.</p>",
+      "faq_37_q": "Was ist der Unterschied zwischen Pflegehilfsmitteln und normalen Pflegeprodukten?",
+      "faq_37_a": "<p>Pflegehilfsmittel sind Produkte, die unter bestimmten Voraussetzungen von der Pflegekasse übernommen werden können. Normale Pflegeprodukte können ebenfalls im Pflegealltag helfen, werden aber nicht immer von der Pflegekasse bezahlt. Entscheidend sind Produktart, Bedarf, Pflegegrad und die Voraussetzungen der jeweiligen Pflegekasse.</p>",
+      "faq_38_q": "Brauche ich einen Pflegegrad für Pflegehilfsmittel?",
+      "faq_38_a": "<p>Für eine Kostenübernahme bestimmter Pflegehilfsmittel durch die Pflegekasse ist in der Regel ein anerkannter Pflegegrad erforderlich. Die genauen Voraussetzungen hängen von der jeweiligen Leistung und der Pflegekasse ab.</p>",
+      "faq_39_q": "Was ist der Entlastungsbetrag?",
+      "faq_39_a": "<p>Der Entlastungsbetrag ist eine Leistung der Pflegeversicherung, die pflegebedürftige Menschen mit anerkanntem Pflegegrad unter bestimmten Voraussetzungen für anerkannte Unterstützungsangebote nutzen können. Ob und wie der Entlastungsbetrag genutzt werden kann, hängt von der jeweiligen Leistung, dem Bundesland und den Vorgaben der Pflegekasse ab.</p>",
+      "faq_40_q": "Helft ihr auch bei Fragen zum Pflegegrad?",
+      "faq_40_a": "<p>Wenn Sie Fragen rund um Pflegegrad, Pflegehilfsmittel oder Unterstützung im Pflegealltag haben, können Sie uns gerne kontaktieren. Wir geben Ihnen allgemeine Hinweise und unterstützen Sie im Rahmen unserer Möglichkeiten. Eine verbindliche Entscheidung trifft immer die zuständige Pflegekasse.</p>",
+      "faq_41_q": "Darf ich geöffnete Hygieneartikel zurückgeben?",
+      "faq_41_a": "<p>Bei versiegelten Hygieneartikeln kann das Widerrufsrecht ausgeschlossen sein, wenn die Versiegelung nach der Lieferung entfernt wurde und die Ware aus Gründen des Gesundheitsschutzes oder der Hygiene nicht zur Rückgabe geeignet ist.</p><p>Bitte öffnen oder entfernen Sie vorhandene Hygienesiegel daher nur, wenn Sie die Ware behalten möchten.</p>",
+      "faq_42_q": "Welche Produkte können vom Widerruf ausgeschlossen sein?",
+      "faq_42_a": "<p>Das kann insbesondere für versiegelte Hygieneartikel, bestimmte Pflegeprodukte, Inkontinenzprodukte, geöffnete oder entsiegelte Verbrauchsprodukte sowie vergleichbare Waren gelten, sofern diese aus Gründen des Gesundheitsschutzes oder der Hygiene nicht zur Rückgabe geeignet sind und die Versiegelung entfernt wurde.</p>",
+      "faq_43_q": "Was ist, wenn ein Hygieneartikel beschädigt oder falsch geliefert wurde?",
+      "faq_43_a": "<p>Ihre gesetzlichen Gewährleistungsrechte bleiben bei mangelhafter, beschädigter oder falsch gelieferter Ware selbstverständlich unberührt. Bitte kontaktieren Sie uns möglichst zeitnah mit Ihrer Bestellnummer und einer kurzen Beschreibung des Problems.</p>",
+      "faq_44_q": "Warum kann das Widerrufsrecht bei Hygieneartikeln eingeschränkt sein?",
+      "faq_44_a": "<p>Der Grund liegt im Gesundheits- und Hygieneschutz. Bestimmte Waren können nach dem Öffnen oder Entfernen einer Versiegelung nicht mehr sicher weitergegeben oder erneut verkauft werden. Deshalb gelten für solche Produkte besondere Regeln.</p>",
+      "faq_45_q": "Kann ich meine Bestellung widerrufen?",
+      "faq_45_a": "<p>Verbrauchern steht grundsätzlich ein gesetzliches Widerrufsrecht zu. Die Widerrufsfrist beträgt in der Regel 14 Tage ab Erhalt der Ware. Alle Details finden Sie auf unserer Seite <a href=\"https://deinpflegebedarf.de/pages/widerrufsbelehrung\">Widerrufsbelehrung</a>.</p>",
+      "faq_46_q": "Wie widerrufe ich meine Bestellung?",
+      "faq_46_a": "<p>Sie können uns eine eindeutige Erklärung per E-Mail oder Brief senden. Die genauen Informationen sowie das Muster-Widerrufsformular finden Sie auf unserer Seite <a href=\"https://deinpflegebedarf.de/pages/widerrufsbelehrung\">Widerrufsbelehrung</a>.</p>",
+      "faq_47_q": "Wer trägt die Rücksendekosten?",
+      "faq_47_a": "<p>Die unmittelbaren Kosten der Rücksendung trägt der Kunde, sofern in der Widerrufsbelehrung nichts anderes angegeben ist.</p>",
+      "faq_48_q": "Was mache ich, wenn ein Artikel beschädigt oder falsch geliefert wurde?",
+      "faq_48_a": "<p>Bitte kontaktieren Sie uns möglichst zeitnah mit Ihrer Bestellnummer und einer kurzen Beschreibung des Problems.</p><p>E-Mail: <a href=\"mailto:deinpflegebedarf@alltagshilfe-sued.de\">deinpflegebedarf@alltagshilfe-sued.de</a><br>Telefon: <a href=\"tel:+4983349893330\">08334 / 9893330</a></p><p>Wenn möglich, senden Sie uns bitte ein Foto der beschädigten oder falsch gelieferten Ware. Ihre gesetzlichen Gewährleistungsrechte bleiben selbstverständlich bestehen.</p>",
+      "faq_49_q": "Was mache ich bei einem Transportschaden?",
+      "faq_49_a": "<p>Bitte melden Sie sichtbare Transportschäden möglichst zeitnah bei uns. Für Verbraucher gilt: Ihre gesetzlichen Rechte bleiben auch dann bestehen, wenn Sie einen Transportschaden nicht sofort melden. Eine schnelle Meldung hilft uns jedoch bei der Klärung mit dem Versanddienstleister.</p>",
+      "faq_50_q": "Wann bekomme ich mein Geld zurück?",
+      "faq_50_a": "<p>Nach einem wirksamen Widerruf erstatten wir Zahlungen nach den gesetzlichen Vorgaben. Weitere Informationen finden Sie in unserer <a href=\"https://deinpflegebedarf.de/pages/widerrufsbelehrung\">Widerrufsbelehrung</a>. Bei Rücksendungen können wir die Rückzahlung verweigern, bis wir die Ware zurückerhalten haben oder Sie den Nachweis erbracht haben, dass Sie die Ware zurückgesandt haben.</p>",
+      "faq_51_q": "Muss ich einen Grund für den Widerruf angeben?",
+      "faq_51_a": "<p>Nein. Wenn Ihnen ein gesetzliches Widerrufsrecht zusteht, müssen Sie keinen Grund angeben.</p>",
+      "faq_52_q": "Wie werden meine Daten verarbeitet?",
+      "faq_52_a": "<p>Informationen zur Verarbeitung personenbezogener Daten finden Sie in unserer <a href=\"https://deinpflegebedarf.de/pages/datenschutzerklaerung\">Datenschutzerklärung</a>.</p>",
+      "faq_53_q": "Welche Daten werden bei einer Bestellung verarbeitet?",
+      "faq_53_a": "<p>Für die Bestellabwicklung verarbeiten wir insbesondere Name, Rechnungsadresse, Lieferadresse, E-Mail-Adresse, bestellte Produkte, Zahlungsstatus und Versandinformationen. Weitere Informationen finden Sie in unserer <a href=\"https://deinpflegebedarf.de/pages/datenschutzerklaerung\">Datenschutzerklärung</a>.</p>",
+      "faq_54_q": "Nutzt ihr Shopify?",
+      "faq_54_a": "<p>Ja. Unser Online-Shop wird über Shopify betrieben. Shopify stellt die technische Shop-Plattform bereit, über die Produkte angezeigt, Warenkörbe verwaltet und Bestellungen abgewickelt werden.</p>",
+      "faq_55_q": "Nutzt ihr Shopify-Apps?",
+      "faq_55_a": "<p>Wir nutzen Shopify als Shop-Plattform und Shopify Flow zur Automatisierung interner Shop-Prozesse. Nach aktuellem Stand nutzen wir keine weiteren zusätzlichen Shopify-Apps, die über Shopify Flow und die Standardfunktionen des Shops hinaus personenbezogene Daten verarbeiten.</p>",
+      "faq_56_q": "Kann ich Auskunft über meine gespeicherten Daten erhalten?",
+      "faq_56_a": "<p>Ja. Sie haben nach Maßgabe der gesetzlichen Vorschriften verschiedene Datenschutzrechte, darunter das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung und Widerspruch. Weitere Informationen finden Sie in unserer <a href=\"https://deinpflegebedarf.de/pages/datenschutzerklaerung\">Datenschutzerklärung</a>.</p>",
+      "faq_57_q": "Wie erreiche ich den Kundenservice?",
+      "faq_57_a": "<p>Sie erreichen uns unter:</p><p>Telefon: <a href=\"tel:+4983349893330\">08334 / 9893330</a><br>E-Mail: <a href=\"mailto:deinpflegebedarf@alltagshilfe-sued.de\">deinpflegebedarf@alltagshilfe-sued.de</a></p><p>Servicezeiten:<br>Montag bis Freitag: 08:30 – 16:00 Uhr</p>",
+      "faq_58_q": "Was sollte ich bei einer Anfrage angeben?",
+      "faq_58_a": "<p>Damit wir Ihnen schnell helfen können, geben Sie bitte möglichst Ihre Bestellnummer, Ihren Namen und eine kurze Beschreibung Ihres Anliegens an.</p>",
+      "faq_59_q": "Kann ich mich vor dem Kauf beraten lassen?",
+      "faq_59_a": "<p>Ja. Wenn Sie Fragen zu Produkten, Größen, Inkontinenzversorgung, Hautschutz oder Pflegebedarf haben, können Sie uns gerne kontaktieren. Wir helfen Ihnen im Rahmen unserer Möglichkeiten weiter.</p>",
+      "faq_60_q": "Wo finde ich die rechtlichen Informationen?",
+      "faq_60_a": "<p>Unsere rechtlichen Informationen finden Sie im Footer unseres Online-Shops:</p><ul><li><a href=\"https://deinpflegebedarf.de/pages/agb\">AGB</a></li><li><a href=\"https://deinpflegebedarf.de/pages/impressum\">Impressum</a></li><li><a href=\"https://deinpflegebedarf.de/pages/datenschutzerklaerung\">Datenschutzerklärung</a></li><li><a href=\"https://deinpflegebedarf.de/pages/widerrufsbelehrung\">Widerrufsbelehrung</a></li><li><a href=\"https://deinpflegebedarf.de/pages/versand-zahlung\">Versand &amp; Zahlung</a></li><li><a href=\"https://deinpflegebedarf.de/pages/cookie-einstellungen\">Cookie-Einstellungen</a></li></ul>",
+      "faq_61_q": "Wo finde ich Tipps und Wissen rund um Pflege?",
+      "faq_61_a": "<p>In unserem <a href=\"https://deinpflegebedarf.de/pages/pflegeratgeber\">Pflegeratgeber</a> finden Sie verständliche Informationen, praktische Tipps und hilfreiches Wissen rund um Pflege, Pflegehilfsmittel, Inkontinenzversorgung, Hautschutz, Pflegegrad und Unterstützung im Alltag.</p>",
+      "faq_62_q": "Was finde ich im Pflegeratgeber?",
+      "faq_62_a": "<p>In unserem <a href=\"https://deinpflegebedarf.de/pages/pflegeratgeber\">Pflegeratgeber</a> finden Sie verständliche Erklärungen, Tipps und praktische Informationen rund um Pflege, Pflegebedarf und Unterstützung im Alltag. Die Inhalte sollen Angehörigen, pflegebedürftigen Menschen und Interessierten helfen, sich besser zu orientieren.</p>",
+      "faq_63_q": "Ersetzt der Pflegeratgeber eine medizinische Beratung?",
+      "faq_63_a": "<p>Nein. Unsere Ratgeberinhalte dienen der allgemeinen Information und ersetzen keine medizinische, pflegerische oder rechtliche Beratung. Bei gesundheitlichen Beschwerden, Unsicherheiten oder konkreten medizinischen Fragen wenden Sie sich bitte an ärztliches oder pflegerisches Fachpersonal.</p>",
+      "faq_64_q": "Warum schreibt ihr über Pflegegrad, Pflegehilfsmittel und Inkontinenz?",
+      "faq_64_a": "<p>Diese Themen betreffen viele Menschen im Pflegealltag. Unser Ziel ist es, wichtige Informationen verständlich und alltagsnah zu erklären, damit Betroffene und Angehörige schneller passende Hilfe und passende Produkte finden.</p>",
+      "faq_65_q": "Kann ich Themen für den Ratgeber vorschlagen?",
+      "faq_65_a": "<p>Ja. Wenn Sie eine Frage oder ein Thema haben, das viele Menschen im Pflegealltag betrifft, können Sie uns gerne kontaktieren. Wir prüfen, ob wir dazu hilfreiche Informationen im Ratgeber bereitstellen können.</p>",
+      "cat_1_label": "Bestellung",
+      "cat_1_from": "1",
+      "cat_1_to": "6",
+      "cat_7_label": "Versand und Lieferung",
+      "cat_7_from": "7",
+      "cat_7_to": "14",
+      "cat_15_label": "Zahlung",
+      "cat_15_from": "15",
+      "cat_15_to": "22",
+      "cat_23_label": "Produkte und Pflegebedarf",
+      "cat_23_from": "23",
+      "cat_23_to": "32",
+      "cat_33_label": "Pflegehilfsmittel, Pflegebox und Pflegekasse",
+      "cat_33_from": "33",
+      "cat_33_to": "40",
+      "cat_41_label": "Hygieneartikel und Rückgabe",
+      "cat_41_from": "41",
+      "cat_41_to": "44",
+      "cat_45_label": "Rückgabe, Widerruf und Reklamation",
+      "cat_45_from": "45",
+      "cat_45_to": "51",
+      "cat_52_label": "Kundenkonto und Datenschutz",
+      "cat_52_from": "52",
+      "cat_52_to": "56",
+      "cat_57_label": "Kontakt und Kundenservice",
+      "cat_57_from": "57",
+      "cat_57_to": "61",
+      "cat_62_label": "Ratgeber und Pflegewissen",
+      "cat_62_from": "62",
+      "cat_62_to": "65",
+      "meta_title": "FAQ | Häufige Fragen zu Pflegebedarf, Versand & Zahlung",
+      "meta_description": "Antworten auf häufige Fragen zu deinpflegebedarf.de: Bestellung, Versand, Zahlung, Pflegeprodukte, Inkontinenzprodukte, Pflegehilfsmittel, Rückgabe, Widerruf und Kundenservice.",
+      "heading": "Häufige Fragen",
+      "intro_lead": "Hier finden Sie Antworten auf die wichtigsten Fragen rund um Bestellung, Versand, Zahlung, Rückgabe und unsere Pflegeprodukte. Wenn Ihre Frage nicht beantwortet wird, erreichen Sie uns gerne persönlich.",
+      "contact_phone": "08334 / 9893330",
+      "contact_email": "deinpflegebedarf@alltagshilfe-sued.de",
+      "contact_hours": "Montag bis Freitag: 08:30 – 16:00 Uhr",
+      "faq_count": "65"
+    }
+  },
+  "localization": {
+    "country_label": "Land/Region",
+    "language_label": "Sprache",
+    "update_language": "Sprache aktualisieren",
+    "update_country": "Land/Region aktualisieren",
+    "search": "Suchen",
+    "popular_countries_regions": "Beliebte Länder/Regionen",
+    "country_results_count": "{{ count }} Länder/Regionen gefunden"
+  },
+  "customer": {
+    "account": {
+      "title": "Konto",
+      "details": "Kontodetails",
+      "view_addresses": "Adressen anzeigen",
+      "return": "Zurück zu Kontodetails"
+    },
+    "account_fallback": "Konto",
+    "activate_account": {
+      "title": "Konto aktivieren",
+      "subtext": "Erstelle ein Passwort, um dein Konto zu aktivieren.",
+      "password": "Passwort",
+      "password_confirm": "Passwort bestätigen",
+      "submit": "Konto aktivieren",
+      "cancel": "Einladung ablehnen"
+    },
+    "addresses": {
+      "title": "Adressen",
+      "default": "Standard",
+      "add_new": "Neue Adresse hinzufügen",
+      "edit_address": "Adresse bearbeiten",
+      "first_name": "Vorname",
+      "last_name": "Nachname",
+      "company": "Unternehmen",
+      "address1": "Adresse 1",
+      "address2": "Adresse 2",
+      "city": "Ort",
+      "country": "Land/Region",
+      "province": "Bundesland/Provinz",
+      "zip": "PLZ",
+      "phone": "Telefonnummer",
+      "set_default": "Als Standard-Adresse festlegen",
+      "add": "Adresse hinzufügen",
+      "update": "Adresse aktualisieren",
+      "cancel": "Abbrechen",
+      "edit": "Bearbeiten",
+      "delete": "Löschen",
+      "delete_confirm": "Bist du sicher, dass du diese Adresse löschen möchtest?"
+    },
+    "log_in": "Einloggen",
+    "log_out": "Abmelden",
+    "login_page": {
+      "cancel": "Abbrechen",
+      "create_account": "Konto erstellen",
+      "email": "E-Mail",
+      "forgot_password": "Hast du dein Passwort vergessen?",
+      "guest_continue": "Fortfahren",
+      "guest_title": "Als Gast fortsetzen",
+      "password": "Passwort",
+      "title": "Anmelden",
+      "sign_in": "Anmelden",
+      "submit": "Senden",
+      "alternate_provider_separator": "oder"
+    },
+    "orders": {
+      "title": "Bestellhistorie",
+      "order_number": "Bestellung",
+      "order_number_link": "Bestellnummer {{ number }}",
+      "date": "Datum",
+      "payment_status": "Zahlungsstatus",
+      "fulfillment_status": "Lieferstatus",
+      "total": "Gesamtsumme",
+      "none": "Du hast noch keine Bestellungen aufgegeben."
+    },
+    "recover_password": {
+      "title": "Setze dein Passwort zurück",
+      "subtext": "Wir werden dir eine E-Mail zum Zurücksetzen deines Passworts schicken",
+      "success": "Wir haben dir eine E-Mail mit einem Link zum Aktualisieren deines Passworts geschickt."
+    },
+    "register": {
+      "title": "Konto erstellen",
+      "first_name": "Vorname",
+      "last_name": "Nachname",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "submit": "Erstellen"
+    },
+    "reset_password": {
+      "title": "Passwort für Konto zurücksetzen",
+      "subtext": "Neues Passwort eingeben",
+      "password": "Passwort",
+      "password_confirm": "Passwort bestätigen",
+      "submit": "Passwort zurücksetzen"
+    },
+    "order": {
+      "title": "Bestellung {{ name }}",
+      "date_html": "Aufgegeben am {{ date }}",
+      "cancelled_html": "Bestellung storniert am {{ date }}",
+      "cancelled_reason": "Grund: {{ reason }}",
+      "billing_address": "Rechnungsadresse",
+      "payment_status": "Zahlungsstatus",
+      "shipping_address": "Lieferadresse",
+      "fulfillment_status": "Lieferstatus",
+      "discount": "Rabatt",
+      "shipping": "Versand",
+      "tax": "Steuer",
+      "product": "Produkt",
+      "sku": "SKU",
+      "price": "Preis",
+      "quantity": "Menge",
+      "total": "Gesamtsumme",
+      "fulfilled_at_html": "Ausgeführt am {{ date }}",
+      "track_shipment": "Sendung nachverfolgen",
+      "tracking_url": "Tracking-Link",
+      "tracking_company": "Versanddienstleister",
+      "tracking_number": "Trackingnummer",
+      "subtotal": "Zwischensumme",
+      "total_duties": "Zollgebühren",
+      "total_refunded": "Zurückerstattet"
+    }
+  },
+  "gift_cards": {
+    "issued": {
+      "title": "Hier ist dein {{ value }}-Gutschein für {{ shop }}!",
+      "subtext": "Dein Gutschein",
+      "gift_card_code": "Gutscheincode",
+      "shop_link": "Onlineshop besuchen",
+      "add_to_apple_wallet": "Zu Apple Wallet hinzufügen",
+      "qr_image_alt": "QR-Code – Scannen, um Gutschein einzulösen",
+      "copy_code": "Geschenkgutscheincode kopieren",
+      "expired": "Abgelaufen",
+      "copy_code_success": "Code erfolgreich kopiert",
+      "how_to_use_gift_card": "Verwende diesen Geschenkgutscheincode online oder verwende den QR-Code im Shop",
+      "expiration_date": "Gültig bis {{ expires_on }}"
+    }
+  },
+  "footer_pflege": {
+    "legal_heading": "Rechtliches",
+    "link_agb": "AGB",
+    "link_impressum": "Impressum",
+    "link_widerruf": "Widerrufsbelehrung",
+    "link_versand": "Versandrichtlinien",
+    "link_datenschutz": "Datenschutzerklärung"
+  },
+  "pflegeboxi": {
+    "launcher_aria": "Hilfe und FAQ — Pflegeboxi öffnen",
+    "bubble": "Hallo, ich bin Pflegeboxi. Drück auf mich, ich helfe dir gerne weiter!",
+    "title": "Kurz gefragt — kurz geantwortet",
+    "close": "Schließen",
+    "dismiss_launcher": "Pflegeboxi ausblenden",
+    "mascot_alt": "Pflegeboxi, dein Helferlein",
+    "more_help": "Mehr Hilfe",
+    "faq_1_q": "Wie läuft der Versand ab?",
+    "faq_1_a": "Nach Zahlungseingang wird deine Bestellung sicher verpackt und mit unserem Versanddienstleister losgeschickt. Lieferzeit und Kosten siehst du im Warenkorb und auf der Versandseite.",
+    "faq_2_q": "Kann ich etwas zurücksenden?",
+    "faq_2_a": "Unbenutzte Artikel kannst du innerhalb der Widerrufsfrist zurückgeben. Genaues findest du in den AGB und in der Widerrufsbelehrung.",
+    "faq_3_q": "Welche Zahlungsarten gibt es?",
+    "faq_3_a": "Du kannst im Checkout zwischen den dort angezeigten gängigen Online-Zahlungsarten wählen — z. B. Karte, PayPal oder andere Anbieter, je nach Anbindung.",
+    "faq_4_q": "Wie erreiche ich den Kundenservice?",
+    "faq_4_a": "Schreib uns über die Kontaktseite oder nutze die Angaben im Impressum. Wir melden uns so schnell wir können bei dir.",
+    "faq_5_q": "Liefern Sie auch ins Ausland?",
+    "faq_5_a": "Ob und wohin wir liefern, steht in den Versand- oder Lieferbedingungen. Im Checkout siehst du es passend zu deiner Adresse.",
+    "faq_6_q": "Wie sicher ist der Einkauf bei euch?",
+    "faq_6_a": "Die Bestellung läuft über eine verschlüsselte Verbindung. Zahlungen werden über etablierte Zahlungsdienstleister abgewickelt — ohne dass wir deine Kartendaten speichern.",
+    "faq_7_q": "Bekomme ich eine Bestellbestätigung?",
+    "faq_7_a": "Ja — nach der Bestellung schicken wir dir in der Regel eine E-Mail mit allen wichtigen Details. Bitte prüfe auch den Spam-Ordner.",
+    "faq_8_q": "Die Lieferung ist beschädigt — was nun?",
+    "faq_8_a": "Mach möglichst Fotos von Verpackung und Inhalt und melde dich schnell beim Kundenservice. So können wir Ersatz oder eine Lösung mit dem Transport abstimmen.",
+    "faq_9_q": "Gibt es Rabatte bei größeren Mengen?",
+    "faq_9_a": "Aktuelle Aktionen oder Staffeln siehst du auf der Website oder in der Produktbeschreibung. Für größere Abnahmen lohnt sich eine kurze Anfrage beim Support.",
+    "faq_10_q": "Wie schnell ist die Lieferung?",
+    "faq_10_a": "Die voraussichtliche Lieferzeit hängt vom Produkt und vom Versandweg ab. Sie steht am Artikel, im Warenkorb und in der Bestellbestätigung.",
+    "faq_11_q": "Sind alle Artikel immer auf Lager?",
+    "faq_11_a": "Sofern nichts anderes steht, ist der Artikel lieferbar. Bei Lieferverzug oder Nachschub zeigen wir den Status gern in der Bestellung oder per Support an.",
+    "faq_12_q": "Was bedeutet „derzeit nicht verfügbar“?",
+    "faq_12_a": "Dann ist der Artikel vorübergehend nicht bestellbar — nachbestellt oder ausverkauft. Du kannst eine Benachrichtigung nutzen, falls angeboten, oder später erneut schauen.",
+    "faq_13_q": "Kann ich eine Geschenknotiz hinzufügen?",
+    "faq_13_a": "Wenn das Theme oder die Checkout-Optionen ein Geschenk-/Nachrichtenfeld anbieten, kannst du es dort eintragen. Sonst kurz den Support vor der Bestellung kontaktieren.",
+    "faq_14_q": "Wie funktioniert das Widerrufsrecht?",
+    "faq_14_a": "Du hast eine gesetzliche Widerrufsfrist ab Erhalt der Ware (Ausnahmen z. B. bei versiegelter Hygiene — siehe Widerrufsbelehrung). Rücksendeinfos und Fristen stehen dort genau beschrieben.",
+    "faq_15_q": "Wo finde ich AGB und Datenschutz?",
+    "faq_15_a": "Im Fußbereich der Shop-Seite (Footer) sind in der Regel Links zu AGB, Widerruf und Datenschutzerklärung. Alternativ über die Suchfunktion deines Browsers auf der Domain.",
+    "faq_16_q": "Welche Daten speichert ihr von mir?",
+    "faq_16_a": "Nur was für Vertrag, Versand und gesetzliche Pflichten nötig ist — detailliert und rechtmäßig erklärt in der Datenschutzerklärung.",
+    "faq_17_q": "Kann ich als Firma mit USt.-Id. bestellen?",
+    "faq_17_a": "Wenn im Checkout die Eingabe einer Umsatzsteuer-ID oder Firmendaten möglich ist, nutze diese Felder. Sonst hilft der Support bei der korrekten Rechnungsstellung.",
+    "faq_18_q": "Gibt es Hinweise zu MHD oder Hygieneartikeln?",
+    "faq_18_a": "Wo relevant, stehen Mindesthaltbarkeit und ggf. besondere Widerrufs- oder Rückgabehinweise in der Produktbeschreibung. Bei Fragen vor dem Kauf: kurz nachfragen.",
+    "faq_19_q": "Versendet ihr auch sperrige oder schwere Pakete?",
+    "faq_19_a": "Schwere oder große Sendungen können mit Spedition oder Zusatzkosten laufen — das erkennst du an Versandhinweisen im Warenkorb oder an der Kasse.",
+    "faq_20_q": "Ich bin mir bei der Produktwahl unsicher — was tun?",
+    "faq_20_a": "Vergleiche Größen, Packungsgrößen und Gebrauchshinweise in der Beschreibung. Bei medizinischen oder individuellen Fragen konsultiere zusätzlich deinen Arzt oder eine Fachperson — wir ersetzen keine Beratung."
+  },
+  "recipient": {
+    "form": {
+      "checkbox": "Ich möchte dies als Geschenk senden",
+      "email_label": "Empfänger E-Mail",
+      "email": "E-Mail",
+      "name_label": "Name des Empfängers (optional)",
+      "name": "Name",
+      "message_label": "Nachricht (optional)",
+      "message": "Nachricht",
+      "max_characters": "Maximal {{ max_chars }} Zeichen",
+      "email_label_optional_for_no_js_behavior": "E-Mail-Adresse des Empfängers (optional)",
+      "send_on": "JJJJ-MM-TT",
+      "send_on_label": "Senden am (optional)",
+      "expanded": "Formular für den Empfänger des Gutscheins erweitert",
+      "collapsed": "Formular für den Empfänger des Gutscheins minimiert"
+    }
+  },
+  "shopify": {
+    "online_store": {
+      "spam_detection": {
+        "disclaimer_html": ""
+      }
+    }
+  }
+}

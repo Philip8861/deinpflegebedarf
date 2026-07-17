@@ -1,0 +1,79 @@
+{%- comment -%}
+  Brückenseite: Ratgeber auf alltagshilfe-sued.de — Hero mit Text auf Bild.
+{%- endcomment -%}
+{{ 'section-pflege-ratgeber-bridge.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign eyebrow = section.settings.eyebrow | strip
+  assign heading = section.settings.heading | strip
+  assign lead = section.settings.lead | strip
+  assign url = section.settings.external_url | strip
+  assign label = section.settings.button_label | strip
+  assign body_text = section.settings.body_text | strip
+-%}
+
+<section
+  class="pflege-ratgeber-bridge pflege-ratgeber-bridge--page-pad"
+  aria-labelledby="pflege-ratgeber-title-{{ section.id }}"
+>
+  {% render 'pflege-ratgeber-bridge-view',
+    bridge_id: section.id,
+    eyebrow: eyebrow,
+    heading: heading,
+    lead: lead,
+    url: url,
+    label: label,
+    body_text: body_text
+  %}
+</section>
+
+{% schema %}
+{
+  "name": "Ratgeber (extern)",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Wissen, das entlastet"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Überschrift",
+      "default": "Ratgeber von Alltagshilfe-Süd"
+    },
+    {
+      "type": "textarea",
+      "id": "lead",
+      "label": "Beschreibung",
+      "default": "Praxistipps, Erklärungen und konkrete Hilfen rund um Pflege, Betreuung und Entlastung im Alltag."
+    },
+    {
+      "type": "text",
+      "id": "external_url",
+      "label": "Link-Ziel (URL)",
+      "default": "https://www.alltagshilfe-sued.de/ratgeber"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button-Text",
+      "default": "Zum Ratgeber weiterleiten"
+    },
+    {
+      "type": "textarea",
+      "id": "body_text",
+      "label": "Text unter dem Bild",
+      "default": "Unser Pflegeratgeber bietet Ihnen verständliches Wissen, praktische Tipps und wichtige Informationen rund um Pflege, Pflegehilfsmittel, Inkontinenzversorgung, Hautschutz, Pflegegrad und Unterstützung im Alltag. Einfach erklärt, alltagsnah geschrieben und darauf ausgelegt, Ihnen und Ihren Angehörigen im Pflegealltag wirklich weiterzuhelfen."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ratgeber (extern)"
+    }
+  ]
+}
+{% endschema %}

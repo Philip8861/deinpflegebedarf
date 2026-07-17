@@ -1,0 +1,30 @@
+{% comment %}
+  Pflege PDP – einheitlicher Vertrauensblock unterhalb der Kaufzeile.
+{% endcomment %}
+<div class="pflege-product__cart-extras pflege-product__cart-extras--mockup-only">
+  <div class="pflege-product__trust-unified" role="presentation">
+    <div class="pflege-product__trust-panel-row">
+      <span class="pflege-product__trust-panel-row__icon" aria-hidden="true">
+        {% render 'pflege-icon', icon: 'truck', width: 26 %}
+      </span>
+      <span class="pflege-product__trust-copy">
+        <span class="pflege-product__trust-panel-text">{{ 'products.product.pflege_cart.trust_ship_title' | t }}</span>
+        {% assign _ts = 'products.product.pflege_cart.trust_ship_sub' | t %}
+        {% if _ts != blank %}<span class="pflege-product__trust-panel-sub">{{ _ts }}</span>{% endif %}
+      </span>
+    </div>
+
+    <div class="pflege-product__trust-panel-row pflege-product__trust-panel-row--stacked">
+      <span class="pflege-product__trust-panel-row__icon" aria-hidden="true">
+        {% render 'pflege-icon', icon: 'badge-check', width: 26 %}
+      </span>
+      <span class="pflege-product__trust-copy">
+        <span class="pflege-product__trust-panel-text">{{ 'products.product.pflege_cart.trust_quality_title' | t }}</span>
+        {% assign _tq = 'products.product.pflege_cart.trust_quality_sub' | t %}
+        {% if _tq != blank %}<span class="pflege-product__trust-panel-sub">{{ _tq }}</span>{% endif %}
+      </span>
+    </div>
+
+    {% render 'pflege-product-payment-trust-box' %}
+  </div>
+</div>

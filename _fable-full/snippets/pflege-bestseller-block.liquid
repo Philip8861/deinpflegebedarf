@@ -1,0 +1,138 @@
+{% comment %}
+  Wiederverwendbarer Bestseller-Block (gleiche Optik wie Startseite).
+  Parameter: data_source, title, intro, collection, products_limit, view_all_label, view_all_href,
+  show_collection_rating, blocks (nur manual), layout_mod (optional), columns_desktop (4 oder 5).
+{% endcomment %}
+{%- liquid
+  assign _ds = data_source | default: 'collection'
+  assign _limit = products_limit | default: 4
+  assign _row2_limit = second_row_products_limit | default: 4
+  assign _enable_row2 = enable_second_row
+  if _enable_row2 == nil
+    assign _enable_row2 = false
+  endif
+  assign _cols = columns_desktop | default: 4 | plus: 0
+  assign _layout = layout_mod
+  if _layout == blank and _cols >= 5
+    assign _layout = 'cols-5'
+  endif
+  assign _show = false
+  assign _show_row2 = false
+
+  if _ds == 'collection'
+    if collection != blank and collection.all_products_count > 0
+      assign _show = true
+      if _enable_row2 and collection.all_products_count > _limit
+        assign _show_row2 = true
+      endif
+    endif
+  else
+    if blocks != blank
+      for block in blocks
+        if block.settings.product != blank
+          assign _show = true
+        endif
+      endfor
+      if _enable_row2
+        assign _manual_count = 0
+        for block in blocks
+          if block.settings.product != blank
+            assign _manual_count = _manual_count | plus: 1
+          endif
+        endfor
+        if _manual_count > _limit
+          assign _show_row2 = true
+        endif
+      endif
+    endif
+  endif
+
+  assign _href = view_all_href
+  if _href == blank and collection != blank
+    assign _href = collection.url
+  endif
+  if _href == blank
+    assign _href = routes.all_products_collection_url
+  endif
+
+  assign _show_stars = show_collection_rating
+  if _show_stars == nil
+    assign _show_stars = true
+  endif
+-%}
+
+{%- if _show -%}
+  <section class="pflege-bestseller{% if _layout != blank %} pflege-bestseller--{{ _layout }}{% endif %}">
+    <div class="pflege-bestseller__shell">
+      <div class="pflege-bestseller__panel">
+        <div class="pflege-bestseller__head">
+          <div class="pflege-bestseller__head-text">
+            <h2 class="pflege-bestseller__title">{{ title | escape }}</h2>
+            {%- if intro != blank -%}
+              <p class="pflege-bestseller__intro">{{ intro | escape | newline_to_br }}</p>
+            {%- endif -%}
+          </div>
+          {%- if view_all_label != blank -%}
+            <a class="pflege-bestseller__view-all" href="{{ _href }}">
+              {{- view_all_label | escape -}}
+            </a>
+          {%- endif -%}
+        </div>
+        <div class="pflege-bestseller__grid">
+          {%- if _ds == 'collection' -%}
+            {%- for card_product in collection.products limit: _limit -%}
+              {% render 'pflege-cat-card',
+                card_product: card_product,
+                card_layout: 'horizontal',
+                list_item: false,
+                promo_badge_label: 'Bestseller',
+                promo_badge_variant: 'bestseller'
+              %}
+            {%- endfor -%}
+          {%- else -%}
+            {%- for block in blocks limit: _limit -%}
+              {%- if block.settings.product != blank -%}
+                {% render 'pflege-cat-card',
+                  card_product: block.settings.product,
+                  card_layout: 'horizontal',
+                  list_item: false,
+                  promo_badge_label: 'Bestseller',
+                  promo_badge_variant: 'bestseller'
+                %}
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
+
+        {%- if _show_row2 -%}
+          <div class="pflege-bestseller__row-divider" aria-hidden="true"></div>
+          <div class="pflege-bestseller__grid pflege-bestseller__grid--row-2">
+            {%- if _ds == 'collection' -%}
+              {%- for card_product in collection.products offset: _limit limit: _row2_limit -%}
+                {% render 'pflege-cat-card',
+                  card_product: card_product,
+                  card_layout: 'horizontal',
+                  list_item: false,
+                  promo_badge_label: 'Unser Tipp!',
+                  promo_badge_variant: 'tip'
+                %}
+              {%- endfor -%}
+            {%- else -%}
+              {%- for block in blocks offset: _limit limit: _row2_limit -%}
+                {%- if block.settings.product != blank -%}
+                  {% render 'pflege-cat-card',
+                    card_product: block.settings.product,
+                    card_layout: 'horizontal',
+                    list_item: false,
+                    promo_badge_label: 'Unser Tipp!',
+                    promo_badge_variant: 'tip'
+                  %}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+{%- endif -%}

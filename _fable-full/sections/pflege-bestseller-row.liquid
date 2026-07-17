@@ -1,0 +1,224 @@
+{% render 'pflege-cat-card-styles' %}
+{{ 'section-pflege-bestseller-row.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign limit_products = section.settings.products_to_show | default: 4
+  assign show_section = false
+
+  if section.settings.data_source == 'collection'
+    if section.settings.collection != blank and section.settings.collection.all_products_count > 0
+      assign show_section = true
+    endif
+  else
+    for block in section.blocks
+      if block.settings.product != blank
+        assign show_section = true
+      endif
+    endfor
+  endif
+
+  assign view_all_href = section.settings.view_all_link
+  if view_all_href == blank and section.settings.collection != blank
+    assign view_all_href = section.settings.collection.url
+  endif
+  if view_all_href == blank
+    assign view_all_href = routes.all_products_collection_url
+  endif
+-%}
+
+{%- if show_section -%}
+  {% render 'pflege-bestseller-block',
+    data_source: section.settings.data_source,
+    title: section.settings.title,
+    intro: section.settings.intro,
+    collection: section.settings.collection,
+    products_limit: limit_products,
+    enable_second_row: section.settings.enable_second_row,
+    second_row_products_limit: section.settings.second_row_products_to_show,
+    view_all_label: section.settings.view_all_label,
+    view_all_href: view_all_href,
+    show_collection_rating: section.settings.show_collection_rating,
+    columns_desktop: section.settings.columns_desktop,
+    blocks: section.blocks
+  %}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "PflegeShop Bestseller",
+  "tag": "section",
+  "class": "pflege-bestseller-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Überschrift",
+      "default": "Beliebte Pflegeprodukte",
+      "info": "Gleiche Schrift wie die Hero-Trust-Überschrift („Ihre Vorteile im Überblick“)."
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Einleitung unter der Überschrift",
+      "info": "Optional. Typografie wie die Textzeilen unter „Vorteile“ / Trust-Bar.",
+      "default": "Ausgewählte Artikel, die andere Kundinnen und Kunden besonders oft gewählt haben."
+    },
+    {
+      "type": "select",
+      "id": "data_source",
+      "label": "Produkte",
+      "options": [
+        {
+          "value": "collection",
+          "label": "Aus Kollektion (Shopify-Produkte)"
+        },
+        {
+          "value": "manual",
+          "label": "Manuell (Blöcke unten)"
+        }
+      ],
+      "default": "collection"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Kollektion",
+      "info": "Empfohlen: Handle startseite-beliebte-produkte (manuell kuratierte Startseiten-Auswahl). Ohne Kollektion oder ohne Artikel wird diese Section nicht angezeigt."
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 50,
+      "step": 1,
+      "default": 4,
+      "label": "Anzahl Produkte (erste Reihe)",
+      "info": "Nur bei „Aus Kollektion“. Bei 5 Spalten: z. B. 10 für zwei Reihen à 5."
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_second_row",
+      "label": "Zweite Produktreihe anzeigen",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "second_row_products_to_show",
+      "min": 2,
+      "max": 50,
+      "step": 1,
+      "default": 4,
+      "label": "Anzahl Produkte (zweite Reihe)",
+      "info": "Folgt in der Kollektion nach der ersten Reihe. Mit feiner Trennlinie dazwischen."
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "Spalten (Desktop)",
+      "options": [
+        {
+          "value": "4",
+          "label": "4 nebeneinander"
+        },
+        {
+          "value": "5",
+          "label": "5 nebeneinander (zweite Reihe bei Bedarf)"
+        }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_rating",
+      "label": "Sterne bei Kollektion anzeigen",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "view_all_label",
+      "label": "Link rechts",
+      "default": "Zur gesamten Auswahl →"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "Link-Ziel „Alle ansehen“",
+      "info": "Leer = bei Kollektion die Kollektions-URL, sonst Alle Produkte."
+    }
+  ],
+  "max_blocks": 8,
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Produkt",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Produkt"
+        },
+        {
+          "type": "text",
+          "id": "manual_title",
+          "label": "Fallback-Titel",
+          "info": "Nur wenn oben kein Produkt gewählt ist. Ohne Produkt wird die Karte nicht angezeigt."
+        },
+        {
+          "type": "text",
+          "id": "manual_subtitle",
+          "label": "Fallback-Unterzeile"
+        },
+        {
+          "type": "text",
+          "id": "manual_price_display",
+          "label": "Fallback-Preis als Text",
+          "info": "Nur ohne gewähltes Produkt (selten). Mit Produkt: Shop-Preis."
+        },
+        {
+          "type": "number",
+          "id": "manual_price_cents",
+          "label": "Fallback-Preis (Cent)",
+          "info": "Nur ohne Produkt."
+        },
+        {
+          "type": "text",
+          "id": "manual_review_count",
+          "label": "Bewertungsanzahl (Text)",
+          "info": "Nur bei manueller Zeile mit Produkt, wenn Sterne aktiv sind."
+        },
+        {
+          "type": "checkbox",
+          "id": "show_rating",
+          "label": "Sterne anzeigen",
+          "default": true
+        },
+        {
+          "type": "url",
+          "id": "manual_link",
+          "label": "Fallback-Link",
+          "info": "Nur ohne gewähltes Produkt."
+        },
+        {
+          "type": "image_picker",
+          "id": "placeholder_image",
+          "label": "Fallback-Bild",
+          "info": "Nur ohne gewähltes Produkt."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PflegeShop Bestseller",
+      "settings": {
+        "title": "Beliebte Pflegeprodukte",
+        "intro": "Ausgewählte Artikel, die andere Kundinnen und Kunden besonders oft gewählt haben.",
+        "data_source": "collection",
+        "products_to_show": 4,
+        "show_collection_rating": true,
+        "view_all_label": "Zur gesamten Auswahl →"
+      }
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,43 @@
+{% comment %}
+  Fallback für Inkontinenz-Rezept-Landing, wenn die Seite im Admin noch nicht angelegt ist (404).
+{% endcomment %}
+{{ 'section-pflege-hero.css' | asset_url | stylesheet_tag }}
+{{ 'component-pflege-contact-portrait.css' | asset_url | stylesheet_tag }}
+{{ 'section-pflege-inko-rezept-landing.css' | asset_url | stylesheet_tag }}
+{{ 'section-pflege-inko-testpaket-modal.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'pflege-inko-testpaket-modal.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign hero_title_id = 'pflege-inko-rezept-hero-title-fallback'
+  assign hero_badge = 'sections.pflege_inko_rezept_landing.hero_badge' | t
+  assign hero_line1 = 'sections.pflege_inko_rezept_landing.heading_line1' | t
+  assign hero_sub = 'sections.pflege_inko_rezept_landing.hero_sub' | t
+  assign hero_btn_label = 'sections.pflege_inko_rezept_landing.button_label' | t
+  assign hero_img_alt = 'sections.pflege_inko_rezept_landing.image_alt' | t
+-%}
+
+<section
+  class="pflege-hero pflege-hero--inko-rezept pflege-hero--inko-rezept-fallback color-scheme-1 gradient"
+  aria-labelledby="{{ hero_title_id }}"
+>
+  <div class="pflege-hero__shell">
+    {% render 'pflege-hero-asset-panel',
+      asset_file: 'Landing_page.webp',
+      mobile_asset_file: 'rezept_einloesen.webp',
+      mobile_asset_width: 848,
+      mobile_asset_height: 1200,
+      image_alt: hero_img_alt,
+      badge: hero_badge,
+      heading_line1: hero_line1,
+      heading_line2: '',
+      subheading: hero_sub,
+      button_label: hero_btn_label,
+      button_opens_testpaket: true,
+      title_id: hero_title_id
+    %}
+  </div>
+
+  <div class="pflege-inko-rezept-landing__trail">
+    {% render 'pflege-inko-rezept-below-hero' %}
+  </div>
+</section>

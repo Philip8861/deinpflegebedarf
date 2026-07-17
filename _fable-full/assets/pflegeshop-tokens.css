@@ -1,0 +1,137 @@
+/* PflegeShop — Design-Tokens (Homepage / Pflege-Sections) */
+:root {
+  --pflege-navy: #0b2347;
+  --pflege-accent: #3f86d9;
+  --pflege-bg-soft: #eef6ff;
+  --pflege-bg-softer: #f5faff;
+  --pflege-white: #fefefe;
+  --pflege-border: #e5eef8;
+  --pflege-muted: #6f7f95;
+  --pflege-star: #f5b943;
+  /* Primär-CTA (Warenkorb-Modal, Footer) */
+  --pflege-cta: #f89738;
+  --pflege-cta-hover: #dc7a22;
+
+  /* Header: helle Kategorieübersicht-Pill (freundliches Blau, kein dunkles Vollblau) */
+  --pflege-header-pill-bg: #f8fbff;
+  --pflege-header-pill-border: #b7d8ff;
+  --pflege-header-pill-text: #1267c9;
+  --pflege-header-pill-shadow: 0 2px 12px rgba(11, 109, 236, 0.08);
+  --pflege-header-pill-hover-bg: #eaf4ff;
+  --pflege-header-pill-hover-border: #8bbeff;
+  --pflege-header-pill-active-bg: #eaf4ff;
+  --pflege-header-pill-active-border: #5fa8ff;
+  --pflege-heading-navy: #062a55;
+  --pflege-link-blue: #0b6edc;
+  --pflege-surface-mist: #f5faff;
+  --pflege-border-soft: #d8eafe;
+  /*
+   * Modaler Schleier (Kategorie-Dialog ::backdrop + Warenkorb/Newsletter: zwei Div-Schichten Blur/Dim).
+   */
+  --pflege-overlay-backdrop: rgba(11, 35, 71, 0.56);
+  /* Hinweis: backdrop-filter: blur(var(...)) unterstützt nicht alle Browser zuverlässig — Modals nutzen zusätzlich feste blur(4px)-Angaben */
+  --pflege-overlay-backdrop-blur: 4px;
+  /* Mengen-Badge am Wagen-Icon wenn Artikel im Warenkorb */
+  --pflege-cart-badge-fill: var(--pflege-cta);
+  --pflege-cart-badge-text: #ffffff;
+  --pflege-radius-lg: 22px;
+  --pflege-radius-card: 14px;
+  --pflege-radius-pill: 999px;
+  --pflege-font-display: var(--font-body-family);
+  /*
+   * Überschriften: gleiche Familie wie Fließtext (Nunito), kräftig aber ohne synthetisches 800.
+   */
+  --pflege-home-section-heading-size: clamp(1.85rem, 2.25vw + 1.15rem, 2.75rem);
+  --pflege-home-section-heading-weight: 700;
+  --pflege-home-section-heading-line-height: 1.18;
+  --pflege-home-section-heading-letter-spacing: -0.025em;
+  --pflege-home-section-heading-color: #0f4f69;
+  /* Kreise hinter Warenkorb-Icons auf Produktkarten (Bestseller, Pflegesets) */
+  --pflege-cart-icon-bg: #8ac8fb;
+  --pflege-cart-icon-bg-hover: #75b0f0;
+  --pflege-max-copy: 52rem;
+  /* Horizontale Kanten: auf schmalen Phones weniger Rand, ab Desktop wie bisher */
+  --pflege-inline-gutter: clamp(1rem, 4.5vw, 2rem);
+  /*
+    Max. Breite wie Hero-Kachel mit startseite_main.webp (1901px × zoom 0.75 ≈ 1426px).
+    Schmaler Viewport: min(100%, …) übernimmt die Shell.
+  */
+  --pflege-hero-tile-max-width: min(100%, 1426px);
+  /*
+    Vertikaler Rhythmus zwischen Hauptbereichen (Mittelwert: nicht zu eng, nicht zu weit).
+  */
+  --pflege-section-gap: clamp(2rem, 3.5vw, 2.85rem);
+  --pflege-home-section-stack: var(--pflege-section-gap);
+  /* Hellblauer Block „Ihre Vorteile bei uns“ */
+  --pflege-advantages-us-pad-block: clamp(2.35rem, 4.25vw, 3.65rem);
+  /* Heller Block „Häufige Fragen“ */
+  --pflege-faq-pad-block: clamp(2.35rem, 4.25vw, 3.65rem);
+  /*
+    Gemeinsam: Produktfinder-Backdrop & Footer (heller Verlauf, elliptischer Bogen nach oben).
+    Vertikaler Ellipsen-Radius auch für Produktfinder-Bogen unten (symmetrisch zum oberen Bogen).
+  */
+  --pflege-backdrop-ell-v: clamp(2rem, 5.5vw, 4rem);
+  --pflege-backdrop-band-gradient: linear-gradient(
+    180deg,
+    #fafcfd 0%,
+    #f8fafc 40%,
+    #f7f9fb 70%,
+    #f6f8fb 100%
+  );
+  --pflege-backdrop-band-radius-top: 50% 50% 0 0 / var(--pflege-backdrop-ell-v) var(--pflege-backdrop-ell-v) 0 0;
+  /* Produktfinder: zusätzlich Bogen nach unten — alle vier Ecken gleiche elliptische Radien */
+  --pflege-backdrop-band-radius-vertical-both: 50% 50% 50% 50% / var(--pflege-backdrop-ell-v) var(--pflege-backdrop-ell-v) var(--pflege-backdrop-ell-v) var(--pflege-backdrop-ell-v);
+}
+
+@media screen and (max-width: 749px) {
+  :root {
+    --pflege-home-section-heading-size: clamp(1.6rem, 4.5vw + 0.85rem, 2.2rem);
+
+    /* Mobile Button-System (Primary / Secondary / Compact / Icon) */
+    --pflege-btn-primary-min-h: 2.875rem;
+    --pflege-btn-primary-fs: clamp(1rem, 4vw, 1.125rem);
+    --pflege-btn-primary-fw: 700;
+    --pflege-btn-primary-pad-y: 0.72rem;
+    --pflege-btn-primary-pad-x: 1.1rem;
+    --pflege-btn-primary-radius: 12px;
+
+    --pflege-btn-secondary-min-h: 2.75rem;
+    --pflege-btn-secondary-fs: clamp(1rem, 4.2vw, 1.125rem);
+    --pflege-btn-secondary-fw: 700;
+    --pflege-btn-secondary-pad-x: clamp(0.85rem, 3.2vw, 1.15rem);
+
+    --pflege-btn-compact-min-h: 2.5rem;
+    --pflege-btn-compact-fs: clamp(0.8125rem, 3.1vw, 0.875rem);
+    --pflege-btn-compact-fw: 700;
+    --pflege-btn-compact-pad-y: 0.48rem;
+    --pflege-btn-compact-pad-x: 0.55rem;
+    --pflege-btn-compact-radius: 8px;
+
+    --pflege-btn-icon-min: 2.75rem;
+    --pflege-btn-link-fs: clamp(0.9375rem, 4.2vw, 1.125rem);
+    --pflege-btn-link-min-h: 2.75rem;
+    --pflege-btn-link-lh: clamp(1.125rem, 4.8vw, 1.375rem);
+
+    /* Pop-ups / Modals — gleicher Seitenabstand wie Kategorienübersicht */
+    --pflege-modal-inset-x: clamp(0.85rem, 4.5vw, 1.25rem);
+    --pflege-modal-inset-y: clamp(1rem, 5vw, 1.35rem);
+  }
+}
+
+@media screen and (min-width: 480px) {
+  :root {
+    --pflege-inline-gutter: clamp(1.15rem, 5vw, 3rem);
+  }
+}
+
+@media screen and (min-width: 750px) {
+  :root {
+    --pflege-inline-gutter: clamp(2rem, 7vw, 10rem);
+  }
+}
+
+@media screen and (min-width: 990px) {
+  :root {
+    --pflege-inline-gutter: clamp(3.5rem, 9vw, 12rem);
+  }
+}

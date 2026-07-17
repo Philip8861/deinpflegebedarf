@@ -1,0 +1,14 @@
+{% comment %} Kompakte Herz-Schaltfläche neben dem Warenkorbbutton {% endcomment %}
+{%- liquid
+  assign merkzettel_url = routes.root_url | append: 'pages/merkzettel'
+  if pages['merkzettel'] != blank
+    assign merkzettel_url = pages['merkzettel'].url
+  endif
+-%}
+<a
+  class="pflege-wishlist-btn"
+  href="{{ merkzettel_url }}"
+  aria-label="{{ 'products.product.pflege_cart.wishlist' | t }}"
+>
+  {% render 'pflege-icon', icon: 'heart', width: 24 %}
+</a>

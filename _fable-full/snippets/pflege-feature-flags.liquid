@@ -1,0 +1,14 @@
+{%- comment -%}
+  PflegeShop — Feature-Flags (nur deaktivieren/aktivieren, Code bleibt erhalten)
+
+  Zum Reaktivieren: jeweils false → true setzen.
+  Einbindung: layout/theme.liquid via {% include 'pflege-feature-flags' %}
+  (include nötig, damit die Variablen im Layout verfügbar sind)
+
+  pflege_footer_newsletter_enabled — Newsletter-Karte im Footer
+  pflege_newsletter_popup_enabled   — 10%-Rabatt-Pop-up (Startseite)
+{%- endcomment -%}
+{%- liquid
+  assign pflege_footer_newsletter_enabled = false
+  assign pflege_newsletter_popup_enabled = false
+-%}

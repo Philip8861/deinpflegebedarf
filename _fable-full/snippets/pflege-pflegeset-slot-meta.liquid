@@ -1,0 +1,23 @@
+{% comment %}
+  Pflegeset-Kachel: Spar-Badge nach Größe (S 3%, M 5%, L 9%).
+  Titel kommt direkt vom Produkt (card_product.title).
+
+  Parameter:
+  - card_product: Produkt
+  - handle_fallback: optional String, wenn kein Produktobjekt
+{% endcomment %}
+{%- liquid
+  assign meta_title = ''
+  assign meta_badge = ''
+
+  if card_product != blank
+    assign meta_title = card_product.title | strip
+  elsif handle_fallback != blank
+    assign meta_title = handle_fallback | replace: '-', ' '
+  endif
+
+  capture meta_badge_raw
+    render 'pflege-pflegeset-save-badge', card_product: card_product, handle_fallback: handle_fallback
+  endcapture
+  assign meta_badge = meta_badge_raw | strip
+-%}{{ meta_title }}|||{{ meta_badge }}

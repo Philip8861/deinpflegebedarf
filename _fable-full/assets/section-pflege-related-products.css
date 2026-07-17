@@ -1,0 +1,22 @@
+/* PflegeShop — „Das könnte dir auch gefallen“ (PDP, gleiche Optik wie Bestseller-Reihe) */
+
+.pflege-related-products-wrap {
+  background: #ffffff;
+}
+
+.pflege-related-products {
+  display: block;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.pflege-related-products .pflege-bestseller {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.template-product .pflege-related-products-wrap {
+  border-top: 1px solid rgba(216, 232, 248, 0.85);
+}

@@ -1,0 +1,306 @@
+﻿{{ 'section-pflege-service-bar.css' | asset_url | stylesheet_tag }}
+
+{%- comment -%}
+  Inline per Section-ID: höchste Spezifität, kein Safe-Area-Padding (war Hauptursache für dicken Balken auf Mobil).
+{%- endcomment -%}
+<style id="pflege-service-bar-critical-{{ section.id }}">
+  #shopify-section-{{ section.id }} {
+    --pflege-svc-font: clamp(11px, 2.75vw, 14px);
+    --pflege-svc-line: clamp(13px, 3.1vw, 16px);
+    --pflege-svc-icon: clamp(12px, 2.65vw, 16px);
+    --pflege-svc-bar-h: 31px;
+    --pflege-svc-inner-h: 30px;
+    --pflege-svc-gap: clamp(0.35rem, 2.5vw, 0.65rem);
+  }
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} {
+      --pflege-svc-font: 14px;
+      --pflege-svc-line: 16px;
+      --pflege-svc-icon: 16px;
+      --pflege-svc-gap: clamp(0.45rem, 3vw, 1.75rem);
+    }
+  }
+
+  #shopify-section-{{ section.id }},
+  #shopify-section-{{ section.id }} .pflege-service-bar {
+    margin: 0 !important;
+    padding: 0 !important;
+    height: var(--pflege-svc-bar-h) !important;
+    max-height: var(--pflege-svc-bar-h) !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+    background-color: #f0f5fb !important;
+    line-height: 0 !important;
+  }
+
+  #shopify-section-{{ section.id }} .pflege-service-bar__inner.page-width {
+    box-sizing: border-box !important;
+    height: var(--pflege-svc-inner-h) !important;
+    max-height: var(--pflege-svc-inner-h) !important;
+    min-height: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    padding-left: max(0.75rem, env(safe-area-inset-left, 0px)) !important;
+    padding-right: max(0.75rem, env(safe-area-inset-right, 0px)) !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scrollbar-width: none !important;
+    line-height: normal !important;
+    gap: var(--pflege-svc-gap) !important;
+    justify-content: flex-start !important;
+  }
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .pflege-service-bar__inner.page-width {
+      padding-left: max(1rem, env(safe-area-inset-left, 0px)) !important;
+      padding-right: max(1rem, env(safe-area-inset-right, 0px)) !important;
+      justify-content: center !important;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .pflege-service-bar__item {
+    flex: 0 0 auto !important;
+    max-height: var(--pflege-svc-line) !important;
+    line-height: var(--pflege-svc-line) !important;
+  }
+
+  #shopify-section-{{ section.id }} .pflege-service-bar__body,
+  #shopify-section-{{ section.id }} .pflege-service-bar__text,
+  #shopify-section-{{ section.id }} a.pflege-service-bar__link {
+    font-size: var(--pflege-svc-font) !important;
+    line-height: var(--pflege-svc-line) !important;
+    max-height: var(--pflege-svc-line) !important;
+    font-weight: 500 !important;
+    white-space: nowrap !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    color: rgba(11, 35, 71, 0.88) !important;
+    animation: none !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  #shopify-section-{{ section.id }} .pflege-service-bar__body .pflege-icon,
+  #shopify-section-{{ section.id }} .pflege-service-bar__body .pflege-icon svg {
+    width: var(--pflege-svc-icon) !important;
+    height: var(--pflege-svc-icon) !important;
+    max-height: var(--pflege-svc-icon) !important;
+  }
+
+  #shopify-section-{{ section.id }} .pflege-service-bar__mobile-rotate {
+    display: none !important;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      --pflege-svc-bar-h: 37px;
+      --pflege-svc-inner-h: 36px;
+    }
+
+    #shopify-section-{{ section.id }} .pflege-service-bar__item--desktop {
+      display: none !important;
+    }
+
+    #shopify-section-{{ section.id }} .pflege-service-bar__inner.page-width {
+      justify-content: center !important;
+      overflow: hidden !important;
+    }
+
+    #shopify-section-{{ section.id }} .pflege-service-bar__mobile-rotate {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 100% !important;
+    }
+
+    #shopify-section-{{ section.id }} .pflege-service-bar__rotate-viewport {
+      height: var(--pflege-btn-link-lh, clamp(1.125rem, 4.8vw, 1.375rem)) !important;
+    }
+
+    #shopify-section-{{ section.id }} .pflege-service-bar__rotate-btn {
+      font-family: var(--font-body-family, inherit) !important;
+      font-size: var(--pflege-btn-link-fs, clamp(0.9375rem, 4.2vw, 1.125rem)) !important;
+      font-weight: 800 !important;
+      line-height: var(--pflege-btn-link-lh, clamp(1.125rem, 4.8vw, 1.375rem)) !important;
+      min-height: var(--pflege-btn-link-min-h, 2.75rem) !important;
+      padding: 0 0.35rem !important;
+      color: var(--pflege-heading-navy, #062a55) !important;
+      -webkit-text-fill-color: var(--pflege-heading-navy, #062a55) !important;
+      text-decoration-color: rgba(6, 42, 85, 0.38) !important;
+    }
+
+    #shopify-section-{{ section.id }} .pflege-service-bar__rotate-slide--1 .pflege-icon {
+      color: var(--pflege-heading-navy, #062a55) !important;
+    }
+  }
+</style>
+
+<section class="pflege-service-bar" aria-label="Service-Hinweise">
+  <div class="pflege-service-bar__inner page-width">
+    <div class="pflege-service-bar__mobile-rotate" aria-live="polite" aria-atomic="true">
+      <div class="pflege-service-bar__rotate-viewport">
+        <div class="pflege-service-bar__rotate-slide pflege-service-bar__rotate-slide--1">
+          {% render 'pflege-icon', icon: 'document', width: 16 %}
+          <button
+            type="button"
+            class="pflege-service-bar__rotate-btn"
+            data-pflege-inko-testpaket-open
+          >
+            {{- section.settings.mobile_rotate_rezept_label | default: 'Rezept einlösen' | escape -}}
+          </button>
+        </div>
+        <div class="pflege-service-bar__rotate-slide pflege-service-bar__rotate-slide--2">
+          {% render 'pflege-icon', icon: 'truck', width: 16 %}
+          <span class="pflege-service-bar__rotate-text">
+            {{- section.settings.mobile_rotate_shipping_label | default: 'Versand innerhalb von 1–3 Werktagen' | escape -}}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    {%- for block in section.blocks -%}
+      <div class="pflege-service-bar__item pflege-service-bar__item--desktop" {{ block.shopify_attributes }}>
+        <span class="pflege-service-bar__body">
+          {% render 'pflege-icon', icon: block.settings.icon, width: 16 %}
+          {%- if block.settings.subtext != blank -%}
+            {%- if block.settings.link != blank -%}
+              <a
+                href="{{ block.settings.link }}"
+                class="pflege-service-bar__copy pflege-service-bar__link{% if block.settings.link contains 'tel:' %} pflege-service-bar__link--tel{% endif %}"
+                {% if block.settings.link contains 'tel:' %}
+                  aria-label="{{ block.settings.text | escape }} — {{ block.settings.subtext | escape }} — Anrufen"
+                {% endif %}
+              >
+                <span class="pflege-service-bar__line pflege-service-bar__line--main">{{ block.settings.text | escape }}</span>
+                <span class="pflege-service-bar__line pflege-service-bar__line--sub">{{ block.settings.subtext | escape }}</span>
+              </a>
+            {%- else -%}
+              <span class="pflege-service-bar__copy">
+                <span class="pflege-service-bar__line pflege-service-bar__line--main">{{ block.settings.text | escape }}</span>
+                <span class="pflege-service-bar__line pflege-service-bar__line--sub">{{ block.settings.subtext | escape }}</span>
+              </span>
+            {%- endif -%}
+          {%- elsif block.settings.link != blank -%}
+            <a
+              href="{{ block.settings.link }}"
+              class="pflege-service-bar__text pflege-service-bar__link{% if block.settings.link contains 'tel:' %} pflege-service-bar__link--tel{% endif %}"
+              {% if block.settings.link contains 'tel:' %}
+                aria-label="{{ block.settings.text | escape }} — Anrufen"
+              {% endif %}
+            >
+              {{- block.settings.text | escape -}}
+            </a>
+          {%- else -%}
+            <span class="pflege-service-bar__text">{{ block.settings.text | escape }}</span>
+          {%- endif -%}
+        </span>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PflegeShop Service-Leiste",
+  "tag": "section",
+  "class": "pflege-service-bar-section",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Mobil — Wechseltext"
+    },
+    {
+      "type": "text",
+      "id": "mobile_rotate_rezept_label",
+      "label": "Text 1 (öffnet Rezept-Pop-up)",
+      "default": "Rezept einlösen"
+    },
+    {
+      "type": "text",
+      "id": "mobile_rotate_shipping_label",
+      "label": "Text 2 (Versand)",
+      "default": "Versand innerhalb von 1–3 Werktagen"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Hinweis",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "truck", "label": "Versand" },
+            { "value": "document", "label": "Dokument" },
+            { "value": "rotate-ccw", "label": "Rückgabe (Pfeil)" },
+            { "value": "star", "label": "Stern" },
+            { "value": "headset", "label": "Support" },
+            { "value": "shield", "label": "Schutz" },
+            { "value": "package", "label": "Paket" }
+          ],
+          "default": "package"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Kostenloser Versand ab 150 €"
+        },
+        {
+          "type": "text",
+          "id": "subtext",
+          "label": "Unterzeile optional",
+          "info": "Kleinere zweite Zeile unter dem Haupttext (z. B. „Schnell bei Ihnen“)."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link optional",
+          "info": "Telefon: z. B. tel:+4977339488820 — dann ist die Zeile antippbar zum Anrufen."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PflegeShop Service-Leiste",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "icon": "truck",
+            "text": "Versand innerhalb von 1–3 Werktagen"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "headset",
+            "text": "Persönliche Beratung 07733 / 9488820",
+            "link": "tel:+4977339488820"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "document",
+            "text": "Kostenübernahme mit Rezept möglich"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

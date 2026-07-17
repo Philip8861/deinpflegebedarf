@@ -1,0 +1,887 @@
+/* PflegeShop — Bestseller (gleiche horizontale Kanten wie Hero / Hauptleiste) */
+.pflege-bestseller {
+  /* Kategorie-Karten-Design (wie pflege-cat-card) */
+  --pcd-navy: #003b70;
+  --pcd-blue: #0b74d1;
+  --pcd-border: #d8e8f8;
+  --pcd-muted: #607089;
+  --pcd-cta: #f28c28;
+  --pcd-cta-hover: #dc7a22;
+  --pcd-badge-bg: #eaf8e5;
+  --pcd-badge-text: #2e7d32;
+  --pcd-radius: 16px;
+  font-family: var(--font-body-family, inherit);
+  font-style: var(--font-body-style, normal);
+  padding-top: var(--pflege-home-section-stack, clamp(1.5rem, 3vw, 2rem));
+  padding-bottom: var(--pflege-home-section-stack, clamp(1.5rem, 3vw, 2rem));
+}
+
+/* Außen wie Hero-Shell (gleiche Innenränder zur Seitenkante) */
+.pflege-bestseller__shell {
+  max-width: none;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
+}
+
+/* Innen: gleiche max. Breite wie der Hero-Kasten mit Asset-Bild (nicht volle Shell) */
+.pflege-bestseller__panel {
+  width: 100%;
+  max-width: var(--pflege-hero-tile-max-width, min(100%, 1426px));
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+.pflege-bestseller__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(0.85rem, 2.2vw, 1.35rem);
+  margin-bottom: clamp(1.35rem, 3vw, 2rem);
+}
+
+.pflege-bestseller__head-text {
+  min-width: 0;
+  width: 100%;
+  max-width: min(48rem, 100%);
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.pflege-bestseller__title {
+  font-family: var(--pflege-font-display, var(--font-body-family, inherit));
+  font-size: var(--pflege-home-section-heading-size);
+  font-weight: var(--pflege-home-section-heading-weight);
+  line-height: var(--pflege-home-section-heading-line-height);
+  letter-spacing: var(--pflege-home-section-heading-letter-spacing);
+  color: var(--pflege-home-section-heading-color);
+  margin: 0;
+}
+
+/* Einleitung etwas größer, gleiche Leseweite wie Überschrift */
+.pflege-bestseller__intro {
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1.18rem, 1.02rem + 0.55vw, 1.42rem);
+  line-height: 1.5;
+  color: var(--pflege-muted, #6f7f95);
+  margin: 0.55rem 0 0;
+  max-width: min(48rem, 100%);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pflege-bestseller__view-all {
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1.1rem, 1.02rem + 0.2vw, 1.25rem);
+  font-weight: 500;
+  color: var(--pflege-accent, #3f86d9);
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  align-self: center;
+  margin-top: 0.12rem;
+}
+
+.pflege-bestseller__view-all:hover {
+  text-decoration: underline;
+}
+
+/* Raster: nutzt volle Shell-Breite; Spaltenanzahl nach Viewport */
+.pflege-bestseller__grid {
+  display: grid;
+  width: 100%;
+  min-width: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.65rem, 2vw, 1rem);
+  align-items: stretch;
+}
+
+/* Desktop: vier gleich breite Karten */
+@media screen and (min-width: 990px) {
+  .pflege-bestseller__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(0.85rem, 1.8vw, 1.35rem);
+  }
+
+  .pflege-bestseller--cols-5 .pflege-bestseller__grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: clamp(0.65rem, 1.35vw, 1rem);
+  }
+}
+
+/* Abstand + feine Trennlinie zwischen erster und zweiter Reihe */
+.pflege-bestseller__row-divider {
+  position: relative;
+  display: block;
+  margin: clamp(2rem, 4.2vw, 3rem) auto;
+  padding: clamp(0.85rem, 1.8vw, 1.25rem) clamp(1.5rem, 5vw, 3.5rem);
+  max-width: 100%;
+  height: auto;
+  border: 0;
+  background: transparent;
+}
+
+.pflege-bestseller__row-divider::before {
+  content: '';
+  display: block;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(184, 207, 232, 0.25) 14%,
+    rgba(184, 207, 232, 0.85) 50%,
+    rgba(184, 207, 232, 0.25) 86%,
+    transparent 100%
+  );
+}
+
+.pflege-bestseller__row-divider::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid rgba(184, 207, 232, 0.95);
+  box-shadow:
+    0 0 0 4px #ffffff,
+    0 0 0 5px rgba(216, 232, 248, 0.55);
+}
+
+.pflege-bestseller__grid--row-2 {
+  margin-top: clamp(0.35rem, 1vw, 0.65rem);
+}
+
+/* --- Horizontale Kategorie-Karten (Startseite / Warenkorb-Empfehlungen) --- */
+.pflege-bestseller .pflege-cat-card {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.pflege-bestseller .pflege-cat-card__media {
+  position: relative;
+}
+
+.pflege-bestseller .pflege-cat-card__media-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.pflege-bestseller .pflege-cat-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.pflege-bestseller .pflege-cat-card__placeholder {
+  font-size: 0.875rem;
+  color: var(--pcd-muted);
+}
+
+.pflege-bestseller .pflege-cat-card__badges {
+  position: absolute;
+  top: 0.4rem;
+  left: 0.4rem;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  max-width: calc(100% - 0.75rem);
+}
+
+.pflege-bestseller .pflege-cat-card__badge {
+  display: inline-block;
+  padding: 0.32rem 0.72rem;
+  border-radius: 999px;
+  background: var(--pcd-badge-bg);
+  color: var(--pcd-badge-text);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.pflege-bestseller .pflege-cat-card__title {
+  margin: 0;
+  font-weight: 700;
+}
+
+.pflege-bestseller .pflege-cat-card__title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.pflege-bestseller .pflege-cat-card__title a:hover {
+  text-decoration: underline;
+}
+
+.pflege-bestseller .pflege-cat-card__desc {
+  margin: 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.45;
+  color: var(--pcd-muted);
+}
+
+.pflege-bestseller .pflege-cat-card__cart,
+.pflege-bestseller .pflege-cat-card__cart--link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+
+.pflege-bestseller .pflege-cat-card__cart:focus-visible,
+.pflege-bestseller .pflege-cat-card__cart--link:focus-visible {
+  outline: 2px solid var(--pcd-blue);
+  outline-offset: 2px;
+}
+
+.pflege-bestseller .pflege-cat-card__cart-icon {
+  display: inline-flex;
+}
+
+/* Bild links, Text rechts — wie Kategorieseiten, aber horizontal */
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__inner {
+  display: grid;
+  grid-template-columns: clamp(7.5rem, 36%, 10.5rem) minmax(0, 1fr);
+  gap: clamp(0.75rem, 1.6vw, 1rem);
+  align-items: stretch;
+  flex: 1 1 auto;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  padding: clamp(0.85rem, 1.5vw, 1rem);
+  background: #ffffff;
+  border: 1px solid var(--pcd-border);
+  border-radius: var(--pcd-radius);
+  box-shadow: 0 2px 8px rgba(0, 59, 112, 0.04);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  box-sizing: border-box;
+  position: relative;
+}
+
+@media screen and (min-width: 990px) {
+  .pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__inner {
+    grid-template-columns: 11.5rem minmax(0, 1fr);
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__tip-row {
+    top: 0.65rem;
+    right: 0.95rem;
+    max-width: calc(100% - 11.5rem - 1.95rem);
+  }
+
+  .pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__title {
+    padding-top: 2.05rem;
+    min-height: calc(3 * 1.32em + 2.05rem);
+  }
+}
+
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__inner:hover,
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__inner:focus-within {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(0, 59, 112, 0.1);
+  border-color: rgba(11, 116, 209, 0.22);
+}
+
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__media {
+  margin-bottom: 0;
+  align-self: stretch;
+  min-height: 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__media-link {
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 7.5rem;
+  max-height: 100%;
+  aspect-ratio: 1 / 1;
+  align-self: center;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 12px;
+}
+
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__img {
+  padding: 0.25rem;
+}
+
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__body {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  gap: 0.55rem;
+  padding: 0;
+  text-align: left;
+  position: static;
+}
+
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__tip-row {
+  position: absolute;
+  top: clamp(0.5rem, 0.85vw, 0.72rem);
+  right: clamp(0.6rem, 1vw, 0.9rem);
+  left: auto;
+  z-index: 2;
+  display: flex;
+  justify-content: flex-end;
+  margin: 0;
+  flex: 0 0 auto;
+  pointer-events: none;
+  max-width: calc(100% - clamp(7.5rem, 36%, 10.5rem) - clamp(1.35rem, 2.6vw, 1.9rem));
+}
+
+.pflege-bestseller .pflege-cat-card__tip-row {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: flex-end;
+  margin: 0;
+  flex: 0 0 auto;
+  pointer-events: none;
+}
+
+.pflege-bestseller .pflege-cat-card__badge--tip,
+.pflege-bestseller .pflege-cat-card__badge--bestseller {
+  display: inline-block;
+  padding: 0.3rem 0.68rem;
+  border-radius: 999px;
+  font-size: clamp(0.72rem, 0.68rem + 0.14vw, 0.82rem);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.pflege-bestseller .pflege-cat-card__badge--tip {
+  background: var(--pcd-cta);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(242, 140, 40, 0.32);
+}
+
+.pflege-bestseller .pflege-cat-card__badge--bestseller {
+  background: var(--pcd-navy);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 59, 112, 0.28);
+}
+
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__title {
+  font-family: var(--pflege-font-display, var(--font-body-family, inherit));
+  font-size: clamp(1.02rem, 0.92rem + 0.38vw, 1.22rem);
+  font-weight: 700;
+  line-height: 1.32;
+  color: var(--pcd-navy);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  margin: 0;
+  padding: clamp(1.85rem, 1.45rem + 0.9vw, 2.15rem) 0 0;
+  min-height: calc(3 * 1.32em + clamp(1.85rem, 1.45rem + 0.9vw, 2.15rem));
+  flex: 0 0 auto;
+}
+
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__desc {
+  font-size: clamp(0.88rem, 0.84rem + 0.15vw, 0.98rem);
+  line-height: 1.4;
+  -webkit-line-clamp: 1;
+  min-height: 0;
+  flex: 0 0 auto;
+}
+
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__desc--empty {
+  display: none;
+  margin: 0;
+  min-height: 0;
+}
+
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__footer {
+  margin-top: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__price-row {
+  display: block;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  flex: 0 0 auto;
+}
+
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__price {
+  font-size: clamp(1.28rem, 1.12rem + 0.48vw, 1.5rem);
+  font-weight: 800;
+  color: var(--pcd-navy);
+  line-height: 1.15;
+}
+
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__unit {
+  font-size: clamp(0.8rem, 0.76rem + 0.12vw, 0.9rem);
+  color: var(--pcd-muted);
+}
+
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__cart,
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__cart--link {
+  width: 100%;
+  min-height: 2.65rem;
+  margin-top: 0.35rem;
+  padding: 0.55rem 0.75rem;
+  padding-top: 0.75rem;
+  border: 1.5px solid var(--pcd-cta);
+  border-radius: 11px;
+  background: #ffffff;
+  color: var(--pcd-cta);
+  font-size: clamp(0.95rem, 0.9rem + 0.18vw, 1.05rem);
+  font-weight: 700;
+  line-height: 1.2;
+  box-sizing: border-box;
+}
+
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__cart:hover,
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__cart--link:hover {
+  background: var(--pcd-cta);
+  color: #ffffff;
+  border-color: var(--pcd-cta);
+}
+
+.pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__badge {
+  font-size: 0.78rem;
+  padding: 0.28rem 0.62rem;
+}
+
+.pflege-bestseller--cols-5 .pflege-cat-card--horizontal .pflege-cat-card__inner {
+  grid-template-columns: clamp(6.5rem, 32%, 8.5rem) minmax(0, 1fr);
+}
+
+@media screen and (min-width: 990px) {
+  .pflege-bestseller--cols-5 .pflege-cat-card--horizontal .pflege-cat-card__inner {
+    grid-template-columns: 9.5rem minmax(0, 1fr);
+  }
+}
+
+.pflege-bestseller--cols-5 .pflege-cat-card--horizontal .pflege-cat-card__title {
+  font-size: clamp(0.95rem, 0.88rem + 0.28vw, 1.08rem);
+  min-height: calc(3 * 1.32em);
+}
+
+.pflege-bestseller--cols-5 .pflege-cat-card--horizontal .pflege-cat-card__price {
+  font-size: clamp(1.12rem, 1.02rem + 0.35vw, 1.32rem);
+}
+
+/* Legacy Bestseller-Karten (falls noch manuell ohne Produkt) */
+.pflege-bestseller-card {
+  position: relative;
+  display: grid;
+  /* Produktfoto größer: nur über grid-Spalte + max-height der Medienfläche (kein Mindest-Höhe-Aufblasen) */
+  grid-template-columns:
+    clamp(12.7rem, 32%, 20rem)
+    minmax(0, 1fr);
+  gap: clamp(0.65rem, 1.6vw, 1rem);
+  align-items: stretch;
+  padding: clamp(0.75rem, 1.8vw, 1rem);
+  padding-bottom: clamp(0.85rem, 2vw, 1.1rem);
+  background: var(--pflege-white, #fefefe);
+  border: 1px solid var(--pflege-border, #e5eef8);
+  border-radius: 12px;
+  /* Nur harmonische Untergrenze — keine extra Höhe „wegen großem Foto“ */
+  min-height: clamp(10.5rem, 13vw, 13.5rem);
+  min-width: 0;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+@media screen and (min-width: 990px) {
+  .pflege-bestseller-card {
+    grid-template-columns:
+      clamp(13.7rem, 38%, 22.5rem)
+      minmax(0, 1fr);
+    padding: 0.85rem 1rem;
+    padding-bottom: 1.05rem;
+    min-height: clamp(11.5rem, 12vw, 14.5rem);
+    border-radius: 14px;
+  }
+}
+
+.pflege-bestseller-card:hover {
+  border-color: rgba(63, 134, 217, 0.35);
+  box-shadow: 0 4px 16px rgba(11, 35, 71, 0.05);
+}
+
+/* Medienfläche: großes Produktfoto (Höhe über max-height, nicht über Karten-min-height) */
+.pflege-bestseller-card__media {
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--pflege-bg-softer, #f5faff);
+  align-self: start;
+  min-height: 0;
+  aspect-ratio: 1;
+  max-height: 20.75rem;
+}
+
+@media screen and (min-width: 990px) {
+  .pflege-bestseller-card__media {
+    border-radius: 11px;
+    max-height: 22.55rem;
+  }
+}
+
+.pflege-bestseller-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.pflege-bestseller-card__media .placeholder-svg {
+  width: 100%;
+  height: 100%;
+  padding: 0.4rem;
+}
+
+/* Textblock: oben kompakt, unten eigene Zeile für Preis + Warenkorb */
+.pflege-bestseller-card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  justify-content: space-between;
+}
+
+.pflege-bestseller-card__top {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: 0.35rem;
+  flex: 0 1 auto;
+  min-height: 0;
+  width: 100%;
+  box-sizing: border-box;
+  padding-left: 0.35rem;
+  padding-right: 0.35rem;
+  /* Titel etwas tiefer im Textblock */
+  padding-top: clamp(0.45rem, 1.1vw, 0.75rem);
+}
+
+/* Wie .pflege-hero__trust-text (Zeilen unter „Vorteile“) */
+.pflege-bestseller-card__name {
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1.22rem, 1.05rem + 0.35vw, 1.42rem);
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+  color: var(--pflege-navy, #0b2347);
+  margin: 0;
+  width: 100%;
+  text-align: left;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+.pflege-bestseller-card__name a {
+  color: inherit;
+  font-weight: inherit;
+  text-decoration: none;
+}
+
+.pflege-bestseller-card__name a:hover {
+  color: var(--pflege-accent, #3f86d9);
+}
+
+/* Wie .pflege-trust__text */
+.pflege-bestseller-card__meta {
+  font-family: var(--font-body-family, inherit);
+  font-size: 1.15rem;
+  line-height: 1.45;
+  color: var(--pflege-muted, #6f7f95);
+  margin: 0;
+  width: 100%;
+  text-align: left;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.pflege-bestseller-card__rating {
+  font-family: var(--font-body-family, inherit);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 0.2rem;
+  font-size: 1.05rem;
+  color: var(--pflege-muted, #6f7f95);
+  margin: 0;
+  line-height: 1.15;
+  width: 100%;
+  text-align: left;
+}
+
+.pflege-bestseller-card__stars {
+  color: var(--pflege-star, #f5b943);
+  letter-spacing: 0.05em;
+}
+
+.pflege-bestseller-card__review-count {
+  font-size: 0.92em;
+  font-weight: 500;
+  color: var(--pflege-muted, #6f7f95);
+}
+
+/* Preiszeile — Platz unten rechts für absolut positionierten Warenkorb */
+.pflege-bestseller-card__footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: auto;
+  padding-top: 0.5rem;
+  padding-right: 3.35rem;
+  padding-left: 0.35rem;
+  flex-shrink: 0;
+}
+
+/* Linie nur über dem Preis; links bündig mit Produktname */
+/* Betonung wie .pflege-trust__title */
+.pflege-bestseller-card__price {
+  font-family: var(--font-body-family, inherit);
+  font-size: 1.25rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--pflege-navy, #0b2347);
+  margin: 0;
+  line-height: 1.35;
+  text-align: left;
+  letter-spacing: 0.01em;
+  width: auto;
+  max-width: 100%;
+  display: inline-block;
+  padding-top: 0.65rem;
+  border-top: 1px solid rgba(229, 238, 248, 0.95);
+  box-sizing: border-box;
+}
+
+/* Warenkorb: unten rechts; Kreis --pflege-cart-icon-bg, Icon weiß */
+.pflege-bestseller-card__cart {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  z-index: 2;
+  box-sizing: border-box;
+  width: 3rem;
+  height: 3rem;
+  padding: 0.55rem;
+  margin: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 2px 8px rgba(11, 35, 71, 0.12);
+  background: var(--pflege-cart-icon-bg, #8ac8fb);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
+  font: inherit;
+  appearance: none;
+  -webkit-appearance: none;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.15s ease,
+    opacity 0.2s ease;
+}
+
+.pflege-bestseller-card__cart:hover {
+  background: var(--pflege-cart-icon-bg-hover, #75b0f0);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 3px 12px rgba(138, 200, 251, 0.45);
+  transform: translateY(-1px);
+}
+
+.pflege-bestseller-card__cart:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.pflege-bestseller-card__cart.loading {
+  opacity: 0.82;
+  pointer-events: none;
+}
+
+.pflege-bestseller-card__cart .pflege-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+  color: #fff;
+}
+
+/* SVG kleiner als Kreis — Wagen ragt nicht mehr aus dem Rand; optisch zentriert, kräftigere Linie */
+.pflege-bestseller-card__cart .pflege-icon svg {
+  width: 1.125rem;
+  height: 1.125rem;
+  max-width: 100%;
+  max-height: 100%;
+  flex-shrink: 0;
+  display: block;
+  vertical-align: middle;
+  transform: translate(0.5px, 1.25px);
+}
+
+.pflege-bestseller-card__cart .pflege-icon svg :is(path, circle) {
+  stroke-width: 2.15;
+}
+
+/* Warenkorb: Bestseller-Empfehlungen — #MainContent / .pflege-cart-page__inner liefern das Gutter */
+.template-cart .pflege-cart-recommendations--page-row .pflege-bestseller {
+  margin-top: 0;
+  padding-top: clamp(0.35rem, 0.9vw, 0.65rem);
+  padding-bottom: clamp(0.85rem, 2vw, 1.25rem);
+}
+
+.template-cart .pflege-cart-recommendations--page-row .pflege-bestseller__shell {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Desktop: Empfehlungen klar unter Gutschein/Versand — kein negatives Margin (überdeckt sonst die Überschrift) */
+@media screen and (min-width: 990px) {
+  .template-cart .pflege-cart-recommendations--page-row .pflege-bestseller {
+    padding-top: 0;
+  }
+
+  .template-cart .pflege-cart-recommendations--page-row .pflege-bestseller__head {
+    margin-top: 0;
+    margin-bottom: clamp(0.65rem, 1.2vw, 1rem);
+  }
+
+  .template-cart .pflege-cart-recommendations--page-row .pflege-bestseller__grid {
+    margin-top: clamp(0.75rem, 1.5vw, 1.25rem);
+  }
+}
+
+/* --- Mobile: 2 Spalten, horizontale Karten → vertikal kompakt --- */
+@media screen and (max-width: 749px) {
+  .pflege-bestseller__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(0.5rem, 2.2vw, 0.75rem);
+  }
+
+  .pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 0.5rem;
+    border-radius: 12px;
+  }
+
+  .pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__media {
+    margin-bottom: 0;
+    width: 100%;
+  }
+
+  .pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__media-link {
+    width: 100%;
+    min-height: auto;
+    max-height: none;
+    aspect-ratio: 1 / 1;
+    border-radius: 8px;
+  }
+
+  .pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__body {
+    gap: 0.28rem;
+    text-align: center;
+  }
+
+  .pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__tip-row {
+    top: 0.3rem;
+    right: 0.3rem;
+    max-width: calc(100% - 0.55rem);
+  }
+
+  .pflege-bestseller .pflege-cat-card__badge--tip,
+  .pflege-bestseller .pflege-cat-card__badge--bestseller {
+    padding: 0.18rem 0.42rem;
+    font-size: 0.6rem;
+  }
+
+  .pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__title {
+    padding-top: 0;
+    min-height: auto;
+    font-size: clamp(0.72rem, 2.8vw, 0.84rem);
+    line-height: 1.28;
+    text-align: center;
+    -webkit-line-clamp: 2;
+  }
+
+  .pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__desc {
+    display: none;
+  }
+
+  .pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__price {
+    font-size: clamp(0.88rem, 3.6vw, 1rem);
+    text-align: center;
+  }
+
+  .pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__unit {
+    font-size: clamp(0.62rem, 2.2vw, 0.72rem);
+    text-align: center;
+  }
+
+  .pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__cart,
+  .pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__cart--link {
+    min-height: var(--pflege-btn-compact-min-h, 2.5rem);
+    margin-top: 0.15rem;
+    padding: var(--pflege-btn-compact-pad-y, 0.48rem) var(--pflege-btn-compact-pad-x, 0.55rem);
+    font-size: var(--pflege-btn-compact-fs, clamp(0.8125rem, 3.1vw, 0.875rem));
+    font-weight: var(--pflege-btn-compact-fw, 700);
+    border-radius: var(--pflege-btn-compact-radius, 8px);
+  }
+
+  .pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__badge {
+    font-size: 0.62rem;
+    padding: 0.18rem 0.42rem;
+  }
+}

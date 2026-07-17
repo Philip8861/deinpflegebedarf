@@ -1,0 +1,18 @@
+/**
+ * Global +10 % UI scale (wie Browser-Zoom mit dem Mausrad).
+ * `zoom` skaliert Text, Abstände, Bilder und px-Werte gemeinsam.
+ */
+:root {
+  --pflege-ui-scale: 1.1;
+}
+
+html {
+  zoom: var(--pflege-ui-scale);
+}
+
+/* Fallback ohne zoom: nur rem-Basis (Dawn) */
+@supports not (zoom: 1) {
+  html {
+    font-size: calc(var(--font-body-scale) * 62.5% * var(--pflege-ui-scale));
+  }
+}

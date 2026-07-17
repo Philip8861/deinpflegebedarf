@@ -1,0 +1,46 @@
+{%- comment -%}
+  Globaler Produktfinder als Dialog — auf allen Seiten verfügbar.
+  Öffnen via [data-pflege-finder-open] oder URL-Hash #pflege-finder-open
+{%- endcomment -%}
+
+{{ 'section-pflege-finder-quiz.css' | asset_url | stylesheet_tag }}
+{{ 'section-pflege-finder-popup.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'pflege-finder-shared.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'pflege-finder-quiz.js' | asset_url }}" defer="defer"></script>
+
+<dialog
+  id="pflege-finder-modal"
+  class="pflege-finder-modal gradient color-scheme-1"
+  aria-labelledby="pflege-finder-modal-title"
+  aria-modal="true"
+>
+  <div class="pflege-finder-modal__panel">
+    <header class="pflege-finder-modal__head">
+      <h2 id="pflege-finder-modal-title" class="pflege-finder-modal__title">Produktfinder</h2>
+      <button
+        type="button"
+        class="pflege-finder-modal__close"
+        data-pflege-finder-close
+        aria-label="Produktfinder schließen"
+      >
+        <span class="svg-wrapper" aria-hidden="true">{{ 'icon-close.svg' | inline_asset_content }}</span>
+      </button>
+    </header>
+
+    <section
+      class="pflege-finder-quiz pflege-finder-quiz--modal"
+      data-pflege-finder
+      data-pflege-finder-mode="popup"
+    >
+      <p class="pflege-finder-quiz__intro pflege-finder-quiz__intro--modal">
+        Beantworten Sie ein paar kurze Fragen — wir empfehlen Ihnen passende Pflegeprodukte für Ihre Situation.
+      </p>
+
+      <div class="pflege-finder-quiz__progress" data-pflege-finder-progress aria-hidden="true">
+        <div class="pflege-finder-quiz__progress-bar" data-pflege-finder-progress-bar></div>
+      </div>
+
+      <div class="pflege-finder-quiz__viewport" data-pflege-finder-viewport></div>
+    </section>
+  </div>
+</dialog>

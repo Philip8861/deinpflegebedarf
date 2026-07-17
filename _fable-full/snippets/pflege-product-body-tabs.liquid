@@ -1,0 +1,145 @@
+{%- comment -%}
+  Horizontales Tab-Leiste (Mockup PDP). Kein zweites product-form.
+  Übergaben: section_id, product, Metafeld-Labels, reviews_show_tab, reviews_count, label_reviews
+  reviews_only: true — nur Bewertungen (wenn der einheitliche Infoblock die übrigen Inhalte übernimmt)
+{%- endcomment -%}
+{%- liquid
+  assign show_rev = reviews_show_tab | default: false
+  assign reviews_only = reviews_only | default: false
+  if reviews_only
+    assign has_desc = false
+    assign has_app = false
+    assign has_ing = false
+  endif
+
+  assign first_tab_handled = false
+-%}
+<div class="pflege-pdp-tabs-h" id="PflegeTabs-{{ section_id }}" data-pflege-horizontal-tabs>
+  <div role="tablist" class="pflege-pdp-tabs-h__rail" aria-label="{{ 'products.product.pflege_pdp.tabs_aria' | t }}">
+    {%- if has_desc -%}
+      <button
+        type="button"
+        role="tab"
+        aria-selected="{%- unless first_tab_handled -%}true{%- else -%}false{%- endunless -%}"
+        id="PflegeTab-{{ section_id }}-desc"
+        aria-controls="PflegeTabPanel-{{ section_id }}-desc"
+        tabindex="{%- unless first_tab_handled -%}0{%- else -%}-1{%- endunless -%}"
+        class="pflege-pdp-tabs-h__btn"
+      >
+        {{- label_desc | escape -}}
+      </button>
+      {%- assign first_tab_handled = true -%}
+    {%- endif -%}
+
+    {%- if has_app -%}
+      <button
+        type="button"
+        role="tab"
+        aria-selected="{%- unless first_tab_handled -%}true{%- else -%}false{%- endunless -%}"
+        id="PflegeTab-{{ section_id }}-app"
+        aria-controls="PflegeTabPanel-{{ section_id }}-app"
+        tabindex="{%- unless first_tab_handled -%}0{%- else -%}-1{%- endunless -%}"
+        class="pflege-pdp-tabs-h__btn"
+      >
+        {{- label_app | escape -}}
+      </button>
+      {%- assign first_tab_handled = true -%}
+    {%- endif -%}
+
+    {%- if has_ing -%}
+      <button
+        type="button"
+        role="tab"
+        aria-selected="{%- unless first_tab_handled -%}true{%- else -%}false{%- endunless -%}"
+        id="PflegeTab-{{ section_id }}-ing"
+        aria-controls="PflegeTabPanel-{{ section_id }}-ing"
+        tabindex="{%- unless first_tab_handled -%}0{%- else -%}-1{%- endunless -%}"
+        class="pflege-pdp-tabs-h__btn"
+      >
+        {{- label_ing | escape -}}
+      </button>
+      {%- assign first_tab_handled = true -%}
+    {%- endif -%}
+
+    {%- if show_rev -%}
+      <button
+        type="button"
+        role="tab"
+        aria-selected="{%- unless first_tab_handled -%}true{%- else -%}false{%- endunless -%}"
+        id="PflegeTab-{{ section_id }}-rev"
+        aria-controls="pflege-pdp-review-panel"
+        tabindex="{%- unless first_tab_handled -%}0{%- else -%}-1{%- endunless -%}"
+        class="pflege-pdp-tabs-h__btn"
+      >
+        {{ label_reviews | escape }}
+        {% if reviews_count != blank -%}
+          ({{ reviews_count | escape -}})
+        {%- endif %}
+      </button>
+      {%- assign first_tab_handled = true -%}
+    {%- endif -%}
+  </div>
+
+  <div class="pflege-pdp-tabs-h__panels">
+    {%- assign opened = false -%}
+    {%- if has_desc -%}
+      <div
+        role="tabpanel"
+        id="PflegeTabPanel-{{ section_id }}-desc"
+        class="pflege-pdp-tabs-h__panel rte"
+        tabindex="0"
+        aria-labelledby="PflegeTab-{{ section_id }}-desc"
+        {% if opened %}hidden{% endif %}
+      >
+        {{ product.description }}
+      </div>
+      {%- assign opened = true -%}
+    {%- endif -%}
+    {%- if has_app -%}
+      <div
+        role="tabpanel"
+        id="PflegeTabPanel-{{ section_id }}-app"
+        class="pflege-pdp-tabs-h__panel rte"
+        tabindex="0"
+        aria-labelledby="PflegeTab-{{ section_id }}-app"
+        {% if opened %}hidden{% endif %}
+      >
+        {%- if mf_app.value != blank -%}
+          {{ mf_app.value }}
+        {%- else -%}
+          {{ mf_app | metafield_text }}
+        {%- endif -%}
+      </div>
+      {%- assign opened = true -%}
+    {%- endif -%}
+    {%- if has_ing -%}
+      <div
+        role="tabpanel"
+        id="PflegeTabPanel-{{ section_id }}-ing"
+        class="pflege-pdp-tabs-h__panel rte"
+        tabindex="0"
+        aria-labelledby="PflegeTab-{{ section_id }}-ing"
+        {% if opened %}hidden{% endif %}
+      >
+        {%- if mf_ing.value != blank -%}
+          {{ mf_ing.value }}
+        {%- else -%}
+          {{ mf_ing | metafield_text }}
+        {%- endif -%}
+      </div>
+      {%- assign opened = true -%}
+    {%- endif -%}
+    {%- if show_rev -%}
+      <div
+        role="tabpanel"
+        id="pflege-pdp-review-panel"
+        class="pflege-pdp-tabs-h__panel rte pflege-pdp-tabs-h__panel--reviews"
+        tabindex="0"
+        aria-labelledby="PflegeTab-{{ section_id }}-rev"
+        {% if opened %}hidden{% endif %}
+      >
+        <p>{{ 'products.product.pflege_pdp.reviews_placeholder' | t }}</p>
+      </div>
+    {%- endif -%}
+  </div>
+</div>

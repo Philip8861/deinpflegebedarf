@@ -1,0 +1,1035 @@
+<!doctype html>
+<html class="js" lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="">
+    {%- liquid
+      assign pflege_head_redirect = false
+      if request.page_type == 'page' and page.handle == 'pflegewissen'
+        assign pflege_head_redirect = true
+      elsif request.page_type == 'policy' and policy != blank and policy.handle == 'refund-policy'
+        assign pflege_head_redirect = true
+      elsif request.path == '/policies/refund-policy'
+        assign pflege_head_redirect = true
+      elsif request.page_type == 'policy' and policy != blank and policy.handle == 'terms-of-service'
+        assign pflege_head_redirect = true
+      elsif request.path == '/policies/terms-of-service'
+        assign pflege_head_redirect = true
+      elsif request.page_type == 'policy' and policy != blank and policy.handle == 'privacy-policy'
+        assign pflege_head_redirect = true
+      elsif request.path == '/policies/privacy-policy'
+        assign pflege_head_redirect = true
+      elsif request.page_type == 'policy' and policy != blank and policy.handle == 'shipping-policy'
+        assign pflege_head_redirect = true
+      elsif request.path == '/policies/shipping-policy'
+        assign pflege_head_redirect = true
+      endif
+    -%}
+    {%- if pflege_head_redirect -%}
+      {% render 'pflege-legacy-redirects' %}
+    {%- else -%}
+      <link rel="canonical" href="{{ canonical_url }}">
+    {%- endif -%}
+
+    <link rel="icon" type="image/webp" href="{{ 'logo_browser.webp' | asset_url }}">
+
+    {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
+      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    {%- endunless -%}
+
+    {%- liquid
+      assign pflege_seo_title = blank
+      assign pflege_seo_description = blank
+      assign is_pfc_collection = false
+      assign is_category_filtered = false
+      assign is_pflegesets_page = false
+      if template.suffix == 'pflegesets'
+        assign is_pflegesets_page = true
+      endif
+      if request.page_type == 'collection' and collection != blank
+        assign col_h = collection.handle | downcase
+        if col_h == 'kostenfreie-pflegehilfsmittel' or col_h == 'pflegehilfsmittel-kostenfrei'
+          assign is_pfc_collection = true
+          assign pflege_seo_title = 'sections.pflege_collection_free_care.meta_title' | t
+          assign pflege_seo_description = 'sections.pflege_collection_free_care.meta_description' | t
+        elsif col_h == 'pflegesets' or template.suffix == 'pflegesets'
+          assign is_pflegesets_page = true
+          assign pflege_seo_title = 'sections.pflege_category_filtered.pflegesets.meta_title' | t
+          assign pflege_seo_description = 'sections.pflege_category_filtered.pflegesets.meta_description' | t
+        elsif col_h == 'startseite-beliebte-produkte' or template.suffix == 'startseite-beliebte-produkte'
+          assign pflege_seo_title = 'sections.pflege_category_filtered.startseite_beliebte_produkte.meta_title' | t
+          assign pflege_seo_description = 'sections.pflege_category_filtered.startseite_beliebte_produkte.meta_description' | t
+        elsif col_h == 'oft-zusammen-gekauft' or template.suffix == 'oft-zusammen-gekauft'
+          assign pflege_seo_title = 'sections.pflege_category_filtered.oft_zusammen_gekauft.meta_title' | t
+          assign pflege_seo_description = 'sections.pflege_category_filtered.oft_zusammen_gekauft.meta_description' | t
+        endif
+        if template.suffix == 'desinfektion' or template.suffix == 'haende-und-flaechendesinfektion' or template.suffix == 'hautpflege' or template.suffix == 'inkontinenzversorgung' or template.suffix == 'verbrauchsartikel' or template.suffix == 'koerperpflege' or template.suffix == 'schutz-handschuhe' or col_h == 'desinfektion' or col_h == 'haende-und-flaechendesinfektion' or col_h == 'hautpflege' or col_h == 'hautschutz-hautpflege' or col_h == 'hauschutz-hautpflege' or col_h == 'inkontinenzversorgung' or col_h == 'inkontinenz' or col_h == 'verbrauchsartikel' or col_h == 'koerperpflege' or col_h == 'korperpflege' or col_h == 'schutz-handschuhe' or col_h == 'schutz-und-handschuhe' or col_h == 'handschuhe'
+          assign is_category_filtered = true
+          if col_h == 'inkontinenzversorgung' or col_h == 'inkontinenz' or template.suffix == 'inkontinenzversorgung'
+            assign pflege_seo_title = 'sections.pflege_category_filtered.inkontinenzversorgung.meta_title' | t
+            assign pflege_seo_description = 'sections.pflege_category_filtered.inkontinenzversorgung.meta_description' | t
+          elsif col_h == 'hautpflege' or col_h == 'hautschutz-hautpflege' or col_h == 'hauschutz-hautpflege' or template.suffix == 'hautpflege'
+            assign pflege_seo_title = 'sections.pflege_category_filtered.hautpflege.meta_title' | t
+            assign pflege_seo_description = 'sections.pflege_category_filtered.hautpflege.meta_description' | t
+          elsif col_h == 'verbrauchsartikel' or template.suffix == 'verbrauchsartikel'
+            assign pflege_seo_title = 'sections.pflege_category_filtered.verbrauchsartikel.meta_title' | t
+            assign pflege_seo_description = 'sections.pflege_category_filtered.verbrauchsartikel.meta_description' | t
+          elsif col_h == 'koerperpflege' or col_h == 'korperpflege' or template.suffix == 'koerperpflege'
+            assign pflege_seo_title = 'sections.pflege_category_filtered.koerperpflege.meta_title' | t
+            assign pflege_seo_description = 'sections.pflege_category_filtered.koerperpflege.meta_description' | t
+          elsif col_h == 'schutz-handschuhe' or col_h == 'schutz-und-handschuhe' or col_h == 'handschuhe' or template.suffix == 'schutz-handschuhe'
+            assign pflege_seo_title = 'sections.pflege_category_filtered.schutz_handschuhe.meta_title' | t
+            assign pflege_seo_description = 'sections.pflege_category_filtered.schutz_handschuhe.meta_description' | t
+          else
+            assign pflege_seo_title = 'sections.pflege_category_filtered.desinfektion.meta_title' | t
+            assign pflege_seo_description = 'sections.pflege_category_filtered.desinfektion.meta_description' | t
+          endif
+        endif
+      endif
+      if request.page_type == 'page' and page != blank and page.handle == 'faq'
+        assign pflege_seo_title = 'sections.pflege_faq_page.meta_title' | t
+        assign pflege_seo_description = 'sections.pflege_faq_page.meta_description' | t
+      endif
+      if request.page_type == 'page' and page != blank and page.handle == 'pflegesets'
+        assign is_pflegesets_page = true
+        assign pflege_seo_title = 'sections.pflege_category_filtered.pflegesets.meta_title' | t
+        assign pflege_seo_description = 'sections.pflege_category_filtered.pflegesets.meta_description' | t
+      endif
+      if request.page_type == 'page' and page != blank and page.handle == 'inkontinenzversorgung-auf-rezept' or request.page_type == 'page' and page != blank and page.handle == 'inkontinenzversrogung-auf-rezept'
+        assign pflege_seo_title = 'sections.pflege_inko_rezept_landing.meta_title' | t
+        assign pflege_seo_description = 'sections.pflege_inko_rezept_landing.meta_description' | t
+      endif
+    -%}
+
+    <title>
+      {%- if pflege_seo_title != blank -%}
+        {{ pflege_seo_title | escape }}
+      {%- else -%}
+        {{ page_title }}
+        {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+        {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+        {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+      {%- endif -%}
+    </title>
+
+    {%- if pflege_seo_description != blank -%}
+      <meta name="description" content="{{ pflege_seo_description | escape }}">
+    {%- elsif page_description -%}
+      <meta name="description" content="{{ page_description | escape }}">
+    {%- endif -%}
+
+    {% render 'meta-tags', seo_title: pflege_seo_title, seo_description: pflege_seo_description %}
+
+    <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'details-disclosure.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'details-modal.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'search-form.js' | asset_url }}" defer="defer"></script>
+
+    {%- comment -%} Scroll-Reveal beim Laden deaktiviert — verursacht kurzes Abdunkeln {%- endcomment -%}
+    {%- if false and settings.animations_reveal_on_scroll -%}
+      <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+
+    {{ content_for_header }}
+
+    {% render 'pflege-shopify-account-scripts' %}
+
+    {%- liquid
+      assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
+      assign body_font_italic = settings.type_body_font | font_modify: 'style', 'italic'
+      assign body_font_bold_italic = body_font_bold | font_modify: 'style', 'italic'
+    %}
+
+    {% style %}
+      {{ settings.type_body_font | font_face: font_display: 'swap' }}
+      {{ body_font_bold | font_face: font_display: 'swap' }}
+      {{ body_font_italic | font_face: font_display: 'swap' }}
+      {{ body_font_bold_italic | font_face: font_display: 'swap' }}
+      {{ settings.type_header_font | font_face: font_display: 'swap' }}
+
+      {% for scheme in settings.color_schemes -%}
+        {% assign scheme_classes = scheme_classes | append: ', .color-' | append: scheme.id %}
+        {% if forloop.index == 1 -%}
+          :root,
+        {%- endif %}
+        .color-{{ scheme.id }} {
+          --color-background: {{ scheme.settings.background.red }},{{ scheme.settings.background.green }},{{ scheme.settings.background.blue }};
+        {% if scheme.settings.background_gradient != empty %}
+          --gradient-background: {{ scheme.settings.background_gradient }};
+        {% else %}
+          --gradient-background: {{ scheme.settings.background }};
+        {% endif %}
+
+        {% liquid
+          assign background_color = scheme.settings.background
+          assign background_color_brightness = background_color | color_brightness
+          if background_color_brightness <= 26
+            assign background_color_contrast = background_color | color_lighten: 50
+          elsif background_color_brightness <= 65
+            assign background_color_contrast = background_color | color_lighten: 5
+          else
+            assign background_color_contrast = background_color | color_darken: 25
+          endif
+        %}
+
+        --color-foreground: {{ scheme.settings.text.red }},{{ scheme.settings.text.green }},{{ scheme.settings.text.blue }};
+        --color-background-contrast: {{ background_color_contrast.red }},{{ background_color_contrast.green }},{{ background_color_contrast.blue }};
+        --color-shadow: {{ scheme.settings.shadow.red }},{{ scheme.settings.shadow.green }},{{ scheme.settings.shadow.blue }};
+        --color-button: {{ scheme.settings.button.red }},{{ scheme.settings.button.green }},{{ scheme.settings.button.blue }};
+        --color-button-text: {{ scheme.settings.button_label.red }},{{ scheme.settings.button_label.green }},{{ scheme.settings.button_label.blue }};
+        --color-secondary-button: {{ scheme.settings.background.red }},{{ scheme.settings.background.green }},{{ scheme.settings.background.blue }};
+        --color-secondary-button-text: {{ scheme.settings.secondary_button_label.red }},{{ scheme.settings.secondary_button_label.green }},{{ scheme.settings.secondary_button_label.blue }};
+        --color-link: {{ scheme.settings.secondary_button_label.red }},{{ scheme.settings.secondary_button_label.green }},{{ scheme.settings.secondary_button_label.blue }};
+        --color-badge-foreground: {{ scheme.settings.text.red }},{{ scheme.settings.text.green }},{{ scheme.settings.text.blue }};
+        --color-badge-background: {{ scheme.settings.background.red }},{{ scheme.settings.background.green }},{{ scheme.settings.background.blue }};
+        --color-badge-border: {{ scheme.settings.text.red }},{{ scheme.settings.text.green }},{{ scheme.settings.text.blue }};
+        --payment-terms-background-color: rgb({{ scheme.settings.background.rgb }});
+      }
+      {% endfor %}
+
+      {{ scheme_classes | prepend: 'body' }} {
+        color: rgba(var(--color-foreground), 0.75);
+        background-color: rgb(var(--color-background));
+      }
+
+      :root {
+        --font-body-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+        --font-body-style: {{ settings.type_body_font.style }};
+        --font-body-weight: {{ settings.type_body_font.weight }};
+        --font-body-weight-bold: {{ settings.type_body_font.weight | plus: 300 | at_most: 1000 }};
+
+        --font-heading-family: {{ settings.type_header_font.family }}, {{ settings.type_header_font.fallback_families }};
+        --font-heading-style: {{ settings.type_header_font.style }};
+        --font-heading-weight: {{ settings.type_header_font.weight }};
+
+        --font-body-scale: {{ settings.body_scale | divided_by: 100.0 }};
+        --font-heading-scale: {{ settings.heading_scale | times: 1.0 | divided_by: settings.body_scale }};
+
+        --media-padding: {{ settings.media_padding }}px;
+        --media-border-opacity: {{ settings.media_border_opacity | divided_by: 100.0 }};
+        --media-border-width: {{ settings.media_border_thickness }}px;
+        --media-radius: {{ settings.media_radius }}px;
+        --media-shadow-opacity: {{ settings.media_shadow_opacity | divided_by: 100.0 }};
+        --media-shadow-horizontal-offset: {{ settings.media_shadow_horizontal_offset }}px;
+        --media-shadow-vertical-offset: {{ settings.media_shadow_vertical_offset }}px;
+        --media-shadow-blur-radius: {{ settings.media_shadow_blur }}px;
+        --media-shadow-visible: {% if settings.media_shadow_opacity > 0 %}1{% else %}0{% endif %};
+
+        --page-width: {{ settings.page_width | divided_by: 10 }}rem;
+        --page-width-margin: {% if settings.page_width == '1600' %}2{% else %}0{% endif %}rem;
+
+        --product-card-image-padding: {{ settings.card_image_padding | divided_by: 10.0 }}rem;
+        --product-card-corner-radius: {{ settings.card_corner_radius | divided_by: 10.0 }}rem;
+        --product-card-text-alignment: {{ settings.card_text_alignment }};
+        --product-card-border-width: {{ settings.card_border_thickness | divided_by: 10.0 }}rem;
+        --product-card-border-opacity: {{ settings.card_border_opacity | divided_by: 100.0 }};
+        --product-card-shadow-opacity: {{ settings.card_shadow_opacity | divided_by: 100.0 }};
+        --product-card-shadow-visible: {% if settings.card_shadow_opacity > 0 %}1{% else %}0{% endif %};
+        --product-card-shadow-horizontal-offset: {{ settings.card_shadow_horizontal_offset | divided_by: 10.0 }}rem;
+        --product-card-shadow-vertical-offset: {{ settings.card_shadow_vertical_offset | divided_by: 10.0 }}rem;
+        --product-card-shadow-blur-radius: {{ settings.card_shadow_blur | divided_by: 10.0 }}rem;
+
+        --collection-card-image-padding: {{ settings.collection_card_image_padding | divided_by: 10.0 }}rem;
+        --collection-card-corner-radius: {{ settings.collection_card_corner_radius | divided_by: 10.0 }}rem;
+        --collection-card-text-alignment: {{ settings.collection_card_text_alignment }};
+        --collection-card-border-width: {{ settings.collection_card_border_thickness | divided_by: 10.0 }}rem;
+        --collection-card-border-opacity: {{ settings.collection_card_border_opacity | divided_by: 100.0 }};
+        --collection-card-shadow-opacity: {{ settings.collection_card_shadow_opacity | divided_by: 100.0 }};
+        --collection-card-shadow-visible: {% if settings.collection_card_shadow_opacity > 0 %}1{% else %}0{% endif %};
+        --collection-card-shadow-horizontal-offset: {{ settings.collection_card_shadow_horizontal_offset | divided_by: 10.0 }}rem;
+        --collection-card-shadow-vertical-offset: {{ settings.collection_card_shadow_vertical_offset | divided_by: 10.0 }}rem;
+        --collection-card-shadow-blur-radius: {{ settings.collection_card_shadow_blur | divided_by: 10.0 }}rem;
+
+        --blog-card-image-padding: {{ settings.blog_card_image_padding | divided_by: 10.0 }}rem;
+        --blog-card-corner-radius: {{ settings.blog_card_corner_radius | divided_by: 10.0 }}rem;
+        --blog-card-text-alignment: {{ settings.blog_card_text_alignment }};
+        --blog-card-border-width: {{ settings.blog_card_border_thickness | divided_by: 10.0 }}rem;
+        --blog-card-border-opacity: {{ settings.blog_card_border_opacity | divided_by: 100.0 }};
+        --blog-card-shadow-opacity: {{ settings.blog_card_shadow_opacity | divided_by: 100.0 }};
+        --blog-card-shadow-visible: {% if settings.blog_card_shadow_opacity > 0 %}1{% else %}0{% endif %};
+        --blog-card-shadow-horizontal-offset: {{ settings.blog_card_shadow_horizontal_offset | divided_by: 10.0 }}rem;
+        --blog-card-shadow-vertical-offset: {{ settings.blog_card_shadow_vertical_offset | divided_by: 10.0 }}rem;
+        --blog-card-shadow-blur-radius: {{ settings.blog_card_shadow_blur | divided_by: 10.0 }}rem;
+
+        --badge-corner-radius: {{ settings.badge_corner_radius | divided_by: 10.0 }}rem;
+
+        --popup-border-width: {{ settings.popup_border_thickness }}px;
+        --popup-border-opacity: {{ settings.popup_border_opacity | divided_by: 100.0 }};
+        --popup-corner-radius: {{ settings.popup_corner_radius }}px;
+        --popup-shadow-opacity: {{ settings.popup_shadow_opacity | divided_by: 100.0 }};
+        --popup-shadow-horizontal-offset: {{ settings.popup_shadow_horizontal_offset }}px;
+        --popup-shadow-vertical-offset: {{ settings.popup_shadow_vertical_offset }}px;
+        --popup-shadow-blur-radius: {{ settings.popup_shadow_blur }}px;
+
+        --drawer-border-width: {{ settings.drawer_border_thickness }}px;
+        --drawer-border-opacity: {{ settings.drawer_border_opacity | divided_by: 100.0 }};
+        --drawer-shadow-opacity: {{ settings.drawer_shadow_opacity | divided_by: 100.0 }};
+        --drawer-shadow-horizontal-offset: {{ settings.drawer_shadow_horizontal_offset }}px;
+        --drawer-shadow-vertical-offset: {{ settings.drawer_shadow_vertical_offset }}px;
+        --drawer-shadow-blur-radius: {{ settings.drawer_shadow_blur }}px;
+
+        --spacing-sections-desktop: {{ settings.spacing_sections }}px;
+        --spacing-sections-mobile: {% if settings.spacing_sections < 24 %}{{ settings.spacing_sections }}{% else %}{{ settings.spacing_sections | times: 0.7 | round | at_least: 20 }}{% endif %}px;
+
+        --grid-desktop-vertical-spacing: {{ settings.spacing_grid_vertical }}px;
+        --grid-desktop-horizontal-spacing: {{ settings.spacing_grid_horizontal }}px;
+        --grid-mobile-vertical-spacing: {{ settings.spacing_grid_vertical | divided_by: 2 }}px;
+        --grid-mobile-horizontal-spacing: {{ settings.spacing_grid_horizontal | divided_by: 2 }}px;
+
+        --text-boxes-border-opacity: {{ settings.text_boxes_border_opacity | divided_by: 100.0 }};
+        --text-boxes-border-width: {{ settings.text_boxes_border_thickness }}px;
+        --text-boxes-radius: {{ settings.text_boxes_radius }}px;
+        --text-boxes-shadow-opacity: {{ settings.text_boxes_shadow_opacity | divided_by: 100.0 }};
+        --text-boxes-shadow-visible: {% if settings.text_boxes_shadow_opacity > 0 %}1{% else %}0{% endif %};
+        --text-boxes-shadow-horizontal-offset: {{ settings.text_boxes_shadow_horizontal_offset }}px;
+        --text-boxes-shadow-vertical-offset: {{ settings.text_boxes_shadow_vertical_offset }}px;
+        --text-boxes-shadow-blur-radius: {{ settings.text_boxes_shadow_blur }}px;
+
+        --buttons-radius: {{ settings.buttons_radius }}px;
+        --buttons-radius-outset: {% if settings.buttons_radius > 0 %}{{ settings.buttons_radius | plus: settings.buttons_border_thickness }}{% else %}0{% endif %}px;
+        --buttons-border-width: {% if settings.buttons_border_opacity > 0 %}{{ settings.buttons_border_thickness }}{% else %}0{% endif %}px;
+        --buttons-border-opacity: {{ settings.buttons_border_opacity | divided_by: 100.0 }};
+        --buttons-shadow-opacity: {{ settings.buttons_shadow_opacity | divided_by: 100.0 }};
+        --buttons-shadow-visible: {% if settings.buttons_shadow_opacity > 0 %}1{% else %}0{% endif %};
+        --buttons-shadow-horizontal-offset: {{ settings.buttons_shadow_horizontal_offset }}px;
+        --buttons-shadow-vertical-offset: {{ settings.buttons_shadow_vertical_offset }}px;
+        --buttons-shadow-blur-radius: {{ settings.buttons_shadow_blur }}px;
+        --buttons-border-offset: {% if settings.buttons_radius > 0 or settings.buttons_shadow_opacity > 0 %}0.3{% else %}0{% endif %}px;
+
+        --inputs-radius: {{ settings.inputs_radius }}px;
+        --inputs-border-width: {{ settings.inputs_border_thickness }}px;
+        --inputs-border-opacity: {{ settings.inputs_border_opacity | divided_by: 100.0 }};
+        --inputs-shadow-opacity: {{ settings.inputs_shadow_opacity | divided_by: 100.0 }};
+        --inputs-shadow-horizontal-offset: {{ settings.inputs_shadow_horizontal_offset }}px;
+        --inputs-margin-offset: {% if settings.inputs_shadow_vertical_offset != 0 and settings.inputs_shadow_opacity > 0 %}{{ settings.inputs_shadow_vertical_offset | abs }}{% else %}0{% endif %}px;
+        --inputs-shadow-vertical-offset: {{ settings.inputs_shadow_vertical_offset }}px;
+        --inputs-shadow-blur-radius: {{ settings.inputs_shadow_blur }}px;
+        --inputs-radius-outset: {% if settings.inputs_radius > 0 %}{{ settings.inputs_radius | plus: settings.inputs_border_thickness }}{% else %}0{% endif %}px;
+
+        --variant-pills-radius: {{ settings.variant_pills_radius }}px;
+        --variant-pills-border-width: {{ settings.variant_pills_border_thickness }}px;
+        --variant-pills-border-opacity: {{ settings.variant_pills_border_opacity | divided_by: 100.0 }};
+        --variant-pills-shadow-opacity: {{ settings.variant_pills_shadow_opacity | divided_by: 100.0 }};
+        --variant-pills-shadow-horizontal-offset: {{ settings.variant_pills_shadow_horizontal_offset }}px;
+        --variant-pills-shadow-vertical-offset: {{ settings.variant_pills_shadow_vertical_offset }}px;
+        --variant-pills-shadow-blur-radius: {{ settings.variant_pills_shadow_blur }}px;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: inherit;
+      }
+
+      html {
+        box-sizing: border-box;
+        font-size: calc(var(--font-body-scale) * 62.5%);
+        height: 100%;
+      }
+
+      body {
+        display: grid;
+        grid-template-rows: auto auto 1fr auto;
+        grid-template-columns: 100%;
+        min-height: 100%;
+        margin: 0;
+        font-size: 1.5rem;
+        letter-spacing: 0.06rem;
+        line-height: calc(1 + 0.8 / var(--font-body-scale));
+        font-family: var(--font-body-family);
+        font-style: var(--font-body-style);
+        font-weight: var(--font-body-weight);
+      }
+
+      @media screen and (min-width: 750px) {
+        body {
+          font-size: 1.6rem;
+        }
+      }
+    {% endstyle %}
+
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'pflege-ui-scale.css' | asset_url | stylesheet_tag }}
+    {{ 'pflegeshop-tokens.css' | asset_url | stylesheet_tag }}
+    {{ 'pflege-mobile-buttons.css' | asset_url | stylesheet_tag }}
+    {{ 'pflege-mobile-modals.css' | asset_url | stylesheet_tag }}
+    {{ 'pflege-section-spacing.css' | asset_url | stylesheet_tag }}
+    {{ 'component-pflege-type-unified.css' | asset_url | stylesheet_tag }}
+    <style id="pflege-hide-header-hamburger">
+      header-drawer,
+      .section-header .menu-drawer-container,
+      .section-header .header__icon--menu,
+      .section-header .header__icon--summary.header__icon--menu {
+        display: none !important;
+      }
+    </style>
+    <style id="pflege-cat-card-price-center">
+      .pflege-cat-card .pflege-cat-card__price-row {
+        display: block !important;
+        width: 100% !important;
+        margin: 0 !important;
+        text-align: center !important;
+      }
+      .pflege-cat-card .pflege-cat-card__price,
+      .pflege-cat-card .pflege-cat-card__unit {
+        display: block !important;
+        width: 100% !important;
+        text-align: center !important;
+        color: #003b70 !important;
+        font-weight: 800 !important;
+      }
+      .pflege-cat-card .pflege-cat-card__title,
+      .pflege-cat-card .pflege-cat-card__title a {
+        color: #003b70 !important;
+      }
+      .pflege-cat-card .pflege-cat-card__body {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        gap: 0.45rem;
+        align-items: stretch;
+        width: 100%;
+      }
+      .pflege-cat-card .pflege-cat-card__footer {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+        width: 100%;
+        margin-top: auto;
+      }
+      .pflege-pflegesets--category .pflege-cat-card .pflege-cat-card__price-row,
+      .pflege-pflegesets--category .pflege-cat-card .pflege-cat-card__price {
+        display: block !important;
+        width: 100% !important;
+        text-align: center !important;
+      }
+      .pflege-pflegesets--category .pflege-cat-card--pflegeset .pflege-cat-card__badges--top-right {
+        left: auto;
+        right: 0.5rem;
+        top: 0.5rem;
+        z-index: 3;
+        flex-direction: column;
+        align-items: flex-end;
+      }
+      .pflege-pflegesets--category .pflege-cat-card--pflegeset .pflege-cat-card__badge--save {
+        border-radius: 14px;
+        background: #d62828 !important;
+        color: #fff !important;
+        font-size: clamp(0.86rem, 0.76rem + 0.4vw, 1.05rem);
+        font-weight: 800;
+        line-height: 1.2;
+        box-shadow: 0 2px 8px rgba(11, 35, 71, 0.18);
+      }
+      .pflege-pflegesets--category .pflege-cat-card--pflegeset .pflege-cat-card__body {
+        align-items: center;
+        text-align: center;
+      }
+      .pflege-pflegesets--category .pflege-cat-card--pflegeset .pflege-cat-card__title,
+      .pflege-pflegesets--category .pflege-cat-card--pflegeset .pflege-cat-card__title a {
+        width: 100%;
+        text-align: center !important;
+        font-size: clamp(1.24rem, 1.08rem + 0.62vw, 1.52rem) !important;
+        font-weight: 900 !important;
+        line-height: 1.3 !important;
+        margin: clamp(0.35rem, 1.2vw, 0.55rem) 0 clamp(0.4rem, 1.3vw, 0.6rem) !important;
+      }
+    </style>
+    <style id="pflege-mobile-product-grid">
+      /* Mobil: immer 2 Spalten — inline, damit gecachte CDN-Assets nicht überschreiben */
+      @media screen and (max-width: 749px) {
+        .pflege-cat-filtered__grid,
+        .pflege-bestseller__grid,
+        .pflege-pflegesets__grid,
+        .pflege-pflegesets__cat-grid {
+          display: grid !important;
+          grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+          gap: clamp(0.5rem, 2.2vw, 0.75rem) !important;
+          width: 100% !important;
+          max-width: 100% !important;
+        }
+
+        .pflege-cat-filtered__shell,
+        .pflege-bestseller__shell {
+          padding-left: clamp(0.5rem, 2.5vw, 0.75rem);
+          padding-right: clamp(0.5rem, 2.5vw, 0.75rem);
+        }
+
+        .pflege-cat-card__inner {
+          padding: 0.5rem !important;
+          border-radius: 12px;
+        }
+
+        .pflege-cat-card__media {
+          margin-bottom: 0.45rem;
+        }
+
+        .pflege-cat-card__media-link {
+          min-height: auto !important;
+          aspect-ratio: 1 / 1;
+          border-radius: 8px;
+        }
+
+        .pflege-cat-card__badge {
+          padding: 0.18rem 0.42rem;
+          font-size: 0.62rem;
+          line-height: 1.25;
+        }
+
+        .pflege-cat-card__title {
+          font-size: clamp(0.72rem, 2.8vw, 0.84rem) !important;
+          line-height: 1.28;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+          overflow: hidden;
+        }
+
+        .pflege-cat-card__desc {
+          font-size: clamp(0.65rem, 2.4vw, 0.74rem);
+          min-height: 0;
+          -webkit-line-clamp: 2;
+        }
+
+        .pflege-cat-card__price {
+          font-size: clamp(0.88rem, 3.6vw, 1rem) !important;
+        }
+
+        .pflege-cat-card__unit {
+          font-size: clamp(0.62rem, 2.2vw, 0.72rem) !important;
+        }
+
+        .pflege-cat-card__cart,
+        .pflege-cat-card__cart--link {
+          min-height: var(--pflege-btn-compact-min-h, 2.5rem) !important;
+          padding: var(--pflege-btn-compact-pad-y, 0.48rem) var(--pflege-btn-compact-pad-x, 0.55rem) !important;
+          font-size: var(--pflege-btn-compact-fs, clamp(0.8125rem, 3.1vw, 0.875rem)) !important;
+          font-weight: var(--pflege-btn-compact-fw, 700) !important;
+          border-radius: var(--pflege-btn-compact-radius, 8px);
+        }
+
+        .pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__inner {
+          display: flex !important;
+          flex-direction: column !important;
+          gap: 0.35rem;
+        }
+
+        .pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__media {
+          margin-bottom: 0;
+          width: 100%;
+        }
+
+        .pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__media-link {
+          width: 100%;
+          min-height: auto !important;
+          max-height: none;
+          aspect-ratio: 1 / 1;
+        }
+
+        .pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__body {
+          gap: 0.28rem;
+          text-align: center;
+        }
+
+        .pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__title {
+          padding-top: 0 !important;
+          min-height: auto !important;
+          text-align: center;
+          -webkit-line-clamp: 2;
+        }
+
+        .pflege-bestseller .pflege-cat-card--horizontal .pflege-cat-card__desc {
+          display: none;
+        }
+
+        .pflege-bestseller .pflege-cat-card__badge--tip,
+        .pflege-bestseller .pflege-cat-card__badge--bestseller {
+          padding: 0.18rem 0.42rem;
+          font-size: 0.6rem;
+        }
+
+        .pflege-pflegesets--category .pflege-cat-card__media-link {
+          min-height: auto !important;
+        }
+
+        .pflege-pflegesets--category .pflege-cat-card__title {
+          font-size: clamp(0.72rem, 2.8vw, 0.88rem) !important;
+        }
+
+        .pflege-pflegesets--category .pflege-cat-card--pflegeset .pflege-cat-card__badge--save {
+          padding: 0.22rem 0.42rem;
+          font-size: clamp(0.58rem, 2.2vw, 0.68rem) !important;
+          border-radius: 8px;
+        }
+
+        .pflege-pflegesets--category .pflege-cat-card--pflegeset .pflege-cat-card__title,
+        .pflege-pflegesets--category .pflege-cat-card--pflegeset .pflege-cat-card__title a {
+          font-size: clamp(0.92rem, 3.4vw, 1.05rem) !important;
+          font-weight: 900 !important;
+          margin: 0.3rem 0 0.35rem !important;
+        }
+
+        /* Startseite Hero mobil: volle Breite, kräftigere Typo */
+        body.template-index .pflege-hero__mobile-shop-overlay {
+          height: min(70%, 33rem) !important;
+          overflow: visible !important;
+          align-items: stretch !important;
+          padding-left: clamp(0.65rem, 2.8vw, 0.9rem) !important;
+          padding-right: clamp(0.65rem, 2.8vw, 0.9rem) !important;
+        }
+
+        body.template-index .pflege-hero__mobile-shop-overlay .pflege-hero__content {
+          display: flex !important;
+          flex-direction: column !important;
+          align-items: stretch !important;
+          justify-content: flex-start !important;
+          gap: clamp(0.6rem, 2.4vw, 0.85rem) !important;
+          max-width: none !important;
+          width: 100% !important;
+          text-align: center !important;
+        }
+
+        body.template-index .pflege-hero__panel--mobile-shop .pflege-hero__badge {
+          display: block !important;
+          width: 100% !important;
+          max-width: none !important;
+          align-self: stretch !important;
+          opacity: 1 !important;
+          visibility: visible !important;
+          font-size: clamp(0.88rem, 3.75vw, 1.02rem) !important;
+          font-weight: 900 !important;
+          -webkit-text-stroke: 0.2px currentColor !important;
+          text-align: center !important;
+        }
+
+        body.template-index .pflege-hero__panel--mobile-shop .pflege-hero__title {
+          margin: 0 !important;
+          text-align: center !important;
+          font-size: clamp(1.89rem, 8.3vw, 2.43rem) !important;
+          font-weight: 900 !important;
+          color: #0a4560 !important;
+          -webkit-text-stroke: 0.55px #0a4560 !important;
+          paint-order: stroke fill !important;
+        }
+
+        body.template-index .pflege-hero__panel--mobile-shop .pflege-hero__title span {
+          font-weight: 900 !important;
+        }
+
+        body.template-index .pflege-hero__panel--mobile-shop .pflege-hero__sub {
+          margin: 0 !important;
+          text-align: center !important;
+          font-size: clamp(0.98rem, 4.1vw, 1.12rem) !important;
+          font-weight: 900 !important;
+          line-height: 1.4 !important;
+          color: #152536 !important;
+          -webkit-text-stroke: 0.4px #152536 !important;
+          overflow: visible !important;
+          width: 100% !important;
+          max-width: none !important;
+        }
+
+        body.template-index .pflege-hero__panel--mobile-shop {
+          overflow: visible !important;
+        }
+
+        body.template-index .pflege-hero__panel--mobile-shop .pflege-hero__mobile-shop-photo {
+          border-radius: var(--pflege-radius-lg, 22px) !important;
+        }
+
+        body.template-index .pflege-hero__panel--mobile-shop .pflege-hero__cta-glow {
+          display: block !important;
+          position: relative !important;
+          width: 100% !important;
+          margin-top: clamp(0.25rem, 1.2vw, 0.5rem) !important;
+          isolation: isolate !important;
+        }
+
+        body.template-index .pflege-hero__panel--mobile-shop .pflege-hero__cta {
+          position: relative !important;
+          z-index: 1 !important;
+          margin-top: 0 !important;
+          width: 100% !important;
+          max-width: none !important;
+          align-self: stretch !important;
+          font-size: var(--pflege-btn-primary-fs, clamp(1rem, 4vw, 1.125rem)) !important;
+          font-weight: 800 !important;
+          min-height: var(--pflege-btn-primary-min-h, 2.875rem) !important;
+          padding: var(--pflege-btn-primary-pad-y, 0.72rem) var(--pflege-btn-primary-pad-x, 1.1rem) !important;
+          border-radius: var(--pflege-btn-primary-radius, 12px) !important;
+          animation: pflege-hero-cta-mobile-shine 5s ease-in-out infinite !important;
+          transition: background 0.25s ease !important;
+        }
+
+        body.template-index .pflege-hero__panel--mobile-shop .pflege-hero__cta-glow::before {
+          content: '' !important;
+          position: absolute !important;
+          inset: 0 !important;
+          border-radius: var(--pflege-btn-primary-radius, 12px) !important;
+          pointer-events: none !important;
+          z-index: 0 !important;
+          box-shadow:
+            0 0 0 2px rgba(255, 215, 165, 0.65),
+            0 0 24px 6px rgba(248, 151, 56, 0.55),
+            0 0 42px 12px rgba(248, 151, 56, 0.28) !important;
+          opacity: 0 !important;
+          animation: pflege-hero-cta-mobile-glow 5s ease-in-out infinite !important;
+        }
+
+        @keyframes pflege-hero-cta-mobile-glow {
+          0%,
+          66%,
+          100% {
+            opacity: 0;
+          }
+
+          74% {
+            opacity: 0.38;
+          }
+
+          82% {
+            opacity: 0.88;
+          }
+
+          90% {
+            opacity: 0.42;
+          }
+
+          96% {
+            opacity: 0;
+          }
+        }
+
+        @keyframes pflege-hero-cta-mobile-shine {
+          0%,
+          66%,
+          100% {
+            filter: brightness(1);
+            box-shadow: 0 2px 10px rgba(248, 151, 56, 0.22);
+          }
+
+          80% {
+            filter: brightness(1.07);
+          }
+
+          86% {
+            filter: brightness(1.12);
+            box-shadow: 0 2px 12px rgba(248, 151, 56, 0.32);
+          }
+
+          94% {
+            filter: brightness(1.02);
+          }
+        }
+
+        /* Kategorienübersicht mobil: kleiner + Seitenabstand */
+        .pflege-main-nav-section .pflege-main-nav.pflege-main-nav--full-bleed {
+          padding-left: max(clamp(0.85rem, 4.5vw, 1.25rem), env(safe-area-inset-left, 0px)) !important;
+          padding-right: max(clamp(0.85rem, 4.5vw, 1.25rem), env(safe-area-inset-right, 0px)) !important;
+        }
+
+        .pflege-main-nav-section .pflege-main-nav__category-dialog-trigger {
+          min-height: var(--pflege-btn-secondary-min-h, 2.75rem) !important;
+          height: var(--pflege-btn-secondary-min-h, 2.75rem) !important;
+          font-size: var(--pflege-btn-secondary-fs, clamp(1rem, 4.2vw, 1.125rem)) !important;
+          font-weight: var(--pflege-btn-secondary-fw, 700) !important;
+          max-width: 100% !important;
+          box-sizing: border-box !important;
+        }
+
+        .pflege-main-nav-section .pflege-main-nav__search {
+          min-height: var(--pflege-btn-secondary-min-h, 2.75rem) !important;
+          height: var(--pflege-btn-secondary-min-h, 2.75rem) !important;
+          box-sizing: border-box !important;
+        }
+
+        .pflege-main-nav-section .pflege-main-nav__search-input,
+        .pflege-main-nav-section .pflege-main-nav__search-input::placeholder {
+          font-size: var(--pflege-btn-secondary-fs, clamp(1rem, 4.2vw, 1.125rem)) !important;
+          font-weight: var(--pflege-btn-secondary-fw, 700) !important;
+        }
+
+        .pflege-main-nav-section .pflege-main-nav__category-menu-icon.pflege-icon {
+          color: var(--pflege-heading-navy, #062a55) !important;
+        }
+
+        .pflege-main-nav-section .pflege-main-nav__category-menu-icon.pflege-icon svg {
+          width: clamp(1.3rem, 5.4vw, 1.5rem) !important;
+          height: clamp(1.3rem, 5.4vw, 1.5rem) !important;
+          stroke-width: 2.85 !important;
+          stroke: currentColor !important;
+        }
+
+        /* Kategorienübersicht-Pop-up mobil: Seitenabstand zum Bildschirmrand */
+        dialog.pflege-category-modal {
+          position: fixed !important;
+          inset: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0) env(safe-area-inset-bottom, 0)
+            env(safe-area-inset-left, 0) !important;
+          width: calc(100% - (var(--pflege-modal-inset-x, clamp(0.85rem, 4.5vw, 1.25rem)) * 2)) !important;
+          max-width: calc(100% - (var(--pflege-modal-inset-x, clamp(0.85rem, 4.5vw, 1.25rem)) * 2)) !important;
+          max-height: calc(100% - (var(--pflege-modal-inset-y, clamp(1rem, 5vw, 1.35rem)) * 2)) !important;
+          margin: auto !important;
+          box-sizing: border-box !important;
+        }
+
+        .pflege-cat-filtered__drawer-backdrop-blur {
+          -webkit-backdrop-filter: blur(7px) !important;
+          backdrop-filter: blur(7px) !important;
+          background: transparent !important;
+        }
+
+        .pflege-cat-filtered__drawer-backdrop-dim {
+          background: rgba(11, 35, 71, 0.74) !important;
+        }
+
+        .pflege-cat-filtered__drawer-panel {
+          border: 1px solid rgba(255, 255, 255, 0.95) !important;
+          box-shadow:
+            0 0 0 1px rgba(11, 35, 71, 0.08),
+            0 32px 76px rgba(11, 35, 71, 0.42),
+            0 14px 32px rgba(11, 35, 71, 0.22) !important;
+        }
+      }
+    </style>
+    {%- if template.name == 'index' -%}
+      {{ 'pflegeshop-header-home.css' | asset_url | stylesheet_tag }}
+    {%- elsif template.name == 'collection' or request.page_type == 'collection' -%}
+      {{ 'pflege-collection-page.css' | asset_url | stylesheet_tag }}
+      {%- if template.suffix == 'kostenfreie-pflegehilfsmittel' -%}
+        {{ 'section-pflege-collection-free-care.css' | asset_url | stylesheet_tag }}
+      {%- elsif request.page_type == 'collection' and collection != blank -%}
+        {%- assign col_h_css = collection.handle | downcase -%}
+        {%- if col_h_css == 'kostenfreie-pflegehilfsmittel' or col_h_css == 'pflegehilfsmittel-kostenfrei' -%}
+          {{ 'section-pflege-collection-free-care.css' | asset_url | stylesheet_tag }}
+        {%- endif -%}
+      {%- endif -%}
+    {%- endif -%}
+    {{ 'pflege-site-entrance.css' | asset_url | stylesheet_tag }}
+    {{ 'pflege-hero-rise.css' | asset_url | stylesheet_tag }}
+    <style id="pflege-no-flash-critical">
+      /* Verhindert kurzes Abdunkeln/Ausblenden beim Seitenwechsel (vor defer-JS) */
+      html,
+      body.gradient {
+        background-color: #fefefe !important;
+      }
+
+      html:not(.shopify-design-mode) body.gradient {
+        background-attachment: scroll !important;
+      }
+
+      html:not(.shopify-design-mode) .scroll-trigger.animate--fade-in,
+      html:not(.shopify-design-mode) .scroll-trigger.animate--slide-in,
+      html:not(.shopify-design-mode) .pflege-site-entrance-el,
+      html:not(.shopify-design-mode) .pflege-site-entrance-el--card,
+      html:not(.shopify-design-mode) .pflege-site-entrance-el--section {
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+        transition: none !important;
+        filter: none !important;
+      }
+
+      /* Inaktive Overlays nie kurz sichtbar */
+      html:not(.shopify-design-mode) .cart-notification-wrapper:not(.is-active) .cart-notification__backdrop,
+      html:not(.shopify-design-mode) .cart-notification-wrapper:not(.is-active) .cart-notification__backdrop-blur,
+      html:not(.shopify-design-mode) .cart-notification-wrapper:not(.is-active) .cart-notification__backdrop-dim,
+      html:not(.shopify-design-mode) .pflege-pflegeboxi-modal[hidden],
+      html:not(.shopify-design-mode) #pflege-pflegeboxi-root[hidden] {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+      }
+
+      /* Header: Badge/Icons sofort an Endposition (kein Sprung nach base.css) */
+      html:not(.shopify-design-mode) .pflege-main-nav-section .pflege-main-nav__cart-graphic .cart-count-bubble {
+        left: auto !important;
+        right: -0.1rem !important;
+        bottom: auto !important;
+        top: -0.12rem !important;
+        transform: none !important;
+      }
+
+      html:not(.shopify-design-mode) .pflege-main-nav-section shopify-account:not(:defined),
+      html:not(.shopify-design-mode) .pflege-main-nav-section shopify-account:defined {
+        min-width: 3.65rem !important;
+        min-height: 3.65rem !important;
+        width: 3.65rem !important;
+        height: 3.65rem !important;
+      }
+    </style>
+    <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
+
+    {%- if settings.cart_type == 'drawer' -%}
+      {{ 'component-cart-drawer.css' | asset_url | stylesheet_tag }}
+      {{ 'component-cart.css' | asset_url | stylesheet_tag }}
+      {{ 'component-totals.css' | asset_url | stylesheet_tag }}
+      {{ 'component-price.css' | asset_url | stylesheet_tag }}
+      {{ 'component-discounts.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
+
+    {%- unless settings.type_body_font.system? -%}
+      {% comment %}theme-check-disable AssetPreload{% endcomment %}
+      <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>
+      {% comment %}theme-check-enable AssetPreload{% endcomment %}
+    {%- endunless -%}
+    {%- unless settings.type_header_font.system? -%}
+      {% comment %}theme-check-disable AssetPreload{% endcomment %}
+      <link rel="preload" as="font" href="{{ settings.type_header_font | font_url }}" type="font/woff2" crossorigin>
+      {% comment %}theme-check-enable AssetPreload{% endcomment %}
+    {%- endunless -%}
+
+    {%- if localization.available_countries.size > 1 or localization.available_languages.size > 1 -%}
+      {{ 'component-localization-form.css' | asset_url | stylesheet_tag: preload: true }}
+      <script src="{{ 'localization-form.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+
+    {%- if settings.predictive_search_enabled -%}
+      <link
+        rel="stylesheet"
+        href="{{ 'component-predictive-search.css' | asset_url }}"
+        media="print"
+        onload="this.media='all'"
+      >
+    {%- endif -%}
+
+    <script>
+      if (Shopify.designMode) {
+        document.documentElement.classList.add('shopify-design-mode');
+      }
+    </script>
+  </head>
+
+  <body class="gradient template-{{ template.name }}{% if template.suffix != blank %} template-{{ template.name }}-{{ template.suffix | handleize }}{% endif %}{% if template.name == 'collection' or request.page_type == 'collection' %} pflege-collection-page{% endif %}{% if is_category_filtered %} pflege-category-filtered-page{% endif %}{% if is_pflegesets_page %} pflege-pflegesets-page{% endif %}{% if template.name == 'search' %} pflege-search-page{% endif %}{% if is_pfc_collection %} pflege-pfc-collection{% endif %}{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
+    <a class="skip-to-content-link button visually-hidden" href="#MainContent">
+      {{ 'accessibility.skip_to_text' | t }}
+    </a>
+
+    {% sections 'header-group' %}
+
+    {%- comment -%}
+      Cart-Drawer nach dem Header: JavaScript hängt Klicks an #cart-icon-bubble / #pflege-cart-icon-bubble —
+      die Links müssen beim Upgrade von &lt;cart-drawer&gt; bereits im DOM existieren.
+    {%- endcomment -%}
+    {%- if settings.cart_type == 'drawer' -%}
+      {%- render 'cart-drawer' -%}
+    {%- endif -%}
+
+    <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    {%- liquid
+      assign show_pflege_footer_stack = true
+      if request.page_type == 'page'
+        assign contact_suffix = template.suffix | downcase
+        if contact_suffix == 'kontakt' or contact_suffix == 'contact'
+          assign show_pflege_footer_stack = false
+        elsif page != blank
+          assign contact_handle = page.handle | downcase
+          if contact_handle == 'kontakt' or contact_handle == 'contact'
+            assign show_pflege_footer_stack = false
+          elsif contact_handle == 'anmelden' or contact_handle == 'mein-konto' or contact_handle == 'mein-konto-1'
+            assign show_pflege_footer_stack = false
+          elsif contact_handle == 'impressum' or contact_handle == 'agb' or contact_handle == 'widerrufsrecht' or contact_handle contains 'widerruf' or contact_handle == 'datenschutz' or contact_handle == 'datenschutzerklärung' or contact_handle == 'datenschutzerklaerung' or contact_handle contains 'datenschutz' or contact_handle == 'cookie-einstellungen' or contact_handle contains 'cookie' or contact_handle == 'versand-zahlung' or contact_handle contains 'versand' or contact_handle == 'pflegeratgeber' or contact_handle == 'ratgeber' or contact_handle == 'pflegewissen' or contact_handle contains 'ratgeber' or contact_handle == 'faq'
+            assign show_pflege_footer_stack = false
+          endif
+        endif
+        if template.suffix == 'impressum' or template.suffix == 'agb' or template.suffix == 'widerrufsrecht' or template.suffix == 'widerrufsbelehrung' or template.suffix == 'vertrag-widerrufen' or template.suffix == 'datenschutz' or template.suffix == 'datenschutzerklaerung' or template.suffix == 'cookie-einstellungen' or template.suffix == 'versand-zahlung' or template.suffix == 'pflege-ratgeber' or template.suffix == 'faq'
+          assign show_pflege_footer_stack = false
+        endif
+      endif
+    -%}
+    {%- if show_pflege_footer_stack -%}
+      {% comment %} Global vor Shop-Footer: Vorteile → Kundenstimmen → FAQ {% endcomment %}
+      {{ 'section-pflege-faq-accordion.css' | asset_url | stylesheet_tag }}
+      <script src="{{ 'pflege-faq-accordion.js' | asset_url }}" defer></script>
+      {% render 'pflege-site-footer-stack' %}
+    {%- endif -%}
+
+    {%- include 'pflege-feature-flags' -%}
+
+    {%- comment -%}
+      Footer als Snippet — keine Shopify-Section / kein Theme-Editor-Zwang;
+      Inhalt: snippets/pflege-footer-static.liquid
+    {%- endcomment -%}
+    {% render 'pflege-footer-static' %}
+
+    {% render 'pflege-cookie-banner' %}
+
+    {% render 'pflege-pflegeboxi-widget' %}
+
+    {%- if pflege_newsletter_popup_enabled and template.name == 'index' -%}
+      {% render 'pflege-newsletter-popup' %}
+    {%- endif -%}
+
+    {{ 'section-pflege-inko-testpaket-modal.css' | asset_url | stylesheet_tag }}
+    {{ 'pflege-mobile-modals.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'pflege-inko-testpaket-modal.js' | asset_url }}" defer="defer"></script>
+    {% render 'pflege-inko-testpaket-modal', modal_suffix: 'global' %}
+
+    <ul hidden>
+      <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
+      <li id="a11y-new-window-message">{{ 'accessibility.link_messages.new_window' | t }}</li>
+    </ul>
+
+    <script>
+      window.shopUrl = '{{ request.origin }}';
+      window.routes = {
+        cart_add_url: '{{ routes.cart_add_url }}',
+        cart_change_url: '{{ routes.cart_change_url }}',
+        cart_update_url: '{{ routes.cart_update_url }}',
+        cart_url: '{{ routes.cart_url }}',
+        predictive_search_url: '{{ routes.predictive_search_url }}',
+      };
+
+      window.cartStrings = {
+        error: `{{ 'sections.cart.cart_error' | t }}`,
+        quantityError: `{{ 'sections.cart.cart_quantity_error_html' | t: quantity: '[quantity]' }}`,
+      };
+
+      window.variantStrings = {
+        addToCart: `{{ 'products.product.add_to_cart' | t }}`,
+        soldOut: `{{ 'products.product.sold_out' | t }}`,
+        unavailable: `{{ 'products.product.unavailable' | t }}`,
+        unavailable_with_option: `{{ 'products.product.value_unavailable' | t: option_value: '[value]' }}`,
+      };
+
+      window.quickOrderListStrings = {
+        itemsAdded: `{{ 'sections.quick_order_list.items_added.other' | t: quantity: '[quantity]' }}`,
+        itemAdded: `{{ 'sections.quick_order_list.items_added.one' | t: quantity: '[quantity]' }}`,
+        itemsRemoved: `{{ 'sections.quick_order_list.items_removed.other' | t: quantity: '[quantity]' }}`,
+        itemRemoved: `{{ 'sections.quick_order_list.items_removed.one' | t: quantity: '[quantity]' }}`,
+        viewCart: `{{- 'sections.quick_order_list.view_cart' | t -}}`,
+        each: `{{- 'sections.quick_order_list.each' | t: money: '[money]' }}`,
+        min_error: `{{- 'sections.quick_order_list.min_error' | t: min: '[min]' }}`,
+        max_error: `{{- 'sections.quick_order_list.max_error' | t: max: '[max]' }}`,
+        step_error: `{{- 'sections.quick_order_list.step_error' | t: step: '[step]' }}`,
+      };
+
+      window.accessibilityStrings = {
+        imageAvailable: `{{ 'products.product.media.image_available' | t: index: '[index]' }}`,
+        shareSuccess: `{{ 'general.share.success_message' | t }}`,
+        pauseSlideshow: `{{ 'sections.slideshow.pause_slideshow' | t }}`,
+        playSlideshow: `{{ 'sections.slideshow.play_slideshow' | t }}`,
+        recipientFormExpanded: `{{ 'recipient.form.expanded' | t }}`,
+        recipientFormCollapsed: `{{ 'recipient.form.collapsed' | t }}`,
+        countrySelectorSearchCount: `{{ 'localization.country_results_count' | t: count: '[count]' }}`,
+      };
+    </script>
+
+    {%- if settings.predictive_search_enabled -%}
+      <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+
+    {%- if settings.cart_type == 'drawer' -%}
+      <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+    <script src="{{ 'pflege-bestseller-add.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'pflege-cart-icon-sync.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'pflege-site-entrance.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'pflege-hero-rise.js' | asset_url }}" defer="defer"></script>
+  </body>
+</html>

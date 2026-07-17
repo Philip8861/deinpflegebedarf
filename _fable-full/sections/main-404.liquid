@@ -1,0 +1,77 @@
+{%- liquid
+  assign pflege_404_path = request.path
+  assign pflege_404_legal = ''
+
+  case pflege_404_path
+    when '/pages/widerrufsbelehrung', '/pages/widerrufsrecht'
+      assign pflege_404_legal = 'widerrufs'
+    when '/pages/impressum'
+      assign pflege_404_legal = 'impressum'
+    when '/pages/agb'
+      assign pflege_404_legal = 'agb'
+    when '/pages/datenschutz', '/pages/datenschutzerklärung', '/pages/datenschutzerklaerung'
+      assign pflege_404_legal = 'datenschutz'
+    when '/pages/cookie-einstellungen'
+      assign pflege_404_legal = 'cookies'
+    when '/pages/versand-zahlung'
+      assign pflege_404_legal = 'versand'
+    when '/pages/pflegeratgeber', '/pages/ratgeber'
+      assign pflege_404_legal = 'ratgeber'
+    when '/pages/faq'
+      assign pflege_404_legal = 'faq'
+    when '/pages/empfohlene-artikel'
+      assign pflege_404_legal = 'empfohlene'
+    when '/pages/inkontinenzversorgung-auf-rezept', '/inkontinenzversorgung-auf-rezept', '/pages/inkontinenzversrogung-auf-rezept', '/inkontinenzversrogung-auf-rezept'
+      assign pflege_404_legal = 'inko_rezept'
+  endcase
+-%}
+
+{%- if pflege_404_legal != '' -%}
+  {%- case pflege_404_legal -%}
+    {%- when 'widerrufs' -%}
+      {% render 'pflege-legal-widerrufsbelehrung-fallback' %}
+    {%- when 'impressum' -%}
+      {% render 'pflege-legal-impressum-fallback' %}
+    {%- when 'agb' -%}
+      {% render 'pflege-legal-agb-fallback' %}
+    {%- when 'datenschutz' -%}
+      {% render 'pflege-legal-datenschutz-fallback' %}
+    {%- when 'cookies' -%}
+      {% render 'pflege-cookie-settings-fallback' %}
+    {%- when 'versand' -%}
+      {% render 'pflege-legal-versand-zahlung-fallback' %}
+    {%- when 'ratgeber' -%}
+      {% render 'pflege-ratgeber-bridge-fallback' %}
+    {%- when 'faq' -%}
+      {% render 'pflege-faq-page-fallback' %}
+    {%- when 'empfohlene' -%}
+      {% render 'pflege-empfohlene-artikel-fallback' %}
+    {%- when 'inko_rezept' -%}
+      {% render 'pflege-inko-rezept-landing-fallback' %}
+  {%- endcase -%}
+{%- else -%}
+  <style type="text/css">
+    .template-404 .title + * {
+      margin-top: 1rem;
+    }
+
+    @media screen and (min-width: 750px) {
+      .template-404 .title + * {
+        margin-top: 2rem;
+      }
+    }
+  </style>
+
+  <div class="template-404 page-width page-margin center">
+    <p class="template-404__code">404</p>
+    <h1 class="title">
+      {{ 'templates.404.title' | t }}
+    </h1>
+    <p class="template-404__lead">
+      {{ 'templates.404.subtext' | t }}
+    </p>
+    <a href="{{ routes.root_url }}" class="button">
+      {{ 'templates.404.cta' | t }}
+    </a>
+  </div>
+{%- endif -%}

@@ -1,0 +1,26 @@
+{% comment %}
+  Impressum auf Standard-Vorlage (page) — schlicht, nur Text.
+{% endcomment %}
+{{ 'section-pflege-legal-page.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign root = routes.root_url
+  assign url_impressum = root | append: 'pages/impressum'
+  assign url_widerruf = root | append: 'pages/widerrufsbelehrung'
+  assign url_agb = root | append: 'pages/agb'
+  assign url_datenschutz = root | append: 'pages/datenschutzerklaerung'
+-%}
+
+{% render 'pflege-legal-page-view',
+  padding_class: 'pflege-legal--page-pad',
+  color_scheme: 'scheme-1',
+  legal_title_fallback: 'Impressum',
+  legal_meta_date: 'Mai 2026',
+  current_handle: 'impressum',
+  url_impressum: url_impressum,
+  url_widerruf: url_widerruf,
+  url_agb: url_agb,
+  url_datenschutz: url_datenschutz,
+  use_impressum_body: true,
+  legal_plain: true
+%}

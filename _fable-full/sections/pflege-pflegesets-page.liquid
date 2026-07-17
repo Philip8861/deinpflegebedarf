@@ -1,0 +1,114 @@
+{% render 'pflege-cat-card-styles' %}
+{{ 'section-pflege-pflegesets-row.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign pfs_heading = section.settings.heading | strip
+  assign pfs_sub = section.settings.subheading | strip
+-%}
+
+<section class="pflege-cat-filtered pflege-pflegesets pflege-pflegesets--category" {{ section.shopify_attributes }}>
+  <div class="pflege-cat-filtered__shell pflege-pflegesets__shell">
+    {%- if pfs_heading != blank or pfs_sub != blank -%}
+      <header class="pflege-pflegesets__head">
+        {%- if pfs_heading != blank -%}
+          <h1 class="pflege-pflegesets__title">{{ pfs_heading | escape | newline_to_br }}</h1>
+        {%- endif -%}
+        {%- if pfs_sub != blank -%}
+          <p class="pflege-pflegesets__sub">{{ pfs_sub | escape | newline_to_br }}</p>
+        {%- endif -%}
+      </header>
+    {%- endif -%}
+
+    <ul class="pflege-cat-filtered__grid pflege-pflegesets__cat-grid" role="list">
+      {% render 'pflege-pflegesets-category-grid', pfs_section: section %}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Pflegesets Seite",
+  "tag": "section",
+  "class": "pflege-pflegesets-page-section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Datenquelle: Kollektion „pflegesets“ mit genau 3 Set-Produkten (S, L, M). Karten sehen aus wie auf anderen Kategorieseiten."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Überschrift",
+      "default": "Pflegesets"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Text darunter",
+      "default": "Entdecken Sie unsere 3 Pflegesets, die perfekt zu Ihrer Pflegesituation passen."
+    },
+    {
+      "type": "collection",
+      "id": "pflegesets_collection",
+      "label": "Kollektion mit den 3 Pflegesets",
+      "info": "Handle empfohlen: pflegesets"
+    },
+    {
+      "type": "product",
+      "id": "product_1",
+      "label": "Produkt Kachel 1 (Fallback)"
+    },
+    {
+      "type": "product",
+      "id": "product_2",
+      "label": "Produkt Kachel 2 (Fallback)"
+    },
+    {
+      "type": "product",
+      "id": "product_3",
+      "label": "Produkt Kachel 3 (Fallback)"
+    },
+    {
+      "type": "text",
+      "id": "display_title_1",
+      "label": "Anzeigename Kachel 1 (veraltet)",
+      "info": "Nicht mehr verwendet — Titel kommen aus den Produktnamen in Shopify."
+    },
+    {
+      "type": "text",
+      "id": "display_title_2",
+      "label": "Anzeigename Kachel 2 (veraltet)",
+      "info": "Nicht mehr verwendet — Titel kommen aus den Produktnamen in Shopify."
+    },
+    {
+      "type": "text",
+      "id": "display_title_3",
+      "label": "Anzeigename Kachel 3 (veraltet)",
+      "info": "Nicht mehr verwendet — Titel kommen aus den Produktnamen in Shopify."
+    },
+    {
+      "type": "text",
+      "id": "handle_1",
+      "label": "Handle Kachel 1",
+      "default": "pflegeset-grosse-s"
+    },
+    {
+      "type": "text",
+      "id": "handle_2",
+      "label": "Handle Kachel 2",
+      "default": "pflegeset-grosse-l"
+    },
+    {
+      "type": "text",
+      "id": "handle_3",
+      "label": "Handle Kachel 3",
+      "default": "pflegeset-grosse-m"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pflegesets Seite"
+    }
+  ]
+}
+{% endschema %}

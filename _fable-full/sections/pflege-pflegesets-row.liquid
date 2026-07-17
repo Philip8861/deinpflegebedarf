@@ -1,0 +1,125 @@
+{% render 'pflege-cat-card-styles' %}
+{{ 'section-pflege-pflegesets-row.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign pfs_heading = section.settings.heading | strip
+  assign pfs_sub = section.settings.subheading | strip
+  if pfs_sub == blank and pfs_heading contains ' Entdecken Sie '
+    assign pfs_heading_parts = pfs_heading | split: ' Entdecken Sie '
+    assign pfs_heading = pfs_heading_parts | first | strip
+    assign pfs_tail = pfs_heading_parts | last | strip
+    assign pfs_sub = 'Entdecken Sie ' | append: pfs_tail
+  endif
+-%}
+
+<section class="pflege-cat-filtered pflege-pflegesets pflege-pflegesets--category" {{ section.shopify_attributes }}>
+  <div class="pflege-cat-filtered__shell pflege-pflegesets__shell">
+    <div class="pflege-pflegesets__panel">
+      {%- if pfs_heading != blank or pfs_sub != blank -%}
+        <header class="pflege-pflegesets__head">
+          {%- if pfs_heading != blank -%}
+            <h2 class="pflege-pflegesets__title">
+              {{- pfs_heading | strip | escape | replace: 'sondern auch', 'sondern&nbsp;auch' | newline_to_br -}}
+            </h2>
+          {%- endif -%}
+          {%- if pfs_sub != blank -%}
+            <p class="pflege-pflegesets__sub">{{ pfs_sub | escape | newline_to_br }}</p>
+          {%- endif -%}
+        </header>
+      {%- endif -%}
+
+      <ul class="pflege-cat-filtered__grid pflege-pflegesets__cat-grid" role="list">
+        {% render 'pflege-pflegesets-category-grid', pfs_section: section %}
+      </ul>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PflegeShop Pflegesets",
+  "tag": "section",
+  "class": "pflege-pflegesets-section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Datenquelle: Kollektion „pflegesets“ mit 3 Set-Produkten (S, L, M). Gleiche Karten wie auf /collections/pflegesets."
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Überschrift (2 Zeilen möglich: Enter = Zeilenwechsel)",
+      "default": "Sparen Sie nicht nur Zeit, sondern\u00a0auch\nGeld!",
+      "info": "Zweizeilig: erste Zeile bis „…auch“ (Wörter „sondern“ und „auch“ bleiben zusammen), zweite Zeile „Geld!“."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Text darunter (gedämpfter, mittig)",
+      "default": "Entdecken Sie unsere 3 Pflegesets, die perfekt zu Ihrer Pflegesituation passen"
+    },
+    {
+      "type": "collection",
+      "id": "pflegesets_collection",
+      "label": "Kollektion mit den 3 Pflegesets",
+      "info": "Handle empfohlen: pflegesets"
+    },
+    {
+      "type": "text",
+      "id": "display_title_1",
+      "label": "Anzeigename — Kachel 1 (veraltet)",
+      "info": "Nicht mehr verwendet — Titel kommen aus den Produktnamen in Shopify."
+    },
+    {
+      "type": "text",
+      "id": "display_title_2",
+      "label": "Anzeigename — Kachel 2 (veraltet)",
+      "info": "Nicht mehr verwendet — Titel kommen aus den Produktnamen in Shopify."
+    },
+    {
+      "type": "text",
+      "id": "display_title_3",
+      "label": "Anzeigename — Kachel 3 (veraltet)",
+      "info": "Nicht mehr verwendet — Titel kommen aus den Produktnamen in Shopify."
+    },
+    {
+      "type": "product",
+      "id": "product_1",
+      "label": "Produkt Kachel 1 (Fallback)"
+    },
+    {
+      "type": "product",
+      "id": "product_2",
+      "label": "Produkt Kachel 2 (Fallback)"
+    },
+    {
+      "type": "product",
+      "id": "product_3",
+      "label": "Produkt Kachel 3 (Fallback)"
+    },
+    {
+      "type": "text",
+      "id": "handle_1",
+      "label": "Handle Kachel 1",
+      "default": "pflegeset-grosse-s"
+    },
+    {
+      "type": "text",
+      "id": "handle_2",
+      "label": "Handle Kachel 2",
+      "default": "pflegeset-grosse-l"
+    },
+    {
+      "type": "text",
+      "id": "handle_3",
+      "label": "Handle Kachel 3",
+      "default": "pflegeset-grosse-m"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pflegesets (3 Kacheln)"
+    }
+  ]
+}
+{% endschema %}

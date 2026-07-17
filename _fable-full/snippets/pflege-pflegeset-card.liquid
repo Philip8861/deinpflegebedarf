@@ -1,0 +1,187 @@
+{%- comment -%}
+  Pflegeset-Kachel. Bild wie Bestseller: featured_media → image_url → image_tag
+  Param: card_product (Product, optional), handle_fallback (String), badge_label (String), card_contents (String, optional),
+         card_title (optional override for link/button label)
+{%- endcomment -%}
+{%- liquid
+  if card_product != blank
+    assign card_href = card_product.url
+    assign card_label = card_product.title
+    assign card_variant = card_product.selected_or_first_available_variant
+    assign img_alt = card_product.title
+  else
+    assign card_href = '/products/' | append: handle_fallback
+    assign card_label = handle_fallback | replace: '-', ' '
+    assign card_variant = nil
+    assign img_alt = card_label
+  endif
+
+  if card_title != blank
+    assign card_label = card_title
+    if card_product != blank
+      assign img_alt = card_title
+    endif
+  endif
+
+  assign pflegesets_render_img = nil
+  assign pflegesets_render_pick = nil
+  if card_product != blank
+    assign featured_m = card_product.featured_media
+    if featured_m != blank and featured_m.media_type == 'image'
+      assign pflegesets_render_pick = featured_m
+    elsif featured_m != blank and featured_m.preview_image != blank
+      assign pflegesets_render_pick = featured_m.preview_image
+    endif
+
+    unless pflegesets_render_pick != blank
+      if card_product.featured_image != blank
+        assign pflegesets_render_pick = card_product.featured_image
+      endif
+    endunless
+
+    unless pflegesets_render_pick != blank
+      if card_product.selected_or_first_available_variant.featured_media != blank
+        assign vm = card_product.selected_or_first_available_variant.featured_media
+        if vm.media_type == 'image'
+          assign pflegesets_render_pick = vm
+        elsif vm.preview_image != blank
+          assign pflegesets_render_pick = vm.preview_image
+        endif
+      elsif card_product.selected_or_first_available_variant.image != blank
+        assign pflegesets_render_pick = card_product.selected_or_first_available_variant.image
+      endif
+    endunless
+
+    unless pflegesets_render_pick != blank
+      for m in card_product.media
+        if m.media_type == 'image'
+          assign pflegesets_render_pick = m
+          break
+        elsif m.preview_image != blank
+          assign pflegesets_render_pick = m.preview_image
+          break
+        endif
+      endfor
+    endunless
+
+    unless pflegesets_render_pick != blank
+      if card_product.images.size > 0
+        assign pflegesets_render_pick = card_product.images.first
+      endif
+    endunless
+
+    assign pflegesets_render_img = pflegesets_render_pick
+  endif
+-%}
+
+<article class="pflege-pflegesets__card">
+  <a class="pflege-pflegesets__media-link" href="{{ card_href }}">
+    <span class="pflege-pflegesets__media">
+      {%- if badge_label != blank -%}
+        <span class="pflege-pflegesets__badge">{{ badge_label | escape }}</span>
+      {%- endif -%}
+      {%- if pflegesets_render_img != blank -%}
+        {{
+          pflegesets_render_img
+          | image_url: width: 800
+          | image_tag:
+            loading: 'eager',
+            widths: '400, 600, 800',
+            sizes: '(min-width: 990px) 30vw, (min-width: 750px) 32vw, min(100vw, 26rem)',
+            alt: img_alt,
+            class: 'pflege-pflegesets__img'
+        }}
+      {%- else -%}
+        {{ 'product-apparel-2' | placeholder_svg_tag: 'pflege-pflegesets__placeholder' }}
+      {%- endif -%}
+    </span>
+  </a>
+
+  <div class="pflege-pflegesets__body">
+    <a class="pflege-pflegesets__name-link" href="{{ card_href }}">{{ card_label | escape }}</a>
+
+    {%- if card_contents != blank -%}
+      <div class="pflege-pflegesets__contents">{{ card_contents | escape | newline_to_br }}</div>
+    {%- endif -%}
+
+    {%- if card_product != blank and card_variant != nil -%}
+      {%- if card_variant.compare_at_price > card_variant.price -%}
+        {%- liquid
+          assign save_cents = card_variant.compare_at_price | minus: card_variant.price
+        -%}
+        <div class="pflege-pflegesets__price pflege-pflegesets__price--sale">
+          <div class="pflege-pflegesets__price-main">
+            <s class="pflege-pflegesets__compare">
+              {% if settings.currency_code_enabled %}
+                {{ card_variant.compare_at_price | money_with_currency }}
+              {% else %}
+                {{ card_variant.compare_at_price | money }}
+              {% endif %}
+            </s>
+            <span class="pflege-pflegesets__current">
+              {% if settings.currency_code_enabled %}
+                {{ card_variant.price | money_with_currency }}
+              {% else %}
+                {{ card_variant.price | money }}
+              {% endif %}
+            </span>
+          </div>
+          <span class="pflege-pflegesets__save">
+            Sie sparen
+            {% if settings.currency_code_enabled %}
+              {{ save_cents | money_with_currency }}
+            {% else %}
+              {{ save_cents | money }}
+            {% endif %}
+          </span>
+        </div>
+      {%- else -%}
+        <div class="pflege-pflegesets__price">
+          {% if settings.currency_code_enabled %}
+            {{ card_variant.price | money_with_currency }}
+          {% else %}
+            {{ card_variant.price | money }}
+          {% endif %}
+        </div>
+      {%- endif -%}
+      <p class="pflege-pflegesets__rating">
+        <span class="pflege-pflegesets__stars" aria-hidden="true">★★★★★</span>
+      </p>
+    {%- elsif card_product != blank -%}
+      <div class="pflege-pflegesets__price">
+        {% if settings.currency_code_enabled %}
+          {{ card_product.price_min | money_with_currency }}
+        {% else %}
+          {{ card_product.price_min | money }}
+        {% endif %}
+      </div>
+      <p class="pflege-pflegesets__rating">
+        <span class="pflege-pflegesets__stars" aria-hidden="true">★★★★★</span>
+      </p>
+    {%- else -%}
+      <div class="pflege-pflegesets__price">—</div>
+      <p class="pflege-pflegesets__rating">
+        <span class="pflege-pflegesets__stars" aria-hidden="true">★★★★★</span>
+      </p>
+    {%- endif -%}
+  </div>
+
+  {%- if card_variant != nil and card_variant.available -%}
+    <button
+      type="button"
+      class="pflege-pflegesets__cart"
+      data-variant-id="{{ card_variant.id }}"
+      aria-label="{{ 'products.product.add_to_cart' | t }} — {{ card_label | escape }}"
+    >
+      {% render 'pflege-icon', icon: 'cart', width: 20 %}
+    </button>
+  {%- elsif card_href != blank -%}
+    <a
+      href="{{ card_href }}"
+      class="pflege-pflegesets__cart pflege-pflegesets__cart--fallback"
+      aria-label="{{ 'products.product.view_full_details' | t }} — {{ card_label | escape }}"
+    >
+      {% render 'pflege-icon', icon: 'cart', width: 20 %}
+    </a>
+  {%- endif -%}
+</article>

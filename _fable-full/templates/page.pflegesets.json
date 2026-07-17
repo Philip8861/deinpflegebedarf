@@ -1,0 +1,33 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "pflege-pflegesets-page",
+      "settings": {
+        "heading": "Pflegesets",
+        "subheading": "Entdecken Sie unsere 3 Pflegesets, die perfekt zu Ihrer Pflegesituation passen.",
+        "pflegesets_collection": "pflegesets",
+        "product_1": "",
+        "product_2": "",
+        "product_3": "",
+        "display_title_1": "Pflegeset S - Bad & Waschbecken",
+        "display_title_2": "Pflegeset M – Alltag & Bett",
+        "display_title_3": "Pflegeset L – Pflege im Bett",
+        "handle_1": "pflegeset-grosse-s",
+        "handle_2": "pflegeset-grosse-l",
+        "handle_3": "pflegeset-grosse-m"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

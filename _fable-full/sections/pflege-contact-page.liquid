@@ -1,0 +1,557 @@
+﻿{{ 'section-pflege-contact-page.css' | asset_url | stylesheet_tag }}
+{{ 'component-pflege-contact-portrait.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'pflege-contact-success.js' | asset_url }}" defer="defer"></script>
+
+{% comment %}
+  Öffentliche URL: /pages/kontakt — im Shop eine „Seite“ mit Handle kontakt anlegen und die Vorlage „kontakt“
+  (templates/page.kontakt.json) zuweisen. Inhalt und Formular kommen aus der Vorlage, kein Theme-Editor nötig.
+{% endcomment %}
+
+{%- liquid
+  assign url_privacy = routes.root_url | append: 'pages/datenschutzerklaerung'
+
+  assign url_agb = routes.root_url | append: 'pages/agb'
+
+  assign phone_href = section.settings.phone_link | strip
+  if phone_href == blank
+    assign phone_href = 'tel:+4977339488820'
+  endif
+-%}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section
+  class="pflege-contact-page color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding{% unless section.settings.show_sidebar %} pflege-contact-page--form-only{% endunless %}"
+  aria-labelledby="pflege-contact-heading"
+>
+  <div class="pflege-contact-page__shell">
+    <header class="pflege-contact-page__header">
+      <h1 id="pflege-contact-heading" class="pflege-contact-page__title">
+        {%- if page != blank and page.title != blank -%}
+          {{ page.title | escape }}
+        {%- else -%}
+          {{ section.settings.title_fallback | escape }}
+        {%- endif -%}
+      </h1>
+      {%- if section.settings.show_page_intro and page != blank and page.content != blank -%}
+        <div class="pflege-contact-page__intro rte">{{ page.content }}</div>
+      {%- elsif section.settings.intro_text != blank -%}
+        <div class="pflege-contact-page__intro rte">{{ section.settings.intro_text }}</div>
+      {%- endif -%}
+    </header>
+
+    <div class="pflege-contact-page__grid">
+      {%- if section.settings.show_sidebar -%}
+        <aside class="pflege-contact-page__aside" aria-label="Kontaktdaten">
+          <div class="pflege-contact-page__aside-hero">
+            <h2 class="pflege-contact-page__aside-title">
+              {{ section.settings.sidebar_title | default: 'So erreichen Sie uns' | escape }}
+            </h2>
+
+            <div class="pflege-contact-page__aside-portrait-wrap">
+              {%- liquid
+                assign portrait_alt_text = section.settings.portrait_alt | strip
+                if portrait_alt_text == blank
+                  assign portrait_alt_text = 'Ihr Ansprechpartner bei deinpflegebedarf'
+                endif
+              -%}
+              {% render 'pflege-contact-portrait',
+                class: 'pflege-contact-portrait--aside',
+                alt: portrait_alt_text
+              %}
+            </div>
+          </div>
+
+          <ul class="pflege-contact-page__info-list" role="list">
+            {%- if section.settings.box_hours_text != blank -%}
+              <li class="pflege-contact-page__info-item">
+                <span class="pflege-contact-page__info-ic" aria-hidden="true">
+                  {% render 'pflege-icon', icon: 'clock', width: 26 %}
+                </span>
+                <div class="pflege-contact-page__info-body">
+                  <span class="pflege-contact-page__info-label">
+                    {{ section.settings.box_hours_title | default: 'Erreichbarkeit' | escape }}
+                  </span>
+                  <span class="pflege-contact-page__info-value">{{ section.settings.box_hours_text | escape }}</span>
+                </div>
+              </li>
+            {%- endif -%}
+
+            {%- if section.settings.phone != blank -%}
+              <li class="pflege-contact-page__info-item">
+                <span class="pflege-contact-page__info-ic" aria-hidden="true">
+                  {% render 'pflege-icon', icon: 'phone', width: 26 %}
+                </span>
+                <div class="pflege-contact-page__info-body">
+                  <span class="pflege-contact-page__info-label">Telefon</span>
+                  <a class="pflege-contact-page__info-value pflege-contact-page__info-link" href="{{ phone_href }}">
+                    {{- section.settings.phone | escape -}}
+                  </a>
+                </div>
+              </li>
+            {%- endif -%}
+
+            {%- if section.settings.email != blank -%}
+              <li class="pflege-contact-page__info-item">
+                <span class="pflege-contact-page__info-ic" aria-hidden="true">
+                  {% render 'pflege-icon', icon: 'mail', width: 26 %}
+                </span>
+                <div class="pflege-contact-page__info-body">
+                  <span class="pflege-contact-page__info-label">E-Mail</span>
+                  <a class="pflege-contact-page__info-value pflege-contact-page__info-link" href="mailto:{{ section.settings.email }}">
+                    {{- section.settings.email | escape -}}
+                  </a>
+                </div>
+              </li>
+            {%- endif -%}
+
+            {%- if section.settings.address != blank -%}
+              <li class="pflege-contact-page__info-item">
+                <span class="pflege-contact-page__info-ic" aria-hidden="true">
+                  {% render 'pflege-icon', icon: 'package', width: 26 %}
+                </span>
+                <div class="pflege-contact-page__info-body">
+                  <span class="pflege-contact-page__info-label">Adresse</span>
+                  <span class="pflege-contact-page__info-value pflege-contact-page__info-value--rte rte">
+                    {{- section.settings.address -}}
+                  </span>
+                </div>
+              </li>
+            {%- endif -%}
+          </ul>
+
+          {%- if section.settings.box_hint != blank -%}
+            <p class="pflege-contact-page__info-hint">
+              <span class="pflege-contact-page__info-hint-ic" aria-hidden="true">
+                {% render 'pflege-icon', icon: 'badge-check', width: 18 %}
+              </span>
+              <span>{{ section.settings.box_hint | escape }}</span>
+            </p>
+          {%- endif -%}
+        </aside>
+      {%- endif -%}
+
+      <div class="pflege-contact-page__form-card">
+        <h2 class="pflege-contact-page__form-title">{{ section.settings.form_title | escape }}</h2>
+        {%- if section.settings.form_lead != blank -%}
+          <p class="pflege-contact-page__form-lead">{{ section.settings.form_lead | escape }}</p>
+        {%- endif -%}
+
+        {%- form 'contact', id: 'PflegeContactForm', class: 'pflege-contact-page__form' -%}
+          <input type="hidden" name="contact[tags]" value="kontakt, deinpflegebedarf">
+          <input type="hidden" name="contact[subject]" value="{{ section.settings.email_subject | escape }}">
+
+          {%- if form.posted_successfully? -%}
+            <aside
+              id="pflege-contact-success"
+              class="pflege-contact-success"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="pflege-contact-success-title"
+              aria-describedby="pflege-contact-success-desc"
+              data-pflege-contact-success
+            >
+              <div class="pflege-contact-success__backdrop" data-pcs-close aria-hidden="true">
+                <span class="pflege-contact-success__backdrop-blur"></span>
+                <span class="pflege-contact-success__backdrop-dim"></span>
+              </div>
+              <div class="pflege-contact-success__panel" role="document">
+                <button
+                  type="button"
+                  class="pflege-contact-success__close"
+                  data-pcs-close
+                  aria-label="Hinweis schließen"
+                >
+                  <span class="svg-wrapper" aria-hidden="true">
+                    {{- 'icon-close.svg' | inline_asset_content -}}
+                  </span>
+                </button>
+                <span class="pflege-contact-success__icon" aria-hidden="true">
+                  {% render 'pflege-icon', icon: 'badge-check', width: 40 %}
+                </span>
+                <h2 id="pflege-contact-success-title" class="pflege-contact-success__title">
+                  {{ section.settings.success_title | default: 'Vielen Dank!' | escape }}
+                </h2>
+                <p id="pflege-contact-success-desc" class="pflege-contact-success__text">
+                  {{ section.settings.success_message | escape }}
+                </p>
+                <button type="button" class="pflege-contact-success__btn" data-pcs-close>
+                  Verstanden
+                </button>
+              </div>
+            </aside>
+          {%- elsif form.errors -%}
+            <div class="pflege-contact-page__alert pflege-contact-page__alert--error" role="alert" tabindex="-1">
+              <p><strong>{{ section.settings.error_heading | escape }}</strong></p>
+              {%- if form.errors contains 'email' -%}
+                <p class="pflege-contact-page__field-error" style="margin: 0.35rem 0 0;">
+                  <a href="#PflegeContact-email">{{ form.errors.messages.email }}</a>
+                </p>
+              {%- endif -%}
+              {%- if form.errors contains 'body' -%}
+                <p class="pflege-contact-page__field-error" style="margin: 0.35rem 0 0;">
+                  <a href="#PflegeContact-body">{{ form.errors.messages.body }}</a>
+                </p>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+
+          {%- unless form.posted_successfully? -%}
+            <div class="pflege-contact-page__fields pflege-contact-page__fields--split">
+              <div class="pflege-contact-page__field">
+                <label class="pflege-contact-page__label" for="PflegeContact-name">{{ 'templates.contact.form.name' | t }}</label>
+                <input
+                  class="pflege-contact-page__input"
+                  type="text"
+                  id="PflegeContact-name"
+                  name="contact[name]"
+                  autocomplete="name"
+                  value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+                  placeholder="{{ 'templates.contact.form.name' | t }}"
+                >
+              </div>
+              <div class="pflege-contact-page__field">
+                <label class="pflege-contact-page__label" for="PflegeContact-email">
+                  {{ 'templates.contact.form.email' | t }}
+                  <abbr title="Pflichtfeld" class="pflege-contact-page__label-hint">*</abbr>
+                </label>
+                <input
+                  class="pflege-contact-page__input"
+                  type="email"
+                  id="PflegeContact-email"
+                  name="contact[email]"
+                  autocomplete="email"
+                  spellcheck="false"
+                  autocapitalize="off"
+                  value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                  required
+                  aria-required="true"
+                  placeholder="{{ 'templates.contact.form.email' | t }}"
+                  {% if form.errors contains 'email' %}
+                    aria-invalid="true"
+                    aria-describedby="PflegeContact-email-error"
+                  {% endif %}
+                >
+                {%- if form.errors contains 'email' -%}
+                  <p class="pflege-contact-page__field-error" id="PflegeContact-email-error">
+                    {{ form.errors.messages.email }}
+                  </p>
+                {%- endif -%}
+              </div>
+            </div>
+
+            <div class="pflege-contact-page__fields">
+              <div class="pflege-contact-page__field">
+                <label class="pflege-contact-page__label" for="PflegeContact-phone">{{ 'templates.contact.form.phone' | t }}</label>
+                <input
+                  class="pflege-contact-page__input"
+                  type="tel"
+                  id="PflegeContact-phone"
+                  name="contact[phone]"
+                  autocomplete="tel"
+                  value="{% if form.phone %}{{ form.phone }}{% elsif customer and customer.phone %}{{ customer.phone }}{% endif %}"
+                  placeholder="{{ 'templates.contact.form.phone' | t }}"
+                >
+              </div>
+
+              <div class="pflege-contact-page__field">
+                <label class="pflege-contact-page__label" for="PflegeContact-body">
+                  {{ section.settings.message_label | escape }}
+                  <abbr title="Pflichtfeld" class="pflege-contact-page__label-hint">*</abbr>
+                </label>
+                <textarea
+                  class="pflege-contact-page__textarea"
+                  id="PflegeContact-body"
+                  name="contact[body]"
+                  rows="12"
+                  required
+                  aria-required="true"
+                  placeholder="{{ section.settings.message_placeholder | escape }}"
+                  {% if form.errors contains 'body' %}
+                    aria-invalid="true"
+                  {% endif %}
+                >{{- form.body -}}</textarea>
+                {%- if form.errors contains 'body' -%}
+                  <p class="pflege-contact-page__field-error">{{ form.errors.messages.body }}</p>
+                {%- endif -%}
+              </div>
+            </div>
+
+            <div class="pflege-contact-page__consent">
+              <label class="pflege-contact-page__consent-label" for="PflegeContact-consent">
+                <input
+                  type="checkbox"
+                  class="pflege-contact-page__consent-input"
+                  id="PflegeContact-consent"
+                  name="contact[Einwilligung AGB und Datenschutz]"
+                  value="Ja"
+                  required
+                  aria-required="true"
+                >
+                <span class="pflege-contact-page__consent-box" aria-hidden="true"></span>
+                <span class="pflege-contact-page__consent-text">
+                  Ich habe die {% if url_agb != blank %}<a href="{{ url_agb }}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">AGB</a>{% else %}AGB{% endif %} und die {% if url_privacy != blank %}<a href="{{ url_privacy }}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">{{ section.settings.privacy_link_text | default: 'Datenschutzerklärung' | escape }}</a>{% else %}Datenschutzerklärung{% endif %} gelesen und akzeptiere sie. <abbr title="Pflichtfeld" class="pflege-contact-page__label-hint">*</abbr>
+                </span>
+              </label>
+            </div>
+
+            <div class="pflege-contact-page__submit-wrap">
+              <button type="submit" class="pflege-contact-page__submit" name="commit">
+                {{ section.settings.submit_label | escape }}
+              </button>
+            </div>
+          {%- endunless -%}
+
+          {%- if section.settings.show_privacy_note -%}
+            <p class="pflege-contact-page__privacy-note">
+              {{ section.settings.privacy_note }}
+              {%- if url_privacy != blank -%}
+                <a href="{{ url_privacy }}">{{ section.settings.privacy_link_text | escape }}</a>
+              {%- endif -%}
+            </p>
+          {%- endif -%}
+        {%- endform -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PflegeShop Kontakt",
+  "tag": "section",
+  "class": "pflege-contact-page-section section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Kontaktformular → Benachrichtigung an den Shop (keine automatische E-Mail an den Kunden). Widerruf nur über /pages/widerrufsbelehrung. Seite: Handle kontakt, Vorlage kontakt."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Farbschema",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Seitenkopf"
+    },
+    {
+      "type": "text",
+      "id": "title_fallback",
+      "label": "Titel (Fallback ohne Seite)",
+      "default": "Kontakt"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_page_intro",
+      "label": "Einleitung aus Seiteninhalt anzeigen",
+      "default": false,
+      "info": "Wenn aus: Einleitung aus Theme (page.kontakt.json) oder Feld unten. Wenn an: zuerst Text aus der Seitenbearbeitung."
+    },
+    {
+      "type": "richtext",
+      "id": "intro_text",
+      "label": "Einleitung (Alternative)",
+      "info": "Nur wenn kein Seiteninhalt oder oben deaktiviert."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sidebar",
+      "label": "Kontaktinformationen neben dem Formular anzeigen",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "sidebar_title",
+      "label": "Überschrift Kontaktspalte",
+      "default": "So erreichen Sie uns"
+    },
+    {
+      "type": "text",
+      "id": "portrait_alt",
+      "label": "Alt-Text Kontakt-Foto",
+      "default": "Ihr Ansprechpartner bei deinpflegebedarf"
+    },
+    {
+      "type": "header",
+      "content": "Kontaktblöcke"
+    },
+    {
+      "type": "text",
+      "id": "box_hours_title",
+      "label": "Karte: Überschrift (z. B. Erreichbarkeit)",
+      "default": "Erreichbarkeit"
+    },
+    {
+      "type": "textarea",
+      "id": "box_hours_text",
+      "label": "Karte: Öffnungszeiten / Hinweis",
+      "default": "Mo.–Do.: 8:30–16:00 Uhr, Freitag: 8:30–12:00 Uhr (telefonisch)"
+    },
+    {
+      "type": "text",
+      "id": "box_contact_title",
+      "label": "Karte: Überschrift Kontakt",
+      "default": "Direkt erreichen"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Telefon (Anzeige)",
+      "default": "07733 / 9488820"
+    },
+    {
+      "type": "text",
+      "id": "phone_link",
+      "label": "Telefon-Link",
+      "info": "Leer = automatisch tel:+49… aus der Anzeige. Oder z. B. tel:+4977339488820",
+      "default": "tel:+4977339488820"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "E-Mail",
+      "default": "deinpflegebedarf@alltagshilfe-sued.de"
+    },
+    {
+      "type": "richtext",
+      "id": "address",
+      "label": "Adresse (optional)"
+    },
+    {
+      "type": "textarea",
+      "id": "box_hint",
+      "label": "Hinweis unter den Kontakt-Karten",
+      "default": "Wir antworten werktags so schnell wie möglich."
+    },
+    {
+      "type": "header",
+      "content": "Formular & E-Mail"
+    },
+    {
+      "type": "text",
+      "id": "form_title",
+      "label": "Formularüberschrift",
+      "default": "Nachricht senden"
+    },
+    {
+      "type": "text",
+      "id": "form_lead",
+      "label": "Kurzer Text unter der Überschrift",
+      "default": "Nutzen Sie das Formular — wir melden uns bei Ihnen."
+    },
+    {
+      "type": "text",
+      "id": "email_subject",
+      "label": "Betreff der Shop-E-Mail",
+      "default": "Kontaktanfrage deinPflegebedarf"
+    },
+    {
+      "type": "text",
+      "id": "message_label",
+      "label": "Label Nachricht",
+      "default": "Ihre Nachricht"
+    },
+    {
+      "type": "text",
+      "id": "message_placeholder",
+      "label": "Platzhalter Nachricht",
+      "default": "Wie können wir helfen?"
+    },
+    {
+      "type": "text",
+      "id": "submit_label",
+      "label": "Button-Text",
+      "default": "Nachricht absenden"
+    },
+    {
+      "type": "text",
+      "id": "success_title",
+      "label": "Erfolgsmeldung — Titel (Pop-up)",
+      "default": "Vielen Dank!"
+    },
+    {
+      "type": "textarea",
+      "id": "success_message",
+      "label": "Erfolgsmeldung — Text (Pop-up)",
+      "default": "Ihre Nachricht ist eingegangen. Wir melden uns schnellstmöglich bei Ihnen."
+    },
+    {
+      "type": "text",
+      "id": "error_heading",
+      "label": "Fehlerüberschrift",
+      "default": "Bitte prüfen Sie die markierten Felder."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_privacy_note",
+      "label": "Zusätzlichen Datenschutz-Hinweis unter dem Button anzeigen",
+      "default": false,
+      "info": "Die Pflicht-Checkbox mit AGB- und Datenschutz-Links ist immer aktiv."
+    },
+    {
+      "type": "textarea",
+      "id": "privacy_note",
+      "label": "Datenschutz-Hinweistext (vor Link)",
+      "default": "Mit dem Absenden stimmen Sie der Verarbeitung Ihrer Angaben zur Bearbeitung der Anfrage zu. Details in der"
+    },
+    {
+      "type": "text",
+      "id": "privacy_link_text",
+      "label": "Datenschutz-Link Text",
+      "default": "Datenschutzerklärung"
+    },
+    {
+      "type": "header",
+      "content": "Abstand"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Abstand oben",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Abstand unten",
+      "default": 72
+    }
+  ],
+  "presets": [
+    {
+      "name": "PflegeShop Kontakt",
+      "settings": {
+        "box_hours_title": "Erreichbarkeit",
+        "box_hours_text": "Mo.–Do.: 8:30–16:00 Uhr, Freitag: 8:30–12:00 Uhr (telefonisch)",
+        "box_contact_title": "Direkt erreichen",
+        "phone": "07733 / 9488820",
+        "phone_link": "tel:+4977339488820"
+      }
+    }
+  ]
+}
+{% endschema %}

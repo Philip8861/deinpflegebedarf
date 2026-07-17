@@ -1,0 +1,824 @@
+/* PflegeShop — Footer v2 (hell, medizinischer E-Commerce, Tokens aus PflegeShop) */
+.pflege-footer--v2 {
+  --pflege-ft-cta: #f89738;
+  --pflege-ft-cta-hover: #cf6d18;
+  --pflege-ft-panel: var(--pflege-bg-soft, #eef6ff);
+  --pflege-ft-icon-bg: rgba(63, 134, 217, 0.12);
+  --pflege-ft-border: var(--pflege-border, #e5eef8);
+  --pflege-ft-divider: rgba(11, 35, 71, 0.12);
+  --pflege-ft-navy: var(--pflege-navy, #0b2347);
+  --pflege-ft-muted: var(--pflege-muted, #6f7f95);
+  --pflege-ft-accent: var(--pflege-accent, #3f86d9);
+  --pflege-ft-radius-card: clamp(16px, 2vw, 22px);
+  --pflege-ft-radius-pill: var(--pflege-radius-pill, 999px);
+  /* Grauer Footer-Band leicht unter den Inhalt darüber schieben (1–2 cm), ohne stärkere Krümmung */
+  margin-top: calc(var(--pflege-footer-margin-top, 2rem) - clamp(1cm, 1.4vw, 1.85cm));
+  font-family: var(--font-body-family, inherit);
+  font-style: var(--font-body-style, normal);
+  color: var(--pflege-ft-navy);
+  /* Fläche + Bogen: .pflege-footer__band */
+  background: transparent;
+}
+
+/* Wie Produktfinder: gleicher Verlauf; flacherer Bogen (schwächere Wölbung als mit extra Radius) */
+.pflege-footer__band {
+  background: var(
+    --pflege-backdrop-band-gradient,
+    linear-gradient(180deg, #fafcfd 0%, #f8fafc 40%, #f7f9fb 70%, #f6f8fb 100%)
+  );
+  border-radius: 50% 50% 0 0 / clamp(2.4rem, 5.4vw, 5.35rem) clamp(2.4rem, 5.4vw, 5.35rem) 0 0;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Oberes Footer-Padding; unten bewusst kein padding — sonst doppelter Abstand
+   unter der Bottom-Bar (.pflege-footer__bottom-bar hat eigenes Padding + Safe Area). */
+.pflege-footer__section-padding {
+  padding-top: clamp(28px, 5vw, 40px);
+  padding-bottom: 0;
+}
+
+/* --- Hauptfläche --- */
+.pflege-footer__surface {
+  border-top: none;
+  background: transparent;
+  padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
+}
+
+/* Innen wie .pflege-bestseller__panel — gleiche max. Breite wie Hero-Kachel */
+.pflege-footer__inner {
+  width: 100%;
+  max-width: var(--pflege-hero-tile-max-width, min(100%, 1426px));
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0;
+  padding-right: 0;
+  box-sizing: border-box;
+}
+
+.pflege-footer__inner--main {
+  padding-top: clamp(2rem, 4vw, 3rem);
+  padding-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.pflege-footer__grid-primary {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3.5rem);
+}
+
+@media screen and (min-width: 990px) {
+  .pflege-footer--no-newsletter .pflege-footer__grid-primary {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.5fr);
+  }
+
+  .pflege-footer__grid-primary {
+    /* Mehr Luft äußere Spalten (Logo, Newsletter), Mitte für Navigation */
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.5fr) minmax(0, 1.15fr);
+    gap: clamp(2rem, 3.5vw, 3.5rem);
+    align-items: start;
+    justify-items: center;
+  }
+
+  .pflege-footer__brand {
+    padding-right: clamp(1.25rem, 2.5vw, 2.25rem);
+    border-right: 1px solid rgba(11, 35, 71, 0.12);
+    width: 100%;
+    max-width: min(28rem, 100%);
+    text-align: center;
+    justify-self: center;
+  }
+
+  .pflege-footer__brand .pflege-footer__contact-row {
+    justify-content: center;
+  }
+
+  /* Lange E-Mails in einer Zeile, wenn Platz (schmal: wieder umbrechen) */
+  .pflege-footer__contact-body a[href^='mailto:'] {
+    white-space: nowrap;
+  }
+
+  .pflege-footer__newsletter-card {
+    width: 100%;
+    max-width: min(34rem, 100%);
+    text-align: center;
+    justify-self: center;
+    margin-top: 0;
+    padding: clamp(1.85rem, 3.2vw, 2.5rem);
+    box-shadow: 0 14px 44px rgba(11, 35, 71, 0.12);
+  }
+
+  .pflege-footer__newsletter-heading {
+    font-size: clamp(1.5rem, 1.3rem + 0.6vw, 1.85rem);
+    margin-bottom: 0.75rem;
+  }
+
+  .pflege-footer__newsletter-lead {
+    margin-bottom: 1.35rem;
+    line-height: 1.42;
+  }
+
+  .pflege-footer__news-form {
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .pflege-footer__news-note {
+    justify-content: center;
+  }
+
+  .pflege-footer__news-privacy {
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .pflege-footer__grid-primary {
+    grid-template-columns: minmax(17rem, 1.05fr) minmax(0, 1.6fr) minmax(18.5rem, 1.2fr);
+    gap: clamp(2.5rem, 4.5vw, 4.5rem);
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .pflege-footer__grid-primary {
+    gap: clamp(2.5rem, 5vw, 5.5rem);
+  }
+}
+
+/* Brand */
+.pflege-footer__brand-logo-link {
+  display: inline-block;
+  text-decoration: none;
+  margin-bottom: 1rem;
+}
+
+.pflege-footer__brand-logo {
+  display: block;
+  height: auto;
+  max-width: min(220px, 100%);
+}
+
+.pflege-footer__brand-copy {
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1.22rem, 1.05rem + 0.35vw, 1.42rem);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+  color: var(--pflege-ft-muted);
+  margin-bottom: 1.35rem;
+}
+
+.pflege-footer__brand-copy p:first-child {
+  margin-top: 0;
+}
+
+.pflege-footer__brand-copy p:last-child {
+  margin-bottom: 0;
+}
+
+.pflege-footer__contact {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.pflege-footer__contact-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+}
+
+.pflege-footer__contact-ic {
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+  color: var(--pflege-ft-accent);
+}
+
+.pflege-footer__contact-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.pflege-footer__contact-line {
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1.22rem, 1.05rem + 0.35vw, 1.42rem);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+  color: var(--pflege-ft-navy);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a.pflege-footer__contact-line:hover {
+  color: var(--pflege-ft-accent);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+/* Telefon & Öffnungszeile – hervorgehoben zur E-Mail-Zeile */
+.pflege-footer__contact-line--phone,
+.pflege-footer__contact-line--hours {
+  font-size: clamp(1.38rem, 1.12rem + 0.65vw, 1.72rem);
+  font-weight: 600;
+  letter-spacing: 0.015em;
+  line-height: 1.3;
+}
+
+@media screen and (max-width: 989px) {
+  .pflege-footer__contact-body a[href^='mailto:'] {
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+}
+
+/* Link-Spalten (3 Spalten, im Footer zentriert) */
+.pflege-footer__menus {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.75rem, 3.5vw, 2.5rem);
+}
+
+@media screen and (min-width: 600px) {
+  .pflege-footer__menus {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pflege-footer__menu-col:nth-child(3) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    text-align: center;
+    max-width: 24rem;
+  }
+
+  .pflege-footer__menu-col:nth-child(3) .pflege-footer__menu-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .pflege-footer__menus {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem 2.25rem;
+    justify-items: center;
+    text-align: center;
+    max-width: min(56rem, 100%);
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+  }
+
+  .pflege-footer__menu-col:nth-child(3) {
+    grid-column: auto;
+    justify-self: center;
+    max-width: none;
+  }
+
+  .pflege-footer__menu-heading {
+    text-align: center;
+  }
+
+  .pflege-footer__menu-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .pflege-footer__menus {
+    gap: 2.1rem 2.75rem;
+    max-width: min(62rem, 100%);
+  }
+
+  .pflege-footer__newsletter-card {
+    max-width: min(38rem, 100%);
+  }
+}
+
+/* Wie .pflege-hero__trust-heading */
+.pflege-footer__menu-heading {
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1.45rem, 1.25rem + 0.55vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  color: var(--pflege-ft-navy);
+  margin: 0 0 0.85rem;
+}
+
+.pflege-footer__menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pflege-footer__menu-list li {
+  margin: 0 0 0.55rem;
+}
+
+/* Lesetext wie Hero-Trust-Zeilen, Farbe gedämpft für Links */
+.pflege-footer__menu-list a {
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1.22rem, 1.05rem + 0.35vw, 1.42rem);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+  color: var(--pflege-ft-muted);
+  text-decoration: none;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+.pflege-footer__menu-list a:hover {
+  color: var(--pflege-ft-accent);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* Newsletter-Karte */
+.pflege-footer__newsletter-card {
+  background: var(--pflege-white, #fefefe);
+  border: 1px solid var(--pflege-ft-border);
+  border-radius: var(--pflege-ft-radius-card);
+  box-shadow: 0 10px 36px rgba(11, 35, 71, 0.09);
+  padding: clamp(1.65rem, 2.8vw, 2.15rem);
+}
+
+.pflege-footer__newsletter-heading {
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1.45rem, 1.25rem + 0.55vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  color: var(--pflege-ft-navy);
+  margin: 0 0 0.65rem;
+}
+
+.pflege-footer__newsletter-lead {
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1.22rem, 1.05rem + 0.35vw, 1.42rem);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+  color: var(--pflege-ft-muted);
+  margin: 0 0 1.15rem;
+}
+
+.pflege-footer__news-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  width: 100%;
+}
+
+.pflege-footer__news-field {
+  width: 100%;
+}
+
+.pflege-footer__news-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.9rem 1.2rem;
+  border-radius: var(--pflege-ft-radius-pill);
+  border: 1px solid var(--pflege-ft-border);
+  background: var(--pflege-bg-softer, #f5faff);
+  font-size: clamp(0.98rem, 0.94rem + 0.12vw, 1.05rem);
+  color: var(--pflege-ft-navy);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+@media screen and (min-width: 990px) {
+  .pflege-footer__news-input {
+    padding: 1rem 1.35rem;
+    font-size: 1.05rem;
+  }
+}
+
+.pflege-footer__news-input::placeholder {
+  color: rgba(111, 127, 149, 0.85);
+}
+
+.pflege-footer__news-input:focus {
+  outline: none;
+  border-color: var(--pflege-ft-accent);
+  box-shadow: 0 0 0 3px rgba(63, 134, 217, 0.2);
+}
+
+.pflege-footer__news-submit {
+  width: 100%;
+  margin: 0;
+  padding: 0.95rem 1.35rem;
+  border: none;
+  border-radius: var(--pflege-ft-radius-pill);
+  background: var(--pflege-ft-cta);
+  color: #fff;
+  font-size: clamp(1rem, 0.96rem + 0.1vw, 1.08rem);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+@media screen and (min-width: 990px) {
+  .pflege-footer__news-submit {
+    padding: 1.05rem 1.5rem;
+    font-size: 1.06rem;
+  }
+}
+
+.pflege-footer__news-submit:hover {
+  background: var(--pflege-ft-cta-hover);
+}
+
+.pflege-footer__news-submit:focus-visible {
+  outline: 2px solid var(--pflege-ft-accent);
+  outline-offset: 2px;
+}
+
+.pflege-footer__news-error {
+  font-size: 0.85rem;
+  color: #b42318;
+  margin: 0;
+}
+
+.pflege-footer__news-success {
+  font-size: 0.92rem;
+  color: var(--pflege-ft-accent);
+  margin: 0;
+}
+
+.pflege-footer__news-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  margin: 1rem 0 0;
+  font-size: clamp(0.82rem, 0.8rem + 0.05vw, 0.88rem);
+  color: var(--pflege-ft-muted);
+  line-height: 1.45;
+}
+
+.pflege-footer__news-check {
+  flex-shrink: 0;
+  color: var(--pflege-ft-accent);
+  margin-top: 0.1rem;
+}
+
+.pflege-footer__news-privacy {
+  margin: 0.65rem 0 0;
+  font-size: clamp(0.78rem, 0.76rem + 0.05vw, 0.84rem);
+  color: var(--pflege-ft-muted);
+  line-height: 1.45;
+}
+
+.pflege-footer__news-privacy a {
+  color: var(--pflege-ft-accent);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.pflege-footer__news-privacy a:hover {
+  color: var(--pflege-ft-navy);
+}
+
+/* Trust-Zeile: eigener heller Grund (nicht grauer Band-Verlauf vom .pflege-footer__band) */
+.pflege-footer__trust-strip {
+  border-top: 1px solid rgba(11, 35, 71, 0.08);
+  background: var(--pflege-white, #fefefe);
+  padding-top: clamp(1.75rem, 3vw, 2.5rem);
+  padding-bottom: clamp(1.75rem, 3vw, 2.5rem);
+  padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
+}
+
+.pflege-footer__inner--trust {
+  display: grid;
+  gap: clamp(1.75rem, 3.5vw, 2.5rem);
+}
+
+@media screen and (min-width: 990px) {
+  .pflege-footer__inner--trust {
+    grid-template-columns: minmax(12rem, 1.15fr) repeat(3, minmax(0, 1fr));
+    gap: 2rem clamp(1.5rem, 2.5vw, 2.75rem);
+    align-items: stretch;
+  }
+
+  .pflege-footer__inner--trust-three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  /*
+   * Trennlinien zwischen den Spalten: nicht volle Höhe, leicht eingezogen + weiches Ende
+   * (wirkt ruhiger als durchgehendes border-left).
+   */
+  .pflege-footer__trust-col + .pflege-footer__trust-col {
+    border-left: none;
+    padding-left: clamp(1.5rem, 2.5vw, 2.75rem);
+    position: relative;
+  }
+
+  .pflege-footer__trust-col + .pflege-footer__trust-col::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8%;
+    bottom: 8%;
+    width: 1px;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      var(--pflege-ft-divider) 14%,
+      var(--pflege-ft-divider) 86%,
+      transparent 100%
+    );
+    pointer-events: none;
+    border-radius: 1px;
+  }
+
+  .pflege-footer__trust-col--pay {
+    border-left: none !important;
+    padding-left: 0 !important;
+  }
+}
+
+.pflege-footer__trust-heading {
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1.45rem, 1.25rem + 0.55vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  color: var(--pflege-ft-navy);
+  margin: 0 0 0.75rem;
+}
+
+.pflege-footer__pay-badges {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.pflege-footer__pay-badge--logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.31rem 0.44rem;
+  background: var(--pflege-white, #fefefe);
+  border: 1px solid var(--pflege-ft-border);
+  border-radius: 10px;
+  line-height: 0;
+}
+
+.pflege-footer__pay-logo-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  text-decoration: none;
+}
+
+.pflege-footer__pay-logo-link:focus-visible {
+  outline: 2px solid rgba(63, 134, 217, 0.65);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.pflege-footer__pay-logo {
+  display: block;
+  height: clamp(1.69rem, 1.375rem + 0.5625vw, 2.19rem);
+  width: auto;
+  max-width: clamp(4.06rem, 3.4375rem + 1.25vw, 5rem);
+  object-fit: contain;
+}
+
+/* Breitere Wordmarks (PayPal, Google Pay) — gleiche Höhe wie Kartenlogos */
+.pflege-footer__pay-logo--wide {
+  max-width: clamp(5.08rem, 4.3rem + 1.56vw, 6.25rem);
+}
+
+.pflege-footer__pay-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem 0.65rem;
+  font-size: clamp(0.72rem, 0.68rem + 0.1vw, 0.78rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--pflege-ft-navy);
+  background: var(--pflege-white, #fefefe);
+  border: 1px solid var(--pflege-ft-border);
+  border-radius: 10px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.pflege-footer__pay-pill:hover {
+  border-color: rgba(63, 134, 217, 0.45);
+  background: #fff;
+}
+
+.pflege-footer__trust-col--block {
+  display: flex;
+  gap: 0.85rem;
+  align-items: center;
+}
+
+.pflege-footer__trust-ic {
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pflege-ft-icon-bg);
+  color: var(--pflege-ft-accent);
+  line-height: 0;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+/* Icons exakt im Kreis (kein Versatz durch Inline-SVG-Baseline) */
+.pflege-footer__trust-ic .pflege-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+}
+
+.pflege-footer__trust-ic .pflege-icon svg {
+  display: block;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.pflege-footer__trust-title {
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1.22rem, 1.05rem + 0.35vw, 1.42rem);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  color: var(--pflege-ft-navy);
+  margin: 0 0 0.35rem;
+}
+
+.pflege-footer__trust-text {
+  font-family: var(--font-body-family, inherit);
+  margin: 0;
+  font-size: clamp(1.22rem, 1.05rem + 0.35vw, 1.42rem);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+  color: var(--pflege-ft-muted);
+}
+
+/* Bottom Bar — gleiche Page-Hintergrundfarbe wie Trust-Zeile */
+.pflege-footer__bottom-bar {
+  border-top: 1px solid var(--pflege-ft-border);
+  background: var(--pflege-white, #fefefe);
+  padding-top: clamp(1rem, 2vw, 1.35rem);
+  padding-bottom: max(clamp(1rem, 2vw, 1.35rem), env(safe-area-inset-bottom, 0px));
+  padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
+}
+
+.pflege-footer__inner--bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+}
+
+.pflege-footer__copy {
+  font-family: var(--font-body-family, inherit);
+  margin: 0;
+  font-size: clamp(0.8rem, 0.78rem + 0.06vw, 0.86rem);
+  color: var(--pflege-ft-muted);
+}
+
+.pflege-footer__bottom-nav {
+  margin-left: auto;
+}
+
+.pflege-footer__bottom-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.65rem;
+}
+
+.pflege-footer__bottom-list li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.pflege-footer__bottom-list li:not(:last-child)::after {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 0.85em;
+  background: rgba(111, 127, 149, 0.35);
+  margin-left: 0.05rem;
+}
+
+.pflege-footer__bottom-list a {
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(0.8rem, 0.78rem + 0.05vw, 0.86rem);
+  color: var(--pflege-ft-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.pflege-footer__bottom-list a:hover {
+  color: var(--pflege-ft-accent);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.pflege-footer__powered {
+  width: 100%;
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--pflege-ft-muted);
+  opacity: 0.85;
+}
+
+.pflege-footer__app-slot {
+  padding: 1rem max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px))
+    1rem max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
+}
+
+/* Widerrufs-Button unter Rechtliches (§ 356a BGB) */
+.pflege-footer__menu-withdrawal {
+  margin-top: 0.85rem;
+  margin-bottom: 0;
+}
+
+.pflege-footer__withdrawal-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0.65rem 1.45rem;
+  border-radius: 12px;
+  font-family: var(--font-body-family, inherit);
+  font-size: clamp(1.04rem, 0.98rem + 0.14vw, 1.14rem) !important;
+  font-weight: 700 !important;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  color: #fff !important;
+  text-decoration: none !important;
+  background: var(--pflege-ft-cta, #f89738);
+  box-shadow: 0 2px 10px rgba(248, 151, 56, 0.35);
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pflege-footer__withdrawal-btn:hover,
+.pflege-footer__withdrawal-btn:focus-visible {
+  color: #fff !important;
+  text-decoration: none !important;
+  background: var(--pflege-ft-cta-hover, #cf6d18);
+  box-shadow: 0 3px 12px rgba(248, 151, 56, 0.42);
+  outline: 2px solid var(--pflege-ft-navy, #0b2347);
+  outline-offset: 2px;
+}
+
+@media screen and (max-width: 749px) {
+  .pflege-footer__bottom-nav {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .pflege-footer__bottom-list {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .pflege-footer__bottom-list li:not(:last-child)::after {
+    display: none;
+  }
+}
