@@ -1,4 +1,4 @@
-{% comment %} WD-BUILD-20260716-v5 {% endcomment %}
+{% comment %} WD-BUILD-20260717-v6 {% endcomment %}
 {% comment %}
   Elektronische Widerrufsfunktion (§ 356a BGB) — zweistufiger Ablauf.
   Shopify-Kontaktformular → Shop-Benachrichtigung; Kunden-E-Mail via Google Apps Script (kostenlos, scripts/widerruf-email-kostenlos-apps-script.md).
@@ -41,7 +41,7 @@
   {% if request.query_string contains 'widerruf' %}data-pflege-withdrawal-query-success{% endif %}
   data-pflege-withdrawal-email-webhook="{{ wd_webhook_url | escape }}"
 >
-  <!-- WD-BUILD-20260716-v5 -->
+  <!-- WD-BUILD-20260717-v6 -->
   {%- unless wd_standalone -%}
     <div class="pflege-withdrawal__intro">
       <h2 class="pflege-withdrawal__heading" id="pflege-withdrawal-heading">Elektronische Widerrufsfunktion</h2>
@@ -295,40 +295,4 @@
     </div>
   {%- endunless -%}
 </div>
-{%- if request.query_string contains 'widerruf' -%}
-<script>
-(function () {
-  var WEBHOOK =
-    'https://script.google.com/macros/s/AKfycbzGEEamLZvg_36WL-gr6rKAdyXHbrgtNZUDY3-qGKegulaboWegfFRNU7rX2aK7GJKs/exec';
-  try {
-    var raw = sessionStorage.getItem('pflege-wd-pending-webhook');
-    if (!raw) return;
-    var payload = JSON.parse(raw);
-    var sentKey = 'pflege-wd-webhook-sent-' + (payload.case_id || '');
-    if (payload.case_id && sessionStorage.getItem(sentKey) === '1') return;
-    var email = String(payload.customer_email || payload.email || '').trim();
-    if (!email || email.indexOf('@') === -1) return;
-    payload.customer_email = email;
-    payload.email = email;
-    payload.type = payload.type || 'widerruf';
-    var params = [];
-    Object.keys(payload).forEach(function (key) {
-      var value = payload[key];
-      if (value == null || value === '') return;
-      params.push(encodeURIComponent(key) + '=' + encodeURIComponent(String(value)));
-    });
-    var img = new Image();
-    img.alt = '';
-    img.src = WEBHOOK + '?' + params.join('&');
-    if (typeof navigator !== 'undefined' && navigator.sendBeacon) {
-      navigator.sendBeacon(
-        WEBHOOK,
-        new Blob([JSON.stringify(payload)], { type: 'text/plain;charset=UTF-8' })
-      );
-    }
-    if (payload.case_id) sessionStorage.setItem(sentKey, '1');
-  } catch (e) {}
-})();
-</script>
-{%- endif -%}
-<script src="{{ 'pflege-withdrawal-form-v5.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'pflege-withdrawal-form-v6.js' | asset_url }}" defer="defer"></script>
