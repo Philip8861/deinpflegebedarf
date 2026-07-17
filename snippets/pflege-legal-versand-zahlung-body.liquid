@@ -10,7 +10,7 @@
   if url_kontakt == blank
     assign url_kontakt = vz_root | append: 'pages/kontakt'
   endif
-  assign vz_standard = shipping_standard | default: '4,90' | strip
+  assign vz_standard = shipping_standard | default: '5,99' | strip
   assign vz_free_from = shipping_free_from | default: '150,00' | strip
 -%}
 
