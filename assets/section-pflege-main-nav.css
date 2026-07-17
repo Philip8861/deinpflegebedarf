@@ -275,6 +275,7 @@
 .pflege-main-nav-section .pflege-main-nav__search-input {
   flex: 1 1 auto;
   min-width: 0;
+  min-height: 3rem;
   border: 0;
   background: transparent;
   font-size: var(--pflege-nav-pill-font-size, 1.595rem);
@@ -317,6 +318,8 @@
   justify-content: center;
   border: 0;
   background: transparent;
+  min-width: 3rem;
+  min-height: 3rem;
   padding: 0.715rem 1.265rem;
   cursor: pointer;
   color: var(--pflege-main-nav-text, #3d4f68);
@@ -1038,7 +1041,9 @@
   }
 
   .pflege-main-nav-section .pflege-main-nav__search-submit {
-    padding: 0 0.2rem 0 0.35rem;
+    min-width: 3rem;
+    min-height: 3rem;
+    padding: 0;
     flex-shrink: 0;
   }
 

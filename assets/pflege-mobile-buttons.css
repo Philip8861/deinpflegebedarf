@@ -87,7 +87,9 @@
   }
 
   .pflege-main-nav-section .pflege-main-nav__search-submit {
-    padding: 0 0.2rem 0 0.35rem;
+    min-width: 3rem;
+    min-height: 3rem;
+    padding: 0;
   }
 
   .pflege-main-nav-section .pflege-main-nav__search-submit .svg-wrapper {

@@ -343,38 +343,51 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.65rem;
   margin: clamp(1.375rem, 2vw, 1.625rem) 0 0;
   padding: 0;
   list-style: none;
 }
 
 .ct-hp__dot {
-  width: 0.5625rem;
-  height: 0.5625rem;
+  position: relative;
+  width: 3rem;
+  height: 3rem;
   padding: 0;
   margin: 0;
   border: none;
   border-radius: 999px;
-  background: var(--ct-hp-dot-idle);
+  background: transparent;
   cursor: pointer;
   flex-shrink: 0;
-  transition:
-    background 0.2s ease,
-    transform 0.2s ease;
+  transition: transform 0.2s ease;
   -webkit-tap-highlight-color: transparent;
 }
 
-.ct-hp__dot:hover {
+.ct-hp__dot::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 0.5625rem;
+  height: 0.5625rem;
+  border-radius: 999px;
+  background: var(--ct-hp-dot-idle);
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.ct-hp__dot:hover::before {
   background: rgba(248, 151, 56, 0.5);
 }
 
 .ct-hp__dot:focus-visible {
   outline: 2px solid var(--ct-hp-blue);
-  outline-offset: 3px;
+  outline-offset: 2px;
 }
 
-.ct-hp__dot.is-active {
+.ct-hp__dot.is-active::before {
   background: var(--ct-hp-dot-active);
   transform: scale(1.12);
 }

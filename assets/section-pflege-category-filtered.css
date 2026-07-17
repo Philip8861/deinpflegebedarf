@@ -520,6 +520,11 @@ body.pflege-category-filtered-page.template-collection .gradient {
 .pflege-cat-card__title a {
   color: inherit;
   text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  min-height: 3rem;
+  padding-block: 0.35rem;
+  box-sizing: border-box;
 }
 
 .pflege-cat-card__title a:hover {
@@ -1329,7 +1334,7 @@ html.pflege-cat-drawer-open body {
 @media screen and (max-width: 749px) {
   body.pflege-category-filtered-page,
   .pflege-cat-filtered {
-    --pcd-card-gap: clamp(0.5rem, 2.2vw, 0.75rem);
+    --pcd-card-gap: clamp(0.65rem, 2.6vw, 0.875rem);
   }
 
   .pflege-cat-filtered__shell {
@@ -1375,7 +1380,7 @@ html.pflege-cat-drawer-open body {
   }
 
   .pflege-cat-card__body {
-    gap: 0.28rem;
+    gap: 0.5rem;
   }
 
   .pflege-cat-card__title {
@@ -1385,6 +1390,11 @@ html.pflege-cat-drawer-open body {
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     overflow: hidden;
+  }
+
+  .pflege-cat-card__title a {
+    min-height: 2.75rem;
+    padding-block: 0.3rem;
   }
 
   .pflege-cat-card__desc {
