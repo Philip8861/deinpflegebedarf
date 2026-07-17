@@ -92,14 +92,21 @@ function handleWiderruf(data) {
     return jsonResponse({ ok: false, error: 'Pflichtfelder fehlen', debug: { customer_email: data.customer_email || '', email: data.email || '' } });
   }
 
-  // Duplikat-Schutz: Das Theme sendet den Webhook über mehrere Kanäle
-  // gleichzeitig (Zuverlässigkeit). Pro Vorgangsnummer nur EINE E-Mail.
-  var cache = CacheService.getScriptCache();
+  // Duplikat-Schutz: atomar per Lock (Cache allein reicht bei parallelen Requests nicht).
   var dedupeKey = 'wd-sent-' + data.case_id;
-  if (cache.get(dedupeKey)) {
-    return jsonResponse({ ok: true, sent_to: recipient, deduped: true });
+  var lock = LockService.getScriptLock();
+  if (!lock.tryLock(5000)) {
+    return jsonResponse({ ok: true, sent_to: recipient, deduped: true, reason: 'lock_busy' });
   }
-  cache.put(dedupeKey, '1', 21600); // 6 Stunden
+  try {
+    var cache = CacheService.getScriptCache();
+    if (cache.get(dedupeKey)) {
+      return jsonResponse({ ok: true, sent_to: recipient, deduped: true });
+    }
+    cache.put(dedupeKey, '1', 21600); // 6 Stunden
+  } finally {
+    lock.releaseLock();
+  }
 
   var subject =
     'Eingangsbestätigung Ihres Widerrufs – ' + CONFIG.shopName;
