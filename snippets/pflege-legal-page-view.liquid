@@ -43,6 +43,8 @@
             {% render 'pflege-legal-widerrufsbelehrung-body' %}
           {%- elsif use_datenschutz_body -%}
             {% render 'pflege-legal-datenschutz-body' %}
+          {%- elsif use_barrierefreiheit_body -%}
+            {% render 'pflege-legal-barrierefreiheit-body' %}
           {%- elsif use_versand_zahlung_body -%}
             {% render 'pflege-legal-versand-zahlung-body',
               shipping_standard: shipping_standard,

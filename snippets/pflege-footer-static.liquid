@@ -17,6 +17,8 @@
 
   assign url_datenschutz = root | append: 'pages/datenschutzerklaerung'
 
+  assign url_barrierefreiheit = root | append: 'pages/barrierefreiheit'
+
   assign url_cookie = root | append: 'pages/cookie-einstellungen'
 -%}
 
@@ -85,6 +87,7 @@
               <li><a href="{{ url_agb }}">AGB</a></li>
               <li><a href="{{ url_widerruf }}">Widerrufsbelehrung</a></li>
               <li><a href="{{ url_cookie }}">Cookie-Einstellungen</a></li>
+              <li><a href="{{ url_barrierefreiheit }}">Barrierefreiheit</a></li>
               <li class="pflege-footer__menu-withdrawal">
                 <a href="{{ url_vertrag_widerrufen }}" class="pflege-footer__withdrawal-btn">Vertrag widerrufen</a>
               </li>
@@ -268,6 +271,7 @@
           <li><a href="{{ url_datenschutz }}">Datenschutz</a></li>
           <li><a href="{{ url_widerruf }}">Widerrufsbelehrung</a></li>
           <li><a href="{{ url_cookie }}">Cookie-Einstellungen</a></li>
+          <li><a href="{{ url_barrierefreiheit }}">Barrierefreiheit</a></li>
         </ul>
       </nav>
     </div>
