@@ -82,14 +82,16 @@
       {%- endif -%}
     </header>
 
-    <div class="pflege-faq-accordion__list" role="list">
-      {%- for i in (faq_from..faq_to) -%}
-        {% render 'pflege-faq-accordion-item',
-          section_id: section_id,
-          index: i,
-          locale_root: locale_root
-        %}
-      {%- endfor -%}
+    <div class="pflege-faq-accordion__stack">
+      <div class="pflege-faq-accordion__list" role="list">
+        {%- for i in (faq_from..faq_to) -%}
+          {% render 'pflege-faq-accordion-item',
+            section_id: section_id,
+            index: i,
+            locale_root: locale_root
+          %}
+        {%- endfor -%}
+      </div>
 
       {%- if has_deferred -%}
         <div class="pflege-faq-accordion__load-more-wrap">
@@ -111,6 +113,7 @@
           class="pflege-faq-accordion__deferred"
           id="pflege-faq-extra-{{ section_id }}"
           data-faq-extra
+          role="list"
           hidden
         >
           {%- for i in (deferred_from_num..deferred_to_num) -%}

@@ -87,6 +87,12 @@
   border-radius: 2px;
 }
 
+.pflege-faq-accordion__stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pfa-card-gap);
+}
+
 .pflege-faq-accordion__list {
   display: flex;
   flex-direction: column;
@@ -217,7 +223,7 @@
 
 /* Weitere Fragen laden */
 .pflege-faq-accordion__load-more-wrap {
-  margin: 0.2rem 0 0;
+  margin: 0;
 }
 
 .pflege-faq-accordion__deferred {
