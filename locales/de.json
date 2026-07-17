@@ -280,7 +280,7 @@
         "price_at_each_html": "bei {{ price }}/Stück"
       },
       "product_variants": "Produktvarianten",
-      "taxes_included": "Inkl. Steuern.",
+      "taxes_included": "Inkl. MwSt. zzgl. Versand.",
       "duties_included": "Inkl. Zollgebühren.",
       "duties_and_taxes_included": "Inkl. Zollgebühren und Steuern."
     },
