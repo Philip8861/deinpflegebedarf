@@ -43,8 +43,6 @@
     assign legal_plain = true
   elsif current_handle == 'versand-zahlung' or current_handle contains 'versand'
     assign legal_plain = true
-  elsif current_handle contains 'barrierefreiheit'
-    assign legal_plain = true
   endif
 
   assign url_kontakt = root | append: 'pages/kontakt'
@@ -69,8 +67,6 @@
         assign legal_title_fallback = 'Versand & Zahlung'
       when 'vertrag-widerrufen'
         assign legal_title_fallback = 'Vertrag widerrufen'
-      when 'barrierefreiheit'
-        assign legal_title_fallback = 'Informationen zur Barrierefreiheit'
     endcase
   endif
 
@@ -83,7 +79,6 @@
   assign legal_use_agb_body = false
   assign legal_use_widerrufsbelehrung_body = false
   assign legal_use_datenschutz_body = false
-  assign legal_use_barrierefreiheit_body = false
   assign legal_use_versand_zahlung_body = false
   assign show_withdrawal_form = false
   assign withdrawal_standalone = false
@@ -107,8 +102,6 @@
       assign legal_use_datenschutz_body = true
     elsif current_handle == 'versand-zahlung'
       assign legal_use_versand_zahlung_body = true
-    elsif current_handle contains 'barrierefreiheit'
-      assign legal_use_barrierefreiheit_body = true
     endif
   endif
 
@@ -172,7 +165,6 @@
   use_agb_body: legal_use_agb_body,
   use_widerrufsbelehrung_body: legal_use_widerrufsbelehrung_body,
   use_datenschutz_body: legal_use_datenschutz_body,
-  use_barrierefreiheit_body: legal_use_barrierefreiheit_body,
   use_versand_zahlung_body: legal_use_versand_zahlung_body,
   shipping_standard: shipping_standard,
   shipping_free_from: shipping_free_from,
