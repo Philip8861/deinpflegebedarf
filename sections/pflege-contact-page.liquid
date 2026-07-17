@@ -10,8 +10,6 @@
 {%- liquid
   assign url_privacy = routes.root_url | append: 'pages/datenschutzerklaerung'
 
-  assign url_agb = routes.root_url | append: 'pages/agb'
-
   assign phone_href = section.settings.phone_link | strip
   if phone_href == blank
     assign phone_href = 'tel:+4977339488820'
@@ -294,14 +292,14 @@
                   type="checkbox"
                   class="pflege-contact-page__consent-input"
                   id="PflegeContact-consent"
-                  name="contact[Einwilligung AGB und Datenschutz]"
+                  name="contact[Einwilligung Datenschutz]"
                   value="Ja"
                   required
                   aria-required="true"
                 >
                 <span class="pflege-contact-page__consent-box" aria-hidden="true"></span>
                 <span class="pflege-contact-page__consent-text">
-                  Ich habe die {% if url_agb != blank %}<a href="{{ url_agb }}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">AGB</a>{% else %}AGB{% endif %} und die {% if url_privacy != blank %}<a href="{{ url_privacy }}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">{{ section.settings.privacy_link_text | default: 'Datenschutzerklärung' | escape }}</a>{% else %}Datenschutzerklärung{% endif %} gelesen und akzeptiere sie. <abbr title="Pflichtfeld" class="pflege-contact-page__label-hint">*</abbr>
+                  Ich habe die {% if url_privacy != blank %}<a href="{{ url_privacy }}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">{{ section.settings.privacy_link_text | default: 'Datenschutzerklärung' | escape }}</a>{% else %}Datenschutzerklärung{% endif %} gelesen und akzeptiere sie. <abbr title="Pflichtfeld" class="pflege-contact-page__label-hint">*</abbr>
                 </span>
               </label>
             </div>
@@ -502,7 +500,7 @@
       "id": "show_privacy_note",
       "label": "Zusätzlichen Datenschutz-Hinweis unter dem Button anzeigen",
       "default": false,
-      "info": "Die Pflicht-Checkbox mit AGB- und Datenschutz-Links ist immer aktiv."
+      "info": "Die Pflicht-Checkbox mit Datenschutz-Link ist immer aktiv."
     },
     {
       "type": "textarea",
