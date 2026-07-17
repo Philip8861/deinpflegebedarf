@@ -1,4 +1,4 @@
-﻿/*
+/*
  * ------------------------------------------------------------
  * IMPORTANT: The contents of this file are auto-generated.
  *
@@ -279,7 +279,7 @@
       "view_full_details": "Vollständige Details anzeigen",
       "xr_button": "In deinem Bereich ansehen",
       "xr_button_label": "\"Ansicht in deinem Raum\" lädt den Artikel in ein Augmented-Reality-Fenster",
-      "taxes_included": "Inkl. Steuern.",
+      "taxes_included": "Inkl. MwSt. zzgl. Versand.",
       "duties_included": "Inkl. Zollgebühren.",
       "duties_and_taxes_included": "Inkl. Zollgebühren und Steuern.",
       "shipping_policy_html": "<a href=\"{{ link }}\">Versand</a> wird an der Kasse berechnet"
