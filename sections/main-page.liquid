@@ -26,6 +26,8 @@
   {% render 'pflege-empfohlene-artikel-fallback' %}
 {%- elsif request.page_type == 'page' and page.handle == 'inkontinenzversorgung-auf-rezept' or page.handle == 'inkontinenzversrogung-auf-rezept' -%}
   {% render 'pflege-inko-rezept-landing-fallback' %}
+{%- elsif request.page_type == 'page' and page.handle == 'gewährleistungen' or page.handle == 'gewaehrleistungen' or page.handle == 'gewahrleistungen' or page.handle contains 'gewaehrleistung' or page.handle contains 'gewährleistung' -%}
+  {% render 'pflege-gewaehrleistungen-body' %}
 {%- else -%}
 {{ 'section-main-page.css' | asset_url | stylesheet_tag }}
 
