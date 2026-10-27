@@ -31,19 +31,15 @@
 }
 
 .pflege-warranty-page__frame {
-  display: flex;
-  justify-content: flex-start;
-  overflow-x: auto;
   max-width: 100%;
-  -webkit-overflow-scrolling: touch;
 }
 
 .pflege-warranty-page__img {
   display: block;
-  flex: 0 0 auto;
-  width: 576px;
-  height: 795px;
-  max-width: none;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 576px;
+  height: auto;
   border: 1px solid var(--pflege-border, #e5eef8);
   background: #fff;
 }
