@@ -1,0 +1,49 @@
+.pflege-warranty-page {
+  padding-top: 48px;
+  padding-bottom: 64px;
+  padding-left: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--pflege-inline-gutter, 1rem), env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
+}
+
+@media screen and (min-width: 750px) {
+  .pflege-warranty-page {
+    padding-top: 64px;
+    padding-bottom: 80px;
+  }
+}
+
+.pflege-warranty-page__inner {
+  width: 100%;
+  max-width: var(--pflege-hero-tile-max-width, min(100%, 1426px));
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pflege-warranty-page__title {
+  margin: 0 0 1.25rem;
+  font-family: var(--pflege-font-display, var(--font-body-family, inherit));
+  font-size: var(--pflege-home-section-heading-size, clamp(1.85rem, 2.25vw + 1.15rem, 2.75rem));
+  font-weight: var(--pflege-home-section-heading-weight, 800);
+  line-height: var(--pflege-home-section-heading-line-height, 1.18);
+  letter-spacing: var(--pflege-home-section-heading-letter-spacing, -0.025em);
+  color: var(--pflege-home-section-heading-color, #0f4f69);
+}
+
+.pflege-warranty-page__frame {
+  display: flex;
+  justify-content: flex-start;
+  overflow-x: auto;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+.pflege-warranty-page__img {
+  display: block;
+  flex: 0 0 auto;
+  width: 576px;
+  height: 795px;
+  max-width: none;
+  border: 1px solid var(--pflege-border, #e5eef8);
+  background: #fff;
+}

@@ -1,0 +1,27 @@
+{{ 'section-pflege-gewaehrleistungen.css' | asset_url | stylesheet_tag }}
+
+<section class="pflege-warranty-page" aria-labelledby="pflege-warranty-heading">
+  <div class="pflege-warranty-page__inner">
+    <h1 id="pflege-warranty-heading" class="pflege-warranty-page__title">Gewährleistungen</h1>
+    <div class="pflege-warranty-page__frame">
+      <img
+        src="{{ 'gesetzliche-gewaehrleistung.png' | asset_url }}"
+        alt="Gesetzliche Gewährleistung: Mindestens zwei Jahre gesetzliche Gewährleistung der Vertragsmäßigkeit für Waren, die in der Europäischen Union verkauft werden. Verbraucher können Rechte geltend machen, wenn Waren nicht der Beschreibung entsprechen oder nicht bestimmungsgemäß funktionieren. Der Verkäufer haftet dann für kostenlose Nachbesserung oder Ersatzlieferung und in bestimmten Fällen für eine Preisminderung oder die Erstattung des Kaufpreises. Weitere Informationen: europa.eu/youreurope/garantien."
+        width="576"
+        height="795"
+        loading="eager"
+        decoding="async"
+        class="pflege-warranty-page__img"
+      >
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Gewährleistungen",
+  "tag": "section",
+  "class": "pflege-gewaehrleistungen-section",
+  "settings": []
+}
+{% endschema %}

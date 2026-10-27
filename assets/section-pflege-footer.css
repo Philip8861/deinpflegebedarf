@@ -711,43 +711,6 @@ a.pflege-footer__contact-line:hover {
   gap: 1rem 1.5rem;
 }
 
-/* Gewährleistungsrecht direkt unter den AGB-Links, Bild in Originalgröße 576×795 */
-.pflege-footer__warranty {
-  flex: 1 0 100%;
-  width: 100%;
-  margin-top: 0.35rem;
-  scroll-margin-top: 5.5rem;
-}
-
-.pflege-footer__warranty-heading {
-  font-family: var(--font-body-family, inherit);
-  font-size: clamp(1.45rem, 1.25rem + 0.55vw, 1.75rem);
-  font-weight: 600;
-  line-height: 1.3;
-  letter-spacing: 0.02em;
-  color: var(--pflege-ft-navy);
-  margin: 0 0 0.85rem;
-  text-align: center;
-}
-
-.pflege-footer__warranty-frame {
-  display: flex;
-  justify-content: center;
-  overflow-x: auto;
-  max-width: 100%;
-  -webkit-overflow-scrolling: touch;
-}
-
-.pflege-footer__warranty-img {
-  display: block;
-  flex: 0 0 auto;
-  width: 576px;
-  height: 795px;
-  max-width: none;
-  border: 1px solid var(--pflege-ft-border);
-  background: #fff;
-}
-
 .pflege-footer__copy {
   font-family: var(--font-body-family, inherit);
   margin: 0;
