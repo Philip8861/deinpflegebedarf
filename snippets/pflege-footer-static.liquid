@@ -85,6 +85,7 @@
               <li><a href="{{ url_impressum }}">Impressum</a></li>
               <li><a href="{{ url_datenschutz }}">Datenschutz</a></li>
               <li><a href="{{ url_agb }}">AGB</a></li>
+              <li><a href="#gewaehrleistungsrecht">Gewährleistungsrecht</a></li>
               <li><a href="{{ url_widerruf }}">Widerrufsbelehrung</a></li>
               <li><a href="{{ url_cookie }}">Cookie-Einstellungen</a></li>
               <li><a href="{{ url_barrierefreiheit }}">Barrierefreiheit</a></li>
@@ -267,6 +268,7 @@
       <nav class="pflege-footer__bottom-nav" aria-label="Rechtliche Kurzlinks">
         <ul class="pflege-footer__bottom-list" role="list">
           <li><a href="{{ url_agb }}">AGB</a></li>
+          <li><a href="#gewaehrleistungsrecht">Gewährleistungsrecht</a></li>
           <li><a href="{{ url_impressum }}">Impressum</a></li>
           <li><a href="{{ url_datenschutz }}">Datenschutz</a></li>
           <li><a href="{{ url_widerruf }}">Widerrufsbelehrung</a></li>
@@ -274,6 +276,24 @@
           <li><a href="{{ url_barrierefreiheit }}">Barrierefreiheit</a></li>
         </ul>
       </nav>
+      <section
+        id="gewaehrleistungsrecht"
+        class="pflege-footer__warranty"
+        aria-labelledby="pflege-ft-gewaehr"
+      >
+        <h2 id="pflege-ft-gewaehr" class="pflege-footer__warranty-heading">Gewährleistungsrecht</h2>
+        <div class="pflege-footer__warranty-frame">
+          <img
+            src="{{ 'gesetzliche-gewaehrleistung.png' | asset_url }}"
+            alt="Gesetzliche Gewährleistung: Mindestens zwei Jahre gesetzliche Gewährleistung der Vertragsmäßigkeit für Waren, die in der Europäischen Union verkauft werden. Verbraucher können Rechte geltend machen, wenn Waren nicht der Beschreibung entsprechen oder nicht bestimmungsgemäß funktionieren. Der Verkäufer haftet dann für kostenlose Nachbesserung oder Ersatzlieferung und in bestimmten Fällen für eine Preisminderung oder die Erstattung des Kaufpreises. Weitere Informationen: europa.eu/youreurope/garantien."
+            width="576"
+            height="795"
+            loading="lazy"
+            decoding="async"
+            class="pflege-footer__warranty-img"
+          >
+        </div>
+      </section>
     </div>
   </div>
   </div>
