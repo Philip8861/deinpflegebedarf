@@ -12,6 +12,7 @@
     "cart-items": {
       "type": "main-cart-items",
       "settings": {
+        "color_scheme": "",
         "padding_top": 36,
         "padding_bottom": 36
       }
@@ -32,7 +33,59 @@
         "subtotal",
         "buttons"
       ],
-      "settings": {}
+      "settings": {
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "image_with_text_pRqfFG": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_E6KyQf": {
+          "type": "heading",
+          "settings": {
+            "heading": "",
+            "heading_size": "h1"
+          }
+        },
+        "text_kazgTj": {
+          "type": "text",
+          "settings": {
+            "text": "",
+            "text_style": "body"
+          }
+        },
+        "button_yUaTER": {
+          "type": "button",
+          "settings": {
+            "button_label": "",
+            "button_link": "",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_E6KyQf",
+        "text_kazgTj",
+        "button_yUaTER"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/gesetzliche-gewaehrleistung_w2000.webp",
+        "height": "adapt",
+        "desktop_image_width": "small",
+        "layout": "image_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
     },
     "cart-service-strip": {
       "type": "pflege-cart-service-strip",
@@ -46,6 +99,7 @@
   "order": [
     "cart-items",
     "cart-footer",
+    "image_with_text_pRqfFG",
     "cart-service-strip"
   ]
 }
